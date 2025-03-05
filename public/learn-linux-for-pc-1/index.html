@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/learn-linux-for-pc-1/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/learn-linux-for-pc-1/">
+
+        <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/learn-linux-for-pc-1/">Linux-For-PC(一):构成与发行版</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-07-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Linux 作为一款强大、灵活且免费的操作系统，吸引了越来越多的用户。然而，对于初学者来说，Linux 可能显得有些陌生，甚至有些令人望而生畏。本文旨在为那些刚踏入 Linux 世界的新手提供一份指南，帮助他们更好地了解、使用这个令人着迷的操作系统。我们将探讨Linux的基本概念，解释为何选择Linux，深入剖析其主要构成要素以及不同的发行版之间的差异。</p>
+<span id="continue-reading"></span><h2 id="yi-shen-me-shi-linux">一.什么是Linux？</h2>
+<p>Linux 是一种开源的类 UNIX 操作系统内核。它由芬兰的 Linus Torvalds 于1991年开始开发，是一个自由、免费的操作系统。Linux 内核是操作系统的核心，负责管理硬件资源，并提供各种系统服务。与 Windows 和 macOS 等操作系统不同，Linux 的源代码对所有人开放，任何人都可以查看、修改和重新分发。这使得 Linux 具有极高的自由度和可定制性，用户可以根据自己的需求和偏好来定制操作系统。Linux 广泛应用于各种设备，包括个人计算机、服务器、手机、嵌入式系统等，是一个功能强大且灵活多样的操作系统。</p>
+<h2 id="er-wei-shen-me-yao-yong-linux">二.为什么要用Linux？</h2>
+<ol>
+<li>
+<p><strong>开源免费</strong>：Linux 是完全开源的，用户可以免费使用和修改源代码。</p>
+</li>
+<li>
+<p><strong>稳定性和安全性</strong>：Linux 系统以其稳定性和安全性而闻名，适合长时间运行的服务。</p>
+</li>
+<li>
+<p><strong>灵活性和可定制性</strong>：用户可以根据需要定制 Linux 系统。</p>
+</li>
+<li>
+<p><strong>广泛的软件支持</strong>：有大量的开源软件可供选择，满足不同需求。</p>
+</li>
+</ol>
+<blockquote>
+<p>Liunx可以用来玩游戏吗？
+实际上著名的 Steam Deck 的系统就是基于Arch linux 的。对于个人使用而言，现在有不少原生支持linux 的游戏；也可以使用Wine来运行Windows下的游戏。</p>
+</blockquote>
+<blockquote>
+<p>Linux上软件会不会太少？
+参见 <a href="https://blog.dich.ink/open-source-software">常用跨平台开源软件</a>一文，在社区的努力下如今软件生态已经非常丰富，你也可以使用如Flatpak等商店安装软件，或者直接使用Wine。如果有不得不在Windows下使用的软件，可以装双系统。</p>
+</blockquote>
+<h2 id="san-linuxde-zhu-yao-gou-cheng">三.Linux的主要构成</h2>
+<p>Linux操作系统主要由以下几个部分组成：</p>
+<ol>
+<li>
+<p><strong>内核</strong>：操作系统的核心，负责管理系统资源。如Zen内核，LTS内核等。</p>
+</li>
+<li>
+<p><strong>Shell</strong>：命令行界面，用户通过它与系统交互，如Bash,Zsh等。</p>
+</li>
+<li>
+<p><strong>图形用户界面（GUI）</strong>：提供图形化操作界面，如GNOME、KDE、XFCE等。</p>
+</li>
+<li>
+<p><strong>文件系统</strong>：如ext4、Btrfs等，用于组织和管理磁盘上的文件。</p>
+</li>
+<li>
+<p><strong>系统库</strong>：为应用程序提供运行时支持。</p>
+</li>
+<li>
+<p><strong>应用程序</strong>：用户可以直接使用的软件，如文本编辑器、网页浏览器等。其中也有著名的GNU工具，如Vim,GCC等。</p>
+</li>
+</ol>
+<h2 id="si-xuan-ze-linuxfa-xing-ban">四.选择Linux发行版</h2>
+<p>从上文可以发现，选择Linux发行版实际上是在选择 <strong>内核/包管理器/图形界面</strong> 等组件的排列组合。其中最主要的因素是包管理器。</p>
+<p>Linux有许多不同的发行版，但大致可以分为几个系：</p>
+<p><strong>Debian系：</strong>
+Debian：Debian以稳定性，安全性和轻量级著称，适合用于服务器和桌面环境。我们常说的Ubuntu就是基于Debian的发行版，注重用户友好性和易用性。它提供了多种桌面环境选择，以及许多现成的软件包。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>APT（Advanced Package Tool）是Debian系发行版的主要包管理器。它使用命令行工具如apt-get、aptitude等来管理软件包。
+</span></code></pre>
+<p><strong>Red Hat系：</strong></p>
+<ul>
+<li>Red Hat Enterprise Linux（RHEL）：RHEL是一款商业发行版，专注于企业级应用和支持。它提供了长期支持和专业技术支持服务，适用于企业级服务器和工作站。</li>
+<li>CentOS：CentOS是基于RHEL源代码编译而成的免费发行版，与RHEL兼容并提供类似的功能和性能。它也提供了长期支持版本和稳定性较高的特点。</li>
+<li>Fedora：Fedora是由Red Hat支持的社区驱动的发行版，注重提供最新的软件特性和技术。它适用于开发者和技术爱好者，提供了稳定的发布周期和丰富的软件包。</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>YUM（Yellowdog Updater, Modified）是Red Hat系发行版的主要包管理器。最近的版本也开始采用DNF（Dandified YUM）。
+</span></code></pre>
+<p><strong>Arch系：</strong>
+Arch Linux：Arch Linux是一个简洁、轻量级且灵活的发行版，注重简洁性和滚动更新。它采用“滚动发布”的方式，用户可以通过自定义安装来构建自己的系统，适合有一定Linux经验的用户。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Pacman（Package Manager）是Arch Linux的主要包管理器。它使用简洁的命令来管理软件包，如pacman -S安装软件包、pacman -Syu更新系统等。
+</span></code></pre>
+<p><strong>Gentoo系：</strong>
+Gentoo：Gentoo是一个源码驱动的发行版，用户可以通过源代码自定义编译软件包以满足自己的需求。它注重性能和灵活性，适合高级用户和技术爱好者。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Portage是Gentoo的包管理器，它是一个源代码驱动的包管理器，允许用户从源代码构建和安装软件包。
+</span></code></pre>
+<p>除了以上列举的包管理器外，还有其他一些较为特殊的包管理器，如Slackware系的pkgtool、SUSE系的zypper等。</p>
+<p>对于个人使用而言，我个人建议新手使用Ubuntu,有比较易用的界面和完善的资料参考；如果你是一个系统极客，可以使用Arch linux 或者 NixOS。</p>
+<h2 id="wu-ge-ren-ri-chang-shi-yong-xu-yao-zhu-yi-shen-me">五.个人日常使用需要注意什么？</h2>
+<ol>
+<li>
+<p><strong>学习命令行</strong>：命令行是Linux的强大工具，学习基本命令可以提高效率。</p>
+</li>
+<li>
+<p><strong>选择合适的发行版</strong>：根据个人需求和技术水平选择适合的发行版。</p>
+</li>
+<li>
+<p><strong>系统备份</strong>：定期备份重要数据，以防意外丢失。</p>
+</li>
+<li>
+<p><strong>软件管理</strong>：了解如何安装、更新和卸载软件。</p>
+</li>
+<li>
+<p><strong>安全设置</strong>：设置强密码，定期更新系统以修复安全漏洞。</p>
+</li>
+<li>
+<p><strong>社区参与</strong>：Linux社区非常活跃，遇到问题可以寻求社区帮助。</p>
+</li>
+<li>
+<p><strong>硬件兼容性</strong>：检查你的硬件是否与选择的Linux发行版兼容。</p>
+</li>
+<li>
+<p><strong>驱动程序</strong>：确保你的硬件设备有可用的驱动程序，以避免兼容性问题。</p>
+</li>
+</ol>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/learn-linux-for-pc-2/">
+                            <span class="button__text">Linux-For-PC(二):FHS与目录结构</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+</html>

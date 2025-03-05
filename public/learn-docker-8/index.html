@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/learn-docker-8/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/learn-docker-8/">
+
+        <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/learn-docker-8/">Docker学习笔记(八)</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-04-01
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/xue-xi-bi-ji/">#学习笔记</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 容器安全是实现和管理容器技术（如 Docker）的关键方面。它包含一组实践、工具和技术，旨在保护容器化应用程序及其运行的基础结构。在本节中，我们将讨论一些关键的容器安全注意事项、最佳做法和建议。</p>
+<span id="continue-reading"></span><h2 id="container-security-rong-qi-an-quan"><strong>Container Security 容器安全</strong></h2>
+<p><strong>Container Isolation 容器隔离</strong>
+隔离对于确保容器化环境的稳健性和安全性至关重要。容器应彼此隔离并与主机系统隔离，以防止未经授权的访问，并在攻击者设法破坏一个容器时减轻潜在的损害。</p>
+<ul>
+<li>命名空间：Docker 使用命名空间技术为运行容器提供隔离环境。命名空间限制容器在更广泛的系统中可以查看和访问的内容，包括进程和网络资源。</li>
+<li>C组：控制组 （cgroups） 用于限制容器消耗的资源，例如 CPU、内存和 I/O。 正确使用 cgroups 有助于防止 DoS 攻击和资源耗尽情况。</li>
+</ul>
+<p><strong>安全模式和做法</strong>
+在容器的开发、部署和操作过程中实施最佳实践和特定安全模式对于维护安全环境至关重要。</p>
+<ul>
+<li>最小权限：应以尽可能低的权限运行容器，仅授予应用程序所需的最低权限。</li>
+<li>不可变的基础架构：容器应被视为不可变单元 - 一旦构建，就不应更改它们。任何更改都应通过从更新的映像部署新容器来实现。</li>
+<li>版本控制：映像应进行版本控制，并存储在安全的容器注册表中。</li>
+</ul>
+<p><strong>安全访问控制</strong>
+应将访问控制应用于容器管理和容器数据，以保护敏感信息并维护整体安全态势。</p>
+<ul>
+<li>容器管理：使用基于角色的访问控制 （RBAC） 来限制对容器管理平台（例如 Kubernetes）的访问，并确保用户仅具有所需的最低权限。</li>
+<li>容器数据：对静态数据和传输中的数据进行加密，尤其是在处理敏感信息时。</li>
+</ul>
+<p><strong>容器漏洞管理</strong>
+容器容易受到攻击，因为它们的映像依赖于各种包和库。为了降低这些风险，应将漏洞管理包含在容器生命周期中。</p>
+<ul>
+<li>镜像扫描：使用自动扫描工具识别容器和镜像中的漏洞。这些工具应集成到开发管道中，以便在潜在风险进入生产环境之前发现它们。</li>
+<li>安全基础映像：使用最小且安全的基础映像创建容器，从而减少攻击面和潜在漏洞。</li>
+<li>定期更新：使用最新的安全补丁和更新使基础映像和容器保持最新状态。</li>
+</ul>
+<h2 id="image-security-jing-xiang-an-quan"><strong>Image Security 镜像安全</strong></h2>
+<p>映像安全是在环境中部署 Docker 容器的一个关键方面。确保您使用的镜像是安全的、最新的且没有漏洞至关重要。在本节中，我们将回顾用于保护和管理 Docker 映像的最佳实践和工具。</p>
+<p><strong>使用受信任的映像源</strong>
+从公共存储库中提取映像时，请始终使用受信任的官方映像作为容器化应用程序的起点。官方映像由 Docker 审查，并定期更新安全修复程序。可以在 Docker Hub 或其他受信任的注册表上找到这些映像。</p>
+<p>Official Images: https://hub.docker.com/explore/</p>
+<p>从其他用户下载镜像或创建自己的镜像时，请务必验证源，并检查 Dockerfile 和其他提供的文件，以确保它们遵循最佳实践并且不会引入漏洞。</p>
+<p><strong>使镜像保持最新状态</strong>
+持续监控您的镜像并定期更新它们。这有助于最大程度地减少已知漏洞的风险，因为更新通常包含安全补丁。</p>
+<p>您可以使用以下工具扫描和检查映像的更新：</p>
+<p>Docker Hub：https://hub.docker.com/
+Anchore: https://anchore.com/
+Clair: https://github.com/quay/clair</p>
+<p><strong>使用最少的基础映像</strong>
+最小基础映像仅包含运行容器化应用程序所需的基本要素。基础映像中存在的组件越少，潜在漏洞的攻击面就越小。</p>
+<p>最小基础映像的一个示例是 Alpine Linux 发行版，由于其占用空间小和安全功能，它通常用于 Docker 映像。</p>
+<p>Alpine Linux: https://alpinelinux.org/
+Alpine Linux：https://alpinelinux.org/</p>
+<p><strong>扫描镜像以查找漏洞</strong>
+使用 Clair 或 Anchore 等工具定期扫描镜像以查找已知漏洞。这些工具可以检测映像和容器配置中的潜在风险，从而允许您在将映像推送到注册表或在生产环境中部署映像之前解决这些风险。</p>
+<p><strong>对映像进行签名和验证</strong>
+若要确保映像的完整性和真实性，请始终使用 Docker 内容信任 （DCT） 对映像进行签名。DCT 使用数字签名来保证您拉取或推送的镜像是您期望的镜像，并且在传输过程中未被篡改。</p>
+<p>Enable DCT for your Docker environment by setting the following environment variable:
+通过设置以下环境变量为 Docker 环境启用 DCT：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>export DOCKER_CONTENT_TRUST=1
+</span></code></pre>
+<p><strong>利用多阶段构建</strong>
+多阶段构建允许您在同一个 Dockerfile 中使用多个 FROM 指令。每个阶段可以具有不同的基础映像或指令集，但只有最终阶段才能确定最终映像的内容。通过使用多阶段构建，您可以最大程度地减少最终映像的大小和复杂性，从而降低漏洞风险。</p>
+<p>下面是一个使用多阶段构建的示例 Dockerfile：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># Build stage
+</span><span>FROM node:12-alpine AS build
+</span><span>WORKDIR /app
+</span><span>COPY . .
+</span><span>RUN npm ci --production
+</span><span>
+</span><span># Final stage
+</span><span>FROM node:12-alpine
+</span><span>COPY --from=build /app /app
+</span><span>CMD [&quot;npm&quot;, &quot;start&quot;]
+</span></code></pre>
+<p>通过遵循这些映像安全最佳实践，您可以最大限度地降低漏洞风险，并确保容器化应用程序的安全。</p>
+<h2 id="runtime-security-yun-xing-shi-an-quan-xing"><strong>Runtime Security 运行时安全性</strong></h2>
+<p>运行时安全性侧重于确保 Docker 容器在生产环境中运行时的安全性。这是容器安全的一个关键方面，因为威胁可能会在部署容器后到达或被发现。适当的运行时安全措施有助于最大程度地减少漏洞被利用时可能造成的损害。</p>
+<p><strong>最小特权原则</strong>
+确保您的容器遵循最小权限原则，这意味着它们应该只具有执行其预期功能所需的最低权限。这有助于限制容器受损时的潜在损坏。</p>
+<p><strong>尽可能以非 root 用户身份运行容器</strong>
+避免运行特权容器，因为这些容器可以访问主机的所有资源。
+使用 Linux 功能从容器中剥离不必要的权限。</p>
+<p><strong>只读文件系统</strong>
+通过将容器的文件系统设置为只读，可以防止攻击者修改关键文件或在容器中植入恶意软件。
+在启动容器时使用 --read-only 标志，使其文件系统为只读。
+为需要写入访问权限的位置实施卷装载或 tmpfs 装载。</p>
+<p><strong>安全扫描和监控</strong>
+确保定期扫描容器中的漏洞，包括映像本身和运行时环境中的漏洞。</p>
+<p><strong>使用容器扫描工具检测和修补映像中的漏洞。</strong>
+实施运行时监视以检测和响应安全事件，例如未经授权的访问尝试或意外的进程启动。</p>
+<p><strong>Resource Isolation 资源隔离</strong>
+隔离容器的资源（如 CPU、内存和网络），以防止单个受感染的容器影响其他容器或主机系统。</p>
+<p>使用 Docker 的内置资源约束来限制容器可以使用的资源。
+使用网络分段和防火墙来隔离容器并限制其通信。</p>
+<p><strong>Audit Logs 审核日志</strong>
+维护容器活动的审核日志，以帮助进行事件响应、故障排除和合规性。
+使用 Docker 的日志记录功能捕获容器日志，并将其输出到集中式日志记录解决方案。
+实施日志分析工具以监控可疑活动，并在检测到潜在事件时自动发出警报。</p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/learn-docker-7/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Docker学习笔记(七)</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/learn-docker-9/">
+                            <span class="button__text">Docker学习笔记(九)</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+</html>

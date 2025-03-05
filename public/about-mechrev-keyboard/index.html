@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-mechrev-keyboard/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-mechrev-keyboard/">
+
+        <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-mechrev-keyboard/">乱七八糟:机械革命键盘失灵拯救记</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-09-04
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 机械革命作为一款极高性价比的笔记本，其优惠的力度和问题不断的故障让玩家们爱恨交织；作者在其上安装 Linux 时遇到了键盘失灵的问题，为了避免更多人踩坑，故写本文。</p>
+<span id="continue-reading"></span><h2 id="yi-gu-zhang-qing-kuang">一.故障情况</h2>
+<p>作者在一台锐龙平台的笔记本上安装 Debian 时，先在虚拟机中尝试安装，没有发现异常；随后在实体机安装时发现 liveCD 中键盘不可用，无法设置密码和主机名，在连接外接键盘后安装完成，却发现Fn快捷键仍然可用。</p>
+<h2 id="er-ju-ti-si-lu">二.具体思路</h2>
+<p>根据机革一贯的“特性”，作者猜测是因为 BIOS 或者 ACPI 出现了故障，随后在翻阅论坛时发现是由于锐龙笔记本键盘中断描述与其他键盘不同：其为边缘敏 感、低电平有效的；而蛟龙16K机器键盘实际是边缘敏感、高电平有效（Edge ActiveHigh）。结合 linux 的特性，读取到边缘敏感、低电平有效的中断时，会认为 BIOS 有Bug，会直接当成边缘敏感、高电平有效进行处理。因此，键盘就没有了响应。</p>
+<h2 id="san-jie-jue-fang-fa">三.解决方法</h2>
+<p>既然是高低电平表述的错误，那么我们只需建立DSDT 表副本，将其修改，然后让它优先启动，从而让键盘配置正常；另外还存在 BIOS 修复，内核编译的方法，比较复杂，这里不做说明。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>首先建立一个DSDT文件夹：
+</span><span>sudo su
+</span><span>mkdir -p /home/dsdt
+</span><span>
+</span><span>随后将系统的DSDT表读取到里面，并安装acpica-tools：
+</span><span>cat /sys/firmware/acpi/tables/DSDT &gt; dsdt.dat
+</span><span>apt install acpica-tools
+</span><span>iasl -d dsdt.dat
+</span><span>
+</span><span>进入vim编辑DSDT表，没有vim的先安装一个：
+</span><span>apt install vim
+</span><span>vim dsdt.dsl
+</span><span>
+</span><span>搜索并替换 Device(PS2K) 下面的
+</span><span>IRQ (Edge, ActiveLow, Shared, ) 
+</span><span>为
+</span><span>IRQ (Edge, ActiveHigh, Shared, ) 
+</span><span>
+</span><span>vim搜索的方法为在命令模式下按下“/”，键入搜索字符并回车即可，按“n”跳转到下一处，“N”跳转到前一处，按: wq保存：
+</span><span>
+</span><span>随后搜索DefinitionBlock，将其步进值增加一（十六进制），即更改
+</span><span>DefinitionBlock (&quot;&quot;, &quot;DSDT&quot;, 2, &quot;ALASKA&quot;, &quot;A M I&quot;, 0x01072009)
+</span><span>为
+</span><span>DefinitionBlock (&quot;&quot;, &quot;DSDT&quot;, 2, &quot;ALASKA&quot;, &quot;A M I&quot;, 0x0107200A)
+</span><span>
+</span><span>关闭DSDT，并设置其优先启动
+</span><span>iasl dsdt.dsl
+</span><span>mkdir -p kernel/firmware/acpi
+</span><span>cp dsdt.aml kernel/firmware/acpi/
+</span><span>find kernel | cpio -H newc --create &gt; acpi_override
+</span><span>cp acpi_override /boot/acpi_override
+</span><span>echo &quot;GRUB_EARLY_INITRD_LINUX_CUSTOM=\&quot;acpi_override\&quot;&quot; &gt;&gt;/etc/default/grub
+</span><span>
+</span><span>更新并重启：
+</span><span>
+</span><span>sudo grub-mkconfig -o /boot/grub/grub.cfg
+</span><span>sudo grub-install /dev/sdX
+</span><span>sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+</span><span>
+</span><span>update-grub2
+</span><span>reboot
+</span></code></pre>
+<p>不出意外，重启后键盘即可使用，若系统不同将 apt 替换即可。</p>
+<h2 id="si-qi-ta-wen-ti">四.其他问题</h2>
+<p>对于Redmi 或 Lenovo刚发布的AMD R7 6800H机型：</p>
+<ul>
+<li>WIFI没有驱动 - （螃蟹卡 8852be）。</li>
+<li>蓝牙没有驱动 - (螃蟹卡 8852be)。</li>
+<li>开启窗口特效后，kwin_x11进程CPU占用飙升。</li>
+<li>电源管理，无论怎么调，笔记本都发热很严重。</li>
+</ul>
+<h3 id="xiu-fu-wifiqu-dong">修复wifi驱动</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 内核小于5.18的
+</span><span>git clone https://github.com/HRex39/rtl8852be.git
+</span><span># 内核大于等于5.18的
+</span><span>git clone https://github.com/HRex39/rtl8852be.git -b dev
+</span><span>
+</span><span>cd rtl8852be
+</span><span>make -j8
+</span><span>sudo make install
+</span><span>sudo modprobe 8852be
+</span></code></pre>
+<h3 id="xiu-fu-lan-ya-qu-dong">修复蓝牙驱动</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 内核=5.15
+</span><span>git clone https://github.com/HRex39/rtl8852be_bt.git -b 5.15
+</span><span># 内核=5.18
+</span><span>git clone https://github.com/HRex39/rtl8852be_bt.git -b 5.18
+</span><span>
+</span><span>cd rtl8852be_bt
+</span><span>make -j8
+</span><span>sudo make install
+</span></code></pre>
+<h3 id="xiu-fu-kwin-x11xian-qia-wei-qu-dong">修复kwin_x11显卡未驱动</h3>
+<p>首先去amd官网下载最新的linux-amd驱动：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://www.amd.com/zh-hans/support/linux-drivers // 22.20 for Ubuntu 20.04.5 HWE
+</span></code></pre>
+<p>修改Deepin为ubuntu</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo vim /etc/os-release // ID=Deepin =&gt; ID=ubuntu
+</span><span>
+</span><span>sudo apt install ./amdgpu-install_22.20.50200-1_all.deb
+</span><span>
+</span><span>sudo vim /etc/apt/sources.list.d/amdgpu.list // focal =&gt; bionic
+</span><span>
+</span><span>sudo apt update
+</span><span>
+</span><span>sudo amdgpu-install --no-dkms
+</span><span>
+</span><span>sudo apt install inxi clinfo
+</span></code></pre>
+<p>安装成功以后，用inxi查看下：</p>
+<p><code>inxi -G</code></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Graphics:  Device-1: AMD Rembrandt driver: amdgpu v: kernel 
+</span><span>           Display: x11 server: X.Org 1.20.11 driver: amdgpu,ati unloaded: fbdev,modesetting,vesa 
+</span><span>           resolution: 1920x1080~60Hz 
+</span><span>           OpenGL: renderer: AMD YELLOW_CARP (LLVM 14.0.1 DRM 3.42 5.15.34-amd64-desktop) 
+</span><span>           v: 4.6 Mesa 22.1.0-devel
+</span></code></pre>
+<p>最后还原最初的修改：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo vim /etc/os-release // ID=ubuntu =&gt; ID=Deepin
+</span><span>sudo apt purge amdgpu-install
+</span></code></pre>
+<p>看下效果图：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>➜  ~ glxinfo -B
+</span><span>name of display: :0
+</span><span>display: :0  screen: 0
+</span><span>direct rendering: Yes
+</span><span>Extended renderer info (GLX_MESA_query_renderer):
+</span><span>    Vendor: AMD (0x1002)
+</span><span>    Device: AMD YELLOW_CARP (LLVM 14.0.1, DRM 3.42, 5.15.34-amd64-desktop) (0x1681)
+</span><span>    Version: 22.1.0
+</span><span>    Accelerated: yes
+</span><span>    Video memory: 2048MB
+</span><span>    Unified memory: no
+</span><span>    Preferred profile: core (0x1)
+</span><span>    Max core profile version: 4.6
+</span><span>    Max compat profile version: 4.6
+</span><span>    Max GLES1 profile version: 1.1
+</span><span>    Max GLES[23] profile version: 3.2
+</span><span>Memory info (GL_ATI_meminfo):
+</span><span>    VBO free memory - total: 1388 MB, largest block: 1388 MB
+</span><span>    VBO free aux. memory - total: 3047 MB, largest block: 3047 MB
+</span><span>    Texture free memory - total: 1388 MB, largest block: 1388 MB
+</span><span>    Texture free aux. memory - total: 3047 MB, largest block: 3047 MB
+</span><span>    Renderbuffer free memory - total: 1388 MB, largest block: 1388 MB
+</span><span>    Renderbuffer free aux. memory - total: 3047 MB, largest block: 3047 MB
+</span><span>Memory info (GL_NVX_gpu_memory_info):
+</span><span>    Dedicated video memory: 2048 MB
+</span><span>    Total available memory: 5120 MB
+</span><span>    Currently available dedicated video memory: 1388 MB
+</span><span>OpenGL vendor string: AMD
+</span><span>OpenGL renderer string: AMD YELLOW_CARP (LLVM 14.0.1, DRM 3.42, 5.15.34-amd64-desktop)
+</span><span>OpenGL core profile version string: 4.6 (Core Profile) Mesa 22.1.0-devel
+</span><span>OpenGL core profile shading language version string: 4.60
+</span><span>OpenGL core profile context flags: (none)
+</span><span>OpenGL core profile profile mask: core profile
+</span><span>
+</span><span>OpenGL version string: 4.6 (Compatibility Profile) Mesa 22.1.0-devel
+</span><span>OpenGL shading language version string: 4.60
+</span><span>OpenGL context flags: (none)
+</span><span>OpenGL profile mask: compatibility profile
+</span><span>
+</span><span>OpenGL ES profile version string: OpenGL ES 3.2 Mesa 22.1.0-devel
+</span><span>OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
+</span></code></pre>
+<h3 id="shou-dong-guan-li-dian-yuan-bi-mian-cpuguo-du-shi-yong-er-fa-re">手动管理电源，避免CPU过度使用而发热</h3>
+<p>安装下面的三方电源管理工具 <code>Boost Changer</code>，选择 <code>Performance</code>策略即可</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>wget https://github.com/nbebaw/boostchanger/releases/download/v4.4.0/boostchanger_4.4.0_amd64.deb
+</span></code></pre>
+<h2 id="can-kao">参考</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/530643928">https://zhuanlan.zhihu.com/p/530643928</a></p>
+<p><a href="https://github.com/HRex39/rtl8852be">https://github.com/HRex39/rtl8852be</a></p>
+<p><a href="https://github.com/HRex39/rtl8852be_bt">https://github.com/HRex39/rtl8852be_bt</a></p>
+<p><a href="https://bbs.deepin.org/post/241607">https://bbs.deepin.org/post/241607</a></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-accurate-pronunciation/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:常见发音错误术语集合</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-zola-blog/">
+                            <span class="button__text">乱七八糟:个人博客搭建</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+</html>

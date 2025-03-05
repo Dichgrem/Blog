@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/learn-linux-for-pc-4/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/learn-linux-for-pc-4/">
+
+        <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/learn-linux-for-pc-4/">Linux-For-PC(四):Terminal，Console and Shell</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-07-23
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 在linux的学习过程中，我们常常遇到诸如 Terminal，Console，bash,zsh,shell,tty 等概念，这些概念常常被混淆，似乎都和命令行相关。本文从历史角度出发介绍它们的前世今生。</p>
+<span id="continue-reading"></span><h2 id="zhong-duan-he-kong-zhi-tai">终端和控制台</h2>
+<p>终端，英文叫做 terminal ,通常简称为 term；控制台，英文叫做 console。</p>
+<p>要明白这两者的关系，还得从最初的计算机说起。当时的计算机价格昂贵，一台计算机一般是由多个人同时使用的。在这种情况下一台计算机需要连接上许多套键盘和显示器来供多个人使用。在以前专门有这种可以连上一台电脑的设备，只有显示器和键盘，还有简单的处理电路，本身不具有处理计算机信息的能力，他是负责连接到一台正常的计算机上（通常是通过串口） ，然后登陆计算机，并对该计算机进行操作。当然，那时候的计算机操作系统都是多任务多用户的操作系统。这样一台只有显示器和键盘能够通过串口连接到计算机的设备就叫做终端。</p>
+<p>而控制台又是什么回事呢？其概念来自于管风琴的控制台。顾名思义，控制台就是一个直接控制设备的台面（一个面板，上面有很多控制按钮）。 在计算机里，把那套直接连接在电脑上的键盘和显示器就叫做控制台。</p>
+<p>终端是通过串口连接上的，不是计算机本身就有的设备，而控制台是计算机本身就有的设备，一个计算机只有一个控制台。计算机启动的时候，所有的信息都会显示到控制台上，而不会显示到终端上。也就是说，控制台是计算机的基本设备，而终端是附加设备。 当然，由于控制台也有终端一样的功能，控制台有时候也被模糊的统称为终端。</p>
+<p>以上是控制台和终端的历史遗留区别。现在由于计算机硬件越来越便宜，终端和控制台的概念也慢慢演化了。终端和控制台由硬件的概念，演化成了软件的概念。
+　　</p>
+<h2 id="nei-he-yu-wai-ke">内核与外壳</h2>
+<p>内核（ Kernel ）和外壳（ Shell ）是 linux 的两个主要部分。Kernel 是操作系统的核心，系统的文件管理、进程管理、内存管理、设备管理这些功能，都是由 Kernel 提供的。</p>
+<p>用户和操作系统内核交流需要一个工具，那么这个工具就是 Shell。</p>
+<p>什么是 Shell？在 Linux 中，最常见的 Shell 形式有命令行界面命令行界面和图形界面两种。并不是打开的那个终端窗口就是 Shell，如Alacritty、Gnome-Terminal、xterm 、kitty等程序，它们不是 Shell，而它们里面运行的 Bash、Zsh、fish 等命令行解释器程序，才是 Shell。</p>
+<p>那 Alacritty、Gnome-Terminal、xtermxterm 是什么？</p>
+<p>它们是终端模拟器。</p>
+<p>前面提到过，在远古时代，终端和控制台都是有实体的。控制台直接和计算机在一起，你可以通过控制台控制计算机。终端通过数据线和计算机连接，终端也提供一个键盘和一个屏幕，你可以通过键盘向计算机下达指令，然后通过屏幕观察输出。</p>
+<p>但是现在的计算机组成和以前不一样了，一般一台电脑都是自带键盘和屏幕，很少再外接终端设备。</p>
+<p>所以 Linux 提供了另外一个更高级的功能，那就是虚拟终端。那就是在一台电脑上，通过软件的模拟，好像有好几个终端连接在这台计算机上一样。</p>
+<p>现在说的终端，比如 linux 中的虚拟终端，都是软件的概念。虚拟终端称之为 tty，tty 是电传打字机电传打字机 Teletypewriter 的缩写，在带显示屏的视频终端出现之前，tty是最流行的终端设备。每一个 tty 都有一个编号，在/dev目录下有相应的设备文件。其中/dev/tty1到/dev/tty7可以通过 Ctrl+Alt+F1 到 Ctrl+Alt+F7 进行切换，也可以通过 chvt 命令进行切换，就好比是以前多人公用的计算机中的六个终端设备，这就是为什么这个叫“虚拟终端”的原因。</p>
+<h2 id="shi-dai-bian-qian">时代变迁</h2>
+<p>随着时间的推移，我们看到了从硬件到软件的转变，以及从多用户共享到个人使用的转变。这种变迁不仅影响了终端和控制台的概念，也塑造了我们对计算机的理解和期待。</p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/learn-linux-for-pc-3/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Linux-For-PC(三):内核&#x2F;shell&#x2F;包管理&#x2F;文件系统&#x2F;桌面环境</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/learn-linux-for-pc-5/">
+                            <span class="button__text">Linux-For-PC(五):BIOS-UEFI-MBR-GPT-GRUB</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+</html>

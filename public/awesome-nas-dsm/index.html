@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-nas-dsm/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-nas-dsm/">
+
+        <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-nas-dsm/">综合工程:黑群辉NAS极速安装</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-17
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 作为NAS家族中的重要一员，Synology的DSM以完善的服务和较高的售价闻名于世，因此，一般玩家倾向于工控机加黑群晖的方案组建自己的文件服务器。本文就黑群辉安装做了详细阐述。</p>
+<span id="continue-reading"></span>
+<p><strong>准备工作</strong>：<strong>需要一个U盘，一台主机(包括屏幕与键盘)以及至少一块硬盘</strong>。</p>
+<ul>
+<li><a href="https://www.423down.com/10080.html">Rufus</a></li>
+<li><a href="https://www.52pojie.cn/thread-1745197-1-1.html">arpl-1.0-beta2.img</a></li>
+</ul>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>该U盘作为启动器，在安装完成后不可取下；</li>
+<li>截至本文撰写的日期，蜗牛星际被黄牛抬价，可使用路由器工控机加硬盘的方案；</li>
+<li>硬盘需机械硬盘，SSD阵列会出奇怪的问题。</li>
+</ul>
+<blockquote>
+<p>安装流程：<strong>ISO镜像烧入，BIOS启动，选择版本编译安装，进入群辉界面安装DSM</strong>。</p>
+</blockquote>
+<h2 id="yi-isojing-xiang-shao-ru"><strong>一、ISO镜像烧入</strong></h2>
+<p>首先我们<a href="https://www.52pojie.cn/thread-1745197-1-1.html">下载arpl-1.0-beta2.img文件</a>，随后通过写盘工具（这里推荐Rufus）将该文件写入U盘中。</p>
+<blockquote>
+<p>注意U盘将被格式化，随后我们弹出U盘，并将其插到主机上面。</p>
+</blockquote>
+<h2 id="er-biosqi-dong-bian-yi-an-zhuang"><strong>二、BIOS启动，编译安装</strong></h2>
+<p>开机并按F2或DEL键进入BIOS，设置boot顺序为U盘优先;</p>
+<p>记下Access后面的地址，随后在另一台主机的浏览器上访问;</p>
+<p>选择DSM版本，这里我们以DS3615为例（注意DS918对网卡要求高，需确认好再选择），回车确认；</p>
+<blockquote>
+<p>群晖设备型号与套件架构参表.https://www.shenzhuohl.com/syno_list.html</p>
+</blockquote>
+<p>接着选择版本号，以42962为例（后面需下载对应的系统）</p>
+<p>然后输入一个序列号，由于是黑群晖所以让其随机生成。</p>
+<p>随后build the loader,进入跑码界面，编译安装需要一些时间；</p>
+<p>完成后boot the loader,当出现内网地址时便成功了，记下版本号与对应的型号；</p>
+<h2 id="san-jin-ru-qun-hui-jie-mian-an-zhuang-dsm"><strong>三、进入群辉界面安装DSM</strong></h2>
+<p>进入刚刚看到的内网地址（或用群辉助手https://finds.synology.com/#自动查找），从群辉的官网下载对应的系统，进入安装程序，这里有个重启时间为10分钟，此时可以饮口茶先。</p>
+<p>安装完成后即可进入界面，随后添加储存池。</p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-arch-linux/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">综合工程:Arch从入门到入土</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-kgnl/">
+                            <span class="button__text">乱七八糟:快过年了笑话大全</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+</html>
