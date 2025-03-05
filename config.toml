@@ -55,10 +55,11 @@ author = "Dichgrem"
 menu_items = [
     # each of these is optional, name and url are required
     # $BASE_URL is going to be substituted by base_url from configuration
-    {name = "archive", url = "$BASE_URL/archive"},
+    {name = "blog", url = "$BASE_URL"},
 
     # tags should only be enabled if you have "tags" taxonomy
     # see documentation below for more details
+    {name = "archive", url = "$BASE_URL/archive"},
     {name = "tags", url = "$BASE_URL/tags"},
     {name = "weekly", url = "$BASE_URL/weekly"},
     {name = "search", url = "$BASE_URL/search"},
