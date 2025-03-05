@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://blog.dich.bid/archive/sitemap.xml
+Sitemap: https://blog.dich.bid/sitemap.xml

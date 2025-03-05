@@ -1,5 +1,5 @@
 # Be sure to change these!
-base_url = "https://blog.dich.bid/archive"
+base_url = "https://blog.dich.bid"
 title = "Dich'blog"
 description = "用电子罗盘，转赛博核桃，勘电磁风水，寻网络龙脉"
 
@@ -59,7 +59,6 @@ menu_items = [
 
     # tags should only be enabled if you have "tags" taxonomy
     # see documentation below for more details
-    {name = "blog", url = "$BASE_URL"},
     {name = "tags", url = "$BASE_URL/tags"},
     {name = "weekly", url = "$BASE_URL/weekly"},
     {name = "search", url = "$BASE_URL/search"},
