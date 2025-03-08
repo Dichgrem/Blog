@@ -43,7 +43,7 @@ tags = ["综合工程"]
 ## **如何得到一个openwrt系统**
 
 - 可以在恩山论坛上使用他人编译好的现成的镜像，如"高大全","精品小包"等等，但存在一定风险；
-- 可以使用[官方固件](https://downloads.openwrt.org/)下载得到一个最小化的系统，再一步步添加自己要用的包；
+- 可以使用[官方固件](https://downloads.openwrt.org/)下载得到一个最小化的系统，再一步步添加自己要用的包；注意需要根据你的uboot来选择，注意固件名称是否带了uboot_mod!
 - 可以使用[Openwrt 在线编译](https://firmware-selector.openwrt.org/)或[Openwrt.ai](https://openwrt.ai/?target=x86%2F64&id=generic)在线编译
 一个固件；
 - 可以使用GitHub action 云编译一个固件；
