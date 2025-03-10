@@ -490,6 +490,13 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
 ```
 > 新版本的openwrt（24.10）已经改用APK包管理器。
 
+## 常用科学插件
+
+| 特性         | HomeProxy | OpenClash  | Passwall  | ShellClash  |
+|-------------|----------|------------|------------|-------------|
+| **核心** | Sing-box、Xray | Clash | Xray、Sing-box | Clash、Xray、Sing-box |
+| **UI 管理** | ✅（Web UI、桌面端 GUI） | ✅（OpenClash Web UI） | ✅（Luci Web UI） | ❌（Shell 终端管理） |
+| **适用场景** | 性能较好,但分流设置复杂 | 适用于clash系,机场首选 | 操作简单,分流完善,但对路由器性能要求较高 | 没有UI界面，性能最好，支持完善，可以通过clashapi安装UI |
 
 ## 🔗
 
