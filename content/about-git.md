@@ -195,7 +195,22 @@ Archlinux：`sudo pacman -S git`
 `git fetch origin`  
 `git reset --hard origin/master`
 
+## 合并commit记录
 
+```
+git rebase -i HEAD~3
+```
+
+将第二行的 pick 改为 squash (s)：
+```
+pick abc123 First commit message
+squash def456 Second commit message
+```
+
+
+```
+git push origin main --force
+```
 
 ## 修改默认分支
 
