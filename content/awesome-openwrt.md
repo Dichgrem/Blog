@@ -24,6 +24,16 @@ tags = ["综合工程"]
 
 > 剩余专业路由功能可以由ROS替代，服务则跑在NAS系统上，避免ALL in Boom！
 
+## 大致思路
+
+- 使用高性能的X86主机管理拨号和 DHCP 内网的工作，其他无线路由器桥接做AP，Mesh组网；
+- 使用绕过中国流量模式，国内流量不经过代理内核直接直连，加快国内网站访问。保持尽可能高的 NAT 等级；
+- 不使用旁路由，所有流量过主路由；由于第二点代理挂了也不影响国内正常上网；
+- 国内外域名分流查询，国内域名查运营商 DNS ，国外域名经代理查国外 DoH ，直接返回真实 IP；
+- 良好的国内 IPv6 支持，只对国内域名返回 IPv6 AAAA 结果，国外域名只用 IPv4；
+- 兼容 Adguard Home ，方便管理域名黑白名单；
+- 对能直连的国外服务能返回最优的节点，而不是绕路其他地方；
+
 
 ## **选择合适的设备**
 
@@ -497,6 +507,39 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
 | **核心** | Sing-box、Xray | Clash | Xray、Sing-box | Clash、Xray、Sing-box |
 | **UI 管理** | ✅（Web UI、桌面端 GUI） | ✅（OpenClash Web UI） | ✅（Luci Web UI） | ❌（Shell 终端管理） |
 | **适用场景** | 性能较好,但分流设置复杂 | 适用于clash系,机场首选 | 操作简单,分流完善,但对路由器性能要求较高 | 没有UI界面，性能最好，支持完善，可以通过clashapi安装UI |
+
+## 校园网多设备防检测
+
+**常见检测方法**：
+- TTL检测法 解法：插件统一修复或使用桥接；使用kmod-iptables-ipot模块；
+- User-Agent 解法：统一经过singbox代理或使用UA2F/UA3F；
+- 时间戳检测法 解法：统一NTP服务器；
+
+**高性能开销检测方法**：
+- IP-ID检测法 解法：UDP over TCP或rkp-IPid；
+- Flash cookie 解法：内置防火墙组件；
+- DPI检测法 深度包检测特征值 解法：代理协议；
+
+**TTL修复**:
+```
+依赖包
+opkg install kmod-nft-core kmod-nft-bridge kmod-nft-net kmod-nft-offload kmod-nft-nat
+
+首先检查 mangle 表是否存在
+nft list tables
+
+创建 mangle 表（如果不存在）
+nft add table ip mangle
+
+创建 POSTROUTING 链（如果不存在）
+nft add chain ip mangle POSTROUTING { type route hook postrouting priority 0 \; }
+
+添加 TTL 规则
+nft add rule ip mangle POSTROUTING ip ttl set 64
+
+检查规则是否生效
+nft list table ip mangle
+```
 
 ## 🔗
 
