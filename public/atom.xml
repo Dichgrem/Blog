@@ -883,6 +883,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>电子邮件是如何工作的:自建域名邮箱</title>
+        <published>2024-02-22T00:00:00+00:00</published>
+        <updated>2024-02-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-how-email-works-3/"/>
+        <id>https://blog.dich.bid/network-how-email-works-3/</id>
+        
+        <summary type="html">&lt;p&gt;前言 poste.io 邮件服务基于 Docker 搭建，用的是 Haraka + Dovecot + SQLite 邮件系统，占用资源较少，安装简单，适合个人使用。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>电子邮件是如何工作的:POP3&#x2F;IMAP&#x2F;SMTP</title>
         <published>2024-02-21T00:00:00+00:00</published>
         <updated>2024-02-21T00:00:00+00:00</updated>
