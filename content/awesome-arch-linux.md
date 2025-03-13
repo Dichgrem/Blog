@@ -33,7 +33,7 @@ VM学习版：https://www.ahhhhfs.com/33472/
 
 
 ## **二、联网并分区**
-1.使用 **dhcpcd** 命令获取IP地址，由于虚拟机使用NAT故联网容易。
+1.使用 **dhcpcd** 命令获取IP地址，由于虚拟机使用NAT故联网容易。如果在实体机安装，使用网线或无线连接，命令为：``nmcli dev wifi connect “wifi名称” password “密码”``
 
 2.使用 **ping www.baidu.com** 命令检查是否联网，若出现ttl,time=xx ms等数据说明成功，随后再 **Ctrl+C** 停止命令运行，~~避免百度被DDOS攻击死掉。~~
 

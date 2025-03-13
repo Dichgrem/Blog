@@ -221,6 +221,15 @@
 <p>假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：<br />
 <code>git fetch origin</code><br />
 <code>git reset --hard origin/master</code></p>
+<h2 id="he-bing-commitji-lu">合并commit记录</h2>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git rebase -i HEAD~3
+</span></code></pre>
+<p>将第二行的 pick 改为 squash (s)：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pick abc123 First commit message
+</span><span>squash def456 Second commit message
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin main --force
+</span></code></pre>
 <h2 id="xiu-gai-mo-ren-fen-zhi">修改默认分支</h2>
 <p>git目前默认的主分支为 master，和 github 默认分支 main 不同，这使得默认配置下 git 往往连接失败。可以通过下两种方法改变默认分支。在本地 git init 时将默认分支修改成main</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>1. git --version  //查看版本

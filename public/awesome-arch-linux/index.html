@@ -122,7 +122,7 @@
 注意：完成后需先在编辑虚拟机设置—选项中设置引导为UEFI，否则会导致奇怪的Boot问题。</p>
 <p>2.开启此虚拟机，随后进入界面，回车，跑码后进入tty1。</p>
 <h2 id="er-lian-wang-bing-fen-qu"><strong>二、联网并分区</strong></h2>
-<p>1.使用 <strong>dhcpcd</strong> 命令获取IP地址，由于虚拟机使用NAT故联网容易。</p>
+<p>1.使用 <strong>dhcpcd</strong> 命令获取IP地址，由于虚拟机使用NAT故联网容易。如果在实体机安装，使用网线或无线连接，命令为：<code>nmcli dev wifi connect “wifi名称” password “密码”</code></p>
 <p>2.使用 <strong>ping www.baidu.com</strong> 命令检查是否联网，若出现ttl,time=xx ms等数据说明成功，随后再 <strong>Ctrl+C</strong> 停止命令运行，<del>避免百度被DDOS攻击死掉。</del></p>
 <p>3.使用 <strong>timedatectl set-ntp true</strong> 命令更新系统时间，该命令无输出，正所谓无事发生就是最好的。</p>
 <p>4.使用 <strong>fdisk -l</strong> 命令查看系统分区，由于虚拟机的存在只会显示一块硬盘。</p>
