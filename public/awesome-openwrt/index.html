@@ -117,6 +117,16 @@
 <blockquote>
 <p>剩余专业路由功能可以由ROS替代，服务则跑在NAS系统上，避免ALL in Boom！</p>
 </blockquote>
+<h2 id="da-zhi-si-lu">大致思路</h2>
+<ul>
+<li>使用高性能的X86主机管理拨号和 DHCP 内网的工作，其他无线路由器桥接做AP，Mesh组网；</li>
+<li>使用绕过中国流量模式，国内流量不经过代理内核直接直连，加快国内网站访问。保持尽可能高的 NAT 等级；</li>
+<li>不使用旁路由，所有流量过主路由；由于第二点代理挂了也不影响国内正常上网；</li>
+<li>国内外域名分流查询，国内域名查运营商 DNS ，国外域名经代理查国外 DoH ，直接返回真实 IP；</li>
+<li>良好的国内 IPv6 支持，只对国内域名返回 IPv6 AAAA 结果，国外域名只用 IPv4；</li>
+<li>兼容 Adguard Home ，方便管理域名黑白名单；</li>
+<li>对能直连的国外服务能返回最优的节点，而不是绕路其他地方；</li>
+</ul>
 <h2 id="xuan-ze-he-gua-de-she-bei"><strong>选择合适的设备</strong></h2>
 <p>无论是传统的无线路由器还是小主机都有成为openwrt路由的潜力。截止到今天，已经有20多个品牌（小米，华硕，锐捷，华三等）30多种架构（x86,ipq,bcm,mtd等）支持刷入openwrt；你可以在这个<a href="https://mao.fan/select">网站</a>找到符合你预算和其他要求的，能刷机的路由器。
 传统家用无线路由器由于主频低，内存小，并不适合作为软路由；而 NAS-软路由一体式 又有 all in boom 的风险，因此推荐X86平台作为物理机。当然，也可以采用 armbian 平台或是开发板，例如网心云老母鸡、树莓派等设备。截至本文撰写时间，二手平台上的价格不太利好：一台J1900平台的售价往往在200左右，而专门的多网口工控机价格在200到1000不等，树莓派更是成为了理财产品，需要慎重选择。</p>
@@ -585,6 +595,38 @@ Secrets and variables-Actions-New repository secret
 <tr><td><strong>UI 管理</strong></td><td>✅（Web UI、桌面端 GUI）</td><td>✅（OpenClash Web UI）</td><td>✅（Luci Web UI）</td><td>❌（Shell 终端管理）</td></tr>
 <tr><td><strong>适用场景</strong></td><td>性能较好,但分流设置复杂</td><td>适用于clash系,机场首选</td><td>操作简单,分流完善,但对路由器性能要求较高</td><td>没有UI界面，性能最好，支持完善，可以通过clashapi安装UI</td></tr>
 </tbody></table>
+<h2 id="xiao-yuan-wang-duo-she-bei-fang-jian-ce">校园网多设备防检测</h2>
+<p><strong>常见检测方法</strong>：</p>
+<ul>
+<li>TTL检测法 解法：插件统一修复或使用桥接；使用kmod-iptables-ipot模块；</li>
+<li>User-Agent 解法：统一经过singbox代理或使用UA2F/UA3F；</li>
+<li>时间戳检测法 解法：统一NTP服务器；</li>
+</ul>
+<p><strong>高性能开销检测方法</strong>：</p>
+<ul>
+<li>IP-ID检测法 解法：UDP over TCP或rkp-IPid；</li>
+<li>Flash cookie 解法：内置防火墙组件；</li>
+<li>DPI检测法 深度包检测特征值 解法：代理协议；</li>
+</ul>
+<p><strong>TTL修复</strong>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>依赖包
+</span><span>opkg install kmod-nft-core kmod-nft-bridge kmod-nft-net kmod-nft-offload kmod-nft-nat
+</span><span>
+</span><span>首先检查 mangle 表是否存在
+</span><span>nft list tables
+</span><span>
+</span><span>创建 mangle 表（如果不存在）
+</span><span>nft add table ip mangle
+</span><span>
+</span><span>创建 POSTROUTING 链（如果不存在）
+</span><span>nft add chain ip mangle POSTROUTING { type route hook postrouting priority 0 \; }
+</span><span>
+</span><span>添加 TTL 规则
+</span><span>nft add rule ip mangle POSTROUTING ip ttl set 64
+</span><span>
+</span><span>检查规则是否生效
+</span><span>nft list table ip mangle
+</span></code></pre>
 <h2 id="link">🔗</h2>
 <ul>
 <li><a href="https://openwrt.org/zh/docs/start">Openwrt wiki</a></li>
