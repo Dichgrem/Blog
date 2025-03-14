@@ -520,6 +520,8 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
 - Flash cookie 解法：内置防火墙组件；
 - DPI检测法 深度包检测特征值 解法：代理协议；
 
+> 高性能开销的检测方法会浪费大量性能，一般很少有学校这么做。IP-ID和Flash检测法如今已经不多见。
+
 **TTL修复**:
 ```
 依赖包
