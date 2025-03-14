@@ -619,7 +619,8 @@ Secrets and variables-Actions-New repository secret
 </span><span>nft add table ip mangle
 </span><span>
 </span><span>创建 POSTROUTING 链（如果不存在）
-</span><span>nft add chain ip mangle POSTROUTING { type route hook postrouting priority 0 \; }
+</span><span>nft add chain ip mangle POSTROUTING { type nat hook postrouting priority 0 \; }
+</span><span>
 </span><span>
 </span><span>添加 TTL 规则
 </span><span>nft add rule ip mangle POSTROUTING ip ttl set 64

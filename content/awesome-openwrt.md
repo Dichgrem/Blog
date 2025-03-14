@@ -532,7 +532,8 @@ nft list tables
 nft add table ip mangle
 
 创建 POSTROUTING 链（如果不存在）
-nft add chain ip mangle POSTROUTING { type route hook postrouting priority 0 \; }
+nft add chain ip mangle POSTROUTING { type nat hook postrouting priority 0 \; }
+
 
 添加 TTL 规则
 nft add rule ip mangle POSTROUTING ip ttl set 64
