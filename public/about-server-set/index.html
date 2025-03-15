@@ -359,6 +359,16 @@
 <p>安装Docker Compose：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S docker-compose
 </span></code></pre>
+<h2 id="docker-chang-yong-ming-ling">Docker 常用命令</h2>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker-compose up -d    #在后台启动容器
+</span><span>docker-compose ps       #查看正在运行的容器
+</span><span>docker-compose down     #停止并移除所有运行中的容器
+</span><span>docker-compose stop     #停止容器，但保留数据和卷
+</span><span>docker pull &lt;镜像名称&gt;:latest #拉取最新镜像
+</span><span>docker-compose build    #更新镜像后重新构建
+</span><span>docker-compose logs     #查看日志
+</span><span>docker image prune -a   #删除所有未被容器使用的镜像
+</span></code></pre>
 <h2 id="1panel">1panel</h2>
 <p>执行如下命令一键安装 1Panel:</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh &amp;&amp; sudo bash quick_start.sh
