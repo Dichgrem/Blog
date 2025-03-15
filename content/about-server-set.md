@@ -393,6 +393,19 @@ sudo usermod -aG docker $USER
 sudo pacman -S docker-compose
 ```
 
+## Docker 常用命令
+```
+docker-compose up -d    #在后台启动容器
+docker-compose ps       #查看正在运行的容器
+docker-compose down     #停止并移除所有运行中的容器
+docker-compose stop     #停止容器，但保留数据和卷
+docker pull <镜像名称>:latest #拉取最新镜像
+docker-compose build    #更新镜像后重新构建
+docker-compose logs     #查看日志
+docker image prune -a   #删除所有未被容器使用的镜像
+```
+
+
 ## 1panel
 
 执行如下命令一键安装 1Panel:
