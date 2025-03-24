@@ -940,25 +940,6 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>综合工程:黑群辉NAS极速安装</title>
-        <published>2023-08-17T00:00:00+00:00</published>
-        <updated>2023-08-17T00:00:00+00:00</updated>
-        
-        <author>
-          <name>
-            
-              Unknown
-            
-          </name>
-        </author>
-        
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/awesome-nas-dsm/"/>
-        <id>https://blog.dich.bid/awesome-nas-dsm/</id>
-        
-        <summary type="html">&lt;p&gt;前言 作为NAS家族中的重要一员，Synology的DSM以完善的服务和较高的售价闻名于世，因此，一般玩家倾向于工控机加黑群晖的方案组建自己的文件服务器。本文就黑群辉安装做了详细阐述。&lt;&#x2F;p&gt;</summary>
-        
-    </entry>
-    <entry xml:lang="en">
         <title>综合工程:Arch从入门到入土</title>
         <published>2023-08-16T00:00:00+00:00</published>
         <updated>2023-08-16T00:00:00+00:00</updated>
@@ -976,25 +957,6 @@
         
         <summary type="html">&lt;p&gt;前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；
 但由于该Wiki的中文版比较陈旧，安装教程不太清楚，故先以虚拟机安装Arch为例实际操作一番。&lt;&#x2F;p&gt;</summary>
-        
-    </entry>
-    <entry xml:lang="en">
-        <title>综合工程:ChromeBook研究记</title>
-        <published>2023-08-15T00:00:00+00:00</published>
-        <updated>2023-08-15T00:00:00+00:00</updated>
-        
-        <author>
-          <name>
-            
-              Unknown
-            
-          </name>
-        </author>
-        
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/awesome-chromebook/"/>
-        <id>https://blog.dich.bid/awesome-chromebook/</id>
-        
-        <summary type="html">&lt;p&gt;前言 ChromeBook 作为国外一款定位为商务办公和学生入门的机器，其性能在2023年的当下似乎已经过时；在其退出中国市场后更是接近绝迹。不过，针对特殊需求下的部分机型在今天仍然极具性价比。&lt;&#x2F;p&gt;</summary>
         
     </entry>
     <entry xml:lang="en">
