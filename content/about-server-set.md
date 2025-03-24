@@ -173,7 +173,83 @@ ip -6 addr show scope global
 
 或者 curl ipv6.ip.sb
 ```
+### 使用FTP上传下载文件
 
+这是一个典型的服务端与客户端（CS）模型。
+
+首先在服务器端安装vsftpd，对Ubuntu:
+```
+apt install vsftpd
+```
+对Centos：
+```
+yum install vsftpd
+```
+查看服务状态是否运行：
+```
+systemctl status vsftpd
+```
+
+随后需要更改配置文件，使外部用户可以登录，对ubuntu：
+```
+nano /etc/vsftpd.conf
+```
+对Centos：
+```
+nano /etc/vsftpd/vsftpd.conf
+```
+修改关键参数：
+```
+anonymous_enable=NO         # 禁止匿名登录
+local_enable=YES            # 允许本地用户登录
+write_enable=YES            # 允许上传文件
+chroot_local_user=YES       # 限制用户访问其主目录
+allow_writeable_chroot=YES  # 解决 chroot 目录无法写入问题
+pasv_enable=YES             # 允许被动模式
+pasv_min_port=30000         # 指定被动模式端口范围
+pasv_max_port=31000
+```
+其中若不设置被动模式，端口会随机生成，会无法连接，因此需要使用被动模式，或者打开防火墙/安全组全部端口（不推荐！！！有极大安全风险）
+修改完成后重启vsftpd服务：
+```
+sudo systemctl restart vsftpd
+```
+按照要求在服务端创建一个新用户：
+```
+sudo adduser stu+xxx（学号）
+```
+授予这个用户sudo权限：
+```
+sudo usermod -aG sudo stu+xxx（学号）
+```
+
+切换到这个新用户的家目录：
+```
+sudo su - stu+xxx（学号）
+```
+
+创建一个文件，内容随意，名称为学号.txt:
+```
+echo "This is a test file" > ~/学号.txt
+```
+下载刚刚创建的文件：
+```
+get 学号.txt
+```
+在本地新建一个文件：
+```
+echo "New file for FTP upload" > 学号_1.txt
+```
+随后使用被动模式上传到服务器：
+```
+ftp -p 服务器IP / 或者 quote PASV && ftp 服务器IP
+cd /home/用户名/（学号_1.txt所在的目录）
+put /home/用户名/学号_1.txt
+```
+如果无法上传，查看服务器端目录的权限：
+```
+sudo chmod 755 /home/stu+xxx（学号）
+```
 ### 改为密钥登录
 
 - 在本地执行以下命令生成.pub后缀的公钥和无后缀的密钥：
