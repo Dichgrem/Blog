@@ -1036,6 +1036,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>Linux之旅(七):系统与终端字体设置</title>
+        <published>2023-08-01T00:00:00+00:00</published>
+        <updated>2023-08-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/learn-linux-for-pc-7/"/>
+        <id>https://blog.dich.bid/learn-linux-for-pc-7/</id>
+        
+        <summary type="html">&lt;p&gt;前言 一个好看的字体会提高工作效率与审美.Linux 下的字体可以很漂亮,但需要一些设置.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>Linux之旅(六):常用命令与性能分析</title>
         <published>2023-07-25T00:00:00+00:00</published>
         <updated>2023-07-25T00:00:00+00:00</updated>
