@@ -90,17 +90,17 @@ tags = ["综合工程"]
 
 - 重启系统并快速拔出U盘，避免重新进入PE；这时系统开始运行了。注意Esir固件是不跑码的，无需担心。- 一个U盘与一台双网口物理机
 - 当看到 `please press Enter to activate this console`这个提示的时候系统就安装完毕了。可使用 passwd 命令设置密码。软路由将自动获取IP地址，随后我们在浏览器中打开该地址，即可看到 Lucl 界面。
-> 硬盘空间有一部分没有被格式化，可以手动格式化为ext4并挂载。
 
-> 注意初始IP往往是192.168.1.1，如果和光猫冲突需要在网络-接口中更改。
-
-> 基本系统主题比较简陋，可以使用luci-theme-argon。
-
-> 刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）： 
+4.如果你使用官方固件，注意:
+- 硬盘空间有一部分没有被格式化，可以手动格式化为ext4并挂载。
+- 注意初始IP往往是192.168.1.1，如果和光猫冲突需要在网络-接口中更改。
+- 基本系统主题比较简陋，可以使用luci-theme-argon。
+- 刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）： 
 ``uci set luci.main.mediaurlbase='/luci-static/bootstrap'
 uci commit luci
 /etc/init.d/uhttpd restart``
 然后重新访问 Web 界面，查看是否恢复正常。
+
 
 ## **X86平台本地编译完整openwrt**
 
@@ -143,21 +143,18 @@ useradd -m openwrt  # 新建一个名为 openwrt 的用户
 - **修改用户默认的 Shell**
 ```
 apt install -y sudo
-
 usermod -s /bin/bash openwrt
 ```
  
 - **切换用户**
 ```
 su openwrt
-
 cd ~
 ```
 
 - **拉取源码，这里用的是 LEDE 分支源码：**
 ```
 git clone https://github.com/coolsnowwolf/lede
-
 cd lede
 ```
 
@@ -209,9 +206,7 @@ git clone https://github.com/chenmozhijin/turboacc.git
 - **更新并安装插件**
 ```
 ./scripts/feeds clean
-
 ./scripts/feeds update -a
-
 ./scripts/feeds install -a
 ```
 - **自定义配置**
@@ -240,7 +235,7 @@ sed -i "s/luci-theme-bootstrap/luci-theme-argon/g" feeds/luci/collections/luci/M
 
 执行 **make menuconfig** 命令进入编译菜单。
 
-**编译配置菜单说明（部分）**
+### **编译配置菜单说明（部分）**
 
     Target System (Broadcom BCM27xx) #选择处理器架构
     Subtarget (BCM2711 boards (64 bit)) #选择处理器
@@ -292,7 +287,7 @@ sed -i "s/luci-theme-bootstrap/luci-theme-argon/g" feeds/luci/collections/luci/M
     Xorg
 
 
-- **菜单选项说明**
+### **菜单选项说明**
 
 **选择 CPU 类型**
 ```
@@ -388,7 +383,7 @@ make -j$(nproc) || make -j1 || make -j1 V=s
 ```
  
 
-## 如果需要重新配置
+### 如果需要重新配置
 ```
 rm -rf ./tmp && rm -rf .config # 清除临时文件和编译配置文件
 
