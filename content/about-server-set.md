@@ -200,14 +200,14 @@ nano /etc/vsftpd/vsftpd.conf
 ```
 修改关键参数：
 ```
-anonymous_enable=NO         # 禁止匿名登录
-local_enable=YES            # 允许本地用户登录
-write_enable=YES            # 允许上传文件
-chroot_local_user=YES       # 限制用户访问其主目录
-allow_writeable_chroot=YES  # 解决 chroot 目录无法写入问题
-pasv_enable=YES             # 允许被动模式
-pasv_min_port=30000         # 指定被动模式端口范围
+listen=YES
+listen_ipv6=NO
+pasv_enable=YES
+pasv_min_port=30000
 pasv_max_port=31000
+pasv_address=IP地址
+pasv_addr_resolve=YES
+
 ```
 其中若不设置被动模式，端口会随机生成，会无法连接，因此需要使用被动模式，或者打开防火墙/安全组全部端口（不推荐！！！有极大安全风险）
 修改完成后重启vsftpd服务：
