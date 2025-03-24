@@ -1,5 +1,5 @@
 +++
-title = "Linux-For-PC(六):常用命令与性能分析"
+title = "Linux之旅(六):常用命令与性能分析"
 date = 2023-07-25
 
 [taxonomies]

@@ -1,5 +1,5 @@
 +++
-title = "Linux-For-PC(二):FHS与目录结构"
+title = "Linux之旅(二):FHS与目录结构"
 date = 2023-07-21
 
 [taxonomies]
