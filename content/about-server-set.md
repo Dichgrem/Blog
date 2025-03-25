@@ -281,7 +281,14 @@ sudo cat /etc/ssh/sshd_config | grep -E 'PasswordAuthentication|PubkeyAuthentica
 - 注意**authorized_keys**的权限为600，如果不是则需要改正：``chmod 600 ~/.ssh/authorized_keys``
 
 - 随后可以在本地尝试登录，命令为``ssh -i ~/.ssh/id_xxx -p 端口 用户名@服务器IP``，第一次登录会提示服务器公钥的哈希值，需要选Yes。
-
+使用SCP命令上传下载文件：
+```
+scp 文件目录 用户名@ip:/路径
+```
+下载
+```
+scp  用户名@ip:/路径 文件目录
+```
 ## Docker
 
 1. 安装基础工具

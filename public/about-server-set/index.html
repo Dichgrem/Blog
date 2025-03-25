@@ -301,9 +301,15 @@
 <p>注意<strong>authorized_keys</strong>的权限为600，如果不是则需要改正：<code>chmod 600 ~/.ssh/authorized_keys</code></p>
 </li>
 <li>
-<p>随后可以在本地尝试登录，命令为<code>ssh -i ~/.ssh/id_xxx -p 端口 用户名@服务器IP</code>，第一次登录会提示服务器公钥的哈希值，需要选Yes。</p>
+<p>随后可以在本地尝试登录，命令为<code>ssh -i ~/.ssh/id_xxx -p 端口 用户名@服务器IP</code>，第一次登录会提示服务器公钥的哈希值，需要选Yes。
+使用SCP命令上传下载文件：</p>
 </li>
 </ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp 文件目录 用户名@ip:/路径
+</span></code></pre>
+<p>下载</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp  用户名@ip:/路径 文件目录
+</span></code></pre>
 <h2 id="docker">Docker</h2>
 <ol>
 <li>安装基础工具</li>
