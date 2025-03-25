@@ -519,4 +519,27 @@ python3 -m http.server 80
 ```
 - 随后即可在ZeroSSL中验证证书并开启SSL。
 
+## 忘记密码怎么办
+
+通过恢复模式 (Recovery Mode) 修改用户权限：
+
+- 重启计算机，按住 Shift 键进入 GRUB 菜单（或者按 Esc 键）。
+
+- 在 GRUB 菜单中，选择`Advanced options for Ubuntu`然后选择带有`recovery mode`的内核版本。
+
+- 进入恢复模式后，选择`root – Drop to root shell prompt`进入 root shell（不需要密码）。
+
+- 挂载文件系统为可写模式：
+```
+mount -o remount,rw /
+```
+- 将用户添加到 sudo 组：
+```
+usermod -aG sudo 用户名
+```
+- 重启计算机：
+```
+reboot
+```
+
 
