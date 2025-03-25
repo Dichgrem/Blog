@@ -142,29 +142,21 @@
 安装完成后 reboot。</p>
 <p>4.浏览器打开 PVE 地址，进入系统后我们需要给PVE换源。</p>
 <h2 id="huan-yuan">换源</h2>
-<p>首先，移除(备份)一下 PVE 原始的官方源 (将 sources.list 改名为 sources.list.bak)</p>
-<p><code>mv /etc/apt/sources.list /etc/apt/sources.list.bak</code></p>
-<p>添加国内 Debian 软件源：</p>
-<p><code>nano /etc/apt/sources.list</code></p>
-<p>改为</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>deb https://mirrors.ustc.edu.cn/debian/ bookworm main contrib
-</span><span>
-</span><span>deb-src https://mirrors.ustc.edu.cn/debian/ bookworm main contribe
-</span><span>
-</span><span>deb https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib
-</span><span>
-</span><span>deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib
+<p><strong>禁用 Ceph 企业仓库:</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nano /etc/apt/sources.list.d/ceph.list
 </span></code></pre>
-<p><code>#编辑文件 pve-no-subscription.list</code></p>
-<p><code>nano /etc/apt/sources.list.d/pve-no-subscription.list</code></p>
-<p>内容如下：</p>
-<p><code>deb https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian bookworm pve-no-subscription</code></p>
-<p>屏蔽 PVE 企业源：</p>
-<p><code>nano /etc/apt/sources.list.d/pve-enterprise.list</code></p>
-<p>将下面这一行注释掉 (前面加上井号)：</p>
-<p><code>#deb https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian bookworm pve-no-subscription</code></p>
-<p>更新测试：</p>
-<p><code>apt-get update</code></p>
+<p>将文件内容注释掉或删除。</p>
+<p><strong>编辑仓库源文件：</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nano /etc/apt/sources.list.d/pve-enterprise.list
+</span></code></pre>
+<p>将文件内容注释掉或删除;</p>
+<p><strong>启用社区仓库:</strong></p>
+<p>确保社区仓库已启用。编辑社区仓库文件：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nano /etc/apt/sources.list.d/pve-no-subscription.list
+</span></code></pre>
+<p>确保文件内容如下：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+</span></code></pre>
 <h2 id="er-xin-jian-xu-ni-ji-bing-an-zhuang-debian">二.新建虚拟机并安装Debian</h2>
 <p>1.找到 local-btrfs(pve),在其中的 ISO 中上传下载好的 Debian 镜像；</p>
 <p>2.随后创建虚拟机，选择 Debian 镜像并设置 CPU 核数与硬盘、内存大小；</p>

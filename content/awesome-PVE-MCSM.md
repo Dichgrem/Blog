@@ -51,45 +51,29 @@ MCSManager 面板（简称：MCSM 面板）是一款全中文，轻量级，开�
 
 ## 换源
 
-首先，移除(备份)一下 PVE 原始的官方源 (将 sources.list 改名为 sources.list.bak)
+**禁用 Ceph 企业仓库:**
+```
+nano /etc/apt/sources.list.d/ceph.list
+```
+将文件内容注释掉或删除。
 
-``mv /etc/apt/sources.list /etc/apt/sources.list.bak``
-
-添加国内 Debian 软件源：
-
-``nano /etc/apt/sources.list``
-
-改为
+**编辑仓库源文件：**
 
 ```
-deb https://mirrors.ustc.edu.cn/debian/ bookworm main contrib
-
-deb-src https://mirrors.ustc.edu.cn/debian/ bookworm main contribe
-
-deb https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib
-
-deb-src https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib
+nano /etc/apt/sources.list.d/pve-enterprise.list
 ```
-``#编辑文件 pve-no-subscription.list``
+将文件内容注释掉或删除;
 
-``nano /etc/apt/sources.list.d/pve-no-subscription.list``
+**启用社区仓库:**
 
-内容如下：
-
-``deb https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian bookworm pve-no-subscription``
-
-屏蔽 PVE 企业源：
-
-``nano /etc/apt/sources.list.d/pve-enterprise.list``
-
-将下面这一行注释掉 (前面加上井号)：
-
-``#deb https://mirrors.tuna.tsinghua.edu.cn/proxmox/debian bookworm pve-no-subscription``
-
-更新测试：
-
-``apt-get update``
-
+确保社区仓库已启用。编辑社区仓库文件：
+```
+nano /etc/apt/sources.list.d/pve-no-subscription.list
+```
+确保文件内容如下：
+```
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+```
 ## 二.新建虚拟机并安装Debian
 
 1.找到 local-btrfs(pve),在其中的 ISO 中上传下载好的 Debian 镜像；
