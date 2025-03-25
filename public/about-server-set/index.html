@@ -463,6 +463,34 @@
 <ul>
 <li>随后即可在ZeroSSL中验证证书并开启SSL。</li>
 </ul>
+<h2 id="wang-ji-mi-ma-zen-me-ban">忘记密码怎么办</h2>
+<p>通过恢复模式 (Recovery Mode) 修改用户权限：</p>
+<ul>
+<li>
+<p>重启计算机，按住 Shift 键进入 GRUB 菜单（或者按 Esc 键）。</p>
+</li>
+<li>
+<p>在 GRUB 菜单中，选择<code>Advanced options for Ubuntu</code>然后选择带有<code>recovery mode</code>的内核版本。</p>
+</li>
+<li>
+<p>进入恢复模式后，选择<code>root – Drop to root shell prompt</code>进入 root shell（不需要密码）。</p>
+</li>
+<li>
+<p>挂载文件系统为可写模式：</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>mount -o remount,rw /
+</span></code></pre>
+<ul>
+<li>将用户添加到 sudo 组：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>usermod -aG sudo 用户名
+</span></code></pre>
+<ul>
+<li>重启计算机：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>reboot
+</span></code></pre>
 
         </div>
 
