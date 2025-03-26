@@ -195,6 +195,29 @@ GRUB_DISABLE_OS_PROBER=false
 
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
+## Arch中安装QEMU虚拟机
+
+使用Qemu在arch上面搭建Ubuntu-server虚拟机，需要在Virt-Manager中开启3D加速：
+- NIC：
+```
+<graphics type="spice">
+  <listen type="none"/>
+  <image compression="off"/>
+  <gl enable="yes" rendernode="/dev/dri/by-path/pci-0000:05:00.0-render"/>
+</graphics>
+
+```
+- video virtio：
+```
+<video>
+  <model type="virtio" heads="1" primary="yes">
+    <acceleration accel3d="yes"/>
+  </model>
+  <alias name="video0"/>
+  <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0"/>
+</video>
+```
+随后使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。
 
 ## **后记**
 

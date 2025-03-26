@@ -241,6 +241,30 @@ pacman -S amd-ucode # AMD</strong>
 </span><span>
 </span><span>sudo grub-mkconfig -o /boot/grub/grub.cfg
 </span></code></pre>
+<h2 id="archzhong-an-zhuang-qemuxu-ni-ji">Arch中安装QEMU虚拟机</h2>
+<p>使用Qemu在arch上面搭建Ubuntu-server虚拟机，需要在Virt-Manager中开启3D加速：</p>
+<ul>
+<li>NIC：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;graphics type=&quot;spice&quot;&gt;
+</span><span>  &lt;listen type=&quot;none&quot;/&gt;
+</span><span>  &lt;image compression=&quot;off&quot;/&gt;
+</span><span>  &lt;gl enable=&quot;yes&quot; rendernode=&quot;/dev/dri/by-path/pci-0000:05:00.0-render&quot;/&gt;
+</span><span>&lt;/graphics&gt;
+</span><span>
+</span></code></pre>
+<ul>
+<li>video virtio：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;video&gt;
+</span><span>  &lt;model type=&quot;virtio&quot; heads=&quot;1&quot; primary=&quot;yes&quot;&gt;
+</span><span>    &lt;acceleration accel3d=&quot;yes&quot;/&gt;
+</span><span>  &lt;/model&gt;
+</span><span>  &lt;alias name=&quot;video0&quot;/&gt;
+</span><span>  &lt;address type=&quot;pci&quot; domain=&quot;0x0000&quot; bus=&quot;0x00&quot; slot=&quot;0x01&quot; function=&quot;0x0&quot;/&gt;
+</span><span>&lt;/video&gt;
+</span></code></pre>
+<p>随后使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。</p>
 <h2 id="hou-ji"><strong>后记</strong></h2>
 <p>设备的多样导致安装中可能会出现一些奇怪的问题，需要自行搜索学习，以不断提高技术水平。</p>
 
