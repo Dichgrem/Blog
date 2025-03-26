@@ -100,8 +100,14 @@ tags = ["综合工程"]
 uci commit luci
 /etc/init.d/uhttpd restart``
 然后重新访问 Web 界面，查看是否恢复正常。
-
-
+- 一般要安装的包：
+```
+openssh-sftp-server
+libpcap
+luci-app-upnp
+luci-app-ttyd
+kmod-nft-xxx
+```
 ## **X86平台本地编译完整openwrt**
 
 - **系统版本：Debian 11 或者 Ubuntu LTS**
@@ -538,6 +544,15 @@ nft add rule ip mangle POSTROUTING ip ttl set 64
 检查规则是否生效
 nft list table ip mangle
 ```
+## Openwrt改AP模式
+
+有时候我们使用X86做主路由，想让无线路由器只起到发射信号的作用，就可以将其改为AP模式，一般步骤为：
+
+- 更改lan地址，将lan口地址改到主路由下的一个IP;
+- 关闭DHCP服务；
+- 关闭WAN口；
+- 关闭防火墙的禁止转发规则，全部允许；
+- 将X86主路由的网线插到AP的任意一个LAN口。
 
 ## 🔗
 

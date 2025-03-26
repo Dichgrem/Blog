@@ -194,7 +194,14 @@
 <li>刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）：
 <code>uci set luci.main.mediaurlbase='/luci-static/bootstrap' uci commit luci /etc/init.d/uhttpd restart</code>
 然后重新访问 Web 界面，查看是否恢复正常。</li>
+<li>一般要安装的包：</li>
 </ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>openssh-sftp-server
+</span><span>libpcap
+</span><span>luci-app-upnp
+</span><span>luci-app-ttyd
+</span><span>kmod-nft-xxx
+</span></code></pre>
 <h2 id="x86ping-tai-ben-di-bian-yi-wan-zheng-openwrt"><strong>X86平台本地编译完整openwrt</strong></h2>
 <ul>
 <li>
@@ -619,6 +626,15 @@ Secrets and variables-Actions-New repository secret
 </span><span>检查规则是否生效
 </span><span>nft list table ip mangle
 </span></code></pre>
+<h2 id="openwrtgai-apmo-shi">Openwrt改AP模式</h2>
+<p>有时候我们使用X86做主路由，想让无线路由器只起到发射信号的作用，就可以将其改为AP模式，一般步骤为：</p>
+<ul>
+<li>更改lan地址，将lan口地址改到主路由下的一个IP;</li>
+<li>关闭DHCP服务；</li>
+<li>关闭WAN口；</li>
+<li>关闭防火墙的禁止转发规则，全部允许；</li>
+<li>将X86主路由的网线插到AP的任意一个LAN口。</li>
+</ul>
 <h2 id="link">🔗</h2>
 <ul>
 <li><a href="https://openwrt.org/zh/docs/start">Openwrt wiki</a></li>
