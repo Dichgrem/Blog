@@ -226,13 +226,11 @@
 </span></code></pre>
 <p>修改关键参数：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>listen=YES
-</span><span>listen_ipv6=NO
 </span><span>pasv_enable=YES
 </span><span>pasv_min_port=30000
 </span><span>pasv_max_port=31000
-</span><span>pasv_address=IP地址
+</span><span>pasv_address=服务器的公网IP地址
 </span><span>pasv_addr_resolve=YES
-</span><span>
 </span></code></pre>
 <p>其中若不设置被动模式，端口会随机生成，会无法连接，因此需要使用被动模式，或者打开防火墙/安全组全部端口（不推荐！！！有极大安全风险）
 修改完成后重启vsftpd服务：</p>
@@ -250,6 +248,9 @@
 <p>创建一个文件，内容随意，名称为学号.txt:</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo &quot;This is a test file&quot; &gt; ~/学号.txt
 </span></code></pre>
+<p>使用被动模式连接到服务器：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ftp -p 服务器IP / 或者 quote PASV &amp;&amp; ftp 服务器IP
+</span></code></pre>
 <p>下载刚刚创建的文件：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>get 学号.txt
 </span></code></pre>
@@ -258,7 +259,6 @@
 </span></code></pre>
 <p>随后使用被动模式上传到服务器：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ftp -p 服务器IP / 或者 quote PASV &amp;&amp; ftp 服务器IP
-</span><span>cd /home/用户名/（学号_1.txt所在的目录）
 </span><span>put /home/用户名/学号_1.txt
 </span></code></pre>
 <p>如果无法上传，查看服务器端目录的权限：</p>
