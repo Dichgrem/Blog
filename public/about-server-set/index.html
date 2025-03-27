@@ -232,8 +232,8 @@
 </span><span>pasv_address=服务器的公网IP地址
 </span><span>pasv_addr_resolve=YES
 </span></code></pre>
-<p>其中若不设置被动模式，端口会随机生成，会无法连接，因此需要使用被动模式，或者打开防火墙/安全组全部端口（不推荐！！！有极大安全风险）
-修改完成后重启vsftpd服务：</p>
+<p>其中若不设置被动模式，端口会随机生成，会无法连接，因此需要使用被动模式，或者打开防火墙/安全组全部端口（不推荐！！！有极大安全风险）,<code>随后打开服务器的21端口和30000-31000端口。</code></p>
+<p>修改完成后重启vsftpd服务：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl restart vsftpd
 </span></code></pre>
 <p>按照要求在服务端创建一个新用户：</p>
