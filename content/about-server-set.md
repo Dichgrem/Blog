@@ -201,6 +201,7 @@ nano /etc/vsftpd/vsftpd.conf
 修改关键参数：
 ```
 listen=YES
+write_enable=YES
 pasv_enable=YES
 pasv_min_port=30000
 pasv_max_port=31000
