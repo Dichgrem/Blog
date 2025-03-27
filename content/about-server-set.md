@@ -201,13 +201,11 @@ nano /etc/vsftpd/vsftpd.conf
 修改关键参数：
 ```
 listen=YES
-listen_ipv6=NO
 pasv_enable=YES
 pasv_min_port=30000
 pasv_max_port=31000
-pasv_address=IP地址
+pasv_address=服务器的公网IP地址
 pasv_addr_resolve=YES
-
 ```
 其中若不设置被动模式，端口会随机生成，会无法连接，因此需要使用被动模式，或者打开防火墙/安全组全部端口（不推荐！！！有极大安全风险）
 修改完成后重启vsftpd服务：
@@ -232,6 +230,10 @@ sudo su - stu+xxx（学号）
 ```
 echo "This is a test file" > ~/学号.txt
 ```
+使用被动模式连接到服务器：
+```
+ftp -p 服务器IP / 或者 quote PASV && ftp 服务器IP
+```
 下载刚刚创建的文件：
 ```
 get 学号.txt
@@ -243,7 +245,6 @@ echo "New file for FTP upload" > 学号_1.txt
 随后使用被动模式上传到服务器：
 ```
 ftp -p 服务器IP / 或者 quote PASV && ftp 服务器IP
-cd /home/用户名/（学号_1.txt所在的目录）
 put /home/用户名/学号_1.txt
 ```
 如果无法上传，查看服务器端目录的权限：
