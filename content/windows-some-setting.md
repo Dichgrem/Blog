@@ -1,5 +1,5 @@
 +++
-title = "乱七八糟:Windows常用脚本"
+title = "乱七八糟:Windows常用操作"
 date = 2024-05-24
 
 [taxonomies]
@@ -155,3 +155,50 @@ Windows 会默认每隔一段时间（大约一周）同步时间，但如果你
 # 在 Windows 中以管理员权限运行命令提示符，执行：
 reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /t REG_DWORD /d 1 /f
 ```
+
+## 调整网络优先级
+
+- 查看当前优先级（PowerShell/管理员）
+```
+Get-NetIPInterface
+```
+你会看到类似：
+```
+IfIndex  InterfaceMetric   InterfaceAlias
+-------  --------------   --------------
+15       25              Wi-Fi
+3        15              以太网
+
+# InterfaceMetric 值越小，优先级越高。
+```
+- 修改网络优先级
+
+将有线网络（以太网） 设为更高优先级（值更小）：
+```
+Set-NetIPInterface -InterfaceIndex 3 -InterfaceMetric 10
+```
+- 将 WiFi 设为更低优先级：
+```
+Set-NetIPInterface -InterfaceIndex 15 -InterfaceMetric 25
+```
+- 重启网络
+```
+Restart-NetAdapter -Name "以太网"
+```
+这样，当网线插入时，Windows 会优先使用有线网络；断开网线后，自动切换到 WiFi。
+
+
+- 如需永久设置，可修改注册表：
+
+Win + R 输入 regedit 打开注册表编辑器，进入路径：
+```
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
+```
+在 Interfaces 里找到你的有线网卡和无线网卡（可以根据 IP 或 MAC 地址确认）。
+
+- 创建/修改 Metric 值：
+```
+有线网卡（Ethernet）：设为 10
+无线网卡（WiFi）：设为 25
+```
+重启电脑生效。
