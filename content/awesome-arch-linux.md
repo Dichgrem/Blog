@@ -219,6 +219,22 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 随后使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。
 
+## 更改启动内核顺序
+使用以下命令查看内核名称：
+```
+ls /boot/vmlinuz*
+```
+在 /etc/default/grub 中添加或修改如下行：
+```
+GRUB_TOP_LEVEL="/boot/vmlinuz-linux-cachyos"
+```
+需要注意，这种方法会关闭 GRUB 的“记住上次启动项”的功能。
+
+修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：
+```
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
 ## **后记**
 
 设备的多样导致安装中可能会出现一些奇怪的问题，需要自行搜索学习，以不断提高技术水平。
