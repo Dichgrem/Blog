@@ -85,7 +85,7 @@
         
     <div class="post">
         
-    <h1 class="post-title"><a href="https://blog.dich.bid/windows-some-setting/">乱七八糟:Windows常用脚本</a></h1>
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-some-setting/">乱七八糟:Windows常用操作</a></h1>
     <div class="post-meta-inline">
         
     <span class="post-date">
@@ -226,6 +226,51 @@ pool.ntp.org（一个公共的 NTP 时间服务器池）</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># 在 Windows 中以管理员权限运行命令提示符，执行：
 </span><span>reg add &quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot; /v RealTimeIsUniversal /t REG_DWORD /d 1 /f
 </span></code></pre>
+<h2 id="diao-zheng-wang-luo-you-xian-ji">调整网络优先级</h2>
+<ul>
+<li>查看当前优先级（PowerShell/管理员）</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Get-NetIPInterface
+</span></code></pre>
+<p>你会看到类似：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>IfIndex  InterfaceMetric   InterfaceAlias
+</span><span>-------  --------------   --------------
+</span><span>15       25              Wi-Fi
+</span><span>3        15              以太网
+</span><span>
+</span><span># InterfaceMetric 值越小，优先级越高。
+</span></code></pre>
+<ul>
+<li>修改网络优先级</li>
+</ul>
+<p>将有线网络（以太网） 设为更高优先级（值更小）：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Set-NetIPInterface -InterfaceIndex 3 -InterfaceMetric 10
+</span></code></pre>
+<ul>
+<li>将 WiFi 设为更低优先级：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Set-NetIPInterface -InterfaceIndex 15 -InterfaceMetric 25
+</span></code></pre>
+<ul>
+<li>重启网络</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Restart-NetAdapter -Name &quot;以太网&quot;
+</span></code></pre>
+<p>这样，当网线插入时，Windows 会优先使用有线网络；断开网线后，自动切换到 WiFi。</p>
+<ul>
+<li>如需永久设置，可修改注册表：</li>
+</ul>
+<p>Win + R 输入 regedit 打开注册表编辑器，进入路径：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
+</span></code></pre>
+<p>在 Interfaces 里找到你的有线网卡和无线网卡（可以根据 IP 或 MAC 地址确认）。</p>
+<ul>
+<li>创建/修改 Metric 值：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>有线网卡（Ethernet）：设为 10
+</span><span>无线网卡（WiFi）：设为 25
+</span></code></pre>
+<p>重启电脑生效。</p>
 
         </div>
 
