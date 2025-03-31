@@ -195,6 +195,9 @@
         <loc>https://blog.dich.bid/page/8/</loc>
     </url>
     <url>
+        <loc>https://blog.dich.bid/page/9/</loc>
+    </url>
+    <url>
         <loc>https://blog.dich.bid/search/</loc>
     </url>
     <url>
@@ -324,5 +327,9 @@
     <url>
         <loc>https://blog.dich.bid/windows-some-setting/</loc>
         <lastmod>2024-05-24</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.dich.bid/windows-vscode-gcc/</loc>
+        <lastmod>2024-05-30</lastmod>
     </url>
 </urlset>
