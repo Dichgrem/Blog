@@ -257,6 +257,39 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda install xxx=1.0.0
 </span><span>pip install xxx==1.0.0
 </span></code></pre>
+<h2 id="jupytershi-yong">Jupyter使用</h2>
+<p>安装Anaconda并启动一个环境之后，如何让Jupyter Notebook在我们要的环境中启动呢？</p>
+<ul>
+<li>激活目标环境</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda activate myenv
+</span></code></pre>
+<ul>
+<li>安装 ipykernel（如尚未安装）
+为了让 Jupyter Notebook 能识别该环境中的 Python 解释器，你需要在该环境中安装 ipykernel：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda install ipykernel
+</span><span>
+</span><span># 或者使用 pip
+</span><span>
+</span><span>pip install ipykernel
+</span></code></pre>
+<ul>
+<li>注册环境内核
+将该环境注册为 Jupyter 的一个内核（kernel），这样启动 Jupyter Notebook 后就能选择这个内核：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>python -m ipykernel install --user --name myenv --display-name &quot;Python (myenv)&quot;
+</span><span>
+</span><span># 这里 --name 指定内核的名称，--display-name 是在 Jupyter Notebook 界面中显示的名称，你可以根据需要自定义。
+</span></code></pre>
+<ul>
+<li>启动 Jupyter Notebook：依然在激活后的环境中，启动 Jupyter Notebook：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>jupyter notebook
+</span></code></pre>
+<ul>
+<li>启动后，你在新建 notebook 时可以选择刚刚注册的内核 “Python (myenv)” 来确保使用该环境的 Python 解释器。</li>
+</ul>
 <hr />
 <p><strong>Done.</strong></p>
 
