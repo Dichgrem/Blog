@@ -234,7 +234,17 @@ GRUB_TOP_LEVEL="/boot/vmlinuz-linux-cachyos"
 ```
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
+- Ubuntu中更改：
 
+添加PPA源并更新软件列表：
+```
+sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+sudo apt update
+```
+安装GRUB Customizer：
+```
+sudo apt install grub-customizer
+```
 ## **后记**
 
 设备的多样导致安装中可能会出现一些奇怪的问题，需要自行搜索学习，以不断提高技术水平。
