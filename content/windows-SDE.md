@@ -78,10 +78,17 @@ wsl --import <Distribution Name> <InstallLocation> <FileName>
 
 ## 搭建虚拟机环境
 
-这里以 VMware Workstation Pro v17.6.0 为例，该软件支持安装包括windows/linux/macos等多种虚拟机。
+- VMware
 
 首先下载 [Vmware](https://www.423down.com/14542.html)，随后安装并[激活](https://www.ypojie.com/6066.html)，然后提前下载好所需系统的镜像，这里推荐[整合镜像站](https://help.mirrorz.org/)，并在Vmware中启动。
 
+- Virtulbox
+
+直接到[官网](https://www.virtualbox.org/wiki/Downloads)下载并安装。
+
+- Hyper-V
+
+在 BIOS 中找到类似``Intel VT-x”、“AMD-V”或“Virtualization Technology``的选项，确保它是“Enabled”（启用）。随后按下 Win + S，输入“打开或关闭 Windows 功能”，在弹出的窗口中，找到 Hyper-V并启用，重启后即可出现。
 
 ## 搭建Docker
 
