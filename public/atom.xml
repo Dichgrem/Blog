@@ -807,6 +807,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>Network的艺术:SSL&#x2F;TLS证书</title>
+        <published>2024-02-15T00:00:00+00:00</published>
+        <updated>2024-02-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-ssl/"/>
+        <id>https://blog.dich.bid/network-ssl/</id>
+        
+        <summary type="html">&lt;p&gt;前言 什么是SSL&#x2F;TLS证书？它有什么作用？如何部署？&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>Network的艺术:搜索引擎与爬虫</title>
         <published>2024-02-11T00:00:00+00:00</published>
         <updated>2024-02-11T00:00:00+00:00</updated>
