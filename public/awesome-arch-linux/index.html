@@ -276,6 +276,16 @@ pacman -S amd-ucode # AMD</strong>
 <p>修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo grub-mkconfig -o /boot/grub/grub.cfg
 </span></code></pre>
+<ul>
+<li>Ubuntu中更改：</li>
+</ul>
+<p>添加PPA源并更新软件列表：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+</span><span>sudo apt update
+</span></code></pre>
+<p>安装GRUB Customizer：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt install grub-customizer
+</span></code></pre>
 <h2 id="hou-ji"><strong>后记</strong></h2>
 <p>设备的多样导致安装中可能会出现一些奇怪的问题，需要自行搜索学习，以不断提高技术水平。</p>
 
