@@ -141,8 +141,18 @@
 <p>--vhd：指定导入分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）
 --version &lt;1/2&gt;：指定将分发版导入为 WSL 1 还是 WSL 2 分发版</p>
 <h2 id="da-jian-xu-ni-ji-huan-jing">搭建虚拟机环境</h2>
-<p>这里以 VMware Workstation Pro v17.6.0 为例，该软件支持安装包括windows/linux/macos等多种虚拟机。</p>
+<ul>
+<li>VMware</li>
+</ul>
 <p>首先下载 <a href="https://www.423down.com/14542.html">Vmware</a>，随后安装并<a href="https://www.ypojie.com/6066.html">激活</a>，然后提前下载好所需系统的镜像，这里推荐<a href="https://help.mirrorz.org/">整合镜像站</a>，并在Vmware中启动。</p>
+<ul>
+<li>Virtulbox</li>
+</ul>
+<p>直接到<a href="https://www.virtualbox.org/wiki/Downloads">官网</a>下载并安装。</p>
+<ul>
+<li>Hyper-V</li>
+</ul>
+<p>在 BIOS 中找到类似<code>Intel VT-x”、“AMD-V”或“Virtualization Technology</code>的选项，确保它是“Enabled”（启用）。随后按下 Win + S，输入“打开或关闭 Windows 功能”，在弹出的窗口中，找到 Hyper-V并启用，重启后即可出现。</p>
 <h2 id="da-jian-docker">搭建Docker</h2>
 <p>在 Windows 上部署 Docker 的方法是先安装一个虚拟机，并在安装 Linux 系统的的虚拟机中运行 Docker。</p>
 <p>我们需要先开启 Hyper-V ，方法和搭建WSL一样； 也可以通过命令来启用 Hyper-V ，请右键开始菜单并以管理员身份运行 PowerShell，执行以下命令：</p>
