@@ -242,7 +242,37 @@ pacman -S amd-ucode # AMD</strong>
 </span><span>sudo grub-mkconfig -o /boot/grub/grub.cfg
 </span></code></pre>
 <h2 id="archzhong-an-zhuang-qemuxu-ni-ji">Arch中安装QEMU虚拟机</h2>
-<p>使用Qemu在arch上面搭建Ubuntu-server虚拟机，需要在Virt-Manager中开启3D加速：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>paru -S qemu-full virt-manager
+</span></code></pre>
+<p>如果遇到“Error: No active connection to install on”的错误提示，</p>
+<ul>
+<li>libvirtd 服务未启动：​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl start libvirtd
+</span><span>sudo systemctl enable libvirtd
+</span></code></pre>
+<ul>
+<li>用户权限问题：​当前用户可能没有足够的权限访问 libvirt 的套接字文件。​解决方法：​将当前用户添加到 libvirt 组，以获得必要的权限。​</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo usermod -aG libvirt $(whoami)
+</span></code></pre>
+<p>添加用户到组后，建议注销并重新登录，以使组成员身份生效。</p>
+<ul>
+<li>虚拟网络未激活：​virt-manager 可能无法连接到默认的虚拟网络。​</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo virsh net-start default
+</span></code></pre>
+<p>默认网络在系统启动时自动启动，可以执行：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo virsh net-autostart default
+</span></code></pre>
+<ul>
+<li>配置文件权限问题：​配置文件的权限设置可能导致访问问题。
+​</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
+</span></code></pre>
+<p>这将确保当前用户对 libvirt 套接字文件具有访问权限。</p>
+<h3 id="zai-virt-managerzhong-kai-qi-3djia-su">在Virt-Manager中开启3D加速：</h3>
 <ul>
 <li>NIC：</li>
 </ul>

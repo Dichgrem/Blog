@@ -197,7 +197,42 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 ## Arch中安装QEMU虚拟机
 
-使用Qemu在arch上面搭建Ubuntu-server虚拟机，需要在Virt-Manager中开启3D加速：
+```
+paru -S qemu-full virt-manager
+```
+
+如果遇到“Error: No active connection to install on”的错误提示，
+
+
+- libvirtd 服务未启动：​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​
+```
+sudo systemctl start libvirtd
+sudo systemctl enable libvirtd
+```
+- 用户权限问题：​当前用户可能没有足够的权限访问 libvirt 的套接字文件。​解决方法：​将当前用户添加到 libvirt 组，以获得必要的权限。​
+```
+sudo usermod -aG libvirt $(whoami)
+```
+添加用户到组后，建议注销并重新登录，以使组成员身份生效。
+
+- 虚拟网络未激活：​virt-manager 可能无法连接到默认的虚拟网络。​
+```
+sudo virsh net-start default
+```
+默认网络在系统启动时自动启动，可以执行：
+```
+sudo virsh net-autostart default
+```
+- 配置文件权限问题：​配置文件的权限设置可能导致访问问题。
+​
+```
+sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
+```
+
+这将确保当前用户对 libvirt 套接字文件具有访问权限。
+
+### 在Virt-Manager中开启3D加速：
+
 - NIC：
 ```
 <graphics type="spice">
