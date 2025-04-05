@@ -202,3 +202,6 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
 无线网卡（WiFi）：设为 25
 ```
 重启电脑生效。
+
+---
+**Done.**
