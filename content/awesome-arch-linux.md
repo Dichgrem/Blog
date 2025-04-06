@@ -1,5 +1,5 @@
 +++
-title = "综合工程:Arch从入门到入土"
+title = "综合工程:Arch linux 安装与配置"
 date = 2023-08-16
 
 [taxonomies]
@@ -7,213 +7,142 @@ tags = ["综合工程"]
 +++
 
 
-前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；
-但由于该Wiki的中文版比较陈旧，安装教程不太清楚，故先以虚拟机安装Arch为例实际操作一番。
+前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；这里介绍其安装与使用。
 
 <!-- more -->
 
-***
+## 安装
 
-准备工作：需要
-- 虚拟机环境,这里推荐使用VMware Workstation Pro.
+一般而言有以下几种安装方法：
 
-- ISO镜像
+- 原版 Arch linux 的命令行安装；
+- 原版 Arch linux 的脚本安装；
+- 第三方发行版的图形界面安装。
 
-VM学习版：https://www.ahhhhfs.com/33472/
+前两种方法较为繁琐，这里说明第三种方法：常见的Arch发行版有Garuda，Cachyos以及EndeavourOS等等。
 
-官方镜像： https://geo.mirror.pkgbuild.com/iso/2023.08.01/
+- [Cachyos下载](https://cachyos.org/download/)
+- [Garuda下载](https://garudalinux.org/editions)
+- [EndeavourOS下载](https://endeavouros.com/)
 
-***
+安装方法同ubuntu一样，是基于Calamares的图形化界面安装。一般步骤为``选择语言（American English）--选择键盘/时区（默认/shanghai）--选择分区（xfs抹除全盘，可选全盘加密）--选择桌面环境（Gnome或KDE）--确认安装。``
 
-## **一、新建虚拟机**
-1.打开VM，文件—新建虚拟机—典型—下一步，对于硬盘要求建议至少20G，作为后续分区使用；CPU及内存根据实际需求分配，一般取半数。
-注意：完成后需先在编辑虚拟机设置—选项中设置引导为UEFI，否则会导致奇怪的Boot问题。
+## 安装软件
 
-2.开启此虚拟机，随后进入界面，回车，跑码后进入tty1。
-
-
-## **二、联网并分区**
-1.使用 **dhcpcd** 命令获取IP地址，由于虚拟机使用NAT故联网容易。如果在实体机安装，使用网线或无线连接，命令为：``nmcli dev wifi connect “wifi名称” password “密码”``
-
-2.使用 **ping www.baidu.com** 命令检查是否联网，若出现ttl,time=xx ms等数据说明成功，随后再 **Ctrl+C** 停止命令运行，~~避免百度被DDOS攻击死掉。~~
-
-3.使用 **timedatectl set-ntp true** 命令更新系统时间，该命令无输出，正所谓无事发生就是最好的。
-
-4.使用 **fdisk -l** 命令查看系统分区，由于虚拟机的存在只会显示一块硬盘。
-
-5.接下来是Arch安装中较难的一部分，以20G硬盘空间为例，我们需要划分出512MB的引导分区，15G的根分区以及5G左右的交换分区。由于纯命令行分区比较繁琐，这里使用 **cfdisk** 命令打开分区工具。
-
-
-
-回车选择gpt类型，可以看到如下界面：
-
-
-使用左右方向键移动至**New**,新建一个分区，大小为**512MB**,回车确认，并移动至**type**将其类型改为**EFI system**，随后如法炮制，建立根分区（类型为linux filesystem）和交换分区（linux swap）。
-注意：上诉操作完成后需在**Write**中选择**yes**,否则无法保存分区，随后**quit**回到命令行。
-
-
-6.分区结束后分别对其进行格式化，命令为
-```
-mkfs.fat -F32 /dev/sda1
-mkfs.ext4 /dev/sda2
-mkswap -f /dev/sda3
-```
-注意不同分区类型与格式所用命令不同。
-7.格式完成后进行挂载，使用如下命令：
-```
-swapon /dev/sda3
-mount /dev/sda2 /mnt
-mkdir /dev/sda2 /mnt/home
-ls /mnt
-mkdir /mnt/boot
-mkdir /mnt/boot/EFI
-mount /dev/sda1 /mnt/boot/EFI
-ls /mnt
-```
-完成后即可开始组件下载。
-
-* * *
-
-## **三、安装基本组件**
-1.使用大名鼎鼎的**vim**编辑器，将下载镜像源改为国内，提高下载速度**vim /etc/pacman.d/mirrorlist**
-
-
-推荐使用清华源，在首行中改为如下命令：
+随后安装常用开源软件：
 
 ```
-Server = http://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
+paru -S virt-manager qemu-full floorp-bin readest vscodium materialgram-bin keepassxc libreoffice-still kazumi electerm vlc  neovim  zola krita qtscrcpy  ttf-jetbrains-mono-nerd Ruby fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just android-tools wireshark-qt  obs-studio localsend-bin legcord-bin syncthing tree zellij nushell starship alacritty element-desktop gui-for-singbox
 ```
-随后**ESC**，**: wq** 保存退出。
+安装完毕后我们开始配置输入法与字体：
 
-2.安装基本包，使用命令
-```
-pacstrap /mnt base base-devel linux linux-firmware dhcpcd
-```
-一路回车下载。
+输入法我们采用雾凇拼音，即前面我们安装的fcitx5系列软件包的一个输入方案，这里我们使用[自动部署脚本](https://github.com/Mark24Code/rime-auto-deploy)：
 
-3.生成**fstab**文件 ，使用命令
 ```
-genfstab -U /mnt > /mnt/etc/fstab
+# step1: 克隆/下载 latest 最新的稳定版到本地
+git clone --depth=1 https://github.com/Mark24Code/rime-auto-deploy.git --branch latest
+# step2: 进入项目目录
+cd rime-auto-deploy
+# step3: 执行部署脚本
+./installer.rb
 ```
-自动挂载分区，并用**cat /mnt/etc/fstab**观察分区情况。
-4.使用**arch-chroot /mnt**命令切换至系统环境下，此时可以设置时区，语言和主机名（hostname）。
-设置上海为系统时区：
-```
-ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-```
-设置主机名： **vim /etc/hostname**，写入任意你想要的名字。随后在**vim /etc/hosts**中输入如下内容，将**name**改为主机名。
-```
-127.0.0.1 localhost
-::1 localhost
-127.0.1.1 name.localdomain name
-```
-设置语言：使用**vim /etc/locale.gen**命令去掉 **en_US.UTF-8 UTF-8** 以及 **zh_CN.UTF-8 UTF-8** 行前的注释符号，并用**locale-gen**生成新locale，用**echo 'LANG=en_US.UTF-8' > /etc/locale.conf**命令确认输出。
+选择部署fcitx5即可，随后在设置的Input Method中Add Input Method ，选择Rime，随后默认按Ctrl+Space即可切换中文。
+
+字体的配置在[Linux之旅(七):系统与终端字体设置](https://blog.dich.bid/learn-linux-for-pc-7/)这一期说过，这里不再赘述。缺少的字体可以通过paru下载或者到[喵闪字库](https://www.miao3.cn/)下载ttf并安装。
 
 
-4.设置root密码：使用**passwd**命令，设置并重复密码。
-5.安装微码：根据硬件选择命令：
-**pacman -S intel-ucode # Intel
-pacman -S amd-ucode # AMD**
-6.安装引导程序：
+
+## 图形美化
+
+安装完毕后可以看到KDE的界面较为简陋，这里给出笔者的美化配置：
+
+- 在设置中找到Colors&Themes，分别设置为：
 ```
-pacman -S grub efibootmgr os-prober
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=ARCH
+- Color：Breeze Dark
+- Application Style：Breeze
+- Plasma Style：Sweet
+- Window Decorations：Edna
+- Icons：BeautySolar
+- Cursors：Afterglow Cursors
+- Splash Screen：None
 ```
-生成配置文件：
-```
-grub-mkconfig -o /boot/grub/grub.cfg
-```
-7.退出并重启虚拟机：
-```
-exit # 退回安装环境
-umount -R /mnt # 卸载新分区
-reboot # 重启
-```
-若成功进入登录界面即为成功，可使用**neofetch**命令打印系统信息。
+- 随后设置壁纸，这里给出了笔者收藏的[壁纸](https://github.com/Dichgrem/wallpaper.git)。
+
+- 设置完成后将Dock栏的Status全部隐藏，删除间隔与空隙，删除时间，更改Memu图标，随后固定常用软件到其上。
+
+- 随后在Dock栏下新建一个空白栏，结构为数字时钟加两个空白，字体为JetBrains Mono，24小时ISO格式。最终效果如下：
+
+![Desktop](../pictures/desktop.png)
 
 
-***
-## **四、安装图形界面**
-为便于在虚拟机中操作，我们可以安装KDE-plasma，Xfce等桌面环境。
-1.使用**dhcpcd**获得地址。
+## 迁移数据
 
-2.新建普通用户**useradd -m -G wheel username** （替换username为你的用户名）并设置密码**passwd username** 。
+将需要的数据迁移到Home目录下，对笔者来说是用来同步的Data文件夹以及Git工作文件夹。随后Add to Places将其固定到侧边栏，开启隐藏文件可见，将View mode改为Detail。最终效果如下：
 
-3.配置Sudo,使用**pacman -S sudo**安装并在**ln -s /usr/bin/vim /usr/bin/vi/visudo** 中删除 **%wheel ALL=(ALL)ALL** 前的注释符。
-
-4.reboot后开始安装驱动。由于~~NVIDIA fuck you~~ 众所周知的原因，独显驱动比较难以安装，建议先只上核显。
+![file](../pictures/file.png)
 
 
-以此为例，若为AMD核显，命令为
+## 设置软件
+
+- 配置fastfetch显示效果
 ```
-sudo pacman -S xf86-video-amdgpu
+创建配置目录：mkdir -p ~/.config/fastfetch
+创建配置文件：touch ~/.config/fastfetch/config.jsonc
+编辑该文件以添加你的自定义选项
 ```
-OpenGL和mesa:
+- 设置GFS：参考[乱七八糟:GFS项目考量笔记 ](https://blog.dich.bid/about-gfs/)。
+
+- 设置Keepassxc/Vscodium/Electerm：导入备份好的配置文件。
+
+- 设置Matrix/Telegram：登录并在另一台设备上验证。
+
+- 设置浏览器：导入书签备份文件（有图标）；定制工具栏，下载扩展插件，包括：
+
 ```
-sudo pacman -S mesa xf86-video-amdgpu vulkan-radeon libva-mesa-driver mesa-vdpau
-sudo pacman -S opencl-mesa lib32-vulkan-radeon lib32-mesa
+Dark Reader（暗黑模式）
+kiss-translator（翻译工具）
+uBlock Origin（广告拦截）
+ClearURLs（去跟踪链接）
+KeePassXC-Browser（链接Keepass）
+BookmarkHub（书签同步）
+BewlyBewly（B站美化）
+V2EX Polish（V站美化）
 ```
 
-5.使用命令
-```
-pacman -S plasma-meta konsole dolphin
-```
-安装KDE组件。
-6.开启sddm守护进程：
-```
-systemctl enable sddm
-systemctl start sddm
-```
-7.reboot后进入桌面环境，安装完成。
+## 双系统添加Windows引导
 
+如果Grub引导菜单中没有windows选项，可以通过以下方法添加：
 
-> 添加Windows引导
+- 安装 os-prober：首先确保系统中安装了 os-prober，这是一个用于检测其他操作系统的工具。
 ```
-安装 os-prober：首先确保系统中安装了 os-prober，这是一个用于检测其他操作系统的工具。
-
 sudo pacman -S os-prober
-
 sudo os-prober
+```
 
-更新 GRUB 配置：更新 GRUB 的配置文件，使其包含检测到的 Windows 引导项。
-
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-如果GRUB 配置中 GRUB_DISABLE_OS_PROBER=true ，会禁止 os-prober 在 grub-mkconfig 运行时检测其他可引导的分区或系统。
-
-打开 /etc/default/grub 文件进行编辑：
-
+- 打开 /etc/default/grub 文件进行编辑：
+```
 sudo nano /etc/default/grub
+# 确保 GRUB_DISABLE_OS_PROBER 设置为 false
+```
 
-确保以下设置处于如下状态，即 GRUB_DISABLE_OS_PROBER 设置为 false：
-
-GRUB_DISABLE_OS_PROBER=false
-
-如果该行不存在，可以手动添加或者修改为上述内容。
-
-保存文件并退出编辑器后，运行以下命令更新 GRUB 配置：
-
+- 保存文件并退出编辑器后，运行以下命令更新 GRUB 配置：
+```
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 ## Arch中安装QEMU虚拟机
 
-```
-paru -S qemu-full virt-manager
-```
+前面我们已经安装了Qemu高性能虚拟机平台和virt-manager用来管理虚拟机的图形界面，随后配置virt-manager并安装Ubuntu-server：
 
-如果遇到“Error: No active connection to install on”的错误提示，
-
-
-- libvirtd 服务未启动：​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​
+如果virt-manager报错无法找到Qemu，则：
+- ​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​
 ```
 sudo systemctl start libvirtd
 sudo systemctl enable libvirtd
 ```
-- 用户权限问题：​当前用户可能没有足够的权限访问 libvirt 的套接字文件。​解决方法：​将当前用户添加到 libvirt 组，以获得必要的权限。​
+- 用户权限问题：​​将当前用户添加到 libvirt 组，以获得必要的权限。​
 ```
 sudo usermod -aG libvirt $(whoami)
 ```
-添加用户到组后，建议注销并重新登录，以使组成员身份生效。
 
 - 虚拟网络未激活：​virt-manager 可能无法连接到默认的虚拟网络。​
 ```
@@ -224,14 +153,13 @@ sudo virsh net-start default
 sudo virsh net-autostart default
 ```
 - 配置文件权限问题：​配置文件的权限设置可能导致访问问题。
-​
+
 ```
 sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
 ```
+随后安装虚拟机，流程大概为``选择镜像和系统类型--设置CPU/内存--设置空间大小--编辑配置项--开启UEFI引导和3D加速``.
 
-这将确保当前用户对 libvirt 套接字文件具有访问权限。
-
-### 在Virt-Manager中开启3D加速：
+**开启3D加速：**
 
 - NIC：
 ```
@@ -252,42 +180,48 @@ sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
   <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0"/>
 </video>
 ```
-随后使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。
+安装完成后即可使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。
 
 ## 更改启动内核顺序
-使用以下命令查看内核名称：
+如果安装了多个linux内核，可以使用以下方法调整启动顺序：
+
+- 使用以下命令查看内核名称：
 ```
 ls /boot/vmlinuz*
 ```
-在 /etc/default/grub 中添加或修改如下行：
+- 在 /etc/default/grub 中添加或修改如下行：
 ```
 GRUB_TOP_LEVEL="/boot/vmlinuz-linux-cachyos"
 ```
 需要注意，这种方法会关闭 GRUB 的“记住上次启动项”的功能。
 
-修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：
+- 修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：
 ```
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
-- Ubuntu中更改：
+**图形界面更改方法：**
 
-添加PPA源并更新软件列表：
+可以使用grub-customizer来修改Grub，这里以ubuntu为例子：
+
+- 添加PPA源并更新软件列表：
 ```
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer
 sudo apt update
 ```
-安装GRUB Customizer：
+- 安装GRUB Customizer：
 ```
 sudo apt install grub-customizer
 ```
+随后在grub-customizer中将要默认启动的选项放在首位即可。
 
 ## 开机自启动
+
+**设置Syncthing开机自启动**
 ```
 sudo systemctl enable --now syncthing@<username>.service
 ```
-## **后记**
-
-设备的多样导致安装中可能会出现一些奇怪的问题，需要自行搜索学习，以不断提高技术水平。
+---
+**Done.**
 
 
 
