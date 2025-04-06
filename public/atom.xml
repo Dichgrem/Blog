@@ -541,6 +541,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>乱七八糟:Windows配置与开发环境</title>
+        <published>2024-05-31T00:00:00+00:00</published>
+        <updated>2024-05-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/windows-all/"/>
+        <id>https://blog.dich.bid/windows-all/</id>
+        
+        <summary type="html">&lt;p&gt;前言 总结我个人使用的windows日常配置与开发环境。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>乱七八糟:Windows-Jupyter开发Python</title>
         <published>2024-05-31T00:00:00+00:00</published>
         <updated>2024-05-31T00:00:00+00:00</updated>
@@ -595,25 +614,6 @@
         <id>https://blog.dich.bid/windows-iso/</id>
         
         <summary type="html">&lt;p&gt;前言 由于厂商默认安装windows家庭版导致各种问题频发,这里作者封装了一个开箱即用的，全自动安装，激活和优化的Windows11镜像。&lt;&#x2F;p&gt;</summary>
-        
-    </entry>
-    <entry xml:lang="en">
-        <title>乱七八糟:Windows开发环境搭建</title>
-        <published>2024-05-28T00:00:00+00:00</published>
-        <updated>2024-05-28T00:00:00+00:00</updated>
-        
-        <author>
-          <name>
-            
-              Unknown
-            
-          </name>
-        </author>
-        
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/windows-sde/"/>
-        <id>https://blog.dich.bid/windows-sde/</id>
-        
-        <summary type="html">&lt;p&gt;前言 刚刚拿到windows的小伙伴可能对开发环境比较陌生，这里对常用的开发环境设置进行总结。&lt;&#x2F;p&gt;</summary>
         
     </entry>
     <entry xml:lang="en">
