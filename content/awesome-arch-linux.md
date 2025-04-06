@@ -72,15 +72,13 @@ cd rime-auto-deploy
 
 - 随后在Dock栏下新建一个空白栏，结构为数字时钟加两个空白，字体为JetBrains Mono，24小时ISO格式。最终效果如下：
 
-![Desktop](../pictures/desktop.png)
-
+![desktop](/images/desktop.png)
 
 ## 迁移数据
 
 将需要的数据迁移到Home目录下，对笔者来说是用来同步的Data文件夹以及Git工作文件夹。随后Add to Places将其固定到侧边栏，开启隐藏文件可见，将View mode改为Detail。最终效果如下：
 
-![file](../pictures/file.png)
-
+![file](/images/file.png)
 
 ## 设置软件
 
