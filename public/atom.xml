@@ -997,7 +997,7 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>综合工程:Arch从入门到入土</title>
+        <title>综合工程:Arch linux 安装与配置</title>
         <published>2023-08-16T00:00:00+00:00</published>
         <updated>2023-08-16T00:00:00+00:00</updated>
         
@@ -1012,8 +1012,7 @@
         <link rel="alternate" type="text/html" href="https://blog.dich.bid/awesome-arch-linux/"/>
         <id>https://blog.dich.bid/awesome-arch-linux/</id>
         
-        <summary type="html">&lt;p&gt;前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；
-但由于该Wiki的中文版比较陈旧，安装教程不太清楚，故先以虚拟机安装Arch为例实际操作一番。&lt;&#x2F;p&gt;</summary>
+        <summary type="html">&lt;p&gt;前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；这里介绍其安装与使用。&lt;&#x2F;p&gt;</summary>
         
     </entry>
     <entry xml:lang="en">
