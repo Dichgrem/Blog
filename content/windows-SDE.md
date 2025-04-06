@@ -14,8 +14,6 @@ tags = ["乱七八糟","Windows"]
 
 ## 搭建WSL环境
 
-适用于 Linux 的 Windows 子系统 (WSL) 可让开发人员直接在 Windows 上按原样运行 GNU/Linux 环境，例如 Ubuntu、OpenSUSE、Kali、Debian、Arch Linux 等，并直接在 Windows 上使用 Linux 应用程序、实用程序和 Bash 命令行工具，不用进行任何修改，也无需承担传统虚拟机或双启动设置的开销。
-
 首先，我们需要在``控制面板->程序->启用或关闭Windows功能``，选中适用于Linux的Windows子系统和虚拟机平台，容器以及hyper-v，待安装完成后重启电脑。
 
 然后，在``管理员模式下打开 PowerShell 或 Windows 命令提示符``，方法是右键单击并选择“以管理员身份运行”，输入以下命令，然后重启计算机。
@@ -25,56 +23,23 @@ wsl --install
 ```
 此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。（可以更改此默认发行版）。
 
-### 一些其他命令
-
+- 常用命令
+```
 **列出可用的 Linux 发行版**
-```
 wsl --list --online
-```
-
 
 **列出已安装的 Linux 发行版**
-```
 wsl --list --verbose
-```
 
 **更新 WSL**
-```
 wsl --update
-```
-
 
 **检查 WSL 状态**
-```
 wsl --status
-```
-
 
 **关闭**
-```
 wsl --shutdown
 ```
-
-立即终止所有正在运行的发行版和 WSL 2 轻量级实用工具虚拟机。 在需要重启 WSL 2 虚拟机环境的情形下，例如更改内存使用限制或更改 .wslconfig 文件，可能必须使用此命令。
-
-
-**导出分发版**
-```
-wsl --export <Distribution Name> <FileName>
-```
-将指定分发版的快照导出为新的分发文件。 默认为 tar 格式。 在标准输入中，文件名可以是 -。 选项包括：
-
---vhd：指定导出分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）
-
-**导入分发版**
-
-```
-wsl --import <Distribution Name> <InstallLocation> <FileName>
-```
-导入指定的 tar 文件作为新的分发版。 在标准输入中，文件名可以是 -。 选项包括：
-
---vhd：指定导入分发版应为 .vhdx 文件而不是 tar 文件（这仅在使用 WSL 2 的情况下受支持）
---version <1/2>：指定将分发版导入为 WSL 1 还是 WSL 2 分发版
 
 ## 搭建虚拟机环境
 
