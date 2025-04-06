@@ -280,6 +280,11 @@ sudo apt update
 ```
 sudo apt install grub-customizer
 ```
+
+## 开机自启动
+```
+sudo systemctl enable --now syncthing@<username>.service
+```
 ## **后记**
 
 设备的多样导致安装中可能会出现一些奇怪的问题，需要自行搜索学习，以不断提高技术水平。
