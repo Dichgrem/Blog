@@ -180,6 +180,7 @@ jupyter notebook
 ```
 - 启动后，你在新建 notebook 时可以选择刚刚注册的内核 “Python (myenv)” 来确保使用该环境的 Python 解释器。
 
+> 当然，你也可以使用其他编辑器/IDE如 Sublime Text 或者 JetBrains 系列的 PyCharm 。
 --- 
 **Done.**
 
