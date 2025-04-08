@@ -119,46 +119,45 @@
 <ul>
 <li><strong>1.弱电箱光猫+箱内AC+各个房间网线直连AP</strong></li>
 </ul>
-<blockquote>
-<p><strong>企业级</strong>方案，美观漫游信号好，成本稍高，比较省心；</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>企业级方案，美观漫游信号好，成本稍高，比较省心；
+</span></code></pre>
 <ul>
 <li><strong>2.弱电箱光猫+软路由AC+各个硬路由刷AP</strong></li>
 </ul>
-<blockquote>
-<p>同上，自定义程度高，适用与有一定技术基础的用户，性价比高；一般可以使用<strong>集客AC/AP</strong>系统。</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>同上，自定义程度高，适用与有一定技术基础的用户，性价比高；
+</span><span>一般可以使用集客AC/AP系统。
+</span></code></pre>
 <ul>
 <li><strong>3.弱电箱光猫（光电转换）+软路由（PPPoE+DHCP）+AC</strong></li>
 </ul>
-<blockquote>
-<p>即为<strong>光猫改桥接</strong>，软路由PPPoe拨号；这样增加了一层设备，需要谨慎考虑。</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>即为光猫改桥接，软路由PPPoe拨号；这样增加了一层设备，需要谨慎考虑。
+</span></code></pre>
 <ul>
 <li><strong>4.SFP猫棒（光模块）+2.5G网管型交换机/AC+AP</strong></li>
 </ul>
-<blockquote>
-<p>光猫一般<strong>有Wifi+PPPoE+IPTV+光纤固话</strong>功能，如果不想用光猫可以替代为此方案，IPTV设置Vlan解决，固定电话设置为转发到个人手机号或取消；</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>光猫一般有Wifi+PPPoE+IPTV+光纤固话功能，如果不想用光猫可以替代为此方案;
+</span><span>IPTV设置Vlan解决，固定电话设置为转发到个人手机号或取消.
+</span></code></pre>
 <h2 id="mesh">Mesh</h2>
 <ul>
 <li><strong>5.弱电箱光猫+网线直连硬路由+无线Mesh连接到另一台同型号路由器</strong></li>
 </ul>
-<blockquote>
-<p>适用与家里预埋的网口不多的情况，无线Mesh需要<strong>AX3000及以上</strong>同型号路由器，也可以将硬路由刷机用Easymesh实现。</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>适用与家里预埋的网口不多的情况，无线Mesh需要AX3000及以上同型号路由器;
+</span><span>也可以将硬路由刷机用Easymesh实现。
+</span></code></pre>
 <ul>
 <li><strong>6.弱电箱光猫+网线直连硬路由+有线连接到另一台同型号路由器</strong></li>
 </ul>
-<blockquote>
-<p>适用与有足够的预埋网口，比无线Mesh稳定。如果两台路由器之间不能直接连接，则需要有线回程，即为<strong>弱电箱光猫+有线连接到路由器+连回弱电箱交换机+有线连接到另一台路由器</strong>.</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>适用与有足够的预埋网口，比无线Mesh稳定。
+</span><span>如果两台路由器之间不能直接连接，则需要有线回程，
+</span><span>即为弱电箱光猫+有线连接到路由器+连回弱电箱交换机+有线连接到另一台路由器.
+</span></code></pre>
 <ul>
 <li><strong>7.弱电箱光猫+电力猫+220V电线+电力猫</strong></li>
 </ul>
-<blockquote>
-<p>比较小众的组网方案，使用电线传输数据，速度不高，容易受到大功率电器的干扰，适用与没有预留网口/布线不方便的环境；</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>比较小众的组网方案，使用电线传输数据，速度不高，容易受到大功率电器的干扰，
+</span><span>适用与没有预留网口/布线不方便的环境；
+</span></code></pre>
 <h2 id="hun-he-fang-an">混合方案</h2>
 <ul>
 <li>8.弱电箱光猫+软路由（主路由）+两台路由器（AP模式）互相Mesh</li>
@@ -180,18 +179,15 @@
 <ul>
 <li><strong>8.FTTR：OLT+FTTR光猫（AC）+分光器和单模/多模光纤+多个从光路由（AP）</strong></li>
 </ul>
-<blockquote>
-<p>光AC+AP，性能强大，但比较昂贵，自定义程度小；</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>光AC+AP，性能强大，但比较昂贵，自定义程度小；
+</span></code></pre>
 <ul>
 <li><strong>9.FTTR：OLT+FTTR光猫（主）+分光器和单模/多模光纤+从光路由（副）</strong></li>
 </ul>
-<blockquote>
-<p>主副光猫Mesh，性质同上；</p>
-</blockquote>
-<blockquote>
-<p>光纤需要考虑光衰，且没有网线耐用，打头工具也比网线贵的多；而且需要注意合约内容；当然，也可以在装修阶段就部署<strong>光电复合缆</strong>，会有更多的选择空间。</p>
-</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>主副光猫Mesh，性质同上；
+</span><span>光纤需要考虑光衰，且没有网线耐用，打头工具也比网线贵的多,而且需要注意合约内容；
+</span><span>当然，也可以在装修阶段就部署光电复合缆，会有更多的选择空间。
+</span></code></pre>
 <h2 id="san-lu-you-qi-gong-zuo-yuan-li">三.路由器工作原理</h2>
 <p>路由器是计算机网络中的重要设备，主要用于连接不同的网络，并在这些网络之间转发数据。其工作原理涉及以下几个主要方面：</p>
 <ul>
