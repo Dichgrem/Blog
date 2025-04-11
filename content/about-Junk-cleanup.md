@@ -54,9 +54,9 @@ tags = ["乱七八糟"]
 
 ### Windows 平台：
 
-1. **CCleaner：** CCleaner 是一款功能强大的系统优化工具，可以清理垃圾文件、注册表项等，并提供了其他的系统优化功能。
+1. **[WizTree](https://diskanalyzer.com/)：** WizTree是一款功能强大清理垃圾文件/在Windows上找到大文件以释放磁盘空间的首选程序...超级易于使用，快速闪电.
 2. **Disk Cleanup（磁盘清理）：** Windows 自带的磁盘清理工具，可以帮助您清理不必要的系统文件，包括临时文件、回收站等。
-3. **BleachBit：** BleachBit 是一款开源的系统清理工具，可以帮助您清理系统中的临时文件、缓存、浏览器历史等。
+3. **[BleachBit](https://github.com/bleachbit/bleachbit)：** BleachBit 是一款开源的系统清理工具，可以帮助您清理系统中的临时文件、缓存、浏览器历史等。
 
 ### macOS 平台：
 
