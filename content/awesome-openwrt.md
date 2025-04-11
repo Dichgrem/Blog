@@ -117,8 +117,6 @@ kmod-nft-xxx
 - **编译依赖**
 
 ```
-安装依赖
-
 sudo apt update -y
 
 sudo apt full-upgrade -y
@@ -130,7 +128,6 @@ libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev 
 libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
 swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-
 ```
 
 - **清理**
@@ -243,55 +240,59 @@ sed -i "s/luci-theme-bootstrap/luci-theme-argon/g" feeds/luci/collections/luci/M
 
 ### **编译配置菜单说明（部分）**
 
-    Target System (Broadcom BCM27xx) #选择处理器架构
-    Subtarget (BCM2711 boards (64 bit)) #选择处理器
-    Target Profile (Raspberry Pi 4B/400/4CM (64bit)) #预制配置文件
-    Target Images #固件映像设置
-    ramdisk # 内存盘, 硬件内存充裕的话可以打开，有效提升性能
-        Compression # 压缩等级(none表示不压缩)
-        Root filesystem archives #根文件系统存档类型
-            cpio.gz
-            tar.gz
-        Root filesystem images #根文件系统格式
-            ext4 #适用于大容量闪存,易于修改分区大小,没有恢复出厂设置的功能
-            squashfs #适用于小容量闪存，不可修改分区大小，有恢复出厂设置的功能
-            Gzip images #Gzip存档
-        Image Options
-            Kernel partition size #内核分区大小，建议64M到256M，足够了
-            Root filesystem partition size #跟文件系统分区大小，根据闪存大小自行设定
-            Make /var persistent #持久化/var(开启后重启软路由/var下内容会保留)
-    Enable experimental features by default #默认启用实验性功能
-    Global build settings #全局编译设置
-    Advanced configuration options (for developers) #高级选项(仅供开发者)
-    Build the OpenWrt Image Builder #编译OpenWrt镜像编译器
-    Build the OpenWrt SDK #编译OpenWrt SDK
-    Package the OpenWrt-based Toolchain #打包OpenWrt工具链
-    Image configuration #镜像选项
-    Base system #基本组件
-    Administration #管理员工具
-    Boot Loaders #引导程序
-    Development #开发者工具
-    Extra packages #额外包
-    Firmware #固件工具
-    Fonts #字体
-    Kernel modules #内核模块
-    Languages #额外的语言(Python3,PHP,NodeJS等)
-    Libraries #系统库
-    LuCI #LuCI插件(一般只需修改应用和主题)
-        Collections #合集
-        Modules #模块
-        Applications #应用程序
-        Themes #主题
-        Protocols #协议支持
-        Libraries #运行库
-        default-settings # 默认选项(自动配置语言包)
-    Mail #邮件
-    Multimedia #多媒体
-    Network #网络相关
-    Sound #音频
-    Utilities #各类实用软件(比如VIM)
-    Xorg
+```
+Target System (Broadcom BCM27xx)     # 选择处理器架构
+└── Subtarget (BCM2711 boards (64 bit))     # 选择处理器
+    └── Target Profile (Raspberry Pi 4B/400/4CM (64bit))     # 预制配置文件
+        └── Target Images     # 固件映像设置
+            └── ramdisk     # 内存盘
+                ├── Compression     # 压缩等级 (none 表示不压缩)
+                ├── Root filesystem archives     # 根文件系统存档类型
+                │   ├── cpio.gz
+                │   └── tar.gz
+                ├── Root filesystem images     # 根文件系统格式
+                │   ├── ext4     # 适用于大容量闪存
+                │   ├── squashfs     # 适用于小容量闪存
+                │   └── Gzip images     # Gzip 存档
+                └── Image Options
+                    ├── Kernel partition size     # 内核分区大小
+                    ├── Root filesystem partition size     # 跟文件系统分区大小
+                    └── Make /var persistent     # 持久化 /var
 
+Enable experimental features by default     # 默认启用实验性功能
+Global build settings     # 全局编译设置
+Advanced configuration options (for developers)     # 高级选项（仅供开发者）
+Build the OpenWrt Image Builder     # 编译 OpenWrt 镜像编译器
+Build the OpenWrt SDK     # 编译 OpenWrt SDK
+Package the OpenWrt-based Toolchain     # 打包 OpenWrt 工具链
+Image configuration     # 镜像选项
+
+Base system     # 基本组件
+Administration     # 管理员工具
+Boot Loaders     # 引导程序
+Development     # 开发者工具
+Extra packages     # 额外包
+Firmware     # 固件工具
+Fonts     # 字体
+Kernel modules     # 内核模块
+Languages     # 额外的语言 (Python3, PHP, NodeJS 等)
+Libraries     # 系统库
+LuCI     # LuCI 插件（一般只需修改应用和主题）
+└── Collections
+└── Modules
+└── Applications
+└── Themes
+└── Protocols
+└── Libraries
+└── default-settings     # 默认选项（自动配置语言包）
+
+Mail     # 邮件
+Multimedia     # 多媒体
+Network     # 网络相关
+Sound     # 音频
+Utilities     # 各类实用软件（比如 VIM）
+Xorg
+```
 
 ### **菜单选项说明**
 
@@ -480,11 +481,11 @@ Github为我们提供了免费的E5主机用来编译。
 **复制 Token**（只显示一次，一定要保存好！）
 
 - 然后添加 **PRODUCE_DEVICE** 到 **GitHub Secrets**，
-首先进入你的 GitHub 仓库，依次进入：Settings（设置）-
+首先进入你的 GitHub 仓库，``依次进入：Settings（设置）-
 Secrets and variables-Actions-New repository secret
-名称为PRODUCE_DEVICE，值为粘贴刚刚复制的 GitHub Token，点击 “Add secret” 完成添加。
+名称为PRODUCE_DEVICE``，值为粘贴刚刚复制的 GitHub Token，点击 “Add secret” 完成添加。
 
-- 随后在actions里面运行produce，完成后即可出现新架构的编译按钮.
+- 随后``在actions里面运行produce``，完成后即可出现新架构的编译按钮.
 
 
 

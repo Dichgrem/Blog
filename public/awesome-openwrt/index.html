@@ -214,9 +214,7 @@
 <p><strong>编译依赖</strong></p>
 </li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>安装依赖
-</span><span>
-</span><span>sudo apt update -y
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update -y
 </span><span>
 </span><span>sudo apt full-upgrade -y
 </span><span>
@@ -227,7 +225,6 @@
 </span><span>libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
 </span><span>python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
 </span><span>swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-</span><span>
 </span></code></pre>
 <ul>
 <li><strong>清理</strong></li>
@@ -349,53 +346,56 @@
 </span></code></pre>
 <p>执行 <strong>make menuconfig</strong> 命令进入编译菜单。</p>
 <h3 id="bian-yi-pei-zhi-cai-dan-shuo-ming-bu-fen"><strong>编译配置菜单说明（部分）</strong></h3>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target System (Broadcom BCM27xx) #选择处理器架构
-</span><span>Subtarget (BCM2711 boards (64 bit)) #选择处理器
-</span><span>Target Profile (Raspberry Pi 4B/400/4CM (64bit)) #预制配置文件
-</span><span>Target Images #固件映像设置
-</span><span>ramdisk # 内存盘, 硬件内存充裕的话可以打开，有效提升性能
-</span><span>    Compression # 压缩等级(none表示不压缩)
-</span><span>    Root filesystem archives #根文件系统存档类型
-</span><span>        cpio.gz
-</span><span>        tar.gz
-</span><span>    Root filesystem images #根文件系统格式
-</span><span>        ext4 #适用于大容量闪存,易于修改分区大小,没有恢复出厂设置的功能
-</span><span>        squashfs #适用于小容量闪存，不可修改分区大小，有恢复出厂设置的功能
-</span><span>        Gzip images #Gzip存档
-</span><span>    Image Options
-</span><span>        Kernel partition size #内核分区大小，建议64M到256M，足够了
-</span><span>        Root filesystem partition size #跟文件系统分区大小，根据闪存大小自行设定
-</span><span>        Make /var persistent #持久化/var(开启后重启软路由/var下内容会保留)
-</span><span>Enable experimental features by default #默认启用实验性功能
-</span><span>Global build settings #全局编译设置
-</span><span>Advanced configuration options (for developers) #高级选项(仅供开发者)
-</span><span>Build the OpenWrt Image Builder #编译OpenWrt镜像编译器
-</span><span>Build the OpenWrt SDK #编译OpenWrt SDK
-</span><span>Package the OpenWrt-based Toolchain #打包OpenWrt工具链
-</span><span>Image configuration #镜像选项
-</span><span>Base system #基本组件
-</span><span>Administration #管理员工具
-</span><span>Boot Loaders #引导程序
-</span><span>Development #开发者工具
-</span><span>Extra packages #额外包
-</span><span>Firmware #固件工具
-</span><span>Fonts #字体
-</span><span>Kernel modules #内核模块
-</span><span>Languages #额外的语言(Python3,PHP,NodeJS等)
-</span><span>Libraries #系统库
-</span><span>LuCI #LuCI插件(一般只需修改应用和主题)
-</span><span>    Collections #合集
-</span><span>    Modules #模块
-</span><span>    Applications #应用程序
-</span><span>    Themes #主题
-</span><span>    Protocols #协议支持
-</span><span>    Libraries #运行库
-</span><span>    default-settings # 默认选项(自动配置语言包)
-</span><span>Mail #邮件
-</span><span>Multimedia #多媒体
-</span><span>Network #网络相关
-</span><span>Sound #音频
-</span><span>Utilities #各类实用软件(比如VIM)
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target System (Broadcom BCM27xx)     # 选择处理器架构
+</span><span>└── Subtarget (BCM2711 boards (64 bit))     # 选择处理器
+</span><span>    └── Target Profile (Raspberry Pi 4B/400/4CM (64bit))     # 预制配置文件
+</span><span>        └── Target Images     # 固件映像设置
+</span><span>            └── ramdisk     # 内存盘
+</span><span>                ├── Compression     # 压缩等级 (none 表示不压缩)
+</span><span>                ├── Root filesystem archives     # 根文件系统存档类型
+</span><span>                │   ├── cpio.gz
+</span><span>                │   └── tar.gz
+</span><span>                ├── Root filesystem images     # 根文件系统格式
+</span><span>                │   ├── ext4     # 适用于大容量闪存
+</span><span>                │   ├── squashfs     # 适用于小容量闪存
+</span><span>                │   └── Gzip images     # Gzip 存档
+</span><span>                └── Image Options
+</span><span>                    ├── Kernel partition size     # 内核分区大小
+</span><span>                    ├── Root filesystem partition size     # 跟文件系统分区大小
+</span><span>                    └── Make /var persistent     # 持久化 /var
+</span><span>
+</span><span>Enable experimental features by default     # 默认启用实验性功能
+</span><span>Global build settings     # 全局编译设置
+</span><span>Advanced configuration options (for developers)     # 高级选项（仅供开发者）
+</span><span>Build the OpenWrt Image Builder     # 编译 OpenWrt 镜像编译器
+</span><span>Build the OpenWrt SDK     # 编译 OpenWrt SDK
+</span><span>Package the OpenWrt-based Toolchain     # 打包 OpenWrt 工具链
+</span><span>Image configuration     # 镜像选项
+</span><span>
+</span><span>Base system     # 基本组件
+</span><span>Administration     # 管理员工具
+</span><span>Boot Loaders     # 引导程序
+</span><span>Development     # 开发者工具
+</span><span>Extra packages     # 额外包
+</span><span>Firmware     # 固件工具
+</span><span>Fonts     # 字体
+</span><span>Kernel modules     # 内核模块
+</span><span>Languages     # 额外的语言 (Python3, PHP, NodeJS 等)
+</span><span>Libraries     # 系统库
+</span><span>LuCI     # LuCI 插件（一般只需修改应用和主题）
+</span><span>└── Collections
+</span><span>└── Modules
+</span><span>└── Applications
+</span><span>└── Themes
+</span><span>└── Protocols
+</span><span>└── Libraries
+</span><span>└── default-settings     # 默认选项（自动配置语言包）
+</span><span>
+</span><span>Mail     # 邮件
+</span><span>Multimedia     # 多媒体
+</span><span>Network     # 网络相关
+</span><span>Sound     # 音频
+</span><span>Utilities     # 各类实用软件（比如 VIM）
 </span><span>Xorg
 </span></code></pre>
 <h3 id="cai-dan-xuan-xiang-shuo-ming"><strong>菜单选项说明</strong></h3>
@@ -563,12 +563,10 @@
 </li>
 <li>
 <p>然后添加 <strong>PRODUCE_DEVICE</strong> 到 <strong>GitHub Secrets</strong>，
-首先进入你的 GitHub 仓库，依次进入：Settings（设置）-
-Secrets and variables-Actions-New repository secret
-名称为PRODUCE_DEVICE，值为粘贴刚刚复制的 GitHub Token，点击 “Add secret” 完成添加。</p>
+首先进入你的 GitHub 仓库，<code>依次进入：Settings（设置）- Secrets and variables-Actions-New repository secret 名称为PRODUCE_DEVICE</code>，值为粘贴刚刚复制的 GitHub Token，点击 “Add secret” 完成添加。</p>
 </li>
 <li>
-<p>随后在actions里面运行produce，完成后即可出现新架构的编译按钮.</p>
+<p>随后<code>在actions里面运行produce</code>，完成后即可出现新架构的编译按钮.</p>
 </li>
 </ul>
 <h2 id="chang-yong-ming-ling">常用命令:</h2>
