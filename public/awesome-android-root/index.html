@@ -103,15 +103,24 @@
         <div class="post-content">
             <p>前言 自安卓系统诞生以来，root 一直是玩机的必备过程。时至今日，在安卓定制系统日益完善的情况下，能 root 的机型越来越少，本文以小米手机为例，介绍 root 的具体方法。</p>
 <span id="continue-reading"></span><h2 id="yi-shen-me-shi-root"><strong>一.什么是root</strong></h2>
-<p>这涉及安卓的权限系统。Andoird 系统是基于 Linux 内核的，其中的权限大致可以分为四级，即一般软件权限，用户权限，ADB 权限和超级管理员权限（su）。而所谓 Root 也就是使手机获得超级管理员的权限，但是出于种种原因，厂商默认不提供超级管理员的权限，因此，root的本质就是一个提权的过程。</p>
+<p>这涉及安卓的权限系统。Andoird 系统是基于 Linux 内核的，其中的权限大致可以分为四级，即<code>一般软件权限，用户权限，ADB 权限和超级管理员权限（su）</code>。而所谓 Root 也就是使手机获得超级管理员的权限，但是出于种种原因，厂商默认不提供超级管理员的权限，因此，<code>root的本质就是一个提权的过程</code>。</p>
 <h2 id="er-wei-shen-me-yao-root"><strong>二.为什么要root</strong></h2>
 <ul>
-<li>国内定制的安卓系统充满着云控，反诈以及各种广告，预装软件，这种系统实在为极客们所不容；</li>
-<li>以权限系统为例，一般软件权限需要经过用户同意，即每次安装前出现的各种请求弹窗；而 ADB 权限常常用于开发者模式，可以调试一些比较深层的设置；至于 root 权限则为系统的最高权限，与 Windows 的 system 权限相当（比 administer 还高）。因此，当我们具备了 root 权限后，就可以实现许多功能，例如屏蔽广告，虚拟定位，安装 Google 框架和软件，满血运行CPU等等。</li>
+<li>
+<p>国内定制的安卓系统充满着云控，反诈以及各种广告，预装软件，这种系统实在为极客们所不容；</p>
+</li>
+<li>
+<p>以权限系统为例，一般软件权限需要经过用户同意，即每次安装前出现的各种请求弹窗；而 ADB 权限常常用于开发者模式，可以调试一些比较深层的设置；至于 root 权限则为系统的最高权限，与 Windows 的 system 权限相当（比 administer 还高）。</p>
+</li>
+<li>
+<p>当我们具备了 root 权限后，就可以实现许多功能，例如屏蔽广告，虚拟定位，安装 Google 框架和软件，满血运行CPU等等。</p>
+</li>
 </ul>
 <h2 id="san-na-xie-ji-xing-ke-yi-root"><strong>三.哪些机型可以root</strong></h2>
-<p>在 2023 年的今天，能 root 的机型还是比较少。首先是最容易的一加和小米，可以申请官方解 BL 锁，需要等待7天；其次是联想，索尼等海外品牌，也比较容易；而 oppo 和 vivo 及其子品牌 iqoo 和 realme 有些是不行的；苹果的越狱在10代前是可以的，而华为全部机型都是不可以的，除非上万能的淘宝收费解锁，直接烧录芯片；至于三星，BL 锁一旦解开就会触发芯片物理熔断机制，无法使用 pay 以及升级系统，体验极差。因此，刷机有风险，root 需谨慎！刷机前要了解相应的厂商，考虑保修和变砖的问题！</p>
-<p><a href="https://github.com/KHwang9883/MobileModels/blob/master/misc/bootloader-kernel-source.md">各品牌手机root情况汇总</a></p>
+<ul>
+<li><a href="https://github.com/KHwang9883/MobileModels/blob/master/misc/bootloader-kernel-source.md">各品牌手机root情况汇总</a></li>
+</ul>
+<p>在 2023 年的今天，能 root 的机型还是比较少。首先是最容易的一加和小米，可以申请官方解 BL 锁，需要等待7天；其次是联想，索尼等海外品牌，也比较容易；而 oppo 和 vivo 及其子品牌 iqoo 和 realme 有些是不行的；苹果的越狱在10代前是可以的，而华为全部机型都是不可以的，除非上万能的淘宝收费解锁，直接烧录芯片；至于三星，BL 锁一旦解开就会触发芯片物理熔断机制，无法使用 pay 以及升级系统，体验极差。因此，<code>刷机有风险，root 需谨慎</code>！刷机前要了解相应的厂商，考虑保修和变砖的问题！</p>
 <blockquote>
 <p>截至2024年5月小米手机解BL锁已经收紧,条件非常苛刻.</p>
 </blockquote>
@@ -119,84 +128,90 @@
 <p>首先我们要了解安卓系统的分区和启动。安卓的分区包括:</p>
 <ul>
 <li>
-<p>recovery 分区，类似PC端的PE环境，手机上的恢复出厂设置即为从 recovery 恢复；</p>
+<p><code>recovery 分区</code>，类似PC端的PE环境，手机上的恢复出厂设置即为从 recovery 恢复；</p>
 </li>
 <li>
-<p>cache 分区，保存系统最常访问的数据和应用程序。 擦除这个分区，不会影响个人数据，只是删除了这个分区中已经保存的缓存内容；</p>
+<p><code>cache 分区</code>，保存系统最常访问的数据和应用程序。 擦除这个分区，不会影响个人数据，只是删除了这个分区中已经保存的缓存内容；</p>
 </li>
 <li>
-<p>boot 分区，类似PC端的MBR分区，用来引导系统启动，擦除后手机会卡在开机 logo 的界面；</p>
+<p><code>boot 分区</code>，类似PC端的MBR分区，用来引导系统启动，擦除后手机会卡在开机 logo 的界面；</p>
 </li>
 <li>
-<p>system 分区，包括操作系统与软件，vendor 定制文件与库文件等等，擦除后会卡在开机的动画界面；</p>
+<p><code>system 分区</code>，包括操作系统与软件，vendor 定制文件与库文件等等，擦除后会卡在开机的动画界面；</p>
 </li>
 <li>
-<p>data 分区，存放用户数据和系统设置，擦除后不影响系统的运行。</p>
+<p><code>data 分区</code>，存放用户数据和系统设置，擦除后不影响系统的运行。</p>
 </li>
 </ul>
-<p>手机启动阶段存在名为 bootloader 的程序，与 PC 端的 BIOS 类似，被称为 fastboot 模式，厂商一般会将其锁定。早些年间，存在大量一键 root，kingroot 之类的软件，可以直接刷写 root 包，获得 root 权限，但成功率不高；</p>
+<blockquote>
+<p>除了以上5大分区外，手机启动阶段还存在名为 bootloader 的程序，通常位于设备的专用引导区域（如boot ROM或firmware分区的一部分），与 PC 端的 BIOS 类似，被称为 fastboot 模式，厂商一般会将其锁定，要刷机的话必须解开它。</p>
+</blockquote>
+<blockquote>
+<p>早些年间，存在大量一键 root，kingroot 之类的软件，可以直接刷写 root 包，获得 root 权限，但成功率不高；</p>
+</blockquote>
 <p>因此，现在<strong>主流的刷机步骤</strong>为</p>
 <ul>
 <li>
-<p>解开 bootloader，俗称解BL锁. <a href="https://telegra.ph/BL%E9%94%81%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88-05-29">BL锁原理参考</a></p>
+<p><code>解开 bootloader</code>，俗称解BL锁. <a href="https://telegra.ph/BL%E9%94%81%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88-05-29">BL锁原理参考</a></p>
 </li>
 <li>
-<p>打开机器上的允许USB调试;</p>
+<p>打开机器上的<code>允许USB调试</code>;</p>
 </li>
 <li>
-<p>备份手机数据,即备份Data分区(可使用Neobackup或系统自带),字库/基带/官方固件,桌面样式截图;</p>
+<p><code>备份手机数据</code>,即备份Data分区(可使用Neobackup或系统自带),字库/基带/官方固件,桌面样式截图以及该机器的官方原厂包；</p>
 </li>
 <li>
-<p>下载该机器的官方原厂包以及要刷的第三方系统包;</p>
+<p>下载要刷的第三方系统包;</p>
 </li>
 <li>
-<p>提取以上两个包中的 boot.img 和 recovery.img 文件备份;</p>
+<p>提取以上两个包中的 boot.img 和 recovery.img 文件;</p>
 </li>
 <li>
-<p>将机器与PC等设备连接,并进入 bootloader;</p>
+<p>将机器与PC等设备连接,并<code>进入 bootloader</code>;</p>
 </li>
 <li>
-<p>刷入第三方 recovery，比如大名鼎鼎的 TWRP,或者对应新系统的recovery.img；</p>
+<p><code>刷入第三方 recovery</code>，比如大名鼎鼎的 TWRP,或者对应新系统的recovery.img；</p>
 </li>
 <li>
-<p>进入 recovery 模式，清空原系统数据;然后刷入原系统作为底包，避免出现固件问题;</p>
+<p>进入 recovery 模式，清空原系统数据;然后<code>刷入原系统作为底包</code>，避免出现固件问题;</p>
 </li>
 <li>
-<p>刷入新系统Zip包,随后重启,再次进入 recovery .</p>
+<p><code>刷入新系统</code>Zip包,随后重启,再次进入 recovery .</p>
 </li>
 <li>
-<p>刷入 Magisk (面具)工具，随后重启进入桌面,安装 Magisk(apk),通过修补 boot.img 文件获得 root 权限；</p>
+<p><code>刷入 Magisk </code>(面具)工具，随后重启进入桌面,安装 Magisk(apk),通过修补 boot.img 文件获得 root 权限；</p>
 </li>
 <li>
 <p>安装 Magisk 模块和 Lsposed 框架（可在其中下载许多模块，推荐一键救砖，系统优化和 root 隐藏）</p>
 </li>
 <li>
-<p>安装 Momo 软件检测系统环境是否正常。</p>
+<p>安装 Momo 等软件检测系统环境是否正常。</p>
 </li>
 </ul>
 <blockquote>
 <p>如果旧系统上没有root权限无法直接备份Data分区,可以先用系统自带的备份,并下载好原版系统镜像以防止刷机失败.</p>
 </blockquote>
 <h2 id="wu-que-ding-ni-yao-shua-de-xi-tong"><strong>五.确定你要刷的系统</strong></h2>
-<p>可以选择官方原版，官改版，海外版和类原生版。相关链接：</p>
+<p>可以选择<code>官方原版，官改版，海外版和类原生版</code>。注意这些rom的搜索往往使用的海外名，得先搜索你所对应机型的海外名称/代号。</p>
 <ul>
-<li>
-<p><a href="https://miuiver.com/">小米各机型 MIUI 历史版本分类索引</a></p>
-</li>
 <li>
 <p><a href="https://mi.fiime.cn/Android">Android原生项目大全</a></p>
 </li>
+<li>
+<p><a href="https://miuiver.com/">小米各机型 MIUI 历史版本分类索引</a></p>
+</li>
 </ul>
 <h2 id="liu-ju-ti-cao-zuo-liu-cheng"><strong>六.具体操作流程</strong></h2>
-<p>1.笔者以 Redmi k30pro 5G 这款手机为例，首先我们进入手机设置界面，进入“我的设备”，在“全部参数”中找到“ MIUI 版本”，连续点击后开启开发者模式，随后在“更多设置”中开启 USB 调试， USB安装 功能。</p>
-<p>2.随后下载大名鼎鼎的<a href="http://jamcz.com/">搞机工具箱</a> （由B站up主晨钟酱出品），里面具有许多功能，包括进入各个模式，无极调速等等：
-然后我们进入<a href="https://www.miui.com/unlock/download.html">小米官网</a> ，下载官方解锁工具，需要登陆小米账号并等待7天，随后即可解锁。</p>
-<p>3.解锁完成后在<a href="https://mifirm.net/downloadtwrp/148">MiFirm网</a> 中下载对应的 TWRP 版本，注意 redmi 的海外名为 Poco 。</p>
+<p>1.笔者以 Poco F2 这款手机为例，首先我们进入手机设置界面，进入“我的设备”，在“全部参数”中找到“ MIUI 版本”，连续点击后开启开发者模式，随后在“更多设置”中开启 USB 调试， USB安装 功能。</p>
+<p>2.随后下载开源的<a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a>里面具有许多功能，包括进入各个模式，无极调速等等：</p>
+<p><img src="https://camo.githubusercontent.com/14ea49ba6280b5e01bda5833c354c5a0087714852f37690c5fb25a9bafc64c02/68747470733a2f2f692e6962622e636f2f39544c545964352f323032342d30382d30322d3232303433302e77656270" alt="柚坛工具箱" /></p>
+<p>然后我们进入<a href="https://www.miui.com/unlock/download.html">小米官网</a> ，下载官方解锁工具，需要登陆小米账号并等待7天，随后即可解锁。</p>
+<p>3.解锁完成后在<a href="https://mifirm.net/downloadtwrp/148">MiFirm网</a> 中下载对应的 TWRP 版本。</p>
 <p>4.随后用数据线连接手机，用其中的一键刷写刷入 TWRP；随后下载你要刷的系统的 rom 包，下载时注意一并下载 boot.img 文件，作为 Magisk 的修补用。然后下载 <a href="https://magisk.me/zip/">Magisk</a> 包，与 rom 一起存入TF卡或者U盘中。</p>
 <blockquote>
 <p>注意，由于本机型为新型<a href="https://www.jianshu.com/p/b2726b304801"><strong>AB分区</strong></a>因此如果刷机失败，需要下载原厂包用以恢复AB分区，否则无法启动和安装rom。</p>
 </blockquote>
-<p>5.通过搞机工具箱进入 recovery 模式，首先我们在wipe中清除Data、Cache两个分区，俗称“双清”，随后在高级清除选项中清除 Data、Cache、Dalvik Cache 和 System 分区，俗称“四清”。</p>
+<p>5.通过搞机工具箱进入 recovery 模式，首先我们在wipe中<code>清除Data、Cache两个分区</code>，俗称“双清”，随后在高级清除选项中<code>清除 Data、Cache、Dalvik Cache 和 System 分区</code>，俗称“四清”。</p>
 <p>6.清除完成后即可开始刷机。将 TF 卡或者U盘插入手机，在“安装”中选择 rom 包，右滑确认刷机；随后如法炮制，刷入 magisk.zip 包，不然会卡在开机 logo 界面，俗称“卡米”。</p>
 <p>7.刷完之后重启，则会进入安装界面。<strong>注意：如果刷的是海外版的包，千万不能联网安装，否则会失败且变为国内版。</strong></p>
 <p>8.此刻我们将下载好的 boot.img 文件复制到手机上，打开 Magisk 软件，在其中选择修补一个文件，选中 boot.img，修复完成后可以看到超级用户一栏可以使用了，说明 root 完成。</p>
@@ -204,7 +219,8 @@
 <p>截至2024年5月1日,该机已经刷入 crdroid 10.4 类原生系统,非常丝滑,步骤同上,但需要刷入<a href="https://xiaomifirmwareupdater.com/firmware/lmi/stable/V14.0.1.0.SJKMIXM/">新固件</a>.</p>
 </blockquote>
 <blockquote>
-<p>注：这里使用的 root 方案为<a href="https://github.com/topjohnwu/Magisk">magisk</a>，你也可以使用<a href="https://kernelsu.org/zh_CN/">kernelSU</a>或者<a href="https://apatch.dev/zh_CN/">apatch</a>等。</p>
+<p>注：这里使用的 root 方案为<a href="https://github.com/topjohnwu/Magisk">magisk</a>，你也可以使用其他方案，如<a href="https://blog.dich.bid/awesome-android-root/#root-methods">常用root方案</a>
+。</p>
 </blockquote>
 <blockquote>
 <p>adb和fastboot命令示例</p>
@@ -225,7 +241,7 @@
 </span><span>fastboot oem reboot-^&lt;模式名称^&gt; 		:重启到相应模式
 </span><span>fastboot oem device-info 		:查看解锁状态
 </span></code></pre>
-<h2 id="qi-chang-yong-rootfang-an"><strong>七.常用Root方案</strong></h2>
+<h2 id="root-methods"><strong>七.常用root方案</strong></h2>
 <ul>
 <li>
 <p><a href="https://jesse205.github.io/MagiskChineseDocument/">Magisk</a></p>
