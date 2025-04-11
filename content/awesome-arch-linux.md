@@ -218,6 +218,42 @@ sudo apt install grub-customizer
 ```
 sudo systemctl enable --now syncthing@<username>.service
 ```
+
+## 开启BBR
+
+- 确保你的内核版本 >= 4.9：
+```
+uname -r
+```
+- 启用 BBR
+
+你只需要设置两个 sysctl 参数即可：
+```
+sudo sysctl -w net.core.default_qdisc=fq
+sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
+```
+要让它们永久生效，把它们写入配置文件：
+```
+sudo nano /etc/sysctl.d/99-bbr.conf
+```
+加入以下内容：
+```
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+```
+然后重新加载配置：
+```
+sudo sysctl --system
+```
+- 验证 BBR 是否启用
+```
+sysctl net.ipv4.tcp_congestion_control
+```
+应该输出：
+```
+net.ipv4.tcp_congestion_control = bbr
+```
+
 ---
 **Done.**
 

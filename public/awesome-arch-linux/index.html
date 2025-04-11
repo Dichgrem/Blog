@@ -296,6 +296,37 @@
 <p><strong>设置Syncthing开机自启动</strong></p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl enable --now syncthing@&lt;username&gt;.service
 </span></code></pre>
+<h2 id="kai-qi-bbr">开启BBR</h2>
+<ul>
+<li>确保你的内核版本 &gt;= 4.9：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>uname -r
+</span></code></pre>
+<ul>
+<li>启用 BBR</li>
+</ul>
+<p>你只需要设置两个 sysctl 参数即可：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo sysctl -w net.core.default_qdisc=fq
+</span><span>sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
+</span></code></pre>
+<p>要让它们永久生效，把它们写入配置文件：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo nano /etc/sysctl.d/99-bbr.conf
+</span></code></pre>
+<p>加入以下内容：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>net.core.default_qdisc = fq
+</span><span>net.ipv4.tcp_congestion_control = bbr
+</span></code></pre>
+<p>然后重新加载配置：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo sysctl --system
+</span></code></pre>
+<ul>
+<li>验证 BBR 是否启用</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl net.ipv4.tcp_congestion_control
+</span></code></pre>
+<p>应该输出：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>net.ipv4.tcp_congestion_control = bbr
+</span></code></pre>
 <hr />
 <p><strong>Done.</strong></p>
 
