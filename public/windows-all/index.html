@@ -236,6 +236,15 @@
 <p><a href="https://www.jetbrains.com.cn/ides/#choose-your-ide">Jetbrains</a>向来是IDE中最知名的一款，功能丰富，界面美观，并具有多种语言支持；</p>
 <p><a href="https://visualstudio.microsoft.com/zh-hans/">Visual Studio</a>VS是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具，如UML工具、代码管控工具、集成开发环境(IDE)等等，可完美支持 C#、C++、Python、JavaScript、Node.js、Visual Basic、HTML 等流行的编程语言。</p>
 <p><a href="https://github.com/VSCodium/vscodium">VS Codium</a>Visual Studio Code，也称为VS Code，是一款支持Linux，Windows和macOS的代码编辑器。它既能编辑简单文本，也能像集成开发环境（IDE）一样管理整个代码库。它还可以通过插件进行扩展，被广泛认为是一个可靠的文本编辑器，轻松打败其他编辑器,而VS Codium是一款开源的Vscode，去除了Trakcer和远程报告功能和可能侵犯你隐私的功能。</p>
+<blockquote>
+<p>Vscode SSH 连接</p>
+</blockquote>
+<p>使用<code>Open Remote - SSH</code>插件，需要创建.ssh文件夹；Windows中在<code>C://users//username//</code>路径下。</p>
+<p>随后使用插件新建一个连接，如：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Host myserver
+</span><span>    HostName 192.168.1.100
+</span><span>    User your_username
+</span></code></pre>
 <h3 id="shi-yong-zhong-duan-gong-ju">使用终端工具</h3>
 <p>在开发的时候我们常常遇到需要打开多个终端的情景，那么有没有一款工具可以将SSH/WSL/telnet/SFTP/串口通信一网打尽呢？</p>
 <p><a href="https://mobaxterm.mobatek.net/download.html">MobaXterm</a>一款功能极其强大的远程连接工具，支持SSH、X11转发、串口通信等多种连接方式。它不仅可以用于远程连接Linux服务器，还可以模拟多个终端，实现多任务并行操作。此外，MobaXterm还提供了文件上传下载、终端模拟等实用功能。</p>
