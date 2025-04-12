@@ -118,6 +118,26 @@ wsl --status
 wsl --shutdown
 ```
 
+> 各种虚拟机格式转换：可以使用 QEMU 提供的 qemu-img 工具来进行转换。
+
+- qcow2 转 vmdk（VMware）
+```
+qemu-img convert -f qcow2 -O vmdk input.qcow2 output.vmdk
+```
+- qcow2 转 vdi（VirtualBox）
+```
+qemu-img convert -f qcow2 -O vdi input.qcow2 output.vdi
+```
+- qcow2 转 vhd（Hyper-V）
+```
+qemu-img convert -f qcow2 -O vpc input.qcow2 output.vhd
+```
+- qcow2 转 vhdx（新版 Hyper-V）
+
+目前 qemu-img 不能直接输出 vhdx，但你可以先转成 vhd，再用微软工具（如 Convert-VHD）转换为 vhdx：
+```
+Convert-VHD -Path "output.vhd" -DestinationPath "output.vhdx" -VHDType Dynamic
+```
 ### 使用UniGetUI管理软件包
 
 众所周知，windows下包管理向来是个老大难问题，各个软件包来源分散，难以统一更新，环境部署的包比较复杂，这里推荐使用[UniGetUI](https://github.com/marticliment/UniGetUI)来统一管理。（原名wingetUI）

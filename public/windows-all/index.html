@@ -198,6 +198,30 @@
 </span><span>- 关闭
 </span><span>wsl --shutdown
 </span></code></pre>
+<blockquote>
+<p>各种虚拟机格式转换：可以使用 QEMU 提供的 qemu-img 工具来进行转换。</p>
+</blockquote>
+<ul>
+<li>qcow2 转 vmdk（VMware）</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f qcow2 -O vmdk input.qcow2 output.vmdk
+</span></code></pre>
+<ul>
+<li>qcow2 转 vdi（VirtualBox）</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f qcow2 -O vdi input.qcow2 output.vdi
+</span></code></pre>
+<ul>
+<li>qcow2 转 vhd（Hyper-V）</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f qcow2 -O vpc input.qcow2 output.vhd
+</span></code></pre>
+<ul>
+<li>qcow2 转 vhdx（新版 Hyper-V）</li>
+</ul>
+<p>目前 qemu-img 不能直接输出 vhdx，但你可以先转成 vhd，再用微软工具（如 Convert-VHD）转换为 vhdx：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Convert-VHD -Path &quot;output.vhd&quot; -DestinationPath &quot;output.vhdx&quot; -VHDType Dynamic
+</span></code></pre>
 <h3 id="shi-yong-unigetuiguan-li-ruan-jian-bao">使用UniGetUI管理软件包</h3>
 <p>众所周知，windows下包管理向来是个老大难问题，各个软件包来源分散，难以统一更新，环境部署的包比较复杂，这里推荐使用<a href="https://github.com/marticliment/UniGetUI">UniGetUI</a>来统一管理。（原名wingetUI）</p>
 <ul>
