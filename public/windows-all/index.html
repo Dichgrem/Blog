@@ -161,30 +161,6 @@
 <tr><td>终端与SSH管理</td><td><a href="https://github.com/electerm/electerm">Electerm</a></td></tr>
 </tbody></table>
 <h2 id="kai-fa-huan-jing">开发环境</h2>
-<h3 id="da-jian-wslhuan-jing">搭建WSL环境</h3>
-<p>首先，我们需要在<code>控制面板-&gt;程序-&gt;启用或关闭Windows功能</code>，选中适用于Linux的Windows子系统和虚拟机平台，容器以及hyper-v，待安装完成后重启电脑。</p>
-<p>然后，在<code>管理员模式下打开 PowerShell 或 Windows 命令提示符</code>，方法是右键单击并选择“以管理员身份运行”，输入以下命令，然后重启计算机。</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>wsl --install
-</span></code></pre>
-<p>此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。（可以更改此默认发行版）。</p>
-<ul>
-<li>常用命令</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>**列出可用的 Linux 发行版**
-</span><span>wsl --list --online
-</span><span>
-</span><span>**列出已安装的 Linux 发行版**
-</span><span>wsl --list --verbose
-</span><span>
-</span><span>**更新 WSL**
-</span><span>wsl --update
-</span><span>
-</span><span>**检查 WSL 状态**
-</span><span>wsl --status
-</span><span>
-</span><span>**关闭**
-</span><span>wsl --shutdown
-</span></code></pre>
 <h3 id="da-jian-xu-ni-ji-huan-jing">搭建虚拟机环境</h3>
 <ul>
 <li>VMware</li>
@@ -198,13 +174,30 @@
 <li>Hyper-V</li>
 </ul>
 <p>在 BIOS 中找到类似<code>Intel VT-x”、“AMD-V”或“Virtualization Technology</code>的选项，确保它是“Enabled”（启用）。随后按下 Win + S，输入“打开或关闭 Windows 功能”，在弹出的窗口中，找到 Hyper-V并启用，重启后即可出现。</p>
-<h3 id="da-jian-docker">搭建Docker</h3>
-<p>在 Windows 上部署 Docker 的方法是先安装一个虚拟机，并在安装 Linux 系统的的虚拟机中运行 Docker。</p>
-<p>我们需要先开启 Hyper-V ，方法和搭建WSL一样； 也可以通过命令来启用 Hyper-V ，请右键开始菜单并以管理员身份运行 PowerShell，执行以下命令：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+<ul>
+<li>WSL</li>
+</ul>
+<p>在<code>控制面板-&gt;程序-&gt;启用或关闭Windows功能</code>，选中适用于Linux的Windows子系统和虚拟机平台，待安装完成后重启电脑。</p>
+<p>然后，在<code>管理员模式下打开 PowerShell 或 Windows 命令提示符</code>，方法是右键单击并选择“以管理员身份运行”，输入以下命令，然后重启计算机。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>wsl --install
 </span></code></pre>
-<p>然后安装Docker，这里提供了一个图形安装界面：<a href="https://docs.docker.com/desktop/install/windows-install/">Docker Desktop</a></p>
-<p>安装时，如果你想使用WSL作为后端，则可以勾选 <code>Use WSL2 instead of Hyper-V</code>，随后可以登录docker账号并换源等等。</p>
+<p>此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。（可以更改此默认发行版）。</p>
+<p><strong>常用命令</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 列出可用的 Linux 发行版
+</span><span>wsl --list --online
+</span><span>
+</span><span>- 列出已安装的 Linux 发行版
+</span><span>wsl --list --verbose
+</span><span>
+</span><span>- 更新 WSL
+</span><span>wsl --update
+</span><span>
+</span><span>- 检查 WSL 状态
+</span><span>wsl --status
+</span><span>
+</span><span>- 关闭
+</span><span>wsl --shutdown
+</span></code></pre>
 <h3 id="shi-yong-unigetuiguan-li-ruan-jian-bao">使用UniGetUI管理软件包</h3>
 <p>众所周知，windows下包管理向来是个老大难问题，各个软件包来源分散，难以统一更新，环境部署的包比较复杂，这里推荐使用<a href="https://github.com/marticliment/UniGetUI">UniGetUI</a>来统一管理。（原名wingetUI）</p>
 <ul>

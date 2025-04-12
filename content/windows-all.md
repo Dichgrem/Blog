@@ -75,35 +75,6 @@ tags = ["乱七八糟","Windows"]
 
 ## 开发环境
 
-### 搭建WSL环境
-
-首先，我们需要在``控制面板->程序->启用或关闭Windows功能``，选中适用于Linux的Windows子系统和虚拟机平台，容器以及hyper-v，待安装完成后重启电脑。
-
-然后，在``管理员模式下打开 PowerShell 或 Windows 命令提示符``，方法是右键单击并选择“以管理员身份运行”，输入以下命令，然后重启计算机。
-
-```
-wsl --install
-```
-此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。（可以更改此默认发行版）。
-
-- 常用命令
-```
-**列出可用的 Linux 发行版**
-wsl --list --online
-
-**列出已安装的 Linux 发行版**
-wsl --list --verbose
-
-**更新 WSL**
-wsl --update
-
-**检查 WSL 状态**
-wsl --status
-
-**关闭**
-wsl --shutdown
-```
-
 ### 搭建虚拟机环境
 
 - VMware
@@ -118,17 +89,34 @@ wsl --shutdown
 
 在 BIOS 中找到类似``Intel VT-x”、“AMD-V”或“Virtualization Technology``的选项，确保它是“Enabled”（启用）。随后按下 Win + S，输入“打开或关闭 Windows 功能”，在弹出的窗口中，找到 Hyper-V并启用，重启后即可出现。
 
-### 搭建Docker
+- WSL
 
-在 Windows 上部署 Docker 的方法是先安装一个虚拟机，并在安装 Linux 系统的的虚拟机中运行 Docker。
+在``控制面板->程序->启用或关闭Windows功能``，选中适用于Linux的Windows子系统和虚拟机平台，待安装完成后重启电脑。
 
-我们需要先开启 Hyper-V ，方法和搭建WSL一样； 也可以通过命令来启用 Hyper-V ，请右键开始菜单并以管理员身份运行 PowerShell，执行以下命令：
+然后，在``管理员模式下打开 PowerShell 或 Windows 命令提示符``，方法是右键单击并选择“以管理员身份运行”，输入以下命令，然后重启计算机。
+
 ```
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+wsl --install
 ```
-然后安装Docker，这里提供了一个图形安装界面：[Docker Desktop](https://docs.docker.com/desktop/install/windows-install/)  
+此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。（可以更改此默认发行版）。
 
-安装时，如果你想使用WSL作为后端，则可以勾选 ``Use WSL2 instead of Hyper-V``，随后可以登录docker账号并换源等等。
+**常用命令**
+```
+- 列出可用的 Linux 发行版
+wsl --list --online
+
+- 列出已安装的 Linux 发行版
+wsl --list --verbose
+
+- 更新 WSL
+wsl --update
+
+- 检查 WSL 状态
+wsl --status
+
+- 关闭
+wsl --shutdown
+```
 
 ### 使用UniGetUI管理软件包
 
