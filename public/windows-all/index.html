@@ -222,6 +222,34 @@
 <p>目前 qemu-img 不能直接输出 vhdx，但你可以先转成 vhd，再用微软工具（如 Convert-VHD）转换为 vhdx：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>Convert-VHD -Path &quot;output.vhd&quot; -DestinationPath &quot;output.vhdx&quot; -VHDType Dynamic
 </span></code></pre>
+<blockquote>
+<p>虚拟机固定IP</p>
+</blockquote>
+<p>您可以通过以下步骤更新 Netplan 配置文件，以设置静态 IP 地址和默认路由：​</p>
+<p>编辑 Netplan 配置文件：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo nano /etc/netplan/00-installer-config.yaml
+</span></code></pre>
+<p>将配置文件内容更新为以下格式（请根据您的网络环境调整 IP 地址、子网掩码、网关和 DNS 服务器）：​</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>network:
+</span><span>  version: 2
+</span><span>  renderer: networkd
+</span><span>  ethernets:
+</span><span>    eth0:
+</span><span>      dhcp4: false
+</span><span>      addresses:
+</span><span>        - 192.168.162.241/20
+</span><span>      routes:
+</span><span>        - to: default
+</span><span>          via: 192.168.160.1
+</span><span>      nameservers:
+</span><span>        addresses:
+</span><span>          - 8.8.8.8
+</span><span>          - 8.8.4.4
+</span></code></pre>
+<p>请确保 YAML 文件的缩进正确，通常使用两个空格。
+保存并关闭文件后，应用新的网络配置：​</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo netplan apply
+</span></code></pre>
 <h3 id="shi-yong-unigetuiguan-li-ruan-jian-bao">使用UniGetUI管理软件包</h3>
 <p>众所周知，windows下包管理向来是个老大难问题，各个软件包来源分散，难以统一更新，环境部署的包比较复杂，这里推荐使用<a href="https://github.com/marticliment/UniGetUI">UniGetUI</a>来统一管理。（原名wingetUI）</p>
 <ul>
