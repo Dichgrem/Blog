@@ -138,6 +138,39 @@ qemu-img convert -f qcow2 -O vpc input.qcow2 output.vhd
 ```
 Convert-VHD -Path "output.vhd" -DestinationPath "output.vhdx" -VHDType Dynamic
 ```
+
+> 虚拟机固定IP
+
+您可以通过以下步骤更新 Netplan 配置文件，以设置静态 IP 地址和默认路由：​
+
+编辑 Netplan 配置文件：
+```
+sudo nano /etc/netplan/00-installer-config.yaml
+```
+将配置文件内容更新为以下格式（请根据您的网络环境调整 IP 地址、子网掩码、网关和 DNS 服务器）：​
+```
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: false
+      addresses:
+        - 192.168.162.241/20
+      routes:
+        - to: default
+          via: 192.168.160.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+```
+请确保 YAML 文件的缩进正确，通常使用两个空格。
+保存并关闭文件后，应用新的网络配置：​
+```
+sudo netplan apply
+```
+
 ### 使用UniGetUI管理软件包
 
 众所周知，windows下包管理向来是个老大难问题，各个软件包来源分散，难以统一更新，环境部署的包比较复杂，这里推荐使用[UniGetUI](https://github.com/marticliment/UniGetUI)来统一管理。（原名wingetUI）
