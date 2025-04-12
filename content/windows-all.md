@@ -157,6 +157,16 @@ Convert-VHD -Path "output.vhd" -DestinationPath "output.vhdx" -VHDType Dynamic
 
 [VS Codium](https://github.com/VSCodium/vscodium)Visual Studio Code，也称为VS Code，是一款支持Linux，Windows和macOS的代码编辑器。它既能编辑简单文本，也能像集成开发环境（IDE）一样管理整个代码库。它还可以通过插件进行扩展，被广泛认为是一个可靠的文本编辑器，轻松打败其他编辑器,而VS Codium是一款开源的Vscode，去除了Trakcer和远程报告功能和可能侵犯你隐私的功能。
 
+> Vscode SSH 连接
+
+使用``Open Remote - SSH``插件，需要创建.ssh文件夹；Windows中在``C://users//username//``路径下。
+
+随后使用插件新建一个连接，如：
+```
+Host myserver
+    HostName 192.168.1.100
+    User your_username
+```
 ### 使用终端工具
 
 在开发的时候我们常常遇到需要打开多个终端的情景，那么有没有一款工具可以将SSH/WSL/telnet/SFTP/串口通信一网打尽呢？
