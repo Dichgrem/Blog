@@ -11,58 +11,45 @@ tags = ["网络艺术"]
 <!-- more -->
 
 ## 一. 基于协议的传输
-
-
-
 与许多其他基于协议的应用一样，电子邮件依赖于一系列协议来进行传输和交换。而基于协议的应用一般不会轻易地被历史淘汰：在过去的几十年里，基于 HTTP 上层的网站，以及技术更新换代了好几波，但底层的协议依然还是 HTTP（HTTPS）。基于 BitTorrent 协议的文件交换协议，和基于SMTP（Simple Mail Transfer Protocol）的电子邮件传输便是其中之一。
 
 
 
 ## 二. 邮件发送的流程
 
-
-
 电子邮件的发送过程可以简单地描述为以下几个步骤：
 
-- 用户在邮件客户端（例如Gmail）中撰写并发送一封邮件。
-- 邮件客户端使用SMTP协议将邮件发送到相应的邮件服务器。
-- 通过DNS查询MX记录找到接收方的邮件服务器。
+- 用户在邮件客户端（例如Gmail）中``撰写并发送一封邮件``。
+- 邮件客户端``使用SMTP协议将邮件发送``到相应的邮件服务器。
+- 通过``DNS查询MX记录``找到接收方的邮件服务器。
 - 发送邮件服务器使用SMTP协议将邮件传递给接收方的邮件服务器。
 - 接收方的邮件服务器将邮件存储在相应的邮箱中，供用户查看。
 
 为了确保通信安全，电子邮件的发送还引入了一些安全机制，如SPF、DKIM和DMARC。
 
-- SPF（Sender Policy Framework）用于验证发件人的身份，防止发件人伪造。
-- DKIM（DomainKeys Identified Mail）通过数字签名验证邮件的真实性。
-- DMARC（Domain-based Message Authentication, Reporting, and Conformance）结合了SPF和DKIM，提供了更严格的邮件验证机制。
+- ``SPF（Sender Policy Framework）``用于验证发件人的身份，防止发件人伪造。
+- ``DKIM（DomainKeys Identified Mail）``通过数字签名验证邮件的真实性。
+- ``DMARC（Domain-based Message Authentication, Reporting, and Conformance）``结合了SPF和DKIM，提供了更严格的邮件验证机制。
 
 ## 三.具体流程
 
-
-
-假设用户 [a@gmail.com](mailto:a@gmail.com) 发送一封邮件到 [b@qq.com](mailto:b@qq.com)，会执行如下的流程。
+假设用户 a@gmail.com 发送一封邮件到 b@qq.com，会执行如下的流程。
 
 **1.查询 MX 记录**
 
 当我们在 Gmail 网页上撰写一封邮件，并点击发送按钮之后。Gmail 会用自己的内部协议链接 Gmail 的 Outgoing SMTP 邮件服务器。
 
-Outgoing SMTP 验证用户权限，然后将邮件以 MIME 格式发送到发送队列中。
+Outgoing SMTP ``验证用户权限``，然后将邮件``以 MIME 格式发送到发送队列``中。
 
-Gmail SMTP 服务器会通过 DNS 查询到域名 `qq.com` MX（Mail Exchanger） 记录(`dig MX qq.com`)，找到邮件服务器的 IP 所在。
+Gmail SMTP 服务器会``通过 DNS 查询到域名`` qq.com MX（Mail Exchanger） 记录(dig MX qq.com)，``找到邮件服务器的 IP ``所在。
 
-在 Linux 下也可以通过 `dig mx qq.com` 来查询到。这一步在对应到自建的邮件服务器的时候，就是通过配置 DNS 的 MX 记录来实现的。
+在 Linux 下也可以通过 dig mx qq.com 来查询到。这一步在对应到自建的邮件服务器的时候，就是通过配置 DNS 的 MX 记录来实现的。
 
-一般情况下会配置一个 A 记录 `mx.example.com` 指向服务器的 IP 地址。然后再配置一个 [[MX 记录]]，`@` 全部域名的 MX 请求全部转发给 `mx.example.com`。
-
-
+一般情况下会配置一个 A 记录 mx.example.com 指向服务器的 IP 地址。然后再配置一个 [[MX 记录]]，@ 全部域名的 MX 请求全部转发给 mx.example.com。
 
 **2.SMTP 发送**
 
-
-
 当 Gmail 的服务器找到 QQ 邮箱的 IP 地址之后，邮件就会通过 SMTP（Simple Mail Transfer Protocol ） 协议连接服务器的连接，尝试发送给 QQ 的服务器。
-
-
 
 为了简化理解，SMTP 传输的时候就直接声明，我 [a@gmail.com](mailto:a@gmail.com) ，我要发送邮件到 [b@qq.com](mailto:b@qq.com) ，内容是某某某。QQ 邮箱的服务器接收到 Gmail 的邮件之后，再根据用户名决定发给具体谁的邮箱。
 
