@@ -107,26 +107,26 @@
 <h2 id="er-you-jian-fa-song-de-liu-cheng">二. 邮件发送的流程</h2>
 <p>电子邮件的发送过程可以简单地描述为以下几个步骤：</p>
 <ul>
-<li>用户在邮件客户端（例如Gmail）中撰写并发送一封邮件。</li>
-<li>邮件客户端使用SMTP协议将邮件发送到相应的邮件服务器。</li>
-<li>通过DNS查询MX记录找到接收方的邮件服务器。</li>
+<li>用户在邮件客户端（例如Gmail）中<code>撰写并发送一封邮件</code>。</li>
+<li>邮件客户端<code>使用SMTP协议将邮件发送</code>到相应的邮件服务器。</li>
+<li>通过<code>DNS查询MX记录</code>找到接收方的邮件服务器。</li>
 <li>发送邮件服务器使用SMTP协议将邮件传递给接收方的邮件服务器。</li>
 <li>接收方的邮件服务器将邮件存储在相应的邮箱中，供用户查看。</li>
 </ul>
 <p>为了确保通信安全，电子邮件的发送还引入了一些安全机制，如SPF、DKIM和DMARC。</p>
 <ul>
-<li>SPF（Sender Policy Framework）用于验证发件人的身份，防止发件人伪造。</li>
-<li>DKIM（DomainKeys Identified Mail）通过数字签名验证邮件的真实性。</li>
-<li>DMARC（Domain-based Message Authentication, Reporting, and Conformance）结合了SPF和DKIM，提供了更严格的邮件验证机制。</li>
+<li><code>SPF（Sender Policy Framework）</code>用于验证发件人的身份，防止发件人伪造。</li>
+<li><code>DKIM（DomainKeys Identified Mail）</code>通过数字签名验证邮件的真实性。</li>
+<li><code>DMARC（Domain-based Message Authentication, Reporting, and Conformance）</code>结合了SPF和DKIM，提供了更严格的邮件验证机制。</li>
 </ul>
 <h2 id="san-ju-ti-liu-cheng">三.具体流程</h2>
-<p>假设用户 <a href="mailto:a@gmail.com">a@gmail.com</a> 发送一封邮件到 <a href="mailto:b@qq.com">b@qq.com</a>，会执行如下的流程。</p>
+<p>假设用户 a@gmail.com 发送一封邮件到 b@qq.com，会执行如下的流程。</p>
 <p><strong>1.查询 MX 记录</strong></p>
 <p>当我们在 Gmail 网页上撰写一封邮件，并点击发送按钮之后。Gmail 会用自己的内部协议链接 Gmail 的 Outgoing SMTP 邮件服务器。</p>
-<p>Outgoing SMTP 验证用户权限，然后将邮件以 MIME 格式发送到发送队列中。</p>
-<p>Gmail SMTP 服务器会通过 DNS 查询到域名 <code>qq.com</code> MX（Mail Exchanger） 记录(<code>dig MX qq.com</code>)，找到邮件服务器的 IP 所在。</p>
-<p>在 Linux 下也可以通过 <code>dig mx qq.com</code> 来查询到。这一步在对应到自建的邮件服务器的时候，就是通过配置 DNS 的 MX 记录来实现的。</p>
-<p>一般情况下会配置一个 A 记录 <code>mx.example.com</code> 指向服务器的 IP 地址。然后再配置一个 [[MX 记录]]，<code>@</code> 全部域名的 MX 请求全部转发给 <code>mx.example.com</code>。</p>
+<p>Outgoing SMTP <code>验证用户权限</code>，然后将邮件<code>以 MIME 格式发送到发送队列</code>中。</p>
+<p>Gmail SMTP 服务器会<code>通过 DNS 查询到域名</code> qq.com MX（Mail Exchanger） 记录(dig MX qq.com)，<code>找到邮件服务器的 IP </code>所在。</p>
+<p>在 Linux 下也可以通过 dig mx qq.com 来查询到。这一步在对应到自建的邮件服务器的时候，就是通过配置 DNS 的 MX 记录来实现的。</p>
+<p>一般情况下会配置一个 A 记录 mx.example.com 指向服务器的 IP 地址。然后再配置一个 [[MX 记录]]，@ 全部域名的 MX 请求全部转发给 mx.example.com。</p>
 <p><strong>2.SMTP 发送</strong></p>
 <p>当 Gmail 的服务器找到 QQ 邮箱的 IP 地址之后，邮件就会通过 SMTP（Simple Mail Transfer Protocol ） 协议连接服务器的连接，尝试发送给 QQ 的服务器。</p>
 <p>为了简化理解，SMTP 传输的时候就直接声明，我 <a href="mailto:a@gmail.com">a@gmail.com</a> ，我要发送邮件到 <a href="mailto:b@qq.com">b@qq.com</a> ，内容是某某某。QQ 邮箱的服务器接收到 Gmail 的邮件之后，再根据用户名决定发给具体谁的邮箱。</p>
