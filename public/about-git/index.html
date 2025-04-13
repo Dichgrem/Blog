@@ -102,9 +102,14 @@
         <div class="post-content">
             <p>前言 Git，作为现代软件开发中不可或缺的版本控制工具，常常让初学者感到困惑。本文旨在介绍 Git 的全流程安装和基本使用，希望能够帮助新手更轻松地理解和掌握 Git 的基本概念和操作。</p>
 <span id="continue-reading"></span><h2 id="an-zhuang-git">安装git</h2>
-<p>Windows：<a href="https://git-scm.com/download/">https://git-scm.com/download/</a></p>
+<ul>
+<li>
+<p>Windows：<a href="https://git-scm.com/download/">Git-download</a></p>
+</li>
+<li>
 <p>Archlinux：<code>sudo pacman -S git</code></p>
-<p>安装完成后检查版本：<code>git --version</code></p>
+</li>
+</ul>
 <h2 id="yuan-li">原理</h2>
 <p>一个Git仓库的目录里面包括<code>工作目录</code>（即我们要追踪的代码）以及<code>.git</code>目录（Git 在这里存储自己的数据）。Git 维护了三棵“树”:第一个是你的 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
 <h2 id="chuang-jian-xin-cang-ku">创建新仓库</h2>
@@ -118,6 +123,11 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git init --initial-branch=main
 </span></code></pre>
 <p>这里设置默认仓库主分支名称为 main,避免因为 main/master 名称不同导致的推送问题。</p>
+<blockquote>
+<p>Git目前默认的主分支为 master，和 github 默认分支 main 不同，这使得默认配置下 git 往往连接失败。除了创建的时候设定外还可以通过以下方法改变默认分支。</p>
+</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config --global init.defaultBranch main  //将默认分支修改成main
+</span></code></pre>
 <p><strong>方法二</strong></p>
 <p>克隆远端服务器上的仓库，例如:</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/Dichgrem/script.git
@@ -125,20 +135,26 @@
 </span></code></pre>
 <p>或者使用SSH方法：<code> git clone git@github.com:Dichgrem/script.git</code></p>
 <h2 id="lian-jie-yuan-cheng-cang-ku">连接远程仓库</h2>
-<p>生成密钥：</p>
+<ul>
+<li>生成密钥：</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;
 </span></code></pre>
-<p>可以生成多个不同名字的密钥：</p>
+<ul>
+<li>可以生成多个不同名字的密钥：</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot; -f ~/.ssh/github_key1
-</span><span>
-</span><span>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot; -f ~/.ssh/github_key2
 </span></code></pre>
-<p>使用 <code>ssh-add</code> 命令将生成的密钥添加到 SSH 代理中。</p>
+<ul>
+<li>使用 <code>ssh-add</code> 命令将生成的密钥添加到 SSH 代理中。</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-add ~/.ssh/github_key1
 </span><span>
 </span><span>ssh-add ~/.ssh/github_key2
 </span></code></pre>
-<p>在 <code>~/.ssh/config</code> 文件中配置不同的主机别名以及相应的密钥文件。编辑该文件并添加以下内容：</p>
+<ul>
+<li>在 <code>~/.ssh/config</code> 文件中配置不同的主机别名以及相应的密钥文件。编辑该文件并添加以下内容：</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># GitHub repository 1
 </span><span>
 </span><span>Host github1
@@ -159,21 +175,29 @@
 </span><span>
 </span><span>    IdentityFile ~/.ssh/github_key2
 </span></code></pre>
-<p>随后将cat ~/.ssh/id_rsa.pub,将其添加至 Github的Deploy密钥中，勾选write权限；</p>
+<ul>
+<li>
+<p>-随后将cat ~/.ssh/id_rsa.pub,将其添加至 Github的Deploy密钥中，勾选write权限；</p>
+</li>
+<li>
 <p>连接到github：</p>
+</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh -T git@github.com
 </span></code></pre>
-<p>添加远程仓库：</p>
+<ul>
+<li>添加远程仓库：</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git remote add origin &lt;remote_repository_url&gt;
+</span><span>
+</span><span># 例如：git remote add origin git@github.com:Dichgrem/dichos.git
 </span></code></pre>
-<p>比如我已经在 GitHub 上创建了一个名为 <code>dichos</code> 的仓库，你可以使用以下命令将其添加为远程仓库：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git remote add origin git@github.com:Dichgrem/dichos.git
-</span></code></pre>
-<p>设置远程仓库</p>
+<ul>
+<li>设置远程仓库</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git remote set-url origin git@github.com:Dichgrem/dichos.git
 </span></code></pre>
-<h2 id="gong-zuo-liu">工作流</h2>
-<h3 id="chuang-jian-yi-ge-fen-zhi">创建一个分支</h3>
+<h2 id="chuang-jian-fen-zhi">创建分支</h2>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git branch main
 </span></code></pre>
 <p>这将创建一个名为 main 的分支。</p>
@@ -187,7 +211,7 @@
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git branch -D master
 </span></code></pre>
-<h3 id="tian-jia-he-ti-jiao">添加和提交</h3>
+<h2 id="tian-jia-he-ti-jiao">添加和提交</h2>
 <p>你可以提出更改（把它们添加到暂存区），使用如下命令：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git add &lt;filename&gt;
 </span><span>git add *
@@ -199,161 +223,129 @@
 <p>现在，你的改动已经提交到了 <strong>HEAD</strong>，但是还没到你的远端仓库。</p>
 <h2 id="tui-song-gai-dong">推送改动</h2>
 <p>你的改动现在已经在本地仓库的 <strong>HEAD</strong> 中了。执行如下命令以将这些改动提交到远端仓库：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin master
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin main
 </span></code></pre>
-<p>可以把 <em>master</em> 换成你想要推送的任何分支。</p>
-<p>如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git remote add origin &lt;server&gt;
-</span></code></pre>
-<p>如此你就能够将你的改动推送到所添加的服务器上去了。</p>
-<h2 id="he-bing-fen-zhi">合并分支</h2>
-<p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，<em>master</em> 是“默认的”分支。在其他分支上进行开发，完成后再将它们合并到主分支上。</p>
-<p>创建一个叫做“feature_x”的分支，并切换过去：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git checkout -b feature_x
-</span></code></pre>
-<p>切换回主分支：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git checkout master
-</span></code></pre>
-<p>再把新建的分支删掉：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git branch -d feature_x
-</span></code></pre>
-<p>除非你将分支推送到远端仓库，不然该分支就是 <em>不为他人所见的</em>：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin &lt;branch&gt;
-</span></code></pre>
-<h2 id="geng-xin-yu-he-bing">更新与合并</h2>
-<p>要更新你的本地仓库至最新改动，执行：</p>
+<p>可以把 <strong>main</strong> 换成你想要推送的任何分支,如<strong>master</strong>或者<strong>test</strong></p>
+<p>如果你的远程仓库是最新的，可以使用以下命令更新本地仓库：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git pull
 </span></code></pre>
-<p>以在你的工作目录中 <em><strong>获取</strong>（fetch）</em> 并 <em><strong>合并</strong>（merge）</em> 远端的改动。<br />
-要合并其他分支到你的当前分支（例如 master），执行：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git merge &lt;branch&gt;
+<h2 id="he-bing-fen-zhi">合并分支</h2>
+<p>分支是用来将特性开发绝缘开来的。比如你在本地的test分支新增了一个功能，想要合并到主分支中。</p>
+<p>创建一个叫做“test”的分支，并切换过去：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git checkout -b test
 </span></code></pre>
-<p>在这两种情况下，git 都会尝试去自动合并改动。遗憾的是，这可能并非每次都成功，并可能出现_冲突（conflicts）<em>。 这时候就需要你修改这些文件来手动合并这些_冲突（conflicts）</em>。改完之后，你需要执行如下命令以将它们标记为合并成功：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git add &lt;filename&gt;
-</span><span>在合并改动之前，你可以使用如下命令预览差异：  
-</span><span>git diff &lt;source_branch&gt; &lt;target_branch&gt;
+<p>新增某些功能后切换回主分支：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git checkout master
+</span></code></pre>
+<p>在主分支上执行合并操作，将 test 分支的改动合并到主分支：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git merge test
+</span></code></pre>
+<p>推送完成后可以把新建的分支删掉：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git branch -d test
 </span></code></pre>
 <h2 id="biao-qian">标签</h2>
-<p>为软件发布创建标签是推荐的。这个概念早已存在，在 SVN 中也有。你可以执行如下命令创建一个叫做 <em>1.0.0</em> 的标签：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git tag 1.0.0 1b2e1d63ff
+<p>Git 的 tag 功能主要用于<code>给仓库历史中的某个特定提交打上“标签”</code>，通常用于标记版本发布点（例如 v1.0、v2.0 等），以<code>便于后续的版本定位、回溯和发布管理</code>。</p>
+<h3 id="biao-qian-lei-xing">标签类型</h3>
+<p>Git 提供两种类型的标签：</p>
+<ul>
+<li>
+<p>附注标签（Annotated Tag）会创建成一个完整的 Git 对象，存储打标签者的名字、邮箱、日期和标签说明，还可采用 GPG 进行签名。推荐用于正式发布，因为包含更多元数据和安全信息。</p>
+</li>
+<li>
+<p>轻量标签（Lightweight Tag）实际上只是对某个提交的引用，不保存额外信息，类似一个固定的分支。适用于临时标记或非正式用途。</p>
+</li>
+</ul>
+<h3 id="chuang-jian-biao-qian">创建标签</h3>
+<ul>
+<li>创建附注标签</li>
+</ul>
+<p>使用 -a 参数表示“annotated”，并用 -m 提供标签说明。例如，给当前提交创建一个名为 v1.0 的附注标签：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git tag -a v1.0 -m &quot;发布版本 v1.0&quot;
 </span></code></pre>
-<p><em>1b2e1d63ff</em> 是你想要标记的提交 ID 的前 10 位字符。可以使用下列命令获取提交 ID：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git log
+<p>这会在 Git 数据库中生成一个完整的标签对象，可通过 git show v1.0 查看标签信息和对应的提交详情。</p>
+<p>如果需要给旧提交贴标签，可以在命令末尾指定提交的 SHA 值（部分 SHA 也可）：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git tag -a v1.0 &lt;commit-sha&gt; -m &quot;发布版本 v1.0&quot;
 </span></code></pre>
-<p>你也可以使用少一点的提交 ID 前几位，只要它的指向具有唯一性。</p>
+<ul>
+<li>创建轻量标签</li>
+</ul>
+<p>直接指定标签名即可，不加任何参数：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git tag v1.0-light
+</span></code></pre>
+<p>轻量标签仅仅是一个提交引用，因此查看时不会显示附加信息。</p>
+<h3 id="lie-chu-biao-qian">列出标签</h3>
+<ul>
+<li>列出所有标签</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git tag
+</span></code></pre>
+<ul>
+<li>还可以使用通配符过滤：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git tag -l &quot;v1.*&quot;
+</span></code></pre>
+<p>这样便于管理和筛选大量标签。</p>
+<ul>
+<li>查看标签详细信息</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git show v1.0
+</span></code></pre>
+<p>这会显示标签对象的元数据以及对应的提交记录。</p>
+<h3 id="tui-song-biao-qian">推送标签</h3>
+<p><code>默认情况下，git push 不会将本地标签推送到远程仓库。推送标签有两种方式：</code></p>
+<ul>
+<li>推送单个标签</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin v1.0
+</span></code></pre>
+<ul>
+<li>一次性推送所有标签</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin --tags
+</span></code></pre>
+<h3 id="shan-chu-biao-qian">删除标签</h3>
+<ul>
+<li>删除本地标签</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git tag -d v1.0
+</span></code></pre>
+<ul>
+<li>删除远程标签</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin --delete v1.0
+</span></code></pre>
 <h2 id="ri-zhi">日志</h2>
 <p>如果你想了解本地仓库的历史记录，最简单的命令就是使用:</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git log
 </span></code></pre>
-<p>你可以添加一些参数来修改他的输出，从而得到自己想要的结果。 只看某一个人的提交记录:</p>
+<ul>
+<li>只看某一个人的提交记录:</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git log --author=bob
 </span></code></pre>
-<p>一个压缩后的每一条提交记录只占一行的输出:</p>
+<ul>
+<li>一个压缩后的每一条提交记录只占一行的输出:</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git log --pretty=oneline
 </span></code></pre>
-<p>或者你想通过 ASCII 艺术的树形结构来展示所有的分支, 每个分支都标示了他的名字和标签:</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git log --graph --oneline --decorate --all
-</span></code></pre>
-<p>看看哪些文件改变了:</p>
+<ul>
+<li>看看哪些文件改变了:</li>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git log --name-status
 </span></code></pre>
-<p>这些只是你可以使用的参数中很小的一部分。更多的信息，参考：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git log --help
-</span></code></pre>
-<h2 id="ti-huan-ben-di-gai-dong">替换本地改动</h2>
-<p>假如你操作失误（当然，这最好永远不要发生），你可以使用如下命令替换掉本地改动：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git checkout -- &lt;filename&gt;
-</span></code></pre>
-<p>此命令会使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到暂存区的改动以及新文件都不会受到影响。</p>
-<p>假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git fetch origin
-</span><span>git reset --hard origin/master
-</span></code></pre>
-<h2 id="he-bing-commitji-lu">合并commit记录</h2>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git rebase -i HEAD~3
-</span></code></pre>
-<p>将第二行的 pick 改为 squash (s)：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pick abc123 First commit message
-</span><span>squash def456 Second commit message
-</span></code></pre>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin main --force
-</span></code></pre>
-<h2 id="xiu-gai-mo-ren-fen-zhi">修改默认分支</h2>
-<p>git目前默认的主分支为 master，和 github 默认分支 main 不同，这使得默认配置下 git 往往连接失败。可以通过下两种方法改变默认分支。在本地 git init 时将默认分支修改成main</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>1. git --version  //查看版本
-</span><span>2. git config --global init.defaultBranch main  //将默认分支修改成main
-</span><span>3. git init //本地项目文件夹内创建.git文件夹
-</span><span>4. git add . //添加到暂存区
-</span><span>5. git commit -a [描述的内容]  //记录修改行为
-</span><span>6. git pull --rebase origin main  //拉github上的readme.md
-</span><span>7. git push origin main   //上传代码
-</span></code></pre>
-<p>也可以不修改git上的默认分支，而是修改github上库的默认分支。</p>
-<h2 id="shan-chu-qian-yi-ge-ti-jiao-commit-ji-lu">删除前一个提交（commit）记录</h2>
+<h2 id="shan-chu-qian-yi-ge-ti-jiao-ji-lu">删除前一个提交记录</h2>
+<p>有时候手滑或者不想使用一个commit说明，可以用以下命令撤销上一个 commit：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git reset --soft HEAD~1
 </span></code></pre>
-<p>这个命令会 撤销上一个 commit，但保留文件修改（代码仍然在工作区）。适用于 想要重新提交（amend）或调整 commit 的情况。</p>
+<p>这个命令会撤销上一个 commit，但保留文件修改（代码仍然在工作区）。适用于 想要重新提交（amend）或调整 commit 的情况。</p>
 <p>如果你想彻底删除更改（不保留代码修改），可以使用：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git reset --hard HEAD~1
 </span></code></pre>
-<p>注意：--hard 会清除未提交的更改，无法恢复。</p>
-<h2 id="windowsxia-gitshi-yong-dai-li">Windows下git使用代理</h2>
-<p>由于网络环境的差异，Git连接github需要代理，或者全局模式。Git支持四种协议，而除本地传输外，还有：git://, ssh://, 基于HTTP协议，这些协议又被分为哑协议（HTTP协议）和智能传输协议。对于这些协议，要使用代理的设置也有些差异：</p>
-<ul>
-<li>
-<p>使用 <code>git协议</code> 时，设置代理需要配置 <code>core.gitproxy</code></p>
-</li>
-<li>
-<p>使用 <code>HTTP协议</code> 时，设置代理需要配置 <code>http.proxy</code></p>
-</li>
-<li>
-<p>而使用 <code>ssh协议</code> 时，代理需要配置ssh的 <code>ProxyCommand</code> 参数</p>
-</li>
-</ul>
-<p>由于个人需求仅仅是 HTTP 的代理（相对来说，HTTP 有比较好的通适性，Windows 配置git/ssh比较棘手），设置的时候，只需要针对单个设置 <code>http.proxy</code> 即可，在需要使用代理的项目下面使用 <code>git bash</code> 如下命令进行设置（你的Uri和port可能和我的不同）：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config http.proxy [http://127.0.0.1:2080](http://127.0.0.1:8088)  # 也可以是uri:port形式
-</span></code></pre>
-<p>这个是不需要鉴权的代理设置，如果需要鉴权，可能需要添加用户名密码信息：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config http.proxy[http://username:password@127.0.0.1:2080](http://username:password@127.0.0.1:8088)
-</span></code></pre>
-<p>如果git的所有项目都需要启用代理，那么可以直接启用全局设置：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config --global http.proxy [http://127.0.0.1:2080](http://127.0.0.1:8088)
-</span></code></pre>
-<p>为了确认是否已经设置成功，可以使用 <code>--get</code> 来获取：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config --get --global http.proxy
-</span></code></pre>
-<p>这样可以看到你设置在global的 <code>http.proxy</code> 值。 </p>
-<p>需要修改的时候，再次按照上面的方法设置即可，git 默认会覆盖原有的配置值。</p>
-<p>当我们的网络出现变更时，可能需要删除掉原有的代理配置，此时需要使用 <code>--unset</code> 来进行配置：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config --global --unset http.proxy
-</span></code></pre>
-<p>在命令之后，指定位置的设置值将会被清空，你可以再次使用 <code>--get</code> 来查看具体的设置情况。</p>
-<p>如果使用了 HTTPS，肯呢个会碰到 HTTPS 证书错误的情况，比如提示： <code>SSL certificate problem</code> ，此时，可以尝试将 <code>sslVerify</code> 设置为 <code>false</code> ：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config --global http.sslVerify false
-</span></code></pre>
-<p>恩，到此，可以试试 git 来获取/更改项目了，此时，项目应该是使用代理来进行通讯的。</p>
-<h2 id="zhu-yi">注意</h2>
-<ul>
-<li>不要多次使用不同的参数来设置代理，一般使用文中两种方式酌情选用即可， <code>--global</code> ， <code>--system</code> ， <code>--local</code> 各级设置后，可能会给自己带来不必要的麻烦。git默认是先到 git Repository 的配置文件中查找配置文件，如果没有才会到 <code>--global</code> 设置的文件中查找，因此，单个项目文件中的设置会覆盖 <code>--global</code> 的设置。</li>
-<li>使用 <code>--global</code> 来配置的信息保存在当前用户的根目录下的 <code>.config</code> 文件中，而仓库中的配置保存在项目仓库的根目录下的 <code>.git/config</code> 文件中。</li>
-<li>如果是 Linux 的用户，建议全局代理。</li>
-</ul>
 <blockquote>
-<p>20240501更新完系统出现以下报错:</p>
+<p>注意：--hard 会清除未提交的更改，无法恢复。</p>
 </blockquote>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sign_and_send_pubkey: signing failed for RSA &quot;/home/dich/.ssh/id_rsa&quot; from agent: agent refused operation
-</span><span>git@github.com: Permission denied (publickey).
-</span><span>致命错误：无法读取远程仓库。
-</span><span>
-</span><span>请确认您有正确的访问权限并且仓库存在。
-</span></code></pre>
-<p>解决方法是使用 ssh-add 命令重新添加你的密钥。</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-add ~/.ssh/id_rsa
-</span></code></pre>
 <h2 id="commitgui-fan">Commit规范</h2>
-<ol>
-<li>提交信息的基本格式</li>
-</ol>
+<h3 id="ti-jiao-xin-xi-de-ji-ben-ge-shi">提交信息的基本格式</h3>
 <ul>
 <li>Header（头部）
 格式：</li>
@@ -376,9 +368,7 @@ scope 是可选的，用于指出变更影响的模块或范围。
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>Fixes #123
 </span></code></pre>
 <p>这可以在提交后自动关闭相关问题。</p>
-<ol start="2">
-<li>常见的 Commit 类型</li>
-</ol>
+<h3 id="chang-jian-de-commit-lei-xing">常见的 Commit 类型</h3>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>feat：新功能的添加
 </span><span>    示例：feat(user): 添加用户注册功能
 </span><span>
@@ -412,6 +402,8 @@ scope 是可选的，用于指出变更影响的模块或范围。
 </span><span>revert：回滚到上一个版本的提交
 </span><span>    示例：revert: 撤销上次提交
 </span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
 
         </div>
 
