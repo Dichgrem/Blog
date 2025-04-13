@@ -21,6 +21,8 @@ tags = ["乱七八糟"]
 一个Git仓库的目录里面包括``工作目录``（即我们要追踪的代码）以及``.git``目录（Git 在这里存储自己的数据）。Git 维护了三棵“树”:第一个是你的 `工作目录`，它持有实际文件；第二个是 `暂存区（Index）`，它像个缓存区域，临时保存你的改动；最后是 `HEAD`，它指向你最后一次提交的结果。
 
 
+![git-tree](http://marklodato.github.io/visual-git-guide/basic-usage.svg.png)
+
 ## 创建新仓库
 
 首先我们需要得到一个Git仓库，一般有两种方法：
@@ -49,6 +51,8 @@ git clone https://github.com/Dichgrem/script.git
 或者使用SSH方法：`` git clone git@github.com:Dichgrem/script.git``
 
 ## 连接远程仓库
+
+连接到远程仓库并推送需要证明你有权写入仓库。早期Github可以使用密码认证，现在则使用密钥认证。
 
 - 生成密钥：
 ```
@@ -86,7 +90,7 @@ Host github2
 
     IdentityFile ~/.ssh/github_key2
 ```
-- -随后将cat ~/.ssh/id_rsa.pub,将其添加至 Github的Deploy密钥中，勾选write权限；
+- -随后使用``cat ~/.ssh/id_rsa.pub``,将其添加至 Github的Deploy密钥中，勾选write权限；
 
 - 连接到github：
 ```

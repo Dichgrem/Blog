@@ -112,6 +112,7 @@
 </ul>
 <h2 id="yuan-li">原理</h2>
 <p>一个Git仓库的目录里面包括<code>工作目录</code>（即我们要追踪的代码）以及<code>.git</code>目录（Git 在这里存储自己的数据）。Git 维护了三棵“树”:第一个是你的 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
+<p><img src="http://marklodato.github.io/visual-git-guide/basic-usage.svg.png" alt="git-tree" /></p>
 <h2 id="chuang-jian-xin-cang-ku">创建新仓库</h2>
 <p>首先我们需要得到一个Git仓库，一般有两种方法：</p>
 <ul>
@@ -135,6 +136,7 @@
 </span></code></pre>
 <p>或者使用SSH方法：<code> git clone git@github.com:Dichgrem/script.git</code></p>
 <h2 id="lian-jie-yuan-cheng-cang-ku">连接远程仓库</h2>
+<p>连接到远程仓库并推送需要证明你有权写入仓库。早期Github可以使用密码认证，现在则使用密钥认证。</p>
 <ul>
 <li>生成密钥：</li>
 </ul>
@@ -177,7 +179,7 @@
 </span></code></pre>
 <ul>
 <li>
-<p>-随后将cat ~/.ssh/id_rsa.pub,将其添加至 Github的Deploy密钥中，勾选write权限；</p>
+<p>-随后使用<code>cat ~/.ssh/id_rsa.pub</code>,将其添加至 Github的Deploy密钥中，勾选write权限；</p>
 </li>
 <li>
 <p>连接到github：</p>
