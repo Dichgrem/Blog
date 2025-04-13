@@ -312,42 +312,11 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp  用户名@ip:/路径 文件目录
 </span></code></pre>
 <h2 id="docker">Docker</h2>
-<ul>
-<li>安装基础工具</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt-get update
-</span><span> sudo apt-get install \
-</span><span>    apt-transport-https \
-</span><span>    ca-certificates \
-</span><span>    curl \
-</span><span>    gnupg \
-</span><span>    lsb-release
+<p>Docker 官方提供了一个安装脚本，可以自动选择适当版本，并规避仓库问题：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://get.docker.com -o get-docker.sh
+</span><span>sudo sh get-docker.sh
 </span></code></pre>
-<ul>
-<li>安装docker的gpg key：</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-</span></code></pre>
-<ul>
-<li>安装docker源</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
-</span></code></pre>
-<p>上面命令中的<code>lsb_release -cs</code>返回<code>bullseye</code>，也就是debian11的代号。</p>
-<ul>
-<li>安装docker</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt-get update
-</span><span>sudo apt-get install docker-ce docker-ce-cli containerd.io
-</span><span>sudo systemctl enable docker
-</span><span>sudo systemctl start docker
-</span></code></pre>
-<p>至此安装完成。</p>
-<p>在debian系的Linux发行版上，docker会开机启动启动。</p>
-<p>如果平时使用非root账户，又不想每次执行docker命令之前都加上sudo，参考docker的<a href="https://link.zhihu.com/?target=https%253A//docs.docker.com/engine/install/linux-postinstall/%2523manage-docker-as-a-non-root-user">文档</a>，可以添加<code>docker</code>组，并将非root账户加入到该组中。下面的命令创建<code>docker</code>组并将当前用户加入<code>docker</code>组，执行完成之后重新登陆生效：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo groupadd docker
-</span><span>sudo usermod -aG docker $USER
-</span></code></pre>
+<p>这个脚本会为你的系统自动选择合适的安装方式。</p>
 <h3 id="shi-yong-docker-cun-chu-ku-an-zhuang">使用 Docker 存储库安装</h3>
 <p>使用以下命令安装此方法的先决条件：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update &amp;&amp; sudo apt install ca-certificates curl gnupg
