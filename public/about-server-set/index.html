@@ -312,9 +312,9 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp  用户名@ip:/路径 文件目录
 </span></code></pre>
 <h2 id="docker">Docker</h2>
-<ol>
+<ul>
 <li>安装基础工具</li>
-</ol>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt-get update
 </span><span> sudo apt-get install \
 </span><span>    apt-transport-https \
@@ -323,20 +323,20 @@
 </span><span>    gnupg \
 </span><span>    lsb-release
 </span></code></pre>
-<ol start="2">
+<ul>
 <li>安装docker的gpg key：</li>
-</ol>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 </span></code></pre>
-<ol start="3">
+<ul>
 <li>安装docker源</li>
-</ol>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
 </span></code></pre>
 <p>上面命令中的<code>lsb_release -cs</code>返回<code>bullseye</code>，也就是debian11的代号。</p>
-<ol start="4">
+<ul>
 <li>安装docker</li>
-</ol>
+</ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt-get update
 </span><span>sudo apt-get install docker-ce docker-ce-cli containerd.io
 </span><span>sudo systemctl enable docker
@@ -349,50 +349,32 @@
 </span><span>sudo usermod -aG docker $USER
 </span></code></pre>
 <h3 id="shi-yong-docker-cun-chu-ku-an-zhuang">使用 Docker 存储库安装</h3>
-<p>我建议使用此方法的主要原因是您可以轻松升级，因为存储库可以轻松更新！</p>
-<p>首先，使用以下命令安装此方法的先决条件：</p>
+<p>使用以下命令安装此方法的先决条件：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update &amp;&amp; sudo apt install ca-certificates curl gnupg
 </span></code></pre>
-<p>现在，让我们使用以下命令创建一个目录来存储密钥环：</p>
+<p>创建一个目录来存储密钥环：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo install -m 0755 -d /etc/apt/keyrings
 </span></code></pre>
-<p>接下来，使用给定的命令下载 GPG 密钥并将其存储在 <code>/etc/apt/keyrings/etc/apt/keyrings</code> 目录中：</p>
+<p>使用给定的命令下载 GPG 密钥并将其存储在 <code>/etc/apt/keyrings/etc/apt/keyrings</code> 目录中：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 </span></code></pre>
-<p>完成后，使用 chmod 命令更改 docker.gpg 文件的权限：</p>
+<p>使用 chmod 命令更改 docker.gpg 文件的权限：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo chmod a+r /etc/apt/keyrings/docker.gpg
 </span></code></pre>
-<p>最后，使用以下命令为 Docker 设置存储库：</p>
+<p>使用以下命令为 Docker 设置存储库：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo \
 </span><span>  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
 </span><span>  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \
 </span><span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
 </span></code></pre>
 <p>上述命令中每行末尾的额外 <code>\</code> 只是添加新行的一种方式，以便您可以轻松查看整个命令。就是这样！</p>
-<p>现在，您可以使用以下命令更新存储库索引并安装 Docker：</p>
+<p>现在可以使用以下命令更新存储库索引并安装 Docker：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update &amp;&amp; sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 </span></code></pre>
-<p>要验证 Docker 安装，您可以安装 hello-world 映像：</p>
+<p>要验证 Docker 安装，安装 hello-world 映像：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo docker run hello-world
 </span></code></pre>
 <p>hello-world docker 镜像很小，仅用于检查 Docker 是否运行正常。</p>
-<h3 id="shi-yong-docker-er-bu-shi-yong-sudo">使用 Docker 而不使用 sudo</h3>
-<p>如果您注意到，在运行 hello-world 映像时，我使用了 sudo。</p>
-<p>这可能不太方便。那么如何将其配置为不必使用 sudo 呢？</p>
-<p>为此，首先使用 groupadd 命令创建一个 docker 组：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo groupadd docker
-</span></code></pre>
-<p>现在，将用户添加到组（docker）：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo usermod -aG docker $USER
-</span></code></pre>
-<p>现在从终端注销并重新登录以使更改生效。</p>
-<blockquote>
-<p>如果您在虚拟机中安装 Docker，需要重新启动才能使您所做的更改生效。</p>
-</blockquote>
-<p>让我们通过运行 hello-world 图像来测试它：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker run hello-world
-</span></code></pre>
-<p>正如您所看到的，我无需使用 sudo 即可获得相同的结果。</p>
 <h3 id="xie-zai-docker">卸载 Docker</h3>
 <p>首先，使用以下命令停止 docker 服务：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl stop docker
@@ -400,12 +382,10 @@
 <p>然后按以下方式使用 apt purge 命令从系统中删除 Docker：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
 </span></code></pre>
-<p>如果您打算进行全新安装或者不想拥有任何以前的数据，那么您可以使用 rm 命令删除 Docker 文件：</p>
+<p>使用 rm 命令删除 Docker 文件：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo rm -rf /var/lib/docker
+</span><span>sudo rm -rf /var/lib/containerd
 </span></code></pre>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo rm -rf /var/lib/containerd
-</span></code></pre>
-<p>就是这样！ Docker 已成功删除。</p>
 <h2 id="zai-arch-linuxshang-an-zhuang-docker">在Arch Linux上安装Docker</h2>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S docker
 </span></code></pre>
@@ -453,7 +433,7 @@
 <p>随后在ZeroSSL中将所给出的类似<strong>B992F08CB46748D02E4C553A4038BC.txt</strong>复制；</p>
 </li>
 <li>
-<p>将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式，然后将这些命令在VPS上面运行；</p>
+<p>将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:将pki-validation/之后EOF之前的内容替换为你自己的。</p>
 </li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>cat &lt;&lt; EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
@@ -462,6 +442,7 @@
 </span><span>ca5792984e3f0a1
 </span><span>EOF
 </span></code></pre>
+<p>随后在VPS上运行该命令。</p>
 <ul>
 <li>开启一个临时HTTP服务器：</li>
 </ul>
@@ -498,6 +479,8 @@
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>reboot
 </span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
 
         </div>
 
