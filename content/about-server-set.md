@@ -294,7 +294,7 @@ scp  用户名@ip:/路径 文件目录
 ```
 ## Docker
 
-1. 安装基础工具
+- 安装基础工具
 
 ````
 sudo apt-get update
@@ -306,13 +306,13 @@ sudo apt-get update
     lsb-release
 ````
 
-2. 安装docker的gpg key：
+- 安装docker的gpg key：
 
 ````
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ````
 
-3. 安装docker源
+- 安装docker源
 
 ````
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -320,7 +320,7 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] 
 
 上面命令中的`lsb_release -cs`返回`bullseye`，也就是debian11的代号。
 
-4. 安装docker
+- 安装docker
 
 ````
 apt-get update
@@ -342,33 +342,31 @@ sudo usermod -aG docker $USER
 
 ### 使用 Docker 存储库安装
 
-我建议使用此方法的主要原因是您可以轻松升级，因为存储库可以轻松更新！
-
-首先，使用以下命令安装此方法的先决条件：
+使用以下命令安装此方法的先决条件：
 
 ````
 sudo apt update && sudo apt install ca-certificates curl gnupg
 ````
 
-现在，让我们使用以下命令创建一个目录来存储密钥环：
+创建一个目录来存储密钥环：
 
 ````
 sudo install -m 0755 -d /etc/apt/keyrings
 ````
 
-接下来，使用给定的命令下载 GPG 密钥并将其存储在 `/etc/apt/keyrings/etc/apt/keyrings` 目录中：
+使用给定的命令下载 GPG 密钥并将其存储在 `/etc/apt/keyrings/etc/apt/keyrings` 目录中：
 
 ````
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ````
 
-完成后，使用 chmod 命令更改 docker.gpg 文件的权限：
+使用 chmod 命令更改 docker.gpg 文件的权限：
 
 ````
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 ````
 
-最后，使用以下命令为 Docker 设置存储库：
+使用以下命令为 Docker 设置存储库：
 
 ````
 echo \
@@ -379,13 +377,13 @@ echo \
 
 上述命令中每行末尾的额外 `\` 只是添加新行的一种方式，以便您可以轻松查看整个命令。就是这样！
 
-现在，您可以使用以下命令更新存储库索引并安装 Docker：
+现在可以使用以下命令更新存储库索引并安装 Docker：
 
 ````
 sudo apt update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ````
 
-要验证 Docker 安装，您可以安装 hello-world 映像：
+要验证 Docker 安装，安装 hello-world 映像：
 
 ````
 sudo docker run hello-world
@@ -393,37 +391,6 @@ sudo docker run hello-world
 
 hello-world docker 镜像很小，仅用于检查 Docker 是否运行正常。
 
-
-
-### 使用 Docker 而不使用 sudo
-
-如果您注意到，在运行 hello-world 映像时，我使用了 sudo。
-
-这可能不太方便。那么如何将其配置为不必使用 sudo 呢？
-
-为此，首先使用 groupadd 命令创建一个 docker 组：
-
-````
-sudo groupadd docker
-````
-
-现在，将用户添加到组（docker）：
-
-````
-sudo usermod -aG docker $USER
-````
-
-现在从终端注销并重新登录以使更改生效。
-
-> 如果您在虚拟机中安装 Docker，需要重新启动才能使您所做的更改生效。
-
-让我们通过运行 hello-world 图像来测试它：
-
-````
-docker run hello-world
-````
-
-正如您所看到的，我无需使用 sudo 即可获得相同的结果。
 
 ### 卸载 Docker
 
@@ -439,18 +406,12 @@ sudo systemctl stop docker
 sudo apt purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
 ````
 
-如果您打算进行全新安装或者不想拥有任何以前的数据，那么您可以使用 rm 命令删除 Docker 文件：
+使用 rm 命令删除 Docker 文件：
 
 ````
 sudo rm -rf /var/lib/docker
-````
-
-````
 sudo rm -rf /var/lib/containerd
 ````
-
-就是这样！ Docker 已成功删除。
-
 
 ## 在Arch Linux上安装Docker
 ```
@@ -514,7 +475,7 @@ mkdir -p ./.well-known/pki-validation
 ```
 - 随后在ZeroSSL中将所给出的类似**B992F08CB46748D02E4C553A4038BC.txt**复制；
 
-- 将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式，然后将这些命令在VPS上面运行；
+- 将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:将pki-validation/之后EOF之前的内容替换为你自己的。
 ```
 cat << EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
 254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
@@ -522,7 +483,7 @@ comodoca.com
 ca5792984e3f0a1
 EOF
 ```
-
+随后在VPS上运行该命令。
 - 开启一个临时HTTP服务器：
 ```
 python3 -m http.server 80
@@ -551,5 +512,6 @@ usermod -aG sudo 用户名
 ```
 reboot
 ```
-
+---
+**Done.**
 
