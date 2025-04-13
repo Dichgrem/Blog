@@ -1,5 +1,5 @@
 +++
-title = "综合工程:Arch linux 安装与配置"
+title = "综合工程:Arch-linux 安装与配置"
 date = 2023-08-16
 
 [taxonomies]
