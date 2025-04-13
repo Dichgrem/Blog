@@ -50,6 +50,27 @@ git clone https://github.com/Dichgrem/script.git
 ```
 或者使用SSH方法：`` git clone git@github.com:Dichgrem/script.git``
 
+## 配置
+
+Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
+
+- 显示当前的Git配置
+```
+git config --list
+```
+- 编辑Git配置文件
+```
+git config -e [--global]
+```
+- 设置提交代码时的用户信息
+```
+git config [--global] user.name "[name]"
+git config [--global] user.email "[email address]"
+```
+- 设置大小写敏感（windows不区分大小写的解决办法）
+```
+git config core.ignorecase  false
+```
 ## 连接远程仓库
 
 连接到远程仓库并推送需要证明你有权写入仓库。早期Github可以使用密码认证，现在则使用密钥认证。
@@ -137,6 +158,35 @@ git commit -m "代码提交信息"
 ```
 现在，你的改动已经提交到了 **HEAD**，但是还没到你的远端仓库。
 
+- 添加指定文件到暂存区
+```
+git add [file1] [file2] ...
+```
+- 添加指定目录到暂存区，包括子目录
+```
+git add [dir]
+```
+- 添加当前目录的所有文件到暂存区
+```
+git add .
+```
+添加每个变化前，都会要求确认
+- 对于同一个文件的多处变化，可以实现分次提交
+```
+git add -p
+```
+- 删除工作区文件，并且将这次删除放入暂存区
+```
+git rm [file1] [file2] ...
+```
+- 停止追踪指定文件，但该文件会保留在工作区
+```
+git rm --cached [file]
+```
+- 改名文件，并且将这个改名放入暂存区
+```
+git mv [file-original] [file-renamed]
+```
 ## 推送改动
 
 你的改动现在已经在本地仓库的 **HEAD** 中了。执行如下命令以将这些改动提交到远端仓库： 
@@ -168,6 +218,74 @@ git merge test
 推送完成后可以把新建的分支删掉：
 ``` 
 git branch -d test
+```
+
+### 分支常用操作
+```
+- 列出所有本地分支
+git branch
+
+- 列出所有远程分支
+git branch -r
+
+- 列出所有本地分支和远程分支
+git branch -a
+
+- 列出所有本地分支，并展示没有分支最后一次提交的信息
+git branch -v
+
+- 列出所有本地分支，并展示没有分支最后一次提交的信息和远程分支的追踪情况
+git branch -vv
+
+- 列出所有已经合并到当前分支的分支
+git branch --merged
+
+- 列出所有还没有合并到当前分支的分支
+git branch --no-merged
+
+- 新建一个分支，但依然停留在当前分支
+git branch [branch-name]
+
+- 新建一个分支，并切换到该分支
+git checkout -b [branch]
+
+- 新建一个与远程分支同名的分支，并切换到该分支
+git checkout --track [branch-name]
+
+- 新建一个分支，指向指定commit
+git branch [branch] [commit]
+
+- 新建一个分支，与指定的远程分支建立追踪关系
+git branch --track [branch] [remote-branch]
+
+- 切换到指定分支，并更新工作区
+git checkout [branch-name]
+
+- 切换到上一个分支
+git checkout -
+
+- 建立追踪关系，在现有分支与指定的远程分支之间
+git branch --set-upstream-to=[remote-branch]
+git branch --set-upstream [branch] [remote-branch] - 已被弃用
+
+- 合并指定分支到当前分支
+git merge [branch]
+
+- 中断此次合并（你可能不想处理冲突）
+git merge --abort
+
+- 选择一个commit，合并进当前分支
+git cherry-pick [commit]
+
+- 删除分支
+git branch -d [branch-name]
+
+#新增远程分支 远程分支需先在本地创建,再进行推送
+git push origin [branch-name]
+
+- 删除远程分支
+git push origin --delete [branch-name]
+git branch -dr [remote/branch]
 ```
 
 ## 标签

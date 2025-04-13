@@ -135,6 +135,29 @@
 </span><span># 这是HTTPS方法
 </span></code></pre>
 <p>或者使用SSH方法：<code> git clone git@github.com:Dichgrem/script.git</code></p>
+<h2 id="pei-zhi">配置</h2>
+<p>Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
+<ul>
+<li>显示当前的Git配置</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config --list
+</span></code></pre>
+<ul>
+<li>编辑Git配置文件</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config -e [--global]
+</span></code></pre>
+<ul>
+<li>设置提交代码时的用户信息</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config [--global] user.name &quot;[name]&quot;
+</span><span>git config [--global] user.email &quot;[email address]&quot;
+</span></code></pre>
+<ul>
+<li>设置大小写敏感（windows不区分大小写的解决办法）</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config core.ignorecase  false
+</span></code></pre>
 <h2 id="lian-jie-yuan-cheng-cang-ku">连接远程仓库</h2>
 <p>连接到远程仓库并推送需要证明你有权写入仓库。早期Github可以使用密码认证，现在则使用密钥认证。</p>
 <ul>
@@ -223,6 +246,42 @@
 </span><span># 例如：git commit -m &quot;Initial commit&quot;
 </span></code></pre>
 <p>现在，你的改动已经提交到了 <strong>HEAD</strong>，但是还没到你的远端仓库。</p>
+<ul>
+<li>添加指定文件到暂存区</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git add [file1] [file2] ...
+</span></code></pre>
+<ul>
+<li>添加指定目录到暂存区，包括子目录</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git add [dir]
+</span></code></pre>
+<ul>
+<li>添加当前目录的所有文件到暂存区</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git add .
+</span></code></pre>
+<p>添加每个变化前，都会要求确认</p>
+<ul>
+<li>对于同一个文件的多处变化，可以实现分次提交</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git add -p
+</span></code></pre>
+<ul>
+<li>删除工作区文件，并且将这次删除放入暂存区</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git rm [file1] [file2] ...
+</span></code></pre>
+<ul>
+<li>停止追踪指定文件，但该文件会保留在工作区</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git rm --cached [file]
+</span></code></pre>
+<ul>
+<li>改名文件，并且将这个改名放入暂存区</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git mv [file-original] [file-renamed]
+</span></code></pre>
 <h2 id="tui-song-gai-dong">推送改动</h2>
 <p>你的改动现在已经在本地仓库的 <strong>HEAD</strong> 中了。执行如下命令以将这些改动提交到远端仓库：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git push origin main
@@ -244,6 +303,72 @@
 </span></code></pre>
 <p>推送完成后可以把新建的分支删掉：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git branch -d test
+</span></code></pre>
+<h3 id="fen-zhi-chang-yong-cao-zuo">分支常用操作</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 列出所有本地分支
+</span><span>git branch
+</span><span>
+</span><span>- 列出所有远程分支
+</span><span>git branch -r
+</span><span>
+</span><span>- 列出所有本地分支和远程分支
+</span><span>git branch -a
+</span><span>
+</span><span>- 列出所有本地分支，并展示没有分支最后一次提交的信息
+</span><span>git branch -v
+</span><span>
+</span><span>- 列出所有本地分支，并展示没有分支最后一次提交的信息和远程分支的追踪情况
+</span><span>git branch -vv
+</span><span>
+</span><span>- 列出所有已经合并到当前分支的分支
+</span><span>git branch --merged
+</span><span>
+</span><span>- 列出所有还没有合并到当前分支的分支
+</span><span>git branch --no-merged
+</span><span>
+</span><span>- 新建一个分支，但依然停留在当前分支
+</span><span>git branch [branch-name]
+</span><span>
+</span><span>- 新建一个分支，并切换到该分支
+</span><span>git checkout -b [branch]
+</span><span>
+</span><span>- 新建一个与远程分支同名的分支，并切换到该分支
+</span><span>git checkout --track [branch-name]
+</span><span>
+</span><span>- 新建一个分支，指向指定commit
+</span><span>git branch [branch] [commit]
+</span><span>
+</span><span>- 新建一个分支，与指定的远程分支建立追踪关系
+</span><span>git branch --track [branch] [remote-branch]
+</span><span>
+</span><span>- 切换到指定分支，并更新工作区
+</span><span>git checkout [branch-name]
+</span><span>
+</span><span>- 切换到上一个分支
+</span><span>git checkout -
+</span><span>
+</span><span>- 建立追踪关系，在现有分支与指定的远程分支之间
+</span><span>git branch --set-upstream-to=[remote-branch]
+</span><span>git branch --set-upstream [branch] [remote-branch] - 已被弃用
+</span><span>
+</span><span>- 合并指定分支到当前分支
+</span><span>git merge [branch]
+</span><span>
+</span><span>- 中断此次合并（你可能不想处理冲突）
+</span><span>git merge --abort
+</span><span>
+</span><span>- 选择一个commit，合并进当前分支
+</span><span>git cherry-pick [commit]
+</span><span>
+</span><span>- 删除分支
+</span><span>git branch -d [branch-name]
+</span><span>
+</span><span>#新增远程分支 远程分支需先在本地创建,再进行推送
+</span><span>git push origin [branch-name]
+</span><span>
+</span><span>- 删除远程分支
+</span><span>git push origin --delete [branch-name]
+</span><span>git branch -dr [remote/branch]
 </span></code></pre>
 <h2 id="biao-qian">标签</h2>
 <p>Git 的 tag 功能主要用于<code>给仓库历史中的某个特定提交打上“标签”</code>，通常用于标记版本发布点（例如 v1.0、v2.0 等），以<code>便于后续的版本定位、回溯和发布管理</code>。</p>
