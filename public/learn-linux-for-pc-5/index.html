@@ -104,12 +104,13 @@
             <p>前言 在计算机领域，系统引导和磁盘分区是至关重要的。本文将介绍BIOS与UEFI，MBR与GPT，以及它们之间的异同点。此外，我们还会讨论与这些概念密切相关的引导加载程序——GRUB。</p>
 <span id="continue-reading"></span><h2 id="bios">BIOS</h2>
 <blockquote>
-<p>BIOS（Basic Input Output System），直译成中文名称就是"<code>基本输入输出系统</code>"。它是一组固化到主板中一个ROM芯片上的程序，它可以从CMOS中读写系统设置的具体信息。此程序保存着计算机最重要的基本输入输出程序、开机后的自检程序和系统自启动程序。简单来说，BIOS只认识设备，不认识分区、不认识文件。</p>
+<p><code>BIOS（Basic Input Output System）</code>，直译成中文名称就是"<code>基本输入输出系统</code>"。它是一组固化到主板中一个ROM芯片上的程序，它可以从CMOS中读写系统设置的具体信息。此程序保存着计算机最重要的基本输入输出程序、开机后的自检程序和系统自启动程序。简单来说，BIOS只认识设备，不认识分区、不认识文件。</p>
 </blockquote>
 <h2 id="uefi">UEFI</h2>
 <blockquote>
-<p>UEFI（统一可扩展固件接口）是一个公开的规范，定义了操作系统和平台固件之间的软件接口。UEFI 是传统 PC BIOS 的继承者，是取代传统BIOS的，相比传统BIOS来说，它更易实现，容错和纠错特性也更强。<br />
-它将引导数据存储在 .efi 文件中，而不是固件中。你经常会在新款的主板中找到 UEFI 启动模式。UEFI 启动模式包含一个特殊的 EFI 分区，用于存储 .efi 文件并用于引导过程和引导加载程序。</p>
+<p>UEFI（统一可扩展固件接口）是一个公开的规范，定义了操作系统和平台固件之间的软件接口。UEFI 是传统 PC BIOS 的继承者，是取代传统BIOS的，相比传统BIOS来说，它更易实现，容错和纠错特性也更强。  它将引导数据存储在 .efi 文件中，而不是固件中。你经常会在新款的主板中找到 UEFI 启动模式。UEFI 启动模式包含一个特殊的 EFI 分区，用于存储 .efi 文件并用于引导过程和引导加载程序。</p>
+</blockquote>
+<blockquote>
 <p>UEFI使用GPT的分区引导方案，支持更大的硬盘。由于省去了BIOS自检的过程，所以启动速度更快。传统BIOS主要支持MBR引导，UEFI则是取代传统BIOS，它加入了对新硬件的支持，其中就有支持2TB以上硬盘。</p>
 </blockquote>
 <h2 id="mbr">MBR</h2>
@@ -130,23 +131,22 @@
 <p>如果你遇到过刚制作的U盘启动盘无法启动，或者新买的固态硬盘做好系统后无法启动，那么大概率的问题就出现在BIOS的引导模式的选择上，是UEFI还是Legacy。legacy启动模式是指BIOS 固件用来初始化硬件设备的引导过程，Legacy启动模式包含一系列已安装的设备，这些设备在引导过程中计算机执行 POST （开机自检）测试时会被初始化。传统引导将检查所有连接设备的主引导记录 (MBR)，通常位于磁盘的第一个扇区。<br />
 当它在设备中找不到引导加载程序时，Legacy会切换到列表中的下一个设备并不断重复此过程，直到找到引导加载程序，否则返回错误。</p>
 </blockquote>
+<h2 id="biao-ge">表格</h2>
+<h3 id="bios-uefi">BIOS/UEFI</h3>
 <table><thead><tr><th>BIOS</th><th>UEFI</th></tr></thead><tbody>
 <tr><td>用于初始化计算机硬件并引导操作系统</td><td>在计算机启动时运行</td></tr>
 <tr><td>具有较少功能和灵活性</td><td>具有更多功能和灵活性</td></tr>
 <tr><td></td><td>支持更大的硬盘容量、更快的启动速度、更好的安全性和更多的扩展性v</td></tr>
 <tr><td></td><td>通常具有图形用户界面（GUI）</td></tr>
 </tbody></table>
+<h3 id="mbr-gpt">MBR/GPT</h3>
 <table><thead><tr><th>MBR</th><th>GPT</th></tr></thead><tbody>
 <tr><td>用于分区磁盘并存储分区布局信息</td><td>用于分区磁盘并存储分区布局信息</td></tr>
 <tr><td>支持最多4个主分区或3个主分区加1个扩展分区</td><td>支持最多4个主分区或3个主分区加1个扩展分区支持最多4个主分区或3个主分区加1个扩展分区</td></tr>
 <tr><td></td><td>具有更好的数据完整性和可靠性，使用校验和检测数据损坏</td></tr>
 <tr><td></td><td>UEFI需要GPT格式的磁盘才能引导</td></tr>
 </tbody></table>
-<table><thead><tr><th>GRUB</th></tr></thead><tbody>
-<tr><td>用于在计算机系统启动时加载操作系统的引导加载程序，与BIOS、UEFI、MBR、GPT都有关联</td></tr>
-<tr><td>能够与BIOS或UEFI兼容，可以在MBR或GPT格式的磁盘上运行</td></tr>
-<tr><td>通常用于多引导系统，可以在多个操作系统之间进行选择，并提供了灵活的配置选项</td></tr>
-</tbody></table>
+<h3 id="uefi-legacy">UEFI/Legacy</h3>
 <table><thead><tr><th>UEFI 引导模式</th><th>Legacy引导模式</th></tr></thead><tbody>
 <tr><td>UEFI 提供了更好的用户界面</td><td>Legacy引导模式是传统的且非常基本的</td></tr>
 <tr><td>使用 GPT 分区方案</td><td>使用 MBR 分区方案</td></tr>
@@ -201,10 +201,10 @@
 <li>操作系统初始化完成后，显示登录界面（如果配置了图形用户界面），用户输入用户名和密码登录系统。</li>
 <li>如果登录成功，操作系统加载用户的桌面环境或命令行界面，用户开始使用计算机。</li>
 </ul>
-<p>整个过程从按下开机按钮到用户开始使用计算机，涉及了硬件初始化、引导加载程序加载、操作系统启动和用户登录等多个步骤和组件的协同工作。每个步骤都至关重要，确保计算机能够正常启动并提供给用户可用的操作环境。</p>
 <h2 id="hou-ji">后记</h2>
-<p>参考：
-<a href="https://segmentfault.com/a/1190000020850901">聊聊BIOS、UEFI、MBR、GPT、GRUB……</a></p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000020850901">聊聊BIOS、UEFI、MBR、GPT、GRUB……</a></li>
+</ul>
 
         </div>
 
