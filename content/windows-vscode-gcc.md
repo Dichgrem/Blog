@@ -62,6 +62,8 @@ int main() {
 
 至此 Visual Studio Code 的 C++ 环境已经配置完成。
 
+
+> 在ubuntu上配置环境需要安装 `sudo apt install build-essential gdb cmake clangd clang-format libstdc++-dev`
 ---
 **Done.**
 
