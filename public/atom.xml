@@ -864,25 +864,6 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>Network的艺术:搜索引擎与爬虫</title>
-        <published>2024-02-11T00:00:00+00:00</published>
-        <updated>2024-02-11T00:00:00+00:00</updated>
-        
-        <author>
-          <name>
-            
-              Unknown
-            
-          </name>
-        </author>
-        
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-searching/"/>
-        <id>https://blog.dich.bid/network-searching/</id>
-        
-        <summary type="html">&lt;p&gt;前言 搜索引擎原理可以简单分为三个过程：爬行，索引，排名。&lt;&#x2F;p&gt;</summary>
-        
-    </entry>
-    <entry xml:lang="en">
         <title>Network的艺术:国内至国际骨干ISP线路整理</title>
         <published>2024-02-10T00:00:00+00:00</published>
         <updated>2024-02-10T00:00:00+00:00</updated>
