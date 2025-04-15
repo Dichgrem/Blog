@@ -36,13 +36,13 @@ tags = ["乱七八糟","Windows"]
 
 | 分类   | 名称     | 下载 |
 |--------|----------|------|
-| 三大件 | AMD      | [链接](https://www.amd.com/en/support/download/drivers.html) |
-| 三大件 | Intel    | [链接](https://www.intel.cn/content/www/cn/zh/support/detect.html) |
-| 三大件 | NVIDIA   | [链接](https://www.nvidia.cn/geforce/drivers/) |
 | 综合   | 驱动天空 | [链接](https://www.drvsky.com/) |
 | 厂商   | 吾空     | [链接](http://www.wooking.com.cn/drives) |
 | 厂商   | 华硕     | [链接](https://www.asus.com.cn/support/download-center/) |
 | 厂商   | 联想     | [链接](https://newsupport.lenovo.com.cn/driveDownloads_index.html) |
+| 三大件 | AMD      | [链接](https://www.amd.com/en/support/download/drivers.html) |
+| 三大件 | Intel    | [链接](https://www.intel.cn/content/www/cn/zh/support/detect.html) |
+| 三大件 | NVIDIA   | [链接](https://www.nvidia.cn/geforce/drivers/) |
 
 
 ## 软件
@@ -50,6 +50,7 @@ tags = ["乱七八糟","Windows"]
 | 分类             | 软件名称                  |
 |------------------|---------------------------|
 | AI               | [GPT4All](https://github.com/nomic-ai/gpt4all)                   |
+| 截图             | [ShareX](https://github.com/ShareX/ShareX)                          |
 | 办公             | [Microsoft Office](https://github.com/YerongAI/Office-Tool)          |
 | PDF工具          | [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)               |
 | 游戏             | [Steam](https://store.steampowered.com/)                     |
