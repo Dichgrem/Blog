@@ -100,11 +100,49 @@
     
 
         <div class="post-content">
-            <p>前言 个人博客的搭建有诸多框架的选择。本文以Zola框架为例，介绍如何部署该静态站点，并将其托管到Paas平台上。</p>
+            <p>前言 个人博客的搭建具有许多的方案可以选择，本文介绍如何快速部署一个博客，并将其发布到公网。</p>
 <span id="continue-reading"></span><h2 id="qian-qing-hui-gu">前情回顾</h2>
-<p>在互联网冲浪的过程中，我们常常看到许多独立站点，有各种各样的主题样式；这些站点见证了互联网的发展历史。从最初的手工编写HTML页面，到后来的内容管理系统（CMS）如WordPress的兴起，再到如今流行的静态网站生成器（SSG），如Hugo，Hexo，Zola等等。</p>
-<p>如今，静态网站生成器以其简单易用和高效性而备受青睐。其工作原理是在本地计算机上生成整个网站的HTML文件，然后将这些静态文件上传到服务器，这样用户访问网站时就可以直接从服务器上获取到HTML文件，而无需动态生成页面。这种方式不仅能够提高网站的访问速度，还可以减轻服务器的负载压力。</p>
-<h2 id="da-jian-bo-ke">搭建博客</h2>
+<p>在互联网冲浪的过程中，我们常常看到许多独立站点，他们往往是个人博客，有各种各样的主题样式；这些站点见证了互联网的发展历史。从最初的手工编写HTML页面，到后来的内容管理系统（CMS）如WordPress的兴起，再到如今流行的静态网站生成器（SSG），如Hugo，Hexo，Zola等等。</p>
+<p>个人博客的定义是什么？私以为是<code>域名+站点+原创内容</code>三要素组成。当然，最重要的原创内容往往被忽视...</p>
+<ul>
+<li>域名可以在<a href="https://www.dynadot.com/">Dynadot</a>等平台购买，也可以申请免费域名，目的是为了好记；</li>
+<li>站点可以在自己的服务器上使用动态的WordPress或者Halo来一键创建，也可以使用静态的框架部署在PAAS平台上；</li>
+</ul>
+<p>因此，整体成本应该是非常低的。</p>
+<h2 id="shi-yong-halokuai-su-gou-jian-bo-ke">使用Halo快速构建博客</h2>
+<ul>
+<li>首先你需要有一台自己的云服务器，建议在1核1G以上配置，并安装Debian系统；</li>
+<li>随后我们安装1panel，执行以下命令一键安装：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh &amp;&amp; sudo bash quick_start.sh
+</span></code></pre>
+<blockquote>
+<p>1panel依赖于docker，如果实现没有安装docker，脚本会帮你安装。</p>
+</blockquote>
+<ul>
+<li>
+<p>安装过程中选择好端口，随后即可使用<code>http:&lt;ip&gt;:&lt;port&gt;:&lt;安全入口&gt;</code>进入登录界面，并使用默认随机生成的密码进入面板。</p>
+</li>
+<li>
+<p>进入之后我们可以看到里面有应用商店，在其中安装<code>OpenResty</code>与<code>Halo</code>与<code>mysql</code>，安装完毕后打开外部访问地址<code>http://ip:8090</code>，即可进入halo的后台，在其中写入文章并发布。</p>
+</li>
+</ul>
+<p>但我们不能使用不安全的HTTP以及IP来访问博客；因此，我们需要一个域名指向我们的博客，例如本文的<code>blog.dich.bid</code>;可以在在<a href="https://www.dynadot.com/">Dynadot</a>等平台购买域名，并托管到<a href="https://askai.glarity.app/zh-CN/search/%E5%A6%82%E4%BD%95%E5%B0%86Dynadot%E6%B3%A8%E5%86%8C%E7%9A%84%E5%9F%9F%E5%90%8D%E8%BD%AC%E7%A7%BB%E5%88%B0Cloudflare">Cloudflare</a>。</p>
+<ul>
+<li>
+<p>随后可以在1panel的<code>网站</code>中创建一个反向代理，代理地址即为http://ip:8090，主域名为刚刚注册的域名前加blog或其他，如<code>blog.xxx.com</code></p>
+</li>
+<li>
+<p>创建完成后我们还需要配置TLS证书，在网站-HTTPS中添加证书，可以选择<a href="https://bkssl.com/ssl/selfsign">自签名证书</a>正式或者通过Acme申请免费的<code>Let's Encrypt</code>证书。</p>
+</li>
+<li>
+<p>配置完成后在Cloudflare的DNS解析界面创建一个A记录，将你的blog.xxx.com解析到你的服务器的IP；</p>
+</li>
+<li>
+<p>大功告成！现在你应该可以通过HTTPS域名访问自己的博客！</p>
+</li>
+</ul>
+<h2 id="jing-tai-kuang-jia-da-jian-bo-ke">静态框架搭建博客</h2>
 <p>首先明确你需要的架构，一般有两种选择：</p>
 <ul>
 <li>使用现有的架构,包括Hugo,zola,astro等等,可以在<a href="https://jamstackthemes.dev/">这个网站</a>上面查看效果;</li>
@@ -144,15 +182,15 @@
 <li>新建一个Github仓库，用Git连接并push上去；</li>
 <li>在Vercel/Fleek等平台将仓库部署并设置域名。</li>
 </ul>
-<h2 id="hou-ji">后记</h2>
-<p>通过简单的步骤，我们已经快速地创建一个具有自定义主题和样式的独立站点，并将其发布到互联网上供他人访问。而在这期间，各种工具链的完善和前端基本原理了解也是收获的一部分。</p>
-<h2 id="can-kao">参考</h2>
+<h2 id="link">🔗</h2>
 <ul>
 <li><a href="https://www.getzola.org/documentation/getting-started/overview/">zola官方文档</a></li>
 <li><a href="https://github.com/pawroman/zola-theme-terminimal">zoal-terminimal主题</a></li>
 <li><a href="https://github.com/aaranxu/chinese-copywriting-guidelines">中文排版指南</a></li>
 <li><a href="https://atpx.com/blog/improving-online-reading-experience/">如何提高用户网页阅读体验</a></li>
 </ul>
+<hr />
+<p><strong>Done.</strong></p>
 
         </div>
 
