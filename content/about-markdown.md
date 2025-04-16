@@ -12,6 +12,13 @@ tags = ["乱七八糟"]
 
 # Markdown 教程
 
+## 零.常用的markdown编辑器
+
+- VSCode的``Markdown Preview Enhanced``插件；
+- Windows上的[obsdian](https://obsidian.md/download)或者[inkdown](https://github.com/1943time/inkdown)，[joplin](https://github.com/laurent22/joplin)
+- linux中的inkdown或[zettlr](https://github.com/Zettlr/Zettlr)
+
+
 ## 一、Markdown 简介
 
 ### 1.1 什么是 Markdown？
