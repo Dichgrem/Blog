@@ -155,14 +155,14 @@
 </ul>
 <h2 id="dnspei-zhi">Dns配置</h2>
 <table><thead><tr><th>记录类型</th><th>主机记录</th><th>记录值</th></tr></thead><tbody>
+<tr><td>A</td><td>mail</td><td>1.2.3.4 (your ip)</td></tr>
 <tr><td>MX</td><td>your-domain.com</td><td>mail.your-domain.com</td></tr>
 <tr><td>TXT</td><td>your-domain.com</td><td>v=spf1 mx ~all</td></tr>
-<tr><td>A</td><td>mail</td><td>1.2.3.4 (your ip)</td></tr>
+<tr><td>TXT</td><td>_s20160910378._domainkey.your-domain.com</td><td>k=rsa;p=MII.........</td></tr>
 <tr><td>TXT</td><td>_dmarc</td><td>v=DMARC1; p=none; pct=100; rua=mailto:mail@your-domain.com</td></tr>
 <tr><td>CNAME</td><td>imap</td><td>mail</td></tr>
 <tr><td>CNAME</td><td>smtp</td><td>mail</td></tr>
 <tr><td>CNAME</td><td>pop</td><td>mail</td></tr>
-<tr><td>TXT</td><td>_s20160910378._domainkey.your-domain.com</td><td>k=rsa;p=MII.........</td></tr>
 </tbody></table>
 <p>最后还需到 VPS 服务商处添加一个反向 DNS，也就是 rDNS 解析，把 IP 解析到 mail.your-domain.com 这个域名，有些 VPS 商家不提供这种服务,所以需要选择好VPS服务商。</p>
 <h2 id="pei-zhi-poste">配置poste</h2>
