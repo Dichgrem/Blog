@@ -55,4 +55,4 @@ tags = ["乱七八糟","Windows"]
 
 **SHA-256:5920ca1b839c2823cad5223cdff39671784d98d18da03fa4377a362ad480ce54**
 
-**下载链接：**[这里](https://gitea.dich.bid/dichgrem/Dich-OS/releases/tag/2.0.0)
+**下载链接：**[这里](https://gitea.dich.bid/dichgrem/Dich-OS/releases)
