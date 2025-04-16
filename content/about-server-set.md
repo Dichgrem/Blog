@@ -173,86 +173,7 @@ ip -6 addr show scope global
 
 或者 curl ipv6.ip.sb
 ```
-### 使用FTP上传下载文件
 
-这是一个典型的服务端与客户端（CS）模型。
-
-首先在服务器端安装vsftpd，对Ubuntu:
-```
-apt install vsftpd
-```
-对Centos：
-```
-yum install vsftpd
-```
-查看服务状态是否运行：
-```
-systemctl status vsftpd
-```
-
-随后需要更改配置文件，使外部用户可以登录，对ubuntu：
-```
-nano /etc/vsftpd.conf
-```
-对Centos：
-```
-nano /etc/vsftpd/vsftpd.conf
-```
-修改关键参数：
-```
-listen=YES
-write_enable=YES
-pasv_enable=YES
-pasv_min_port=30000
-pasv_max_port=31000
-pasv_address=服务器的公网IP地址
-pasv_addr_resolve=YES
-```
-其中若不设置被动模式，端口会随机生成，会无法连接，因此需要使用被动模式，或者打开防火墙/安全组全部端口（不推荐！！！有极大安全风险）,``随后打开服务器的21端口和30000-31000端口。``
-
-修改完成后重启vsftpd服务：
-```
-sudo systemctl restart vsftpd
-```
-按照要求在服务端创建一个新用户：
-```
-sudo adduser stu+xxx（学号）
-```
-授予这个用户sudo权限：
-```
-sudo usermod -aG sudo stu+xxx（学号）
-```
-
-切换到这个新用户的家目录：
-```
-sudo su - stu+xxx（学号）
-```
-
-创建一个文件，内容随意，名称为学号.txt:
-```
-echo "This is a test file" > ~/学号.txt
-```
-使用被动模式连接到服务器：
-```
-ftp -p 服务器IP / 或者 quote PASV && ftp 服务器IP
-```
-下载刚刚创建的文件：
-```
-get 学号.txt
-```
-在本地新建一个文件：
-```
-echo "New file for FTP upload" > 学号_1.txt
-```
-随后使用被动模式上传到服务器：
-```
-ftp -p 服务器IP / 或者 quote PASV && ftp 服务器IP
-put /home/用户名/学号_1.txt
-```
-如果无法上传，查看服务器端目录的权限：
-```
-sudo chmod 755 /home/stu+xxx（学号）
-```
 ### 改为密钥登录
 
 - 在本地执行以下命令生成.pub后缀的公钥和无后缀的密钥：
@@ -374,7 +295,7 @@ sudo rm -rf /var/lib/docker
 sudo rm -rf /var/lib/containerd
 ````
 
-## 在Arch Linux上安装Docker
+### 在Arch Linux上安装Docker
 ```
 sudo pacman -S docker
 ```
@@ -400,7 +321,7 @@ sudo usermod -aG docker $USER
 sudo pacman -S docker-compose
 ```
 
-## Docker 常用命令
+### Docker 常用命令
 ```
 docker-compose up -d    #在后台启动容器
 docker-compose ps       #查看正在运行的容器
