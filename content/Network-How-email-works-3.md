@@ -71,17 +71,15 @@ services:
 
 | 记录类型 | 主机记录 | 记录值 |
 |----------|----------|----------|
+| A        | mail | 1.2.3.4 (your ip) |
 | MX       | your-domain.com | mail.your-domain.com |
 | TXT      | your-domain.com | v=spf1 mx ~all |
-| A        | mail | 1.2.3.4 (your ip) |
+| TXT      | _s20160910378._domainkey.your-domain.com | k=rsa;p=MII.........|
 | TXT      | _dmarc | v=DMARC1; p=none; pct=100; rua=mailto:mail@your-domain.com |
 | CNAME    | imap | mail |
 | CNAME    | smtp | mail |
 | CNAME    | pop  | mail |
-| TXT      | _s20160910378._domainkey.your-domain.com | k=rsa;p=MII......... |
 
-
-    
 最后还需到 VPS 服务商处添加一个反向 DNS，也就是 rDNS 解析，把 IP 解析到 mail.your-domain.com 这个域名，有些 VPS 商家不提供这种服务,所以需要选择好VPS服务商。
 
 ## 配置poste
