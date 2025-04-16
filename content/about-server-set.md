@@ -315,33 +315,6 @@ sudo rm -rf /etc/docker
 
 这些命令会卸载 Docker 软件并删除 Docker 数据目录。
 
-
-### 在Arch Linux上安装Docker
-```
-sudo pacman -S docker
-```
-
-安装完成后，需要启动Docker服务，并设置为开机自启：
-```
-sudo systemctl start docker
-sudo systemctl enable docker
-```
-
-运行以下命令来验证Docker是否正常工作：
-```
-sudo docker run hello-world
-```
-默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：
-```
-sudo usermod -aG docker $USER
-```
-之后，需要注销并重新登录，或者重启系统以使更改生效。
-
-安装Docker Compose：
-```
-sudo pacman -S docker-compose
-```
-
 ### Docker 常用命令
 ```
 docker-compose up -d    #在后台启动容器

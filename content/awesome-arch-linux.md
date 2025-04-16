@@ -253,7 +253,33 @@ sysctl net.ipv4.tcp_congestion_control
 ```
 net.ipv4.tcp_congestion_control = bbr
 ```
+## 在Arch Linux上安装Docker
 
+一般推荐在qemu虚拟机中安装，这里仅做示例：
+```
+sudo pacman -S docker
+```
+
+安装完成后，需要启动Docker服务，并设置为开机自启：
+```
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+运行以下命令来验证Docker是否正常工作：
+```
+sudo docker run hello-world
+```
+默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：
+```
+sudo usermod -aG docker $USER
+```
+之后，需要注销并重新登录，或者重启系统以使更改生效。
+
+安装Docker Compose：
+```
+sudo pacman -S docker-compose
+```
 ---
 **Done.**
 
