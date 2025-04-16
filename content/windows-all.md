@@ -139,6 +139,16 @@ qemu-img convert -f qcow2 -O vpc input.qcow2 output.vhd
 ```
 Convert-VHD -Path "output.vhd" -DestinationPath "output.vhdx" -VHDType Dynamic
 ```
+- vhd转vhdx
+在 PowerShell 中执行以下命令：​
+```
+Convert-VHD -Path "C:\路径\源文件.vhd" -DestinationPath "C:\路径\目标文件.vhdx" -VHDType Dynamic
+
+# -Path：​指定原始 VHD 文件的路径。​
+# -DestinationPath：​指定转换后 VHDX 文件的保存路径。​
+# -VHDType：​指定磁盘类型，可选值为 Fixed（固定大小）或 Dynamic（动态扩展）。​
+```
+请确保虚拟机已关闭，并且 PowerShell 以管理员权限运行。
 
 > 虚拟机固定IP
 
