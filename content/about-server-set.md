@@ -28,8 +28,9 @@ tags = ["乱七八糟"]
 apt install curl vim sudo
 apt update && apt upgrade -y
 apt-get install --fix-missing
-````
-
+adduser xxx
+sudo usermod -aG sudo xxx
+```
 ## BBR
 查询系统所支持的拥塞控制算法。
 
