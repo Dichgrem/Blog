@@ -123,274 +123,228 @@
 </span><span>apt-get install --fix-missing
 </span><span>adduser xxx
 </span><span>sudo usermod -aG sudo xxx
-</span><span>```
-</span><span>## BBR
-</span><span>查询系统所支持的拥塞控制算法。
-</span><span>
 </span></code></pre>
-<p>$ sysctl net.ipv4.tcp_available_congestion_control
-net.ipv4.tcp_congestion_control = bbr cubic reno</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>查询正在使用中的拥塞控制算法（Linux 绝大部分系统默认为 Cubic 算法）。
-</span><span>
+<h2 id="bbr">BBR</h2>
+<p>查询系统所支持的拥塞控制算法。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>$ sysctl net.ipv4.tcp_available_congestion_control
+</span><span>net.ipv4.tcp_congestion_control = bbr cubic reno
 </span></code></pre>
-<p>$ sysctl net.ipv4.tcp_congestion_control
-net.ipv4.tcp_congestion_control = cubic</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>指定拥塞控制算法为 bbr。
-</span><span>
+<p>查询正在使用中的拥塞控制算法（Linux 绝大部分系统默认为 Cubic 算法）。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>$ sysctl net.ipv4.tcp_congestion_control
+</span><span>net.ipv4.tcp_congestion_control = cubic
 </span></code></pre>
-<p>$ echo net.ipv4.tcp_congestion_control=bbr &gt;&gt; /etc/sysctl.conf &amp;&amp; sysctl -p</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>## Safe
-</span><span>
-</span><span>### 更换SSH端口
-</span><span>
-</span><span>使用root账户或已经有sudo权限的用户登录到系统。
-</span><span>
-</span><span>打开SSH配置文件`sshd_config`，可以使用文本编辑器如nano或vi。以下是使用nano编辑器的示例：
-</span><span>
+<p>指定拥塞控制算法为 bbr。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>$ echo net.ipv4.tcp_congestion_control=bbr &gt;&gt; /etc/sysctl.conf &amp;&amp; sysctl -p
 </span></code></pre>
-<p>sudo vim /etc/ssh/sshd_config</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>在配置文件中找到以下行：
-</span><span>
+<h2 id="safe">Safe</h2>
+<h3 id="geng-huan-sshduan-kou">更换SSH端口</h3>
+<p>使用root账户或已经有sudo权限的用户登录到系统。</p>
+<p>打开SSH配置文件<code>sshd_config</code>，可以使用文本编辑器如nano或vi。以下是使用nano编辑器的示例：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo vim /etc/ssh/sshd_config
 </span></code></pre>
-<p>Port 22</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>这是SSH默认的端口号，你可以将其更改为你想要的任何未被占用的端口号。例如，将端口更改为2222：
-</span><span>
+<p>在配置文件中找到以下行：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Port 22
 </span></code></pre>
-<p>Port 2222</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>保存并关闭文本编辑器。重新启动SSH服务，以应用更改：
-</span><span>
+<p>这是SSH默认的端口号，你可以将其更改为你想要的任何未被占用的端口号。例如，将端口更改为2222：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Port 2222
 </span></code></pre>
-<p>sudo service ssh restart</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>或者，如果你的系统使用systemd，可以使用以下命令：
-</span><span>
+<p>保存并关闭文本编辑器。重新启动SSH服务，以应用更改：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo service ssh restart
 </span></code></pre>
-<p>sudo systemctl restart ssh</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>### 安装 UFW
-</span><span>
+<p>或者，如果你的系统使用systemd，可以使用以下命令：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl restart ssh
 </span></code></pre>
-<p>sudo apt install ufw</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>**如果你在远程位置连接你的服务器，在启用 UFW 防火墙之前，你必须显式允许进来的 SSH 连接。否则，你将永远都无法连接到机器上。**
-</span><span>
+<h3 id="an-zhuang-ufw">安装 UFW</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt install ufw
 </span></code></pre>
-<p>sudo ufw allow 22/tcp</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>&gt; 如果 SSH 运行在非标准端口，你需要将上述命令中的 22 端口替换为对应的 SSH 端口。
-</span><span>
-</span><span>**放开 1Panel 系统端口。**
-</span><span>
+<p><strong>如果你在远程位置连接你的服务器，在启用 UFW 防火墙之前，你必须显式允许进来的 SSH 连接。否则，你将永远都无法连接到机器上。</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo ufw allow 22/tcp
 </span></code></pre>
-<p>sudo ufw allow 8090/tcp</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>&gt; 上述命令中的 8090 端口需要替换为安装 1Panel 系统时自定义的端口。
-</span><span>
-</span><span>**启动 UFW**
-</span><span>
+<blockquote>
+<p>如果 SSH 运行在非标准端口，你需要将上述命令中的 22 端口替换为对应的 SSH 端口。</p>
+</blockquote>
+<p><strong>放开 1Panel 系统端口。</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo ufw allow 8090/tcp
 </span></code></pre>
-<p>sudo ufw enable</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>### 安装 Fail2ban
-</span><span>
+<blockquote>
+<p>上述命令中的 8090 端口需要替换为安装 1Panel 系统时自定义的端口。</p>
+</blockquote>
+<p><strong>启动 UFW</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo ufw enable
 </span></code></pre>
-<p>sudo apt-get install fail2ban</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>**2、Debian 12 及以上的版本需要手动安装 rsyslog**
-</span><span>
+<h3 id="an-zhuang-fail2ban">安装 Fail2ban</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt-get install fail2ban
 </span></code></pre>
-<p>sudo apt-get install rsyslog</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>**3、启动 Fail2ban 服务**
-</span><span>
+<p><strong>2、Debian 12 及以上的版本需要手动安装 rsyslog</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt-get install rsyslog
 </span></code></pre>
-<p>sudo systemctl start fail2ban</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>**4、开机自启动**
-</span><span>
+<p><strong>3、启动 Fail2ban 服务</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl start fail2ban
 </span></code></pre>
-<p>sudo systemctl enable fail2ban</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>**5、查看 Fail2ban 服务状态。**
-</span><span>
+<p><strong>4、开机自启动</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl enable fail2ban
 </span></code></pre>
-<p>sudo systemctl status fail2ban</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>### Ban IPv6
-</span><span>
-</span><span>手动 禁用 VPS 的 IPv6 命令:
-</span><span>```
-</span><span>sysctl -w net.ipv6.conf.all.disable_ipv6=1
+<p><strong>5、查看 Fail2ban 服务状态。</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl status fail2ban
+</span></code></pre>
+<h3 id="ban-ipv6">Ban IPv6</h3>
+<p>手动 禁用 VPS 的 IPv6 命令:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl -w net.ipv6.conf.all.disable_ipv6=1
 </span><span>sysctl -w net.ipv6.conf.default.disable_ipv6=1
-</span><span>```
-</span><span>如果想重启系统也生效， 执行：
-</span><span>```
-</span><span>echo &#39;net.ipv6.conf.all.disable_ipv6=1&#39; &gt;&gt; /etc/sysctl.conf
+</span></code></pre>
+<p>如果想重启系统也生效， 执行：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo &#39;net.ipv6.conf.all.disable_ipv6=1&#39; &gt;&gt; /etc/sysctl.conf
 </span><span>echo &#39;net.ipv6.conf.default.disable_ipv6=1&#39; &gt;&gt; /etc/sysctl.conf
-</span><span>```
-</span><span>手动 启用 VPS 的 IPv6 命令:
-</span><span>```
-</span><span>sysctl -w net.ipv6.conf.all.disable_ipv6=0
+</span></code></pre>
+<p>手动 启用 VPS 的 IPv6 命令:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl -w net.ipv6.conf.all.disable_ipv6=0
 </span><span>sysctl -w net.ipv6.conf.default.disable_ipv6=0
-</span><span>```
-</span><span>重新载入 sysctl 配置
-</span><span>```
-</span><span>sysctl --system # reload sysctl
-</span><span>```
-</span><span>如果重载, 还无效果, 可能要 reboot 重启下.
-</span><span>查看 VPS 的 IPv6 信息
-</span><span>```
-</span><span>ip -6 addr show scope global
+</span></code></pre>
+<p>重新载入 sysctl 配置</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl --system # reload sysctl
+</span></code></pre>
+<p>如果重载, 还无效果, 可能要 reboot 重启下.
+查看 VPS 的 IPv6 信息</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ip -6 addr show scope global
 </span><span>
 </span><span>或者 curl ipv6.ip.sb
-</span><span>```
-</span><span>
-</span><span>### 改为密钥登录
-</span><span>
-</span><span>- 在本地执行以下命令生成.pub后缀的公钥和无后缀的密钥：
-</span><span>```
-</span><span>ssh-keygen
-</span><span>```
-</span><span>注意不同密钥对名称不能相同；同时可以为这两个文件用密码加密；
-</span><span>
-</span><span>- 随后将.pub后缀的公钥中的内容写入服务器的``~/.ssh/authorized_keys``中；
-</span><span>
-</span><span>- 使用以下命令编译服务器的SSH配置：
-</span><span>```
-</span><span>vim /etc/ssh/sshd_config
-</span><span>```
-</span><span>将其中的该行改为``PasswordAuthentication no``，保存退出；随后使用
-</span><span>```
-</span><span>sudo systemctl restart sshd
-</span><span>```
-</span><span>重启SSH即可禁用密码登录；
-</span><span>
-</span><span>- 将**PermitRootLogin prohibit-password**改为**prohibit-password**，即可实现仅root用户密钥登录；
-</span><span>
-</span><span>- 使用以下命令查看输出，
-</span><span>```
-</span><span>sudo cat /etc/ssh/sshd_config | grep -E &#39;PasswordAuthentication|PubkeyAuthentication&#39;
-</span><span>```
-</span><span>如有**PasswordAuthentication no → 禁用密码登录**以及**PubkeyAuthentication yes → 允许密钥登录**则成功。
-</span><span>
-</span><span>- 注意**authorized_keys**的权限为600，如果不是则需要改正：``chmod 600 ~/.ssh/authorized_keys``
-</span><span>
-</span><span>- 随后可以在本地尝试登录，命令为``ssh -i ~/.ssh/id_xxx -p 端口 用户名@服务器IP``，第一次登录会提示服务器公钥的哈希值，需要选Yes。
-</span><span>使用SCP命令上传下载文件：
-</span><span>```
-</span><span>scp 文件目录 用户名@ip:/路径
-</span><span>```
-</span><span>下载
-</span><span>```
-</span><span>scp  用户名@ip:/路径 文件目录
-</span><span>```
-</span><span>## Docker
-</span><span>
-</span><span>Docker 官方提供了一个安装脚本，可以自动选择适当版本，并规避仓库问题：
-</span><span>```
-</span><span>curl -fsSL https://get.docker.com -o get-docker.sh
+</span></code></pre>
+<h3 id="gai-wei-mi-yao-deng-lu">改为密钥登录</h3>
+<ul>
+<li>在本地执行以下命令生成.pub后缀的公钥和无后缀的密钥：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-keygen
+</span></code></pre>
+<p>注意不同密钥对名称不能相同；同时可以为这两个文件用密码加密；</p>
+<ul>
+<li>
+<p>随后将.pub后缀的公钥中的内容写入服务器的<code>~/.ssh/authorized_keys</code>中；</p>
+</li>
+<li>
+<p>使用以下命令编译服务器的SSH配置：</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>vim /etc/ssh/sshd_config
+</span></code></pre>
+<p>将其中的该行改为<code>PasswordAuthentication no</code>，保存退出；随后使用</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl restart sshd
+</span></code></pre>
+<p>重启SSH即可禁用密码登录；</p>
+<ul>
+<li>
+<p>将<strong>PermitRootLogin prohibit-password</strong>改为<strong>prohibit-password</strong>，即可实现仅root用户密钥登录；</p>
+</li>
+<li>
+<p>使用以下命令查看输出，</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo cat /etc/ssh/sshd_config | grep -E &#39;PasswordAuthentication|PubkeyAuthentication&#39;
+</span></code></pre>
+<p>如有<strong>PasswordAuthentication no → 禁用密码登录</strong>以及<strong>PubkeyAuthentication yes → 允许密钥登录</strong>则成功。</p>
+<ul>
+<li>
+<p>注意<strong>authorized_keys</strong>的权限为600，如果不是则需要改正：<code>chmod 600 ~/.ssh/authorized_keys</code></p>
+</li>
+<li>
+<p>随后可以在本地尝试登录，命令为<code>ssh -i ~/.ssh/id_xxx -p 端口 用户名@服务器IP</code>，第一次登录会提示服务器公钥的哈希值，需要选Yes。
+使用SCP命令上传下载文件：</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp 文件目录 用户名@ip:/路径
+</span></code></pre>
+<p>下载</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp  用户名@ip:/路径 文件目录
+</span></code></pre>
+<h2 id="docker">Docker</h2>
+<p>Docker 官方提供了一个安装脚本，可以自动选择适当版本，并规避仓库问题：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://get.docker.com -o get-docker.sh
 </span><span>sudo sh get-docker.sh
-</span><span>```
-</span><span>这个脚本会为你的系统自动选择合适的安装方式。
-</span><span>
-</span><span>### 使用 Docker 存储库安装
-</span><span>
-</span><span>使用以下命令安装此方法的先决条件：
-</span><span>
 </span></code></pre>
-<p>sudo apt update &amp;&amp; sudo apt install ca-certificates curl gnupg</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>创建一个目录来存储密钥环：
-</span><span>
+<p>这个脚本会为你的系统自动选择合适的安装方式。</p>
+<h3 id="shi-yong-docker-cun-chu-ku-an-zhuang">使用 Docker 存储库安装</h3>
+<p>使用以下命令安装此方法的先决条件：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update &amp;&amp; sudo apt install ca-certificates curl gnupg
 </span></code></pre>
-<p>sudo install -m 0755 -d /etc/apt/keyrings</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>使用给定的命令下载 GPG 密钥并将其存储在 `/etc/apt/keyrings/etc/apt/keyrings` 目录中：
-</span><span>
+<p>创建一个目录来存储密钥环：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo install -m 0755 -d /etc/apt/keyrings
 </span></code></pre>
-<p>curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>使用 chmod 命令更改 docker.gpg 文件的权限：
-</span><span>
+<p>使用给定的命令下载 GPG 密钥并将其存储在 <code>/etc/apt/keyrings/etc/apt/keyrings</code> 目录中：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 </span></code></pre>
-<p>sudo chmod a+r /etc/apt/keyrings/docker.gpg</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>使用以下命令为 Docker 设置存储库：
-</span><span>
+<p>使用 chmod 命令更改 docker.gpg 文件的权限：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo chmod a+r /etc/apt/keyrings/docker.gpg
 </span></code></pre>
-<p>echo <br />
-"deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian <br />
-"$(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME")" stable" | <br />
-sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>上述命令中每行末尾的额外 `\` 只是添加新行的一种方式，以便您可以轻松查看整个命令。就是这样！
-</span><span>
-</span><span>现在可以使用以下命令更新存储库索引并安装 Docker：
-</span><span>
+<p>使用以下命令为 Docker 设置存储库：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo \
+</span><span>  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+</span><span>  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \
+</span><span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
 </span></code></pre>
-<p>sudo apt update &amp;&amp; sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>要验证 Docker 安装，安装 hello-world 映像：
-</span><span>
+<p>上述命令中每行末尾的额外 <code>\</code> 只是添加新行的一种方式，以便您可以轻松查看整个命令。就是这样！</p>
+<p>现在可以使用以下命令更新存储库索引并安装 Docker：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update &amp;&amp; sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 </span></code></pre>
-<p>sudo docker run hello-world</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>hello-world docker 镜像很小，仅用于检查 Docker 是否运行正常。
-</span><span>
-</span><span>
-</span><span>### 卸载 Docker
-</span><span>
-</span><span>首先，使用以下命令停止 docker 服务：
-</span><span>
+<p>要验证 Docker 安装，安装 hello-world 映像：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo docker run hello-world
 </span></code></pre>
-<p>sudo systemctl stop docker</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>然后按以下方式使用 apt purge 命令从系统中删除 Docker：
-</span><span>
+<p>hello-world docker 镜像很小，仅用于检查 Docker 是否运行正常。</p>
+<h3 id="xie-zai-docker">卸载 Docker</h3>
+<p>要删除所有 Docker 容器和 Docker 本身，可以按照以下步骤操作：</p>
+<ol>
+<li>首先停止所有正在运行的容器：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker stop $(docker ps -aq)
 </span></code></pre>
-<p>sudo apt purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>使用 rm 命令删除 Docker 文件：
-</span><span>
+<ol start="2">
+<li>删除所有容器</li>
+</ol>
+<p>删除所有容器（包括停止的容器）：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker rm $(docker ps -aq)
 </span></code></pre>
-<p>sudo rm -rf /var/lib/docker
-sudo rm -rf /var/lib/containerd</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>### 在Arch Linux上安装Docker
-</span><span>```
-</span><span>sudo pacman -S docker
-</span><span>```
-</span><span>
-</span><span>安装完成后，需要启动Docker服务，并设置为开机自启：
-</span><span>```
-</span><span>sudo systemctl start docker
+<ol start="3">
+<li>删除所有镜像</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker rmi $(docker images -q)
+</span></code></pre>
+<ol start="4">
+<li>删除所有网络</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker network prune -f
+</span></code></pre>
+<ol start="5">
+<li>删除所有未使用的卷</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker volume prune -f
+</span></code></pre>
+<ol start="6">
+<li>卸载 Docker</li>
+</ol>
+<p>最后，如果您希望完全删除 Docker 本身，可以执行以下命令:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt-get purge docker-ce docker-ce-cli containerd.io
+</span><span>sudo apt-get autoremove --purge
+</span><span>sudo rm -rf /var/lib/docker
+</span><span>sudo rm -rf /etc/docker
+</span></code></pre>
+<p>这些命令会卸载 Docker 软件并删除 Docker 数据目录。</p>
+<h3 id="zai-arch-linuxshang-an-zhuang-docker">在Arch Linux上安装Docker</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S docker
+</span></code></pre>
+<p>安装完成后，需要启动Docker服务，并设置为开机自启：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl start docker
 </span><span>sudo systemctl enable docker
-</span><span>```
-</span><span>
-</span><span>运行以下命令来验证Docker是否正常工作：
-</span><span>```
-</span><span>sudo docker run hello-world
-</span><span>```
-</span><span>默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：
-</span><span>```
-</span><span>sudo usermod -aG docker $USER
-</span><span>```
-</span><span>之后，需要注销并重新登录，或者重启系统以使更改生效。
-</span><span>
-</span><span>安装Docker Compose：
-</span><span>```
-</span><span>sudo pacman -S docker-compose
-</span><span>```
-</span><span>
-</span><span>### Docker 常用命令
-</span><span>```
-</span><span>docker-compose up -d    #在后台启动容器
+</span></code></pre>
+<p>运行以下命令来验证Docker是否正常工作：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo docker run hello-world
+</span></code></pre>
+<p>默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo usermod -aG docker $USER
+</span></code></pre>
+<p>之后，需要注销并重新登录，或者重启系统以使更改生效。</p>
+<p>安装Docker Compose：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S docker-compose
+</span></code></pre>
+<h3 id="docker-chang-yong-ming-ling">Docker 常用命令</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker-compose up -d    #在后台启动容器
 </span><span>docker-compose ps       #查看正在运行的容器
 </span><span>docker-compose down     #停止并移除所有运行中的容器
 </span><span>docker-compose stop     #停止容器，但保留数据和卷
@@ -398,71 +352,75 @@ sudo rm -rf /var/lib/containerd</p>
 </span><span>docker-compose build    #更新镜像后重新构建
 </span><span>docker-compose logs     #查看日志
 </span><span>docker image prune -a   #删除所有未被容器使用的镜像
-</span><span>```
-</span><span>
-</span><span>
-</span><span>## 1panel
-</span><span>
-</span><span>执行如下命令一键安装 1Panel:
-</span><span>
 </span></code></pre>
-<p>curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh &amp;&amp; sudo bash quick_start.sh</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>
-</span><span>
-</span><span>
-</span><span>
-</span><span>## IP证书申请部署
-</span><span>
-</span><span>- 在 [ZeroSSL](https://zerossl.com/) 中申请一个90天的证书；
-</span><span>
-</span><span>- 然后在VPS上输入以下命令：
-</span><span>
-</span><span>```
-</span><span>mkdir -p ./.well-known/pki-validation
-</span><span>```
-</span><span>- 随后在ZeroSSL中将所给出的类似**B992F08CB46748D02E4C553A4038BC.txt**复制；
-</span><span>
-</span><span>- 将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:将pki-validation/之后EOF之前的内容替换为你自己的。
-</span><span>```
-</span><span>cat &lt;&lt; EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
+<h2 id="1panel">1panel</h2>
+<p>执行如下命令一键安装 1Panel:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh &amp;&amp; sudo bash quick_start.sh
+</span></code></pre>
+<h2 id="ipzheng-shu-shen-qing-bu-shu">IP证书申请部署</h2>
+<ul>
+<li>
+<p>在 <a href="https://zerossl.com/">ZeroSSL</a> 中申请一个90天的证书；</p>
+</li>
+<li>
+<p>然后在VPS上输入以下命令：</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>mkdir -p ./.well-known/pki-validation
+</span></code></pre>
+<ul>
+<li>
+<p>随后在ZeroSSL中将所给出的类似<strong>B992F08CB46748D02E4C553A4038BC.txt</strong>复制；</p>
+</li>
+<li>
+<p>将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:将pki-validation/之后EOF之前的内容替换为你自己的。</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cat &lt;&lt; EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
 </span><span>254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
 </span><span>comodoca.com
 </span><span>ca5792984e3f0a1
 </span><span>EOF
-</span><span>```
-</span><span>随后在VPS上运行该命令。
-</span><span>- 开启一个临时HTTP服务器：
-</span><span>```
-</span><span>python3 -m http.server 80
-</span><span>```
-</span><span>- 随后即可在ZeroSSL中验证证书并开启SSL。
-</span><span>
-</span><span>## 忘记密码怎么办
-</span><span>
-</span><span>通过恢复模式 (Recovery Mode) 修改用户权限：
-</span><span>
-</span><span>- 重启计算机，按住 Shift 键进入 GRUB 菜单（或者按 Esc 键）。
-</span><span>
-</span><span>- 在 GRUB 菜单中，选择`Advanced options for Ubuntu`然后选择带有`recovery mode`的内核版本。
-</span><span>
-</span><span>- 进入恢复模式后，选择`root – Drop to root shell prompt`进入 root shell（不需要密码）。
-</span><span>
-</span><span>- 挂载文件系统为可写模式：
-</span><span>```
-</span><span>mount -o remount,rw /
-</span><span>```
-</span><span>- 将用户添加到 sudo 组：
-</span><span>```
-</span><span>usermod -aG sudo 用户名
-</span><span>```
-</span><span>- 重启计算机：
-</span><span>```
-</span><span>reboot
-</span><span>```
-</span><span>---
-</span><span>**Done.**
-</span><span>
 </span></code></pre>
+<p>随后在VPS上运行该命令。</p>
+<ul>
+<li>开启一个临时HTTP服务器：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>python3 -m http.server 80
+</span></code></pre>
+<ul>
+<li>随后即可在ZeroSSL中验证证书并开启SSL。</li>
+</ul>
+<h2 id="wang-ji-mi-ma-zen-me-ban">忘记密码怎么办</h2>
+<p>通过恢复模式 (Recovery Mode) 修改用户权限：</p>
+<ul>
+<li>
+<p>重启计算机，按住 Shift 键进入 GRUB 菜单（或者按 Esc 键）。</p>
+</li>
+<li>
+<p>在 GRUB 菜单中，选择<code>Advanced options for Ubuntu</code>然后选择带有<code>recovery mode</code>的内核版本。</p>
+</li>
+<li>
+<p>进入恢复模式后，选择<code>root – Drop to root shell prompt</code>进入 root shell（不需要密码）。</p>
+</li>
+<li>
+<p>挂载文件系统为可写模式：</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>mount -o remount,rw /
+</span></code></pre>
+<ul>
+<li>将用户添加到 sudo 组：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>usermod -aG sudo 用户名
+</span></code></pre>
+<ul>
+<li>重启计算机：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>reboot
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
 
         </div>
 

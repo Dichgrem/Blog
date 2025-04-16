@@ -24,7 +24,7 @@ tags = ["乱七八糟"]
 - **cn 域名有被停用的风险**。2008 年，有人以跳水奥运冠军吴敏霞拼音注册了 wuminxia.cn，[结果被中国互联网络信息中心（CNNIC）回收了域名](https://www.cnbeta.com/articles/tech/62209.htm)，并转交给国家体育总局。此域名在 2021 年 2 月 28 日被优视科技[注册](https://whois.cnnic.cn/WhoisServlet?queryType=Domain&domain=wuminxia.cn)，呵呵。2009 年，牛博网被域名注册商万网停止解析。
 
 ## VPS
-````
+```
 apt install curl vim sudo
 apt update && apt upgrade -y
 apt-get install --fix-missing
@@ -277,24 +277,44 @@ hello-world docker 镜像很小，仅用于检查 Docker 是否运行正常。
 
 ### 卸载 Docker
 
-首先，使用以下命令停止 docker 服务：
+要删除所有 Docker 容器和 Docker 本身，可以按照以下步骤操作：
+1. 首先停止所有正在运行的容器：
+```
+docker stop $(docker ps -aq)
+```
+2. 删除所有容器
 
-````
-sudo systemctl stop docker
-````
+删除所有容器（包括停止的容器）：
+```
+docker rm $(docker ps -aq)
+```
+3. 删除所有镜像
 
-然后按以下方式使用 apt purge 命令从系统中删除 Docker：
+```
+docker rmi $(docker images -q)
+```
+4. 删除所有网络
 
-````
-sudo apt purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
-````
+```
+docker network prune -f
+```
+5. 删除所有未使用的卷
 
-使用 rm 命令删除 Docker 文件：
+```
+docker volume prune -f
+```
+6. 卸载 Docker
 
-````
+最后，如果您希望完全删除 Docker 本身，可以执行以下命令:
+```
+sudo apt-get purge docker-ce docker-ce-cli containerd.io
+sudo apt-get autoremove --purge
 sudo rm -rf /var/lib/docker
-sudo rm -rf /var/lib/containerd
-````
+sudo rm -rf /etc/docker
+```
+
+这些命令会卸载 Docker 软件并删除 Docker 数据目录。
+
 
 ### 在Arch Linux上安装Docker
 ```
