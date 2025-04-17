@@ -55,6 +55,7 @@ tags = ["乱七八糟","Windows"]
 | PDF工具          | [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)               |
 | 游戏             | [Steam](https://store.steampowered.com/)                     |
 | 抓包             | [Wireshark](https://www.wireshark.org/download.html)                 |
+| 输入法           | [rime](https://rime.im/download/)      |
 | 浏览器           | [floorp](https://github.com/Floorp-Projects/Floorp)/[Chrome](https://www.google.com/chrome/)          |
 | 编译器           | [VSCodiumc](https://github.com/VSCodium/vscodium)                 |
 | 虚拟机           | Hyper-V                   |
@@ -72,7 +73,7 @@ tags = ["乱七八糟","Windows"]
 | 密码管理器       | [KeePassXC](https://github.com/keepassxreboot/keepassxc)                 |
 | 终端与SSH管理    | [Electerm](https://github.com/electerm/electerm)                  |
 
-
+> 这里说一下Rime输入法在Windows端叫小狼毫，输入方案用的是[雾凇拼音](https://github.com/iDvel/rime-ice?tab=readme-ov-file) ，在``获取更多输入方案``中命令行输入``iDvel/rime-ice:others/recipes/full``安装。
 
 ## 开发环境
 
