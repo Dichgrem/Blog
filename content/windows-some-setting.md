@@ -23,8 +23,20 @@ I don't have internet
 ``
 即可。
 
+> 微软在 Windows 11 最新版中删除了 BypassNRO 脚本，以下是最新方法：
+
+- 在 Windows 11 OOBE 登录用户账户界面按 Shift+F10 打开命令提示符 (CMD)
+
+- 在命令提示符窗口中输入命令``start ms-cxh:localonly``按回车
+
+- 此时系统将自动打开微软账户管理的窗口，在这里可以输入用户名称；在这里输入用户名和密码后继续即可，此时不再需要 BypassNRO 脚本或注册表
+
+需要注意的是目前该命令仅适用于 Windows 11 家庭版和专业版系列 (包括专业版、专业工作站版和专业教育版)。
+
+
 ## 激活windows
 
+这里使用MAS的脚本:
 ```
 irm https://get.activated.win | iex
 ```
@@ -35,7 +47,8 @@ irm https://get.activated.win | iex
 
 2.单击“更新和安全”>“Windows更新”，然后在右侧详情页中选择“暂停更新7天”选项即可在此后7天内关闭Windows更新。
 
-3.使用脚本彻底关闭更新
+3.然后就可以使用脚本彻底关闭更新：将以下命令保存为.bat文件，运行即可。
+
 ```
 ::Windows auomatic updates
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AutoInstallMinorUpdates /t REG_DWORD /d 1 /f
@@ -58,7 +71,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v Pause
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseFeatureUpdatesEndTime /t REG_SZ /d "2100-01-01T00:00:00Z" /f
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseQualityUpdatesEndTime /t REG_SZ /d "2100-01-01T00:00:00Z" /f
 ```
-将以上命令保存为.bat文件，运行即可。
+如果要恢复更新，使用以下命令，同样保存为.bat运行：
 ```
 ::Windows auomatic updates
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AutoInstallMinorUpdates /t REG_DWORD /d 0 /f
@@ -82,11 +95,10 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v Pause
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseQualityUpdatesEndTime /t REG_SZ /d "2000-01-01T00:00:00Z" /f
 pause
 ```
-以上为恢复更新的脚本。
 
 ## **使用CMD恢复完整右键菜单**
 
-Win11的`显示更多选项`怎么设置才能将其关闭,并恢复成Win10的状态呢？系统内置的命令提示符（CMD）可以帮助我们完成这一任务，另外请注意，此操作仅适用于CMD，并不适用于Windows PowerShell。
+Win11的`显示更多选项`的二级菜单过于繁琐，怎么设置才能将其关闭,并恢复成Win10的状态呢？
 
 **步骤1.** 按**Win+S**打开搜索框，输入**cmd**并以管理员身份运行命令提示符。
 
@@ -101,7 +113,7 @@ reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\Inpr
 taskkill /f /im explorer.exe 
 start explorer.exe
 ```
-注意：如果您想要重新打开Win11新样式的右键菜单的话，以同样的方式在命令提示符中执行此命令：
+如果想要重新打开Win11新样式的右键菜单的话，以同样的方式在命令提示符中执行此命令：
 ```
 reg delete "HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f
 ```
@@ -113,42 +125,19 @@ reg delete "HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /
 
 右键单击该应用，选择“更多”，然后选择“打开文件位置”。此操作会打开保存应用快捷方式的位置。如果没有“打开文件位置”选项，这意味着该应用无法在启动时运行。
 
-文件位置打开后，按win+ R，键入“shell:startup”，然后选择“确定”。这将打开“启动”文件夹。
+文件位置打开后，按``win+ R，键入“shell:startup”``然后选择“确定”。这将打开“启动”文件夹。
 
-将该应用的快捷方式从文件位置复制并粘贴到“启动”文件夹中,即添加启动项成功。
+``将该应用的快捷方式``从文件位置复制并``粘贴到“启动”文件夹中``,即添加启动项成功。
 
-## Windows 指定时间服务器&&开机自动校准
+## Windows 指定时间服务器&&使用UTC
 
-- 打开日期和时间设置：
-右键点击任务栏上的时间，选择 "调整日期/时间"。
-在 日期和时间 窗口中，点击 "互联网时间" 标签。
-
-- 选择时间服务器：
-点击 "更改设置…" 按钮。
-在弹出的对话框中，勾选**同步时钟与 Internet 时间服务器**，然后在 "服务器" 输入框中填写你想要的时间服务器，例如：
+右键点击任务栏上的时间，选择 "调整日期/时间"。在``日期和时间``窗口中，点击``互联网时间``标签。点击 "更改设置…" 按钮。在弹出的对话框中，勾选**同步时钟与 Internet 时间服务器**，然后在 "服务器" 输入框中填写你想要的时间服务器，例如：
+```
 time.windows.com（微软默认服务器）
 time.nist.gov（美国国家标准技术研究院的时间服务器）
 pool.ntp.org（一个公共的 NTP 时间服务器池）
-
-- 应用更改：点击 "更新现在"，然后 "确定" 保存设置。
-
-Windows 会默认每隔一段时间（大约一周）同步时间，但如果你想确保系统在开机时自动同步时间，可以通过以下方法：
-
-- 打开任务计划程序：
-在开始菜单中搜索 "任务计划程序" 并打开。
-- 创建新任务：
-在右侧点击 "创建基本任务"。
-输入任务名称（例如：“时间同步”），点击 下一步。
-- 选择触发器：
-选择 "当计算机启动时"，然后点击 下一步。
-- 设置操作：
-选择 "启动程序"，点击 下一步。
-在 "程序或脚本" 中输入 cmd，在 "添加参数" 中输入：
 ```
-/c w32tm /resync
-```
-这条命令会在开机时触发 Windows 时间服务同步。
-- 完成设置：点击 完成，即可。
+应用更改：点击 "更新现在"，然后 "确定" 保存设置。
 
 - 如果有linux/win双系统，可以让 Windows 使用 UTC 作为硬件时钟时间：
 ```
