@@ -417,37 +417,37 @@ Fixes #123
 
 ### 常见的 Commit 类型
 ```
-feat：新功能的添加
+- feat：新功能的添加
     示例：feat(user): 添加用户注册功能
 
-fix：修复 Bug
+- fix：修复 Bug
     示例：fix(parser): 修复解析错误导致程序崩溃
 
-docs：文档相关的修改
+- docs：文档相关的修改
     示例：docs(readme): 更新使用说明
 
-style：代码格式、排版等不影响代码逻辑的调整
+- style：代码格式、排版等不影响代码逻辑的调整
     示例：style: 优化代码缩进和空格
 
-refactor：代码重构，不涉及新功能或 Bug 修复
+- refactor：代码重构，不涉及新功能或 Bug 修复
     示例：refactor: 优化数据处理逻辑
 
-perf：性能优化
+- perf：性能优化
     示例：perf: 提升数据查询速度
 
-test：添加或修改测试代码
+- test：添加或修改测试代码
     示例：test: 补充用户登录单元测试
 
-build：构建相关的变更，如依赖管理、构建脚本等
+- build：构建相关的变更，如依赖管理、构建脚本等
     示例：build: 更新 webpack 配置
 
-ci：持续集成相关的修改
+- ci：持续集成相关的修改
     示例：ci: 调整 GitHub Actions 配置
 
-chore：其他杂项维护，不涉及源代码或测试文件的修改
+- chore：其他杂项维护，不涉及源代码或测试文件的修改
     示例：chore: 更新项目依赖
 
-revert：回滚到上一个版本的提交
+- revert：回滚到上一个版本的提交
     示例：revert: 撤销上次提交
 ```
 ---
