@@ -99,7 +99,7 @@ systemctl --user status aria2.service
 - [Aria2 for Chrome](https://github.com/alexhua/Aria2-for-chrome)
 **Firefox 浏览器**
 
-- Integrated Aria2 Download Manager 是一款 Firefox 扩展，能够拦截下载任务，并将其转发到 Aria2。
+- [Integrated Aria2 Download Manager](https://github.com/Cudiph/IA2DM) 是一款 Firefox 扩展，能够拦截下载任务，并将其转发到 Aria2。
 
 **通用版**
 
