@@ -89,16 +89,28 @@ systemctl --user start aria2.service
 systemctl --user status aria2.service
 ```
 
+## 浏览器插件
+
+如果你想让其直接接管浏览器下载,可以使用以下几种浏览器插件：
+
+**Chrome 浏览器**
+
+- [Aria2 Explorer](https://github.com/alexhua/Aria2-Explorer)是一款功能强大的扩展，能够自动拦截浏览器的下载任务，并通过 JSON-RPC 接口将其导出到 Aria2 进行下载。 ​
+- [Aria2 for Chrome](https://github.com/alexhua/Aria2-for-chrome)
+**Firefox 浏览器**
+
+- Integrated Aria2 Download Manager 是一款 Firefox 扩展，能够拦截下载任务，并将其转发到 Aria2。
+
+**通用版**
+
+- [varia](https://github.com/giantpinkrobots/varia)
+
 🔗
 
 **附带 aria2 的服务端应用**
 
 - [AriaNg for Openwrt](https://github.com/openwrt/packages/tree/master/net/ariang)
 - [aria2-ariang-docker](https://github.com/wahyd4/aria2-ariang-docker)
-
-**浏览器扩展**
-
-- [Aria2 for Chrome](https://github.com/alexhua/Aria2-for-chrome)
 
 ---
 **Done.**
