@@ -93,25 +93,12 @@ systemctl --user status aria2.service
 
 **附带 aria2 的服务端应用**
 
-- AriaNg for Openwrt: https://github.com/openwrt/packages/tree/master/net/ariang
-- readynas-aria2: https://github.com/iranee/readynas-aria2
-- aria2-ariang-x-docker-compose: Docker compose files for Aria2+ AriaNg+ filerun/ Nextcloud/ h5ai + Plex. https://github.com/wahyd4/aria2-ariang-x-docker-compose
-- aria2-ariang-docker: The Docker image for Aria2 + AriaNg + File Manager. https://github.com/wahyd4/aria2-ariang-docker
-- docker-pan: Docker:Filerun+AriaNg+Aria2,Personal cloud disk. https://github.com/jae-jae/docker-pan
-- ccaa: CentOS + Caddy + Aria2 + AriaNg. https://github.com/helloxz/ccaa
-- aria2-ariang: Aria2 with Aira-Ng web UI. https://github.com/colinwjd/aria2-ariang
-- docker-aria2-ng: Docker image with aria2, nginx and AriaNg. https://github.com/Redwid/docker-aria2-ng
-
-**附带 aria2 的客户端应用**
-
-- aria-ng-gui-android: An Aria2 GUI Android App. https://github.com/Xmader/aria-ng-gui-android
-- aria-ng-gui: An Aria2 GUI for Windows & Linux & MacOS. https://github.com/Xmader/aria-ng-gui
+- [AriaNg for Openwrt](https://github.com/openwrt/packages/tree/master/net/ariang)
+- [aria2-ariang-docker](https://github.com/wahyd4/aria2-ariang-docker)
 
 **浏览器扩展**
 
-- Camtd: Chrome multi-threaded download manager extension,based on Aria2 and AriaNg. https://github.com/jae-jae/Camtd
-- Aria2-Integration: a Firefox Add-on to integrate with Aria2. https://github.com/RossWang/Aria2-Integration
-- Aria2 for Chrome: A aria2 download task management extension for chromium based browser. https://github.com/alexhua/Aria2-for-chrome
+- [Aria2 for Chrome](https://github.com/alexhua/Aria2-for-chrome)
 
 ---
 **Done.**
