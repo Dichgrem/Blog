@@ -209,6 +209,22 @@
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo grub-mkconfig -o /boot/grub/grub.cfg
 </span></code></pre>
+<p>或者<code>手动添加</code>：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nano /etc/grub.d/40_custom
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>#!/bin/sh
+</span><span>exec tail -n +3 $0
+</span><span># This file provides an easy way to add custom menu entries.  Simply type the
+</span><span># menu entries you want to add after this comment.  Be careful not to change
+</span><span># the &#39;exec tail&#39; line above.
+</span><span>menuentry &quot;Windows 11 (Manual)&quot; {
+</span><span>    insmod part_gpt
+</span><span>    insmod fat
+</span><span>    insmod chain
+</span><span>    set root=&#39;hd0,gpt1&#39;
+</span><span>    chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+</span><span>}
+</span></code></pre>
 <h2 id="archzhong-an-zhuang-qemuxu-ni-ji">Arch中安装QEMU虚拟机</h2>
 <p>前面我们已经安装了Qemu高性能虚拟机平台和virt-manager用来管理虚拟机的图形界面，随后配置virt-manager并安装Ubuntu-server：</p>
 <p>如果virt-manager报错无法找到Qemu，则：</p>
