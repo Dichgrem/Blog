@@ -127,6 +127,25 @@ sudo nano /etc/default/grub
 ```
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
+或者``手动添加``：
+```
+nano /etc/grub.d/40_custom
+```
+```
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+menuentry "Windows 11 (Manual)" {
+    insmod part_gpt
+    insmod fat
+    insmod chain
+    set root='hd0,gpt1'
+    chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+}
+```
 ## Arch中安装QEMU虚拟机
 
 前面我们已经安装了Qemu高性能虚拟机平台和virt-manager用来管理虚拟机的图形界面，随后配置virt-manager并安装Ubuntu-server：
