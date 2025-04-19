@@ -97,6 +97,7 @@ systemctl --user status aria2.service
 
 - [Aria2 Explorer](https://github.com/alexhua/Aria2-Explorer)是一款功能强大的扩展，能够自动拦截浏览器的下载任务，并通过 JSON-RPC 接口将其导出到 Aria2 进行下载。 ​
 - [Aria2 for Chrome](https://github.com/alexhua/Aria2-for-chrome)
+
 **Firefox 浏览器**
 
 - [Integrated Aria2 Download Manager](https://github.com/Cudiph/IA2DM) 是一款 Firefox 扩展，能够拦截下载任务，并将其转发到 Aria2。
