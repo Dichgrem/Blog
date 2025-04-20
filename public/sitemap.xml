@@ -40,6 +40,10 @@
         <lastmod>2023-11-19</lastmod>
     </url>
     <url>
+        <loc>https://blog.dich.bid/about-lazyvim/</loc>
+        <lastmod>2025-04-20</lastmod>
+    </url>
+    <url>
         <loc>https://blog.dich.bid/about-markdown/</loc>
         <lastmod>2025-04-08</lastmod>
     </url>
@@ -184,6 +188,9 @@
     </url>
     <url>
         <loc>https://blog.dich.bid/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://blog.dich.bid/page/10/</loc>
     </url>
     <url>
         <loc>https://blog.dich.bid/page/2/</loc>
