@@ -55,6 +55,7 @@ tags = ["乱七八糟","Windows"]
 | PDF工具          | [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)               |
 | 游戏             | [Steam](https://store.steampowered.com/)                     |
 | 抓包             | [Wireshark](https://www.wireshark.org/download.html)                 |
+| 启动器           | [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher)      |
 | 输入法           | [rime](https://rime.im/download/)      |
 | 浏览器           | [floorp](https://github.com/Floorp-Projects/Floorp)/[Chrome](https://www.google.com/chrome/)          |
 | 编译器           | [VSCodiumc](https://github.com/VSCodium/vscodium)                 |
