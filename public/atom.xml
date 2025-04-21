@@ -990,8 +990,8 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/about-zola-blog/"/>
-        <id>https://blog.dich.bid/about-zola-blog/</id>
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/about-blog/"/>
+        <id>https://blog.dich.bid/about-blog/</id>
         
         <summary type="html">&lt;p&gt;前言 个人博客的搭建具有许多的方案可以选择，本文介绍如何快速部署一个博客，并将其发布到公网。&lt;&#x2F;p&gt;</summary>
         

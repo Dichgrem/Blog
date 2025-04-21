@@ -20,13 +20,13 @@
     <meta property="og:description" content="">
     <meta property="og:title" content="Dich'blog">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://blog.dich.bid/about-zola-blog/">
+    <meta property="og:url" content="https://blog.dich.bid/about-blog/">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="">
     <meta name="twitter:title" content="Dich'blog">
     <meta property="twitter:domain" content="blog.dich.bid">
-    <meta property="twitter:url" content="https://blog.dich.bid/about-zola-blog/">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-blog/">
 
         <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
     
@@ -84,7 +84,7 @@
         
     <div class="post">
         
-    <h1 class="post-title"><a href="https://blog.dich.bid/about-zola-blog/">乱七八糟:个人博客搭建</a></h1>
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-blog/">乱七八糟:个人博客搭建</a></h1>
     <div class="post-meta-inline">
         
     <span class="post-date">
@@ -105,11 +105,11 @@
 <p>在互联网冲浪的过程中，我们常常看到许多独立站点，他们往往是个人博客，有各种各样的主题样式；这些站点见证了互联网的发展历史。从最初的手工编写HTML页面，到后来的内容管理系统（CMS）如WordPress的兴起，再到如今流行的静态网站生成器（SSG），如Hugo，Hexo，Zola等等。</p>
 <p>个人博客的定义是什么？私以为是<code>域名+站点+原创内容</code>三要素组成。当然，最重要的原创内容往往被忽视...</p>
 <ul>
-<li>域名可以在<a href="https://www.dynadot.com/">Dynadot</a>等平台购买，也可以申请免费域名，目的是为了好记；</li>
-<li>站点可以在自己的服务器上使用动态的WordPress或者Halo来一键创建，也可以使用静态的框架部署在PAAS平台上；</li>
+<li>域名可以在<a href="https://www.dynadot.com/">Dynadot</a>等平台购买，也可以申请如<code>eu.org</code>或<code>us.kg</code>等免费域名，目的是为了好记；</li>
+<li>站点可以在自己的服务器上使用动态的<code>WordPress</code>或者<code>Halo</code>来一键创建，也可以使用<code>静态框架</code>部署在PAAS平台上；</li>
 </ul>
 <p>因此，整体成本应该是非常低的。</p>
-<h2 id="shi-yong-halokuai-su-gou-jian-bo-ke">使用Halo快速构建博客</h2>
+<h2 id="shi-yong-halokuai-su-da-jian-bo-ke">使用Halo快速搭建博客</h2>
 <ul>
 <li>首先你需要有一台自己的云服务器，建议在1核1G以上配置，并安装Debian系统；</li>
 <li>随后我们安装1panel，执行以下命令一键安装：</li>
@@ -136,24 +136,80 @@
 <p>创建完成后我们还需要配置TLS证书，在网站-HTTPS中添加证书，可以选择<a href="https://bkssl.com/ssl/selfsign">自签名证书</a>正式或者通过Acme申请免费的<code>Let's Encrypt</code>证书。</p>
 </li>
 <li>
-<p>配置完成后在Cloudflare的DNS解析界面创建一个A记录，将你的blog.xxx.com解析到你的服务器的IP；</p>
+<p>配置完成后在Cloudflare的DNS解析界面创建一个A记录，将你的<code>blog.xxx.com解析到你的服务器的IP</code>；</p>
 </li>
 <li>
 <p>大功告成！现在你应该可以通过HTTPS域名访问自己的博客！</p>
 </li>
 </ul>
-<h2 id="jing-tai-kuang-jia-da-jian-bo-ke">静态框架搭建博客</h2>
+<h2 id="shi-yong-hugokuang-jia-gou-jian-bo-ke">使用Hugo框架构建博客</h2>
 <p>首先明确你需要的架构，一般有两种选择：</p>
 <ul>
-<li>使用现有的架构,包括Hugo,zola,astro等等,可以在<a href="https://jamstackthemes.dev/">这个网站</a>上面查看效果;</li>
+<li>使用现有的架构,包括Hugo,zola,astro等等；</li>
 <li>或者从头写一个框架，需要HTML/CSS/JS等知识；</li>
 </ul>
-<p>随后需要列出你想要的显示效果：</p>
+<blockquote>
+<p>可以在<a href="https://jamstackthemes.dev/">这个网站</a>上面查看常见的框架与主题的显示效果</p>
+</blockquote>
+<ol>
+<li>选择好你的框架与主题后（这里以hugo为例子），随后安装hugo以及对应的依赖：</li>
+</ol>
+<ul>
+<li>windows:</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 打开以管理员模式运行的PowerShell,输入命令安装 Hugo Extended：
+</span><span>winget install Hugo.Hugo.Extended
+</span></code></pre>
+<ul>
+<li>Arch linux</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>paru -S hugo
+</span></code></pre>
+<ul>
+<li>检查版本：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo version
+</span></code></pre>
+<ol start="2">
+<li>创建新的 Hugo 站点：选择一个文件夹打开命令行，执行：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo new site my-terminal-blog
+</span></code></pre>
+<p>该命令会在<code>my-terminal-blog</code>文件夹下生成hugo的基础目录。</p>
+<ol start="3">
+<li>安装主题，这里以<a href="https://github.com/panr/hugo-theme-terminal">terminal</a>主题为例：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cd my-terminal-blog
+</span><span>git clone https://github.com/panr/hugo-theme-terminal.git themes/terminal
+</span></code></pre>
+<p>将主题代码拉入 themes/terminal 目录，后续可使用 git pull 获取更新。</p>
+<ol start="4">
+<li>写入文章：使用 Hugo 提供的命令创建新文章：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo new posts/hello-world.md
+</span></code></pre>
+<p>打开生成的 content/posts/hello-world.md，在 front matter 中填入 title、date、tags 等元数据，然后撰写 Markdown 正文, Markdown 编辑器参考<a href="https://blog.dich.bid/about-markdown/">前文</a>。​</p>
+<ol start="5">
+<li>本地测试：在项目根目录运行：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo server
+</span></code></pre>
+<p>然后在浏览器访问 http://localhost:1313 即可实时预览并查看更新效果。</p>
+<ol start="6">
+<li>
+<p>部署到公网：新建一个Github仓库，用Git连接并将Hugo项目的文件夹push上去；</p>
+</li>
+<li>
+<p>使用<a href="https://vercel.com">Vercel</a>/<a href="https://www.netlify.com/">Netlify</a>等平台读取GitHub仓库并部署Hugo博客项目，并设置指向自己的域名。</p>
+</li>
+</ol>
+<h2 id="ding-zhi">定制</h2>
+<p><strong>你想要的显示效果?</strong></p>
 <ul>
 <li>风格，包括命令行风格，极简风格，MD3风格等等;</li>
 <li>布局，是响应式还是传统布局？</li>
 </ul>
-<p>你需要那些功能？</p>
+<p><strong>你需要那些功能?</strong></p>
 <ul>
 <li>黑暗/白天模式切换;</li>
 <li>高斯模糊？动态取色？</li>
@@ -162,7 +218,7 @@
 <li>Tag分类和时间排序？</li>
 <li>搜索功能和RSS？</li>
 </ul>
-<p>需要处理哪些外部依赖？</p>
+<p><strong>需要处理哪些外部依赖?</strong></p>
 <ul>
 <li>域名和paas平台？</li>
 <li>图床还是直接嵌入图片？</li>
@@ -170,18 +226,7 @@
 <li>是否需要多平台发布？</li>
 <li>是否需要加密特定文章？</li>
 </ul>
-<p>以上的功能和需求是否对SEO和界面相应时间造成影响？</p>
-<h2 id="gou-jian-guo-cheng">构建过程</h2>
-<ul>
-<li>安装Zola到一个文件夹，并为其命名；</li>
-<li>选择主题（theme），将下载好的主题与Zola同名文件夹合并；</li>
-<li>运行zola build和zola serve,在本机浏览器127.0.0.1：1111上查看站点；</li>
-<li>使用notion,obsdian,bluestone等软件写markdown格式的文章；</li>
-<li>保存文章到content文件夹中；</li>
-<li>随后再次运行运行zola build和zola serve，生成public文件夹；</li>
-<li>新建一个Github仓库，用Git连接并push上去；</li>
-<li>在Vercel/Fleek等平台将仓库部署并设置域名。</li>
-</ul>
+<p><strong>以上的功能和需求是否对SEO和界面相应时间造成影响？</strong></p>
 <h2 id="link">🔗</h2>
 <ul>
 <li><a href="https://www.getzola.org/documentation/getting-started/overview/">zola官方文档</a></li>
