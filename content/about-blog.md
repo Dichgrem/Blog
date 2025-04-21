@@ -46,59 +46,63 @@ curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_
 ## 使用Hugo框架构建博客
 
 首先明确你需要的架构，一般有两种选择：
-- 使用现有的架构,包括Hugo,zola,astro等等；
+- 使用现有的架构,包括Hugo,Hexo，Zola,Astro等等；
 - 或者从头写一个框架，需要HTML/CSS/JS等知识；
 
 > 可以在[这个网站](https://jamstackthemes.dev/)上面查看常见的框架与主题的显示效果
 
-1. 选择好你的框架与主题后（这里以hugo为例子），随后安装hugo以及对应的依赖：
+1. **安装Hugo**:选择好你的框架与主题后（这里以hugo为例子），随后安装hugo以及对应的依赖：
 
-- windows:
+- **Windows**
 ```
 # 打开以管理员模式运行的PowerShell,输入命令安装 Hugo Extended：
 winget install Hugo.Hugo.Extended
 ```
-- Arch linux
+- **Arch linux**
 ```
 paru -S hugo
 ```
-- 检查版本：
+- **检查版本**
 ```
 hugo version
 ```
 
-2. 创建新的 Hugo 站点：选择一个文件夹打开命令行，执行：
+2. **创建新的 Hugo 站点**：选择一个文件夹打开命令行，执行：
 ```
-hugo new site my-terminal-blog
+hugo new site myblog
 ```
-该命令会在``my-terminal-blog``文件夹下生成hugo的基础目录。
+该命令会在``myblog``文件夹下生成hugo的基础目录。
 
-3. 安装主题，这里以[terminal](https://github.com/panr/hugo-theme-terminal)主题为例：
+3. **安装主题**，这里以[hugo-blog-awesome](https://jamstackthemes.dev/theme/hugo-blog-awesome/)主题为例：
 
 ```
-cd my-terminal-blog
-git clone https://github.com/panr/hugo-theme-terminal.git themes/terminal
+cd myblog
+git clone https://github.com/hugo-sid/hugo-blog-awesome.git themes/hugo-blog-awesome
 ```
-将主题代码拉入 themes/terminal 目录，后续可使用 git pull 获取更新。
+并在``hugo.toml``顶层添加：
+```
+theme = "hugo-blog-awesome"
+```
+这样 Hugo 在构建时会从 themes/ 目录加载主题文件。后续可使用``git pull``获取主题更新。
 
-4. 写入文章：使用 Hugo 提供的命令创建新文章：
+> 你也可以直接用theme中的文件夹替换掉项目根目录下的同名文件夹，并再次修改。
+
+4. **写入文章**：使用 Hugo 提供的命令创建新文章：
 ```
 hugo new posts/hello-world.md
 ```
-打开生成的 content/posts/hello-world.md，在 front matter 中填入 title、date、tags 等元数据，然后撰写 Markdown 正文, Markdown 编辑器参考[前文](https://blog.dich.bid/about-markdown/)。​
+该命令会在``content/posts/``下生成 Markdown 文件，打开后修改``title、date、tags``等前缀然后撰写 Markdown 正文, Markdown 编辑器参考[前文](https://blog.dich.bid/about-markdown/)。​
 
-5. 本地测试：在项目根目录运行：
+5. **本地测试**：在项目根目录运行：
 ```
-hugo server
+hugo server -D
 ```
-然后在浏览器访问 http://localhost:1313 即可实时预览并查看更新效果。
+然后在浏览器访问``http://localhost:1313``即可实时预览并查看更新效果。
 
-6. 部署到公网：新建一个Github仓库，用Git连接并将Hugo项目的文件夹push上去；
+6. **部署到公网**：新建一个Github仓库，用Git连接并将Hugo项目的文件夹push上去；随后使用[Vercel](https://vercel.com)/[Netlify](https://www.netlify.com/)等平台读取GitHub仓库并部署Hugo博客项目，并设置指向自己的域名。
 
-7. 使用[Vercel](https://vercel.com)/[Netlify](https://www.netlify.com/)等平台读取GitHub仓库并部署Hugo博客项目，并设置指向自己的域名。
-
-
-## 定制
+> 当然，也可以使用GitHub Pages部署，详见[官方文档](https://docs.github.com/zh/pages/quickstart?library=true)
+### 可选定制项
 
 **你想要的显示效果?**
 
@@ -125,6 +129,7 @@ hugo server
 **以上的功能和需求是否对SEO和界面相应时间造成影响？**
 
 ## 🔗
+- [Hugo官方文档](https://gohugo.io/documentation/)
 - [zola官方文档](https://www.getzola.org/documentation/getting-started/overview/)
 - [zoal-terminimal主题](https://github.com/pawroman/zola-theme-terminimal)
 - [中文排版指南](https://github.com/aaranxu/chinese-copywriting-guidelines)

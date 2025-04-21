@@ -145,65 +145,69 @@
 <h2 id="shi-yong-hugokuang-jia-gou-jian-bo-ke">使用Hugo框架构建博客</h2>
 <p>首先明确你需要的架构，一般有两种选择：</p>
 <ul>
-<li>使用现有的架构,包括Hugo,zola,astro等等；</li>
+<li>使用现有的架构,包括Hugo,Hexo，Zola,Astro等等；</li>
 <li>或者从头写一个框架，需要HTML/CSS/JS等知识；</li>
 </ul>
 <blockquote>
 <p>可以在<a href="https://jamstackthemes.dev/">这个网站</a>上面查看常见的框架与主题的显示效果</p>
 </blockquote>
 <ol>
-<li>选择好你的框架与主题后（这里以hugo为例子），随后安装hugo以及对应的依赖：</li>
+<li><strong>安装Hugo</strong>:选择好你的框架与主题后（这里以hugo为例子），随后安装hugo以及对应的依赖：</li>
 </ol>
 <ul>
-<li>windows:</li>
+<li><strong>Windows</strong></li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># 打开以管理员模式运行的PowerShell,输入命令安装 Hugo Extended：
 </span><span>winget install Hugo.Hugo.Extended
 </span></code></pre>
 <ul>
-<li>Arch linux</li>
+<li><strong>Arch linux</strong></li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>paru -S hugo
 </span></code></pre>
 <ul>
-<li>检查版本：</li>
+<li><strong>检查版本</strong></li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo version
 </span></code></pre>
 <ol start="2">
-<li>创建新的 Hugo 站点：选择一个文件夹打开命令行，执行：</li>
+<li><strong>创建新的 Hugo 站点</strong>：选择一个文件夹打开命令行，执行：</li>
 </ol>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo new site my-terminal-blog
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo new site myblog
 </span></code></pre>
-<p>该命令会在<code>my-terminal-blog</code>文件夹下生成hugo的基础目录。</p>
+<p>该命令会在<code>myblog</code>文件夹下生成hugo的基础目录。</p>
 <ol start="3">
-<li>安装主题，这里以<a href="https://github.com/panr/hugo-theme-terminal">terminal</a>主题为例：</li>
+<li><strong>安装主题</strong>，这里以<a href="https://jamstackthemes.dev/theme/hugo-blog-awesome/">hugo-blog-awesome</a>主题为例：</li>
 </ol>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cd my-terminal-blog
-</span><span>git clone https://github.com/panr/hugo-theme-terminal.git themes/terminal
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cd myblog
+</span><span>git clone https://github.com/hugo-sid/hugo-blog-awesome.git themes/hugo-blog-awesome
 </span></code></pre>
-<p>将主题代码拉入 themes/terminal 目录，后续可使用 git pull 获取更新。</p>
+<p>并在<code>hugo.toml</code>顶层添加：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>theme = &quot;hugo-blog-awesome&quot;
+</span></code></pre>
+<p>这样 Hugo 在构建时会从 themes/ 目录加载主题文件。后续可使用<code>git pull</code>获取主题更新。</p>
+<blockquote>
+<p>你也可以直接用theme中的文件夹替换掉项目根目录下的同名文件夹，并再次修改。</p>
+</blockquote>
 <ol start="4">
-<li>写入文章：使用 Hugo 提供的命令创建新文章：</li>
+<li><strong>写入文章</strong>：使用 Hugo 提供的命令创建新文章：</li>
 </ol>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo new posts/hello-world.md
 </span></code></pre>
-<p>打开生成的 content/posts/hello-world.md，在 front matter 中填入 title、date、tags 等元数据，然后撰写 Markdown 正文, Markdown 编辑器参考<a href="https://blog.dich.bid/about-markdown/">前文</a>。​</p>
+<p>该命令会在<code>content/posts/</code>下生成 Markdown 文件，打开后修改<code>title、date、tags</code>等前缀然后撰写 Markdown 正文, Markdown 编辑器参考<a href="https://blog.dich.bid/about-markdown/">前文</a>。​</p>
 <ol start="5">
-<li>本地测试：在项目根目录运行：</li>
+<li><strong>本地测试</strong>：在项目根目录运行：</li>
 </ol>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo server
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>hugo server -D
 </span></code></pre>
-<p>然后在浏览器访问 http://localhost:1313 即可实时预览并查看更新效果。</p>
+<p>然后在浏览器访问<code>http://localhost:1313</code>即可实时预览并查看更新效果。</p>
 <ol start="6">
-<li>
-<p>部署到公网：新建一个Github仓库，用Git连接并将Hugo项目的文件夹push上去；</p>
-</li>
-<li>
-<p>使用<a href="https://vercel.com">Vercel</a>/<a href="https://www.netlify.com/">Netlify</a>等平台读取GitHub仓库并部署Hugo博客项目，并设置指向自己的域名。</p>
-</li>
+<li><strong>部署到公网</strong>：新建一个Github仓库，用Git连接并将Hugo项目的文件夹push上去；随后使用<a href="https://vercel.com">Vercel</a>/<a href="https://www.netlify.com/">Netlify</a>等平台读取GitHub仓库并部署Hugo博客项目，并设置指向自己的域名。</li>
 </ol>
-<h2 id="ding-zhi">定制</h2>
+<blockquote>
+<p>当然，也可以使用GitHub Pages部署，详见<a href="https://docs.github.com/zh/pages/quickstart?library=true">官方文档</a></p>
+</blockquote>
+<h3 id="ke-xuan-ding-zhi-xiang">可选定制项</h3>
 <p><strong>你想要的显示效果?</strong></p>
 <ul>
 <li>风格，包括命令行风格，极简风格，MD3风格等等;</li>
@@ -229,6 +233,7 @@
 <p><strong>以上的功能和需求是否对SEO和界面相应时间造成影响？</strong></p>
 <h2 id="link">🔗</h2>
 <ul>
+<li><a href="https://gohugo.io/documentation/">Hugo官方文档</a></li>
 <li><a href="https://www.getzola.org/documentation/getting-started/overview/">zola官方文档</a></li>
 <li><a href="https://github.com/pawroman/zola-theme-terminimal">zoal-terminimal主题</a></li>
 <li><a href="https://github.com/aaranxu/chinese-copywriting-guidelines">中文排版指南</a></li>
