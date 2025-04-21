@@ -446,6 +446,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>Network的艺术:Nginx&#x2F;Docker快速建站</title>
+        <published>2024-07-14T00:00:00+00:00</published>
+        <updated>2024-07-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-nginx/"/>
+        <id>https://blog.dich.bid/network-nginx/</id>
+        
+        <summary type="html">&lt;p&gt;前言 Docker的出现极大简化了建站流程，较过去的LAMP方式优雅了许多，配合Nginx反向代理可以快速上线HTTPS站点。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>谈天说地:狄奇周刊(五)</title>
         <published>2024-07-11T00:00:00+00:00</published>
         <updated>2024-07-11T00:00:00+00:00</updated>
