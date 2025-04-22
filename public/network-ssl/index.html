@@ -145,6 +145,21 @@ Let's Encrypt）等颁布，CA证书的层级结构如下：</p>
 <li>安装部署：网站管理员将证书安装到Web服务器上。</li>
 </ul>
 <p>可以看到过程有点麻烦，个人建站的话往往使用自签名证书，即<code>ssh-keygen</code>生成的公钥和私钥，由于没有CA所以会显示不安全。</p>
+<h2 id="shen-qing-zheng-shu">申请证书</h2>
+<ul>
+<li>
+<p><a href="https://www.sslforfree.com/">sslforfree</a>由 ZeroSSL 支持颁发的免费SSL证书.</p>
+</li>
+<li>
+<p>通过<a href="https://amh.sh/ssl.htm">AMH</a>提供的自助在线申请服务申请SSL通配符证书.需要注册AMH账号.</p>
+</li>
+<li>
+<p><a href="https://letsencrypt.osfipin.com/">letsencrypt</a>，支持申请多渠道SSL证书.</p>
+</li>
+<li>
+<p>借助<a href="https://punchsalad.com/ssl-certificate-generator/">Punchsalad</a>提供的在线服务申请SSL证书，无需登录，仅需邮箱即可完成SSL通配符证书申请和签发.</p>
+</li>
+</ul>
 <h2 id="dv-ov-ev-sslzheng-shu-de-qu-bie">DV/OV/EV SSL证书的区别</h2>
 <p>以下是三种主要SSL证书验证类型的对比：</p>
 <table><thead><tr><th>特性</th><th>域名型SSL (DV SSL)</th><th>企业型SSL (OV SSL)</th><th>增强型SSL (EV SSL)</th></tr></thead><tbody>
