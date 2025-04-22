@@ -58,6 +58,16 @@ Let's Encrypt）等颁布，CA证书的层级结构如下：
 
 可以看到过程有点麻烦，个人建站的话往往使用自签名证书，即``ssh-keygen``生成的公钥和私钥，由于没有CA所以会显示不安全。
 
+## 申请证书
+
+- [sslforfree](https://www.sslforfree.com/)由 ZeroSSL 支持颁发的免费SSL证书.
+
+- 通过[AMH](https://amh.sh/ssl.htm)提供的自助在线申请服务申请SSL通配符证书.需要注册AMH账号.
+
+- [letsencrypt](https://letsencrypt.osfipin.com/)，支持申请多渠道SSL证书.
+
+- 借助[Punchsalad](https://punchsalad.com/ssl-certificate-generator/)提供的在线服务申请SSL证书，无需登录，仅需邮箱即可完成SSL通配符证书申请和签发.
+
 ## DV/OV/EV SSL证书的区别
 
 以下是三种主要SSL证书验证类型的对比：
@@ -85,6 +95,7 @@ Let's Encrypt）等颁布，CA证书的层级结构如下：
 | 通配符证书 | 主域名及其所有一级子域名 | 基本到中等 | DV/OV | 拥有多个子域名的网站 | 中等到高 |
 | 多域名证书(SAN) | 多个不同域名 | 基本到高 | DV/OV/EV | 管理多个不相关域名的企业 | 中等到高 |
 | 自签名证书 | 任意 | 低 | 无需验证 | 测试环境、内部网络 | 免费 |
+
 
 ---
 **Done.**
