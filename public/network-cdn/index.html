@@ -244,6 +244,85 @@ Cloudflare Docs</p>
 <p>增强互联网基础设施安全性：​作为互联网信任体系的一部分，DNSSEC 为其他安全协议（如 DANE）提供基础支持.​</p>
 </li>
 </ul>
+<h2 id="cdnde-wei-zhi-xuan-ze">CDN的位置选择</h2>
+<p>Netlify在考虑到CDN成本以及可用性的情况下选择了以下这些地区以保证全球大部分访客访问他们的服务都能有不错的连接性和访问速度。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>欧洲中部（德国法兰克福）
+</span><span>南美（巴西圣保罗）
+</span><span>美东（美国弗吉尼亚）
+</span><span>美西（美国旧金山）
+</span><span>亚洲（新加坡）
+</span><span>大洋洲（澳大利亚悉尼）
+</span></code></pre>
+<p>那么Netlify为什么会选择把CDN节点放到这些地区呢？</p>
+<p>1.弗吉尼亚，美东的弗吉尼亚被誉为“全球数据中心之都"，美国政府对这个地区的网络投入非常大，使得弗吉尼亚的全球互联（美国本土、欧洲以及到南美洲）优秀。</p>
+<p>2.旧金山，面向亚太和美西的访客。需要注意的是美西对亚太的网络连接比较优秀，但是到南美不太理想，甚至还有丢包的情况。</p>
+<p>3.法兰克福，面向欧洲用户，德国法兰克福或者荷兰阿姆斯特丹都是不错的选择。</p>
+<p>4.新加坡，亚太地区数据中心的枢纽，到印度、日本、越南、香港、中国移动的联通性都不错。</p>
+<p>5.悉尼，土澳出了名的国际互联不太好，悉尼节点主要是服务本地和周边。</p>
+<p>6.圣保罗，南美市场。</p>
+<h2 id="chang-jian-cdnde-iplie-biao">常见CDN的IP列表</h2>
+<blockquote>
+<p>需要注意的是有些CDN的回源IP并不用作节点IP，比如Cloudflare的回源IP仅作回源IP使用，如果要获取Cloudflare的节点IP，可前往https://bgp.tools/as/13335#prefixes。而有些CDN的回源IP同时被用作CDN节点，比如BunnyCDN和Gcore CDN。</p>
+</blockquote>
+<p>Cloudflare</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># https://www.cloudflare.com/ips-v4
+</span><span>103.21.244.0/22
+</span><span>103.22.200.0/22
+</span><span>103.31.4.0/22
+</span><span>104.16.0.0/13
+</span><span>104.24.0.0/14
+</span><span>108.162.192.0/18
+</span><span>131.0.72.0/22
+</span><span>141.101.64.0/18
+</span><span>162.158.0.0/15
+</span><span>172.64.0.0/13
+</span><span>173.245.48.0/20
+</span><span>188.114.96.0/20
+</span><span>190.93.240.0/20
+</span><span>197.234.240.0/22
+</span><span>198.41.128.0/17
+</span><span>
+</span><span># https://www.cloudflare.com/ips-v6
+</span><span>2400:cb00::/32
+</span><span>2405:8100::/32
+</span><span>2405:b500::/32
+</span><span>2606:4700::/32
+</span><span>2803:f800::/32
+</span><span>2a06:98c0::/29
+</span><span>2c0f:f248::/32
+</span></code></pre>
+<p>Gcore</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://api.gcore.com/cdn/public-ip-list
+</span></code></pre>
+<p>BunnyCDN</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://api.bunny.net/system/edgeserverlist
+</span><span>https://api.bunny.net/system/edgeserverlist/plain
+</span></code></pre>
+<p>Cloudfront</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://d7uri8nf7uskq.cloudfront.net/tools/list-cloudfront-ips
+</span><span>https://files.imunify360.com/static/whitelist/v2/cloudfront-cdn.txt
+</span></code></pre>
+<p>CDN77</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://files.imunify360.com/static/whitelist/v2/cdn77.txt
+</span></code></pre>
+<p>Fastly</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://api.fastly.com/public-ip-list
+</span></code></pre>
+<p>Keycdn</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://www.keycdn.com/shield-prefixes.json
+</span></code></pre>
+<p>quic.cloud</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://quic.cloud/ips
+</span></code></pre>
+<p>Google CDN</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://files.imunify360.com/static/whitelist/v2/google-cdn.txt
+</span></code></pre>
+<p>CacheFly</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://cachefly.cachefly.net/ips/cdn.txt
+</span></code></pre>
+<p>Akaima</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>https://techdocs.akamai.com/origin-ip-acl/docs/update-your-origin-server
+</span></code></pre>
 <hr />
 <p><strong>Done.</strong></p>
 
