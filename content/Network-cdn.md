@@ -150,5 +150,106 @@ DNSSEC 通过引入以下关键机制来增强 DNS 的安全性：​
 
 - 增强互联网基础设施安全性：​作为互联网信任体系的一部分，DNSSEC 为其他安全协议（如 DANE）提供基础支持.​
 
+## CDN的位置选择
+
+Netlify在考虑到CDN成本以及可用性的情况下选择了以下这些地区以保证全球大部分访客访问他们的服务都能有不错的连接性和访问速度。
+
+```
+欧洲中部（德国法兰克福）
+南美（巴西圣保罗）
+美东（美国弗吉尼亚）
+美西（美国旧金山）
+亚洲（新加坡）
+大洋洲（澳大利亚悉尼）
+```
+那么Netlify为什么会选择把CDN节点放到这些地区呢？
+
+1.弗吉尼亚，美东的弗吉尼亚被誉为“全球数据中心之都"，美国政府对这个地区的网络投入非常大，使得弗吉尼亚的全球互联（美国本土、欧洲以及到南美洲）优秀。
+
+2.旧金山，面向亚太和美西的访客。需要注意的是美西对亚太的网络连接比较优秀，但是到南美不太理想，甚至还有丢包的情况。
+
+3.法兰克福，面向欧洲用户，德国法兰克福或者荷兰阿姆斯特丹都是不错的选择。
+
+4.新加坡，亚太地区数据中心的枢纽，到印度、日本、越南、香港、中国移动的联通性都不错。
+
+5.悉尼，土澳出了名的国际互联不太好，悉尼节点主要是服务本地和周边。
+
+6.圣保罗，南美市场。
+
+
+## 常见CDN的IP列表
+
+> 需要注意的是有些CDN的回源IP并不用作节点IP，比如Cloudflare的回源IP仅作回源IP使用，如果要获取Cloudflare的节点IP，可前往https://bgp.tools/as/13335#prefixes。而有些CDN的回源IP同时被用作CDN节点，比如BunnyCDN和Gcore CDN。
+
+Cloudflare
+```
+# https://www.cloudflare.com/ips-v4
+103.21.244.0/22
+103.22.200.0/22
+103.31.4.0/22
+104.16.0.0/13
+104.24.0.0/14
+108.162.192.0/18
+131.0.72.0/22
+141.101.64.0/18
+162.158.0.0/15
+172.64.0.0/13
+173.245.48.0/20
+188.114.96.0/20
+190.93.240.0/20
+197.234.240.0/22
+198.41.128.0/17
+
+# https://www.cloudflare.com/ips-v6
+2400:cb00::/32
+2405:8100::/32
+2405:b500::/32
+2606:4700::/32
+2803:f800::/32
+2a06:98c0::/29
+2c0f:f248::/32
+```
+Gcore
+```
+https://api.gcore.com/cdn/public-ip-list
+```
+BunnyCDN
+```
+https://api.bunny.net/system/edgeserverlist
+https://api.bunny.net/system/edgeserverlist/plain
+```
+Cloudfront
+```
+https://d7uri8nf7uskq.cloudfront.net/tools/list-cloudfront-ips
+https://files.imunify360.com/static/whitelist/v2/cloudfront-cdn.txt
+```
+CDN77
+```
+https://files.imunify360.com/static/whitelist/v2/cdn77.txt
+```
+Fastly
+```
+https://api.fastly.com/public-ip-list
+```
+Keycdn
+```
+https://www.keycdn.com/shield-prefixes.json
+```
+quic.cloud
+```
+https://quic.cloud/ips
+```
+Google CDN
+```
+https://files.imunify360.com/static/whitelist/v2/google-cdn.txt
+```
+CacheFly
+```
+https://cachefly.cachefly.net/ips/cdn.txt
+```
+Akaima
+```
+https://techdocs.akamai.com/origin-ip-acl/docs/update-your-origin-server
+```
 ---
 **Done.**
