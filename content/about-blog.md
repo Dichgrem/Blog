@@ -91,7 +91,9 @@ theme = "hugo-blog-awesome"
 ```
 hugo new posts/hello-world.md
 ```
-该命令会在``content/posts/``下生成 Markdown 文件，打开后修改``title、date、tags``等前缀然后撰写 Markdown 正文, Markdown 编辑器参考[前文](https://blog.dich.bid/about-markdown/)。​
+该命令会在``content/posts/``下生成 Markdown 文件，打开后修改``title、date、tags``等前缀然后撰写 Markdown 正文, Markdown 编辑器参考[前文](https://blog.dich.bid/about-markdown/)。
+
+> 注意md文章头部和正文之间得使用``<!-- more -->``隔断
 
 5. **本地测试**：在项目根目录运行：
 ```
@@ -99,7 +101,9 @@ hugo server -D
 ```
 然后在浏览器访问``http://localhost:1313``即可实时预览并查看更新效果。
 
-6. **部署到公网**：新建一个Github仓库，用Git连接并将Hugo项目的文件夹push上去；随后使用[Vercel](https://vercel.com)/[Netlify](https://www.netlify.com/)等平台读取GitHub仓库并部署Hugo博客项目，并设置指向自己的域名。
+6. **上传到GitHub**：新建一个Github仓库，用Git连接并将Hugo项目的文件夹push上去；
+
+7. **使用PAAS平台部署**：随后使用[Vercel](https://vercel.com)/[Netlify](https://www.netlify.com/)等平台读取GitHub仓库并部署Hugo博客项目，并设置指向自己的域名，即``设置一条CNAME记录``。部署的时候可以让``平台command运行部署``也可以``本地build之后直接上传public文件夹``并在平台中指定。
 
 > 当然，也可以使用GitHub Pages部署，详见[官方文档](https://docs.github.com/zh/pages/quickstart?library=true)
 ### 可选定制项
