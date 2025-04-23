@@ -58,7 +58,7 @@ tags = ["乱七八糟","Windows"]
 | 启动器           | [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher)      |
 | 输入法           | [rime](https://rime.im/download/)      |
 | 浏览器           | [floorp](https://github.com/Floorp-Projects/Floorp)/[Chrome](https://www.google.com/chrome/)          |
-| 编译器           | [VSCodium](https://github.com/VSCodium/vscodium)                 |
+| 编辑器           | [VSCodium](https://github.com/VSCodium/vscodium)                 |
 | 虚拟机           | Hyper-V                   |
 | 科学上网         | [GFS](https://github.com/GUI-for-Cores/GUI.for.SingBox)                       |
 | 书籍阅读         | [Readest](https://github.com/readest/readest)                   |
@@ -76,6 +76,8 @@ tags = ["乱七八糟","Windows"]
 
 > 这里说一下Rime输入法在Windows端叫小狼毫，输入方案用的是[雾凇拼音](https://github.com/iDvel/rime-ice?tab=readme-ov-file) ，在``获取更多输入方案``中命令行输入``iDvel/rime-ice:others/recipes/full``安装。
 
+> 传统意义上的三大件包括浏览器，编辑器以及密码管理器。
+
 ## 开发环境
 
 ### 搭建虚拟机环境
@@ -83,8 +85,6 @@ tags = ["乱七八糟","Windows"]
 - Hyper-V
 
 在 BIOS 中找到类似``Intel VT-x”、“AMD-V”或“Virtualization Technology``的选项，确保它是“Enabled”（启用）。随后按下 Win + S，输入“打开或关闭 Windows 功能”，在弹出的窗口中，找到 Hyper-V并启用，重启后即可出现。
-
-
 
 - VMware
 
