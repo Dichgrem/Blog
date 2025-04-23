@@ -133,10 +133,6 @@ qemu-img convert -f qcow2 -O vmdk input.qcow2 output.vmdk
 ```
 qemu-img convert -f qcow2 -O vdi input.qcow2 output.vdi
 ```
-- qcow2 转 vhd（Hyper-V）
-```
-qemu-img convert -f qcow2 -O vpc input.qcow2 output.vhd
-```
 - qcow2 转 vhdx（新版 Hyper-V）
 
 目前 qemu-img 不能直接输出 vhdx，但你可以先转成 vhd，再用微软工具（如 Convert-VHD）转换为 vhdx：
@@ -155,8 +151,6 @@ Convert-VHD -Path "C:\路径\源文件.vhd" -DestinationPath "C:\路径\目标�
 请确保虚拟机已关闭，并且 PowerShell 以管理员权限运行。
 
 > 虚拟机固定IP
-
-您可以通过以下步骤更新 Netplan 配置文件，以设置静态 IP 地址和默认路由：​
 
 编辑 Netplan 配置文件：
 ```

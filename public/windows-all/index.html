@@ -221,11 +221,6 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f qcow2 -O vdi input.qcow2 output.vdi
 </span></code></pre>
 <ul>
-<li>qcow2 转 vhd（Hyper-V）</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f qcow2 -O vpc input.qcow2 output.vhd
-</span></code></pre>
-<ul>
 <li>qcow2 转 vhdx（新版 Hyper-V）</li>
 </ul>
 <p>目前 qemu-img 不能直接输出 vhdx，但你可以先转成 vhd，再用微软工具（如 Convert-VHD）转换为 vhdx：</p>
@@ -245,7 +240,6 @@
 <blockquote>
 <p>虚拟机固定IP</p>
 </blockquote>
-<p>您可以通过以下步骤更新 Netplan 配置文件，以设置静态 IP 地址和默认路由：​</p>
 <p>编辑 Netplan 配置文件：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo nano /etc/netplan/00-installer-config.yaml
 </span></code></pre>
