@@ -117,7 +117,17 @@ start explorer.exe
 ```
 reg delete "HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f
 ```
+## Win11关闭 Windows Defender
 
+``Windows Defender``具有防篡改保护，因此需要先在``设置-安全中心-设备保护``中将实时防护关闭，然后在组策略或者注册表中将其禁用。
+
+- 使用``Windows + R``快捷键打开「运行」对话框，执行``regedit``打开注册表编辑器。
+- 导航至以下路径：
+```
+HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+```
+- 将名为``DisableAntiSpyware``的 DWORD (32位) 值设置为1，如果没有就新建。
+- 重启后生效。
 
 ## **Win11添加开机自启动项方法**
 
