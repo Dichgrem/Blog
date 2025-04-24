@@ -194,24 +194,8 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>wsl --install
 </span></code></pre>
 <p>此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。（可以更改此默认发行版）。</p>
-<p><strong>常用命令</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 列出可用的 Linux 发行版
-</span><span>wsl --list --online
-</span><span>
-</span><span>- 列出已安装的 Linux 发行版
-</span><span>wsl --list --verbose
-</span><span>
-</span><span>- 更新 WSL
-</span><span>wsl --update
-</span><span>
-</span><span>- 检查 WSL 状态
-</span><span>wsl --status
-</span><span>
-</span><span>- 关闭
-</span><span>wsl --shutdown
-</span></code></pre>
 <blockquote>
-<p>各种虚拟机格式转换：可以使用 QEMU 提供的 qemu-img 工具来进行转换。</p>
+<p>使用 qemu-img 进行各种虚拟机格式转换</p>
 </blockquote>
 <ul>
 <li>qcow2 转 vmdk（VMware）</li>
@@ -240,33 +224,6 @@
 </span><span># -VHDType：​指定磁盘类型，可选值为 Fixed（固定大小）或 Dynamic（动态扩展）。​
 </span></code></pre>
 <p>请确保虚拟机已关闭，并且 PowerShell 以管理员权限运行。</p>
-<blockquote>
-<p>虚拟机固定IP</p>
-</blockquote>
-<p>编辑 Netplan 配置文件：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo nano /etc/netplan/00-installer-config.yaml
-</span></code></pre>
-<p>将配置文件内容更新为以下格式（请根据您的网络环境调整 IP 地址、子网掩码、网关和 DNS 服务器）：​</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>network:
-</span><span>  version: 2
-</span><span>  renderer: networkd
-</span><span>  ethernets:
-</span><span>    eth0:
-</span><span>      dhcp4: false
-</span><span>      addresses:
-</span><span>        - 192.168.162.241/20
-</span><span>      routes:
-</span><span>        - to: default
-</span><span>          via: 192.168.160.1
-</span><span>      nameservers:
-</span><span>        addresses:
-</span><span>          - 8.8.8.8
-</span><span>          - 8.8.4.4
-</span></code></pre>
-<p>请确保 YAML 文件的缩进正确，通常使用两个空格。
-保存并关闭文件后，应用新的网络配置：​</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo netplan apply
-</span></code></pre>
 <h3 id="shi-yong-unigetuiguan-li-ruan-jian-bao">使用UniGetUI管理软件包</h3>
 <p>众所周知，windows下包管理向来是个老大难问题，各个软件包来源分散，难以统一更新，环境部署的包比较复杂，这里推荐使用<a href="https://github.com/marticliment/UniGetUI">UniGetUI</a>来统一管理。（原名wingetUI）</p>
 <ul>
