@@ -47,32 +47,34 @@ tags = ["乱七八糟","Windows"]
 
 ## 软件
 
-| 分类             | 软件名称                  |
-|------------------|---------------------------|
-| AI               | [GPT4All](https://github.com/nomic-ai/gpt4all)                   |
-| 截图             | [ShareX](https://github.com/ShareX/ShareX)                          |
-| 办公             | [Microsoft Office](https://github.com/YerongAI/Office-Tool)          |
-| PDF工具          | [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)               |
-| 游戏             | [Steam](https://store.steampowered.com/)                     |
-| 抓包             | [Wireshark](https://www.wireshark.org/download.html)                 |
-| 启动器           | [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher)      |
-| 输入法           | [rime](https://rime.im/download/)      |
-| 浏览器           | [floorp](https://github.com/Floorp-Projects/Floorp)/[Chrome](https://www.google.com/chrome/)          |
-| 编辑器           | [VSCodium](https://github.com/VSCodium/vscodium)                 |
-| 虚拟机           | Hyper-V                   |
-| 科学上网         | [GFS](https://github.com/GUI-for-Cores/GUI.for.SingBox)                       |
-| 书籍阅读         | [Readest](https://github.com/readest/readest)                   |
-| 内网互传         | [LocalSend](https://github.com/localsend/localsend)                 |
-| 文件同步         | [Syncthing](https://github.com/syncthing/syncthing)                 |
-| 包管理器         | [UnigetUI](https://github.com/marticliment/UniGetUI)                  |
-| 软件卸载         | [Geek](https://geekuninstaller.com/download)                      |
-| 亮度控制         | [Twinkle Tray](https://github.com/xanderfrangos/twinkle-tray)             |
-| 系统工具         | [Dism++](https://github.com/Chuyu-Team/Dism-Multi-language)/[NTLite](https://www.ntlite.com/)          |
-| 综合工具         | [图吧工具箱](https://www.tbtool.cn/)               |
-| 文件搜索         | [Everything](https://www.voidtools.com/zh-cn/)                |
-| 磁盘管理         | [DiskGenius](https://www.diskgenius.cn/)                |
-| 密码管理器       | [KeePassXC](https://github.com/keepassxreboot/keepassxc)                 |
-| 终端与SSH管理    | [Electerm](https://github.com/electerm/electerm)                  |
+- **AI**: [GPT4All](https://github.com/nomic-ai/gpt4all)
+- **截图**: [ShareX](https://github.com/ShareX/ShareX)
+- **绘画**: [Krita](https://github.com/KDE/krita)
+- **办公**: [Microsoft Office](https://github.com/YerongAI/Office-Tool)
+- **PDF**: [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)
+- **游戏**: [Steam](https://store.steampowered.com/)
+- **抓包**: [Wireshark](https://www.wireshark.org/download.html)
+- **启动器**: [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher)
+- **输入法**: [Rime](https://rime.im/download/)
+- **浏览器**: [Floorp](https://github.com/Floorp-Projects/Floorp) / [Chrome](https://www.google.com/chrome/)
+- **编辑器**: [VSCodium](https://github.com/VSCodium/vscodium)
+- **虚拟机**: Hyper‑V
+- **科学上网**: [GFS](https://github.com/GUI-for-Cores/GUI.for.SingBox)
+- **书籍阅读**: [Readest](https://github.com/readest/readest)
+- **内网互传**: [LocalSend](https://github.com/localsend/localsend)
+- **文件同步**: [Syncthing](https://github.com/syncthing/syncthing)
+- **屏幕录制**: [OBS Studio](https://github.com/obsproject/obs-studio)
+- **手机投屏**: [QtScrcpy](https://github.com/barry-ran/QtScrcpy)
+- **包管理**: [UniGetUI](https://github.com/marticliment/UniGetUI)
+- **软件卸载**: [Geek Uninstaller](https://geekuninstaller.com/download)
+- **显示器亮度**: [Twinkle Tray](https://github.com/xanderfrangos/twinkle-tray)
+- **系统工具**: [Dism++](https://github.com/Chuyu-Team/Dism-Multi-language) / [NTLite](https://www.ntlite.com/)
+- **综合工具**: [图吧工具箱](https://www.tbtool.cn/)
+- **文件搜索**: [Everything](https://www.voidtools.com/zh-cn/)
+- **磁盘工具**: [DiskGenius](https://www.diskgenius.cn/)
+- **密码管理器**: [KeePassXC](https://github.com/keepassxreboot/keepassxc)
+- **终端/SSH**: [Electerm](https://github.com/electerm/electerm)
+
 
 > 这里说一下Rime输入法在Windows端叫小狼毫，输入方案用的是[雾凇拼音](https://github.com/iDvel/rime-ice?tab=readme-ov-file) ，在``获取更多输入方案``中命令行输入``iDvel/rime-ice:others/recipes/full``安装。
 
