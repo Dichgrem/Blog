@@ -190,6 +190,18 @@
 <p>如果想要重新打开Win11新样式的右键菜单的话，以同样的方式在命令提示符中执行此命令：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>reg delete &quot;HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}&quot; /f
 </span></code></pre>
+<h2 id="win11guan-bi-windows-defender">Win11关闭 Windows Defender</h2>
+<p><code>Windows Defender</code>具有防篡改保护，因此需要先在<code>设置-安全中心-设备保护</code>中将实时防护关闭，然后在组策略或者注册表中将其禁用。</p>
+<ul>
+<li>使用<code>Windows + R</code>快捷键打开「运行」对话框，执行<code>regedit</code>打开注册表编辑器。</li>
+<li>导航至以下路径：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+</span></code></pre>
+<ul>
+<li>将名为<code>DisableAntiSpyware</code>的 DWORD (32位) 值设置为1，如果没有就新建。</li>
+<li>重启后生效。</li>
+</ul>
 <h2 id="win11tian-jia-kai-ji-zi-qi-dong-xiang-fang-fa"><strong>Win11添加开机自启动项方法</strong></h2>
 <p>选择“开始”按钮 ，然后滚动查找你希望在启动时运行的应用。</p>
 <p>右键单击该应用，选择“更多”，然后选择“打开文件位置”。此操作会打开保存应用快捷方式的位置。如果没有“打开文件位置”选项，这意味着该应用无法在启动时运行。</p>
