@@ -1,5 +1,5 @@
 +++
-title = "Network的艺术:Nginx/Docker快速建站"
+title = "Network的艺术:Docker建站与反向代理"
 date = 2024-07-14
 
 [taxonomies]
@@ -261,6 +261,110 @@ sudo docker compose -f docker-compose.nginx.yml up -d
 ```
 sudo docker logs searxng
 ```
+## Caddy
+
+> Caddy 自 2015 年起用 Go 语言重写，定位为“开箱即用”的现代 Web 服务器，内置自动 Let’s Encrypt 证书管理和续期，默认支持 HTTP/2 及 HTTP/3（QUIC），并通过简洁明了的 Caddyfile 语法极大降低配置成本.
+
+0. 示例结构：
+```
+.
+└── compose
+    ├── certs
+    │   ├── cert.pem
+    │   └── key.pem
+    ├── compose.caddy.yml
+    ├── compose.miniflux.yml
+    ├── compose.searxng.yml
+    └── conf
+        └── Caddyfile
+```
+1. 同样创建名为Caddy的docker网络：
+```
+docker network create caddy
+```
+2. 编写Caddy的compose，可以看到caddy可以自带签发证书：
+```
+version: '3.7'
+
+# 自动签发模式
+
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    volumes:
+      - ./conf:/etc/caddy:ro 
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"    
+      - "443:443"  
+    networks:
+      - caddy     
+
+networks:
+  caddy:
+    external: true
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+
+# 自备证书模式
+
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    environment:
+      - CADDYPATH=/etc/caddycerts    
+    volumes:
+      - ./conf:/etc/caddy
+      - ./certs:/etc/caddycerts   
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - caddy
+
+volumes:
+  caddy_data:
+  caddy_config:
+networks:
+  caddy:
+    external: true
+```
+3. 编写Caddyfile，可以看到自动开启HTTPS模式：
+```
+# 自动签发模式
+searxng.dich.bid {
+    reverse_proxy searxng:8080 {
+        header_up Host {upstream_hostport}
+    }
+}
+
+miniflux.dich.bid {
+    reverse_proxy miniflux:8080 {
+        header_up Host {upstream_hostport}
+    }
+}
+
+# 自备证书模式
+searxng.dich.bid {
+    reverse_proxy searxng:8080
+    tls /etc/caddycerts/cert.pem /etc/caddycerts/key.pem
+}
+miniflux.dich.bid {
+    reverse_proxy miniflux:8080
+    tls /etc/caddycerts/cert.pem /etc/caddycerts/key.pem
+}
+```
+4. Docker compose的用法不再赘述。
 
 **FAQ**
 

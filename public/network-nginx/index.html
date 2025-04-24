@@ -85,7 +85,7 @@
         
     <div class="post">
         
-    <h1 class="post-title"><a href="https://blog.dich.bid/network-nginx/">Network的艺术:Nginx&#x2F;Docker快速建站</a></h1>
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-nginx/">Network的艺术:Docker建站与反向代理</a></h1>
     <div class="post-meta-inline">
         
     <span class="post-date">
@@ -340,6 +340,116 @@
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo docker logs searxng
 </span></code></pre>
+<h2 id="caddy">Caddy</h2>
+<blockquote>
+<p>Caddy 自 2015 年起用 Go 语言重写，定位为“开箱即用”的现代 Web 服务器，内置自动 Let’s Encrypt 证书管理和续期，默认支持 HTTP/2 及 HTTP/3（QUIC），并通过简洁明了的 Caddyfile 语法极大降低配置成本.</p>
+</blockquote>
+<ol start="0">
+<li>示例结构：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>.
+</span><span>└── compose
+</span><span>    ├── certs
+</span><span>    │   ├── cert.pem
+</span><span>    │   └── key.pem
+</span><span>    ├── compose.caddy.yml
+</span><span>    ├── compose.miniflux.yml
+</span><span>    ├── compose.searxng.yml
+</span><span>    └── conf
+</span><span>        └── Caddyfile
+</span></code></pre>
+<ol>
+<li>同样创建名为Caddy的docker网络：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker network create caddy
+</span></code></pre>
+<ol start="2">
+<li>编写Caddy的compose，可以看到caddy可以自带签发证书：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>version: &#39;3.7&#39;
+</span><span>
+</span><span># 自动签发模式
+</span><span>
+</span><span>services:
+</span><span>  caddy:
+</span><span>    image: caddy:latest
+</span><span>    container_name: caddy
+</span><span>    restart: unless-stopped
+</span><span>    volumes:
+</span><span>      - ./conf:/etc/caddy:ro 
+</span><span>      - caddy_data:/data
+</span><span>      - caddy_config:/config
+</span><span>    ports:
+</span><span>      - &quot;80:80&quot;    
+</span><span>      - &quot;443:443&quot;  
+</span><span>    networks:
+</span><span>      - caddy     
+</span><span>
+</span><span>networks:
+</span><span>  caddy:
+</span><span>    external: true
+</span><span>
+</span><span>volumes:
+</span><span>  caddy_data:
+</span><span>  caddy_config:
+</span><span>
+</span><span>
+</span><span># 自备证书模式
+</span><span>
+</span><span>services:
+</span><span>  caddy:
+</span><span>    image: caddy:latest
+</span><span>    container_name: caddy
+</span><span>    restart: unless-stopped
+</span><span>    environment:
+</span><span>      - CADDYPATH=/etc/caddycerts    
+</span><span>    volumes:
+</span><span>      - ./conf:/etc/caddy
+</span><span>      - ./certs:/etc/caddycerts   
+</span><span>      - caddy_data:/data
+</span><span>      - caddy_config:/config
+</span><span>    ports:
+</span><span>      - &quot;80:80&quot;
+</span><span>      - &quot;443:443&quot;
+</span><span>    networks:
+</span><span>      - caddy
+</span><span>
+</span><span>volumes:
+</span><span>  caddy_data:
+</span><span>  caddy_config:
+</span><span>networks:
+</span><span>  caddy:
+</span><span>    external: true
+</span></code></pre>
+<ol start="3">
+<li>编写Caddyfile，可以看到自动开启HTTPS模式：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 自动签发模式
+</span><span>searxng.dich.bid {
+</span><span>    reverse_proxy searxng:8080 {
+</span><span>        header_up Host {upstream_hostport}
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>miniflux.dich.bid {
+</span><span>    reverse_proxy miniflux:8080 {
+</span><span>        header_up Host {upstream_hostport}
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span># 自备证书模式
+</span><span>searxng.dich.bid {
+</span><span>    reverse_proxy searxng:8080
+</span><span>    tls /etc/caddycerts/cert.pem /etc/caddycerts/key.pem
+</span><span>}
+</span><span>miniflux.dich.bid {
+</span><span>    reverse_proxy miniflux:8080
+</span><span>    tls /etc/caddycerts/cert.pem /etc/caddycerts/key.pem
+</span><span>}
+</span></code></pre>
+<ol start="4">
+<li>Docker compose的用法不再赘述。</li>
+</ol>
 <p><strong>FAQ</strong></p>
 <ul>
 <li>使用nginx的docker版本而非apt安装的版本；</li>
