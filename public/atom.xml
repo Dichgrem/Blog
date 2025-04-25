@@ -6,8 +6,27 @@
     <link rel="self" type="application/atom+xml" href="https://blog.dich.bid/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://blog.dich.bid"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2025-04-20T00:00:00+00:00</updated>
+    <updated>2025-04-23T00:00:00+00:00</updated>
     <id>https://blog.dich.bid/atom.xml</id>
+    <entry xml:lang="en">
+        <title>乱七八糟:Baci实验笔记</title>
+        <published>2025-04-23T00:00:00+00:00</published>
+        <updated>2025-04-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/about-baci/"/>
+        <id>https://blog.dich.bid/about-baci/</id>
+        
+        <summary type="html">&lt;p&gt;前言 ​BACI是一个简化的并发程序模拟器，这里对其语法与运行环境进行说明。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
     <entry xml:lang="en">
         <title>乱七八糟:lazyvim快速上手</title>
         <published>2025-04-20T00:00:00+00:00</published>
