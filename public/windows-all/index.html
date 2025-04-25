@@ -214,6 +214,11 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>Convert-VHD -Path &quot;output.vhd&quot; -DestinationPath &quot;output.vhdx&quot; -VHDType Dynamic
 </span></code></pre>
 <ul>
+<li>vmdk转vhdx</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f vmdk -O vhdx input.vmdk output.vhdx
+</span></code></pre>
+<ul>
 <li>vhd转vhdx
 在 PowerShell 中执行以下命令：​</li>
 </ul>
