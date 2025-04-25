@@ -124,6 +124,10 @@ qemu-img convert -f qcow2 -O vdi input.qcow2 output.vdi
 ```
 Convert-VHD -Path "output.vhd" -DestinationPath "output.vhdx" -VHDType Dynamic
 ```
+- vmdk转vhdx
+```
+qemu-img convert -f vmdk -O vhdx input.vmdk output.vhdx
+```
 - vhd转vhdx
 在 PowerShell 中执行以下命令：​
 ```
