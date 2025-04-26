@@ -32,7 +32,7 @@ tags = ["综合工程"]
 随后安装常用开源软件：
 
 ```
-paru -S virt-manager qemu-full floorp-bin readest vscodium materialgram-bin keepassxc libreoffice-still kazumi electerm vlc  neovim  zola krita qtscrcpy  ttf-jetbrains-mono-nerd Ruby fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just android-tools wireshark-qt  obs-studio localsend-bin legcord-bin syncthing tree zellij nushell starship alacritty element-desktop gui-for-singbox
+paru -S virt-manager wireshark-qt floorp-bin readest vscodium materialgram-bin keepassxc aria2 onlyoffice-bin kazumi-bin electerm vlc  neovim  zola krita qtscrcpy  ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just android-tools qemu-full obs-studio localsend-bin legcord-bin syncthing tree zellij  alacritty element-desktop gui-for-singbox strawberry
 ```
 安装完毕后我们开始配置输入法与字体：
 
