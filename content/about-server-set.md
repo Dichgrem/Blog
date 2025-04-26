@@ -25,7 +25,7 @@ tags = ["乱七八糟"]
 
 ## VPS
 ```
-apt install curl vim sudo
+apt install wget curl vim sudo neofetch
 apt update && apt upgrade -y
 apt-get install --fix-missing
 adduser xxx
