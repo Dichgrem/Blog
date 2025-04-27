@@ -1187,6 +1187,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>综合工程:linux搭建安卓虚拟机</title>
+        <published>2023-08-10T00:00:00+00:00</published>
+        <updated>2023-08-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/awesome-vm-android/"/>
+        <id>https://blog.dich.bid/awesome-vm-android/</id>
+        
+        <summary type="html">&lt;p&gt;前言 linux搭建安卓虚拟机有Waydroid，QEMU和Docker三种方案，各有不同。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>Linux之旅(七):系统与终端字体设置</title>
         <published>2023-08-01T00:00:00+00:00</published>
         <updated>2023-08-01T00:00:00+00:00</updated>
