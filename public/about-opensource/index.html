@@ -106,60 +106,40 @@
 <p>对于很多刚踏入软件这个行业的小伙伴来说，「开源」是个比较陌生的概念。但是随着经手项目逐渐增多，会发现很多项目，尤其是一些大型项目，经常会引用到别人一些优秀的开源代码，而这些优秀的开源代码通常都会在最开始简单地附上一段关于授权的声明或在项目根目录下提供完整的授权声明文件，比如：「The project is licensed under the Apache 2 license.」，诸如此类便是「开源许可证」。</p>
 <p>开源不等于免费，开源也不等于没有约束</p>
 <h3 id="kai-yuan-de-hao-chu"><strong>开源的好处</strong></h3>
-<h4 id="1-tou-ming-du-he-an-quan-xing"><strong>1. 透明度和安全性</strong></h4>
-<p>开源软件的代码是公开的，任何人都可以检查和改进它。这使得潜在的安全漏洞更容易被发现和修复，提升了软件的安全性。</p>
-<h4 id="2-cu-jin-chuang-xin"><strong>2. 促进创新</strong></h4>
-<p>开源允许开发者自由研究和修改代码，推动技术进步。例如，Linux、Python、TensorFlow 等开源项目极大地促进了计算机科学和人工智能的发展。</p>
-<h4 id="3-jiang-di-cheng-ben"><strong>3. 降低成本</strong></h4>
-<p>企业和个人可以免费使用开源软件，而不需要支付高昂的许可证费用。例如，使用 Linux 服务器代替 Windows Server 可以减少 IT 成本。</p>
-<h4 id="4-kuai-su-die-dai-he-she-qu-zhi-chi"><strong>4. 快速迭代和社区支持</strong></h4>
-<p>开源项目通常由全球开发者社区维护和改进，Bug 修复和新功能开发的速度比封闭源代码的软件更快。例如，开源浏览器 Firefox 就依赖社区贡献不断改进。</p>
-<h4 id="5-bi-mian-gong-ying-shang-suo-ding"><strong>5. 避免供应商锁定</strong></h4>
-<p>开源软件允许用户自由选择和修改代码，而不是被某个公司的专有软件绑定，避免了供应商锁定的问题。例如，MySQL 和 PostgreSQL 等开源数据库是很多企业的首选，避免依赖单一厂商。</p>
+<ol>
+<li>
+<p>透明度和安全性
+开源软件的代码是公开的，任何人都可以检查和改进它。这使得潜在的安全漏洞更容易被发现和修复，提升了软件的安全性。</p>
+</li>
+<li>
+<p>促进创新
+开源允许开发者自由研究和修改代码，推动技术进步。例如，Linux、Python、TensorFlow 等开源项目极大地促进了计算机科学和人工智能的发展。</p>
+</li>
+<li>
+<p>降低成本
+企业和个人可以免费使用开源软件，而不需要支付高昂的许可证费用。例如，使用 Linux 服务器代替 Windows Server 可以减少 IT 成本。</p>
+</li>
+<li>
+<p>快速迭代和社区支持
+开源项目通常由全球开发者社区维护和改进，Bug 修复和新功能开发的速度比封闭源代码的软件更快。例如，开源浏览器 Firefox 就依赖社区贡献不断改进。</p>
+</li>
+<li>
+<p>避免供应商锁定
+开源软件允许用户自由选择和修改代码，而不是被某个公司的专有软件绑定，避免了供应商锁定的问题。例如，MySQL 和 PostgreSQL 等开源数据库是很多企业的首选，避免依赖单一厂商。</p>
+</li>
+</ol>
 <h2 id="kai-yuan-ruan-jian">开源软件</h2>
 <p>开源软件，顾名思义是指能够免费且不受限制地使用、再开发、再发布的软件。但在狭义上，只有符合开放源代码促进会（Open Source Initiative）定义的软件才能被称为开源软件。这个定义提出了十个特征，必须全部符合才能认定为开源软件。</p>
 <p>这些特征包括：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>可自由再分发。
-</span><span>
-</span><span>提供源代码。
-</span><span>
-</span><span>允许衍生作品。
-</span><span>
-</span><span>不得过度限制原始代码的修改。
-</span><span>
-</span><span>不得歧视特定人、群体或用途。
-</span><span>
-</span><span>必须「技术中立」等。
-</span></code></pre>
+<ul>
+<li>可自由再分发。</li>
+<li>提供源代码。</li>
+<li>允许衍生作品。</li>
+<li>不得过度限制原始代码的修改。</li>
+<li>不得歧视特定人、群体或用途。</li>
+<li>必须「技术中立」等。</li>
+</ul>
 <p>根据这些标准，一些看似自由使用的软件可能不符合开源软件的定义。例如，Elasticsearch原本使用Apache 2.0授权，是真正的开源软件。但面对云服务提供商如AWS等将其用于营利目的却不回馈改进的情况，Elasticsearch在2021年1月选择了SSPL（Server Side Public License，服务器端公共许可证）和Elastic License两种许可证并行；SSPL要求如果将程序的功能或修改后的版本作为服务提供给第三方，则必须免费公开提供服务源代码，这违背了开源软件的定义。另一方面，Elastic License要求不能向第三方提供主机或托管服务，也违反了开源软件的定义，因此也不算严格意义上的「开源」。</p>
-<h2 id="chang-yong-you-xiu-kai-yuan-ruan-jian">常用优秀开源软件</h2>
-<p>以下是一些常用的跨平台开源软件，涵盖了多个领域，包括办公、开发工具、多媒体处理等。</p>
-<table><thead><tr><th>分类</th><th>软件名称</th></tr></thead><tbody>
-<tr><td><strong>输入法</strong></td><td>Rime, Fcitx</td></tr>
-<tr><td><strong>浏览器</strong></td><td>Brave, FireFox, Floorp</td></tr>
-<tr><td><strong>解压</strong></td><td>PeaZip</td></tr>
-<tr><td><strong>下载器</strong></td><td>Motrix</td></tr>
-<tr><td><strong>播放器</strong></td><td>VLC</td></tr>
-<tr><td><strong>密码管理器</strong></td><td>KeePassXC, BitWarden</td></tr>
-<tr><td><strong>邮件客户端</strong></td><td>Thunderbird</td></tr>
-<tr><td><strong>Office</strong></td><td>OnlyOffice, LibreOffice</td></tr>
-<tr><td><strong>RSS 阅读器</strong></td><td>Fluent Reader, News</td></tr>
-<tr><td><strong>电子书阅读器</strong></td><td>Readest, Koodo Reader &amp; Legado, KOReader, Celibre</td></tr>
-<tr><td><strong>本地音乐</strong></td><td>VLC, Harmonoid, Strawberry, Metro</td></tr>
-<tr><td><strong>截屏</strong></td><td>Flameshot, Snipate</td></tr>
-<tr><td><strong>录屏</strong></td><td>OBS Studio</td></tr>
-<tr><td><strong>Matrix</strong></td><td>Element/SchildiChat, FluffyChat, MatterMost</td></tr>
-<tr><td><strong>网盘</strong></td><td>Alist, NextCloud</td></tr>
-<tr><td><strong>笔记</strong></td><td>Joplin, logseq, siyuan, notesnook, Trillium, Bluestone</td></tr>
-<tr><td><strong>文件同步</strong></td><td>SyncThing</td></tr>
-<tr><td><strong>文件传送</strong></td><td>LocalSend, KDE connect</td></tr>
-<tr><td><strong>远程文件传输</strong></td><td>muCommander, cyberduck</td></tr>
-<tr><td><strong>S3 文件管理</strong></td><td>muCommander</td></tr>
-<tr><td><strong>SSH 终端</strong></td><td>Tabby, electerm, Termux, NxShell</td></tr>
-<tr><td><strong>代码编辑</strong></td><td>VSCodium</td></tr>
-<tr><td><strong>远程桌面</strong></td><td>RustDesk, moonlight</td></tr>
-<tr><td><strong>内网穿透</strong></td><td>NPS, ZeroTier, Tailscale/HeadScale, Nconnect</td></tr>
-</tbody></table>
 <h2 id="kai-yuan-xu-ke-zheng">开源许可证</h2>
 <p>开源许可证是软件许可证的一种特殊形式，用于规定开源软件的使用、修改、分享等相关事宜。它是一种格式合同，涉及版权、专利、商标等权利义务，自动生效。</p>
 <p>在美国，一些法院认为软件许可证是合同（contract），一些法院则认为是许可（license）。两者的区别在于，许可在传统上是由地产或物主作出的，目的在于允许他人使用自己的地块或物品。因此，它是单方向的，不构成完整的合同，而是作为合同的一个要素，用来和他人交换的条件。由于合同和许可之分在法律上有着重要的意义，它们的违约救济和版权侵权救济等方面有着不同的规定。</p>
@@ -168,6 +148,9 @@
 <h2 id="chang-jian-kai-yuan-xu-ke-zheng">常见开源许可证</h2>
 <p>世界上的开源许可证（Open Source License）大概有上百种，而常见的开源协议大致有GPL、BSD、MIT、Mozilla、Apache和LGPL等。
 <img src="https://www.ruanyifeng.com/blogimg/asset/201105/free_software_licenses.png" alt="alt text" /></p>
+<blockquote>
+<p><a href="https://choosealicense.com/">Choose an open source license</a></p>
+</blockquote>
 <h2 id="apache-license">Apache License</h2>
 <p>Apache License（Apache许可证），是Apache软件基金会发布的一个自由软件许可证。</p>
 <p>Apache Licence 是著名的非盈利开源组织 Apache 采用的协议。该协议和BSD类似，同样鼓励代码共享和最终原作者的著作权，同样允许源代码修改和再发布。但是也需要遵循以下条件：</p>
