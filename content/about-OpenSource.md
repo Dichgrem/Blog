@@ -18,71 +18,34 @@ tags = ["乱七八糟"]
 开源不等于免费，开源也不等于没有约束
 
 ### **开源的好处**
-#### **1. 透明度和安全性**
+1. 透明度和安全性
 开源软件的代码是公开的，任何人都可以检查和改进它。这使得潜在的安全漏洞更容易被发现和修复，提升了软件的安全性。
 
-#### **2. 促进创新**
+2. 促进创新
 开源允许开发者自由研究和修改代码，推动技术进步。例如，Linux、Python、TensorFlow 等开源项目极大地促进了计算机科学和人工智能的发展。
 
-#### **3. 降低成本**
+3. 降低成本
 企业和个人可以免费使用开源软件，而不需要支付高昂的许可证费用。例如，使用 Linux 服务器代替 Windows Server 可以减少 IT 成本。
 
-#### **4. 快速迭代和社区支持**
+4. 快速迭代和社区支持
 开源项目通常由全球开发者社区维护和改进，Bug 修复和新功能开发的速度比封闭源代码的软件更快。例如，开源浏览器 Firefox 就依赖社区贡献不断改进。
 
-#### **5. 避免供应商锁定**
+5. 避免供应商锁定
 开源软件允许用户自由选择和修改代码，而不是被某个公司的专有软件绑定，避免了供应商锁定的问题。例如，MySQL 和 PostgreSQL 等开源数据库是很多企业的首选，避免依赖单一厂商。
 
 ## 开源软件
 开源软件，顾名思义是指能够免费且不受限制地使用、再开发、再发布的软件。但在狭义上，只有符合开放源代码促进会（Open Source Initiative）定义的软件才能被称为开源软件。这个定义提出了十个特征，必须全部符合才能认定为开源软件。
 
 这些特征包括：
-```
-可自由再分发。
 
-提供源代码。
+- 可自由再分发。
+- 提供源代码。
+- 允许衍生作品。
+- 不得过度限制原始代码的修改。
+- 不得歧视特定人、群体或用途。
+- 必须「技术中立」等。
 
-允许衍生作品。
-
-不得过度限制原始代码的修改。
-
-不得歧视特定人、群体或用途。
-
-必须「技术中立」等。
-```
 根据这些标准，一些看似自由使用的软件可能不符合开源软件的定义。例如，Elasticsearch原本使用Apache 2.0授权，是真正的开源软件。但面对云服务提供商如AWS等将其用于营利目的却不回馈改进的情况，Elasticsearch在2021年1月选择了SSPL（Server Side Public License，服务器端公共许可证）和Elastic License两种许可证并行；SSPL要求如果将程序的功能或修改后的版本作为服务提供给第三方，则必须免费公开提供服务源代码，这违背了开源软件的定义。另一方面，Elastic License要求不能向第三方提供主机或托管服务，也违反了开源软件的定义，因此也不算严格意义上的「开源」。
-
-
-## 常用优秀开源软件
-
-以下是一些常用的跨平台开源软件，涵盖了多个领域，包括办公、开发工具、多媒体处理等。
-
-| 分类           | 软件名称 |
-|--------------|---------|
-| **输入法**    | Rime, Fcitx |
-| **浏览器**    | Brave, FireFox, Floorp |
-| **解压**      | PeaZip |
-| **下载器**    | Motrix |
-| **播放器**    | VLC |
-| **密码管理器** | KeePassXC, BitWarden |
-| **邮件客户端** | Thunderbird |
-| **Office**    | OnlyOffice, LibreOffice |
-| **RSS 阅读器** | Fluent Reader, News |
-| **电子书阅读器** | Readest, Koodo Reader & Legado, KOReader, Celibre |
-| **本地音乐**  | VLC, Harmonoid, Strawberry, Metro |
-| **截屏**      | Flameshot, Snipate |
-| **录屏**      | OBS Studio |
-| **Matrix**    | Element/SchildiChat, FluffyChat, MatterMost |
-| **网盘**      | Alist, NextCloud |
-| **笔记**      | Joplin, logseq, siyuan, notesnook, Trillium, Bluestone |
-| **文件同步**  | SyncThing |
-| **文件传送**  | LocalSend, KDE connect |
-| **远程文件传输** | muCommander, cyberduck |
-| **S3 文件管理** | muCommander |
-| **SSH 终端**  | Tabby, electerm, Termux, NxShell |
-| **代码编辑**  | VSCodium |
-| **远程桌面**  | RustDesk, moonlight |
-| **内网穿透**  | NPS, ZeroTier, Tailscale/HeadScale, Nconnect |
 
 
 ## 开源许可证
@@ -99,6 +62,10 @@ tags = ["乱七八糟"]
 
 世界上的开源许可证（Open Source License）大概有上百种，而常见的开源协议大致有GPL、BSD、MIT、Mozilla、Apache和LGPL等。
 ![alt text](https://www.ruanyifeng.com/blogimg/asset/201105/free_software_licenses.png)
+
+
+> [Choose an open source license](https://choosealicense.com/)
+
 
 ## Apache License
 
