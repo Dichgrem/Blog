@@ -137,6 +137,10 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>$ echo net.ipv4.tcp_congestion_control=bbr &gt;&gt; /etc/sysctl.conf &amp;&amp; sysctl -p
 </span></code></pre>
 <h2 id="safe">Safe</h2>
+<blockquote>
+<p>使用密码登录：更换SSH端口+安装UFW+安装Fail2ban
+使用密钥登录：不用额外操作</p>
+</blockquote>
 <h3 id="geng-huan-sshduan-kou">更换SSH端口</h3>
 <p>使用root账户或已经有sudo权限的用户登录到系统。</p>
 <p>打开SSH配置文件<code>sshd_config</code>，可以使用文本编辑器如nano或vi。以下是使用nano编辑器的示例：</p>
@@ -163,12 +167,6 @@
 <blockquote>
 <p>如果 SSH 运行在非标准端口，你需要将上述命令中的 22 端口替换为对应的 SSH 端口。</p>
 </blockquote>
-<p><strong>放开 1Panel 系统端口。</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo ufw allow 8090/tcp
-</span></code></pre>
-<blockquote>
-<p>上述命令中的 8090 端口需要替换为安装 1Panel 系统时自定义的端口。</p>
-</blockquote>
 <p><strong>启动 UFW</strong></p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo ufw enable
 </span></code></pre>
@@ -187,31 +185,9 @@
 <p><strong>5、查看 Fail2ban 服务状态。</strong></p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl status fail2ban
 </span></code></pre>
-<h3 id="ban-ipv6">Ban IPv6</h3>
-<p>手动 禁用 VPS 的 IPv6 命令:</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl -w net.ipv6.conf.all.disable_ipv6=1
-</span><span>sysctl -w net.ipv6.conf.default.disable_ipv6=1
-</span></code></pre>
-<p>如果想重启系统也生效， 执行：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo &#39;net.ipv6.conf.all.disable_ipv6=1&#39; &gt;&gt; /etc/sysctl.conf
-</span><span>echo &#39;net.ipv6.conf.default.disable_ipv6=1&#39; &gt;&gt; /etc/sysctl.conf
-</span></code></pre>
-<p>手动 启用 VPS 的 IPv6 命令:</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl -w net.ipv6.conf.all.disable_ipv6=0
-</span><span>sysctl -w net.ipv6.conf.default.disable_ipv6=0
-</span></code></pre>
-<p>重新载入 sysctl 配置</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl --system # reload sysctl
-</span></code></pre>
-<p>如果重载, 还无效果, 可能要 reboot 重启下.
-查看 VPS 的 IPv6 信息</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ip -6 addr show scope global
-</span><span>
-</span><span>或者 curl ipv6.ip.sb
-</span></code></pre>
 <h3 id="gai-wei-mi-yao-deng-lu">改为密钥登录</h3>
 <ul>
-<li>在本地执行以下命令生成.pub后缀的公钥和无后缀的密钥：</li>
+<li>执行以下命令生成.pub后缀的公钥和无后缀的密钥：</li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-keygen
 </span></code></pre>
@@ -241,21 +217,45 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo cat /etc/ssh/sshd_config | grep -E &#39;PasswordAuthentication|PubkeyAuthentication&#39;
 </span></code></pre>
 <p>如有<strong>PasswordAuthentication no → 禁用密码登录</strong>以及<strong>PubkeyAuthentication yes → 允许密钥登录</strong>则成功。</p>
+<blockquote>
+<p>注意<strong>authorized_keys</strong>的权限为600，如果不是则需要改正：<code>chmod 600 ~/.ssh/authorized_keys</code></p>
+</blockquote>
+<h2 id="ipzheng-shu-shen-qing-bu-shu">IP证书申请部署</h2>
 <ul>
 <li>
-<p>注意<strong>authorized_keys</strong>的权限为600，如果不是则需要改正：<code>chmod 600 ~/.ssh/authorized_keys</code></p>
+<p>在 <a href="https://zerossl.com/">ZeroSSL</a> 中申请一个90天的证书；</p>
 </li>
 <li>
-<p>随后可以在本地尝试登录，命令为<code>ssh -i ~/.ssh/id_xxx -p 端口 用户名@服务器IP</code>，第一次登录会提示服务器公钥的哈希值，需要选Yes。
-使用SCP命令上传下载文件：</p>
+<p>然后在VPS上输入以下命令：</p>
 </li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp 文件目录 用户名@ip:/路径
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>mkdir -p ./.well-known/pki-validation
 </span></code></pre>
-<p>下载</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scp  用户名@ip:/路径 文件目录
+<ul>
+<li>
+<p>随后在ZeroSSL中将所给出的类似<strong>B992F08CB46748D02E4C553A4038BC.txt</strong>复制；</p>
+</li>
+<li>
+<p>将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:<code>将pki-validation/之后EOF之前的内容</code>替换为你自己的。</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cat &lt;&lt; EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
+</span><span>254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
+</span><span>comodoca.com
+</span><span>ca5792984e3f0a1
+</span><span>EOF
 </span></code></pre>
+<p>随后在VPS上运行该命令。</p>
+<ul>
+<li>开启一个临时HTTP服务器：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>python3 -m http.server 80
+</span></code></pre>
+<ul>
+<li>随后即可在ZeroSSL中验证证书并开启SSL。</li>
+</ul>
 <h2 id="docker">Docker</h2>
+<h3 id="jiao-ben-an-zhuang">脚本安装</h3>
 <p>Docker 官方提供了一个安装脚本，可以自动选择适当版本，并规避仓库问题：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://get.docker.com -o get-docker.sh
 </span><span>sudo sh get-docker.sh
@@ -340,40 +340,28 @@
 <p>执行如下命令一键安装 1Panel:</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh &amp;&amp; sudo bash quick_start.sh
 </span></code></pre>
-<h2 id="ipzheng-shu-shen-qing-bu-shu">IP证书申请部署</h2>
-<ul>
-<li>
-<p>在 <a href="https://zerossl.com/">ZeroSSL</a> 中申请一个90天的证书；</p>
-</li>
-<li>
-<p>然后在VPS上输入以下命令：</p>
-</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>mkdir -p ./.well-known/pki-validation
+<h3 id="jin-yong-ipv6">禁用 IPv6</h3>
+<p>手动 禁用 VPS 的 IPv6 命令:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl -w net.ipv6.conf.all.disable_ipv6=1
+</span><span>sysctl -w net.ipv6.conf.default.disable_ipv6=1
 </span></code></pre>
-<ul>
-<li>
-<p>随后在ZeroSSL中将所给出的类似<strong>B992F08CB46748D02E4C553A4038BC.txt</strong>复制；</p>
-</li>
-<li>
-<p>将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:将pki-validation/之后EOF之前的内容替换为你自己的。</p>
-</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cat &lt;&lt; EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
-</span><span>254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
-</span><span>comodoca.com
-</span><span>ca5792984e3f0a1
-</span><span>EOF
+<p>如果想重启系统也生效， 执行：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>echo &#39;net.ipv6.conf.all.disable_ipv6=1&#39; &gt;&gt; /etc/sysctl.conf
+</span><span>echo &#39;net.ipv6.conf.default.disable_ipv6=1&#39; &gt;&gt; /etc/sysctl.conf
 </span></code></pre>
-<p>随后在VPS上运行该命令。</p>
-<ul>
-<li>开启一个临时HTTP服务器：</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>python3 -m http.server 80
+<p>手动 启用 VPS 的 IPv6 命令:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl -w net.ipv6.conf.all.disable_ipv6=0
+</span><span>sysctl -w net.ipv6.conf.default.disable_ipv6=0
 </span></code></pre>
-<ul>
-<li>随后即可在ZeroSSL中验证证书并开启SSL。</li>
-</ul>
+<p>重新载入 sysctl 配置</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl --system # reload sysctl
+</span></code></pre>
+<p>如果重载, 还无效果, 可能要 reboot 重启下.
+查看 VPS 的 IPv6 信息</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ip -6 addr show scope global
+</span><span>
+</span><span>或者 curl ipv6.ip.sb
+</span></code></pre>
 <h2 id="wang-ji-mi-ma-zen-me-ban">忘记密码怎么办</h2>
 <p>通过恢复模式 (Recovery Mode) 修改用户权限：</p>
 <ul>
