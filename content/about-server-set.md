@@ -163,7 +163,7 @@ sudo systemctl restart sshd
 ```
 重启SSH即可禁用密码登录；
 
-- 将**PermitRootLogin prohibit-password**改为**prohibit-password**，即可实现仅root用户密钥登录；
+- 将**PermitRootLogin**一栏改为**PermitRootLogin prohibit-password**，即可实现仅root用户密钥登录；
 
 - 使用以下命令查看输出，
 ```
