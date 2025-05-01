@@ -43,6 +43,62 @@ tags = ["网络艺术"]
 
 - 中国教育网：走AS4538路由节点，各大高校的校园网和部分大型国内云服务提供商，已知出口：``北京清华大学``
 
+## 使用NextTrace追踪线路
+
+NextTrace 是一款开源的可视化路由跟踪（Traceroute）工具，支持 IPv4/IPv6，以及 ICMP、TCP、UDP 多种协议，可生成终端表格、JSON 输出，甚至可在线展示地图路径。它兼顾了轻量化与可视化展示的需求，非常适合网络工程师和运维人员进行链路排查与延迟分析。
+
+> [Ntrace-core](https://github.com/nxtrace/Ntrace-core)
+
+
+### 基本用法示例
+```bash
+# IPv4 ICMP 路由跟踪
+nexttrace 8.8.8.8
+
+# 指定输出为 JSON
+nexttrace --json www.google.com
+
+# TCP 路由跟踪到 443 端口
+nexttrace --tcp --port 443 2001:4860:4860::8888
+
+# 开启多探测包和并发
+nexttrace --queries 3 --parallel-requests 4 example.com
+
+# 显示表格输出并关闭反向解析
+nexttrace --table --no-rdns www.example.org
+```
+### 示例
+```
+❯ nexttrace 38.207.170.5x
+NextTrace v1.4.0 2025-04-16T01:10:07Z dccc41b
+[NextTrace API] preferred API IP - 198.18.0.61 - 601.41ms - 🐠 (Relay) → Misaka.HKG
+IP Geo Data Provider: LeoMoeAPI
+traceroute to 38.207.170.5x, 30 hops max, 52 bytes payload, ICMP mode
+1   192.168.1.1     *                         RFC1918
+                                              3.80 ms / 2.75 ms / 3.37 ms
+2   192.168.0.1     *                         RFC1918
+                                              4.14 ms / 5.40 ms / 6.76 ms
+3   100.64.0.1      *                         RFC6598
+                                              11.22 ms / 12.22 ms / 13.40 ms
+4   *
+5   *
+6   *
+7   *
+8   202.97.66.213   AS4134   [CHINANET-BB]    中国 广东 广州  www.chinatelecom.com.cn
+                                              22.25 ms / 21.00 ms / 20.69 ms
+9   *
+10  218.30.53.134   AS4134   [CHINANET-US]    美国 加利福尼亚 洛杉矶 CT-POP-Zenlayer www.chinatelecom.com.cn  电信
+                                              174.40 ms / 173.56 ms / 173.49 ms
+11  10.163.0.2      *                         RFC1918
+                                              173.78 ms / 174.93 ms / 174.35 ms
+12  *
+13  38.207.170.5x   AS979                     美国 加利福尼亚州 洛杉矶  as979.net
+                                              176.31 ms / 177.14 ms / 174.71 ms
+MapTrace URL: https://assets.nxtrace.org/tracemap/30cce0c3-18a6-582c-8679-xxxxxxxxxx.html
+```
+
+---
+
 
 ## 各种线路详解
 
