@@ -147,6 +147,56 @@
 <p>中国教育网：走AS4538路由节点，各大高校的校园网和部分大型国内云服务提供商，已知出口：<code>北京清华大学</code></p>
 </li>
 </ul>
+<h2 id="shi-yong-nexttracezhui-zong-xian-lu">使用NextTrace追踪线路</h2>
+<p>NextTrace 是一款开源的可视化路由跟踪（Traceroute）工具，支持 IPv4/IPv6，以及 ICMP、TCP、UDP 多种协议，可生成终端表格、JSON 输出，甚至可在线展示地图路径。它兼顾了轻量化与可视化展示的需求，非常适合网络工程师和运维人员进行链路排查与延迟分析。</p>
+<blockquote>
+<p><a href="https://github.com/nxtrace/Ntrace-core">Ntrace-core</a></p>
+</blockquote>
+<h3 id="ji-ben-yong-fa-shi-li">基本用法示例</h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># IPv4 ICMP 路由跟踪
+</span><span style="color:#ffb964;">nexttrace</span><span> 8.8.8.8
+</span><span>
+</span><span style="color:#888888;"># 指定输出为 JSON
+</span><span style="color:#ffb964;">nexttrace --json</span><span> www.google.com
+</span><span>
+</span><span style="color:#888888;"># TCP 路由跟踪到 443 端口
+</span><span style="color:#ffb964;">nexttrace --tcp --port</span><span> 443 2001:4860:4860::8888
+</span><span>
+</span><span style="color:#888888;"># 开启多探测包和并发
+</span><span style="color:#ffb964;">nexttrace --queries</span><span> 3</span><span style="color:#ffb964;"> --parallel-requests</span><span> 4 example.com
+</span><span>
+</span><span style="color:#888888;"># 显示表格输出并关闭反向解析
+</span><span style="color:#ffb964;">nexttrace --table --no-rdns</span><span> www.example.org
+</span></code></pre>
+<h3 id="shi-li">示例</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>❯ nexttrace 38.207.170.5x
+</span><span>NextTrace v1.4.0 2025-04-16T01:10:07Z dccc41b
+</span><span>[NextTrace API] preferred API IP - 198.18.0.61 - 601.41ms - 🐠 (Relay) → Misaka.HKG
+</span><span>IP Geo Data Provider: LeoMoeAPI
+</span><span>traceroute to 38.207.170.5x, 30 hops max, 52 bytes payload, ICMP mode
+</span><span>1   192.168.1.1     *                         RFC1918
+</span><span>                                              3.80 ms / 2.75 ms / 3.37 ms
+</span><span>2   192.168.0.1     *                         RFC1918
+</span><span>                                              4.14 ms / 5.40 ms / 6.76 ms
+</span><span>3   100.64.0.1      *                         RFC6598
+</span><span>                                              11.22 ms / 12.22 ms / 13.40 ms
+</span><span>4   *
+</span><span>5   *
+</span><span>6   *
+</span><span>7   *
+</span><span>8   202.97.66.213   AS4134   [CHINANET-BB]    中国 广东 广州  www.chinatelecom.com.cn
+</span><span>                                              22.25 ms / 21.00 ms / 20.69 ms
+</span><span>9   *
+</span><span>10  218.30.53.134   AS4134   [CHINANET-US]    美国 加利福尼亚 洛杉矶 CT-POP-Zenlayer www.chinatelecom.com.cn  电信
+</span><span>                                              174.40 ms / 173.56 ms / 173.49 ms
+</span><span>11  10.163.0.2      *                         RFC1918
+</span><span>                                              173.78 ms / 174.93 ms / 174.35 ms
+</span><span>12  *
+</span><span>13  38.207.170.5x   AS979                     美国 加利福尼亚州 洛杉矶  as979.net
+</span><span>                                              176.31 ms / 177.14 ms / 174.71 ms
+</span><span>MapTrace URL: https://assets.nxtrace.org/tracemap/30cce0c3-18a6-582c-8679-xxxxxxxxxx.html
+</span></code></pre>
+<hr />
 <h2 id="ge-chong-xian-lu-xiang-jie">各种线路详解</h2>
 <ul>
 <li>
