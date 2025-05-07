@@ -292,6 +292,10 @@ ReDroid（Remote-Android）是一款开源的容器化 Android 解决方案，�
 - **安装 GApps**：下载 OpenGApps x86_64 Android 11 Pico 包，将其中 APK 拷贝到自建镜像的 `system` 目录，再在容器内推送并授权。
 - **自定义 libndk**：从 Android Studio 模拟器提取 Google 官方 ARM 翻译库（libndk），在 Dockerfile 中加入到基于 `redroid:13.0.0-latest` 的自定义镜像，提升兼容性与性能。
 
+---
+🔗
+
+[如何在Linux安裝Bliss OS](https://ivonblog.com/posts/install-bliss-os-on-msi-modern-15-a10/)
 
 ---
 **Done.**
