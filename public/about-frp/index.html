@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-frp/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-frp/">
+
+        <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-frp/">乱七八糟:FRP使用指南</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-03-01
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 FRP (Fast Reverse Proxy) 是一个用Go语言开发的高性能反向代理应用，可以帮助您轻松地进行内网穿透，对外提供服务.</p>
+<span id="continue-reading"></span><h2 id="jian-jie">简介</h2>
+<p>FRP (Fast Reverse Proxy) 主要功能包括：</p>
+<ul>
+<li>支持TCP、UDP、HTTP、HTTPS等多种协议</li>
+<li>支持Web服务、远程桌面、SSH、游戏服务器等多种应用场景</li>
+<li>提供加密和压缩功能，保证数据安全性</li>
+<li>支持多个客户端连接服务端，适用于复杂网络环境</li>
+</ul>
+<p>FRP分为客户端(frpc)和服务端(frps)两部分：</p>
+<ul>
+<li><strong>服务端(frps)</strong>: 部署在有公网IP的服务器上</li>
+<li><strong>客户端(frpc)</strong>: 部署在内网机器上，负责将内网服务映射到公网</li>
+</ul>
+<h2 id="an-zhuang">安装</h2>
+<h3 id="fu-wu-duan-an-zhuang">服务端安装</h3>
+<p>服务端需要部署在具有公网IP的服务器上。</p>
+<ol>
+<li>下载最新版本的FRP发行包：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">wget</span><span> https://github.com/fatedier/frp/releases/download/v0.51.3/frp_0.51.3_linux_amd64.tar.gz
+</span></code></pre>
+<ol start="2">
+<li>解压文件：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">tar -xzvf</span><span> frp_0.51.3_linux_amd64.tar.gz
+</span><span>cd frp_0.51.3_linux_amd64
+</span></code></pre>
+<ol start="3">
+<li>现在您可以看到以下文件：
+<ul>
+<li>frps: 服务端可执行文件</li>
+<li>frps.ini: 服务端配置文件</li>
+<li>frpc: 客户端可执行文件</li>
+<li>frpc.ini: 客户端配置文件</li>
+</ul>
+</li>
+</ol>
+<h3 id="ke-hu-duan-an-zhuang">客户端安装</h3>
+<p>客户端需要安装在您的内网设备上，例如需要提供服务的电脑、服务器或IoT设备上。</p>
+<ul>
+<li>Linux/macOS</li>
+</ul>
+<p>与服务端安装步骤相同，只需使用frpc程序和frpc.ini配置文件。</p>
+<ul>
+<li>Windows</li>
+</ul>
+<p>同样下载Windows版本，解压后使用frpc.exe和frpc.ini。</p>
+<h2 id="pei-zhi">配置</h2>
+<h3 id="fu-wu-duan-pei-zhi">服务端配置</h3>
+<p>服务端配置文件为frps.ini，基本配置如下：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#8fbfdc;">[common]
+</span><span style="color:#888888;"># 服务端监听端口，用于与客户端建立连接
+</span><span style="color:#ffb964;">bind_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span>
+</span><span style="color:#888888;"># 用于身份验证的token
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span>
+</span><span style="color:#888888;"># 后台管理页面端口（可选）
+</span><span style="color:#ffb964;">dashboard_port </span><span>= </span><span style="color:#cf6a4c;">7500
+</span><span style="color:#ffb964;">dashboard_user </span><span>= admin
+</span><span style="color:#ffb964;">dashboard_pwd </span><span>= admin
+</span><span>
+</span><span style="color:#888888;"># 日志配置
+</span><span style="color:#ffb964;">log_file </span><span>= /var/log/frps.log
+</span><span style="color:#ffb964;">log_level </span><span>= info
+</span><span style="color:#ffb964;">log_max_days </span><span>= </span><span style="color:#cf6a4c;">3
+</span></code></pre>
+<h3 id="ke-hu-duan-pei-zhi">客户端配置</h3>
+<p>客户端配置文件为frpc.ini，基本配置如下：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#8fbfdc;">[common]
+</span><span style="color:#888888;"># 服务端的IP地址或域名
+</span><span style="color:#ffb964;">server_addr </span><span>= x.x.x.x
+</span><span style="color:#888888;"># 服务端的端口
+</span><span style="color:#ffb964;">server_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#888888;"># 认证token，需要与服务端匹配
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span>
+</span><span style="color:#888888;"># 示例：SSH服务代理
+</span><span style="color:#8fbfdc;">[ssh]
+</span><span style="color:#ffb964;">type </span><span>= tcp
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">22
+</span><span style="color:#ffb964;">remote_port </span><span>= </span><span style="color:#cf6a4c;">6000
+</span><span>
+</span><span style="color:#888888;"># 示例：HTTP服务代理
+</span><span style="color:#8fbfdc;">[web]
+</span><span style="color:#ffb964;">type </span><span>= http
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">80
+</span><span style="color:#ffb964;">custom_domains </span><span>= www.yourdomain.com
+</span></code></pre>
+<h3 id="chang-yong-pei-zhi-shi-li">常用配置示例</h3>
+<h4 id="1-dai-li-sshfu-wu">1. 代理SSH服务</h4>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">server_addr </span><span>= x.x.x.x
+</span><span style="color:#ffb964;">server_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span>
+</span><span style="color:#8fbfdc;">[ssh]
+</span><span style="color:#ffb964;">type </span><span>= tcp
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">22
+</span><span style="color:#ffb964;">remote_port </span><span>= </span><span style="color:#cf6a4c;">6000
+</span></code></pre>
+<p>使用方法：<code>ssh -p 6000 username@服务端IP</code></p>
+<h4 id="2-dai-li-httpwang-zhan">2. 代理HTTP网站</h4>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">server_addr </span><span>= x.x.x.x
+</span><span style="color:#ffb964;">server_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span>
+</span><span style="color:#8fbfdc;">[web]
+</span><span style="color:#ffb964;">type </span><span>= http
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">80
+</span><span style="color:#ffb964;">custom_domains </span><span>= www.yourdomain.com
+</span></code></pre>
+<p>在服务端需要将域名解析到服务端IP。</p>
+<h4 id="3-dai-li-httpswang-zhan">3. 代理HTTPS网站</h4>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">server_addr </span><span>= x.x.x.x
+</span><span style="color:#ffb964;">server_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span>
+</span><span style="color:#8fbfdc;">[web-https]
+</span><span style="color:#ffb964;">type </span><span>= https
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">443
+</span><span style="color:#ffb964;">custom_domains </span><span>= www.yourdomain.com
+</span></code></pre>
+<h4 id="4-dai-li-yuan-cheng-zhuo-mian-rdp">4. 代理远程桌面(RDP)</h4>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">server_addr </span><span>= x.x.x.x
+</span><span style="color:#ffb964;">server_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span>
+</span><span style="color:#8fbfdc;">[rdp]
+</span><span style="color:#ffb964;">type </span><span>= tcp
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">3389
+</span><span style="color:#ffb964;">remote_port </span><span>= </span><span style="color:#cf6a4c;">7001
+</span></code></pre>
+<h2 id="qi-dong-yu-yun-xing">启动与运行</h2>
+<h3 id="fu-wu-duan-qi-dong">服务端启动</h3>
+<h4 id="linux-macos">Linux/macOS</h4>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">./frps -c</span><span> frps.ini
+</span></code></pre>
+<p>后台运行：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nohup</span><span> ./frps</span><span style="color:#ffb964;"> -c</span><span> frps.ini &amp;
+</span></code></pre>
+<h4 id="windows">Windows</h4>
+<p>双击frps.exe或在命令行运行：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>frps.exe -c frps.ini
+</span></code></pre>
+<h3 id="ke-hu-duan-qi-dong">客户端启动</h3>
+<h4 id="linux-macos-1">Linux/macOS</h4>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">./frpc -c</span><span> frpc.ini
+</span></code></pre>
+<p>后台运行：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nohup</span><span> ./frpc</span><span style="color:#ffb964;"> -c</span><span> frpc.ini &amp;
+</span></code></pre>
+<h4 id="windows-1">Windows</h4>
+<p>双击frpc.exe或在命令行运行：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>frpc.exe -c frpc.ini
+</span></code></pre>
+<h3 id="she-zhi-wei-xi-tong-fu-wu">设置为系统服务</h3>
+<h4 id="linux-systemd">Linux (Systemd)</h4>
+<ol>
+<li>创建服务文件 <code>/etc/systemd/system/frps.service</code> (服务端) 或 <code>/etc/systemd/system/frpc.service</code> (客户端)</li>
+</ol>
+<p><strong>服务端示例 (frps.service):</strong></p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#8fbfdc;">[Unit]
+</span><span style="color:#ffb964;">Description</span><span>=Frp Server Service
+</span><span style="color:#ffb964;">After</span><span>=network.target
+</span><span>
+</span><span style="color:#8fbfdc;">[Service]
+</span><span style="color:#ffb964;">Type</span><span>=simple
+</span><span style="color:#ffb964;">ExecStart</span><span>=/usr/bin/frps -c /etc/frps/frps.ini
+</span><span style="color:#ffb964;">Restart</span><span>=always
+</span><span style="color:#ffb964;">RestartSec</span><span>=</span><span style="color:#cf6a4c;">5s
+</span><span>
+</span><span style="color:#8fbfdc;">[Install]
+</span><span style="color:#ffb964;">WantedBy</span><span>=multi-user.target
+</span></code></pre>
+<p><strong>客户端示例 (frpc.service):</strong></p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#8fbfdc;">[Unit]
+</span><span style="color:#ffb964;">Description</span><span>=Frp Client Service
+</span><span style="color:#ffb964;">After</span><span>=network.target
+</span><span>
+</span><span style="color:#8fbfdc;">[Service]
+</span><span style="color:#ffb964;">Type</span><span>=simple
+</span><span style="color:#ffb964;">ExecStart</span><span>=/usr/bin/frpc -c /etc/frpc/frpc.ini
+</span><span style="color:#ffb964;">Restart</span><span>=always
+</span><span style="color:#ffb964;">RestartSec</span><span>=</span><span style="color:#cf6a4c;">5s
+</span><span>
+</span><span style="color:#8fbfdc;">[Install]
+</span><span style="color:#ffb964;">WantedBy</span><span>=multi-user.target
+</span></code></pre>
+<ol start="2">
+<li>启用并启动服务:</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 服务端
+</span><span style="color:#ffb964;">sudo</span><span> systemctl enable frps
+</span><span style="color:#ffb964;">sudo</span><span> systemctl start frps
+</span><span>
+</span><span style="color:#888888;"># 客户端
+</span><span style="color:#ffb964;">sudo</span><span> systemctl enable frpc
+</span><span style="color:#ffb964;">sudo</span><span> systemctl start frpc
+</span></code></pre>
+<ol start="3">
+<li>查看服务状态:</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl status frps
+</span><span style="color:#888888;"># 或
+</span><span style="color:#ffb964;">sudo</span><span> systemctl status frpc
+</span></code></pre>
+<h4 id="windows-2">Windows</h4>
+<ol>
+<li>使用NSSM (Non-Sucking Service Manager) 创建服务:
+<ul>
+<li>下载NSSM: http://nssm.cc/download</li>
+<li>安装服务:<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nssm.exe install frpc C:\path\to\frpc.exe -c C:\path\to\frpc.ini
+</span></code></pre>
+</li>
+<li>启动服务:<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nssm.exe start frpc
+</span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="jin-jie-gong-neng">进阶功能</h2>
+<h3 id="httpszhi-chi">HTTPS支持</h3>
+<p>要支持HTTPS服务，需要在服务端添加配置：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frps.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">bind_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">vhost_https_port </span><span>= </span><span style="color:#cf6a4c;">443
+</span></code></pre>
+<p>客户端配置：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[web]
+</span><span style="color:#ffb964;">type </span><span>= https
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">443
+</span><span style="color:#ffb964;">custom_domains </span><span>= www.yourdomain.com
+</span></code></pre>
+<h3 id="duo-lu-fu-yong">多路复用</h3>
+<p>使用多路复用可以减少连接数，提高性能：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">server_addr </span><span>= x.x.x.x
+</span><span style="color:#ffb964;">server_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span style="color:#888888;"># 启用多路复用
+</span><span style="color:#ffb964;">tls_enable </span><span>= true
+</span><span style="color:#ffb964;">pool_count </span><span>= </span><span style="color:#cf6a4c;">5
+</span></code></pre>
+<h3 id="jia-mi-yu-ya-suo">加密与压缩</h3>
+<p>增加数据传输的安全性：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">server_addr </span><span>= x.x.x.x
+</span><span style="color:#ffb964;">server_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span style="color:#888888;"># 启用加密和压缩
+</span><span style="color:#ffb964;">use_encryption </span><span>= true
+</span><span style="color:#ffb964;">use_compression </span><span>= true
+</span></code></pre>
+<h3 id="fu-zai-jun-heng">负载均衡</h3>
+<p>通过配置多个后端服务实现负载均衡：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frpc.ini
+</span><span style="color:#8fbfdc;">[web]
+</span><span style="color:#ffb964;">type </span><span>= tcp
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">80
+</span><span style="color:#ffb964;">remote_port </span><span>= </span><span style="color:#cf6a4c;">8080
+</span><span style="color:#ffb964;">group </span><span>= web
+</span><span style="color:#ffb964;">group_key </span><span>= </span><span style="color:#cf6a4c;">123456
+</span><span>
+</span><span style="color:#8fbfdc;">[web2]
+</span><span style="color:#ffb964;">type </span><span>= tcp
+</span><span style="color:#ffb964;">local_ip </span><span>= </span><span style="color:#7697d6;">127.0.0.1
+</span><span style="color:#ffb964;">local_port </span><span>= </span><span style="color:#cf6a4c;">8081
+</span><span style="color:#ffb964;">remote_port </span><span>= </span><span style="color:#cf6a4c;">8080
+</span><span style="color:#ffb964;">group </span><span>= web
+</span><span style="color:#ffb964;">group_key </span><span>= </span><span style="color:#cf6a4c;">123456
+</span></code></pre>
+<h3 id="fang-wen-kong-zhi">访问控制</h3>
+<p>限制客户端连接数量和带宽：</p>
+<pre data-lang="ini" style="background-color:#151515;color:#e8e8d3;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="color:#888888;"># frps.ini
+</span><span style="color:#8fbfdc;">[common]
+</span><span style="color:#ffb964;">bind_port </span><span>= </span><span style="color:#cf6a4c;">7000
+</span><span style="color:#ffb964;">token </span><span>= yourSecureToken
+</span><span style="color:#ffb964;">max_pool_count </span><span>= </span><span style="color:#cf6a4c;">50
+</span><span style="color:#ffb964;">max_ports_per_client </span><span>= </span><span style="color:#cf6a4c;">10
+</span></code></pre>
+<h2 id="chang-jian-wen-ti-pai-cha">常见问题排查</h2>
+<h3 id="1-lian-jie-bei-ju-jue">1. 连接被拒绝</h3>
+<p><strong>问题</strong>: 客户端报错 "dial tcp x.x.x.x:7000: connect: connection refused"</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>检查服务端IP和端口是否正确</li>
+<li>确认服务端frps是否正在运行</li>
+<li>检查防火墙是否允许7000端口通信</li>
+</ul>
+<h3 id="2-ren-zheng-shi-bai">2. 认证失败</h3>
+<p><strong>问题</strong>: 客户端日志显示 "login to server failed: authentication failed"</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>确认客户端和服务端的token设置一致</li>
+<li>检查服务端日志是否有更多错误信息</li>
+</ul>
+<h3 id="3-duan-kou-yi-bei-zhan-yong">3. 端口已被占用</h3>
+<p><strong>问题</strong>: 服务端启动失败，提示 "bind: address already in use"</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>更改配置中的端口</li>
+<li>终止占用该端口的其他应用</li>
+<li>使用 <code>netstat -tunlp | grep 端口号</code> 查看占用该端口的进程</li>
+</ul>
+<h3 id="4-wu-fa-fang-wen-dai-li-fu-wu">4. 无法访问代理服务</h3>
+<p><strong>问题</strong>: 代理设置正确，但无法访问服务</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>检查本地服务是否正常运行</li>
+<li>确认local_ip和local_port设置正确</li>
+<li>使用 <code>curl localhost:本地端口</code> 测试本地服务</li>
+<li>检查服务端防火墙是否开放了remote_port</li>
+</ul>
+<h3 id="5-dai-li-lian-jie-bu-wen-ding">5. 代理连接不稳定</h3>
+<p><strong>问题</strong>: 连接经常断开</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>增加心跳包频率，在[common]部分添加:<pre style="background-color:#151515;color:#e8e8d3;"><code><span>heartbeat_interval = 30
+</span><span>heartbeat_timeout = 90
+</span></code></pre>
+</li>
+<li>启用多路复用和连接池</li>
+</ul>
+<h3 id="6-yu-ming-jie-xi-shi-bai">6. 域名解析失败</h3>
+<p><strong>问题</strong>: 使用custom_domains配置，但无法通过域名访问</p>
+<p><strong>解决方案</strong>:</p>
+<ul>
+<li>确保域名已正确解析到服务端IP</li>
+<li>检查frps.ini中是否配置了http/https的监听端口</li>
+<li>使用 <code>dig</code> 或 <code>nslookup</code> 命令验证域名解析</li>
+</ul>
+<p>🔗</p>
+<ul>
+<li><a href="https://gofrp.org/docs/">FRP官方文档</a></li>
+<li><a href="https://github.com/fatedier/frp">FRP GitHub仓库</a></li>
+<li><a href="https://github.com/fatedier/frp/issues">FRP常见问题解答</a></li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-ventoy/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:Ventoy战斗盘部署</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-gfs/">
+                            <span class="button__text">乱七八糟:GFS项目考量笔记</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+</html>

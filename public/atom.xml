@@ -104,6 +104,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>乱七八糟:FRP使用指南</title>
+        <published>2025-03-01T00:00:00+00:00</published>
+        <updated>2025-03-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/about-frp/"/>
+        <id>https://blog.dich.bid/about-frp/</id>
+        
+        <summary type="html">&lt;p&gt;前言 FRP (Fast Reverse Proxy) 是一个用Go语言开发的高性能反向代理应用，可以帮助您轻松地进行内网穿透，对外提供服务.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>乱七八糟:Ventoy战斗盘部署</title>
         <published>2025-02-14T00:00:00+00:00</published>
         <updated>2025-02-14T00:00:00+00:00</updated>
