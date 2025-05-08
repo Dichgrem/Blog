@@ -192,6 +192,78 @@ bash Miniconda3-latest-Linux-x86_64.sh
 conda --version
 ```
 
+## 使用UV替代Conda
+
+> UV（由 Astral 团队开发）是一个用 Rust 编写的高性能包管理器，提供了类似 Conda 的虚拟环境管理和依赖解析功能，并且在大多数场景下比 pip 和 Conda 快 10–100 倍。它通过命令行工具如 uv venv（创建/管理虚拟环境）和 uv pip（安装/锁定/同步依赖）来覆盖传统的 conda create、conda install、conda env export 等操作，但本身并不管理底层的 C/C++ 库，因此对于诸如 GDAL、SciPy 等需要系统级二进制依赖的包，仍建议在 Conda/系统包管理器中预装相关库，然后用 UV 来管理 Python 包。
+
+**安装与激活**
+```
+wget -qO- https://astral.sh/uv/install.sh | sh
+```
+- 在当前目录下创建 .venv，使用系统默认 Python（若不存在则自动下载）
+```
+uv venv
+```
+- 指定环境名称或路径
+```
+uv venv myenv
+```
+- 指定 Python 版本（需系统已有或可下载）
+```
+uv venv --python 3.11
+```
+- 激活
+```
+source .venv/bin/activate
+```
+**安装包**
+
+```bash
+# 安装单个包
+uv pip install requests
+
+# 批量安装并自动锁定依赖
+uv pip install fastapi uvicorn sqlalchemy
+```
+
+**生成与同步锁文件**
+
+```bash
+# 从 requirements.in 生成统一依赖文件
+uv pip compile docs/requirements.in \
+   --universal \
+   --output-file docs/requirements.txt
+
+# 根据锁文件同步环境
+uv pip sync docs/requirements.txt
+```
+
+此流程替代 `conda env export` + `conda env update`，并保证跨平台一致性 ([GitHub][3])。
+
+**查看与卸载**
+
+```bash
+uv pip list       # 列出已安装包（类似 conda list）
+uv pip uninstall numpy
+```
+
+**替代常见 Conda 工作流**
+
+| Conda 操作                         | UV 对应                                    |
+| -------------------------------- | ---------------------------------------- |
+| `conda create -n env python=3.x` | `uv venv --python 3.x`                   |
+| `conda activate env`             | `source .venv/bin/activate` 或 `activate` |
+| `conda install pkg1 pkg2`        | `uv pip install pkg1 pkg2`               |
+| `conda env export > env.yml`     | `uv pip compile requirements.in`         |
+| `conda env update -f env.yml`    | `uv pip sync requirements.txt`           |
+| `conda list`                     | `uv pip list`                            |
+
+**最佳实践**：
+
+1. **系统依赖**：用 Conda/Mamba 安装较难编译的 C 库（`conda install gdal`）。
+2. **Python 包**：用 UV 管理所有纯 Python 依赖（`uv pip install pandas scikit-learn`）。
+3. **统一锁定**：把 `uv pip compile` 生成的 `requirements.txt` 放入版本控制，确保团队环境一致。
+
 --- 
 **Done.**
 
