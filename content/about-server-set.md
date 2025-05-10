@@ -9,8 +9,6 @@ tags = ["乱七八糟"]
 前言 本文记录服务器常用操作步骤。
 <!-- more -->
 
-
-
 ## Doamin
 
 建站不一定需要服务器、域名和备案。尤其不要买腾讯云，不要买CN域名；备案过程要填很多个人信息，且一周没有解析网站，备案就会自动注销。
@@ -25,31 +23,26 @@ tags = ["乱七八糟"]
 
 ## VPS
 ```
-apt install wget curl vim sudo neofetch
+# 更新系统
 apt update && apt upgrade -y
-apt-get install --fix-missing
+apt install wget curl vim sudo neofetch
+# 添加普通用户并赋予sudo
 adduser xxx
 sudo usermod -aG sudo xxx
 ```
 ## BBR
-查询系统所支持的拥塞控制算法。
 
+- 查询系统所支持的拥塞控制算法
 ````
-$ sysctl net.ipv4.tcp_available_congestion_control
-net.ipv4.tcp_congestion_control = bbr cubic reno
+sysctl net.ipv4.tcp_available_congestion_control
 ````
-
-查询正在使用中的拥塞控制算法（Linux 绝大部分系统默认为 Cubic 算法）。
-
+- 查询正在使用中的拥塞控制算法（Linux 绝大部分系统默认为 Cubic 算法）
 ````
-$ sysctl net.ipv4.tcp_congestion_control
-net.ipv4.tcp_congestion_control = cubic
+sysctl net.ipv4.tcp_congestion_control
 ````
-
-指定拥塞控制算法为 bbr。
-
+- 指定拥塞控制算法为 bbr
 ````
-$ echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf && sysctl -p
+echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf && sysctl -p
 ````
 
 ## Safe
@@ -173,34 +166,6 @@ sudo cat /etc/ssh/sshd_config | grep -E 'PasswordAuthentication|PubkeyAuthentica
 
 > 注意**authorized_keys**的权限为600，如果不是则需要改正：``chmod 600 ~/.ssh/authorized_keys``
 
-## IP证书申请部署
-
-- 在 [ZeroSSL](https://zerossl.com/) 中申请一个90天的证书；
-
-- 然后在VPS上输入以下命令：
-
-```
-mkdir -p ./.well-known/pki-validation
-```
-- 随后在ZeroSSL中将所给出的类似**B992F08CB46748D02E4C553A4038BC.txt**复制；
-
-- 将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:``将pki-validation/之后EOF之前的内容``替换为你自己的。
-```
-cat << EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
-254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
-comodoca.com
-ca5792984e3f0a1
-EOF
-```
-随后在VPS上运行该命令。
-- 开启一个临时HTTP服务器：
-```
-python3 -m http.server 80
-```
-- 随后即可在ZeroSSL中验证证书并开启SSL。
-
-
-
 
 ## Docker
 
@@ -212,57 +177,6 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
 这个脚本会为你的系统自动选择合适的安装方式。
-
-### 使用 Docker 存储库安装
-
-使用以下命令安装此方法的先决条件：
-
-````
-sudo apt update && sudo apt install ca-certificates curl gnupg
-````
-
-创建一个目录来存储密钥环：
-
-````
-sudo install -m 0755 -d /etc/apt/keyrings
-````
-
-使用给定的命令下载 GPG 密钥并将其存储在 `/etc/apt/keyrings/etc/apt/keyrings` 目录中：
-
-````
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-````
-
-使用 chmod 命令更改 docker.gpg 文件的权限：
-
-````
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-````
-
-使用以下命令为 Docker 设置存储库：
-
-````
-echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-````
-
-上述命令中每行末尾的额外 `\` 只是添加新行的一种方式，以便您可以轻松查看整个命令。就是这样！
-
-现在可以使用以下命令更新存储库索引并安装 Docker：
-
-````
-sudo apt update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-````
-
-要验证 Docker 安装，安装 hello-world 映像：
-
-````
-sudo docker run hello-world
-````
-
-hello-world docker 镜像很小，仅用于检查 Docker 是否运行正常。
 
 
 ### 卸载 Docker
@@ -317,6 +231,32 @@ docker-compose logs     #查看日志
 docker image prune -a   #删除所有未被容器使用的镜像
 ```
 
+## 常用环境
+
+- ALL 
+
+```
+apt install curl wget vim nano sudo neofetch
+```
+- C/C++ 
+```
+sudo apt install build-essential gdb cmake clangd clang-format libstdc++-dev
+```
+- Miniconda 
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+- UV
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+- Docker
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+
 
 ## 1panel
 
@@ -356,6 +296,33 @@ ip -6 addr show scope global
 
 或者 curl ipv6.ip.sb
 ```
+
+
+## IP证书申请部署
+
+- 在 [ZeroSSL](https://zerossl.com/) 中申请一个90天的证书；
+
+- 然后在VPS上输入以下命令：
+
+```
+mkdir -p ./.well-known/pki-validation
+```
+- 随后在ZeroSSL中将所给出的类似**B992F08CB46748D02E4C553A4038BC.txt**复制；
+
+- 将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:``将pki-validation/之后EOF之前的内容``替换为你自己的。
+```
+cat << EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
+254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
+comodoca.com
+ca5792984e3f0a1
+EOF
+```
+随后在VPS上运行该命令。
+- 开启一个临时HTTP服务器：
+```
+python3 -m http.server 80
+```
+- 随后即可在ZeroSSL中验证证书并开启SSL。
 
 
 ## 忘记密码怎么办
