@@ -120,15 +120,14 @@ kmod-nft-xxx
 sudo apt update
 sudo apt install -y \
   ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-  bzip2 ccache clang cmake cpio curl device-tree-compiler diff diffstat find flex gawk \
-  gcc-multilib g++-multilib git gettext git-core gcc gperf grep haveged help2man intltool \
-  install libelf-dev libfuse-dev libg6-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev \
-  libglib2.0-dev libltdl-dev libmake-dev libmpc-dev libmpfr-dev libncurses-dev libncurses5-dev \
-  libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libz-dev lrzsz make \
-  mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf perl python-is-python3 \
-  python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools python3-setuptools \
-  qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim \
-  wget which xmlto xxd zlib1g-dev
+  bzip2 ccache clang cmake cpio curl device-tree-compiler diffutils diffstat findutils flex gawk \
+  gcc-multilib g++-multilib git gettext gperf grep haveged help2man intltool \
+  libelf-dev libfuse-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev libglib2.0-dev \
+  libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev \
+  libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
+  perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
+  python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
+  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev
 ```
 
 - **清理**
@@ -432,15 +431,14 @@ make -j$(nproc) || make -j1 || make -j1 V=s
 sudo apt update
 sudo apt install -y \
   ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-  bzip2 ccache clang cmake cpio curl device-tree-compiler diff diffstat find flex gawk \
-  gcc-multilib g++-multilib git gettext git-core gcc gperf grep haveged help2man intltool \
-  install libelf-dev libfuse-dev libg6-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev \
-  libglib2.0-dev libltdl-dev libmake-dev libmpc-dev libmpfr-dev libncurses-dev libncurses5-dev \
-  libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libz-dev lrzsz make \
-  mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf perl python-is-python3 \
-  python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools python3-setuptools \
-  qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim \
-  wget which xmlto xxd zlib1g-dev
+  bzip2 ccache clang cmake cpio curl device-tree-compiler diffutils diffstat findutils flex gawk \
+  gcc-multilib g++-multilib git gettext gperf grep haveged help2man intltool \
+  libelf-dev libfuse-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev libglib2.0-dev \
+  libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev \
+  libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
+  perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
+  python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
+  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev
 ```
 随后下载我们**刷入openwrt的对应的SDK包**，如
 
