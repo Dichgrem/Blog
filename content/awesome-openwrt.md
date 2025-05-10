@@ -117,17 +117,18 @@ kmod-nft-xxx
 - **编译依赖**
 
 ```
-sudo apt update -y
-
-sudo apt full-upgrade -y
-
-sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext \
-genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev \
-libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev \
-libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
-python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
-swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+sudo apt update
+sudo apt install -y \
+  ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+  bzip2 ccache clang cmake cpio curl device-tree-compiler diff diffstat find flex gawk \
+  gcc-multilib g++-multilib git gettext git-core gcc gperf grep haveged help2man intltool \
+  install libelf-dev libfuse-dev libg6-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev \
+  libglib2.0-dev libltdl-dev libmake-dev libmpc-dev libmpfr-dev libncurses-dev libncurses5-dev \
+  libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libz-dev lrzsz make \
+  mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf perl python-is-python3 \
+  python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools python3-setuptools \
+  qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim \
+  wget which xmlto xxd zlib1g-dev
 ```
 
 - **清理**
@@ -428,17 +429,18 @@ make -j$(nproc) || make -j1 || make -j1 V=s
 **随后安装编译依赖的各个包：**
 
 ```
-sudo apt install python3-distutils-extra git gawk libncurses-dev build-essential binutils bzip2 diff find flex gawk gcc-6+ getopt grep install libc-dev libz-dev make4.1+ perl python3.7+ rsync subversion unzip which
-
-sudo apt install -y build-essential python3-dev python3-setuptools swig \
-    libmesa-dev libwayland-dev libgraphene-dev \
-    gawk wget git-core diffstat unzip texinfo gcc-multilib \
-    libncurses5-dev libncursesw5-dev zlib1g-dev \
-    libssl-dev flex bison gperf libxml-parser-perl \
-    python-is-python3 python3-pip gettext
-
-sudo apt install -y swig
-sudo apt install -y mesa-common-dev libwayland-dev libgraphene-1.0-dev
+sudo apt update
+sudo apt install -y \
+  ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+  bzip2 ccache clang cmake cpio curl device-tree-compiler diff diffstat find flex gawk \
+  gcc-multilib g++-multilib git gettext git-core gcc gperf grep haveged help2man intltool \
+  install libelf-dev libfuse-dev libg6-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev \
+  libglib2.0-dev libltdl-dev libmake-dev libmpc-dev libmpfr-dev libncurses-dev libncurses5-dev \
+  libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libz-dev lrzsz make \
+  mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf perl python-is-python3 \
+  python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools python3-setuptools \
+  qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim \
+  wget which xmlto xxd zlib1g-dev
 ```
 随后下载我们**刷入openwrt的对应的SDK包**，如
 
