@@ -256,7 +256,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
-
+- OpenCV
+```
+sudo apt install tree libx11-dev libgtk-3-dev freeglut3-dev libopencv-dev libdlib-dev
+```
 
 ## 1panel
 
