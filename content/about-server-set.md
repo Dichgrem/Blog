@@ -260,6 +260,11 @@ sudo sh get-docker.sh
 ```
 sudo apt install tree libx11-dev libgtk-3-dev freeglut3-dev libopencv-dev libdlib-dev
 ```
+- Vmware
+```
+sudo apt install open-vm-tools
+sudo apt install open-vm-tools-desktop
+```
 
 ## 1panel
 
