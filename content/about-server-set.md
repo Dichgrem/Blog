@@ -236,7 +236,7 @@ docker image prune -a   #删除所有未被容器使用的镜像
 - ALL 
 
 ```
-apt install curl wget vim nano sudo neofetch
+apt install curl wget vim nano sudo neofetch openssh-server
 ```
 - C/C++ 
 ```
@@ -265,7 +265,13 @@ sudo apt install tree libx11-dev libgtk-3-dev freeglut3-dev libopencv-dev libdli
 sudo apt install open-vm-tools
 sudo apt install open-vm-tools-desktop
 ```
+> Vscode无法连接：需要删除本地存储的错误密钥，powershell：
 
+```powershell
+(Get-Content "$env:USERPROFILE\.ssh\known_hosts") | 
+Where-Object { $_ -notmatch '192.168.112.128' } | 
+Set-Content "$env:USERPROFILE\.ssh\known_hosts"
+```
 ## 1panel
 
 执行如下命令一键安装 1Panel:

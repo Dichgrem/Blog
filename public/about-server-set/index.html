@@ -284,7 +284,7 @@
 <ul>
 <li>ALL</li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt install curl wget vim nano sudo neofetch
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt install curl wget vim nano sudo neofetch openssh-server
 </span></code></pre>
 <ul>
 <li>C/C++</li>
@@ -318,6 +318,13 @@
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt install open-vm-tools
 </span><span>sudo apt install open-vm-tools-desktop
+</span></code></pre>
+<blockquote>
+<p>Vscode无法连接：需要删除本地存储的错误密钥，powershell：</p>
+</blockquote>
+<pre data-lang="powershell" style="background-color:#151515;color:#e8e8d3;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>(Get-Content </span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;">$env:USERPROFILE</span><span style="color:#99ad6a;">\.ssh\known_hosts</span><span style="color:#556633;">&quot;</span><span>) | 
+</span><span>Where-Object { $_ -notmatch </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">192.168.112.128</span><span style="color:#556633;">&#39; </span><span>} | 
+</span><span>Set-Content </span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;">$env:USERPROFILE</span><span style="color:#99ad6a;">\.ssh\known_hosts</span><span style="color:#556633;">&quot;
 </span></code></pre>
 <h2 id="1panel">1panel</h2>
 <p>执行如下命令一键安装 1Panel:</p>
