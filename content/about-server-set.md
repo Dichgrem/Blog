@@ -269,7 +269,7 @@ sudo apt install open-vm-tools-desktop
 
 ```powershell
 (Get-Content "$env:USERPROFILE\.ssh\known_hosts") | 
-Where-Object { $_ -notmatch '192.168.112.128' } | 
+Where-Object { $_ -notmatch '<你的IP>' } | 
 Set-Content "$env:USERPROFILE\.ssh\known_hosts"
 ```
 ## 1panel
