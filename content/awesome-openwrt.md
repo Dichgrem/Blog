@@ -127,7 +127,10 @@ sudo apt install -y \
   libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
   perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
   python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
-  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev
+  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev genisoimage llvm llvm-runtime docutils-common \
+  ecj fastjar java-wrappers libeclipse-jdt-core-java libgnutls-dane0t64 \
+  libgnutls-openssl27t64 libgnutls28-dev libidn2-dev libp11-kit-dev libtasn1-6-dev libtasn1-doc \
+  libunbound8 libyaml-dev lld lld-18 nettle-dev python3-docutils python3-ply python3-roman re2c
 ```
 
 - **清理**
@@ -438,7 +441,10 @@ sudo apt install -y \
   libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
   perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
   python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
-  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev
+  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev genisoimage llvm llvm-runtime docutils-common \
+  ecj fastjar java-wrappers libeclipse-jdt-core-java libgnutls-dane0t64 \
+  libgnutls-openssl27t64 libgnutls28-dev libidn2-dev libp11-kit-dev libtasn1-6-dev libtasn1-doc \
+  libunbound8 libyaml-dev lld lld-18 nettle-dev python3-docutils python3-ply python3-roman re2c
 ```
 随后下载我们**刷入openwrt的对应的SDK包**，如
 
