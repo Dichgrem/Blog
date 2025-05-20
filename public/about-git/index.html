@@ -130,11 +130,14 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git config --global init.defaultBranch main  //将默认分支修改成main
 </span></code></pre>
 <p><strong>方法二</strong></p>
-<p>克隆远端服务器上的仓库，例如:</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/Dichgrem/script.git
-</span><span># 这是HTTPS方法
-</span></code></pre>
-<p>或者使用SSH方法：<code> git clone git@github.com:Dichgrem/script.git</code></p>
+<p>克隆远端服务器上的仓库：</p>
+<ul>
+<li>HTTPS方法：<code>git clone https://github.com/Dichgrem/script.git</code></li>
+<li>或者使用SSH方法：<code>git clone git@github.com:Dichgrem/script.git</code></li>
+</ul>
+<blockquote>
+<p>建议使用SSH方法，如果你使用HTTPS方法，则提交代码时需要手动输入用户名/密码，使用SSH方法则只需要在<code>~/.ssh/config</code>中配置即可。</p>
+</blockquote>
 <h2 id="pei-zhi">配置</h2>
 <p>Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
 <ul>
@@ -166,19 +169,18 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;
 </span></code></pre>
 <ul>
-<li>可以生成多个不同名字的密钥：</li>
+<li>
+<p>生成的文件位于<code>~/.ssh/config</code>路径下，带.pub后缀的文件为公钥，不带.pub后缀的为私钥，使用<code>cat ~/.ssh/id_rsa.pub</code>将公钥添加到github/gitee的设置-SSH中。</p>
+</li>
+<li>
+<p>随后使用 <code>ssh-add</code> 命令将生成的密钥添加到 SSH 代理中。</p>
+</li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot; -f ~/.ssh/github_key1
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-add ~/.ssh/github_key
+</span><span>ssh-add ~/.ssh/gitee_key
 </span></code></pre>
 <ul>
-<li>使用 <code>ssh-add</code> 命令将生成的密钥添加到 SSH 代理中。</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh-add ~/.ssh/github_key1
-</span><span>
-</span><span>ssh-add ~/.ssh/github_key2
-</span></code></pre>
-<ul>
-<li>在 <code>~/.ssh/config</code> 文件中配置不同的主机别名以及相应的密钥文件。编辑该文件并添加以下内容：</li>
+<li>在 <code>~/.ssh/config</code> 文件中配置不同的主机别名以及相应的密钥文件。编辑该文件并添加内容，例如：</li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># GitHub repository 1
 </span><span>
@@ -188,25 +190,20 @@
 </span><span>
 </span><span>    User git
 </span><span>
-</span><span>    IdentityFile ~/.ssh/github_key1
+</span><span>    IdentityFile ~/.ssh/github_key
 </span><span>
 </span><span># GitHub repository 2
 </span><span>
 </span><span>Host github2
 </span><span>
-</span><span>    HostName github.com
+</span><span>    HostName gitee.com
 </span><span>
 </span><span>    User git
 </span><span>
-</span><span>    IdentityFile ~/.ssh/github_key2
+</span><span>    IdentityFile ~/.ssh/gitee_key
 </span></code></pre>
 <ul>
-<li>
-<p>-随后使用<code>cat ~/.ssh/id_rsa.pub</code>,将其添加至 Github的Deploy密钥中，勾选write权限；</p>
-</li>
-<li>
-<p>连接到github：</p>
-</li>
+<li>连接到github：</li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>ssh -T git@github.com
 </span></code></pre>
@@ -217,10 +214,10 @@
 </span><span>
 </span><span># 例如：git remote add origin git@github.com:Dichgrem/dichos.git
 </span></code></pre>
-<ul>
-<li>设置远程仓库</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git remote set-url origin git@github.com:Dichgrem/dichos.git
+<blockquote>
+<p>如果你运行<code>git remote -v</code>发现URL为HTTP格式则可以用下面的命令改为Git格式：</p>
+</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 例如：git remote set-url origin git@github.com:Dichgrem/dichos.git
 </span></code></pre>
 <h2 id="chuang-jian-fen-zhi">创建分支</h2>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>git branch main

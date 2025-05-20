@@ -43,12 +43,12 @@ git config --global init.defaultBranch main  //将默认分支修改成main
 ```
 **方法二**
 
-克隆远端服务器上的仓库，例如:
-```
-git clone https://github.com/Dichgrem/script.git
-# 这是HTTPS方法
-```
-或者使用SSH方法：`` git clone git@github.com:Dichgrem/script.git``
+克隆远端服务器上的仓库：
+
+- HTTPS方法：``git clone https://github.com/Dichgrem/script.git``
+- 或者使用SSH方法：``git clone git@github.com:Dichgrem/script.git``
+
+>建议使用SSH方法，如果你使用HTTPS方法，则提交代码时需要手动输入用户名/密码，使用SSH方法则只需要在``~/.ssh/config``中配置即可。
 
 ## 配置
 
@@ -79,17 +79,14 @@ git config core.ignorecase  false
 ```
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
-- 可以生成多个不同名字的密钥：
-```
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ~/.ssh/github_key1
-```
-- 使用 `ssh-add` 命令将生成的密钥添加到 SSH 代理中。
-```
-ssh-add ~/.ssh/github_key1
+- 生成的文件位于``~/.ssh/config``路径下，带.pub后缀的文件为公钥，不带.pub后缀的为私钥，使用``cat ~/.ssh/id_rsa.pub``将公钥添加到github/gitee的设置-SSH中。
 
-ssh-add ~/.ssh/github_key2
+- 随后使用 `ssh-add` 命令将生成的密钥添加到 SSH 代理中。
 ```
-- 在 `~/.ssh/config` 文件中配置不同的主机别名以及相应的密钥文件。编辑该文件并添加以下内容：
+ssh-add ~/.ssh/github_key
+ssh-add ~/.ssh/gitee_key
+```
+- 在 `~/.ssh/config` 文件中配置不同的主机别名以及相应的密钥文件。编辑该文件并添加内容，例如：
 ```
 # GitHub repository 1
 
@@ -99,19 +96,18 @@ Host github1
 
     User git
 
-    IdentityFile ~/.ssh/github_key1
+    IdentityFile ~/.ssh/github_key
 
 # GitHub repository 2
 
 Host github2
 
-    HostName github.com
+    HostName gitee.com
 
     User git
 
-    IdentityFile ~/.ssh/github_key2
+    IdentityFile ~/.ssh/gitee_key
 ```
-- -随后使用``cat ~/.ssh/id_rsa.pub``,将其添加至 Github的Deploy密钥中，勾选write权限；
 
 - 连接到github：
 ```
@@ -123,9 +119,9 @@ git remote add origin <remote_repository_url>
 
 # 例如：git remote add origin git@github.com:Dichgrem/dichos.git
 ```
-- 设置远程仓库
+> 如果你运行``git remote -v``发现URL为HTTP格式则可以用下面的命令改为Git格式：
 ```
-git remote set-url origin git@github.com:Dichgrem/dichos.git
+# 例如：git remote set-url origin git@github.com:Dichgrem/dichos.git
 ```
 
 ## 创建分支
