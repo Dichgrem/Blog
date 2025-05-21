@@ -11,9 +11,9 @@ tags = ["乱七八糟"]
 <!-- more -->
 ## Lazy!
 
-> ​LazyVim 是一个基于 Neovim 的现代化配置框架，旨在简化 Neovim 的配置过程。​它通过集成的 lazy.nvim 插件管理器，提供了一种易于定制和扩展配置的方式，结合了从头开始配置的灵活性和预配置设置的便利性 。
+> LazyVim 是一个基于 Neovim 的现代化配置框架，旨在简化 Neovim 的配置过程。它通过集成的 lazy.nvim 插件管理器，提供了一种易于定制和扩展配置的方式，结合了从头开始配置的灵活性和预配置设置的便利性 。
 
-> Lazyvim是在Neovim的基础上进行配置，Neovim又继承了vim的操作模式，对vim不熟悉的同学可以看[这里](https://vimsheet.com/)。
+> LazyVim 是在Neovim的基础上进行配置，Neovim又继承了vim的操作模式，对vim不熟悉的同学可以看[这里](https://vimsheet.com/)。
 
 ## 安装
 
