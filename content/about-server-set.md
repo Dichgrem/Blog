@@ -236,7 +236,7 @@ docker image prune -a   #删除所有未被容器使用的镜像
 - ALL 
 
 ```
-apt install curl wget vim nano sudo neofetch openssh-server
+apt install curl wget gpg vim nano sudo neofetch openssh-server
 ```
 - C/C++ 
 ```
@@ -361,6 +361,89 @@ usermod -aG sudo 用户名
 ```
 reboot
 ```
+
+## 更换内核
+
+以Xanmod为例：
+
+1. 添加 XanMod 仓库密钥和源
+
+```bash
+echo 'deb [signed-by=/usr/share/keyrings/xanmod.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod.list
+curl -fsSL https://dl.xanmod.org/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/xanmod.gpg > /dev/null
+```
+
+2. 更新软件包列表
+
+```bash
+sudo apt update
+```
+
+3. 搜索可用内核
+```
+apt search xanmod
+sudo apt install linux-image-6.8.6-x64v3-xanmod1 linux-headers-6.8.6-x64v3-xanmod1
+```
+
+### 常见 XanMod 内核后缀含义对比
+
+| 后缀示例                       | 含义简述                               | 适合用途                |
+| -------------------------- | ---------------------------------- | ------------------- |
+| `xanmod1`, `xanmod2`, …    | 主线 XanMod 版本编号（带通用优化）              | 桌面、通用、游戏            |
+| `x64v3-xanmod1`            | 针对 **x86\_64-v3 架构优化**（AVX2 以上指令集） | 高性能桌面、较新 CPU（2011+） |
+| `rt-xanmod1`               | **实时（RT）内核**，用于极低延迟任务              | 音频制作、工业控制           |
+| `lts-xanmod1`              | **长期支持版本**（LTS）                    | 服务器、稳定性优先           |
+| `edge-xanmod1`             | 更前沿、不稳定的测试版本                       | 喜欢尝鲜的高级用户           |
+| `x64v2-xanmod1`, `x64v4-…` | 针对特定 **微架构（CPU 指令集）** 的优化版本        | 有特定硬件支持的系统          |
+
+你可以用以下命令检测你的 CPU 是否支持 `x64v3`：
+
+```bash
+lscpu | grep avx2
+```
+如果输出中有 `avx2`，就可以用 `x64v3` 版本。
+
+
+
+4. 更新 GRUB 并重启
+
+```bash
+sudo update-grub
+sudo reboot
+uname -r
+```
+
+5. 移除旧内核（可选）
+
+查看已安装内核：
+
+```bash
+dpkg --list | grep linux-image
+```
+
+移除旧的：
+
+```bash
+sudo apt remove linux-image-5.10.0-26-amd64
+```
+
+---
+
+6. 自动选择 XanMod 为默认（可选）
+
+如果你想默认引导到 XanMod 内核：
+
+编辑 `/etc/default/grub`：
+
+```bash
+GRUB_DEFAULT="Advanced options for Debian>Debian, with Linux 6.8.6-x64v3-xanmod1"
+```
+然后：
+
+```bash
+sudo update-grub
+```
+
 ---
 **Done.**
 
