@@ -389,6 +389,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>乱七八糟:Vim编辑器速查</title>
+        <published>2024-08-15T00:00:00+00:00</published>
+        <updated>2024-08-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/about-vim/"/>
+        <id>https://blog.dich.bid/about-vim/</id>
+        
+        <summary type="html">&lt;p&gt;前言 Vim 是从早期的 vi 编辑器发展而来的增强版，其名称代表“Vi IMproved”。由荷兰程序员 Bram Moolenaar 于 1991 年首次发布。Vim 是开源软件，支持多种操作系统，包括 Unix、Linux、Windows 和 macOS 等。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>谈天说地:狄奇周刊(十)</title>
         <published>2024-08-15T00:00:00+00:00</published>
         <updated>2024-08-15T00:00:00+00:00</updated>
