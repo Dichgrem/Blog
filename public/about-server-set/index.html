@@ -284,7 +284,7 @@
 <ul>
 <li>ALL</li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt install curl wget vim nano sudo neofetch openssh-server
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt install curl wget gpg vim nano sudo neofetch openssh-server
 </span></code></pre>
 <ul>
 <li>C/C++</li>
@@ -413,6 +413,65 @@
 <li>重启计算机：</li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>reboot
+</span></code></pre>
+<h2 id="geng-huan-nei-he">更换内核</h2>
+<p>以Xanmod为例：</p>
+<ol>
+<li>添加 XanMod 仓库密钥和源</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>echo </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">deb [signed-by=/usr/share/keyrings/xanmod.gpg] http://deb.xanmod.org releases main</span><span style="color:#556633;">&#39; </span><span>| </span><span style="color:#ffb964;">sudo</span><span> tee /etc/apt/sources.list.d/xanmod.list
+</span><span style="color:#ffb964;">curl -fsSL</span><span> https://dl.xanmod.org/gpg.key | </span><span style="color:#ffb964;">gpg --dearmor </span><span>| </span><span style="color:#ffb964;">sudo</span><span> tee /usr/share/keyrings/xanmod.gpg &gt; /dev/null
+</span></code></pre>
+<ol start="2">
+<li>更新软件包列表</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt update
+</span></code></pre>
+<ol start="3">
+<li>搜索可用内核</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt search xanmod
+</span><span>sudo apt install linux-image-6.8.6-x64v3-xanmod1 linux-headers-6.8.6-x64v3-xanmod1
+</span></code></pre>
+<h3 id="chang-jian-xanmod-nei-he-hou-zhui-han-yi-dui-bi">常见 XanMod 内核后缀含义对比</h3>
+<table><thead><tr><th>后缀示例</th><th>含义简述</th><th>适合用途</th></tr></thead><tbody>
+<tr><td><code>xanmod1</code>, <code>xanmod2</code>, …</td><td>主线 XanMod 版本编号（带通用优化）</td><td>桌面、通用、游戏</td></tr>
+<tr><td><code>x64v3-xanmod1</code></td><td>针对 <strong>x86_64-v3 架构优化</strong>（AVX2 以上指令集）</td><td>高性能桌面、较新 CPU（2011+）</td></tr>
+<tr><td><code>rt-xanmod1</code></td><td><strong>实时（RT）内核</strong>，用于极低延迟任务</td><td>音频制作、工业控制</td></tr>
+<tr><td><code>lts-xanmod1</code></td><td><strong>长期支持版本</strong>（LTS）</td><td>服务器、稳定性优先</td></tr>
+<tr><td><code>edge-xanmod1</code></td><td>更前沿、不稳定的测试版本</td><td>喜欢尝鲜的高级用户</td></tr>
+<tr><td><code>x64v2-xanmod1</code>, <code>x64v4-…</code></td><td>针对特定 <strong>微架构（CPU 指令集）</strong> 的优化版本</td><td>有特定硬件支持的系统</td></tr>
+</tbody></table>
+<p>你可以用以下命令检测你的 CPU 是否支持 <code>x64v3</code>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">lscpu </span><span>| </span><span style="color:#ffb964;">grep</span><span> avx2
+</span></code></pre>
+<p>如果输出中有 <code>avx2</code>，就可以用 <code>x64v3</code> 版本。</p>
+<ol start="4">
+<li>更新 GRUB 并重启</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> update-grub
+</span><span style="color:#ffb964;">sudo</span><span> reboot
+</span><span style="color:#ffb964;">uname -r
+</span></code></pre>
+<ol start="5">
+<li>移除旧内核（可选）</li>
+</ol>
+<p>查看已安装内核：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">dpkg --list </span><span>| </span><span style="color:#ffb964;">grep</span><span> linux-image
+</span></code></pre>
+<p>移除旧的：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt remove linux-image-5.10.0-26-amd64
+</span></code></pre>
+<hr />
+<ol start="6">
+<li>自动选择 XanMod 为默认（可选）</li>
+</ol>
+<p>如果你想默认引导到 XanMod 内核：</p>
+<p>编辑 <code>/etc/default/grub</code>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">GRUB_DEFAULT</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Advanced options for Debian&gt;Debian, with Linux 6.8.6-x64v3-xanmod1</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>然后：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> update-grub
 </span></code></pre>
 <hr />
 <p><strong>Done.</strong></p>
