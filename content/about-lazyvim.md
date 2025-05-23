@@ -240,6 +240,32 @@ return {
 :MarkdownPreview
 ```
 
+## Edit!
+
+> 编辑器的基本素养
+
+``文件操作``
+- 创建文件/文件夹
+- 打开/关闭/切换文件
+- 复制/粘贴
+- 写入/保存/退出
+- 搜索替换
+
+``字符处理``
+- LF/CRLF处理
+- 零宽字符处理
+- GBK/UTF-8处理
+
+``终端``
+- 打开终端/复用终端
+
+``其他功能``
+- LSP
+- 代码调试
+- 工作区切换
+- Git支持
+- 主题与显示效果
+
 🔗
 
 [用 neovim 写 markdown 是一种什么样的体验](https://yelog.org/2024/08/02/write-markdown-in-neovim-experience-and-tips/)
