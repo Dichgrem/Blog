@@ -40,39 +40,108 @@ nvim
 ## 结构
 
 LazyVim 的配置目录通常位于``~/.config/nvim/``中：
-```
-~/.config/nvim/
+``` 
+~/.config/nvim
+❯ tree
+.
 ├── init.lua
-└── lua/
-    ├── config/
-    │   ├── options.lua
-    │   ├── keymaps.lua
-    │   ├── autocmds.lua
-    │   └── lazy.lua
-    └── plugins/
-        ├── plugin1.lua
-        ├── plugin2.lua
-        └── ...
-```
-- **init.lua**
+├── lazy-lock.json
+├── lazyvim.json
+├── LICENSE
+├── lua
+│   ├── config
+│   │   ├── autocmds.lua
+│   │   ├── keymaps.lua
+│   │   ├── lazy.lua
+│   │   └── options.lua
+│   └── plugins
+│       ├── example.lua
+│       └── mp.lua
+├── README.md
+└── stylua.toml
 
-Neovim 的主配置文件，作为入口点，通常用于加载 lazy.nvim 并设置插件：​
+4 directories, 12 files
 ```
-require("lazy").setup("plugins")
-```
-这行代码会自动加载 lua/plugins/ 目录下的所有插件配置文件。​
-- **lua/config/**
 
-用于存放通用配置文件，LazyVim 会在适当的时间自动加载这些文件，无需手动引入：​
-```
-options.lua：​设置 Neovim 的基本选项，如行号、缩进等。
-keymaps.lua：​定义全局快捷键映射。
-autocmds.lua：​配置自动命令，如保存文件时自动格式化。
-lazy.lua：​用于初始化 lazy.nvim 插件管理器的设置。​
-```
-- **lua/plugins/**
+另外在``~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/``目录下看到的文件结构，是 LazyVim 为其核心插件和扩展插件提供的模块化配置体系。这些配置文件并不直接出现在``~/.config/nvim/lua/plugins/``目录中，是因为 LazyVim 采用了模块化和懒加载的设计理念，将核心插件和配置封装在其自身的代码库中。
 
-用于存放插件的配置文件。每个插件可以有一个独立的 Lua 文件，也可以将多个相关插件的配置合并到一个文件中。LazyVim 会自动加载此目录下的所有插件配置文件。​
+### 各文件和目录的作用
+
+* **`init.lua`**：主配置文件，负责加载 `lua/config/lazy.lua`，从而引导整个 LazyVim 的初始化过程。
+
+* **`lazy-lock.json`**：由 `lazy.nvim` 插件管理器生成的锁定文件，记录了已安装插件的精确版本，确保插件的一致性。
+
+* **`lazyvim.json`**：用于记录通过 `:LazyExtras` 命令启用的额外功能（Extras），便于在不同设备间同步配置。
+
+* **`LICENSE`** 和 **`README.md`**：分别为许可协议和项目说明文档。
+
+* **`stylua.toml`**：`stylua` 的配置文件，用于格式化 Lua 代码。
+
+* **`lua/config/`**：包含 Neovim 的基础配置文件，如自动命令（`autocmds.lua`）、快捷键（`keymaps.lua`）、插件管理（`lazy.lua`）和编辑器选项（`options.lua`）。这些文件会被 LazyVim 自动加载，无需手动引入。
+
+* **`lua/plugins/`**：用于添加或修改插件配置的目录。您可以在此目录中添加新的 Lua 文件，以引入其他插件或更改现有插件的设置。
+​
+
+## Lazyvim自带配置
+
+在 LazyVim 中，插件被分类为已加载（Loaded）和未加载（Not Loaded）。
+
+### ✅ 已加载的插件（Loaded）
+
+* **blink.cmp**：一个高性能、开箱即用的自动补全引擎，旨在替代 `nvim-cmp`，提供更快的性能和更少的配置需求。
+
+* **bufferline.nvim**：用于在顶部显示缓冲区列表的插件，提供类似于浏览器标签页的界面。
+
+* **friendly-snippets**：一个包含多种语言代码片段的集合，可与多个片段引擎（如 `luasnip`）配合使用。
+
+* **gitsigns.nvim**：在编辑器中显示 Git 更改标记（如添加、修改、删除）的插件，增强版本控制的可视化。
+
+* **lazy.nvim**：LazyVim 的插件管理器，支持懒加载和依赖管理，提升启动速度和性能。
+
+* **lualine.nvim**：一个高度可定制的状态栏插件，支持多种主题和组件。
+
+* **mason-lspconfig.nvim** & **mason.nvim**：用于自动安装和配置 LSP（语言服务器协议）服务器的插件组合，简化开发环境的设置。
+
+* **mini.ai**、**mini.pairs**：`mini.nvim` 插件集合的一部分，分别用于增强文本对象操作和自动括号配对功能。
+
+* **noice.nvim**：改进 Neovim 消息和命令行界面的插件，提供更丰富的 UI 体验。
+
+* **nui.nvim**：一个用于构建 Neovim 用户界面的 Lua 库，被多个插件作为依赖使用。
+
+* **nvim-lint**：一个异步代码检查器，支持多种语言的语法和风格检查。
+
+* **nvim-lspconfig**：提供预配置的 LSP 客户端设置，简化语言服务器的集成。
+
+* **nvim-treesitter**、**nvim-treesitter-textobjects**、**nvim-ts-autotag**：基于 Tree-sitter 的语法高亮和代码结构分析插件，增强代码编辑体验。
+
+* **persistence.nvim**：自动保存和恢复会话的插件，方便在不同项目之间切换。
+
+* **snacks.nvim**：提供快速导航和编辑功能的插件，提升编辑效率。
+
+* **todo-comments.nvim**：高亮和管理代码中的 TODO、FIXME 等注释的插件，方便任务跟踪。
+
+* **tokyonight.nvim**：一个流行的 Neovim 主题，提供多种配色方案。
+
+* **trouble.nvim**：一个用于显示诊断信息（如 LSP 错误、警告）的插件，提供统一的界面。
+
+* **ts-comments.nvim**：基于 Tree-sitter 的注释插件，支持多语言的智能注释功能。
+
+* **which-key.nvim**：在按下快捷键时弹出可用键位提示的插件，帮助记忆和发现快捷键。
+
+
+### ❌ 未加载的插件（Not Loaded）
+
+* **catppuccin**：一个柔和的 Neovim 主题，提供多种风格的配色方案。
+
+* **conform.nvim**：一个用于代码格式化的插件，支持多种语言的格式化工具。
+
+* **grug-far.nvim**：一个快速的全局查找和替换插件，提供直观的界面和操作。
+
+* **lazydev.nvim**：用于 LazyVim 插件开发的辅助工具，简化开发流程。
+
+* **markdown-preview.nvim**：在浏览器中实时预览 Markdown 文件的插件，提升写作体验。
+
+* **plenary.nvim**：一个 Lua 函数库，提供多种实用功能，被许多插件作为依赖使用。
 
 ## 自定义配置 
 
