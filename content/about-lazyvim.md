@@ -246,6 +246,18 @@ return {
 - lazyvim的字体是和终端相同的，不同单独设置；
 - lazyvim中在侧边栏选择文件按d删除,按y复制,按p粘贴,按a创建,按r重命名；
 - gcc:注释当前行
+- LSP快捷操作：
+
+| 快捷键          | 功能                      |
+| ------------ | ----------------------- |
+| `gd`         | 跳转到定义（Go to Definition） |
+| `gr`         | 查找引用（Go to References）  |
+| `K`          | 显示悬浮文档（Hover）           |
+| `<leader>rn` | 重命名（Rename）             |
+| `<leader>ca` | Code Action（修复）         |
+| `gl`         | 显示诊断信息（Diagnostic）      |
+| `[d` / `]d`  | 上/下一个诊断问题               |
+
 ## Edit!
 
 > 编辑器的基本素养
