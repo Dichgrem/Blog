@@ -31,9 +31,11 @@ tags = ["综合工程"]
 
 随后安装常用开源软件：
 
+
 ```
-paru -S virt-manager wireshark-qt floorp-bin readest vscodium materialgram-bin keepassxc aria2 onlyoffice-bin kazumi-bin electerm vlc  neovim  zola krita qtscrcpy  ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just android-tools qemu-full obs-studio localsend-bin legcord-bin syncthing tree zellij  alacritty element-desktop gui-for-singbox strawberry
+paru -S virt-manager wireshark-qt floorp-bin readest materialgram-bin keepassxc aria2 onlyoffice-bin kazumi-bin electerm vlc  neovim  zola krita qtscrcpy  ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just android-tools qemu-full obs-studio localsend-bin legcord-bin syncthing tree zellij  alacritty strawberry go nexttrace-bin wl-clipboard
 ```
+
 安装完毕后我们开始配置输入法与字体：
 
 输入法我们采用雾凇拼音，即前面我们安装的fcitx5系列软件包的一个输入方案，这里我们使用[自动部署脚本](https://github.com/Mark24Code/rime-auto-deploy)：
