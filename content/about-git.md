@@ -386,6 +386,61 @@ git reset --hard HEAD~1
 ```
 > 注意：--hard 会清除未提交的更改，无法恢复。
 
+## `.git` 目录中主要文件和子目录的结构及其作用
+
+### 📁 `.git` 目录结构概览
+
+```
+.git/
+├── HEAD
+├── config
+├── description
+├── hooks/
+├── index
+├── info/
+│   └── exclude
+├── logs/
+│   ├── HEAD
+│   └── refs/
+├── objects/
+│   ├── info/
+│   └── pack/
+├── refs/
+│   ├── heads/
+│   ├── remotes/
+│   └── tags/
+```
+
+### 🗂️ 核心文件和目录说明
+
+* **HEAD**：指向当前检出的分支或提交。例如，`ref: refs/heads/main` 表示当前位于 `main` 分支。
+
+* **config**：仓库级别的配置文件，包含用户名、邮箱、远程仓库等信息.
+
+* **description**：用于描述仓库，仅供 GitWeb 等工具使用。
+
+* **hooks/**：存放 Git 钩子脚本的目录，可用于在特定操作前后执行自定义脚本，如 `pre-commit`、`post-merge` 等.
+
+* **index**：暂存区（staging area）的索引文件，记录了即将提交的文件信息。
+
+* **info/**：包含辅助信息，如 `exclude` 文件用于定义仓库级别的忽略规则。
+
+* **logs/**：记录了引用（如分支、标签）的更新历史，有助于追踪操作记录。
+
+* **objects/**：存储 Git 的所有对象，包括：
+
+  * **blob**：文件内容。
+  * **tree**：目录结构。
+  * **commit**：提交对象，记录提交信息和指向的树对象。
+  * **tag**：标签对象。
+    这些对象以 SHA-1 哈希命名，前两位作为子目录，其余作为文件名。
+
+* **refs/**：存储所有引用，包括：
+
+  * **heads/**：本地分支。
+  * **remotes/**：远程分支。
+  * **tags/**：标签。
+
 ## Commit规范
 
 ### 提交信息的基本格式

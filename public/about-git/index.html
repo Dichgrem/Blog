@@ -468,6 +468,69 @@
 <blockquote>
 <p>注意：--hard 会清除未提交的更改，无法恢复。</p>
 </blockquote>
+<h2 id="git-mu-lu-zhong-zhu-yao-wen-jian-he-zi-mu-lu-de-jie-gou-ji-qi-zuo-yong"><code>.git</code> 目录中主要文件和子目录的结构及其作用</h2>
+<h3 id="file-folder-git-mu-lu-jie-gou-gai-lan">📁 <code>.git</code> 目录结构概览</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>.git/
+</span><span>├── HEAD
+</span><span>├── config
+</span><span>├── description
+</span><span>├── hooks/
+</span><span>├── index
+</span><span>├── info/
+</span><span>│   └── exclude
+</span><span>├── logs/
+</span><span>│   ├── HEAD
+</span><span>│   └── refs/
+</span><span>├── objects/
+</span><span>│   ├── info/
+</span><span>│   └── pack/
+</span><span>├── refs/
+</span><span>│   ├── heads/
+</span><span>│   ├── remotes/
+</span><span>│   └── tags/
+</span></code></pre>
+<h3 id="dividers-he-xin-wen-jian-he-mu-lu-shuo-ming">🗂️ 核心文件和目录说明</h3>
+<ul>
+<li>
+<p><strong>HEAD</strong>：指向当前检出的分支或提交。例如，<code>ref: refs/heads/main</code> 表示当前位于 <code>main</code> 分支。</p>
+</li>
+<li>
+<p><strong>config</strong>：仓库级别的配置文件，包含用户名、邮箱、远程仓库等信息.</p>
+</li>
+<li>
+<p><strong>description</strong>：用于描述仓库，仅供 GitWeb 等工具使用。</p>
+</li>
+<li>
+<p><strong>hooks/</strong>：存放 Git 钩子脚本的目录，可用于在特定操作前后执行自定义脚本，如 <code>pre-commit</code>、<code>post-merge</code> 等.</p>
+</li>
+<li>
+<p><strong>index</strong>：暂存区（staging area）的索引文件，记录了即将提交的文件信息。</p>
+</li>
+<li>
+<p><strong>info/</strong>：包含辅助信息，如 <code>exclude</code> 文件用于定义仓库级别的忽略规则。</p>
+</li>
+<li>
+<p><strong>logs/</strong>：记录了引用（如分支、标签）的更新历史，有助于追踪操作记录。</p>
+</li>
+<li>
+<p><strong>objects/</strong>：存储 Git 的所有对象，包括：</p>
+<ul>
+<li><strong>blob</strong>：文件内容。</li>
+<li><strong>tree</strong>：目录结构。</li>
+<li><strong>commit</strong>：提交对象，记录提交信息和指向的树对象。</li>
+<li><strong>tag</strong>：标签对象。
+这些对象以 SHA-1 哈希命名，前两位作为子目录，其余作为文件名。</li>
+</ul>
+</li>
+<li>
+<p><strong>refs/</strong>：存储所有引用，包括：</p>
+<ul>
+<li><strong>heads/</strong>：本地分支。</li>
+<li><strong>remotes/</strong>：远程分支。</li>
+<li><strong>tags/</strong>：标签。</li>
+</ul>
+</li>
+</ul>
 <h2 id="commitgui-fan">Commit规范</h2>
 <h3 id="ti-jiao-xin-xi-de-ji-ben-ge-shi">提交信息的基本格式</h3>
 <ul>
