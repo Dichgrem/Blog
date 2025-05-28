@@ -265,6 +265,42 @@
 </span><span>无线网卡（WiFi）：设为 25
 </span></code></pre>
 <p>重启电脑生效。</p>
+<h2 id="qing-li-dai-li">清理代理</h2>
+<blockquote>
+<p>保存为.bat格式</p>
+</blockquote>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>@echo off
+</span><span>REM 清理代理设置
+</span><span>REG DELETE &quot;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot; /v ProxyEnable /f
+</span><span>REG DELETE &quot;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot; /v ProxyServer /f
+</span><span>echo 代理设置已清除
+</span></code></pre>
+<h2 id="kai-guan-3djia-su">开/关3D加速</h2>
+<blockquote>
+<p>保存为.reg格式</p>
+</blockquote>
+<p>开启3D加速</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Windows Registry Editor Version 5.00
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
+</span><span>&quot;EmulationOnly&quot;=dword:00000000
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Direct3D\Drivers]
+</span><span>&quot;SoftwareOnly&quot;=dword:00000000
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectDraw]
+</span><span>&quot;EmulationOnly&quot;=dword:00000000
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Direct3D\Drivers]
+</span><span>&quot;SoftwareOnly&quot;=dword:00000000
+</span></code></pre>
+<p>关闭3D加速</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Windows Registry Editor Version 5.00
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
+</span><span>&quot;EmulationOnly&quot;=dword:00000001
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Direct3D\Drivers]
+</span><span>&quot;SoftwareOnly&quot;=dword:00000001
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectDraw]
+</span><span>&quot;EmulationOnly&quot;=dword:00000001
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Direct3D\Drivers]
+</span><span>&quot;SoftwareOnly&quot;=dword:00000001
+</span></code></pre>
 <hr />
 <p><strong>Done.</strong></p>
 
