@@ -33,7 +33,21 @@ tags = ["综合工程"]
 
 
 ```
-paru -S virt-manager wireshark-qt floorp-bin readest materialgram-bin keepassxc aria2 onlyoffice-bin kazumi-bin electerm vlc  neovim  zola krita qtscrcpy  ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just android-tools qemu-full obs-studio localsend-bin legcord-bin syncthing tree zellij  alacritty strawberry go nexttrace-bin wl-clipboard
+# gui
+
+paru -S virt-manager wireshark-qt floorp-bin readest materialgram-bin keepassxc onlyoffice-bin kazumi-bin electerm vlc krita qtscrcpy localsend-bin legcord-bin syncthing zellij alacritty strawberry oculante qemu-full obs-studio
+
+# tui
+
+paru -S neovim yazi lazygit btop
+
+# cli
+
+paru -S aria2 zola onefetch bat starship fastfetch atuin fzf eza nexttrace-bin tree
+
+# other
+
+paru -S ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just android-tools go wl-clipboard
 ```
 
 安装完毕后我们开始配置输入法与字体：
