@@ -202,5 +202,47 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
 ```
 重启电脑生效。
 
+## 清理代理
+
+> 保存为.bat格式
+
+```
+@echo off
+REM 清理代理设置
+REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /f
+REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer /f
+echo 代理设置已清除
+```
+## 开/关3D加速
+
+> 保存为.reg格式
+
+开启3D加速
+```
+Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
+"EmulationOnly"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Direct3D\Drivers]
+"SoftwareOnly"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectDraw]
+"EmulationOnly"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Direct3D\Drivers]
+"SoftwareOnly"=dword:00000000
+```
+
+关闭3D加速
+```
+Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
+"EmulationOnly"=dword:00000001
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Direct3D\Drivers]
+"SoftwareOnly"=dword:00000001
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectDraw]
+"EmulationOnly"=dword:00000001
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Direct3D\Drivers]
+"SoftwareOnly"=dword:00000001
+```
+
+
 ---
 **Done.**
