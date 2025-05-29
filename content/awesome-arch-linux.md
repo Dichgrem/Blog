@@ -34,7 +34,7 @@ tags = ["综合工程"]
 ```
 # gui
 
-paru -S alacritty electerm zellij qemu-full virt-manager wireshark-qt floorp-bin readest materialgram-bin legcord-bin keepassxc onlyoffice-bin kazumi-bin vlc krita qtscrcpy localsend-bin strawberry oculante obs-studio
+paru -S alacritty zellij qemu-full virt-manager wireshark-qt floorp-bin readest materialgram-bin legcord-bin keepassxc onlyoffice-bin kazumi-bin vlc krita qtscrcpy localsend-bin strawberry oculante obs-studio
 
 # tui
 
