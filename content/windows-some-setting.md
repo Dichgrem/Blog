@@ -243,6 +243,89 @@ Windows Registry Editor Version 5.00
 "SoftwareOnly"=dword:00000001
 ```
 
+## 关闭安全中心
+
+> 保存为.ps1格式
+
+```
+# -----------------------------------------------------------------------------
+# 文件名： Disable-WindowsSecurityCenter.ps1
+# 说明： 一键禁用 Windows 11 上的 Windows 安全中心及相关自动恢复机制
+# 运行方式：以管理员身份在 PowerShell 中执行：
+#   Set-ExecutionPolicy Bypass -Scope Process -Force
+#   .\Disable-WindowsSecurityCenter.ps1
+# -----------------------------------------------------------------------------
+
+# 检查是否以管理员权限运行
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
+    [Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Warning "请以管理员权限重新运行此脚本！"
+    exit 1
+}
+
+Write-Host "开始禁用 Windows 安全中心及相关组件..." -ForegroundColor Cyan
+
+# 1. 停止并禁用服务：wscsvc 和 SecurityHealthService
+$services = @("wscsvc", "SecurityHealthService")
+foreach ($svc in $services) {
+    Write-Host "→ 禁用服务：$svc"
+    Try {
+        Set-Service -Name $svc -StartupType Disabled -ErrorAction Stop
+        Stop-Service  -Name $svc -Force       -ErrorAction Stop
+    } Catch {
+        Write-Warning "无法操作服务 $svc：$_"
+    }
+}
+
+# 2. 禁用计划任务：Microsoft\Windows\SecurityHealth 下的所有任务
+$taskPath = "\Microsoft\Windows\SecurityHealth"
+Write-Host "→ 禁用计划任务：$taskPath\*"
+Try {
+    Get-ScheduledTask -TaskPath $taskPath | Disable-ScheduledTask -ErrorAction Stop
+} Catch {
+    Write-Warning "无法禁用计划任务：$_"
+}
+
+# 3. 通过注册表禁用 Microsoft Defender 防病毒（相当于组策略 Turn off Defender）
+$defKey = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender"
+Write-Host "→ 注册表：DisableAntiSpyware = 1"
+New-Item    -Path $defKey -Force            | Out-Null
+New-ItemProperty -Path $defKey `
+    -Name "DisableAntiSpyware" `
+    -PropertyType DWORD `
+    -Value 1 -Force                      | Out-Null
+
+# 4. 注册表：禁用 Tamper Protection（可选）
+$featKey = "HKLM:\SOFTWARE\Microsoft\Windows Defender\Features"
+Write-Host "→ 注册表：TamperProtection = 0"
+New-Item         -Path $featKey -Force      | Out-Null
+New-ItemProperty -Path $featKey `
+    -Name "TamperProtection" `
+    -PropertyType DWORD `
+    -Value 0 -Force                      | Out-Null
+
+# 5. 注册表：将安全中心服务设为“禁用”启动
+$svcReg1 = "HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc"
+$svcReg2 = "HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService"
+Write-Host "→ 注册表：Services Start = 4 (Disabled)"
+foreach ($path in @($svcReg1, $svcReg2)) {
+    New-ItemProperty -Path $path `
+        -Name "Start" `
+        -PropertyType DWORD `
+        -Value 4 -Force                | Out-Null
+}
+
+# 6. 注册表：关闭安全中心通知（可选）
+$scNotiKey = "HKLM:\SOFTWARE\Policies\Microsoft\Security Center"
+Write-Host "→ 注册表：DisableNotifications = 1"
+New-Item         -Path $scNotiKey -Force   | Out-Null
+New-ItemProperty -Path $scNotiKey `
+    -Name "DisableNotifications" `
+    -PropertyType DWORD `
+    -Value 1 -Force                      | Out-Null
+
+Write-Host "所有操作已完成。请重启系统以生效。" -ForegroundColor Green
+```
 
 ---
 **Done.**
