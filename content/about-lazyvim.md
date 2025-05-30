@@ -248,6 +248,7 @@ return {
 - gcc:注释当前行；
 - g+ctrl+g:显示信息；
 - alt+h：显示隐藏文件；
+- space+c+f:将当前代码格式化；
 - 设置文件编码``:set fileencoding?``
 - 设置换行符``:set fileformat=unix``
 - LSP快捷操作：
