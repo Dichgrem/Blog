@@ -15,15 +15,12 @@
 
     {%- if config.generate_feeds %}
         {%- for feed in config.feed_filenames %}
-
-        {%- if feed is containing('atom') %}
-        <link rel="alternate" type="application/atom+xml" title="{{ config.title }} Atom Feed" href="{{ get_url(path=feed, trailing_slash=false, lang=lang) | safe }}" />
-        {%- endif %}
-
-        {%- if feed is containing('rss') %}
-        <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS Feed" href="{{ get_url(path=feed, trailing_slash=false, lang=lang) | safe }}" />
-        {%- endif %}
-
+            {%- if feed is containing('atom') %}
+                <link rel="alternate" type="application/atom+xml" title="{{ config.title }} Atom Feed" href="{{ get_url(path=feed, trailing_slash=false, lang=lang) | safe }}" />
+            {%- endif %}
+            {%- if feed is containing('rss') %}
+                <link rel="alternate" type="application/rss+xml" title="{{ config.title }} RSS Feed" href="{{ get_url(path=feed, trailing_slash=false, lang=lang) | safe }}" />
+            {%- endif %}
         {%- endfor %}
     {% endif -%}
 
@@ -34,6 +31,25 @@
 
     {%- block extra_head %}
     {% endblock extra_head -%}
+
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body class="">
@@ -129,10 +145,8 @@
         </div>
     </footer>
     {% endblock footer %}
-
 </div>
 {%- block extra_body %}
 {% endblock extra_body -%}
 </body>
-
 </html>
