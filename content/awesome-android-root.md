@@ -112,7 +112,7 @@ tags = ["综合工程"]
 
 > 截至2024年5月1日,该机已经刷入 crdroid 10.4 类原生系统,非常丝滑,步骤同上,但需要刷入[新固件](https://xiaomifirmwareupdater.com/firmware/lmi/stable/V14.0.1.0.SJKMIXM/).
 
-> 注：这里使用的 root 方案为[magisk](https://github.com/topjohnwu/Magisk)，你也可以使用其他方案，如[常用root方案](#root-methods)
+> 注：这里使用的 root 方案为[magisk](https://github.com/topjohnwu/Magisk)，你也可以使用其他方案.
 。
 
 
@@ -137,7 +137,9 @@ fastboot oem reboot-^<模式名称^> 		:重启到相应模式
 fastboot oem device-info 		:查看解锁状态
 ```
 
-## **七.常用root方案** {#root-methods}
+> 如果你不想安装TWRP也可以直接安装要刷的系统的recovery，一般放在系统zip包的中，如果没有则需要手动解包payload.bin，可以安装payload-dumper-go并在解压出来的系统文件夹中使用``payload-dumper-go payload.bin``，随后会将所有.img后缀的文件放在文件夹中。
+
+## **七.常用root方案**
 
 - [Magisk](https://jesse205.github.io/MagiskChineseDocument/)
 
@@ -149,22 +151,24 @@ fastboot oem device-info 		:查看解锁状态
 
 - [APatch](https://apatch.dev/zh_CN/)
 
+> kernelSU和Apatch的安装方法类似，先修补系统的boot.img（如果没有则按照上文解包），随后在fastboot模式中``fastboot flash boot apatch_patched-boot.img``，重启即可。
+
 ## **八.Root后的模块安装**
 
 在 Root 管理器中安装 Zygisk-Lsposed 模块,即可使用 Lsposed，在 Lsposed 中可以安装 HMA, Amarok ，QAuxiliary 模块，并配合 MMRL 等软件等等。
 
-> 免 Root 的平替方法,目前这一套流程也很成熟了:
+- 免 Root 的平替方法,目前这一套流程也很成熟了:
 - 利用 ADB 权限的 Shizuku
 - 利用 Device Owner 权限的 Dhizuku
 - 利用 VPN 的流量过滤
 
-## **后记**
+> 常用模块
 
-关于 root 的其他用途还有很多，这里就不一一列举，分享一些常用模块：
-
-- [lsposed模块大全](https://modules.lsposed.org/)
-
-- [刷了 Magisk 之后装什么？我推荐这 20+ 个模块](https://sspai.com/post/68531)
+- [LSPosed](https://github.com/mywalkb/LSPosed_mod)
+- [TrickyStore](https://github.com/5ec1cff/TrickyStore)
+- [WAHideBootloader](https://github.com/thelordalex/WAHideBootloader)
+- [ZygiskNext](https://github.com/Dr-TSNG/ZygiskNext)
+- [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant)
 
 ## **参考**
  
