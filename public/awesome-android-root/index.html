@@ -238,7 +238,7 @@
 </ul>
 <p><strong>主流的root步骤</strong>:</p>
 <ul>
-<li>Magisk:在recovery中<code>刷入 Magisk </code>(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择自带安装；</li>
+<li>Magisk:在recovery中<code>刷入 Magisk </code>(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择直接安装；</li>
 <li>kernelSU和Apatch:安装apk软件并修补提取出来的boot.img,随后在fastboot模式中<code>fastboot flash boot apatch_patched-boot.img</code>，重启即可。</li>
 </ul>
 <p><strong>常用root方案</strong></p>
@@ -276,22 +276,24 @@
 <blockquote>
 <p>adb和fastboot命令示例</p>
 </blockquote>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb命令：
-</span><span>adb devices		:列出adb设备
-</span><span>adb reboot		:重启设备
-</span><span>adb reboot bootloader	:重启到fastboot模式
-</span><span>adb reboot recovery	:重启到recovery模式
-</span><span>adb reboot edl		:重启到edl模式
-</span><span>adb sideload &lt;要刷写的文件路径&gt; ：刷写模块，如Magisk
-</span><span> 
-</span><span>fastboot命令：
-</span><span>fastboot devices			:列出fastboot设备
-</span><span>fastboot reboot				:重启设备
-</span><span>fastboot reboot-bootloader		:重启到fastboot模式
-</span><span>fastboot flash &lt;分区名称&gt; &lt;镜像文件名&gt;	:刷写分区
-</span><span>fastboot oem reboot-^&lt;模式名称^&gt; 		:重启到相应模式
-</span><span>fastboot oem device-info 		:查看解锁状态
-</span></code></pre>
+<p><strong>adb 命令</strong></p>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>adb devices</code></td><td>列出 adb 设备</td></tr>
+<tr><td><code>adb reboot</code></td><td>重启设备</td></tr>
+<tr><td><code>adb reboot bootloader</code></td><td>重启到 fastboot 模式</td></tr>
+<tr><td><code>adb reboot recovery</code></td><td>重启到 recovery 模式</td></tr>
+<tr><td><code>adb reboot edl</code></td><td>重启到 edl 模式</td></tr>
+<tr><td><code>adb sideload &lt;要刷写的文件路径&gt;</code></td><td>刷写模块，如 Magisk</td></tr>
+</tbody></table>
+<p><strong>fastboot 命令</strong></p>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>fastboot devices</code></td><td>列出 fastboot 设备</td></tr>
+<tr><td><code>fastboot reboot</code></td><td>重启设备</td></tr>
+<tr><td><code>fastboot reboot-bootloader</code></td><td>重启到 fastboot 模式</td></tr>
+<tr><td><code>fastboot flash &lt;分区名称&gt; &lt;镜像文件名&gt;</code></td><td>刷写分区</td></tr>
+<tr><td><code>fastboot oem reboot-&lt;模式名称&gt;</code></td><td>重启到相应模式</td></tr>
+<tr><td><code>fastboot oem device-info</code></td><td>查看解锁状态</td></tr>
+</tbody></table>
 <h2 id="ba-roothou-de-mo-kuai-an-zhuang"><strong>八.Root后的模块安装</strong></h2>
 <p>在 Root 管理器中安装 Zygisk-Lsposed 模块,即可使用 Lsposed，在 Lsposed 中可以安装 HMA, Amarok ，QAuxiliary 模块，并配合 MMRL 等软件等等。</p>
 <blockquote>
