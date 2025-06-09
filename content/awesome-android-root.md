@@ -50,7 +50,7 @@ tags = ["综合工程"]
 | Black Shark       | ❌ 不支持       | —           | —        | ❌ 不可 root                 |
 | LG                | ❌ 不支持       | —           | ✅ 支持   | ⚠️ 旧机型可能可 root        |
 | Meizu             | ❌ 不支持       | —           | —        | ⚠️ 部分机型有 root 方法     |
-| Samsung           | ⚠️ 支持         | —           | —        | ❌ 解锁后 Knox 熔断，Pay 功能被禁用 :contentReference[oaicite:0]{index=0} |
+| Samsung           | ⚠️ 支持         | —           | —        | ❌ 解锁后 Knox 熔断，Pay 功能被禁用|
 | Apple iPhone      | ❌ 不支持       | —           | —        | ✅ iPhone 10 前可越狱       |
 
 ``刷机有风险，root 需谨慎``！刷机前要了解相应的厂商，考虑保修和变砖的问题！
