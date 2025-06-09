@@ -112,7 +112,7 @@ tags = ["综合工程"]
 
 **主流的root步骤**:
 
-- Magisk:在recovery中``刷入 Magisk ``(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择自带安装；
+- Magisk:在recovery中``刷入 Magisk ``(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择直接安装；
 - kernelSU和Apatch:安装apk软件并修补提取出来的boot.img,随后在fastboot模式中``fastboot flash boot apatch_patched-boot.img``，重启即可。
 
 **常用root方案**
@@ -156,23 +156,28 @@ tags = ["综合工程"]
 
 > adb和fastboot命令示例
 
-```
-adb命令：
-adb devices		:列出adb设备
-adb reboot		:重启设备
-adb reboot bootloader	:重启到fastboot模式
-adb reboot recovery	:重启到recovery模式
-adb reboot edl		:重启到edl模式
-adb sideload <要刷写的文件路径> ：刷写模块，如Magisk
- 
-fastboot命令：
-fastboot devices			:列出fastboot设备
-fastboot reboot				:重启设备
-fastboot reboot-bootloader		:重启到fastboot模式
-fastboot flash <分区名称> <镜像文件名>	:刷写分区
-fastboot oem reboot-^<模式名称^> 		:重启到相应模式
-fastboot oem device-info 		:查看解锁状态
-```
+**adb 命令**
+
+| 命令 | 说明 |
+|------|------|
+| `adb devices` | 列出 adb 设备 |
+| `adb reboot` | 重启设备 |
+| `adb reboot bootloader` | 重启到 fastboot 模式 |
+| `adb reboot recovery` | 重启到 recovery 模式 |
+| `adb reboot edl` | 重启到 edl 模式 |
+| `adb sideload <要刷写的文件路径>` | 刷写模块，如 Magisk |
+
+**fastboot 命令**
+
+| 命令 | 说明 |
+|------|------|
+| `fastboot devices` | 列出 fastboot 设备 |
+| `fastboot reboot` | 重启设备 |
+| `fastboot reboot-bootloader` | 重启到 fastboot 模式 |
+| `fastboot flash <分区名称> <镜像文件名>` | 刷写分区 |
+| `fastboot oem reboot-<模式名称>` | 重启到相应模式 |
+| `fastboot oem device-info` | 查看解锁状态 |
+
 
 ## **八.Root后的模块安装**
 
