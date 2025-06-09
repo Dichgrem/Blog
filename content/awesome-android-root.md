@@ -10,25 +10,72 @@ tags = ["综合工程"]
 <!-- more -->
 ## **一.什么是root**
 
-这涉及安卓的权限系统。Andoird 系统是基于 Linux 内核的，其中的权限大致可以分为四级，即``一般软件权限，用户权限，ADB 权限和超级管理员权限（su）``。而所谓 Root 也就是使手机获得超级管理员的权限，但是出于种种原因，厂商默认不提供超级管理员的权限，因此，``root的本质就是一个提权的过程``。
+这涉及安卓的权限系统。Andoird 系统是基于 Linux 内核的，Linux中的root用户为超级用户，``root 权限则为系统的最高权限``，与 Windows 的 system 权限相当（比 administer 还高）。日常使用中我们可以发现一般软件权限需要经过用户同意，即每次安装前出现的各种请求弹窗。我们看似可以做到许多事情，但有些地方比如安卓的根目录没有root就无法查看。
+
+所谓 Root 也就是使手机获得超级管理员的权限，但是出于种种原因，厂商默认不提供超级管理员的权限，因此，``root的本质就是一个提权的过程``。
 
 ## **二.为什么要root**
 
-- 国内定制的安卓系统充满着云控，反诈以及各种广告，预装软件，这种系统实在为极客们所不容；
+1. 国内定制的安卓系统充满着云控，反诈以及各种广告，预装软件，这种系统实在为极客们所不容；而当我们具备了 root 权限后，就可以实现许多功能，例如屏蔽广告，虚拟定位，安装 Google 框架和软件，满血运行CPU，删除系统自带软件等等。
 
-- 以权限系统为例，一般软件权限需要经过用户同意，即每次安装前出现的各种请求弹窗；而 ADB 权限常常用于开发者模式，可以调试一些比较深层的设置；至于 root 权限则为系统的最高权限，与 Windows 的 system 权限相当（比 administer 还高）。
+2. 某种意义上不能root的手机相当于只有使用权而无所有权，不能完全控制自己的数据。
 
-- 当我们具备了 root 权限后，就可以实现许多功能，例如屏蔽广告，虚拟定位，安装 Google 框架和软件，满血运行CPU等等。
+3. 我可以不要但你厂商不能不给。
+
+> 云控：一般指为了计划性报废而特地远程操控使用户的手机变的卡顿，加快换机；也有另一层含义：在UP主测试手机时调整设置使其跑分虚高而用户到手的手机分数远不如测试的时候的情况。
+
+> 反诈：一般指厂商与网络安全部门合作的后门或漏洞，可以监控用户行为，例如某
+“其他”品牌手机系统的webview级别的网址拦截；
+
+> 广告：一般指系统自带的弹窗广告，自带系统应用中的广告和“负一屏”中的广告。
 
 ## **三.哪些机型可以root**
 
-- [各品牌手机root情况汇总](https://github.com/KHwang9883/MobileModels/blob/master/misc/bootloader-kernel-source.md)
+在 2023 年的今天，能 root 的机型还是比较少。[各品牌手机root情况汇总](https://github.com/KHwang9883/MobileModels/blob/master/misc/bootloader-kernel-source.md)
 
-在 2023 年的今天，能 root 的机型还是比较少。首先是最容易的一加和小米，可以申请官方解 BL 锁，需要等待7天；其次是联想，索尼等海外品牌，也比较容易；而 oppo 和 vivo 及其子品牌 iqoo 和 realme 有些是不行的；苹果的越狱在10代前是可以的，而华为全部机型都是不可以的，除非上万能的淘宝收费解锁，直接烧录芯片；至于三星，BL 锁一旦解开就会触发芯片物理熔断机制，无法使用 pay 以及升级系统，体验极差。因此，``刷机有风险，root 需谨慎``！刷机前要了解相应的厂商，考虑保修和变砖的问题！
 
-> 截至2024年5月小米手机解BL锁已经收紧,条件非常苛刻.
+| 品牌 / 机型        | BL 解锁情况     | 等待时长    | 支持回锁 | Root/越狱 能力                |
+|-------------------|----------------|-------------|----------|-----------------------------|
+| OnePlus           | ✅ 支持         | 秒解          | ✅ 支持   | ✅ 容易 root                  |
+| Google (Pixel)    | ✅ 支持         | 秒解        | ✅ 支持   | ✅ 容易 root                  |
+| Xiaomi/Redmi/POCO | ⚠️ 支持         | ~7–14 天    | ⏹ 部分   | ✅ 可 root（需等待）          |
+| Lenovo            | ✅ 支持         | 秒解        | ⚠️ 部分   | ✅ 容易 root                  |
+| Sony              | ⚠️ 支持         | —           | ⚠️ 部分   | ✅ 海外版易 root              |
+| Nothing Phone     | ℹ️ 社区支持     | —           | —        | ✅ 社区方法多                 |
+| OPPO / Realme     | ⚠️ 支持         | —           | —        | ❌ 部分型号难 root           |
+| Vivo / iQOO       | ⚠️ 支持         | —           | —        | ❌ 部分型号难 root           |
+| Huawei            | ❌ 不支持       | —           | —        | ❌ 基本不可 root            |
+| Honor             | ❌ 不支持       | —           | —        | ⚠️ 少数型号有社区支持       |
+| ASUS              | ❌ 不支持       | —           | ❌       | ❌ 不可 root                 |
+| Black Shark       | ❌ 不支持       | —           | —        | ❌ 不可 root                 |
+| LG                | ❌ 不支持       | —           | ✅ 支持   | ⚠️ 旧机型可能可 root        |
+| Meizu             | ❌ 不支持       | —           | —        | ⚠️ 部分机型有 root 方法     |
+| Samsung           | ⚠️ 支持         | —           | —        | ❌ 解锁后 Knox 熔断，Pay 功能被禁用 :contentReference[oaicite:0]{index=0} |
+| Apple iPhone      | ❌ 不支持       | —           | —        | ✅ iPhone 10 前可越狱       |
 
-## **四.如何root**
+``刷机有风险，root 需谨慎``！刷机前要了解相应的厂商，考虑保修和变砖的问题！
+
+
+
+## **四.确定你要刷的系统**
+
+可以选择``官方原版，官改版，海外版和类原生版``。官方原版镜像一般用来救砖;官改版在一些方面例如性能更为强大;海外版本如EEA（欧盟版）为符合法规对隐私保护更好且广告更少；而类原生版是在AOSP的基础上进行简单修改，最为纯净原生。
+
+需要注意这些rom的搜索往往使用的海外名，得先搜索你所对应机型的海外名称/代号。
+
+- [Android原生项目大全](https://mi.fiime.cn/Android)
+
+- [小米各机型 MIUI 历史版本分类索引](https://miuiver.com/)
+
+> 需要注意的是刷类原生系统较之其他系统可能会有如下问题；如果你只需要root，推荐使用原厂系统。
+
+- 解锁BL之后Tee假死，无法使用指纹付款；
+- 由于原厂相机驱动不开源，相机变的模糊；
+- 部分机型无法快充；
+- 12306无法使用前置人脸识别；
+- 5G可能无法使用；
+
+## **五.如何root**
 
 首先我们要了解安卓系统的分区和启动。安卓的分区包括:
 
@@ -44,53 +91,43 @@ tags = ["综合工程"]
 
 > 除了以上5大分区外，手机启动阶段还存在名为 bootloader 的程序，通常位于设备的专用引导区域（如boot ROM或firmware分区的一部分），与 PC 端的 BIOS 类似，被称为 fastboot 模式，厂商一般会将其锁定，要刷机的话必须解开它。
 
-> 早些年间，存在大量一键 root，kingroot 之类的软件，可以直接刷写 root 包，获得 root 权限，但成功率不高；
+> 早些年间，存在大量一键 root，kingroot 之类的软件，可以直接刷写 root 包，获得 root 权限，但成功率不高，且有植入木马之嫌。
 
 因此，现在**主流的刷机步骤**为
 
-- ``解开 bootloader``，俗称解BL锁. [BL锁原理参考](https://telegra.ph/BL%E9%94%81%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88-05-29)
-
-- 打开机器上的``允许USB调试``;
 
 - ``备份手机数据``,即备份Data分区(可使用Neobackup或系统自带),字库/基带/官方固件,桌面样式截图以及该机器的官方原厂包；
 
-- 下载要刷的第三方系统包;
+- 打开机器上的``允许USB调试``;
 
-- 提取以上两个包中的 boot.img 和 recovery.img 文件;
+- ``解开 bootloader``，俗称解BL锁. [BL锁原理参考](https://telegra.ph/BL%E9%94%81%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88-05-29)
+
+- 下载要刷的第三方系统包和原厂系统包并提取以上两个包中的 boot.img 和 recovery.img 文件;
 
 - 将机器与PC等设备连接,并``进入 bootloader``;
 
 - ``刷入第三方 recovery``，比如大名鼎鼎的 TWRP,或者对应新系统的recovery.img；
 
-- 进入 recovery 模式，清空原系统数据;然后``刷入原系统作为底包``，避免出现固件问题;
+- 进入 recovery 模式，清空原系统数据并刷入新系统Zip包,随后重启,即可进入新系统。
 
-- ``刷入新系统``Zip包,随后重启,再次进入 recovery .
+**主流的root步骤**:
 
-- ``刷入 Magisk ``(面具)工具，随后重启进入桌面,安装 Magisk(apk),通过修补 boot.img 文件获得 root 权限；
+- Magisk:在recovery中``刷入 Magisk ``(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择自带安装；
+- kernelSU和Apatch:安装apk软件并修补提取出来的boot.img,随后在fastboot模式中``fastboot flash boot apatch_patched-boot.img``，重启即可。
 
-- 安装 Magisk 模块和 Lsposed 框架（可在其中下载许多模块，推荐一键救砖，系统优化和 root 隐藏）
+**常用root方案**
 
-- 安装 Momo 等软件检测系统环境是否正常。
-
-> 如果旧系统上没有root权限无法直接备份Data分区,可以先用系统自带的备份,并下载好原版系统镜像以防止刷机失败.
-
-
-
-## **五.确定你要刷的系统**
-
-可以选择``官方原版，官改版，海外版和类原生版``。注意这些rom的搜索往往使用的海外名，得先搜索你所对应机型的海外名称/代号。
-
-- [Android原生项目大全](https://mi.fiime.cn/Android)
-
-- [小米各机型 MIUI 历史版本分类索引](https://miuiver.com/)
-
-
+- [Magisk](https://jesse205.github.io/MagiskChineseDocument/)
+- [Kitsune Mask](https://jesse205.github.io/MagiskChineseDocument/delta/main.html)
+- [KernelSU](https://kernelsu.org/zh_CN/)
+- [KernelSU Next](https://rifsxd.github.io/KernelSU-Next/zh/index.html)
+- [APatch](https://apatch.dev/zh_CN/)
 
 ## **六.具体操作流程**
 
 1.笔者以 Poco F2 这款手机为例，首先我们进入手机设置界面，进入“我的设备”，在“全部参数”中找到“ MIUI 版本”，连续点击后开启开发者模式，随后在“更多设置”中开启 USB 调试， USB安装 功能。
 
-2.随后下载开源的[柚坛工具箱](https://github.com/Uotan-Dev/UotanToolboxNT)里面具有许多功能，包括进入各个模式，无极调速等等：
+2.随后下载开源的[柚坛工具箱](https://github.com/Uotan-Dev/UotanToolboxNT)可以看到里面具有许多功能，包括进入各个模式，无极调速等等：
 
 ![柚坛工具箱](https://camo.githubusercontent.com/14ea49ba6280b5e01bda5833c354c5a0087714852f37690c5fb25a9bafc64c02/68747470733a2f2f692e6962622e636f2f39544c545964352f323032342d30382d30322d3232303433302e77656270)
 
@@ -115,7 +152,7 @@ tags = ["综合工程"]
 > 注：这里使用的 root 方案为[magisk](https://github.com/topjohnwu/Magisk)，你也可以使用其他方案.
 。
 
-
+> 如果你不想安装TWRP也可以直接安装要刷的系统的recovery，一般放在系统zip包的中，如果没有则需要手动解包payload.bin，可以安装payload-dumper-go并在解压出来的系统文件夹中使用``payload-dumper-go payload.bin``，随后会将所有.img后缀的文件放在文件夹中。
 
 > adb和fastboot命令示例
 
@@ -137,35 +174,16 @@ fastboot oem reboot-^<模式名称^> 		:重启到相应模式
 fastboot oem device-info 		:查看解锁状态
 ```
 
-> 如果你不想安装TWRP也可以直接安装要刷的系统的recovery，一般放在系统zip包的中，如果没有则需要手动解包payload.bin，可以安装payload-dumper-go并在解压出来的系统文件夹中使用``payload-dumper-go payload.bin``，随后会将所有.img后缀的文件放在文件夹中。
-
-## **七.常用root方案**
-
-- [Magisk](https://jesse205.github.io/MagiskChineseDocument/)
-
-- [Kitsune Mask](https://jesse205.github.io/MagiskChineseDocument/delta/main.html)
-
-- [KernelSU](https://kernelsu.org/zh_CN/)
-
-- [KernelSU Next](https://rifsxd.github.io/KernelSU-Next/zh/index.html)
-
-- [APatch](https://apatch.dev/zh_CN/)
-
-> kernelSU和Apatch的安装方法类似，先修补系统的boot.img（如果没有则按照上文解包），随后在fastboot模式中``fastboot flash boot apatch_patched-boot.img``，重启即可。
-
 ## **八.Root后的模块安装**
 
 在 Root 管理器中安装 Zygisk-Lsposed 模块,即可使用 Lsposed，在 Lsposed 中可以安装 HMA, Amarok ，QAuxiliary 模块，并配合 MMRL 等软件等等。
 
-- 免 Root 的平替方法,目前这一套流程也很成熟了:
-- 利用 ADB 权限的 Shizuku
-- 利用 Device Owner 权限的 Dhizuku
-- 利用 VPN 的流量过滤
+> 免 Root 的平替方法,目前这一套流程也很成熟了:利用 ADB 权限的 Shizuku;利用 Device Owner 权限的 Dhizuku等等。
 
 > 常用模块
 
 - [LSPosed](https://github.com/mywalkb/LSPosed_mod)
-- [TrickyStore](https://github.com/5ec1cff/TrickyStore)
+- [NoHello](https://github.com/MhmRdd/NoHello)
 - [WAHideBootloader](https://github.com/thelordalex/WAHideBootloader)
 - [ZygiskNext](https://github.com/Dr-TSNG/ZygiskNext)
 - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant)
