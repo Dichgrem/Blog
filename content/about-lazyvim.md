@@ -21,6 +21,12 @@ tags = ["乱七八糟"]
 ```
 paru -S neovim
 ```
+在Ubuntu上是
+```
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt update
+sudo apt install -y \ neovim git curl unzip build-essential ripgrep fd-find
+```
 
 备份现有配置：
 ```
