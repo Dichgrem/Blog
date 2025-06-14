@@ -130,6 +130,11 @@
 <p>首先安装neovim,在arch linux上是：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>paru -S neovim
 </span></code></pre>
+<p>在Ubuntu上是</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo add-apt-repository ppa:neovim-ppa/unstable
+</span><span>sudo apt update
+</span><span>sudo apt install -y \ neovim git curl unzip build-essential ripgrep fd-find
+</span></code></pre>
 <p>备份现有配置：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>mv ~/.config/nvim ~/.config/nvim.bak
 </span><span>mv ~/.local/share/nvim ~/.local/share/nvim.bak
