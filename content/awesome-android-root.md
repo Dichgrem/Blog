@@ -178,7 +178,8 @@ tags = ["综合工程"]
 
 2. 随后进入fastboot模式（adb reboot bootloader），执行`fastboot oem unlock`或者`fastboot flashing unlock`，查看`fastboot oem device-info`，若为`Device unlocked: true`表示已成功解锁。
 
-3. 随后刷入新系统的recovery.img,使用命令`fastboot flash recovery xxx.img`；
+3. 随后刷入新系统的recovery.img,使用命令`fastboot flash recovery xxx.img`；四清操作可以用`fastboot erase data / fastboot erase cache / fastboot erase system / fastboot erase metadata` 代替。
+
 
 4. 随后进入新系统的recovery，使用命令`fastboot reboot recovery`，在其中`adb sideload xxx.zip`,即为刷入新系统的全量包。
 
