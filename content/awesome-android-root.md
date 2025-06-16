@@ -114,7 +114,8 @@ tags = ["综合工程"]
 **主流的root步骤**:
 
 - Magisk:在recovery中``刷入 Magisk ``(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择直接安装；
-- kernelSU和Apatch:安装apk软件并修补提取出来的boot.img,随后在fastboot模式中``fastboot flash boot apatch_patched-boot.img``，重启即可。
+- Apatch:安装apk软件并修补提取出来的boot.img,随后在fastboot模式中``fastboot flash boot apatch_patched-boot.img``，重启即可。
+- KernelSU:修补init_boot.img或者刷入GKI内核修补，若官方无支持需要自行编译GKI内核。
 
 **常用root方案**
 
@@ -126,36 +127,7 @@ tags = ["综合工程"]
 
 ## **六.具体操作流程**
 
-1.笔者以 Poco F2 这款手机为例，首先我们进入手机设置界面，进入“我的设备”，在“全部参数”中找到“ MIUI 版本”，连续点击后开启开发者模式，随后在“更多设置”中开启 USB 调试， USB安装 功能。
-
-2.随后下载开源的[柚坛工具箱](https://github.com/Uotan-Dev/UotanToolboxNT)可以看到里面具有许多功能，包括进入各个模式，无极调速等等：
-
-![柚坛工具箱](https://camo.githubusercontent.com/14ea49ba6280b5e01bda5833c354c5a0087714852f37690c5fb25a9bafc64c02/68747470733a2f2f692e6962622e636f2f39544c545964352f323032342d30382d30322d3232303433302e77656270)
-
-然后我们进入[小米官网](https://www.miui.com/unlock/download.html) ，下载官方解锁工具，需要登陆小米账号并等待7天，随后即可解锁。
-
-3.解锁完成后在[MiFirm网](https://mifirm.net/downloadtwrp/148) 中下载对应的 TWRP 版本。
-
-4.随后用数据线连接手机，用其中的一键刷写刷入 TWRP；随后下载你要刷的系统的 rom 包，下载时注意一并下载 boot.img 文件，作为 Magisk 的修补用。然后下载 [Magisk](https://magisk.me/zip/) 包，与 rom 一起存入TF卡或者U盘中。
-
->注意，由于本机型为新型[**AB分区**](https://www.jianshu.com/p/b2726b304801)因此如果刷机失败，需要下载原厂包用以恢复AB分区，否则无法启动和安装rom。
-
-5.通过搞机工具箱进入 recovery 模式，首先我们在wipe中``清除Data、Cache两个分区``，俗称“双清”，随后在高级清除选项中``清除 Data、Cache、Dalvik Cache 和 System 分区``，俗称“四清”。
-
-6.清除完成后即可开始刷机。将 TF 卡或者U盘插入手机，在“安装”中选择 rom 包，右滑确认刷机；随后如法炮制，刷入 magisk.zip 包，不然会卡在开机 logo 界面，俗称“卡米”。
-
-7.刷完之后重启，则会进入安装界面。**注意：如果刷的是海外版的包，千万不能联网安装，否则会失败且变为国内版。**
-
-8.此刻我们将下载好的 boot.img 文件复制到手机上，打开 Magisk 软件，在其中选择修补一个文件，选中 boot.img，修复完成后可以看到超级用户一栏可以使用了，说明 root 完成。
-
-> 截至2024年5月1日,该机已经刷入 crdroid 10.4 类原生系统,非常丝滑,步骤同上,但需要刷入[新固件](https://xiaomifirmwareupdater.com/firmware/lmi/stable/V14.0.1.0.SJKMIXM/).
-
-> 注：这里使用的 root 方案为[magisk](https://github.com/topjohnwu/Magisk)，你也可以使用其他方案.
-。
-
-> 如果你不想安装TWRP也可以直接安装要刷的系统的recovery，一般放在系统zip包的中，如果没有则需要手动解包payload.bin，可以安装payload-dumper-go并在解压出来的系统文件夹中使用``payload-dumper-go payload.bin``，随后会将所有.img后缀的文件放在文件夹中。
-
-> adb和fastboot命令示例
+> 前置知识：ADB与Fastboot命令的使用
 
 **adb 命令**
 
@@ -178,6 +150,41 @@ tags = ["综合工程"]
 | `fastboot flash <分区名称> <镜像文件名>` | 刷写分区 |
 | `fastboot oem reboot-<模式名称>` | 重启到相应模式 |
 | `fastboot oem device-info` | 查看解锁状态 |
+
+> 以 Poco F2 这款手机为例，
+
+1. 首先我们进入手机设置界面，进入“我的设备”，在“全部参数”中找到“ MIUI 版本”，连续点击后开启开发者模式，随后在“更多设置”中开启 USB 调试， USB安装 功能。
+
+2. 然后我们进入[小米官网](https://www.miui.com/unlock/download.html) ，下载官方解锁工具，需要登陆小米账号并等待7天，随后即可解锁。
+
+3. 解锁完成后在[MiFirm网](https://mifirm.net/downloadtwrp/148) 中下载对应的 TWRP 版本。
+
+4. 随后用数据线连接手机，用其中的一键刷写刷入 TWRP；随后下载你要刷的系统的 rom 包，下载时注意一并下载 boot.img 文件，作为 Magisk 的修补用。然后下载 [Magisk](https://magisk.me/zip/) 包，与 rom 一起存入TF卡或者U盘中。
+
+>注意，由于本机型为新型[**AB分区**](https://www.jianshu.com/p/b2726b304801)因此如果刷机失败，需要下载原厂包用以恢复AB分区，否则无法启动和安装rom。
+
+5. 进入 recovery 模式，首先我们``清除Data、Cache两个分区``，俗称“双清”，随后在高级清除选项中``清除 Data、Cache、Dalvik Cache 和 System 分区``，俗称“四清”。
+
+6. 清除完成后即可开始刷机。将 TF 卡或者U盘插入手机，在“安装”中选择 rom 包，右滑确认刷机；随后如法炮制，刷入 magisk.zip 包，不然会卡在开机 logo 界面，俗称“卡米”。
+
+7. 刷完之后重启，则会进入安装界面。**注意：如果刷的是海外版的包，千万不能联网安装，否则会失败且变为国内版。**
+
+8. 此刻我们将下载好的 boot.img 文件复制到手机上，打开 Magisk 软件，在其中选择修补一个文件，选中 boot.img，修复完成后可以看到超级用户一栏可以使用了，说明 root 完成。
+
+> 以一加（oneplus）为例：
+
+
+1. 打开开发者模式并开启USB调试，连接到提前装好ADB/Fastboot驱动的电脑；
+
+2. 随后进入fastboot模式（adb reboot bootloader），执行`fastboot oem unlock`或者`fastboot flashing unlock`，查看`fastboot oem device-info`，若为`Device unlocked: true`表示已成功解锁。
+
+3. 随后刷入新系统的recovery.img,使用命令`fastboot flash recovery xxx.img`；
+
+4. 随后进入新系统的recovery，使用命令`fastboot reboot recovery`，在其中`adb sideload xxx.zip`,即为刷入新系统的全量包。
+
+5. 随后 `adb reboot` 即可进入新系统。
+
+> 如果你不想安装TWRP也可以直接安装要刷的系统的recovery，一般放在系统zip包的中，如果没有则需要手动解包payload.bin，可以安装payload-dumper-go并在解压出来的系统文件夹中使用``payload-dumper-go payload.bin``，随后会将所有.img后缀的文件放在文件夹中。
 
 
 ## **八.Root后的模块安装**
