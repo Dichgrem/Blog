@@ -257,6 +257,17 @@
 <li>是否需要加密特定文章？</li>
 </ul>
 <p><strong>以上的功能和需求是否对SEO和界面相应时间造成影响？</strong></p>
+<h2 id="xiao-ji">小记</h2>
+<p>由于我所使用的平台不支持zola，因此我直接在本地编译public并推送，这样时间久了.git文件夹大小会非常大（记录public的变化），我又不想将zola的二进制包放入目录下，因此有了这个办法：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 安装git-filter-repo工具
+</span><span>paru git-filter-repo
+</span><span># 清理public相关的历史
+</span><span>git clone git@github.com:Dichgrem/Blog.git blog1 &amp;&amp; cd blog1
+</span><span>git filter-repo --path public --invert-paths
+</span><span>git gc --aggressive --prune=now
+</span><span># 重新推送到github
+</span><span>git push --force --mirror
+</span></code></pre>
 <h2 id="link">🔗</h2>
 <ul>
 <li><a href="https://gohugo.io/documentation/">Hugo官方文档</a></li>
