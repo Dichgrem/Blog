@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/learn-linux-for-pc-5/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/learn-linux-for-pc-5/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/learn-linux-for-pc-5/">Linux之旅(五):BIOS-UEFI-MBR-GPT-GRUB</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-07-24
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 在计算机领域，系统引导和磁盘分区是至关重要的。本文将介绍BIOS与UEFI，MBR与GPT，以及它们之间的异同点。此外，我们还会讨论与这些概念密切相关的引导加载程序——GRUB。</p>
+<span id="continue-reading"></span><h2 id="bios">BIOS</h2>
+<blockquote>
+<p><code>BIOS（Basic Input Output System）</code>，直译成中文名称就是"<code>基本输入输出系统</code>"。它是一组固化到主板中一个ROM芯片上的程序，它可以从CMOS中读写系统设置的具体信息。此程序保存着计算机最重要的基本输入输出程序、开机后的自检程序和系统自启动程序。简单来说，BIOS只认识设备，不认识分区、不认识文件。</p>
+</blockquote>
+<h2 id="uefi">UEFI</h2>
+<blockquote>
+<p>UEFI（统一可扩展固件接口）是一个公开的规范，定义了操作系统和平台固件之间的软件接口。UEFI 是传统 PC BIOS 的继承者，是取代传统BIOS的，相比传统BIOS来说，它更易实现，容错和纠错特性也更强。  它将引导数据存储在 .efi 文件中，而不是固件中。你经常会在新款的主板中找到 UEFI 启动模式。UEFI 启动模式包含一个特殊的 EFI 分区，用于存储 .efi 文件并用于引导过程和引导加载程序。</p>
+</blockquote>
+<blockquote>
+<p>UEFI使用GPT的分区引导方案，支持更大的硬盘。由于省去了BIOS自检的过程，所以启动速度更快。传统BIOS主要支持MBR引导，UEFI则是取代传统BIOS，它加入了对新硬件的支持，其中就有支持2TB以上硬盘。</p>
+</blockquote>
+<h2 id="mbr">MBR</h2>
+<blockquote>
+<p>全新硬盘在使用之前必须进行分区格式化，硬盘分区初始化的格式主要有两种，分别为<code>MBR</code>格式和<code>GPT</code>格式。MBR是传统的分区表类型，当一台电脑启动时，它会先启动主板上的BIOS系统，BIOS再从硬盘上读取MBR主引导记录，硬盘上的MBR运行后，就会启动操作系统，但最大的缺点则是不支持容量大于2T的硬盘。</p>
+</blockquote>
+<h2 id="gpt">GPT</h2>
+<blockquote>
+<p>而GPT是另一种更先进的磁盘系统分区方式，它的出现弥补了MBR这个缺点，最大支持<code>18EB</code>的硬盘，是基于<code>UEFI</code>使用的磁盘分区架构。目前所有Windows系统均支持<code>MBR</code>，而<code>GPT</code>只有<code>64</code>位系统才能支持。<code>BIOS只支持MBR引导系统，而GPT仅可用UEFI引导系统</code>。正因为这样，现在主板大多采用BIOS集成UEFI，或UEFI集成BIOS，以此达到同时兼容MBR和GPT引导系统的目的。</p>
+</blockquote>
+<h2 id="grub">GRUB</h2>
+<blockquote>
+<p>GRUB（GRand unified bootloader）,多操作系统启动程序。它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。</p>
+<p>GRUB可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。<code>它是一个多重操作系统启动管理器，用来引导不同系统</code>，如Windows、Linux。Linux常见的引导程序包括LILO、GRUB、GRUB2。</p>
+</blockquote>
+<h2 id="legacy">Legacy</h2>
+<blockquote>
+<p>如果你遇到过刚制作的U盘启动盘无法启动，或者新买的固态硬盘做好系统后无法启动，那么大概率的问题就出现在BIOS的引导模式的选择上，是UEFI还是Legacy。legacy启动模式是指BIOS 固件用来初始化硬件设备的引导过程，Legacy启动模式包含一系列已安装的设备，这些设备在引导过程中计算机执行 POST （开机自检）测试时会被初始化。传统引导将检查所有连接设备的主引导记录 (MBR)，通常位于磁盘的第一个扇区。<br />
+当它在设备中找不到引导加载程序时，Legacy会切换到列表中的下一个设备并不断重复此过程，直到找到引导加载程序，否则返回错误。</p>
+</blockquote>
+<h2 id="biao-ge">表格</h2>
+<h3 id="bios-uefi">BIOS/UEFI</h3>
+<table><thead><tr><th>BIOS</th><th>UEFI</th></tr></thead><tbody>
+<tr><td>用于初始化计算机硬件并引导操作系统</td><td>在计算机启动时运行</td></tr>
+<tr><td>具有较少功能和灵活性</td><td>具有更多功能和灵活性</td></tr>
+<tr><td></td><td>支持更大的硬盘容量、更快的启动速度、更好的安全性和更多的扩展性v</td></tr>
+<tr><td></td><td>通常具有图形用户界面（GUI）</td></tr>
+</tbody></table>
+<h3 id="mbr-gpt">MBR/GPT</h3>
+<table><thead><tr><th>MBR</th><th>GPT</th></tr></thead><tbody>
+<tr><td>用于分区磁盘并存储分区布局信息</td><td>用于分区磁盘并存储分区布局信息</td></tr>
+<tr><td>支持最多4个主分区或3个主分区加1个扩展分区</td><td>支持最多4个主分区或3个主分区加1个扩展分区支持最多4个主分区或3个主分区加1个扩展分区</td></tr>
+<tr><td></td><td>具有更好的数据完整性和可靠性，使用校验和检测数据损坏</td></tr>
+<tr><td></td><td>UEFI需要GPT格式的磁盘才能引导</td></tr>
+</tbody></table>
+<h3 id="uefi-legacy">UEFI/Legacy</h3>
+<table><thead><tr><th>UEFI 引导模式</th><th>Legacy引导模式</th></tr></thead><tbody>
+<tr><td>UEFI 提供了更好的用户界面</td><td>Legacy引导模式是传统的且非常基本的</td></tr>
+<tr><td>使用 GPT 分区方案</td><td>使用 MBR 分区方案</td></tr>
+<tr><td>UEFI 提供更快的启动时间</td><td>相比UEFI，它的速度较慢</td></tr>
+<tr><td>由于 UEFI 使用 GPT 分区方案，因此它可以支持多达 9 zB 的存储设备</td><td>Legacy使用的 MBR 分区方案仅支持最多 2 TB 存储设备</td></tr>
+<tr><td>UEFI 以 32 位和 64 位运行，支持鼠标和触摸板</td><td>Legacy在仅支持键盘，仅 16 位模式下运行</td></tr>
+<tr><td>它允许安全启动，防止加载未经授权的应用程序它还可能阻碍双启动，因为它将操作系统（OS）视为应用程序</td><td>它不提供允许加载未经授权的应用程序的安全启动方法，未限制双启动</td></tr>
+<tr><td>它具有更简单的更新过程</td><td>与UEFI相比，它更复杂</td></tr>
+</tbody></table>
+<h2 id="zu-he">组合</h2>
+<ul>
+<li>
+<p><strong>BIOS+MBR</strong>：</p>
+<p>这是最传统的，系统都会支持；唯一的缺点就是<code>不支持容量大于2T的硬盘</code>。</p>
+</li>
+<li>
+<p><strong>BIOS+GPT</strong>：</p>
+<p>BIOS是可以使用GPT分区表的硬盘来作为数据盘的，但不能引导系统；若电脑同时带有容量小于2T的硬盘和容量大于2T的硬盘，<code>小于2T的可以用MBR分区表安装系统，而大于2T的可以使用GPT分区表来存放资料</code>。但系统须使用64位系统。</p>
+</li>
+<li>
+<p><strong>UEFI+MBR</strong>：</p>
+<p>可以把UEFI设置成<code>Legacy模式</code>（传统模式）让其支持传统MBR启动，效果同<code>BIOS+MBR</code>；也可以建立FAT分区，放置UEFI启动文件来，可应用在U盘和移动硬盘上实现双模式启动。</p>
+</li>
+<li>
+<p><strong>UEFI+GPT</strong>：</p>
+<p>如果要把大于2T的硬盘作为系统盘来安装系统的话，就必须<code>UEFI+GPT</code>。而且系统须使用64位系统，否则无法引导。但系统又不是传统在PE下安装后就能直接使用的，引导还得经过处理才行。</p>
+</li>
+</ul>
+<h2 id="xi-tong-de-qi-dong-guo-cheng">系统的启动过程</h2>
+<p>从按下计算机的开机按钮到用户开始使用计算机，涉及了多个步骤和组件，让我们一起详细了解整个过程：</p>
+<p><strong>1. 电源启动</strong>：</p>
+<ul>
+<li>用户按下计算机的开机按钮，电源开始供电，计算机硬件开始初始化。电源将电流传递到主板上的BIOS/UEFI芯片。</li>
+</ul>
+<p><strong>2. BIOS/UEFI启动</strong>：</p>
+<ul>
+<li>BIOS/UEFI芯片接收到电源信号后，开始执行初始化过程。它首先进行自检（POST），检测主板、CPU、内存等硬件设备的工作状态，并在显示屏上输出相关信息。</li>
+<li>BIOS/UEFI根据配置的启动顺序（通常为硬盘、光盘、USB等）搜索启动设备，并加载位于启动设备上的引导加载程序。</li>
+</ul>
+<p><strong>3. 引导加载程序加载</strong>：</p>
+<ul>
+<li>引导加载程序（如GRUB）被加载到内存中，它负责后续的操作系统加载过程。GRUB通常会显示启动菜单，列出可用的操作系统选项。</li>
+<li>用户可以在GRUB菜单中选择要启动的操作系统，或者等待默认选项启动。</li>
+</ul>
+<p><strong>4. 操作系统加载</strong>：</p>
+<ul>
+<li>一旦选择了启动选项，引导加载程序会加载操作系统的内核和初始化RAM磁盘（initramfs/initrd）。</li>
+<li>内核加载完成后，操作系统开始启动初始化过程，包括加载系统服务、挂载文件系统、启动用户界面等。</li>
+</ul>
+<p><strong>5. 用户登录</strong>：</p>
+<ul>
+<li>操作系统初始化完成后，显示登录界面（如果配置了图形用户界面），用户输入用户名和密码登录系统。</li>
+<li>如果登录成功，操作系统加载用户的桌面环境或命令行界面，用户开始使用计算机。</li>
+</ul>
+<h2 id="ge-chong-yin-dao-jia-zai-cheng-xu">各种引导加载程序</h2>
+<table><thead><tr><th>特性</th><th>GRUB（GRand Unified Bootloader）</th><th>LILO（Linux Loader）</th><th>systemd-boot（前身为 gummiboot）</th><th>rEFInd（UEFI 引导管理器）</th></tr></thead><tbody>
+<tr><td><strong>支持的系统类型</strong></td><td>BIOS 和 UEFI</td><td>仅支持 BIOS 模式</td><td>仅支持 UEFI</td><td>仅支持 UEFI</td></tr>
+<tr><td><strong>多系统引导支持</strong></td><td>✅ 强大支持</td><td>❌ 不支持多系统引导</td><td>✅ 支持（需手动配置）</td><td>✅ 自动检测操作系统</td></tr>
+<tr><td><strong>图形界面支持</strong></td><td>✅ 支持（可自定义主题）</td><td>❌ 不支持</td><td>❌ 不支持</td><td>✅ 支持（可自定义主题）</td></tr>
+<tr><td><strong>配置方式</strong></td><td>配置文件（复杂）</td><td>配置文件（简单）</td><td>配置文件（简单）</td><td>配置文件（简单）</td></tr>
+<tr><td><strong>命令行支持</strong></td><td>✅ 支持（交互式命令行）</td><td>❌ 不支持</td><td>❌ 不支持</td><td>❌ 不支持</td></tr>
+<tr><td><strong>文件系统支持</strong></td><td>✅ 支持多种文件系统</td><td>✅ 支持 ext2/ext3/ext4 等</td><td>✅ 支持 ext4、FAT 等</td><td>✅ 支持 ext4、FAT 等</td></tr>
+<tr><td><strong>安全启动支持</strong></td><td>✅ 支持（需配置）</td><td>❌ 不支持</td><td>✅ 支持（需配置）</td><td>✅ 支持（需配置）</td></tr>
+<tr><td><strong>安装复杂度</strong></td><td>中等（需配置）</td><td>较低</td><td>较低</td><td>中等（需配置）</td></tr>
+<tr><td><strong>适用场景</strong></td><td>多系统引导、复杂配置</td><td>简单系统引导</td><td>简单系统引导</td><td>多系统引导、美观界面</td></tr>
+</tbody></table>
+<h2 id="hou-ji">后记</h2>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000020850901">聊聊BIOS、UEFI、MBR、GPT、GRUB……</a></li>
+</ul>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/learn-linux-for-pc-4/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Linux之旅(四):Terminal，Console and Shell</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/learn-linux-for-pc-6/">
+                            <span class="button__text">Linux之旅(六):常用命令与性能分析</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+

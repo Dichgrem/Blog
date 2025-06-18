@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-openwrt/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-openwrt/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-openwrt/">综合工程:OpenWrt路由部署与软件编译</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-12
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 openwrt 是一个自由的、兼容性好的嵌入式 linux 发行版。作为软路由玩家必备的一款神器，可以实现诸如去广告，多拨和科学上网等多种功能。本文介绍openwrt在各种平台上的部署流程。</p>
+<span id="continue-reading"></span><h2 id="yao-shi-xian-de-mu-biao"><strong>要实现的目标</strong></h2>
+<ul>
+<li>1.IPv6 分配到每个设备；</li>
+<li>2.NAT类型为NAT1（全锥形）；</li>
+<li>3.可控的流量记录与IP控制/QOS；</li>
+<li>4.可靠的硬件加速；</li>
+<li>5.多线多播/宽带提速；</li>
+<li>6.PPPoE拨号，替代一部分光猫功能；</li>
+<li>7.智能DNS配置与去广告；</li>
+<li>8.VPN配置回家；</li>
+<li>9.实现透明代理。</li>
+</ul>
+<blockquote>
+<p>剩余专业路由功能可以由ROS替代，服务则跑在NAS系统上，避免ALL in Boom！</p>
+</blockquote>
+<h2 id="da-zhi-si-lu">大致思路</h2>
+<ul>
+<li>使用高性能的X86主机管理拨号和 DHCP 内网的工作，其他无线路由器桥接做AP，Mesh组网；</li>
+<li>使用绕过中国流量模式，国内流量不经过代理内核直接直连，加快国内网站访问。保持尽可能高的 NAT 等级；</li>
+<li>不使用旁路由，所有流量过主路由；由于第二点代理挂了也不影响国内正常上网；</li>
+<li>国内外域名分流查询，国内域名查运营商 DNS ，国外域名经代理查国外 DoH ，直接返回真实 IP；</li>
+<li>良好的国内 IPv6 支持，只对国内域名返回 IPv6 AAAA 结果，国外域名只用 IPv4；</li>
+<li>兼容 Adguard Home ，方便管理域名黑白名单；</li>
+<li>对能直连的国外服务能返回最优的节点，而不是绕路其他地方；</li>
+</ul>
+<h2 id="xuan-ze-he-gua-de-she-bei"><strong>选择合适的设备</strong></h2>
+<p>无论是传统的无线路由器还是小主机都有成为openwrt路由的潜力。截止到今天，已经有20多个品牌（小米，华硕，锐捷，华三等）30多种架构（x86,ipq,bcm,mtd等）支持刷入openwrt；你可以在这个<a href="https://mao.fan/select">网站</a>找到符合你预算和其他要求的，能刷机的路由器。
+传统家用无线路由器由于主频低，内存小，并不适合作为软路由；而 NAS-软路由一体式 又有 all in boom 的风险，因此推荐X86平台作为物理机。当然，也可以采用 armbian 平台或是开发板，例如网心云老母鸡、树莓派等设备。截至本文撰写时间，二手平台上的价格不太利好：一台J1900平台的售价往往在200左右，而专门的多网口工控机价格在200到1000不等，树莓派更是成为了理财产品，需要慎重选择。</p>
+<h2 id="xuan-ze-he-gua-de-xi-tong"><strong>选择合适的系统</strong></h2>
+<p>除了openwrt主线外，还可以选择：</p>
+<ul>
+<li>
+<p><a href="https://github.com/coolsnowwolf/lede">LEDE</a> 高质量，更新快速，具有新特性的openwrt分支。</p>
+</li>
+<li>
+<p><a href="https://github.com/istoreos">iStoreOS</a> iStoreOS是openwrt的一个分支，iStoreOS 提供了软件中心：iStore，以及较美观的界面和docker支持，对新手体验较好。</p>
+</li>
+<li>
+<p><a href="https://firmware-selector.immortalwrt.org/">ImmortalWrt</a> 是一个原版openwrt的分支，中文优化好，更新也勤快，内置镜像源可以直连下载&amp;更新。</p>
+</li>
+</ul>
+<h2 id="ru-he-de-dao-yi-ge-openwrtxi-tong"><strong>如何得到一个openwrt系统</strong></h2>
+<ul>
+<li>可以在恩山论坛上使用他人编译好的现成的镜像，如"高大全","精品小包"等等，但存在一定风险；</li>
+<li>可以使用<a href="https://downloads.openwrt.org/">官方固件</a>下载得到一个最小化的系统，再一步步添加自己要用的包；注意需要根据你的uboot来选择，注意固件名称是否带了uboot_mod!</li>
+<li>可以使用<a href="https://firmware-selector.openwrt.org/">Openwrt 在线编译</a>或<a href="https://openwrt.ai/?target=x86%2F64&amp;id=generic">Openwrt.ai</a>在线编译
+一个固件；</li>
+<li>可以使用GitHub action 云编译一个固件；</li>
+<li>可以在本地linux环境中进行编译。</li>
+</ul>
+<h2 id="x86ping-tai-an-zhuang-zhun-bei"><strong>X86平台安装准备：</strong></h2>
+<ul>
+<li>
+<p>一个U盘与一台双网口物理机</p>
+</li>
+<li>
+<p>openwrt 的编译包，官方网站：<a href="https://firmware-selector.openwrt.org/?version=24.10.0-rc2&amp;target=ipq40xx%2Fgeneric&amp;id=glinet_gl-a1300">OpenWrt Firmware Selector</a></p>
+</li>
+<li>
+<p>或者用由 eSir 大佬编译的<a href="https://drive.google.com/drive/folders/1uRXg_krKHPrQneI3F2GNcSVRoCgkqESr">懒人包</a></p>
+</li>
+<li>
+<p>PE 启动盘，这里推荐<a href="https://github.com/VirtualHotBar/HotPEToolBox">HotPE</a></p>
+</li>
+<li>
+<p><a href="https://www.roadkil.net/program.php?ProgramID=12#google_vignette">img 写盘工具</a></p>
+</li>
+</ul>
+<h2 id="x86ping-tai-an-zhuang-liu-cheng"><strong>X86平台安装流程：</strong></h2>
+<p>1.进入PE环境：</p>
+<ul>
+<li>打开微PE，将其安装进U盘中，安装完成后将 img 工具和 openwrt 包一起放进去；</li>
+<li>将U盘插入目标主机，进入 BIOS-boot 设置U盘优先启动，各主板进入 BIOS 的按键不同，不确定的话建议都试一遍。</li>
+</ul>
+<p>2.格式化硬盘并写盘</p>
+<ul>
+<li>进入PE环境中，可以看到存在名为“分区助手”的软件，打开它并将目标主机硬盘格式化；注意不要分区！不要分区！不要设置文件系统！否则后续可能无法编译！点击左上角提交并执行</li>
+<li>打开img写盘工具，将openwrt包写入硬盘，注意不要写进U盘里。</li>
+</ul>
+<p>3.进入配置界面</p>
+<ul>
+<li>重启系统并快速拔出U盘，避免重新进入PE；这时系统开始运行了。注意Esir固件是不跑码的，无需担心。- 一个U盘与一台双网口物理机</li>
+<li>当看到 <code>please press Enter to activate this console</code>这个提示的时候系统就安装完毕了。可使用 passwd 命令设置密码。软路由将自动获取IP地址，随后我们在浏览器中打开该地址，即可看到 Lucl 界面。</li>
+</ul>
+<p>4.如果你使用官方固件，注意:</p>
+<ul>
+<li>硬盘空间有一部分没有被格式化，可以手动格式化为ext4并挂载。</li>
+<li>注意初始IP往往是192.168.1.1，如果和光猫冲突需要在网络-接口中更改。</li>
+<li>基本系统主题比较简陋，可以使用luci-theme-argon。</li>
+<li>刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）：
+<code>uci set luci.main.mediaurlbase='/luci-static/bootstrap' uci commit luci /etc/init.d/uhttpd restart</code>
+然后重新访问 Web 界面，查看是否恢复正常。</li>
+<li>一般要安装的包：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>openssh-sftp-server
+</span><span>libpcap
+</span><span>luci-app-upnp
+</span><span>luci-app-ttyd
+</span><span>kmod-nft-xxx
+</span></code></pre>
+<h2 id="x86ping-tai-ben-di-bian-yi-wan-zheng-openwrt"><strong>X86平台本地编译完整openwrt</strong></h2>
+<ul>
+<li>
+<p><strong>系统版本：Debian 11 或者 Ubuntu LTS</strong></p>
+</li>
+<li>
+<p><strong>网络要求：科学上网环境，配置推荐 2H4G 以上</strong></p>
+</li>
+<li>
+<p><strong>编译依赖</strong></p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update
+</span><span>sudo apt install -y \
+</span><span>  ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+</span><span>  bzip2 ccache clang cmake cpio curl device-tree-compiler diffutils diffstat findutils flex gawk \
+</span><span>  gcc-multilib g++-multilib git gettext gperf grep haveged help2man intltool \
+</span><span>  libelf-dev libfuse-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev libglib2.0-dev \
+</span><span>  libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev \
+</span><span>  libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
+</span><span>  perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
+</span><span>  python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
+</span><span>  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev genisoimage llvm llvm-runtime docutils-common \
+</span><span>  ecj fastjar java-wrappers libeclipse-jdt-core-java libgnutls-dane0t64 \
+</span><span>  libgnutls-openssl27t64 libgnutls28-dev libidn2-dev libp11-kit-dev libtasn1-6-dev libtasn1-doc \
+</span><span>  libunbound8 libyaml-dev lld lld-18 nettle-dev python3-docutils python3-ply python3-roman re2c
+</span></code></pre>
+<ul>
+<li><strong>清理</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt autoremove --purge
+</span><span>sudo apt clean
+</span></code></pre>
+<ul>
+<li><strong>新建一个用户，用于编译固件(可选)</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>useradd -m openwrt  # 新建一个名为 openwrt 的用户
+</span></code></pre>
+<blockquote>
+<p>不可以使用Root用户进行编译！!!</p>
+</blockquote>
+<ul>
+<li><strong>修改用户默认的 Shell</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt install -y sudo
+</span><span>usermod -s /bin/bash openwrt
+</span></code></pre>
+<ul>
+<li><strong>切换用户</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>su openwrt
+</span><span>cd ~
+</span></code></pre>
+<ul>
+<li><strong>拉取源码，这里用的是 LEDE 分支源码：</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/coolsnowwolf/lede
+</span><span>cd lede
+</span></code></pre>
+<h3 id="mu-lu-shuo-ming">目录说明</h3>
+<ul>
+<li>
+<p>buildroot: OpenWrt 的核心目录，包含构建系统相关的文件。</p>
+<ul>
+<li><code>feeds.conf.default</code>：定义软件包源的配置文件。</li>
+<li><code>files/</code>：存放自定义文件，用于覆盖默认的 root 文件系统。</li>
+</ul>
+</li>
+<li>
+<p>target: 包含目标设备架构的配置和构建信息。</p>
+<ul>
+<li><code>linux/</code>：包含与 Linux 内核相关的代码和配置。</li>
+<li><code>generic/</code>：通用配置文件。</li>
+<li><code>platform/</code>：针对具体设备平台的特定配置。</li>
+</ul>
+</li>
+<li>
+<p>package: 包含所有 OpenWrt 的软件包。</p>
+<ul>
+<li><code>base/</code>：基本功能相关的软件包（如 BusyBox、opkg）。</li>
+<li><code>kernel/</code>：与内核相关的补丁或模块。</li>
+<li><code>network/</code>：网络工具和协议（如 DHCP、DNS）。</li>
+<li><code>utils/</code>：各种实用工具（如编解码器、文件工具）。</li>
+</ul>
+</li>
+<li>
+<p>config: 存放默认配置文件，例如 <code>Config.in</code>，用于定义菜单项。</p>
+</li>
+<li>
+<p>scripts: 构建过程中使用的辅助脚本（如生成补丁、编译镜像）。</p>
+</li>
+<li>
+<p>toolchain: 构建工具链所需的文件，如编译器、链接器。</p>
+</li>
+<li>
+<p>tools: 一些构建系统依赖的额外工具（如 <code>autoconf</code>、<code>zlib</code>）。</p>
+</li>
+<li>
+<p>include: 存放 Makefile 的通用模板和其他全局定义文件。</p>
+</li>
+<li>
+<p>feeds: 包含通过 <code>feeds.conf</code> 配置的外部软件包源。</p>
+</li>
+<li>
+<p>documentation: 包含与 OpenWrt 项目相关的文档，如构建指南和开发文档。</p>
+</li>
+<li>
+<p><strong>添加软件源,可自行添加软件源至 feeds.conf.default 文件，也可以直接git添加需要的软件到lede目录下：</strong></p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>vim feeds.conf.default
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>常用源
+</span><span>src-git kenzo https://github.com/kenzok8/openwrt-packages
+</span><span>src-git small https://github.com/kenzok8/small
+</span><span>src-git haibo https://github.com/haiibo/openwrt-packages
+</span><span>src-git liuran001 https://github.com/liuran001/openwrt-packages
+</span></code></pre>
+<ul>
+<li><strong>单独添加</strong>（在更新并安装插件之前执行）例如：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/chenmozhijin/turboacc.git
+</span></code></pre>
+<ul>
+<li><strong>更新并安装插件</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>./scripts/feeds clean
+</span><span>./scripts/feeds update -a
+</span><span>./scripts/feeds install -a
+</span></code></pre>
+<ul>
+<li><strong>自定义配置</strong></li>
+</ul>
+<p><strong>修改默认IP为 10.0.0.2</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &#39;s/192.168.1.1/192.168.2.1/g&#39; package/base-files/files/bin/config_generate
+</span></code></pre>
+<p><strong>修改默认主机名</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &#39;/uci commit system/i\uci set system.@system[0].hostname=&#39;OpenWrt&#39;&#39; package/lean/default-settings/files/zzz-default-settings
+</span></code></pre>
+<p><strong>加入编译者信息</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &quot;s/OpenWrt /smith build $(TZ=UTC-8 date &quot;+%Y.%m.%d&quot;) @ OpenWrt /g&quot; package/lean/default-settings/files/zzz-default-settings
+</span></code></pre>
+<p><strong>修改默认主题</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &quot;s/luci-theme-bootstrap/luci-theme-argon/g&quot; feeds/luci/collections/luci/Makefile
+</span></code></pre>
+<p>执行 <strong>make menuconfig</strong> 命令进入编译菜单。</p>
+<h3 id="bian-yi-pei-zhi-cai-dan-shuo-ming-bu-fen"><strong>编译配置菜单说明（部分）</strong></h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target System (Broadcom BCM27xx)     # 选择处理器架构
+</span><span>└── Subtarget (BCM2711 boards (64 bit))     # 选择处理器
+</span><span>    └── Target Profile (Raspberry Pi 4B/400/4CM (64bit))     # 预制配置文件
+</span><span>        └── Target Images     # 固件映像设置
+</span><span>            └── ramdisk     # 内存盘
+</span><span>                ├── Compression     # 压缩等级 (none 表示不压缩)
+</span><span>                ├── Root filesystem archives     # 根文件系统存档类型
+</span><span>                │   ├── cpio.gz
+</span><span>                │   └── tar.gz
+</span><span>                ├── Root filesystem images     # 根文件系统格式
+</span><span>                │   ├── ext4     # 适用于大容量闪存
+</span><span>                │   ├── squashfs     # 适用于小容量闪存
+</span><span>                │   └── Gzip images     # Gzip 存档
+</span><span>                └── Image Options
+</span><span>                    ├── Kernel partition size     # 内核分区大小
+</span><span>                    ├── Root filesystem partition size     # 跟文件系统分区大小
+</span><span>                    └── Make /var persistent     # 持久化 /var
+</span><span>
+</span><span>Enable experimental features by default     # 默认启用实验性功能
+</span><span>Global build settings     # 全局编译设置
+</span><span>Advanced configuration options (for developers)     # 高级选项（仅供开发者）
+</span><span>Build the OpenWrt Image Builder     # 编译 OpenWrt 镜像编译器
+</span><span>Build the OpenWrt SDK     # 编译 OpenWrt SDK
+</span><span>Package the OpenWrt-based Toolchain     # 打包 OpenWrt 工具链
+</span><span>Image configuration     # 镜像选项
+</span><span>
+</span><span>Base system     # 基本组件
+</span><span>Administration     # 管理员工具
+</span><span>Boot Loaders     # 引导程序
+</span><span>Development     # 开发者工具
+</span><span>Extra packages     # 额外包
+</span><span>Firmware     # 固件工具
+</span><span>Fonts     # 字体
+</span><span>Kernel modules     # 内核模块
+</span><span>Languages     # 额外的语言 (Python3, PHP, NodeJS 等)
+</span><span>Libraries     # 系统库
+</span><span>LuCI     # LuCI 插件（一般只需修改应用和主题）
+</span><span>└── Collections
+</span><span>└── Modules
+</span><span>└── Applications
+</span><span>└── Themes
+</span><span>└── Protocols
+</span><span>└── Libraries
+</span><span>└── default-settings     # 默认选项（自动配置语言包）
+</span><span>
+</span><span>Mail     # 邮件
+</span><span>Multimedia     # 多媒体
+</span><span>Network     # 网络相关
+</span><span>Sound     # 音频
+</span><span>Utilities     # 各类实用软件（比如 VIM）
+</span><span>Xorg
+</span></code></pre>
+<h3 id="cai-dan-xuan-xiang-shuo-ming"><strong>菜单选项说明</strong></h3>
+<p><strong>选择 CPU 类型</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target System (x86) --&gt; # 软路由选择 x86，硬路由根据型号厂家自行选择
+</span><span>
+</span><span>Subtarget (x86_64) --&gt; # CPU 子选项
+</span><span>
+</span><span>Target Profile (Generic x86/64) --&gt; # 厂家具体型号
+</span></code></pre>
+<p><strong>设置镜像编译的格式（squashfs，ext4）</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target Images --&gt; # 默认 squashfs
+</span></code></pre>
+<p><strong>添加较多插件时，为了避免空间不足，建议修改下面两项默认大小（x86/64）</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target Images --&gt; (16) Kernel partition size (in MB) # 默认是16，建议修改为256
+</span></code></pre>
+<p><strong>开启 IPv6 支持</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Extra packages --&gt; ipv6helper（选定这个后，下面几项会自动选择）
+</span></code></pre>
+<p><strong>开启适用于 VMware 的 VMware Tools</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Utilities --&gt; open-vm-tools
+</span><span>
+</span><span>Utilities --&gt; open-vm-tools-fuse
+</span></code></pre>
+<p><strong>选择插件</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>LuCI --&gt; Applications # 根据需要选择，* 代表编入固件，M 表示编译成模块或者IPK包，为空表示不编译
+</span></code></pre>
+<p><strong>选择主题</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>LuCI --&gt; Themes # 选择喜欢的主题，可以选多个
+</span></code></pre>
+<p>配置完成后使用编译菜单底部的 Save 保存，然后退出菜单 Exit，开始下载软件包</p>
+<ul>
+<li><strong>预下载编译所需的软件包</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make download -j8
+</span></code></pre>
+<ul>
+<li><strong>检查文件完整性</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>find dl -size -1024c -exec ls -l {} \;
+</span></code></pre>
+<p>检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查.确认所有文件完整可大大提高编译成功率，避免浪费时间</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>find dl -size -1024c -exec rm -f {} \;
+</span></code></pre>
+<p>最后编译固件，编译完成后输出路径是 <strong>bin/targets</strong>，默认密码是 <strong>password</strong>.</p>
+<ul>
+<li><strong>编译固件（-j 后面是线程数，首次编译推荐用单线程）</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make V=s -j1
+</span></code></pre>
+<ul>
+<li><strong>二次编译</strong></li>
+</ul>
+<p>拉取最新 OpenWrt 源码和更新 feeds 源中的软件包源码</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cd lede
+</span><span>
+</span><span>git pull
+</span><span>
+</span><span>./scripts/feeds update -a
+</span><span>
+</span><span>./scripts/feeds install -a
+</span></code></pre>
+<p>清除旧的编译产物和目录（可选）</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make clean
+</span></code></pre>
+<ul>
+<li>源码有大规模更新或者内核更新后执行，以保证编译质量;此操作会删除 /bin 和 /build_dir 目录中的文件</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make dirclean
+</span></code></pre>
+<blockquote>
+<p>更换架构编译前必须执行</p>
+</blockquote>
+<blockquote>
+<p>此操作会删除 /bin 和 /build_dir 目录的中的文件（make clean），以及 /staging_dir、/toolchain、/tmp 和 /logs 中的文件</p>
+</blockquote>
+<p>同首次编译，多线程编译失败后自动进入单线程编译，失败则输出详细日志</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make defconfig
+</span><span>
+</span><span>make download -j8
+</span><span>
+</span><span>find dl -size -1024c -exec ls -l {} \;
+</span><span>
+</span><span>make -j$(nproc) || make -j1 || make -j1 V=s
+</span></code></pre>
+<h3 id="ru-guo-xu-yao-zhong-xin-pei-zhi">如果需要重新配置</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>rm -rf ./tmp &amp;&amp; rm -rf .config # 清除临时文件和编译配置文件
+</span><span>
+</span><span>make menuconfig
+</span><span>
+</span><span>make download -j8
+</span><span>
+</span><span>find dl -size -1024c -exec ls -l {} \;
+</span><span>
+</span><span>make -j$(nproc) || make -j1 || make -j1 V=s
+</span></code></pre>
+<h2 id="armping-tai-an-zhuang-openwrt">Arm平台安装OpenWrt：</h2>
+<p>相比X86平台，arm架构的设备兼容性不高，不能随便找一个包就能安装。以下是一般步骤：</p>
+<ul>
+<li>
+<p>首先得知道你的设备的CPU，比如ipq40XX系列，然后在对应的<a href="https://archive.openwrt.org/releases/23.05.4/targets/">仓库</a>查看并下载包体。</p>
+</li>
+<li>
+<p>当然也可以在<a href="https://firmware-selector.openwrt.org/">这里</a>直接下载相关型号对应的固件，其中 Sysupgrade 映像是用来更新现有运行 OpenWrt 的设备，使用 Factory 映像在首次刷机时刷入。</p>
+</li>
+<li>
+<p>随后开启Telnet或者SSH或者TTL串口连接到路由器，将对应的Uboot刷入，如果没有适配的包就无法刷openwrt。</p>
+</li>
+<li>
+<p>通过Uboot的网络界面刷入Factory包，随后就可以在后台（如192.168.1.1）进入openwrt的管理界面。</p>
+</li>
+</ul>
+<h2 id="zai-ubuntushang-dan-du-bian-yi-openwrtde-ipkbao">在ubuntu上单独编译openwrt的ipk包</h2>
+<p>这里以ubuntu环境为例，我们假设你有一台虚拟机或者WSL。</p>
+<blockquote>
+<p><code>注意编译不能使用Root用户！</code></p>
+</blockquote>
+<p><strong>随后安装编译依赖的各个包：</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update
+</span><span>sudo apt install -y \
+</span><span>  ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+</span><span>  bzip2 ccache clang cmake cpio curl device-tree-compiler diffutils diffstat findutils flex gawk \
+</span><span>  gcc-multilib g++-multilib git gettext gperf grep haveged help2man intltool \
+</span><span>  libelf-dev libfuse-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev libglib2.0-dev \
+</span><span>  libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev \
+</span><span>  libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
+</span><span>  perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
+</span><span>  python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
+</span><span>  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev genisoimage llvm llvm-runtime docutils-common \
+</span><span>  ecj fastjar java-wrappers libeclipse-jdt-core-java libgnutls-dane0t64 \
+</span><span>  libgnutls-openssl27t64 libgnutls28-dev libidn2-dev libp11-kit-dev libtasn1-6-dev libtasn1-doc \
+</span><span>  libunbound8 libyaml-dev lld lld-18 nettle-dev python3-docutils python3-ply python3-roman re2c
+</span></code></pre>
+<p>随后下载我们<strong>刷入openwrt的对应的SDK包</strong>，如</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/immortalwrt/immortalwrt.git
+</span></code></pre>
+<p><strong>下载和安装仓库信息</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>./scripts/feeds update -a
+</span><span>./scripts/feeds install -a
+</span></code></pre>
+<p><strong>下载并选中我们需要编译的包,这里以inyn为例：</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/diredocks/openwrt-inyn.git ./package/inyn
+</span><span>make menuconfig
+</span></code></pre>
+<p>在 <code>menuconfig</code> 的命令行界面中，选中 <code>Network -&gt; inyn</code> 将其首部调整为 <code>&lt;M&gt;</code> 表示按需编译，最后选中 <code>Save -&gt; OK -&gt; Exit</code> 保存配置信息，然后 <code>Exit</code> 退出配置。</p>
+<p><strong>编译 inyn 软件包</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make package/inyn/compile V=s
+</span><span>## 如果不行则需要先编译工具链，即为 make j=4 ，j为CPU核数
+</span></code></pre>
+<h2 id="github-actions-bian-yi-openwrt">Github Actions 编译OpenWrt</h2>
+<p>Github为我们提供了免费的E5主机用来编译。</p>
+<ul>
+<li>
+<p>首先Fork<a href="https://github.com/hugcabbage/shared-lede">这个仓库</a>，可以看到有许多现成的配置，在<strong>顶栏actions里面可以直接启动一个Workflow</strong>来编译。</p>
+</li>
+<li>
+<p>大体架构是选择<strong>源码 -- 机型 -- 版本 -- 插件/主题 -- 配置（IP/密码/Hostname/编译者）</strong>，由一个config文件管理，这个文件在前面也提到过，可以在本地生成并上传；</p>
+</li>
+<li>
+<p>想要什么插件可以直接git clone过来原仓库，如果你想要添加其他架构和设备，这里<strong>使用templet里面的init.toml来创建</strong>，按照类似的格式填好；</p>
+</li>
+<li>
+<p>在actions里面运行produce，注意这需要<strong>GitHub Personal Access Token (PAT)</strong>；如果没有，必须先添加：</p>
+</li>
+<li>
+<p>打开 GitHub，进入<a href="https://github.com/settings/tokens">GitHub Developer Settings</a>点击 “Generate new token (classic)”，<strong>勾选所需权限</strong>（最关键的是 repo 和 workflow）：✅ repo（所有子权限）✅ workflow✅ read:packages <strong>Token 过期时间</strong>：选择 “No expiration”（不过期），否则过期后需要重新生成。<strong>点击</strong> “Generate token”
+<strong>复制 Token</strong>（只显示一次，一定要保存好！）</p>
+</li>
+<li>
+<p>然后添加 <strong>PRODUCE_DEVICE</strong> 到 <strong>GitHub Secrets</strong>，
+首先进入你的 GitHub 仓库，<code>依次进入：Settings（设置）- Secrets and variables-Actions-New repository secret 名称为PRODUCE_DEVICE</code>，值为粘贴刚刚复制的 GitHub Token，点击 “Add secret” 完成添加。</p>
+</li>
+<li>
+<p>随后<code>在actions里面运行produce</code>，完成后即可出现新架构的编译按钮.</p>
+</li>
+</ul>
+<h2 id="chang-yong-ming-ling">常用命令:</h2>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 更新软件列表
+</span><span>opkg update
+</span><span>
+</span><span># 更新所有 LUCI 插件
+</span><span>opkg list-upgradable | grep luci- | cut -f 1 -d &#39; &#39; | xargs opkg upgrade
+</span><span>
+</span><span># 如果要更新所有软件，包括 OpenWRT 内核、固件等
+</span><span>opkg list-upgradable | cut -f 1 -d &#39; &#39; | xargs opkg upgrade
+</span></code></pre>
+<blockquote>
+<p>新版本的openwrt（24.10）已经改用APK包管理器。</p>
+</blockquote>
+<h2 id="chang-yong-ke-xue-cha-jian">常用科学插件</h2>
+<table><thead><tr><th>特性</th><th>HomeProxy</th><th>OpenClash</th><th>Passwall</th><th>ShellClash</th></tr></thead><tbody>
+<tr><td><strong>核心</strong></td><td>Sing-box、Xray</td><td>Clash</td><td>Xray、Sing-box</td><td>Clash、Xray、Sing-box</td></tr>
+<tr><td><strong>UI 管理</strong></td><td>✅（Web UI、桌面端 GUI）</td><td>✅（OpenClash Web UI）</td><td>✅（Luci Web UI）</td><td>❌（Shell 终端管理）</td></tr>
+<tr><td><strong>适用场景</strong></td><td>性能较好,但分流设置复杂</td><td>适用于clash系,机场首选</td><td>操作简单,分流完善,但对路由器性能要求较高</td><td>没有UI界面，性能最好，支持完善，可以通过clashapi安装UI</td></tr>
+</tbody></table>
+<h2 id="xiao-yuan-wang-duo-she-bei-fang-jian-ce">校园网多设备防检测</h2>
+<p><strong>常见检测方法</strong>：</p>
+<ul>
+<li>TTL检测法 解法：插件统一修复或使用桥接；使用kmod-iptables-ipot模块；</li>
+<li>User-Agent 解法：统一经过singbox代理或使用UA2F/UA3F；</li>
+<li>时间戳检测法 解法：统一NTP服务器；</li>
+</ul>
+<p><strong>高性能开销检测方法</strong>：</p>
+<ul>
+<li>IP-ID检测法 解法：UDP over TCP或rkp-IPid；</li>
+<li>Flash cookie 解法：内置防火墙组件；</li>
+<li>DPI检测法 深度包检测特征值 解法：代理协议；</li>
+</ul>
+<blockquote>
+<p>高性能开销的检测方法会浪费大量性能，一般很少有学校这么做。IP-ID和Flash检测法如今已经不多见。</p>
+</blockquote>
+<p><strong>TTL修复</strong>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>依赖包
+</span><span>opkg install kmod-nft-core kmod-nft-bridge kmod-nft-net kmod-nft-offload kmod-nft-nat
+</span><span>
+</span><span>首先检查 mangle 表是否存在
+</span><span>nft list tables
+</span><span>
+</span><span>创建 mangle 表（如果不存在）
+</span><span>nft add table ip mangle
+</span><span>
+</span><span>创建 POSTROUTING 链（如果不存在）
+</span><span>nft add chain ip mangle POSTROUTING { type nat hook postrouting priority 0 \; }
+</span><span>
+</span><span>
+</span><span>添加 TTL 规则
+</span><span>nft add rule ip mangle POSTROUTING ip ttl set 64
+</span><span>
+</span><span>检查规则是否生效
+</span><span>nft list table ip mangle
+</span></code></pre>
+<h2 id="openwrtgai-apmo-shi">Openwrt改AP模式</h2>
+<p>有时候我们使用X86做主路由，想让无线路由器只起到发射信号的作用，就可以将其改为AP模式，一般步骤为：</p>
+<ul>
+<li>更改lan地址，将lan口地址改到主路由下的一个IP;</li>
+<li>关闭DHCP服务；</li>
+<li>关闭WAN口；</li>
+<li>关闭防火墙的禁止转发规则，全部允许；</li>
+<li>将X86主路由的网线插到AP的任意一个LAN口。</li>
+</ul>
+<h2 id="link">🔗</h2>
+<ul>
+<li><a href="https://openwrt.org/zh/docs/start">Openwrt wiki</a></li>
+<li><a href="https://openwrt.ai/?target=ipq807x%2Fgeneric&amp;id=xiaomi_ax3600">OpenWrt在线定制编译</a></li>
+<li><a href="https://www.cnblogs.com/tfel-ypoc/p/17226064.html">openwrt luci 页面无法访问 问题排查</a></li>
+<li><a href="https://post.smzdm.com/p/axz6369w/">超详细，多图，简单，OpenWRT 设置，IPV6配置</a></li>
+<li><a href="https://blog.csdn.net/weixin_44548582/article/details/121064734">保姆级-光猫改桥接-路由拨号-openwrt端口转发</a></li>
+</ul>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-pve-mcsm/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">综合工程:PVE安装与MC服务器搭建</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/awesome-android-root/">
+                            <span class="button__text">综合工程:安卓刷机与root教程</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+

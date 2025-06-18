@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-arch-linux/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-arch-linux/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-arch-linux/">综合工程:Arch-linux 安装与配置</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-16
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；这里介绍其安装与使用。</p>
+<span id="continue-reading"></span><h2 id="an-zhuang">安装</h2>
+<p>一般而言有以下几种安装方法：</p>
+<ul>
+<li>原版 Arch linux 的命令行安装；</li>
+<li>原版 Arch linux 的脚本安装；</li>
+<li>第三方发行版的图形界面安装。</li>
+</ul>
+<p>前两种方法较为繁琐，这里说明第三种方法：常见的Arch发行版有Garuda，Cachyos以及EndeavourOS等等。</p>
+<ul>
+<li><a href="https://cachyos.org/download/">Cachyos下载</a></li>
+<li><a href="https://garudalinux.org/editions">Garuda下载</a></li>
+<li><a href="https://endeavouros.com/">EndeavourOS下载</a></li>
+</ul>
+<p>安装方法同ubuntu一样，是基于Calamares的图形化界面安装。一般步骤为<code>选择语言（American English）--选择键盘/时区（默认/shanghai）--选择分区（xfs抹除全盘，可选全盘加密）--选择桌面环境（Gnome或KDE）--确认安装。</code></p>
+<h2 id="an-zhuang-ruan-jian">安装软件</h2>
+<p>随后安装常用开源软件：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># gui
+</span><span>
+</span><span>paru -S alacritty zellij qemu-full virt-manager wireshark-qt floorp-bin foliate materialgram-bin legcord-bin keepassxc onlyoffice-bin kazumi-bin vlc krita qtscrcpy localsend-bin strawberry oculante obs-studio
+</span><span>
+</span><span># tui
+</span><span>
+</span><span>paru -S neovim yazi lazygit btop
+</span><span>
+</span><span># cli
+</span><span>
+</span><span>paru -S nexttrace-bin android-tools syncthing aria2 zola fastfetch onefetch starship atuin bat fzf eza tree
+</span><span>
+</span><span># other
+</span><span>
+</span><span>paru -S ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just go wl-clipboard
+</span></code></pre>
+<p>安装完毕后我们开始配置输入法与字体：</p>
+<p>输入法我们采用雾凇拼音，即前面我们安装的fcitx5系列软件包的一个输入方案，这里我们使用<a href="https://github.com/Mark24Code/rime-auto-deploy">自动部署脚本</a>：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># step1: 克隆/下载 latest 最新的稳定版到本地
+</span><span>git clone --depth=1 https://github.com/Mark24Code/rime-auto-deploy.git --branch latest
+</span><span># step2: 进入项目目录
+</span><span>cd rime-auto-deploy
+</span><span># step3: 执行部署脚本
+</span><span>./installer.rb
+</span></code></pre>
+<p>选择部署fcitx5即可，随后在设置的Input Method中Add Input Method ，选择Rime，随后默认按Ctrl+Space即可切换中文。</p>
+<p>字体的配置在<a href="https://blog.dich.bid/learn-linux-for-pc-7/">Linux之旅(七):系统与终端字体设置</a>这一期说过，这里不再赘述。缺少的字体可以通过paru下载或者到<a href="https://www.miao3.cn/">喵闪字库</a>下载ttf并安装。</p>
+<h2 id="tu-xing-mei-hua">图形美化</h2>
+<p>安装完毕后可以看到KDE的界面较为简陋，这里给出笔者的美化配置：</p>
+<ul>
+<li>在设置中找到Colors&amp;Themes，分别设置为：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- Color：Breeze Dark
+</span><span>- Application Style：Breeze
+</span><span>- Plasma Style：Sweet
+</span><span>- Window Decorations：Edna
+</span><span>- Icons：BeautySolar
+</span><span>- Cursors：Afterglow Cursors
+</span><span>- Splash Screen：None
+</span></code></pre>
+<ul>
+<li>
+<p>随后设置壁纸，这里给出了笔者收藏的<a href="https://github.com/Dichgrem/wallpaper.git">壁纸</a>。</p>
+</li>
+<li>
+<p>设置完成后将Dock栏的Status全部隐藏，删除间隔与空隙，删除时间，更改Memu图标，随后固定常用软件到其上。</p>
+</li>
+<li>
+<p>随后在Dock栏下新建一个空白栏，结构为数字时钟加两个空白，字体为JetBrains Mono，24小时ISO格式。最终效果如下：</p>
+</li>
+</ul>
+<p><img src="/images/desktop.png" alt="desktop" /></p>
+<h2 id="qian-yi-shu-ju">迁移数据</h2>
+<p>将需要的数据迁移到Home目录下，对笔者来说是用来同步的Data文件夹以及Git工作文件夹。随后Add to Places将其固定到侧边栏，开启隐藏文件可见，将View mode改为Detail。最终效果如下：</p>
+<p><img src="/images/file.png" alt="file" /></p>
+<h2 id="she-zhi-ruan-jian">设置软件</h2>
+<ul>
+<li>配置fastfetch显示效果</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>创建配置目录：mkdir -p ~/.config/fastfetch
+</span><span>创建配置文件：touch ~/.config/fastfetch/config.jsonc
+</span><span>编辑该文件以添加你的自定义选项
+</span></code></pre>
+<ul>
+<li>
+<p>设置GFS：参考<a href="https://blog.dich.bid/about-gfs/">乱七八糟:GFS项目考量笔记 </a>。</p>
+</li>
+<li>
+<p>设置Keepassxc/Vscodium/Electerm：导入备份好的配置文件。</p>
+</li>
+<li>
+<p>设置Matrix/Telegram：登录并在另一台设备上验证。</p>
+</li>
+<li>
+<p>设置浏览器：导入书签备份文件（有图标）；定制工具栏，下载扩展插件，包括：</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Dark Reader（暗黑模式）
+</span><span>kiss-translator（翻译工具）
+</span><span>uBlock Origin（广告拦截）
+</span><span>ClearURLs（去跟踪链接）
+</span><span>KeePassXC-Browser（链接Keepass）
+</span><span>BookmarkHub（书签同步）
+</span><span>BewlyBewly（B站美化）
+</span><span>V2EX Polish（V站美化）
+</span></code></pre>
+<h2 id="shuang-xi-tong-tian-jia-windowsyin-dao">双系统添加Windows引导</h2>
+<p>如果Grub引导菜单中没有windows选项，可以通过以下方法添加：</p>
+<ul>
+<li>安装 os-prober：首先确保系统中安装了 os-prober，这是一个用于检测其他操作系统的工具。</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S os-prober
+</span><span>sudo os-prober
+</span></code></pre>
+<ul>
+<li>打开 /etc/default/grub 文件进行编辑：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo nano /etc/default/grub
+</span><span># 确保 GRUB_DISABLE_OS_PROBER 设置为 false
+</span></code></pre>
+<ul>
+<li>保存文件并退出编辑器后，运行以下命令更新 GRUB 配置：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo grub-mkconfig -o /boot/grub/grub.cfg
+</span></code></pre>
+<p>或者<code>手动添加</code>：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nano /etc/grub.d/40_custom
+</span></code></pre>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>#!/bin/sh
+</span><span>exec tail -n +3 $0
+</span><span># This file provides an easy way to add custom menu entries.  Simply type the
+</span><span># menu entries you want to add after this comment.  Be careful not to change
+</span><span># the &#39;exec tail&#39; line above.
+</span><span>menuentry &quot;Windows 11 (Manual)&quot; {
+</span><span>    insmod part_gpt
+</span><span>    insmod fat
+</span><span>    insmod chain
+</span><span>    set root=&#39;hd0,gpt1&#39;
+</span><span>    chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+</span><span>}
+</span></code></pre>
+<h2 id="archzhong-an-zhuang-qemuxu-ni-ji">Arch中安装QEMU虚拟机</h2>
+<p>前面我们已经安装了Qemu高性能虚拟机平台和virt-manager用来管理虚拟机的图形界面，随后配置virt-manager并安装Ubuntu-server：</p>
+<p>如果virt-manager报错无法找到Qemu，则：</p>
+<ul>
+<li>​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl start libvirtd
+</span><span>sudo systemctl enable libvirtd
+</span></code></pre>
+<ul>
+<li>用户权限问题：​​将当前用户添加到 libvirt 组，以获得必要的权限。​</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo usermod -aG libvirt $(whoami)
+</span></code></pre>
+<ul>
+<li>虚拟网络未激活：​virt-manager 可能无法连接到默认的虚拟网络。​</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo virsh net-start default
+</span></code></pre>
+<p>默认网络在系统启动时自动启动，可以执行：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo virsh net-autostart default
+</span></code></pre>
+<ul>
+<li>配置文件权限问题：​配置文件的权限设置可能导致访问问题。</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
+</span></code></pre>
+<p>随后安装虚拟机，流程大概为<code>选择镜像和系统类型--设置CPU/内存--设置空间大小--编辑配置项--开启UEFI引导和3D加速</code>.</p>
+<p><strong>开启3D加速：</strong></p>
+<ul>
+<li>NIC：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;graphics type=&quot;spice&quot;&gt;
+</span><span>  &lt;listen type=&quot;none&quot;/&gt;
+</span><span>  &lt;image compression=&quot;off&quot;/&gt;
+</span><span>  &lt;gl enable=&quot;yes&quot; rendernode=&quot;/dev/dri/by-path/pci-0000:05:00.0-render&quot;/&gt;
+</span><span>&lt;/graphics&gt;
+</span><span>
+</span></code></pre>
+<ul>
+<li>video virtio：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;video&gt;
+</span><span>  &lt;model type=&quot;virtio&quot; heads=&quot;1&quot; primary=&quot;yes&quot;&gt;
+</span><span>    &lt;acceleration accel3d=&quot;yes&quot;/&gt;
+</span><span>  &lt;/model&gt;
+</span><span>  &lt;alias name=&quot;video0&quot;/&gt;
+</span><span>  &lt;address type=&quot;pci&quot; domain=&quot;0x0000&quot; bus=&quot;0x00&quot; slot=&quot;0x01&quot; function=&quot;0x0&quot;/&gt;
+</span><span>&lt;/video&gt;
+</span></code></pre>
+<p>安装完成后即可使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。</p>
+<h2 id="geng-gai-qi-dong-nei-he-shun-xu">更改启动内核顺序</h2>
+<p>如果安装了多个linux内核，可以使用以下方法调整启动顺序：</p>
+<ul>
+<li>使用以下命令查看内核名称：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>ls /boot/vmlinuz*
+</span></code></pre>
+<ul>
+<li>在 /etc/default/grub 中添加或修改如下行：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>GRUB_TOP_LEVEL=&quot;/boot/vmlinuz-linux-cachyos&quot;
+</span></code></pre>
+<p>需要注意，这种方法会关闭 GRUB 的“记住上次启动项”的功能。</p>
+<ul>
+<li>修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo grub-mkconfig -o /boot/grub/grub.cfg
+</span></code></pre>
+<p><strong>图形界面更改方法：</strong></p>
+<p>可以使用grub-customizer来修改Grub，这里以ubuntu为例子：</p>
+<ul>
+<li>添加PPA源并更新软件列表：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+</span><span>sudo apt update
+</span></code></pre>
+<ul>
+<li>安装GRUB Customizer：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt install grub-customizer
+</span></code></pre>
+<p>随后在grub-customizer中将要默认启动的选项放在首位即可。</p>
+<h2 id="kai-ji-zi-qi-dong">开机自启动</h2>
+<p><strong>设置Syncthing开机自启动</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl enable --now syncthing@&lt;username&gt;.service
+</span></code></pre>
+<h2 id="kai-qi-bbr">开启BBR</h2>
+<ul>
+<li>确保你的内核版本 &gt;= 4.9：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>uname -r
+</span></code></pre>
+<ul>
+<li>启用 BBR</li>
+</ul>
+<p>你只需要设置两个 sysctl 参数即可：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo sysctl -w net.core.default_qdisc=fq
+</span><span>sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
+</span></code></pre>
+<p>要让它们永久生效，把它们写入配置文件：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo nano /etc/sysctl.d/99-bbr.conf
+</span></code></pre>
+<p>加入以下内容：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>net.core.default_qdisc = fq
+</span><span>net.ipv4.tcp_congestion_control = bbr
+</span></code></pre>
+<p>然后重新加载配置：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo sysctl --system
+</span></code></pre>
+<ul>
+<li>验证 BBR 是否启用</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sysctl net.ipv4.tcp_congestion_control
+</span></code></pre>
+<p>应该输出：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>net.ipv4.tcp_congestion_control = bbr
+</span></code></pre>
+<h2 id="zai-arch-linuxshang-an-zhuang-docker">在Arch Linux上安装Docker</h2>
+<p>一般推荐在qemu虚拟机中安装，这里仅做示例：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S docker
+</span></code></pre>
+<p>安装完成后，需要启动Docker服务，并设置为开机自启：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl start docker
+</span><span>sudo systemctl enable docker
+</span></code></pre>
+<p>运行以下命令来验证Docker是否正常工作：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo docker run hello-world
+</span></code></pre>
+<p>默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo usermod -aG docker $USER
+</span></code></pre>
+<p>之后，需要注销并重新登录，或者重启系统以使更改生效。</p>
+<p>安装Docker Compose：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S docker-compose
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-android-tv/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">综合工程:Android-TV 折腾小记</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-calling-cards/">
+                            <span class="button__text">乱七八糟:流量卡购买与套路</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+

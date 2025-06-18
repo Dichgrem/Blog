@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-android-tv/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-android-tv/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-android-tv/">综合工程:Android-TV 折腾小记</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-14
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 由于 AppleTV 的高昂的售价和普通电视盒子广告的泛滥，一台开源、多功能的原生安卓电视盒子逐渐成为智能家居的必备神器。出于对 IPTV、YouTube 和家庭影院等需求，以及对一面赏心悦目电视墙的期待，这里分享 Android TV （以下简称ATV）安装的一些要点。</p>
+<span id="continue-reading"></span><h2 id="ling-yao-shi-xian-de-mu-biao">零.要实现的目标</h2>
+<ul>
+<li>实现自己的设备(X86/Arm)上安装TV系统；</li>
+<li>实现<strong>无开机广告和内置广告</strong>；</li>
+<li>实现<strong>海报墙效果</strong>（矩形磁帖），或自定义安卓桌面启动器；</li>
+<li>实现<strong>影视番剧观看</strong>，基于TVbox/Kodi/Kazumi；</li>
+<li>实现<strong>国内流媒体观看</strong>，包括Bilibili，爱优腾等等；</li>
+<li>实现<strong>国外流媒体观看</strong>，包括Netflix，YouTube，Disney+，Spotify等等；</li>
+<li>实现<strong>家庭影院</strong>，Emby类软件自动刮削；</li>
+<li>实现<strong>IPTV</strong>观看，采用自抓取源或者公共源；</li>
+<li>实现<strong>复古游戏</strong>游玩，包括GBA/FC等等，基于RetroArch/PPSSPP/Emuelec,可以连接手柄；</li>
+<li>实现<strong>游戏主机串流</strong>，包括PS/Xbox/Switch等等；</li>
+</ul>
+<h2 id="yi-xuan-ze-he-gua-de-ping-tai">一.选择合适的平台</h2>
+<p>X86还是Arm？两者之间各有优点，截止到今天各种Arm电视盒子已经非常成熟，价格便宜，也可以使用运营商的电视盒子进行刷机，性能并不会太弱；而X86平台往往价格偏贵，且解码性能和功能适配没有和电视生态联系紧密，因此建议首选Arm平台。</p>
+<h2 id="er-xuan-ze-he-gua-de-xi-tong">二.选择合适的系统</h2>
+<p>无论是运营商自带的电视盒子还是各种所谓的“无广告”电视盒子，往往都基于以下两种系统，且不要迷信所谓的“无广告”电视盒子，它们往往配置低下，性价比不高且还是有内置付费项目，甚至有一些根本没有做到去广告。</p>
+<table><thead><tr><th>特性</th><th><strong>Android-x86</strong></th><th><strong>Android TV</strong></th></tr></thead><tbody>
+<tr><td><strong>目标用户</strong></td><td>面向 PC 用户，将 Android 运行在 x86/x86_64 设备上。</td><td>面向电视和机顶盒用户，优化用于遥控器或语音操作。</td></tr>
+<tr><td><strong>适配设备</strong></td><td>传统 PC、笔记本、平板电脑等 x86 架构设备。</td><td>智能电视、电视盒子等 ARM 或特定芯片架构设备。</td></tr>
+<tr><td><strong>界面设计</strong></td><td>和标准 Android 类似，为触摸屏和鼠标键盘优化。</td><td>专为大屏设计，使用 Leanback UI，适配遥控器操作。</td></tr>
+<tr><td><strong>Google 服务</strong></td><td>默认不包含 Google 服务，需要用户手动安装。</td><td>官方版本内置 Google 服务（例如 Play Store、Assistant）。</td></tr>
+<tr><td><strong>开机启动器</strong></td><td>使用标准 Android 桌面启动器（Launcher3）。</td><td>使用电视优化的启动器（Leanback Launcher）。</td></tr>
+<tr><td><strong>架构支持</strong></td><td>专注于 <strong>x86/x86_64</strong>，但支持 ARM 仿真（通过 Houdini）。</td><td>主要支持 <strong>ARM/ARM64</strong> 架构，有限支持 x86。</td></tr>
+<tr><td><strong>硬件支持</strong></td><td>需要额外优化，部分硬件（如 GPU 驱动）可能无法正常工作。</td><td>深度集成硬件，默认支持电视硬件（如 HDMI CEC、音频输出）。</td></tr>
+<tr><td><strong>应用市场</strong></td><td>默认不内置 Google Play，需要手动安装 Aurora Store 等替代方案。</td><td>默认集成 Google Play 商店，提供大屏优化的应用程序。</td></tr>
+<tr><td><strong>遥控器支持</strong></td><td>不适配遥控器，主要使用鼠标键盘操作。</td><td>专为遥控器优化，支持按键导航和语音输入。</td></tr>
+<tr><td><strong>开源贡献</strong></td><td>由社区维护，支持各种自定义和实验功能。</td><td>由 Google 官方主导，OEM 厂商提供硬件优化支持。</td></tr>
+</tbody></table>
+<hr />
+<blockquote>
+<p>Android-x86 的安装类似windows，需要命令行界面配置；Android TV安装类似 Android手机，通过刷分区或TWRP卡刷安装。</p>
+</blockquote>
+<blockquote>
+<p>Tosathony 制作的 Android TV x86 是一个由社区成员制作的定制化 Android TV 版本,针对 Android TV 的大屏界面 和 遥控器操作 进行特别优化,但某些硬件（如 Wi-Fi、GPU、音频设备等）的驱动可能不兼容或需要额外的配置。</p>
+</blockquote>
+<p><strong>刷 Tosathony Android TV X86 准备工作</strong>：</p>
+<ul>
+<li>
+<p>1.<a href="https://pan.baidu.com/s/17eDDrf4WzWVmrc9hLw-c_w?pwd=a728">Tosathony 制作的 Android TV x86 9.0</a></p>
+</li>
+<li>
+<p>2.<a href="https://www.423down.com/10080.html">Rufus 写盘工具</a></p>
+</li>
+<li>
+<p>3.<a href="https://android-tv-remote-control.en.softonic.com/android">Android tv Remote 手机遥控器软件：</a></p>
+</li>
+<li>
+<p>4.<a href="https://androidmtk.com/tiny-adb-and-fastboot-tool#installer">Tiny ADB 软件</a></p>
+</li>
+</ul>
+<p><strong>一些可安装的软件</strong>：</p>
+<ul>
+<li>
+<p><a href="http://www.kodiplayer.cn/">kodi</a></p>
+</li>
+<li>
+<p><a href="https://www.dangbei.com/apps/">当贝市场</a></p>
+</li>
+<li>
+<p><a href="https://www.fenxm.com/104.html">哔哩哔哩TV版</a></p>
+</li>
+<li>
+<p><a href="https://www.fenxm.com/592.html">ATV Launcher</a></p>
+</li>
+</ul>
+<h2 id="yi-xie-pan-biosqi-dong">一、写盘，BIOS启动</h2>
+<ul>
+<li>
+<p>使用 Rufus 将下载好的 ATV 镜像写入U盘。</p>
+</li>
+<li>
+<p>将U盘插到目标主机上，并设置 BIOS-boot 优先启动，不同设备进入 BIOS 的按键不同，大部分是F2或者DEL；</p>
+</li>
+</ul>
+<h2 id="er-kai-shi-an-zhuang">二、开始安装</h2>
+<ul>
+<li>
+<p>boot 成功后选择自动安装；</p>
+</li>
+<li>
+<p>经过跑码后进入若干个选项，一路 yes 过去，文件系统选 ext4;随后运行 ATV ，并拔出U盘；</p>
+</li>
+</ul>
+<h2 id="san-jin-ru-googlejie-mian">三、进入Google界面</h2>
+<p>由于国内网络环境问题，导致一些界面无法进入，可使用如下方法或全局科学。</p>
+<p>1.如果卡在 Google的logo 界面或者动画比较缓慢，或者重启后无法进入 ATV 界面，需要在<code>BIOS-Advanced-OS selection</code>中将其设置为Windows 8.X或者Android。</p>
+<p>2.然后可以看到 PayPal 界面，这里使用可以 <code>Ctrl+Alt+F1</code> 进入命令行界面，随后输入</p>
+<p><code>pm disable com.tosanthony.tv.networkprovider #注意空格</code></p>
+<p>回车执行，随后按<code>Ctrl+Alt+F7或F8</code>回到图形界面。</p>
+<p>3.下一步，我们可以看到自动更新界面，这里我们需要禁用它：</p>
+<p>同样<code>Ctrl+Alt+F1</code> 进入命令行界面，随后输入</p>
+<p><code>pm disable com.google.android.tungsten.setupwraith #注意空格</code></p>
+<p>回车执行，随后按<code>Ctrl+Alt+F7或F8</code>回到图形界面。</p>
+<p>4.此时会进入一个 WiFi 界面，如果你是使用网线直连就没有问题，或者用键盘连接家里的WiFi，作者因为工控机没有WiFi模块在这里卡了半天。</p>
+<p>5.随后进入了 AndroidTV 的桌面。</p>
+<h2 id="si-an-zhuang-ruan-jian-bing-she-zhi-zhuo-mian-qi-dong">四、安装软件并设置桌面启动</h2>
+<p>1.首先我们在设置中找到“设置”&gt;“设备首选项”&gt;“关于”，然后在“构建”上点击几次以解锁“开发人员”选项，随后开启USB调试开关。</p>
+<p>2.随后在设置 &gt; 设备首选项 &gt; 关于 &gt; 状态中找到并记下IP 地址，然后用Tiny ADB连接上去，这里使用命令<code>adb connect &lt;IP 地址&gt; </code>，随后在ATV端授权连接；</p>
+<p>3.接着使用命令adb install <path to android app.apk>将要安装的软件包上传，也可以将文件拖到命令提示符窗口上以复制其路径，回车确认。</p>
+<p><strong>一些 ADB 常用命令</strong>：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb reboot #将重启 Android 设备。
+</span><span>
+</span><span>adb reboot recovery #将设备重新启动到恢复模式。
+</span><span>
+</span><span>adb push &lt;local&gt; &lt;remote&gt; #将文件从您的 PC 复制到您的 Android 设备。
+</span><span>
+</span><span>adb shell wm density &lt;dpi&gt; #改变显示器的像素密度。
+</span><span>
+</span><span>adb kill server #切断 PC 和 Android TV 之间的连接。
+</span></code></pre>
+<p>4.如果存在一些软件无法安装，可开启ARM兼容层，具体方法为在 <code>dl.android-x86.org/houdini/9_y/houdini.sfs</code> 中下载得到<code>houdini.sfs</code>，把文件名改成<code>houdini9_y.sfs</code>，随后拷贝进U盘，进入命令行界面，输入 <code>ls</code> 找到 storage 目录，输入 <code>cd storage</code> 进入你的U盘，输入 <code>ls</code> ，查看你拷贝的 <code>houdini9_y.sfs</code> 文件，并复制到该目录下。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cp houdini9_y.sfs /system/etc
+</span><span>
+</span><span>enable_nativebridge
+</span><span>
+</span><span>reboot
+</span></code></pre>
+<p>5.安装一些软件包后我们发现需要代替掉ATV自带的桌面，从而形成海报墙的效果，这和 linux 的桌面环境切换有异曲同工之处。注意：替换前需要已经安装完成其他桌面！！！！（比如 ATV Launcher ）我们使用以下命令禁用 google 默认的桌面。随后重启，即可看到ATV的海报墙。</p>
+<p><code>pm disable-user --user 0 com.google.android.tvlauncher </code></p>
+<p>恢复原有桌面：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>C:\Users\root&gt;adb shell
+</span><span>generic_x86:/ $ su
+</span><span>generic_x86:/ # pm enable --user 0 com.google.android.tvlauncher
+</span><span>Package com.google.android.tvlauncher new state: enabled
+</span></code></pre>
+<h2 id="hou-ji">后记</h2>
+<ul>
+<li>
+<p><a href="https://github.com/googlesamples/leanback-showcase">Android TV google 官方 TV 库</a></p>
+</li>
+<li>
+<p><a href="https://github.com/boxmate/tvframe">智能电视，电视盒子开发 SDK</a></p>
+</li>
+<li>
+<p><a href="https://github.com/EZJasonBoy/FocusChangeAnimation">选中框切换动画，适用于电视</a></p>
+</li>
+<li>
+<p><a href="https://github.com/FrozenFreeFall/Android-tv-widget">Android tv，盒子，投影仪 控件</a></p>
+</li>
+<li>
+<p><a href="https://github.com/genius158/TVProjectUtils">TV 项目常用工具(焦点问题，适配问题等.)</a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-android-root/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">综合工程:安卓刷机与root教程</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/awesome-arch-linux/">
+                            <span class="button__text">综合工程:Arch-linux 安装与配置</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+

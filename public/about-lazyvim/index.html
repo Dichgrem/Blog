@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-lazyvim/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-lazyvim/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-lazyvim/">乱七八糟:lazyvim快速上手</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-04-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 ​LazyVim 是一个基于 Neovim 的现代化配置框架，易于定制和扩展，这里对其介绍并说明使用方法。</p>
+<span id="continue-reading"></span><h2 id="lazy">Lazy!</h2>
+<blockquote>
+<p>LazyVim 是一个基于 Neovim 的现代化配置框架，旨在简化 Neovim 的配置过程。它通过集成的 lazy.nvim 插件管理器，提供了一种易于定制和扩展配置的方式，结合了从头开始配置的灵活性和预配置设置的便利性 。</p>
+</blockquote>
+<blockquote>
+<p>LazyVim 是在Neovim的基础上进行配置，Neovim又继承了vim的操作模式，对vim不熟悉的同学可以看<a href="https://vimsheet.com/">这里</a>。</p>
+</blockquote>
+<h2 id="an-zhuang">安装</h2>
+<p>首先安装neovim,在arch linux上是：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>paru -S neovim
+</span></code></pre>
+<p>在Ubuntu上是</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo add-apt-repository ppa:neovim-ppa/unstable
+</span><span>sudo apt update
+</span><span>sudo apt install -y \ neovim git curl unzip build-essential ripgrep fd-find
+</span></code></pre>
+<p>备份现有配置：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>mv ~/.config/nvim ~/.config/nvim.bak
+</span><span>mv ~/.local/share/nvim ~/.local/share/nvim.bak
+</span></code></pre>
+<p>克隆 LazyVim Starter 模板：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/LazyVim/starter ~/.config/nvim
+</span></code></pre>
+<p>启动 Neovim：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nvim
+</span></code></pre>
+<p>首次启动时，LazyVim 会自动安装并配置所需的插件。</p>
+<h2 id="jie-gou">结构</h2>
+<p>LazyVim 的配置目录通常位于<code>~/.config/nvim/</code>中：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>~/.config/nvim
+</span><span>❯ tree
+</span><span>.
+</span><span>├── init.lua
+</span><span>├── lazy-lock.json
+</span><span>├── lazyvim.json
+</span><span>├── LICENSE
+</span><span>├── lua
+</span><span>│   ├── config
+</span><span>│   │   ├── autocmds.lua
+</span><span>│   │   ├── keymaps.lua
+</span><span>│   │   ├── lazy.lua
+</span><span>│   │   └── options.lua
+</span><span>│   └── plugins
+</span><span>│       ├── example.lua
+</span><span>│       └── mp.lua
+</span><span>├── README.md
+</span><span>└── stylua.toml
+</span><span>
+</span><span>4 directories, 12 files
+</span></code></pre>
+<p>另外在<code>~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/</code>目录下看到的文件结构，是 LazyVim 为其核心插件和扩展插件提供的模块化配置体系。这些配置文件并不直接出现在<code>~/.config/nvim/lua/plugins/</code>目录中，是因为 LazyVim 采用了模块化和懒加载的设计理念，将核心插件和配置封装在其自身的代码库中。</p>
+<h3 id="ge-wen-jian-he-mu-lu-de-zuo-yong">各文件和目录的作用</h3>
+<ul>
+<li>
+<p><strong><code>init.lua</code></strong>：主配置文件，负责加载 <code>lua/config/lazy.lua</code>，从而引导整个 LazyVim 的初始化过程。</p>
+</li>
+<li>
+<p><strong><code>lazy-lock.json</code></strong>：由 <code>lazy.nvim</code> 插件管理器生成的锁定文件，记录了已安装插件的精确版本，确保插件的一致性。</p>
+</li>
+<li>
+<p><strong><code>lazyvim.json</code></strong>：用于记录通过 <code>:LazyExtras</code> 命令启用的额外功能（Extras），便于在不同设备间同步配置。</p>
+</li>
+<li>
+<p><strong><code>LICENSE</code></strong> 和 <strong><code>README.md</code></strong>：分别为许可协议和项目说明文档。</p>
+</li>
+<li>
+<p><strong><code>stylua.toml</code></strong>：<code>stylua</code> 的配置文件，用于格式化 Lua 代码。</p>
+</li>
+<li>
+<p><strong><code>lua/config/</code></strong>：包含 Neovim 的基础配置文件，如自动命令（<code>autocmds.lua</code>）、快捷键（<code>keymaps.lua</code>）、插件管理（<code>lazy.lua</code>）和编辑器选项（<code>options.lua</code>）。这些文件会被 LazyVim 自动加载，无需手动引入。</p>
+</li>
+<li>
+<p><strong><code>lua/plugins/</code></strong>：用于添加或修改插件配置的目录。您可以在此目录中添加新的 Lua 文件，以引入其他插件或更改现有插件的设置。
+​</p>
+</li>
+</ul>
+<h2 id="lazyvimzi-dai-pei-zhi">Lazyvim自带配置</h2>
+<p>在 LazyVim 中，插件被分类为已加载（Loaded）和未加载（Not Loaded）。</p>
+<h3 id="white-check-mark-yi-jia-zai-de-cha-jian-loaded">✅ 已加载的插件（Loaded）</h3>
+<ul>
+<li>
+<p><strong>blink.cmp</strong>：一个高性能、开箱即用的自动补全引擎，旨在替代 <code>nvim-cmp</code>，提供更快的性能和更少的配置需求。</p>
+</li>
+<li>
+<p><strong>bufferline.nvim</strong>：用于在顶部显示缓冲区列表的插件，提供类似于浏览器标签页的界面。</p>
+</li>
+<li>
+<p><strong>friendly-snippets</strong>：一个包含多种语言代码片段的集合，可与多个片段引擎（如 <code>luasnip</code>）配合使用。</p>
+</li>
+<li>
+<p><strong>gitsigns.nvim</strong>：在编辑器中显示 Git 更改标记（如添加、修改、删除）的插件，增强版本控制的可视化。</p>
+</li>
+<li>
+<p><strong>lazy.nvim</strong>：LazyVim 的插件管理器，支持懒加载和依赖管理，提升启动速度和性能。</p>
+</li>
+<li>
+<p><strong>lualine.nvim</strong>：一个高度可定制的状态栏插件，支持多种主题和组件。</p>
+</li>
+<li>
+<p><strong>mason-lspconfig.nvim</strong> &amp; <strong>mason.nvim</strong>：用于自动安装和配置 LSP（语言服务器协议）服务器的插件组合，简化开发环境的设置。</p>
+</li>
+<li>
+<p><strong>mini.ai</strong>、<strong>mini.pairs</strong>：<code>mini.nvim</code> 插件集合的一部分，分别用于增强文本对象操作和自动括号配对功能。</p>
+</li>
+<li>
+<p><strong>noice.nvim</strong>：改进 Neovim 消息和命令行界面的插件，提供更丰富的 UI 体验。</p>
+</li>
+<li>
+<p><strong>nui.nvim</strong>：一个用于构建 Neovim 用户界面的 Lua 库，被多个插件作为依赖使用。</p>
+</li>
+<li>
+<p><strong>nvim-lint</strong>：一个异步代码检查器，支持多种语言的语法和风格检查。</p>
+</li>
+<li>
+<p><strong>nvim-lspconfig</strong>：提供预配置的 LSP 客户端设置，简化语言服务器的集成。</p>
+</li>
+<li>
+<p><strong>nvim-treesitter</strong>、<strong>nvim-treesitter-textobjects</strong>、<strong>nvim-ts-autotag</strong>：基于 Tree-sitter 的语法高亮和代码结构分析插件，增强代码编辑体验。</p>
+</li>
+<li>
+<p><strong>persistence.nvim</strong>：自动保存和恢复会话的插件，方便在不同项目之间切换。</p>
+</li>
+<li>
+<p><strong>snacks.nvim</strong>：提供快速导航和编辑功能的插件，提升编辑效率。</p>
+</li>
+<li>
+<p><strong>todo-comments.nvim</strong>：高亮和管理代码中的 TODO、FIXME 等注释的插件，方便任务跟踪。</p>
+</li>
+<li>
+<p><strong>tokyonight.nvim</strong>：一个流行的 Neovim 主题，提供多种配色方案。</p>
+</li>
+<li>
+<p><strong>trouble.nvim</strong>：一个用于显示诊断信息（如 LSP 错误、警告）的插件，提供统一的界面。</p>
+</li>
+<li>
+<p><strong>ts-comments.nvim</strong>：基于 Tree-sitter 的注释插件，支持多语言的智能注释功能。</p>
+</li>
+<li>
+<p><strong>which-key.nvim</strong>：在按下快捷键时弹出可用键位提示的插件，帮助记忆和发现快捷键。</p>
+</li>
+</ul>
+<h3 id="x-wei-jia-zai-de-cha-jian-not-loaded">❌ 未加载的插件（Not Loaded）</h3>
+<ul>
+<li>
+<p><strong>catppuccin</strong>：一个柔和的 Neovim 主题，提供多种风格的配色方案。</p>
+</li>
+<li>
+<p><strong>conform.nvim</strong>：一个用于代码格式化的插件，支持多种语言的格式化工具。</p>
+</li>
+<li>
+<p><strong>grug-far.nvim</strong>：一个快速的全局查找和替换插件，提供直观的界面和操作。</p>
+</li>
+<li>
+<p><strong>lazydev.nvim</strong>：用于 LazyVim 插件开发的辅助工具，简化开发流程。</p>
+</li>
+<li>
+<p><strong>markdown-preview.nvim</strong>：在浏览器中实时预览 Markdown 文件的插件，提升写作体验。</p>
+</li>
+<li>
+<p><strong>plenary.nvim</strong>：一个 Lua 函数库，提供多种实用功能，被许多插件作为依赖使用。</p>
+</li>
+</ul>
+<h2 id="zi-ding-yi-pei-zhi">自定义配置</h2>
+<ul>
+<li>
+<p><strong>添加插件</strong>：​在 lua/plugins/ 目录下创建一个新的 Lua 文件，返回插件的配置表。</p>
+</li>
+<li>
+<p><strong>修改快捷键</strong>：​编辑 lua/config/keymaps.lua 文件，添加或修改快捷键映射。</p>
+</li>
+<li>
+<p><strong>调整选项</strong>：​编辑 lua/config/options.lua 文件，设置 Neovim 的行为选项。​</p>
+</li>
+</ul>
+<h2 id="chang-yong-kuai-jie-jian">常用快捷键</h2>
+<p>LazyVim 默认使用<code>&lt;space&gt; 作为 &lt;leader&gt;</code>，\ 作为<code>&lt;localleader&gt;</code>，并通过 which-key.nvim 插件动态展示所有以<code>&lt;space&gt;</code>开头的可用映射，极大降低了记忆成本。​</p>
+<ul>
+<li><strong>导航与窗口管理</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 在窗口间切换：Ctrl +h / Ctrl +j / Ctrl +k / Ctrl +l
+</span><span>- 调整当前窗口尺寸：Ctrl + ↑ / Ctrl + ↓ / Ctrl + ← / Ctrl + →
+</span></code></pre>
+<ul>
+<li><strong>缓冲区切换与管理</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 切换到上一个/下一个缓冲区：Shift +h / Shift +l
+</span><span>- 切换“另一个”缓冲区：Space + b + b
+</span><span>- 关闭当前缓冲区：Space + b + d
+</span><span>- 只保留当前缓冲区：Space + b + o
+</span></code></pre>
+<ul>
+<li><strong>文件与搜索</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 新建文件：Space + f + n
+</span><span>- 打开文件（普通命令）：输入 :e &lt;文件名&gt; 回车
+</span><span>- 在项目根目录查找文件：Space + Space
+</span><span>- 在项目根目录查找文件（另一路径）：Space + f + f
+</span><span>- 在当前工作目录查找文件：Space + f + F
+</span><span>- 查找 Git 管理的文件：Space + f + g
+</span><span>- 列出最近打开的文件：Space + f + r
+</span><span>- 列出所有缓冲区：Space + ,
+</span><span>- 全局全文搜索：Space + /
+</span></code></pre>
+<ul>
+<li><strong>分割与终端</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 向下分割：Space + -
+</span><span>- 向右分割：Space + |
+</span><span>- 关闭当前窗口：Space + w + d
+</span><span>- 窗口最大化/恢复：Space + w + m 或 Space + u + Z
+</span><span>- 打开根目录终端：Space + f + t
+</span><span>- 打开当前目录终端：Space + f + T
+</span><span>- 切换（隐藏/显示）终端：Ctrl + /
+</span></code></pre>
+<ul>
+<li><strong>LSP 相关</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 跳转到定义：g + d
+</span><span>- 查找引用：g + r
+</span><span>- 跳转到实现：g + I
+</span><span>- 跳转到声明：g + D
+</span><span>- 查看文档悬停：K
+</span><span>- 插入模式签名帮助：Ctrl + k
+</span><span>- 代码操作：Space + c + a
+</span><span>- 重命名：Space + c + r
+</span><span>- 运行 CodeLens：Space + c + c
+</span><span>- 显示行诊断：Space + c + d
+</span></code></pre>
+<ul>
+<li><strong>Git 操作</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 查看状态：Space + g + s
+</span><span>- 查看差异：Space + g + d
+</span><span>- 查看行级 Blame：Space + g + b
+</span><span>- 在浏览器打开当前文件：Space + g + B
+</span><span>- Git Stash（snacks.nvim）：Space + g + S
+</span></code></pre>
+<ul>
+<li><strong>诊断与快速修复</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>- 打开 Location List：Space + x + l
+</span><span>- 打开 Quickfix List：Space + x + q
+</span><span>- 在 Quickfix 跳转：[ q / ] q
+</span></code></pre>
+<h2 id="tian-jia-cha-jian">添加插件</h2>
+<ul>
+<li><strong>Markdown预览</strong></li>
+</ul>
+<p>在<code>~/config/nvim/lua/plugins/</code>下新建一个mp.lua，写入如下配置：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>return {
+</span><span>    {
+</span><span>        &quot;iamcco/markdown-preview.nvim&quot;,
+</span><span>        cmd = { &quot;MarkdownPreviewToggle&quot;, &quot;MarkdownPreview&quot;, &quot;MarkdownPreviewStop&quot; },
+</span><span>        ft = { &quot;markdown&quot; },
+</span><span>        build = &#39;:call mkdp#util#install()&#39;
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>随后即可在 Neovim 中打开一个 Markdown 文件，执行以下命令启动预览：​</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>:MarkdownPreview
+</span></code></pre>
+<h2 id="tips">tips</h2>
+<ul>
+<li>lazyvim中的行号是非自然序的，这是为了方便光标移动而设置的：你可以在正常模式中通过10k快速移动光标到10行前，10j，10h，10l同理。</li>
+<li>lazyvim的字体是和终端相同的，不同单独设置；</li>
+<li>lazyvim中在侧边栏选择文件按d删除,按y复制,按p粘贴,按a创建,按r重命名；</li>
+<li>gcc:注释当前行；</li>
+<li>g+ctrl+g:显示信息；</li>
+<li>alt+h：显示隐藏文件；</li>
+<li>space+c+f:将当前代码格式化；</li>
+<li>设置文件编码<code>:set fileencoding?</code></li>
+<li>设置换行符<code>:set fileformat=unix</code></li>
+<li>LSP快捷操作：</li>
+</ul>
+<table><thead><tr><th>快捷键</th><th>功能</th></tr></thead><tbody>
+<tr><td><code>gd</code></td><td>跳转到定义（Go to Definition）</td></tr>
+<tr><td><code>gr</code></td><td>查找引用（Go to References）</td></tr>
+<tr><td><code>K</code></td><td>显示悬浮文档（Hover）</td></tr>
+<tr><td><code>&lt;leader&gt;rn</code></td><td>重命名（Rename）</td></tr>
+<tr><td><code>&lt;leader&gt;ca</code></td><td>Code Action（修复）</td></tr>
+<tr><td><code>gl</code></td><td>显示诊断信息（Diagnostic）</td></tr>
+<tr><td><code>[d</code> / <code>]d</code></td><td>上/下一个诊断问题</td></tr>
+</tbody></table>
+<h2 id="edit">Edit!</h2>
+<blockquote>
+<p>编辑器的基本素养</p>
+</blockquote>
+<p><code>文件操作</code></p>
+<ul>
+<li>创建文件/文件夹</li>
+<li>打开/关闭/切换文件</li>
+<li>复制/粘贴</li>
+<li>写入/保存/退出</li>
+<li>搜索替换</li>
+</ul>
+<p><code>字符处理</code></p>
+<ul>
+<li>LF/CRLF处理</li>
+<li>零宽字符处理</li>
+<li>GBK/UTF-8处理</li>
+</ul>
+<p><code>终端</code></p>
+<ul>
+<li>打开终端/复用终端</li>
+</ul>
+<p><code>其他功能</code></p>
+<ul>
+<li>LSP</li>
+<li>代码调试</li>
+<li>工作区切换</li>
+<li>Git支持</li>
+<li>主题与显示效果</li>
+</ul>
+<p>🔗</p>
+<p><a href="https://yelog.org/2024/08/02/write-markdown-in-neovim-experience-and-tips/">用 neovim 写 markdown 是一种什么样的体验</a></p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-aria2/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:Aria2各平台使用指南</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-baci/">
+                            <span class="button__text">乱七八糟:Baci实验笔记</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+
