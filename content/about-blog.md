@@ -132,6 +132,22 @@ hugo server -D
 
 **以上的功能和需求是否对SEO和界面相应时间造成影响？**
 
+## 小记
+
+由于我所使用的平台不支持zola，因此我直接在本地编译public并推送，这样时间久了.git文件夹大小会非常大（记录public的变化），我又不想将zola的二进制包放入目录下，因此有了这个办法：
+
+```
+# 安装git-filter-repo工具
+paru git-filter-repo
+# 清理public相关的历史
+git clone git@github.com:Dichgrem/Blog.git blog1 && cd blog1
+git filter-repo --path public --invert-paths
+git gc --aggressive --prune=now
+# 重新推送到github
+git push --force --mirror
+```
+
+
 ## 🔗
 - [Hugo官方文档](https://gohugo.io/documentation/)
 - [zola官方文档](https://www.getzola.org/documentation/getting-started/overview/)
