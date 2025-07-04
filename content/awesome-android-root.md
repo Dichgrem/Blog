@@ -76,6 +76,23 @@ tags = ["综合工程"]
 - 12306无法使用前置人脸识别；
 - 5G可能无法使用；
 
+### 系统变迁表
+| 厂商              | 系统 / 子品牌                                               | 演变历史及时间点                                                                                                                                    |
+| --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Xiaomi**      | MIUI → 澎湃OS（HyperOS / Surge OS）                        | 2010 年推出 MIUI，2023 年 10 月 17 日官方宣布替代 MIUI 的 HyperOS（中文名“澎湃OS”），2023 年 10 月 26 日随 Xiaomi 14 系列一起发布，2024 年起全面替代 MIUI |
+| **Huawei**      | EMUI → HarmonyOS                                       | 2012 年采用 EMUI，2021 年宣布推出基于微内核的鸿蒙 HarmonyOS，新机逐步切换。                                                                                          |
+| **OPPO**        | ColorOS                                                | 2013 年推出 ColorOS，2020 年对版本号体系调整至与 Android 主版本同步（例如从 7 跳到 11），之后持续 UI 与功能迭代。 |                                                              |
+| **Realme**      | Realme UI                                              | 2019 年从 ColorOS 分支出 Realme UI，此后持续独立更新、优化（未查到主要时间节点）。                                                                                       |
+| **Vivo / iQOO** | Funtouch OS → OriginOS (+ Ocean/Pux 系列)                | 2012 年左右推出 Funtouch OS，2020 年推出 OriginOS；后续版本如 OriginOS Ocean、Pux 迭代 UI 核心。                                                                 |
+| **OnePlus**     | HydrogenOS (中国) → OxygenOS (海外) → 合并后 OP OS？           | 2014 年中国区发布 HydrogenOS，2015 年海外推 OxygenOS；2021 年底与 OPPO 合并，代码库统一（国内使用 ColorOS，全球继续用 OxygenOS），但官方未明确推出 "OP OS" 这一新名。                        |
+| **Samsung**     | TouchWiz → Samsung Experience → One UI (+ One UI Core) | 2009 年推出 TouchWiz，2016 年改名为 Samsung Experience，2018 年重塑为 One UI，2020 年开始细化为标准与精简版 One UI Core。                                       |
+| **Asus**        | ZenUI                                                  | 2014 年推出 ZenUI，后续多年持续在视觉与功能上迭代。                                                                                                     |
+| **Motorola**    | MotoBlur → My UX                                       | 2009 年推出 MotoBlur，2020 年推出基于原生 Android 的 My UX。                                                                                  |
+| **Sony**        | Xperia UI                                              | 自 Xperia 系列以来，Sony 一直使用 Xperia UI，接近原生 Android，逐步做微调。                                                                               |
+
+
+
+
 ## **五.如何root**
 
 首先我们要了解安卓系统的分区和启动。安卓的分区包括:
