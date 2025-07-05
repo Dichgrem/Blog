@@ -1,9 +1,9 @@
 +++
-title = "Network的艺术:Docker建站与反向代理"
+title = "网络艺术:Docker建站与反向代理"
 date = 2024-07-14
 
 [taxonomies]
-tags = ["网络艺术"]
+tags = ["Network"]
 +++
 
 前言 Docker的出现极大简化了建站流程，较过去的LAMP方式优雅了许多，配合Nginx反向代理可以快速上线HTTPS站点。

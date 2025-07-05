@@ -1,5 +1,5 @@
 +++
-title = "搭建个人信息流:RSS阅读指南"
+title = "乱七八糟:RSS阅读指南"
 date = 2024-03-05
 
 [taxonomies]

@@ -1,9 +1,9 @@
 +++
-title = "乱七八糟:Windows激活那些事"
-date = 2024-05-25
+title = "Windows系列(3):分类与激活"
+date = 2024-05-26
 
 [taxonomies]
-tags = ["乱七八糟","Windows"]
+tags = ["Windows"]
 +++
 
 前言 Windows的正版售价十分昂贵，2025年的今天大部分人都使用着OEM厂商自带的windows系统或自己想办法激活，那么，激活到底是什么原理？

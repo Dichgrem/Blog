@@ -1,9 +1,9 @@
 +++
-title = "电子邮件是如何工作的:自建域名邮箱"
+title = "网络艺术:自建域名邮箱"
 date = 2024-02-22
 
 [taxonomies]
-tags = ["网络艺术"]
+tags = ["Network"]
 +++
 
 前言 poste.io 邮件服务基于 Docker 搭建，用的是 Haraka + Dovecot + SQLite 邮件系统，占用资源较少，安装简单，适合个人使用。

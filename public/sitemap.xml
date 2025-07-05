@@ -32,10 +32,6 @@
         <lastmod>2024-05-31</lastmod>
     </url>
     <url>
-        <loc>https://blog.dich.bid/about-frp/</loc>
-        <lastmod>2025-03-01</lastmod>
-    </url>
-    <url>
         <loc>https://blog.dich.bid/about-gfs/</loc>
         <lastmod>2025-03-18</lastmod>
     </url>
@@ -76,14 +72,6 @@
         <lastmod>2024-03-05</lastmod>
     </url>
     <url>
-        <loc>https://blog.dich.bid/about-runer-1/</loc>
-        <lastmod>2024-06-08</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.dich.bid/about-runer-2/</loc>
-        <lastmod>2024-06-11</lastmod>
-    </url>
-    <url>
         <loc>https://blog.dich.bid/about-server-set/</loc>
         <lastmod>2024-06-12</lastmod>
     </url>
@@ -94,10 +82,6 @@
     <url>
         <loc>https://blog.dich.bid/about-ventoy/</loc>
         <lastmod>2025-02-14</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.dich.bid/about-vim/</loc>
-        <lastmod>2024-08-15</lastmod>
     </url>
     <url>
         <loc>https://blog.dich.bid/about/</loc>
@@ -187,12 +171,12 @@
         <lastmod>2024-02-09</lastmod>
     </url>
     <url>
-        <loc>https://blog.dich.bid/network-how-email-works-1/</loc>
-        <lastmod>2024-02-20</lastmod>
+        <loc>https://blog.dich.bid/network-frp/</loc>
+        <lastmod>2025-03-01</lastmod>
     </url>
     <url>
-        <loc>https://blog.dich.bid/network-how-email-works-2/</loc>
-        <lastmod>2024-02-21</lastmod>
+        <loc>https://blog.dich.bid/network-how-email-works-1/</loc>
+        <lastmod>2024-02-20</lastmod>
     </url>
     <url>
         <loc>https://blog.dich.bid/network-how-email-works-3/</loc>
@@ -219,9 +203,6 @@
     </url>
     <url>
         <loc>https://blog.dich.bid/page/10/</loc>
-    </url>
-    <url>
-        <loc>https://blog.dich.bid/page/11/</loc>
     </url>
     <url>
         <loc>https://blog.dich.bid/page/2/</loc>
@@ -260,10 +241,7 @@
         <loc>https://blog.dich.bid/tags/luan-qi-ba-zao/</loc>
     </url>
     <url>
-        <loc>https://blog.dich.bid/tags/tan-tian-shuo-di/</loc>
-    </url>
-    <url>
-        <loc>https://blog.dich.bid/tags/wang-luo-yi-shu/</loc>
+        <loc>https://blog.dich.bid/tags/network/</loc>
     </url>
     <url>
         <loc>https://blog.dich.bid/tags/windows/</loc>
@@ -360,11 +338,11 @@
     </url>
     <url>
         <loc>https://blog.dich.bid/windows-activation/</loc>
-        <lastmod>2024-05-25</lastmod>
+        <lastmod>2024-05-26</lastmod>
     </url>
     <url>
         <loc>https://blog.dich.bid/windows-all/</loc>
-        <lastmod>2024-05-26</lastmod>
+        <lastmod>2024-05-25</lastmod>
     </url>
     <url>
         <loc>https://blog.dich.bid/windows-conda-python/</loc>

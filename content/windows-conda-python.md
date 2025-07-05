@@ -1,9 +1,9 @@
 +++
-title = "乱七八糟:Windows-Jupyter开发Python"
+title = "Windows系列(5):Python开发配置"
 date = 2024-05-31
 
 [taxonomies]
-tags = ["乱七八糟","Windows"]
+tags = ["Windows"]
 +++
 
 前言 由于 Windows 中开发环境较 linux 复杂，这里总结 Windows 中使用 Jupyter 开发 Python 的环境配置。

@@ -1,5 +1,5 @@
 +++
-title = "Linux之旅(一):构成与发行版"
+title = "Linux之旅(1):构成与发行版"
 date = 2023-07-20
 
 [taxonomies]

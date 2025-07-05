@@ -1,9 +1,9 @@
 +++
-title = "乱七八糟:Windows常用操作"
+title = "Windows系列(1):常用操作"
 date = 2024-05-24
 
 [taxonomies]
-tags = ["乱七八糟","Windows"]
+tags = ["Windows"]
 +++
 
 前言 Windows操作系统作为全球最为普及的桌面操作系统之一，其用户界面的设计非常经典，但存在许多不足之处，本篇记录一些常用脚本。

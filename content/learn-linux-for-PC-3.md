@@ -1,5 +1,5 @@
 +++
-title = "Linux之旅(三):内核/shell/包管理/文件系统/桌面环境"
+title = "Linux之旅(3):内核/shell/包管理/文件系统/桌面环境"
 date = 2023-07-22
 
 [taxonomies]
