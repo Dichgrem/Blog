@@ -1,5 +1,5 @@
 +++
-title = "Linux之旅(七):系统与终端字体设置"
+title = "Linux之旅(7):系统与终端字体设置"
 date = 2023-08-01
 
 [taxonomies]

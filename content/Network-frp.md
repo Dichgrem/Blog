@@ -1,9 +1,9 @@
 +++
-title = "乱七八糟:FRP使用指南"
+title = "网络艺术:FRP使用指南"
 date = 2025-03-01
 
 [taxonomies]
-tags = ["乱七八糟"]
+tags = ["Network"]
 +++
 
 前言 FRP (Fast Reverse Proxy) 是一个用Go语言开发的高性能反向代理应用，可以帮助您轻松地进行内网穿透，对外提供服务.

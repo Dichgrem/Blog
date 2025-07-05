@@ -1,9 +1,9 @@
 +++
-title = "Network的艺术:国内至国际骨干ISP线路整理"
+title = "网络艺术:国内/国际骨干ISP线路整理"
 date = 2024-02-10
 
 [taxonomies]
-tags = ["网络艺术"]
+tags = ["Network"]
 +++
 
 前言 本文主要探讨的是IPv4网络，国际出口线路的质量分析以及各大ISP的介绍。

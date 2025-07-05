@@ -1,9 +1,9 @@
 +++
-title = "乱七八糟:Windows安装与环境配置"
-date = 2024-05-26
+title = "Windows系列(2):安装与环境配置"
+date = 2024-05-25
 
 [taxonomies]
-tags = ["乱七八糟","Windows"]
+tags = ["Windows"]
 +++
 
 前言 由于厂商默认安装windows家庭版导致各种问题频发,这里对 widnows 安装做一个总结，以及附上我个人的windows配置。

@@ -1,5 +1,5 @@
 +++
-title = "Linux之旅(五):BIOS-UEFI-MBR-GPT-GRUB"
+title = "Linux之旅(5):BIOS-UEFI-MBR-GPT-GRUB"
 date = 2023-07-24
 
 [taxonomies]

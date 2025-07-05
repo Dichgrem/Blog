@@ -1,9 +1,9 @@
 +++
-title = "Network的艺术:SSL/TLS证书"
+title = "网络艺术:SSL/TLS证书"
 date = 2024-02-15
 
 [taxonomies]
-tags = ["网络艺术"]
+tags = ["Network"]
 +++
 
 前言 什么是SSL/TLS证书？它有什么作用？如何部署？

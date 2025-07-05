@@ -1,9 +1,9 @@
 +++
-title = "乱七八糟:Windows封装与全自动安装"
+title = "Windows系列(4):封装与全自动安装"
 date = 2024-05-29
 
 [taxonomies]
-tags = ["乱七八糟","Windows"]
+tags = ["Windows"]
 +++
 
 前言 由于厂商默认安装windows家庭版导致各种问题频发,这里作者封装了一个开箱即用的，全自动安装，激活和优化的Windows11镜像。
