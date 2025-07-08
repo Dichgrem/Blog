@@ -253,6 +253,28 @@ sudo apt install grub-customizer
 sudo systemctl enable --now syncthing@<username>.service
 ```
 
+**设置Aria2开机自启动**
+
+```
+[Unit]
+Description=Aria2c - lightweight multi-protocol & multi-source command-line download utility
+After=network.target
+
+[Service]
+User=dich
+Group=dich
+WorkingDirectory=/home/dich
+Environment=HOME=/home/dich
+Environment=USER=dich
+ExecStart=/usr/bin/aria2c --conf-path=/home/dich/.config/aria2/aria2.conf
+Restart=always
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ## 开启BBR
 
 - 确保你的内核版本 >= 4.9：

@@ -344,6 +344,25 @@
 <p><strong>设置Syncthing开机自启动</strong></p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo systemctl enable --now syncthing@&lt;username&gt;.service
 </span></code></pre>
+<p><strong>设置Aria2开机自启动</strong></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>[Unit]
+</span><span>Description=Aria2c - lightweight multi-protocol &amp; multi-source command-line download utility
+</span><span>After=network.target
+</span><span>
+</span><span>[Service]
+</span><span>User=dich
+</span><span>Group=dich
+</span><span>WorkingDirectory=/home/dich
+</span><span>Environment=HOME=/home/dich
+</span><span>Environment=USER=dich
+</span><span>ExecStart=/usr/bin/aria2c --conf-path=/home/dich/.config/aria2/aria2.conf
+</span><span>Restart=always
+</span><span>NoNewPrivileges=true
+</span><span>PrivateTmp=true
+</span><span>
+</span><span>[Install]
+</span><span>WantedBy=multi-user.target
+</span></code></pre>
 <h2 id="kai-qi-bbr">开启BBR</h2>
 <ul>
 <li>确保你的内核版本 &gt;= 4.9：</li>
