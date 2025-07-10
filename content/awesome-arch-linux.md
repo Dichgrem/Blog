@@ -78,7 +78,7 @@ paru -S hyprland waybar wofi network-manager-applet swww wl-gammarelay-rs bright
 | **蓝牙**   | blueman   |
 | **音频**     | pipewire, wireplumber            |
 | **亮度**   | brightnessctl,  wl-gammarelay-rs |
-| **剪贴板**       | wl-clipboard-rs |
+| **剪贴板**       | wl-clipboard-rs,wl-clip-persist |
 | **通知**       |swaync,swayosd                   |
 | **截图**    | grim, swappy                 |
 | **壁纸管理**     | swww                          |
