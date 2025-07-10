@@ -135,23 +135,59 @@
 </ul>
 <p>安装方法同ubuntu一样，是基于Calamares的图形化界面安装。一般步骤为<code>选择语言（American English）--选择键盘/时区（默认/shanghai）--选择分区（xfs抹除全盘，可选全盘加密）--选择桌面环境（Gnome或KDE）--确认安装。</code></p>
 <h2 id="an-zhuang-ruan-jian">安装软件</h2>
-<p>随后安装常用开源软件：</p>
+<p>随后安装常用开源软件(KDE环境省略file和wayland)</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># gui
 </span><span>
-</span><span>paru -S alacritty zellij qemu-full virt-manager wireshark-qt floorp-bin foliate materialgram-bin legcord-bin keepassxc onlyoffice-bin kazumi-bin vlc krita qtscrcpy localsend-bin strawberry oculante obs-studio
+</span><span>paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio
 </span><span>
 </span><span># tui
 </span><span>
-</span><span>paru -S neovim yazi lazygit btop
+</span><span>paru -S neovim yazi lazygit btop zellij termshark
 </span><span>
 </span><span># cli
 </span><span>
-</span><span>paru -S nexttrace-bin android-tools syncthing aria2 zola fastfetch onefetch starship atuin bat fzf eza tree
+</span><span>paru -S alacritty fish fastfetch tealdeer expac fish-autopair fish-pure-prompt fisher onefetch starship atuin bat fzf fd ripgrep eza tree android-tools payload-dumper-go-bin nexttrace-bin syncthing aria2
 </span><span>
-</span><span># other
 </span><span>
-</span><span>paru -S ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just go wl-clipboard
+</span><span># file
+</span><span>
+</span><span>paru -S gvfs gvfs-mtp gvfs-afc gvfs-nfs nemo
+</span><span>
+</span><span># zip
+</span><span>
+</span><span>paru -S peazip
+</span><span>
+</span><span># Type
+</span><span>
+</span><span>paru -S fcitx5-configtool fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime
+</span><span>
+</span><span># Blog
+</span><span>
+</span><span>paru -S zola npm pnpm just go
+</span><span>
+</span><span># ttf
+</span><span>
+</span><span>paru -S ttf-jetbrains-mono-nerd
+</span><span>
+</span><span># Wayland
+</span><span>
+</span><span>paru -S hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman wl-clipboard-rs swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
 </span></code></pre>
+<table><thead><tr><th>分类</th><th>软件列表</th></tr></thead><tbody>
+<tr><td><strong>窗口管理器</strong></td><td>hyprland</td></tr>
+<tr><td><strong>状态栏</strong></td><td>waybar</td></tr>
+<tr><td><strong>网络</strong></td><td>network-manager-applet</td></tr>
+<tr><td><strong>蓝牙</strong></td><td>blueman</td></tr>
+<tr><td><strong>音频</strong></td><td>pipewire, wireplumber</td></tr>
+<tr><td><strong>亮度</strong></td><td>brightnessctl,  wl-gammarelay-rs</td></tr>
+<tr><td><strong>剪贴板</strong></td><td>wl-clipboard-rs</td></tr>
+<tr><td><strong>通知</strong></td><td>swaync,swayosd</td></tr>
+<tr><td><strong>截图</strong></td><td>grim, swappy</td></tr>
+<tr><td><strong>壁纸管理</strong></td><td>swww</td></tr>
+<tr><td><strong>Polkit 授权代理</strong></td><td>hyprpolkitagent</td></tr>
+<tr><td><strong>锁屏/开始菜单</strong></td><td>hyprlock, wlogout</td></tr>
+<tr><td><strong>文件管理</strong></td><td>gvfs, gvfs-mtp, gvfs-afc, gvfs-nfs, nemo</td></tr>
+</tbody></table>
 <p>安装完毕后我们开始配置输入法与字体：</p>
 <p>输入法我们采用雾凇拼音，即前面我们安装的fcitx5系列软件包的一个输入方案，这里我们使用<a href="https://github.com/Mark24Code/rime-auto-deploy">自动部署脚本</a>：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># step1: 克隆/下载 latest 最新的稳定版到本地

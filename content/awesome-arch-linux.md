@@ -29,25 +29,61 @@ tags = ["综合工程"]
 
 ## 安装软件
 
-随后安装常用开源软件：
+随后安装常用开源软件(KDE环境省略file和wayland)
 
 ```
 # gui
 
-paru -S alacritty zellij qemu-full virt-manager wireshark-qt floorp-bin foliate materialgram-bin legcord-bin keepassxc onlyoffice-bin kazumi-bin vlc krita qtscrcpy localsend-bin strawberry oculante obs-studio
+paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio
 
 # tui
 
-paru -S neovim yazi lazygit btop
+paru -S neovim yazi lazygit btop zellij termshark
 
 # cli
 
-paru -S nexttrace-bin android-tools syncthing aria2 zola fastfetch onefetch starship atuin bat fzf eza tree
+paru -S alacritty fish fastfetch tealdeer expac fish-autopair fish-pure-prompt fisher onefetch starship atuin bat fzf fd ripgrep eza tree android-tools payload-dumper-go-bin nexttrace-bin syncthing aria2
 
-# other
 
-paru -S ttf-jetbrains-mono-nerd fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime npm pnpm just go wl-clipboard
+# file
+
+paru -S gvfs gvfs-mtp gvfs-afc gvfs-nfs nemo
+
+# zip
+
+paru -S peazip
+
+# Type
+
+paru -S fcitx5-configtool fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime
+
+# Blog
+
+paru -S zola npm pnpm just go
+
+# ttf
+
+paru -S ttf-jetbrains-mono-nerd
+
+# Wayland
+
+paru -S hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman wl-clipboard-rs swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
 ```
+| 分类           | 软件列表                                             |
+| ------------ | ------------------------------------------------ |
+| **窗口管理器**    | hyprland                     |
+| **状态栏** | waybar                              |
+| **网络**    | network-manager-applet     |
+| **蓝牙**   | blueman   |
+| **音频**     | pipewire, wireplumber            |
+| **亮度**   | brightnessctl,  wl-gammarelay-rs |
+| **剪贴板**       | wl-clipboard-rs |
+| **通知**       |swaync,swayosd                   |
+| **截图**    | grim, swappy                 |
+| **壁纸管理**     | swww                          |
+| **Polkit 授权代理**  | hyprpolkitagent   |
+| **锁屏/开始菜单**       | hyprlock, wlogout      |
+| **文件管理**  | gvfs, gvfs-mtp, gvfs-afc, gvfs-nfs, nemo  |
 
 安装完毕后我们开始配置输入法与字体：
 
