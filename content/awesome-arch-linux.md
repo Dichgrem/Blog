@@ -67,12 +67,13 @@ paru -S ttf-jetbrains-mono-nerd
 
 # Wayland
 
-paru -S hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman wl-clipboard-rs swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
+paru -S hyprland waybar wofi network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman wl-clipboard-rs swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
 ```
 | 分类           | 软件列表                                             |
 | ------------ | ------------------------------------------------ |
 | **窗口管理器**    | hyprland                     |
 | **状态栏** | waybar                              |
+| **启动器** | wofi  |
 | **网络**    | network-manager-applet     |
 | **蓝牙**   | blueman   |
 | **音频**     | pipewire, wireplumber            |
