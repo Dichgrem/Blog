@@ -431,6 +431,23 @@
 <p>应该输出：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>net.ipv4.tcp_congestion_control = bbr
 </span></code></pre>
+<h2 id="xing-neng-mo-shi-qie-huan">性能模式切换</h2>
+<p>需要安装<code>power-profiles-daemon</code></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 查看可用的电源配置文件（profiles）
+</span><span>powerprofilesctl list
+</span><span>
+</span><span># 查看当前正在使用的 profile
+</span><span>powerprofilesctl get
+</span><span>
+</span><span># 切换到“性能”模式
+</span><span>sudo powerprofilesctl set performance
+</span><span>
+</span><span># 切换到“平衡”模式
+</span><span>sudo powerprofilesctl set balanced
+</span><span>
+</span><span># 切换到“省电”模式
+</span><span>sudo powerprofilesctl set power-saver
+</span></code></pre>
 <h2 id="zai-arch-linuxshang-an-zhuang-docker">在Arch Linux上安装Docker</h2>
 <p>一般推荐在qemu虚拟机中安装，这里仅做示例：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo pacman -S docker

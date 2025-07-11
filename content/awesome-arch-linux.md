@@ -346,6 +346,26 @@ sysctl net.ipv4.tcp_congestion_control
 ```
 net.ipv4.tcp_congestion_control = bbr
 ```
+
+## 性能模式切换
+需要安装``power-profiles-daemon``
+```
+# 查看可用的电源配置文件（profiles）
+powerprofilesctl list
+
+# 查看当前正在使用的 profile
+powerprofilesctl get
+
+# 切换到“性能”模式
+sudo powerprofilesctl set performance
+
+# 切换到“平衡”模式
+sudo powerprofilesctl set balanced
+
+# 切换到“省电”模式
+sudo powerprofilesctl set power-saver
+```
+
 ## 在Arch Linux上安装Docker
 
 一般推荐在qemu虚拟机中安装，这里仅做示例：
