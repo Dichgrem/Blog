@@ -1,13 +1,12 @@
 +++
-title = "Windows系列(1):常用操作"
-date = 2024-05-24
+title = "Windows系列(2):常用操作与配置"
+date = 2024-05-25
 
 [taxonomies]
 tags = ["Windows"]
 +++
 
 前言 Windows操作系统作为全球最为普及的桌面操作系统之一，其用户界面的设计非常经典，但存在许多不足之处，本篇记录一些常用脚本。
-
 <!-- more -->
 
 ## **Windows11跳过联网激活 & 使用本地账号**
@@ -128,6 +127,8 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
 ```
 - 将名为``DisableAntiSpyware``的 DWORD (32位) 值设置为1，如果没有就新建。
 - 重启后生效。
+
+> 也可以使用[defendnot](https://github.com/es3n1n/defendnot)
 
 ## **Win11添加开机自启动项方法**
 

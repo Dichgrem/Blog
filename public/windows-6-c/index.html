@@ -20,13 +20,13 @@
     <meta property="og:description" content="">
     <meta property="og:title" content="Dich'blog">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://blog.dich.bid/windows-iso/">
+    <meta property="og:url" content="https://blog.dich.bid/windows-6-c/">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="">
     <meta name="twitter:title" content="Dich'blog">
     <meta property="twitter:domain" content="blog.dich.bid">
-    <meta property="twitter:url" content="https://blog.dich.bid/windows-iso/">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-6-c/">
 
                 <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
     
@@ -103,11 +103,11 @@
         
     <div class="post">
         
-    <h1 class="post-title"><a href="https://blog.dich.bid/windows-iso/">Windows系列(4):封装与全自动安装</a></h1>
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-6-c/">Windows系列(6):C&#x2F;C++开发配置</a></h1>
     <div class="post-meta-inline">
         
     <span class="post-date">
-            2024-05-29
+            2024-05-30
         </span>
 
     </div>
@@ -119,85 +119,75 @@
     
 
         <div class="post-content">
-            <p>前言 由于厂商默认安装windows家庭版导致各种问题频发,这里作者封装了一个开箱即用的，全自动安装，激活和优化的Windows11镜像。</p>
-<span id="continue-reading"></span>
-<p><strong>Dich-OS base on zh-cn_windows_11_business_23h2</strong></p>
-<p><strong>实现了以下功能</strong>:</p>
+            <p>前言 由于 Windows 中开发环境较 linux 复杂，这里总结 Windows 中使用 VScode 开发 C/C++ 的环境配置。</p>
+<span id="continue-reading"></span><h2 id="bu-zou">步骤</h2>
 <ul>
-<li><input disabled="" type="checkbox" checked=""/>
-绕过 Windows 11 要求检查(TPM/安全启动等)</li>
-<li><input disabled="" type="checkbox" checked=""/>
-允许在没有互联网连接的情况下安装 Windows 11</li>
-<li><input disabled="" type="checkbox" checked=""/>
-随机生成的计算机名称,例如:DESKTOP-ZFAH8Z2</li>
-<li><input disabled="" type="checkbox" checked=""/>
-在OOBE阶段自动激活Windows(专业工作站版本)</li>
-<li><input disabled="" type="checkbox" checked=""/>
-禁用 Windows 更新*</li>
-<li><input disabled="" type="checkbox" checked=""/>
-删除了默认应用程序*</li>
-<li><input disabled="" type="checkbox" checked=""/>
-禁用 Windows Defender</li>
-<li><input disabled="" type="checkbox" checked=""/>
-在 Windows 11 中使用经典菜单，而不是二级菜单</li>
-<li><input disabled="" type="checkbox" checked=""/>
-始终显示文件扩展名</li>
-<li><input disabled="" type="checkbox" checked=""/>
-打开文件资源管理器到'此电脑'而不是'快速访问'</li>
-<li><input disabled="" type="checkbox" checked=""/>
-任务栏中隐藏搜索框,Task view 和小部件</li>
-<li><input disabled="" type="checkbox" checked=""/>
-用户密码不会过期</li>
-<li><input disabled="" type="checkbox" checked=""/>
-强化 ACL</li>
-<li><input disabled="" type="checkbox" checked=""/>
-禁用快速启动</li>
-<li><input disabled="" type="checkbox" checked=""/>
-启用长路径</li>
-<li><input disabled="" type="checkbox" checked=""/>
-启用远程桌面服务 (RDP)</li>
-<li><input disabled="" type="checkbox" checked=""/>
-阻止 Windows Update 重新启动您的计算机*</li>
-<li><input disabled="" type="checkbox" checked=""/>
-阻止设备 BitLocker 加密</li>
-<li><input disabled="" type="checkbox" checked=""/>
-删除空 C:\Windows.old 文件夹</li>
-<li><input disabled="" type="checkbox" checked=""/>
-自动将ISO中的Source$OEM$\Setup\Scripts\Files文件夹中的软件放到桌面*</li>
-<li><input disabled="" type="checkbox" checked=""/>
-保留Windows 安装过程中以交互方式对磁盘进行分区</li>
-<li><input disabled="" type="checkbox" checked=""/>
-保留在 Windows 安装过程中以交互方式添加本地（“脱机”）用户</li>
+<li>下载安装 Vscode(Visual Studio Code)</li>
+<li>配置安装中文插件,C/C++插件和 Code Runner 插件</li>
+<li>安装 MinGW64 编译器并配置环境变量</li>
+<li>配置 tasks.json 和 launch.json</li>
+<li>开始C/C++之旅！</li>
 </ul>
-<p><strong>PS</strong>:</p>
+<h2 id="an-zhuang-vscode">安装VScode</h2>
+<ul>
+<li><a href="https://code.visualstudio.com/">官网</a>-微软官方版</li>
+<li><a href="https://github.com/VSCodium/vscodium">vscodium</a>-社区开源版本，去除官方版中不开源成分</li>
+</ul>
+<h2 id="pei-zhi-cha-jian">配置插件</h2>
+<ul>
+<li>默认为英文，在左侧 <code>Extensions</code> 中安装 <code>Chinese(simplified)</code> 插件，重启即可变为中文；</li>
+<li>随后安装<a href="https://github.com/Microsoft/vscode-cpptools">C/C++插件</a>，即下载名称为<code>cpptools-windows-x64.vsix</code>
+的插件并在扩展中<code>从VSIX安装</code>，然后搜索 Code Runner 并安装。</li>
+</ul>
+<h2 id="an-zhuang-mingw64-bian-yi-qi">安装 MinGW64 编译器</h2>
 <ul>
 <li>
-<p>禁用自动更新是创建一个名为 PauseWindowsUpdate 的计划任务,一次又一次地暂停更新一周.如果要运行 Windows 更新一次,请单击 “设置”中的“恢复更新 ”.</p>
+<p>首先打开<a href="https://www.mingw-w64.org/">官方文档</a>，然后点击左侧的 Downloads，再点击 Pre-built Toolchains。往下拉，可以看到许多系统的下载包，这里我们选<code>MinGW-W64-builds</code>并点击。页面自动跳转，再点击最上方的 MinGW-W64-builds 下的 GitHub 链接。</p>
 </li>
 <li>
-<p>删除默认应用程序,但保留了记事本,照片,PowerShell,Windows Terminal ,Windows Media Player (classic) ,Calculator , Clock , Xbox Apps(游戏手柄用)</p>
+<p>进入Github，找到<code>x86_64-14.2.0-release-win32-seh-ucrt-rt_v12-rev1.7z</code>（版本会更新，选择最新的即可）点击然后下载。</p>
 </li>
 <li>
-<p>这会创建一个计划任务,诱使 Windows 认为设备一直在使用中,即使更新也不会突然关机.</p>
+<p>下载完成后解压得到 mingw64 文件夹，将其移动到<code>C:\Program Files</code>下，随后复制该文件夹中/bin的路径。</p>
 </li>
 <li>
-<p>可以将要用的软件安装包放入该文件夹中,会自动放到桌面.</p>
+<p>按下 Win + S，在搜索框中输入“系统环境变量”，点击“编辑系统环境变量“，点击环境变量。在下方的系统变量中，选中<code>Path</code>，然后点击编辑，点击右侧的新建，然后黏贴刚刚拷贝的路径，随后一直用<code>确定</code>退出。</p>
+</li>
+<li>
+<p>检验是否成功：在cmd中输入<code>gcc -v</code>，如果有版本号则成功。</p>
 </li>
 </ul>
-<p><strong>感谢以下项目</strong>:</p>
+<h2 id="pei-zhi-json">配置JSON</h2>
+<ul>
+<li>回到 Visual Studio Code 继续配置。点击左侧的资源管理器，点击打开文件夹，创建一个<code>.cpp</code>文件，里面代码可以是</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>#include &lt;iostream&gt;
+</span><span>
+</span><span>int main() {
+</span><span>    std::cout &lt;&lt; &quot;Hello&quot; &lt;&lt; std::endl;
+</span><span>    return 0;
+</span><span>}
+</span></code></pre>
 <ul>
 <li>
-<p><a href="https://github.com/cschneegans/unattend-generator/">unattend-generator</a></p>
+<p>保存，然后点击右上角的三角形，选择“运行C/C++文件”。此时上方的搜索框会有弹出，点击“C/C++: g++.exe 构建和调试活动文件”。 然后会生成一个 .vscode 的文件夹，里面包含 tasks.json 文件。打开这个文件，然后按需调整，设置栈空间（这里设置成了256MB）和 C++ 标准（这里设置成C++17）。</p>
 </li>
 <li>
-<p><a href="https://github.com/zbezj/HEU_KMS_Activator">HEU_KMS_Activator</a></p>
+<p>接着生成调试文件，用于进行 debug。点击左侧的运行和调试，然后点击“创建 launch.json 文件”。点击弹出的“另外 C++ (GDB/LLDB) 个选项”。</p>
 </li>
 <li>
-<p><a href="https://github.com/massgravel/Microsoft-Activation-Scripts">Microsoft-Activation-Scripts</a></p>
+<p>点击右下角的“添加配置”，然后点击“C/C++: (gbd) 启动”。对Program部分进行修改（编译产物的路径）。</p>
 </li>
 </ul>
-<p><strong>SHA-256:5920ca1b839c2823cad5223cdff39671784d98d18da03fa4377a362ad480ce54</strong></p>
-<p><strong>下载链接：</strong><a href="https://drive.google.com/file/d/1CWXtHJRmDaGYVV7k9mRsn1cDxIwomavO/view?usp=drive_link">这里</a></p>
+<blockquote>
+<p>手动编译：<code>g++ &lt;源代码的相对路径&gt;</code> 手动运行编译产物：一般为<code>./a.out</code></p>
+</blockquote>
+<p>至此 Visual Studio Code 的 C++ 环境已经配置完成。</p>
+<blockquote>
+<p>在ubuntu上配置环境需要安装 <code>sudo apt install build-essential gdb cmake clangd clang-format libstdc++-dev</code></p>
+</blockquote>
+<hr />
+<p><strong>Done.</strong></p>
 
         </div>
 
@@ -209,16 +199,16 @@
             </div>
             <div class="pagination__buttons">
                     <span class="button previous">
-                        <a href="https://blog.dich.bid/windows-activation/">
+                        <a href="https://blog.dich.bid/windows-4-auto/">
                             <span class="button__icon">←</span>&nbsp;
-                            <span class="button__text">Windows系列(3):分类与激活</span>
+                            <span class="button__text">Windows系列(4):封装与全自动安装</span>
                         </a>
                     </span>
                 
                 
                     <span class="button next">
-                        <a href="https://blog.dich.bid/windows-vscode-gcc/">
-                            <span class="button__text">Windows系列(6):C&#x2F;C++开发配置</span>&nbsp;
+                        <a href="https://blog.dich.bid/windows-5-py/">
+                            <span class="button__text">Windows系列(5):Python开发配置</span>&nbsp;
                             <span class="button__icon">→</span>
                         </a>
                     </span>

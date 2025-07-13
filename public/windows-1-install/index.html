@@ -20,13 +20,13 @@
     <meta property="og:description" content="">
     <meta property="og:title" content="Dich'blog">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://blog.dich.bid/windows-all/">
+    <meta property="og:url" content="https://blog.dich.bid/windows-1-install/">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="">
     <meta name="twitter:title" content="Dich'blog">
     <meta property="twitter:domain" content="blog.dich.bid">
-    <meta property="twitter:url" content="https://blog.dich.bid/windows-all/">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-1-install/">
 
                 <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
     
@@ -103,11 +103,11 @@
         
     <div class="post">
         
-    <h1 class="post-title"><a href="https://blog.dich.bid/windows-all/">Windows系列(2):安装与环境配置</a></h1>
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-1-install/">Windows系列(1):系统安装与设置</a></h1>
     <div class="post-meta-inline">
         
     <span class="post-date">
-            2024-05-25
+            2024-05-24
         </span>
 
     </div>
@@ -120,36 +120,116 @@
 
         <div class="post-content">
             <p>前言 由于厂商默认安装windows家庭版导致各种问题频发,这里对 widnows 安装做一个总结，以及附上我个人的windows配置。</p>
-<span id="continue-reading"></span>
+<span id="continue-reading"></span><h2 id="zong-gang">总纲</h2>
+<p>安装Windows有两种情况:1.在一台全新的电脑上安装；2.想为现有的系统更换版本。本文主要介绍这两种情况。如果只想对现有的系统进行优化，推荐看下一篇的<code>"Windows系列(2):常用操作与配置"</code>.</p>
+<p><strong>全新安装</strong></p>
+<ul>
+<li>获得一个Windows的ISO镜像；</li>
+<li>制作外部启动盘；</li>
+<li>做好环境准备，备份数据；</li>
+<li>引导外部启动盘安装系统；</li>
+<li>激活系统；</li>
+<li>进行安装后设置与优化；</li>
+</ul>
+<p><strong>为现有系统更换版本</strong></p>
+<ul>
+<li>做好环境准备，备份数据；</li>
+<li>方法一：获得ISO镜像，并选择从<code>本地升级</code>或<code>外部升级</code>；</li>
+<li>方法二：在设置中填写预安装密钥并切换系统；</li>
+<li>激活系统；</li>
+<li>进行安装后设置与优化；</li>
+</ul>
+<p><strong>PS:</strong></p>
 <blockquote>
-<p>从官方安装:从<a href="https://www.microsoft.com/en-us/software-download/windows11">微软官网</a>下载镜像或<a href="https://massgrave.dev/genuine-installation-media">MAS镜像站</a>下载。</p>
+<p><code>本地升级</code>：即为不需要外部启动盘，不动你的任何东西的无损安装；但需要一些前提条件；</p>
 </blockquote>
 <blockquote>
-<p>从Dichos安装，参考<a href="https://blog.dich.bid/windows-iso/">乱七八糟:Windows封装与全自动安装</a>；</p>
+<p><code>外部升级</code>：即为外部启动盘安装系统，可以格式化全盘全新安装；也可以保留数据安装，会将你的的数据放在C盘的<code>windows.old</code>文件夹。</p>
 </blockquote>
 <blockquote>
-<p>二者都基于专业工作站版本，区别在于Dichos通过预应答文件和封装完成了许多设置与优化。Windows最新版本往往Bug比较多，推荐用上一版本；如最新版本为24H2，则推荐使用23H2.</p>
+<p>数据安全：不管是本地还是外部升级，除非你格式化全盘重新安装，否则安装只会动C盘，其他分区的数据(如D盘等)不会触碰，可放心；</p>
 </blockquote>
-<p><strong>大版本分类</strong></p>
-<table><thead><tr><th>分类</th><th>消费者版（Consumer）</th><th>商务版（Business）</th><th>物联网版（IoT）</th><th>长期服务版（LTSC）</th></tr></thead><tbody>
-<tr><td><strong>目标用户</strong></td><td>家庭用户、个人消费者</td><td>企业、机构、教育用户</td><td>嵌入式设备、工业控制、POS、医疗设备等</td><td>关键任务系统、长期稳定运行的设备</td></tr>
-<tr><td><strong>主要版本</strong></td><td>Windows Home、Home Single Language、Education</td><td>Windows Professional、Enterprise、Education</td><td>Windows IoT Core、IoT Enterprise、IoT Enterprise LTSC</td><td>Windows Enterprise LTSC、IoT Enterprise LTSC</td></tr>
-<tr><td><strong>预装应用</strong></td><td>包含 Microsoft Store、娱乐和社交类应用</td><td>精简部分消费类应用，保留企业管理工具</td><td>极度精简，移除大部分消费类应用</td><td>移除 Microsoft Store、Cortana 等非必要功能</td></tr>
-<tr><td><strong>更新策略</strong></td><td>定期推送功能和安全更新</td><td>可由企业控制更新策略，支持延迟功能更新</td><td>可选择常规更新或 LTSC 版本，更新策略灵活</td><td>仅推送安全补丁和关键修复，无新功能更新</td></tr>
-<tr><td><strong>支持周期</strong></td><td>通常为 18 个月</td><td>通常为 18～30 个月，取决于版本和配置</td><td>IoT Enterprise LTSC 支持周期可达 10～15 年</td><td>通常为 5 年主流支持 + 5 年扩展支持，共 10 年</td></tr>
-<tr><td><strong>授权方式</strong></td><td>零售授权，需在线激活</td><td>批量许可（Volume Licensing）、OEM 授权</td><td>OEM 授权，适用于特定硬件设备</td><td>批量许可，适用于特定行业和关键任务设备</td></tr>
-<tr><td><strong>适用场景</strong></td><td>日常办公、娱乐、学习</td><td>企业办公、教育机构、专业工作站</td><td>工业自动化、零售终端、医疗设备等嵌入式系统</td><td>医疗设备、金融终端、工业控制系统等需长期稳定运行的环境</td></tr>
-</tbody></table>
+<h2 id="huo-qu-isojing-xiang">获取ISO镜像</h2>
+<p>不管你是哪一种情况，都推荐你先下载ISO镜像，因为ISO镜像方法是最通用,最常用的。</p>
 <blockquote>
-<p>安装完成后的优化:</p>
+<p>官方镜像:从<a href="https://www.microsoft.com/en-us/software-download/windows11">微软官网</a>下载镜像或<a href="https://massgrave.dev/genuine-installation-media">MAS镜像站</a>下载。</p>
 </blockquote>
-<h2 id="yi-she-bei-ji"><strong>一.设备级:</strong></h2>
+<blockquote>
+<p>Dichos镜像，是笔者个人制作的镜像，参考<a href="https://blog.dich.bid/windows-4-auto/">乱七八糟:Windows封装与全自动安装</a>；</p>
+</blockquote>
+<p><strong>PS:</strong></p>
+<blockquote>
+<p>镜像大小从1G~8G左右不等，因为有的不知道哪来的镜像里面版本不全，我们要下载的是包括所有主流版本的ISO，即为里面包括家庭版教育版专业版等等。如果你从其他地方下载ISO镜像，里面可能会捆绑流氓软件甚至有病毒。</p>
+</blockquote>
+<blockquote>
+<p>我们要使用的是<code>23H2专业工作站版本</code>，性能最强，功能最全面，适合日常使用和开发；笔记本自带的往往是24H2家庭中文版，bug多功能少，不建议使用。</p>
+</blockquote>
+<blockquote>
+<p>以上说的是功能版本，还有大版本的区别，目前暂时用不上，详细可以看本系列第三篇<code>Windows系列(3):分类与激活</code>.</p>
+</blockquote>
+<h2 id="zhi-zuo-qi-dong-pan">制作启动盘</h2>
+<p>在远古年代你可能看过电脑城老板使用Ghost安装系统，近一点的使用诸如“大白菜”，“老毛桃”以及各种PE安装系统，这是比较旧式的方法。</p>
+<p>本文推荐使用Ventoy启动盘+windows镜像的方法安装Windows，好处在于：</p>
+<ul>
+<li>Ventoy开源；</li>
+<li>不必每次安装都格式化U盘，比如刷了某某PE整个盘就不能放数据，刷其他系统前需要格式化；</li>
+<li>兼容性好，可以放各种ISO到里面并直接启动，包括Windows/Linux等等；</li>
+<li>其他详见<a href="https://blog.dich.bid/about-ventoy/">乱七八糟:Ventoy战斗盘部署</a></li>
+</ul>
+<h3 id="zhi-zuo-liu-cheng">制作流程</h3>
+<ul>
+<li>首先<code>在官网下载</code><a href="https://www.ventoy.net/cn/download.html">Ventoy</a></li>
+<li>随后在<code>language</code>中改为中文显示，可以看到左上角有<code>配置选项</code></li>
+<li>将分区类型设置为<code>GPT</code>，开启安全启动支持；</li>
+<li>将<code>分区格式</code>设置为NTFS；</li>
+<li>随后在<code>分区设置</code>中进行分区，选择在<code>磁盘后保留一段空间</code>，这里的空间将不被分区，即为空闲空间，可以稍后建立分区当作普通的文件存储盘；</li>
+<li>Ventoy分区则会使用<code>U盘总容量-保留空间-ventoy保留分区</code>的空间新建一个盘，这里可以放<code>ISO、WIM、IMG、VHD(x)、EFI</code>等等</li>
+<li>随后<code>选择磁盘</code>并开始安装,过一会儿即可安装完成。</li>
+<li>安装完成后可以看到一个新分区，把我们的ISO镜像放在里面即可。</li>
+<li>随后下载<a href="https://github.com/VirtualHotBar/HotPEToolBox">HotPE</a>，也放在里面。</li>
+</ul>
+<h2 id="huan-jing-zhun-bei-shu-ju-bei-fen">环境准备&amp;数据备份</h2>
+<p>不管你使用哪种方法都建议做好这一步骤：</p>
+<ul>
+<li>关闭Bitlocker；(防止磁盘访问受阻)</li>
+<li>关闭安全启动；(防止本地升级失败)</li>
+<li>关闭Intel VMD(如果有)；(防止磁盘识别不到)</li>
+<li>确保C盘有足够的空间(9GB+);</li>
+<li>备份好数据以防万一，以及如果原厂系统有驱动安装包也备份起来。</li>
+</ul>
+<p><code>关闭Bitclocker</code>：打开设置，进入隐私与安全→ 设备加密,将其状态切换为关闭。系统会弹窗提示确认，点击关闭，系统将开始解密。解密过程中需要比较久的时间，解密完成后即可成功。</p>
+<p><code>关闭安全启动和Intel VMD</code>:查找你的笔记本的BIOS 进入键，一般为F2；在开机的时候一直按按按BIOS 进入键,即可进入BIOS/UEFI。在其中查找安全启动(Secure Boot)和Intel VMD(如果有)并将它们关闭(disable),随后按保存退出键(一般为F10或F12)。</p>
+<p><code>确保C盘有足够的空间</code>:重新进入BIOS，在其中的引导选项中选择USB设备(你的启动盘的设备名)，将其调到第一个，然后保存退出；重新启动，这时候就会进入Ventoy的界面，可以看到我们放进去的两个ISO，我们直接选择HotPE进入并使用里面的Diskgenius，把其他盘的空间分给C盘一点点，使其有至少9GB可以使用。</p>
+<h2 id="an-zhuang-xi-tong">安装系统</h2>
+<ul>
+<li>全新安装：进入BIOS选择Ventoy启动并选择Windows的ISO镜像，一路安装过去；</li>
+<li>更换版本外部升级：同上，记得选择保留当前数据，会保留C盘旧数据到Windows.old文件夹；</li>
+<li>更换版本本地升级：不用进BIOS，直接在文件管理器中打开ISO镜像并点击setup.exe,同样选择保留数据；</li>
+<li>更换版本预安装密钥：获得一个专业工作站版本的预安装密钥并在设置里面切换密钥，直接升级系统;</li>
+</ul>
+<p><strong>PS:</strong></p>
+<blockquote>
+<p>无论你用什么方法都建议先备份好数据!!!</p>
+</blockquote>
+<blockquote>
+<p>无损升级是有前提条件的!!!除了前面说的环境准备，还需要ISO镜像比原来的系统更新，比如23H2的镜像往往就不能无损更新24H2的系统，只能选择外部升级；</p>
+</blockquote>
+<blockquote>
+<p>如果你选择预安装密钥的方法往往比较容易无损升级，但这样就不能使用Dichos的优化，需要手动优化。</p>
+</blockquote>
+<h2 id="ji-huo-xi-tong">激活系统</h2>
+<p>如果你没有购买正版Windows，上文安装的系统可以使用<a href="https://github.com/massgravel/Microsoft-Activation-Scripts">MAS脚本</a>或者<a href="https://github.com/zbezj/HEU_KMS_Activator">HEU_KMS工具</a>来激活.</p>
+<h2 id="an-zhuang-hou-you-hua">安装后优化</h2>
+<blockquote>
+<p>如果你使用Dichos,可以直接跳到<strong>三.驱动级</strong>开始.</p>
+</blockquote>
+<h4 id="yi-she-bei-ji"><strong>一.设备级:</strong></h4>
 <ul>
 <li>关闭 BIOS 安全启动,快速启动</li>
 <li>解锁 BitLocker</li>
 <li>删除 OEM 分区，恢复简洁的设备分区</li>
 </ul>
-<h2 id="er-xi-tong-ji"><strong>二.系统级:</strong></h2>
+<h4 id="er-xi-tong-ji"><strong>二.系统级:</strong></h4>
 <ul>
 <li>家庭版升级为专业工作站版</li>
 <li>将用户名改为非中文</li>
@@ -157,7 +237,7 @@
 <li>激活 Windows 与 MS office</li>
 <li>停止自动更新并恢复单级菜单</li>
 </ul>
-<h2 id="san-qu-dong-ji"><strong>三.驱动级:</strong></h2>
+<h4 id="san-qu-dong-ji"><strong>三.驱动级:</strong></h4>
 <p>驱动的安装没有集成在Dichos中，而是作为手动安装的一部分避免出错。如自带系统有驱动包，先进系统拿出然后再安装新系统；一般来说，包括:</p>
 <ul>
 <li>主板驱动和CPU驱动；</li>
@@ -179,11 +259,11 @@
 <tr><td>三大件</td><td>Intel</td><td><a href="https://www.intel.cn/content/www/cn/zh/support/detect.html">链接</a></td></tr>
 <tr><td>三大件</td><td>NVIDIA</td><td><a href="https://www.nvidia.cn/geforce/drivers/">链接</a></td></tr>
 </tbody></table>
-<h2 id="si-ruan-jian-ji"><strong>四.软件级:</strong></h2>
+<h4 id="si-ruan-jian-ji"><strong>四.软件级:</strong></h4>
 <ul>
 <li>删除自带牛马以及不必要的管家类软件.</li>
 </ul>
-<h2 id="ruan-jian">软件</h2>
+<p><code>使用开源软件!</code></p>
 <ul>
 <li><strong>AI</strong>: <a href="https://github.com/nomic-ai/gpt4all">GPT4All</a></li>
 <li><strong>截图</strong>: <a href="https://github.com/ShareX/ShareX">ShareX</a></li>
@@ -214,92 +294,22 @@
 <li><strong>终端/SSH</strong>: <a href="https://github.com/electerm/electerm">Electerm</a></li>
 </ul>
 <blockquote>
-<p>这里说一下Rime输入法在Windows端叫小狼毫，输入方案用的是<a href="https://github.com/iDvel/rime-ice?tab=readme-ov-file">雾凇拼音</a> ，在<code>获取更多输入方案</code>中命令行输入<code>iDvel/rime-ice:others/recipes/full</code>安装。</p>
+<p>Rime输入法在Windows端叫小狼毫，输入方案用的是<a href="https://github.com/iDvel/rime-ice?tab=readme-ov-file">雾凇拼音</a> ，在<code>获取更多输入方案</code>中命令行输入<code>iDvel/rime-ice:others/recipes/full</code>安装。</p>
 </blockquote>
-<blockquote>
-<p>传统意义上的三大件包括浏览器，编辑器以及密码管理器。</p>
-</blockquote>
-<h2 id="wu-she-zhi-ji"><strong>五.设置级</strong></h2>
+<h4 id="wu-she-zhi-ji"><strong>五.设置级</strong></h4>
 <ul>
 <li>设置简洁高效的浏览器</li>
 <li>优化桌面布局与任务栏布局</li>
-<li>关闭开机自启软件</li>
+<li>关闭不必要的开机自启软件</li>
 <li>关闭 Windows Defender 等烦人的通知</li>
 </ul>
-<h2 id="liu-ce-shi-ji-ke-xuan"><strong>六.测试级(可选)</strong></h2>
+<h4 id="liu-ce-shi-ji-ke-xuan"><strong>六.测试级(可选)</strong></h4>
 <ul>
 <li>查看PC型号与配置是否相同</li>
 <li>测试GPU/CPU/硬盘速率与使用时间</li>
 <li>屏幕坏点/喇叭/蓝牙检测</li>
 <li>网络测速</li>
 </ul>
-<hr />
-<h2 id="kai-fa-huan-jing">开发环境</h2>
-<h3 id="da-jian-xu-ni-ji-huan-jing">搭建虚拟机环境</h3>
-<ul>
-<li>Hyper-V</li>
-</ul>
-<p>在 BIOS 中找到类似<code>Intel VT-x”、“AMD-V”或“Virtualization Technology</code>的选项，确保它是“Enabled”（启用）。随后按下 Win + S，输入“打开或关闭 Windows 功能”，在弹出的窗口中，找到 Hyper-V并启用，重启后即可出现。</p>
-<ul>
-<li>VMware</li>
-</ul>
-<p>首先下载 <a href="https://www.423down.com/14542.html">Vmware</a>，随后安装并<a href="https://www.ypojie.com/6066.html">激活</a>，然后提前下载好所需系统的镜像，这里推荐<a href="https://help.mirrorz.org/">整合镜像站</a>，并在Vmware中启动。</p>
-<ul>
-<li>Virtulbox</li>
-</ul>
-<p>直接到<a href="https://www.virtualbox.org/wiki/Downloads">官网</a>下载并安装。</p>
-<ul>
-<li>WSL</li>
-</ul>
-<p>在<code>控制面板-&gt;程序-&gt;启用或关闭Windows功能</code>，选中适用于Linux的Windows子系统和虚拟机平台，待安装完成后重启电脑。</p>
-<p>然后，在<code>管理员模式下打开 PowerShell 或 Windows 命令提示符</code>，方法是右键单击并选择“以管理员身份运行”，输入以下命令，然后重启计算机。</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>wsl --install
-</span></code></pre>
-<p>此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。（可以更改此默认发行版）。</p>
-<blockquote>
-<p>使用 qemu-img 进行各种虚拟机格式转换</p>
-</blockquote>
-<ul>
-<li>qcow2 转 vmdk（VMware）</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f qcow2 -O vmdk input.qcow2 output.vmdk
-</span></code></pre>
-<ul>
-<li>qcow2 转 vdi（VirtualBox）</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f qcow2 -O vdi input.qcow2 output.vdi
-</span></code></pre>
-<ul>
-<li>qcow2 转 vhdx（新版 Hyper-V）</li>
-</ul>
-<p>目前 qemu-img 不能直接输出 vhdx，但你可以先转成 vhd，再用微软工具（如 Convert-VHD）转换为 vhdx：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Convert-VHD -Path &quot;output.vhd&quot; -DestinationPath &quot;output.vhdx&quot; -VHDType Dynamic
-</span></code></pre>
-<ul>
-<li>vmdk转vhdx</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>qemu-img convert -f vmdk -O vhdx input.vmdk output.vhdx
-</span></code></pre>
-<ul>
-<li>vhd转vhdx
-在 PowerShell 中执行以下命令：​</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Convert-VHD -Path &quot;C:\路径\源文件.vhd&quot; -DestinationPath &quot;C:\路径\目标文件.vhdx&quot; -VHDType Dynamic
-</span><span>
-</span><span># -Path：​指定原始 VHD 文件的路径。​
-</span><span># -DestinationPath：​指定转换后 VHDX 文件的保存路径。​
-</span><span># -VHDType：​指定磁盘类型，可选值为 Fixed（固定大小）或 Dynamic（动态扩展）。​
-</span></code></pre>
-<p>请确保虚拟机已关闭，并且 PowerShell 以管理员权限运行。</p>
-<blockquote>
-<p>Vscode SSH 连接</p>
-</blockquote>
-<p>使用<code>Open Remote - SSH</code>插件，需要创建.ssh文件夹；Windows中在<code>C://users//username//</code>路径下。</p>
-<p>随后使用插件新建一个连接，如：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Host myserver
-</span><span>    HostName 192.168.1.100
-</span><span>    User your_username
-</span></code></pre>
 <hr />
 <p><strong>Done.</strong></p>
 
@@ -313,16 +323,16 @@
             </div>
             <div class="pagination__buttons">
                     <span class="button previous">
-                        <a href="https://blog.dich.bid/windows-some-setting/">
+                        <a href="https://blog.dich.bid/about-shortcut-key/">
                             <span class="button__icon">←</span>&nbsp;
-                            <span class="button__text">Windows系列(1):常用操作</span>
+                            <span class="button__text">乱七八糟:常用实用快捷键</span>
                         </a>
                     </span>
                 
                 
                     <span class="button next">
-                        <a href="https://blog.dich.bid/windows-activation/">
-                            <span class="button__text">Windows系列(3):分类与激活</span>&nbsp;
+                        <a href="https://blog.dich.bid/windows-2-set/">
+                            <span class="button__text">Windows系列(2):常用操作与配置</span>&nbsp;
                             <span class="button__icon">→</span>
                         </a>
                     </span>
