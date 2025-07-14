@@ -132,9 +132,6 @@
 <li>8.VPN配置回家；</li>
 <li>9.实现透明代理。</li>
 </ul>
-<blockquote>
-<p>剩余专业路由功能可以由ROS替代，服务则跑在NAS系统上，避免ALL in Boom！</p>
-</blockquote>
 <h2 id="da-zhi-si-lu">大致思路</h2>
 <ul>
 <li>使用高性能的X86主机管理拨号和 DHCP 内网的工作，其他无线路由器桥接做AP，Mesh组网；</li>
@@ -170,7 +167,10 @@
 <li>可以使用GitHub action 云编译一个固件；</li>
 <li>可以在本地linux环境中进行编译。</li>
 </ul>
-<h2 id="x86ping-tai-an-zhuang-zhun-bei"><strong>X86平台安装准备：</strong></h2>
+<h2 id="x86ping-tai-an-zhuang-liu-cheng"><strong>X86平台安装流程：</strong></h2>
+<ol start="0">
+<li>安装准备：</li>
+</ol>
 <ul>
 <li>
 <p>一个U盘与一台双网口物理机</p>
@@ -188,23 +188,30 @@
 <p><a href="https://www.roadkil.net/program.php?ProgramID=12#google_vignette">img 写盘工具</a></p>
 </li>
 </ul>
-<h2 id="x86ping-tai-an-zhuang-liu-cheng"><strong>X86平台安装流程：</strong></h2>
-<p>1.进入PE环境：</p>
+<ol>
+<li>进入PE环境：</li>
+</ol>
 <ul>
 <li>打开微PE，将其安装进U盘中，安装完成后将 img 工具和 openwrt 包一起放进去；</li>
 <li>将U盘插入目标主机，进入 BIOS-boot 设置U盘优先启动，各主板进入 BIOS 的按键不同，不确定的话建议都试一遍。</li>
 </ul>
-<p>2.格式化硬盘并写盘</p>
+<ol start="2">
+<li>格式化硬盘并写盘</li>
+</ol>
 <ul>
 <li>进入PE环境中，可以看到存在名为“分区助手”的软件，打开它并将目标主机硬盘格式化；注意不要分区！不要分区！不要设置文件系统！否则后续可能无法编译！点击左上角提交并执行</li>
 <li>打开img写盘工具，将openwrt包写入硬盘，注意不要写进U盘里。</li>
 </ul>
-<p>3.进入配置界面</p>
+<ol start="3">
+<li>进入配置界面</li>
+</ol>
 <ul>
 <li>重启系统并快速拔出U盘，避免重新进入PE；这时系统开始运行了。注意Esir固件是不跑码的，无需担心。- 一个U盘与一台双网口物理机</li>
 <li>当看到 <code>please press Enter to activate this console</code>这个提示的时候系统就安装完毕了。可使用 passwd 命令设置密码。软路由将自动获取IP地址，随后我们在浏览器中打开该地址，即可看到 Lucl 界面。</li>
 </ul>
-<p>4.如果你使用官方固件，注意:</p>
+<ol start="4">
+<li>如果你使用官方固件，注意:</li>
+</ol>
 <ul>
 <li>硬盘空间有一部分没有被格式化，可以手动格式化为ext4并挂载。</li>
 <li>注意初始IP往往是192.168.1.1，如果和光猫冲突需要在网络-接口中更改。</li>
@@ -274,61 +281,33 @@
 </span><span>cd ~
 </span></code></pre>
 <ul>
-<li><strong>拉取源码，这里用的是 LEDE 分支源码：</strong></li>
+<li><strong>拉取源码，这里用的是 OpenWrt 24.10 分支源码：</strong></li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/coolsnowwolf/lede
-</span><span>cd lede
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/openwrt/openwrt.git
+</span><span>cd openwrt
+</span><span>git switch openwrt-24.10
 </span></code></pre>
 <h3 id="mu-lu-shuo-ming">目录说明</h3>
+<table><thead><tr><th>名称</th><th>作用</th></tr></thead><tbody>
+<tr><td><code>Makefile</code></td><td><strong>整个 OpenWrt 构建系统的总入口点</strong>（顶层 Makefile），运行 <code>make menuconfig</code>、<code>make</code> 都依赖它</td></tr>
+<tr><td><code>Config.in</code></td><td>Kconfig 系统的入口配置文件，决定 <code>make menuconfig</code> 菜单显示什么选项</td></tr>
+<tr><td><code>config/</code></td><td>构建系统的默认配置模板、菜单逻辑，和 <code>menuconfig</code> 相关</td></tr>
+<tr><td><code>include/</code></td><td>包含通用 makefile 片段的目录（比如编译选项、函数定义）</td></tr>
+<tr><td><code>rules.mk</code></td><td>所有包编译通用规则都写在这里，<code>include $(TOPDIR)/rules.mk</code> 是常见语句</td></tr>
+<tr><td><code>feeds.conf.default</code></td><td>定义 Feed 源（即可选的软件源），可用于管理外部包，比如 <code>luci</code>、<code>packages</code></td></tr>
+<tr><td><code>feeds/</code> <em>(克隆后还没出现)</em></td><td><code>./scripts/feeds update -a</code> 后才会出现，用来保存外部 feed 的代码</td></tr>
+<tr><td><code>package/</code></td><td>OpenWrt 自带的核心包和第三方包（除 feeds 外的）都在这，结构是 <code>package/&lt;分类&gt;/&lt;包名&gt;</code></td></tr>
+<tr><td><code>target/</code></td><td>支持的平台架构，比如 <code>x86</code>、<code>ramips</code>、<code>ath79</code>、<code>mediatek</code> 等都在里面</td></tr>
+<tr><td><code>toolchain/</code></td><td>编译器链、glibc/musl、binutils、gcc 都在这里构建</td></tr>
+<tr><td><code>tools/</code></td><td>构建工具目录，编译前工具如 <code>m4</code>、<code>autoconf</code>、<code>xz</code>、<code>patch</code> 等放在这</td></tr>
+<tr><td><code>scripts/</code></td><td>脚本工具目录，如 <code>feeds</code> 管理、镜像合并、menuconfig 支持等</td></tr>
+<tr><td><code>LICENSES/</code></td><td>所有包/组件的许可证归档</td></tr>
+<tr><td><code>COPYING</code></td><td>OpenWrt 的主许可证（GPLv2）</td></tr>
+<tr><td><code>README.md</code></td><td>简要介绍如何开始使用 OpenWrt 的说明文档</td></tr>
+<tr><td><code>BSDmakefile</code></td><td>为 BSD 系统一些兼容 makefile，Linux 用户用不到</td></tr>
+</tbody></table>
 <ul>
-<li>
-<p>buildroot: OpenWrt 的核心目录，包含构建系统相关的文件。</p>
-<ul>
-<li><code>feeds.conf.default</code>：定义软件包源的配置文件。</li>
-<li><code>files/</code>：存放自定义文件，用于覆盖默认的 root 文件系统。</li>
-</ul>
-</li>
-<li>
-<p>target: 包含目标设备架构的配置和构建信息。</p>
-<ul>
-<li><code>linux/</code>：包含与 Linux 内核相关的代码和配置。</li>
-<li><code>generic/</code>：通用配置文件。</li>
-<li><code>platform/</code>：针对具体设备平台的特定配置。</li>
-</ul>
-</li>
-<li>
-<p>package: 包含所有 OpenWrt 的软件包。</p>
-<ul>
-<li><code>base/</code>：基本功能相关的软件包（如 BusyBox、opkg）。</li>
-<li><code>kernel/</code>：与内核相关的补丁或模块。</li>
-<li><code>network/</code>：网络工具和协议（如 DHCP、DNS）。</li>
-<li><code>utils/</code>：各种实用工具（如编解码器、文件工具）。</li>
-</ul>
-</li>
-<li>
-<p>config: 存放默认配置文件，例如 <code>Config.in</code>，用于定义菜单项。</p>
-</li>
-<li>
-<p>scripts: 构建过程中使用的辅助脚本（如生成补丁、编译镜像）。</p>
-</li>
-<li>
-<p>toolchain: 构建工具链所需的文件，如编译器、链接器。</p>
-</li>
-<li>
-<p>tools: 一些构建系统依赖的额外工具（如 <code>autoconf</code>、<code>zlib</code>）。</p>
-</li>
-<li>
-<p>include: 存放 Makefile 的通用模板和其他全局定义文件。</p>
-</li>
-<li>
-<p>feeds: 包含通过 <code>feeds.conf</code> 配置的外部软件包源。</p>
-</li>
-<li>
-<p>documentation: 包含与 OpenWrt 项目相关的文档，如构建指南和开发文档。</p>
-</li>
-<li>
-<p><strong>添加软件源,可自行添加软件源至 feeds.conf.default 文件，也可以直接git添加需要的软件到lede目录下：</strong></p>
-</li>
+<li><strong>添加软件源,可自行添加软件源至 feeds.conf.default 文件</strong></li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>vim feeds.conf.default
 </span></code></pre>
@@ -350,6 +329,9 @@
 </span><span>./scripts/feeds update -a
 </span><span>./scripts/feeds install -a
 </span></code></pre>
+<table><thead><tr><th><code>./scripts/feeds update -a</code></th><th>同步／更新 <strong>外部 feed</strong>（packages、luci、routing 等）的 Git 仓库到本地 <code>feeds/</code> 目录</th></tr></thead><tbody>
+<tr><td><code>./scripts/feeds install -a</code></td><td>把你在 feeds 里选要用的包 <strong>链接</strong> 到源码树的 <code>package/feeds/</code>，让它们参与编译</td></tr>
+</tbody></table>
 <ul>
 <li><strong>自定义配置</strong></li>
 </ul>
@@ -365,89 +347,62 @@
 <p><strong>修改默认主题</strong></p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &quot;s/luci-theme-bootstrap/luci-theme-argon/g&quot; feeds/luci/collections/luci/Makefile
 </span></code></pre>
-<p>执行 <strong>make menuconfig</strong> 命令进入编译菜单。</p>
+<ul>
+<li>执行 <strong>make menuconfig</strong> 命令进入编译菜单。</li>
+</ul>
+<table><thead><tr><th>命令</th><th>功能描述</th><th>优点</th><th>适用场景</th></tr></thead><tbody>
+<tr><td><code>make menuconfig</code></td><td>以 ncurses 界面交互式地浏览、修改当前 <code>.config</code> 与最新 Kconfig 中的所有选项</td><td>界面友好，支持搜索和分类；可直观调整</td><td>想手动挑选/调整配置时</td></tr>
+<tr><td><code>make oldconfig</code></td><td>在命令行逐项对比 <code>.config</code> 与最新 Kconfig：保留原值、提示新增项、删除废弃项</td><td>快速同步，只对新增选项发出提示；无需界面</td><td>自动化脚本或快速同步配置时</td></tr>
+<tr><td><code>make defconfig</code></td><td>忽略当前 <code>.config</code>，直接加载架构/板级目录下的默认配置（<code>defconfig</code>）</td><td>一键生成官方/平台推荐的「干净」配置</td><td>想重置到官方默认或重新开始时</td></tr>
+</tbody></table>
 <h3 id="bian-yi-pei-zhi-cai-dan-shuo-ming-bu-fen"><strong>编译配置菜单说明（部分）</strong></h3>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target System (Broadcom BCM27xx)     # 选择处理器架构
-</span><span>└── Subtarget (BCM2711 boards (64 bit))     # 选择处理器
-</span><span>    └── Target Profile (Raspberry Pi 4B/400/4CM (64bit))     # 预制配置文件
-</span><span>        └── Target Images     # 固件映像设置
-</span><span>            └── ramdisk     # 内存盘
-</span><span>                ├── Compression     # 压缩等级 (none 表示不压缩)
-</span><span>                ├── Root filesystem archives     # 根文件系统存档类型
-</span><span>                │   ├── cpio.gz
-</span><span>                │   └── tar.gz
-</span><span>                ├── Root filesystem images     # 根文件系统格式
-</span><span>                │   ├── ext4     # 适用于大容量闪存
-</span><span>                │   ├── squashfs     # 适用于小容量闪存
-</span><span>                │   └── Gzip images     # Gzip 存档
-</span><span>                └── Image Options
-</span><span>                    ├── Kernel partition size     # 内核分区大小
-</span><span>                    ├── Root filesystem partition size     # 跟文件系统分区大小
-</span><span>                    └── Make /var persistent     # 持久化 /var
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target System (x86)                                # 选择目标平台
+</span><span>└── Subtarget (x86_64)                             # 选择 64-bit 子架构
+</span><span>    └── Target Profile (Generic)                   # “Generic” 表示通用 x86_64 设备
+</span><span>        └── Target Images                          # 固件镜像设置
+</span><span>            ├── ramdisk                            # 可选内存盘镜像
+</span><span>            │   ├── Compression                    # 压缩类型（如 none 表示无压缩）
+</span><span>            │   ├── Root filesystem archives       # 压缩存档：cpio.gz 或 tar.gz
+</span><span>            │   └── Root filesystem images         # 文件系统镜像：ext4、squashfs、Gzip
+</span><span>            └── Image Options                      # 镜像选项
+</span><span>                ├── Kernel partition size           # 内核分配分区大小
+</span><span>                ├── Root filesystem partition size # 根文件系统分区大小
+</span><span>                └── Make /var persistent            # 是否保留 /var 持久化
 </span><span>
-</span><span>Enable experimental features by default     # 默认启用实验性功能
-</span><span>Global build settings     # 全局编译设置
-</span><span>Advanced configuration options (for developers)     # 高级选项（仅供开发者）
-</span><span>Build the OpenWrt Image Builder     # 编译 OpenWrt 镜像编译器
-</span><span>Build the OpenWrt SDK     # 编译 OpenWrt SDK
-</span><span>Package the OpenWrt-based Toolchain     # 打包 OpenWrt 工具链
-</span><span>Image configuration     # 镜像选项
+</span><span>Global build settings                             # 全局构建设置
+</span><span>Advanced configuration options (for developers)  # 开发者高级选项
+</span><span>Build the OpenWrt Image Builder                  # 编译镜像构建器
+</span><span>Build the OpenWrt SDK                            # 构建交叉编译 SDK
+</span><span>Package the OpenWrt‑based Toolchain              # 打包 OpenWrt 工具链
+</span><span>Image configuration                              # 镜像总体配置页面
 </span><span>
-</span><span>Base system     # 基本组件
-</span><span>Administration     # 管理员工具
-</span><span>Boot Loaders     # 引导程序
-</span><span>Development     # 开发者工具
-</span><span>Extra packages     # 额外包
-</span><span>Firmware     # 固件工具
-</span><span>Fonts     # 字体
-</span><span>Kernel modules     # 内核模块
-</span><span>Languages     # 额外的语言 (Python3, PHP, NodeJS 等)
-</span><span>Libraries     # 系统库
-</span><span>LuCI     # LuCI 插件（一般只需修改应用和主题）
+</span><span>Base system         # 系统基础组件
+</span><span>Administration      # 管理工具（如 ssh、管理员脚本）
+</span><span>Boot Loaders        # 引导程序（如 grub、syslinux）
+</span><span>Development         # 编译/调试辅助工具
+</span><span>Extra packages      # 附加应用（如 wget、curl）
+</span><span>Firmware            # 固件工具
+</span><span>Fonts               # 字体支持
+</span><span>Kernel modules      # x86 内核模块驱动
+</span><span>Languages           # 编程语言包（如 Python3、Node.js）
+</span><span>Libraries           # 系统库依赖
+</span><span>LuCI                # Web UI 前端
 </span><span>└── Collections
 </span><span>└── Modules
 </span><span>└── Applications
 </span><span>└── Themes
 </span><span>└── Protocols
 </span><span>└── Libraries
-</span><span>└── default-settings     # 默认选项（自动配置语言包）
+</span><span>└── default‑settings
 </span><span>
-</span><span>Mail     # 邮件
-</span><span>Multimedia     # 多媒体
-</span><span>Network     # 网络相关
-</span><span>Sound     # 音频
-</span><span>Utilities     # 各类实用软件（比如 VIM）
-</span><span>Xorg
-</span></code></pre>
-<h3 id="cai-dan-xuan-xiang-shuo-ming"><strong>菜单选项说明</strong></h3>
-<p><strong>选择 CPU 类型</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target System (x86) --&gt; # 软路由选择 x86，硬路由根据型号厂家自行选择
+</span><span>Mail                # 邮件客户端
+</span><span>Multimedia          # 媒体工具（如 ffmpeg）
+</span><span>Network             # 网络功能（如 openvpn、wireguard）
+</span><span>Sound               # 音频相关软件
+</span><span>Utilities           # 常用实用程序（如 vim、htop）
+</span><span>Xorg                # 桌面环境支持（X11 图形系统）
 </span><span>
-</span><span>Subtarget (x86_64) --&gt; # CPU 子选项
-</span><span>
-</span><span>Target Profile (Generic x86/64) --&gt; # 厂家具体型号
 </span></code></pre>
-<p><strong>设置镜像编译的格式（squashfs，ext4）</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target Images --&gt; # 默认 squashfs
-</span></code></pre>
-<p><strong>添加较多插件时，为了避免空间不足，建议修改下面两项默认大小（x86/64）</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Target Images --&gt; (16) Kernel partition size (in MB) # 默认是16，建议修改为256
-</span></code></pre>
-<p><strong>开启 IPv6 支持</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Extra packages --&gt; ipv6helper（选定这个后，下面几项会自动选择）
-</span></code></pre>
-<p><strong>开启适用于 VMware 的 VMware Tools</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Utilities --&gt; open-vm-tools
-</span><span>
-</span><span>Utilities --&gt; open-vm-tools-fuse
-</span></code></pre>
-<p><strong>选择插件</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>LuCI --&gt; Applications # 根据需要选择，* 代表编入固件，M 表示编译成模块或者IPK包，为空表示不编译
-</span></code></pre>
-<p><strong>选择主题</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>LuCI --&gt; Themes # 选择喜欢的主题，可以选多个
-</span></code></pre>
-<p>配置完成后使用编译菜单底部的 Save 保存，然后退出菜单 Exit，开始下载软件包</p>
 <ul>
 <li><strong>预下载编译所需的软件包</strong></li>
 </ul>
@@ -461,75 +416,23 @@
 <p>检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查.确认所有文件完整可大大提高编译成功率，避免浪费时间</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>find dl -size -1024c -exec rm -f {} \;
 </span></code></pre>
-<p>最后编译固件，编译完成后输出路径是 <strong>bin/targets</strong>，默认密码是 <strong>password</strong>.</p>
 <ul>
-<li><strong>编译固件（-j 后面是线程数，首次编译推荐用单线程）</strong></li>
+<li><strong>最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.</strong></li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>make V=s -j1
 </span></code></pre>
-<ul>
-<li><strong>二次编译</strong></li>
-</ul>
-<p>拉取最新 OpenWrt 源码和更新 feeds 源中的软件包源码</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cd lede
-</span><span>
-</span><span>git pull
-</span><span>
-</span><span>./scripts/feeds update -a
-</span><span>
-</span><span>./scripts/feeds install -a
-</span></code></pre>
-<p>清除旧的编译产物和目录（可选）</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make clean
-</span></code></pre>
-<ul>
-<li>源码有大规模更新或者内核更新后执行，以保证编译质量;此操作会删除 /bin 和 /build_dir 目录中的文件</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make dirclean
-</span></code></pre>
-<blockquote>
-<p>更换架构编译前必须执行</p>
-</blockquote>
-<blockquote>
-<p>此操作会删除 /bin 和 /build_dir 目录的中的文件（make clean），以及 /staging_dir、/toolchain、/tmp 和 /logs 中的文件</p>
-</blockquote>
-<p>同首次编译，多线程编译失败后自动进入单线程编译，失败则输出详细日志</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make defconfig
-</span><span>
-</span><span>make download -j8
-</span><span>
-</span><span>find dl -size -1024c -exec ls -l {} \;
-</span><span>
-</span><span>make -j$(nproc) || make -j1 || make -j1 V=s
-</span></code></pre>
-<h3 id="ru-guo-xu-yao-zhong-xin-pei-zhi">如果需要重新配置</h3>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>rm -rf ./tmp &amp;&amp; rm -rf .config # 清除临时文件和编译配置文件
-</span><span>
-</span><span>make menuconfig
-</span><span>
-</span><span>make download -j8
-</span><span>
-</span><span>find dl -size -1024c -exec ls -l {} \;
-</span><span>
-</span><span>make -j$(nproc) || make -j1 || make -j1 V=s
-</span></code></pre>
-<h2 id="armping-tai-an-zhuang-openwrt">Arm平台安装OpenWrt：</h2>
-<p>相比X86平台，arm架构的设备兼容性不高，不能随便找一个包就能安装。以下是一般步骤：</p>
-<ul>
-<li>
-<p>首先得知道你的设备的CPU，比如ipq40XX系列，然后在对应的<a href="https://archive.openwrt.org/releases/23.05.4/targets/">仓库</a>查看并下载包体。</p>
-</li>
-<li>
-<p>当然也可以在<a href="https://firmware-selector.openwrt.org/">这里</a>直接下载相关型号对应的固件，其中 Sysupgrade 映像是用来更新现有运行 OpenWrt 的设备，使用 Factory 映像在首次刷机时刷入。</p>
-</li>
-<li>
-<p>随后开启Telnet或者SSH或者TTL串口连接到路由器，将对应的Uboot刷入，如果没有适配的包就无法刷openwrt。</p>
-</li>
-<li>
-<p>通过Uboot的网络界面刷入Factory包，随后就可以在后台（如192.168.1.1）进入openwrt的管理界面。</p>
-</li>
-</ul>
-<h2 id="zai-ubuntushang-dan-du-bian-yi-openwrtde-ipkbao">在ubuntu上单独编译openwrt的ipk包</h2>
+<table><thead><tr><th>make层级</th><th>目录示例</th><th>说明</th></tr></thead><tbody>
+<tr><td>make[1]</td><td>顶层 Makefile</td><td>解析依赖，调度模块</td></tr>
+<tr><td>make[2]</td><td><code>tools/</code></td><td>编译辅助工具</td></tr>
+<tr><td>make[2]</td><td><code>toolchain/</code></td><td>编译交叉编译工具链</td></tr>
+<tr><td>make[2]</td><td><code>target/linux/</code></td><td>编译内核及设备树</td></tr>
+<tr><td>make[2]</td><td><code>package/</code></td><td>进入包管理，调度包构建</td></tr>
+<tr><td>make[3]</td><td><code>package/libs/libc</code></td><td>单个包的 Makefile</td></tr>
+<tr><td>make[3]</td><td><code>package/utils/busybox</code></td><td>单个包的 Makefile</td></tr>
+<tr><td>make[4]</td><td><code>build_dir/target-...</code></td><td>包源码目录，运行源码的 make</td></tr>
+<tr><td>make[4]</td><td><code>build_dir/target-linux-...</code></td><td>内核源码目录</td></tr>
+</tbody></table>
+<h2 id="dan-du-bian-yi-openwrtde-ipkbao">单独编译openwrt的ipk包</h2>
 <p>这里以ubuntu环境为例，我们假设你有一台虚拟机或者WSL。</p>
 <blockquote>
 <p><code>注意编译不能使用Root用户！</code></p>
@@ -566,33 +469,17 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>make package/inyn/compile V=s
 </span><span>## 如果不行则需要先编译工具链，即为 make j=4 ，j为CPU核数
 </span></code></pre>
-<h2 id="github-actions-bian-yi-openwrt">Github Actions 编译OpenWrt</h2>
-<p>Github为我们提供了免费的E5主机用来编译。</p>
-<ul>
-<li>
-<p>首先Fork<a href="https://github.com/hugcabbage/shared-lede">这个仓库</a>，可以看到有许多现成的配置，在<strong>顶栏actions里面可以直接启动一个Workflow</strong>来编译。</p>
-</li>
-<li>
-<p>大体架构是选择<strong>源码 -- 机型 -- 版本 -- 插件/主题 -- 配置（IP/密码/Hostname/编译者）</strong>，由一个config文件管理，这个文件在前面也提到过，可以在本地生成并上传；</p>
-</li>
-<li>
-<p>想要什么插件可以直接git clone过来原仓库，如果你想要添加其他架构和设备，这里<strong>使用templet里面的init.toml来创建</strong>，按照类似的格式填好；</p>
-</li>
-<li>
-<p>在actions里面运行produce，注意这需要<strong>GitHub Personal Access Token (PAT)</strong>；如果没有，必须先添加：</p>
-</li>
-<li>
-<p>打开 GitHub，进入<a href="https://github.com/settings/tokens">GitHub Developer Settings</a>点击 “Generate new token (classic)”，<strong>勾选所需权限</strong>（最关键的是 repo 和 workflow）：✅ repo（所有子权限）✅ workflow✅ read:packages <strong>Token 过期时间</strong>：选择 “No expiration”（不过期），否则过期后需要重新生成。<strong>点击</strong> “Generate token”
-<strong>复制 Token</strong>（只显示一次，一定要保存好！）</p>
-</li>
-<li>
-<p>然后添加 <strong>PRODUCE_DEVICE</strong> 到 <strong>GitHub Secrets</strong>，
-首先进入你的 GitHub 仓库，<code>依次进入：Settings（设置）- Secrets and variables-Actions-New repository secret 名称为PRODUCE_DEVICE</code>，值为粘贴刚刚复制的 GitHub Token，点击 “Add secret” 完成添加。</p>
-</li>
-<li>
-<p>随后<code>在actions里面运行produce</code>，完成后即可出现新架构的编译按钮.</p>
-</li>
-</ul>
+<h2 id="toolchain-sdk-imagebuilder">Toolchain/SDK/ImageBuilder</h2>
+<table><thead><tr><th>特性</th><th><strong>Toolchain</strong></th><th><strong>SDK</strong></th><th><strong>Image Builder</strong></th></tr></thead><tbody>
+<tr><td>包含内容</td><td>仅交叉编译工具链（二进制版 GCC、ld、musl、binutils）</td><td>完整交叉编译环境 + feeds 脚本 + package 目录，用于 <code>.ipk</code> 包开发</td><td>预编译的根文件系统 + opkg 包（无需源码编译），用于快速定制固件映像</td></tr>
+<tr><td>典型用途</td><td>用于编译第三方程序或 CI，如 hello-world 示例</td><td>编写和编译 <code>.ipk</code> 包，本地或自动化环境中离线开发</td><td>快速生成可刷写的固件镜像，集成所需包且无需完整源码树</td></tr>
+<tr><td>解压即用</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>在源码树中的作用</td><td><code>make toolchain/install</code> 自动识别并使用跳过编译流程</td><td>源码树中不会触发 SDK 安装，需要手动解压并进入其目录使用</td><td>不使用源码树，直接在 Image Builder 根目录下运行 <code>make image</code> 等命令</td></tr>
+<tr><td>大小</td><td>较小（几十 MB）</td><td>较大（上百 MB）</td><td>中等（约数百 MB，因包含预编译包）</td></tr>
+<tr><td>构建时间</td><td>几秒到几分钟</td><td>几分钟到十几分钟（取决于 feeds 大小）</td><td>极快，可在几十秒到几分钟内完成定制镜像</td></tr>
+<tr><td>兼容性</td><td>与对应 Release 完全匹配</td><td>与对应 Release 完全匹配</td><td>与对应 Release 完全匹配</td></tr>
+<tr><td>使用难度</td><td>简单，只需解压并设置 PATH</td><td>适中，需要理解 feeds 机制及包管理</td><td>最简单，适合终端用户或快速测试环境</td></tr>
+</tbody></table>
 <h2 id="chang-yong-ming-ling">常用命令:</h2>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># 更新软件列表
 </span><span>opkg update
@@ -603,9 +490,6 @@
 </span><span># 如果要更新所有软件，包括 OpenWRT 内核、固件等
 </span><span>opkg list-upgradable | cut -f 1 -d &#39; &#39; | xargs opkg upgrade
 </span></code></pre>
-<blockquote>
-<p>新版本的openwrt（24.10）已经改用APK包管理器。</p>
-</blockquote>
 <h2 id="chang-yong-ke-xue-cha-jian">常用科学插件</h2>
 <table><thead><tr><th>特性</th><th>HomeProxy</th><th>OpenClash</th><th>Passwall</th><th>ShellClash</th></tr></thead><tbody>
 <tr><td><strong>核心</strong></td><td>Sing-box、Xray</td><td>Clash</td><td>Xray、Sing-box</td><td>Clash、Xray、Sing-box</td></tr>
