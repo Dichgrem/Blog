@@ -365,6 +365,63 @@ sudo powerprofilesctl set balanced
 # 切换到“省电”模式
 sudo powerprofilesctl set power-saver
 ```
+## 其他性能优化
+
+```
+Profile‑sync‑daemon
+将浏览器配置文件和缓存挂载到内存，退出时再写回磁盘：
+
+sudo pacman -S profile-sync-daemon
+systemctl --user enable --now psd.service
+
+Systemd‑oomd
+启用 systemd 自带的内存超载保护守护进程：
+
+sudo pacman -S systemd-oomd
+sudo systemctl enable --now systemd-oomd
+
+Bpftune
+加载 BPF 性能调优脚本（网络、I/O、调度等）：
+
+sudo pacman -S bpftune
+sudo systemctl enable --now bpftune
+
+Ananicy‑Cpp
+根据预设规则给游戏、多媒体和后台任务打优先级标签：
+
+sudo pacman -S ananicy-cpp
+sudo systemctl enable --now ananicy-cpp
+```
+
+## 常用命令
+
+```
+更新系统：sudo pacman -Syu
+
+重新安装所有软件包：sudo pacman -Qq | sudo pacman -S -
+
+Reset keyrings：
+
+sudo rm -rf /etc/pacman.d/gnupg
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+
+移除数据库锁：sudo rm -f /var/lib/pacman/db.lck
+
+清理软件包缓存：sudo pacman -Sc （或 -Scc 完全清空）
+
+删除孤立软件包：sudo pacman -Rns $(pacman -Qtdq)
+
+Install Gaming packages：sudo pacman -S steam wine lutris dxvk
+
+排序镜像：
+
+sudo pacman -S reflector
+sudo reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+
+更改 DNS 服务器：编辑 /etc/systemd/resolved.conf 中的 DNS=1.1.1.1 8.8.8.8，然后 sudo systemctl restart systemd-resolved
+```
+
 
 ## 在Arch Linux上安装Docker
 

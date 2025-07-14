@@ -407,6 +407,19 @@ opkg list-upgradable | grep luci- | cut -f 1 -d ' ' | xargs opkg upgrade
 
 # 如果要更新所有软件，包括 OpenWRT 内核、固件等
 opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
+
+# 固件版本号
+vim /etc/os-release
+
+# 脚本&脚注
+vim /etc/openwrt_release
+
+# ASCII字符画
+vim /etc/banner
+
+# 登录脚本显示
+vim /etc/profile
+vim /vim /etc/profile.d/30-sysinfo.sh
 ```
 ## 常用仓库
 
