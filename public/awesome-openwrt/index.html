@@ -501,6 +501,19 @@
 </span><span>
 </span><span># 如果要更新所有软件，包括 OpenWRT 内核、固件等
 </span><span>opkg list-upgradable | cut -f 1 -d &#39; &#39; | xargs opkg upgrade
+</span><span>
+</span><span># 固件版本号
+</span><span>vim /etc/os-release
+</span><span>
+</span><span># 脚本&amp;脚注
+</span><span>vim /etc/openwrt_release
+</span><span>
+</span><span># ASCII字符画
+</span><span>vim /etc/banner
+</span><span>
+</span><span># 登录脚本显示
+</span><span>vim /etc/profile
+</span><span>vim /vim /etc/profile.d/30-sysinfo.sh
 </span></code></pre>
 <h2 id="chang-yong-cang-ku">常用仓库</h2>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>src/gz kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
