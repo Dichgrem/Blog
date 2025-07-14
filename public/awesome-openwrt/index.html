@@ -529,6 +529,19 @@
 <tr><td><strong>UI 管理</strong></td><td>✅（Web UI、桌面端 GUI）</td><td>✅（OpenClash Web UI）</td><td>✅（Luci Web UI）</td><td>❌（Shell 终端管理）</td></tr>
 <tr><td><strong>适用场景</strong></td><td>性能较好,但分流设置复杂</td><td>适用于clash系,机场首选</td><td>操作简单,分流完善,但对路由器性能要求较高</td><td>没有UI界面，性能最好，支持完善，可以通过clashapi安装UI</td></tr>
 </tbody></table>
+<h2 id="kai-qi-bbr">开启BBR</h2>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>vi /etc/sysctl.conf
+</span><span>
+</span><span>添加以下两行：
+</span><span>net.core.default_qdisc=fq_codel
+</span><span>net.ipv4.tcp_congestion_control=bbr
+</span><span>
+</span><span>保存后应用更改：
+</span><span>sysctl -p
+</span><span>
+</span><span>检查
+</span><span>sysctl net.ipv4.tcp_congestion_control
+</span></code></pre>
 <h2 id="xiao-yuan-wang-duo-she-bei-fang-jian-ce">校园网多设备防检测</h2>
 <p><strong>常见检测方法</strong>：</p>
 <ul>

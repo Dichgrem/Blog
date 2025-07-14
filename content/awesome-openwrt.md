@@ -440,6 +440,23 @@ src/gz kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
 | **UI 管理** | ✅（Web UI、桌面端 GUI） | ✅（OpenClash Web UI） | ✅（Luci Web UI） | ❌（Shell 终端管理） |
 | **适用场景** | 性能较好,但分流设置复杂 | 适用于clash系,机场首选 | 操作简单,分流完善,但对路由器性能要求较高 | 没有UI界面，性能最好，支持完善，可以通过clashapi安装UI |
 
+## 开启BBR
+
+```
+vi /etc/sysctl.conf
+
+添加以下两行：
+net.core.default_qdisc=fq_codel
+net.ipv4.tcp_congestion_control=bbr
+
+保存后应用更改：
+sysctl -p
+
+检查
+sysctl net.ipv4.tcp_congestion_control
+```
+
+
 ## 校园网多设备防检测
 
 **常见检测方法**：
