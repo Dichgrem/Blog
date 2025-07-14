@@ -281,10 +281,10 @@
 </span><span>cd ~
 </span></code></pre>
 <ul>
-<li><strong>拉取源码，这里用的是 OpenWrt 24.10 分支源码：</strong></li>
+<li><strong>拉取源码，这里用的是 ImmortalWrt 24.10 分支源码：</strong></li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/openwrt/openwrt.git
-</span><span>cd openwrt
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/immortalwrt/immortalwrt.git
+</span><span>cd immortalwrt
 </span><span>git switch openwrt-24.10
 </span></code></pre>
 <h3 id="mu-lu-shuo-ming">目录说明</h3>
@@ -335,17 +335,25 @@
 <ul>
 <li><strong>自定义配置</strong></li>
 </ul>
-<p><strong>修改默认IP为 10.0.0.2</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &#39;s/192.168.1.1/192.168.2.1/g&#39; package/base-files/files/bin/config_generate
-</span></code></pre>
-<p><strong>修改默认主机名</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &#39;/uci commit system/i\uci set system.@system[0].hostname=&#39;OpenWrt&#39;&#39; package/lean/default-settings/files/zzz-default-settings
-</span></code></pre>
-<p><strong>加入编译者信息</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &quot;s/OpenWrt /smith build $(TZ=UTC-8 date &quot;+%Y.%m.%d&quot;) @ OpenWrt /g&quot; package/lean/default-settings/files/zzz-default-settings
-</span></code></pre>
-<p><strong>修改默认主题</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sed -i &quot;s/luci-theme-bootstrap/luci-theme-argon/g&quot; feeds/luci/collections/luci/Makefile
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>#!/usr/bin/env bash
+</span><span># diy-part2.sh — 在镜像生成时注入默认设置
+</span><span>
+</span><span># 1. 默认 hostname（可选）
+</span><span>sed -i &#39;s/=ImmortalWrt/=my-device/&#39; package/base-files/files/bin/config_generate
+</span><span>
+</span><span># 2. 默认 IP 地址（可选）
+</span><span>sed -i &#39;s/192.168.1.1/192.168.5.1/&#39; package/base-files/files/bin/config_generate
+</span><span>
+</span><span># 3. 默认 root 密码（请换成安全密码）
+</span><span>HASH=$(openssl passwd -1 &#39;yourpassword&#39;)
+</span><span>sed -i &quot;s|root::0:0:99999|root:${HASH}:0:0:99999|&quot; package/base-files/files/etc/shadow
+</span><span>
+</span><span># 4. 设置默认 LuCI 主题为 argon（内置在 luci feeds）
+</span><span>cat &gt;&gt;package/base-files/files/etc/uci-defaults/99_set_theme &lt;&lt;&#39;EOF&#39;
+</span><span>uci set luci.main.mediaurlbase=/luci-static/argon
+</span><span>uci commit luci
+</span><span>EOF
+</span><span>chmod +x package/base-files/files/etc/uci-defaults/99_set_theme
 </span></code></pre>
 <ul>
 <li>执行 <strong>make menuconfig</strong> 命令进入编译菜单。</li>
@@ -420,6 +428,10 @@
 <li><strong>最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.</strong></li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>make V=s -j1
+</span><span>
+</span><span>或者使用 make world -j1 V=s 2&gt;&amp;1 | tee world_debug.log
+</span><span>
+</span><span>如果报错可查看 grep -E &quot;(error|fatal|Cannot install package)&quot; world_debug.log -n
 </span></code></pre>
 <table><thead><tr><th>make层级</th><th>目录示例</th><th>说明</th></tr></thead><tbody>
 <tr><td>make[1]</td><td>顶层 Makefile</td><td>解析依赖，调度模块</td></tr>
@@ -489,6 +501,14 @@
 </span><span>
 </span><span># 如果要更新所有软件，包括 OpenWRT 内核、固件等
 </span><span>opkg list-upgradable | cut -f 1 -d &#39; &#39; | xargs opkg upgrade
+</span></code></pre>
+<h2 id="chang-yong-cang-ku">常用仓库</h2>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>src/gz kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
+</span><span>src/gz kwrt_base https://dl.openwrt.ai/releases/24.10/packages/x86_64/base
+</span><span>src/gz kwrt_packages https://dl.openwrt.ai/releases/24.10/packages/x86_64/packages
+</span><span>src/gz kwrt_luci https://dl.openwrt.ai/releases/24.10/packages/x86_64/luci
+</span><span>src/gz kwrt_routing https://dl.openwrt.ai/releases/24.10/packages/x86_64/routing
+</span><span>src/gz kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
 </span></code></pre>
 <h2 id="chang-yong-ke-xue-cha-jian">常用科学插件</h2>
 <table><thead><tr><th>特性</th><th>HomeProxy</th><th>OpenClash</th><th>Passwall</th><th>ShellClash</th></tr></thead><tbody>
