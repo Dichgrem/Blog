@@ -155,10 +155,10 @@ su openwrt
 cd ~
 ```
 
-- **拉取源码，这里用的是 OpenWrt 24.10 分支源码：**
+- **拉取源码，这里用的是 ImmortalWrt 24.10 分支源码：**
 ```
-git clone https://github.com/openwrt/openwrt.git
-cd openwrt
+git clone https://github.com/immortalwrt/immortalwrt.git
+cd immortalwrt
 git switch openwrt-24.10
 ```
 
@@ -216,24 +216,26 @@ git clone https://github.com/chenmozhijin/turboacc.git
 
 - **自定义配置**
 
-**修改默认IP为 10.0.0.2**
 ```
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
-```
+#!/usr/bin/env bash
+# diy-part2.sh — 在镜像生成时注入默认设置
 
-**修改默认主机名**
-```
-sed -i '/uci commit system/i\uci set system.@system[0].hostname='OpenWrt'' package/lean/default-settings/files/zzz-default-settings
-```
+# 1. 默认 hostname（可选）
+sed -i 's/=ImmortalWrt/=my-device/' package/base-files/files/bin/config_generate
 
-**加入编译者信息**
-```
-sed -i "s/OpenWrt /smith build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
-```
+# 2. 默认 IP 地址（可选）
+sed -i 's/192.168.1.1/192.168.5.1/' package/base-files/files/bin/config_generate
 
-**修改默认主题**
-```
-sed -i "s/luci-theme-bootstrap/luci-theme-argon/g" feeds/luci/collections/luci/Makefile
+# 3. 默认 root 密码（请换成安全密码）
+HASH=$(openssl passwd -1 'yourpassword')
+sed -i "s|root::0:0:99999|root:${HASH}:0:0:99999|" package/base-files/files/etc/shadow
+
+# 4. 设置默认 LuCI 主题为 argon（内置在 luci feeds）
+cat >>package/base-files/files/etc/uci-defaults/99_set_theme <<'EOF'
+uci set luci.main.mediaurlbase=/luci-static/argon
+uci commit luci
+EOF
+chmod +x package/base-files/files/etc/uci-defaults/99_set_theme
 ```
 
 - 执行 **make menuconfig** 命令进入编译菜单。
@@ -316,6 +318,10 @@ find dl -size -1024c -exec rm -f {} \;
 - **最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.**
 ```
 make V=s -j1
+
+或者使用 make world -j1 V=s 2>&1 | tee world_debug.log
+
+如果报错可查看 grep -E "(error|fatal|Cannot install package)" world_debug.log -n
 ```
 | make层级   | 目录示例                         | 说明               |
 | -------- | ---------------------------- | ---------------- |
@@ -401,6 +407,16 @@ opkg list-upgradable | grep luci- | cut -f 1 -d ' ' | xargs opkg upgrade
 
 # 如果要更新所有软件，包括 OpenWRT 内核、固件等
 opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
+```
+## 常用仓库
+
+```
+src/gz kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
+src/gz kwrt_base https://dl.openwrt.ai/releases/24.10/packages/x86_64/base
+src/gz kwrt_packages https://dl.openwrt.ai/releases/24.10/packages/x86_64/packages
+src/gz kwrt_luci https://dl.openwrt.ai/releases/24.10/packages/x86_64/luci
+src/gz kwrt_routing https://dl.openwrt.ai/releases/24.10/packages/x86_64/routing
+src/gz kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
 ```
 
 ## 常用科学插件
