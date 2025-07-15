@@ -520,6 +520,16 @@
 <tr><td>make[4]</td><td><code>build_dir/target-...</code></td><td>包源码目录，运行源码的 make</td></tr>
 <tr><td>make[4]</td><td><code>build_dir/target-linux-...</code></td><td>内核源码目录</td></tr>
 </tbody></table>
+<h2 id="er-ci-bian-yi">二次编译</h2>
+<table><thead><tr><th>命令</th><th>清除内容</th><th>保留内容</th><th>适用场景</th></tr></thead><tbody>
+<tr><td><code>make clean</code></td><td>删除 <code>bin/</code> 镜像、<code>build_dir/</code> 编译产物</td><td><code>.config</code>、<code>staging_dir/</code>、<code>toolchain/</code> 等</td><td>小修改后重建镜像，速度快，常用于增量编译。</td></tr>
+<tr><td><code>make dirclean</code></td><td>和 <code>make clean</code> 一样，还删除 <code>staging_dir/</code>、<code>toolchain/</code>、<code>logs</code></td><td><code>.config</code></td><td>彻底重建交叉编译环境，适合更改编译配置如 <code>.config</code>、feeds 等。</td></tr>
+<tr><td><code>make distclean</code></td><td>删除 <code>make dirclean</code> 的所有内容 + feeds 下载文件 + <code>.config</code>、patch 等所有状态</td><td>只有源码目录保持不变</td><td>专用于回到一个“零配置、重做一切”的状态，完全从头开始构建。</td></tr>
+</tbody></table>
+<p>恢复所有修改（包括未跟踪文件）:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clean -fd
+</span><span>git restore --source=v24.10.2 --staged --worktree .
+</span></code></pre>
 <h2 id="dan-du-bian-yi-openwrtde-ipkbao">单独编译openwrt的ipk包</h2>
 <p>这里以ubuntu环境为例，我们假设你有一台虚拟机或者WSL。</p>
 <blockquote>

@@ -409,6 +409,20 @@ make V=s -j1
 | make\[4] | `build_dir/target-...`       | 包源码目录，运行源码的 make |
 | make\[4] | `build_dir/target-linux-...` | 内核源码目录           |
 
+## 二次编译
+
+| 命令               | 清除内容                                                          | 保留内容                                    | 适用场景                                           |
+| ---------------- | ------------------------------------------------------------- | --------------------------------------- | ---------------------------------------------- |
+| `make clean`     | 删除 `bin/` 镜像、`build_dir/` 编译产物                                | `.config`、`staging_dir/`、`toolchain/` 等 | 小修改后重建镜像，速度快，常用于增量编译。|
+| `make dirclean`  | 和 `make clean` 一样，还删除 `staging_dir/`、`toolchain/`、`logs`      | `.config`                               | 彻底重建交叉编译环境，适合更改编译配置如 `.config`、feeds 等。        |
+| `make distclean` | 删除 `make dirclean` 的所有内容 + feeds 下载文件 + `.config`、patch 等所有状态 | 只有源码目录保持不变                              | 专用于回到一个“零配置、重做一切”的状态，完全从头开始构建。                 |
+
+恢复所有修改（包括未跟踪文件）:
+```
+git clean -fd
+git restore --source=v24.10.2 --staged --worktree .
+```
+
 
 ## 单独编译openwrt的ipk包
 
