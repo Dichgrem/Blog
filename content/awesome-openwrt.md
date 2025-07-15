@@ -50,12 +50,35 @@ tags = ["综合工程"]
 
 ## **如何得到一个openwrt系统**
 
-- 可以在恩山论坛上使用他人编译好的现成的镜像，如"高大全","精品小包"等等，但存在一定风险；
-- 可以使用[官方固件](https://downloads.openwrt.org/)下载得到一个最小化的系统，再一步步添加自己要用的包；注意需要根据你的uboot来选择，注意固件名称是否带了uboot_mod!
-- 可以使用[Openwrt 在线编译](https://firmware-selector.openwrt.org/)或[Openwrt.ai](https://openwrt.ai/?target=x86%2F64&id=generic)在线编译
+1. 使用编译好的现成的镜像:
+
+- 恩山论坛上的"高大全","精品小包"等等，但存在一定风险；
+- 使用[官方固件](https://downloads.openwrt.org)下载得到一个最小化的系统，再一步步添加自己要用的包；注意需要根据你的uboot来选择，注意固件名称是否带了uboot_mod!
+
+2. 自行编译:
+
+- [Openwrt.ai](https://openwrt.ai/?target=x86%2F64&id=generic)在线编译
 一个固件；
 - 可以使用GitHub action 云编译一个固件；
 - 可以在本地linux环境中进行编译。
+
+3. ImageBuilder
+
+- 使用[Openwrt 官方ImageBuilder编译](https://firmware-selector.openwrt.org/)
+- 自行下载对应的ImageBuilder包并构建.
+
+## Toolchain/SDK/ImageBuilder
+
+| 特性       | **Toolchain**                          | **SDK**                                        | **Image Builder**                                                              |
+| -------- | -------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------ |
+| 包含内容     | 仅交叉编译工具链（二进制版 GCC、ld、musl、binutils）    | 完整交叉编译环境 + feeds 脚本 + package 目录，用于 `.ipk` 包开发 | 预编译的根文件系统 + opkg 包（无需源码编译），用于快速定制固件映像 |
+| 典型用途     | 用于编译第三方程序或 CI，如 hello-world 示例         | 编写和编译 `.ipk` 包，本地或自动化环境中离线开发                   | 快速生成可刷写的固件镜像，集成所需包且无需完整源码树                                                     |
+| 解压即用     | ✅                                      | ✅                                              | ✅                                                                              |
+| 在源码树中的作用 | `make toolchain/install` 自动识别并使用跳过编译流程 | 源码树中不会触发 SDK 安装，需要手动解压并进入其目录使用                 | 不使用源码树，直接在 Image Builder 根目录下运行 `make image` 等命令                               |
+| 大小       | 较小（几十 MB）                              | 较大（上百 MB）                                      | 中等（约数百 MB，因包含预编译包）                                                             |
+| 构建时间     | 几秒到几分钟                                 | 几分钟到十几分钟（取决于 feeds 大小）                         | 极快，可在几十秒到几分钟内完成定制镜像                                                            |
+| 兼容性      | 与对应 Release 完全匹配                       | 与对应 Release 完全匹配                               | 与对应 Release 完全匹配                                                               |
+| 使用难度     | 简单，只需解压并设置 PATH                        | 适中，需要理解 feeds 机制及包管理                           | 最简单，适合终端用户或快速测试环境
 
 ## **X86平台安装流程：**
 
@@ -159,7 +182,17 @@ cd ~
 ```
 git clone https://github.com/immortalwrt/immortalwrt.git
 cd immortalwrt
-git switch openwrt-24.10
+```
+
+- **选择分支**
+
+如果你想要编译稳定版(stable),使用
+```
+git tag switch xxx #例如git tag switch 24.10.2
+```
+如果你想要编译最新版(snapshot),使用
+```
+git switch xxx #例如git switch openwrt-24.10
 ```
 
 ### 目录说明
@@ -188,14 +221,23 @@ git switch openwrt-24.10
 ```
 vim feeds.conf.default
 ```
+
+**常用源**
 ```
-常用源
 src-git kenzo https://github.com/kenzok8/openwrt-packages
 src-git small https://github.com/kenzok8/small
 src-git haibo https://github.com/haiibo/openwrt-packages
 src-git liuran001 https://github.com/liuran001/openwrt-packages
 ```
- 
+**常用仓库**
+```
+src/gz kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
+src/gz kwrt_base https://dl.openwrt.ai/releases/24.10/packages/x86_64/base
+src/gz kwrt_packages https://dl.openwrt.ai/releases/24.10/packages/x86_64/packages
+src/gz kwrt_luci https://dl.openwrt.ai/releases/24.10/packages/x86_64/luci
+src/gz kwrt_routing https://dl.openwrt.ai/releases/24.10/packages/x86_64/routing
+src/gz kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
+```
 
 - **单独添加**（在更新并安装插件之前执行）例如：
 
@@ -218,7 +260,7 @@ git clone https://github.com/chenmozhijin/turboacc.git
 
 ```
 #!/usr/bin/env bash
-# diy-part2.sh — 在镜像生成时注入默认设置
+# diy-part2.sh — 在镜像生成时注入默认设置和定制 SSH 横幅及模型修复
 
 # 1. 默认 hostname（可选）
 sed -i 's/=ImmortalWrt/=my-device/' package/base-files/files/bin/config_generate
@@ -236,11 +278,43 @@ uci set luci.main.mediaurlbase=/luci-static/argon
 uci commit luci
 EOF
 chmod +x package/base-files/files/etc/uci-defaults/99_set_theme
+
+# 5. 默认加载 BBR 拥塞控制算法
+mkdir -p package/base-files/files/etc/sysctl.d
+cat >>package/base-files/files/etc/sysctl.d/99-bbr.conf <<'EOF'
+net.core.default_qdisc=fq_codel
+net.ipv4.tcp_congestion_control=bbr
+EOF
+
+# 检查BBR: sysctl net.ipv4.tcp_congestion_control
+
+# 6. 将默认 shell 修改为 bash
+sed -i "s|/bin/ash|/bin/bash|g" package/base-files/files/etc/passwd
+# 请在 .config 中添加 TARGET_PACKAGES += bash
+
+# 7. 自定义 SSH 登录横幅（banner）
+mkdir -p package/base-files/files/etc
+if [ -f "scripts/custom-files/banner.txt" ]; then
+  cp scripts/custom-files/banner.txt package/base-files/files/etc/banner
+else
+  cat >package/base-files/files/etc/banner <<'EOF'
+Welcome to MyDevice (ImmortalWrt)\n
+EOF
+fi
+
+# 8. 自定义 LuCI 概览设备型号 🛠
+# 通过 uci-defaults 脚本写入 /tmp/sysinfo/model
+cat >>package/base-files/files/etc/uci-defaults/99-model-fix <<'EOF'
+#!/bin/sh
+# 设置自定义设备型号
+mkdir -p /tmp/sysinfo
+echo "Your Router Model" > /tmp/sysinfo/model
+exit 0
+EOF
+chmod +x package/base-files/files/etc/uci-defaults/99-model-fix
 ```
 
 - 执行 **make menuconfig** 命令进入编译菜单。
-
-
 
 
 | 命令                | 功能描述                                                 | 优点                   | 适用场景           |
@@ -384,18 +458,6 @@ make menuconfig
 make package/inyn/compile V=s
 ## 如果不行则需要先编译工具链，即为 make j=4 ，j为CPU核数
 ```
-## Toolchain/SDK/ImageBuilder
-
-| 特性       | **Toolchain**                          | **SDK**                                        | **Image Builder**                                                              |
-| -------- | -------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------ |
-| 包含内容     | 仅交叉编译工具链（二进制版 GCC、ld、musl、binutils）    | 完整交叉编译环境 + feeds 脚本 + package 目录，用于 `.ipk` 包开发 | 预编译的根文件系统 + opkg 包（无需源码编译），用于快速定制固件映像 |
-| 典型用途     | 用于编译第三方程序或 CI，如 hello-world 示例         | 编写和编译 `.ipk` 包，本地或自动化环境中离线开发                   | 快速生成可刷写的固件镜像，集成所需包且无需完整源码树                                                     |
-| 解压即用     | ✅                                      | ✅                                              | ✅                                                                              |
-| 在源码树中的作用 | `make toolchain/install` 自动识别并使用跳过编译流程 | 源码树中不会触发 SDK 安装，需要手动解压并进入其目录使用                 | 不使用源码树，直接在 Image Builder 根目录下运行 `make image` 等命令                               |
-| 大小       | 较小（几十 MB）                              | 较大（上百 MB）                                      | 中等（约数百 MB，因包含预编译包）                                                             |
-| 构建时间     | 几秒到几分钟                                 | 几分钟到十几分钟（取决于 feeds 大小）                         | 极快，可在几十秒到几分钟内完成定制镜像                                                            |
-| 兼容性      | 与对应 Release 完全匹配                       | 与对应 Release 完全匹配                               | 与对应 Release 完全匹配                                                               |
-| 使用难度     | 简单，只需解压并设置 PATH                        | 适中，需要理解 feeds 机制及包管理                           | 最简单，适合终端用户或快速测试环境                                                              |
 
 ## 常用命令:
 ```
@@ -419,17 +481,6 @@ vim /etc/banner
 
 # 登录脚本显示
 vim /etc/profile
-vim /vim /etc/profile.d/30-sysinfo.sh
-```
-## 常用仓库
-
-```
-src/gz kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
-src/gz kwrt_base https://dl.openwrt.ai/releases/24.10/packages/x86_64/base
-src/gz kwrt_packages https://dl.openwrt.ai/releases/24.10/packages/x86_64/packages
-src/gz kwrt_luci https://dl.openwrt.ai/releases/24.10/packages/x86_64/luci
-src/gz kwrt_routing https://dl.openwrt.ai/releases/24.10/packages/x86_64/routing
-src/gz kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
 ```
 
 ## 常用科学插件
@@ -439,22 +490,6 @@ src/gz kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
 | **核心** | Sing-box、Xray | Clash | Xray、Sing-box | Clash、Xray、Sing-box |
 | **UI 管理** | ✅（Web UI、桌面端 GUI） | ✅（OpenClash Web UI） | ✅（Luci Web UI） | ❌（Shell 终端管理） |
 | **适用场景** | 性能较好,但分流设置复杂 | 适用于clash系,机场首选 | 操作简单,分流完善,但对路由器性能要求较高 | 没有UI界面，性能最好，支持完善，可以通过clashapi安装UI |
-
-## 开启BBR
-
-```
-vi /etc/sysctl.conf
-
-添加以下两行：
-net.core.default_qdisc=fq_codel
-net.ipv4.tcp_congestion_control=bbr
-
-保存后应用更改：
-sysctl -p
-
-检查
-sysctl net.ipv4.tcp_congestion_control
-```
 
 
 ## 校园网多设备防检测
