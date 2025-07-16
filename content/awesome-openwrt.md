@@ -119,14 +119,7 @@ tags = ["综合工程"]
 uci commit luci
 /etc/init.d/uhttpd restart``
 然后重新访问 Web 界面，查看是否恢复正常。
-- 一般要安装的包：
-```
-openssh-sftp-server
-libpcap
-luci-app-upnp
-luci-app-ttyd
-kmod-nft-xxx
-```
+
 
 ## **X86平台本地编译完整openwrt**
 
@@ -164,7 +157,7 @@ sudo apt clean
 ```
 useradd -m openwrt  # 新建一个名为 openwrt 的用户
 ```
-> 不可以使用Root用户进行编译！!!
+> 不可以使用Root用户进行编译!!!
 
 - **修改用户默认的 Shell**
 ```
@@ -423,43 +416,41 @@ git clean -fd
 git restore --source=v24.10.2 --staged --worktree .
 ```
 
+## Dwrt 方案
 
+| 作用          | 组件                   |
+| ----------- | -------------------- |
+| 主题        | argon                |
+| Shell    | bash                 |
+| SSH 服务器     | dropbear             |
+| Web 服务器    | uhttpd               |
+| DNS/DHCP 服务 | dnsmasq‑full         |
+| 加密库         | openssl              |
+| 压缩算法        | zram+zstd                 |
+| 拥塞控制        | bbr                  |
+| 防火墙         | nftables + iptables  |
+| 调度模块    | BPF + kmod-sched-xxx |
+| 时间同步        | ntpd-full            |
+| 文本编辑        | vim-full vim-runtime |
+| 编译优化        | LTO + O3             |
+
+要启用的软件包：
+
+**base**
+```
+autocore base-files bash block-mount ca-bundle coremark curl dnsmasq-full dropbear ds-lite e2fsprogs fdisk firewall4 fstools grub2-bios-setup htop kmod-8139cp kmod-8139too kmod-amazon-ena kmod-amd-xgbe kmod-atlantic kmod-bnx2 kmod-bnx2x kmod-button-hotplug kmod-drm-amdgpu kmod-drm-i915 kmod-dwmac-intel kmod-e1000 kmod-e1000e kmod-forcedeth kmod-fs-f2fs kmod-fs-vfat kmod-i40e kmod-iavf kmod-igb kmod-igbvf kmod-igc kmod-ixgbe kmod-ixgbevf kmod-lib-zstd kmod-mlx4-core kmod-mlx5-core kmod-mmc kmod-pcnet32 kmod-phy-broadcom kmod-r8101 kmod-r8125 kmod-r8126 kmod-r8168 kmod-sdhci kmod-tcp-bbr kmod-tg3 kmod-tulip kmod-usb-hid kmod-vmxnet3 libc libgcc libustream-mbedtls lm-sensors-detect logd lsblk luci-app-fan luci-app-filemanager luci-app-firewall luci-app-log-viewer luci-app-package-manager luci-app-syscontrol luci-app-upnp  luci-base luci-compat luci-lib-fs luci-lib-ipkg  mkf2fs mtd nano netifd odhcp6c odhcpd-ipv6only openssh-sftp-server opkg partx-utils pciutils ppp ppp-mod-pppoe resolveip swconfig uci uclient-fetch urandom-seed urngd usbutils wget-ssl zram-swap
+```
+**cli**
+```
+btop iperf3 tcpdump
+```
+**luci**
+```
+luci-app-argon luci-app-upnp luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol luci-app-homeproxy luci-app-daed
+```
 ## 单独编译openwrt的ipk包
 
-这里以ubuntu环境为例，我们假设你有一台虚拟机或者WSL。
-
-> ``注意编译不能使用Root用户！``
-
-**随后安装编译依赖的各个包：**
-
-```
-sudo apt update
-sudo apt install -y \
-  ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-  bzip2 ccache clang cmake cpio curl device-tree-compiler diffutils diffstat findutils flex gawk \
-  gcc-multilib g++-multilib git gettext gperf grep haveged help2man intltool \
-  libelf-dev libfuse-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev libglib2.0-dev \
-  libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev \
-  libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
-  perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
-  python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
-  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev genisoimage llvm llvm-runtime docutils-common \
-  ecj fastjar java-wrappers libeclipse-jdt-core-java libgnutls-dane0t64 \
-  libgnutls-openssl27t64 libgnutls28-dev libidn2-dev libp11-kit-dev libtasn1-6-dev libtasn1-doc \
-  libunbound8 libyaml-dev lld lld-18 nettle-dev python3-docutils python3-ply python3-roman re2c
-```
-随后下载我们**刷入openwrt的对应的SDK包**，如
-
-```
-git clone https://github.com/immortalwrt/immortalwrt.git
-```
-
-**下载和安装仓库信息**
-```
-./scripts/feeds update -a
-./scripts/feeds install -a
-```
-**下载并选中我们需要编译的包,这里以inyn为例：**
+**其他步骤同上,下载并选中我们需要编译的包,这里以inyn为例：**
 ```
 git clone https://github.com/diredocks/openwrt-inyn.git ./package/inyn
 make menuconfig
