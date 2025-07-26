@@ -181,7 +181,7 @@ cd immortalwrt
 
 如果你想要编译稳定版(stable),使用
 ```
-git tag switch xxx #例如git tag switch 24.10.2
+git checkout xxx #例如git checkout v24.10.2
 ```
 如果你想要编译最新版(snapshot),使用
 ```
