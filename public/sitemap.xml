@@ -12,10 +12,6 @@
         <lastmod>2023-08-25</lastmod>
     </url>
     <url>
-        <loc>https://blog.dich.bid/about-aria2/</loc>
-        <lastmod>2025-04-15</lastmod>
-    </url>
-    <url>
         <loc>https://blog.dich.bid/about-baci/</loc>
         <lastmod>2025-04-23</lastmod>
     </url>
@@ -142,23 +138,35 @@
         <loc>https://blog.dich.bid/links/link-7/</loc>
     </url>
     <url>
+        <loc>https://blog.dich.bid/network-aria2/</loc>
+        <lastmod>2025-04-15</lastmod>
+    </url>
+    <url>
         <loc>https://blog.dich.bid/network-cdn/</loc>
         <lastmod>2024-02-16</lastmod>
     </url>
     <url>
         <loc>https://blog.dich.bid/network-download-1/</loc>
-        <lastmod>2024-02-09</lastmod>
+        <lastmod>2025-04-11</lastmod>
     </url>
     <url>
         <loc>https://blog.dich.bid/network-frp/</loc>
         <lastmod>2025-03-01</lastmod>
     </url>
     <url>
+        <loc>https://blog.dich.bid/network-homenet-1/</loc>
+        <lastmod>2025-01-21</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.dich.bid/network-homenet-2/</loc>
+        <lastmod>2025-01-22</lastmod>
+    </url>
+    <url>
         <loc>https://blog.dich.bid/network-how-email-works-1/</loc>
         <lastmod>2024-02-20</lastmod>
     </url>
     <url>
-        <loc>https://blog.dich.bid/network-how-email-works-3/</loc>
+        <loc>https://blog.dich.bid/network-how-email-works-2/</loc>
         <lastmod>2024-02-22</lastmod>
     </url>
     <url>
@@ -174,8 +182,8 @@
         <lastmod>2024-02-15</lastmod>
     </url>
     <url>
-        <loc>https://blog.dich.bid/network-zuwang/</loc>
-        <lastmod>2025-01-21</lastmod>
+        <loc>https://blog.dich.bid/network-yt-dlp/</loc>
+        <lastmod>2025-04-12</lastmod>
     </url>
     <url>
         <loc>https://blog.dich.bid/page/1/</loc>
@@ -215,6 +223,9 @@
     </url>
     <url>
         <loc>https://blog.dich.bid/tags/network/</loc>
+    </url>
+    <url>
+        <loc>https://blog.dich.bid/tags/wang-luo-yi-shu/</loc>
     </url>
     <url>
         <loc>https://blog.dich.bid/tags/windows/</loc>

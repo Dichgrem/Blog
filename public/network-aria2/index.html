@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+        <link rel="stylesheet" href="https://blog.dich.bid/color/background_dark.css">
+    
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich'blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-aria2/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich'blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-aria2/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+    
+    
+        <link rel="icon" type="image/png" href=&#x2F;dich.webp />
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">search</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">about me</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">github</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-aria2/">网络艺术:Aria2使用指南</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-04-15
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/wang-luo-yi-shu/">#网络艺术</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Aria2是一款开源、跨平台的命令行界面下载管理器，常常被各种下载器软件使用。</p>
+<span id="continue-reading"></span><h2 id="jie-shao">介绍</h2>
+<p><a href="https://github.com/aria2/aria2">Aria2</a>是一款开源、跨平台的命令行界面下载管理器，支持的下载协议有：<code>HTTP、HTTPS、FTP、Bittorrent 和 Metalink</code>。​它以高效、轻量和灵活著称，适用于需要批量下载、自动化任务或远程控制的用户。</p>
+<p>Aria2 有以下几个特点：</p>
+<ul>
+<li><code>多连接下载</code>：可以从多个来源/协议下载文件并尝试利用您的最大下载带宽，真正加快您的下载体验；</li>
+<li><code>轻量</code>：不需要太多内存和 CPU 时间；</li>
+<li><code>全功能的 BitTorrent 客户端</code>：BitTorrent 客户端的所有功能都可用,，如 DHT、PEX、加密、Magnet URI、网络播种、选择性下载、本地对等发现和 UDP 跟踪器；</li>
+<li><code>支持Metalink</code>：支持 Metalink 下载描述格式。 在下载中使用 Metalink 数据块的校验和自动验证下载的数据部分；</li>
+<li><code>远程控制</code>：支持 RPC 接口来控制 aria2 进程。 支持的接口是 JSON-RPC（通过 HTTP 和 WebSocket）和 XML-RPC。</li>
+</ul>
+<p>Aria2 原生使用命令行工具进行操作，为了更方便控制我们可以使用其他开源的面板配合本体，如<a href="https://github.com/mayswind/AriaNg">AriaNg</a>或者<a href="https://github.com/ziahamza/webui-aria2">webui-aria2</a>。</p>
+<h2 id="windows">Windows</h2>
+<p>首先下载<a href="https://github.com/aria2/aria2/releases/tag/release-1.37.0">aria2-1.37.0-win-64bit-build1.zip</a>，将下载好的文件解压并放到你喜欢的目录下，设置系统环境变量，类似<code>D:\DATA\Data\AriaNg-1.3.10-AllInOne</code>,随后即可在 CMD 中使用 Aria2 。</p>
+<p>随后可以安装 AriaNg 前端，AriaNg 使用纯 html &amp; javascript 开发, 所以其不需要任何编译器或运行环境.</p>
+<p><img src="https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png" alt="ariang-1" /></p>
+<p>AriaNg 现在提供三种版本, <code>标准版、单文件版和 AriaNg Native. </code>标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里<code>建议使用单文件版或者Native版。</code></p>
+<p><a href="https://github.com/mayswind/AriaNg/releases">单文件版(AllinOne)</a>
+<a href="https://github.com/mayswind/AriaNg-Native/releases/tag/1.3.10">Native版</a></p>
+<h2 id="arch-linux">Arch linux</h2>
+<p>首先安装aria2本体:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>paru -S aria2
+</span></code></pre>
+<p>随后创建配置文件</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nano /home/&lt;you-username&gt;/.config/aria2/aria2.conf
+</span></code></pre>
+<p>内容为</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>enable-rpc=true
+</span><span>rpc-listen-all=true
+</span><span>rpc-allow-origin-all=true
+</span><span>rpc-listen-port=6800
+</span><span>continue=true
+</span><span>dir=/home/&lt;you-username&gt;/Downloads
+</span><span>input-file=/home/&lt;you-username&gt;/.config/aria2/aria2.session
+</span><span>save-session=/home/&lt;you-username&gt;/.config/aria2/aria2.session
+</span><span>save-session-interval=60
+</span></code></pre>
+<p>保存退出；随后创建守护进程以便开机自启动：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>nano ~/.config/systemd/user/aria2.service
+</span></code></pre>
+<p>写入：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>[Unit]
+</span><span>Description=Aria2 Daemon
+</span><span>After=network.target
+</span><span>
+</span><span>[Service]
+</span><span>ExecStart=/usr/bin/aria2c --conf-path=/home/&lt;you-username&gt;/.config/aria2/aria2.conf
+</span><span>Restart=on-failure
+</span><span>
+</span><span>[Install]
+</span><span>WantedBy=default.target
+</span></code></pre>
+<p>在更新配置文件和服务文件后，执行以下命令以重启服务：​</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>systemctl --user daemon-reload
+</span><span>systemctl --user enable aria2.service
+</span><span>systemctl --user start aria2.service
+</span></code></pre>
+<p>使用以下命令检查服务状态：​</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>systemctl --user status aria2.service
+</span></code></pre>
+<h2 id="liu-lan-qi-cha-jian">浏览器插件</h2>
+<p>如果你想让其直接接管浏览器下载,可以使用以下几种浏览器插件：</p>
+<p><strong>Chrome 浏览器</strong></p>
+<ul>
+<li><a href="https://github.com/alexhua/Aria2-Explorer">Aria2 Explorer</a>是一款功能强大的扩展，能够自动拦截浏览器的下载任务，并通过 JSON-RPC 接口将其导出到 Aria2 进行下载。 ​</li>
+<li><a href="https://github.com/alexhua/Aria2-for-chrome">Aria2 for Chrome</a></li>
+</ul>
+<p><strong>Firefox 浏览器</strong></p>
+<ul>
+<li><a href="https://github.com/Cudiph/IA2DM">Integrated Aria2 Download Manager</a> 是一款 Firefox 扩展，能够拦截下载任务，并将其转发到 Aria2。</li>
+</ul>
+<p><strong>通用版</strong></p>
+<ul>
+<li><a href="https://github.com/giantpinkrobots/varia">varia</a></li>
+</ul>
+<p>🔗</p>
+<p><strong>附带 aria2 的服务端应用</strong></p>
+<ul>
+<li><a href="https://github.com/openwrt/packages/tree/master/net/ariang">AriaNg for Openwrt</a></li>
+<li><a href="https://github.com/wahyd4/aria2-ariang-docker">aria2-ariang-docker</a></li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-yt-dlp/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">网络艺术:Yt-dlp使用指南</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-lazyvim/">
+                            <span class="button__text">乱七八糟:lazyvim快速上手</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+

@@ -85,7 +85,7 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>乱七八糟:Aria2各平台使用指南</title>
+        <title>网络艺术:Aria2使用指南</title>
         <published>2025-04-15T00:00:00+00:00</published>
         <updated>2025-04-15T00:00:00+00:00</updated>
         
@@ -97,10 +97,48 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/about-aria2/"/>
-        <id>https://blog.dich.bid/about-aria2/</id>
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-aria2/"/>
+        <id>https://blog.dich.bid/network-aria2/</id>
         
         <summary type="html">&lt;p&gt;前言 Aria2是一款开源、跨平台的命令行界面下载管理器，常常被各种下载器软件使用。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>网络艺术:Yt-dlp使用指南</title>
+        <published>2025-04-12T00:00:00+00:00</published>
+        <updated>2025-04-12T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-yt-dlp/"/>
+        <id>https://blog.dich.bid/network-yt-dlp/</id>
+        
+        <summary type="html">&lt;p&gt;前言 有时候我们想要视频保存到本地以便离线回看。yt-dlp是一款功能强大的命令行工具，专注于下载视频与音频内容，支持数千个平台，是开源下载工具爱好者的常用选择。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>网络艺术:下载技术的历史</title>
+        <published>2025-04-11T00:00:00+00:00</published>
+        <updated>2025-04-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-download-1/"/>
+        <id>https://blog.dich.bid/network-download-1/</id>
+        
+        <summary type="html">&lt;p&gt;前言 下载，就是将我们所需要的文件数据，通过网络从拥有该文件资源的计算机上传输过来并保存到我们的计算机上，供我们使用。本系列将详细讲述各种常见网络下载技术的原理，包括HTTP,FTP,BT等等。&lt;&#x2F;p&gt;</summary>
         
     </entry>
     <entry xml:lang="en">
@@ -218,7 +256,26 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>网络艺术:家庭组网方案与设备选购</title>
+        <title>家庭组网系列(2):路由器性能测试</title>
+        <published>2025-01-22T00:00:00+00:00</published>
+        <updated>2025-01-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-homenet-2/"/>
+        <id>https://blog.dich.bid/network-homenet-2/</id>
+        
+        <summary type="html">&lt;p&gt;前言 本文介绍常用的家庭网络测试方法，包括开源固件和闭源商用设备的测试。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>家庭组网系列(1):方案与设备选购</title>
         <published>2025-01-21T00:00:00+00:00</published>
         <updated>2025-01-21T00:00:00+00:00</updated>
         
@@ -230,8 +287,8 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-zuwang/"/>
-        <id>https://blog.dich.bid/network-zuwang/</id>
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-homenet-1/"/>
+        <id>https://blog.dich.bid/network-homenet-1/</id>
         
         <summary type="html">&lt;p&gt;前言 本文介绍一些家庭组网方案和家庭网络升级方案。&lt;&#x2F;p&gt;</summary>
         
@@ -876,8 +933,8 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-how-email-works-3/"/>
-        <id>https://blog.dich.bid/network-how-email-works-3/</id>
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-how-email-works-2/"/>
+        <id>https://blog.dich.bid/network-how-email-works-2/</id>
         
         <summary type="html">&lt;p&gt;前言 poste.io 邮件服务基于 Docker 搭建，用的是 Haraka + Dovecot + SQLite 邮件系统，占用资源较少，安装简单，适合个人使用。&lt;&#x2F;p&gt;</summary>
         
@@ -956,25 +1013,6 @@
         <id>https://blog.dich.bid/network-isps/</id>
         
         <summary type="html">&lt;p&gt;前言 本文主要探讨的是IPv4网络，国际出口线路的质量分析以及各大ISP的介绍。&lt;&#x2F;p&gt;</summary>
-        
-    </entry>
-    <entry xml:lang="en">
-        <title>网络艺术:下载技术的历史</title>
-        <published>2024-02-09T00:00:00+00:00</published>
-        <updated>2024-02-09T00:00:00+00:00</updated>
-        
-        <author>
-          <name>
-            
-              Unknown
-            
-          </name>
-        </author>
-        
-        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-download-1/"/>
-        <id>https://blog.dich.bid/network-download-1/</id>
-        
-        <summary type="html">&lt;p&gt;前言 下载，就是将我们所需要的文件数据，通过网络从拥有该文件资源的计算机上传输过来并保存到我们的计算机上，供我们使用。本系列将详细讲述各种常见网络下载技术的原理，包括HTTP,FTP,BT等等。&lt;&#x2F;p&gt;</summary>
         
     </entry>
     <entry xml:lang="en">
