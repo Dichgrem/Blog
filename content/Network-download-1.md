@@ -1,6 +1,6 @@
 +++
 title = "网络艺术:下载技术的历史"
-date = 2024-02-09
+date = 2025-04-11
 
 [taxonomies]
 tags = ["Network"]
