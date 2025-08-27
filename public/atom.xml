@@ -47,6 +47,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>网络艺术:SSH使用指南</title>
+        <published>2025-05-02T00:00:00+00:00</published>
+        <updated>2025-05-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-ssh/"/>
+        <id>https://blog.dich.bid/network-ssh/</id>
+        
+        <summary type="html">&lt;p&gt;前言 SSH（Secure Shell 的缩写）是一种网络协议，用于加密两台计算机之间的通信，并且支持各种身份验证机制。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>乱七八糟:Baci实验笔记</title>
         <published>2025-04-23T00:00:00+00:00</published>
         <updated>2025-04-23T00:00:00+00:00</updated>
