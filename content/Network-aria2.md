@@ -1,9 +1,9 @@
 +++
-title = "网络艺术:Aria2使用指南"
+title = "下载系列(3):Aria2使用指南"
 date = 2025-04-15
 
 [taxonomies]
-tags = ["网络艺术"]
+tags = ["Network"]
 +++
 
 前言 Aria2是一款开源、跨平台的命令行界面下载管理器，常常被各种下载器软件使用。

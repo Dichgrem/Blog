@@ -103,7 +103,7 @@
         
     <div class="post">
         
-    <h1 class="post-title"><a href="https://blog.dich.bid/network-yt-dlp/">网络艺术:Yt-dlp使用指南</a></h1>
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-yt-dlp/">下载系列(2):Yt-dlp使用指南</a></h1>
     <div class="post-meta-inline">
         
     <span class="post-date">
@@ -115,12 +115,14 @@
     
         <span class="post-tags-inline">
                 :: tags:&nbsp;
-                <a class="post-tag" href="https://blog.dich.bid/tags/wang-luo-yi-shu/">#网络艺术</a></span>
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
     
 
         <div class="post-content">
-            <p>前言 有时候我们想要视频保存到本地以便离线回看。yt-dlp是一款功能强大的命令行工具，专注于下载视频与音频内容，支持数千个平台，是开源下载工具爱好者的常用选择。</p>
-<span id="continue-reading"></span><h2 id="li-shi-yan-ge-cong-youtube-dl-dao-yt-dlp">历史沿革：从 youtube-dl 到 yt-dlp</h2>
+            <p>前言 yt-dlp是一款功能强大的命令行工具，专注于下载视频与音频内容，支持数千个平台，是开源下载工具爱好者的常用选择。</p>
+<span id="continue-reading"></span>
+<p>有时候我们想要下载网络上的某些视频，比如Bilibili，YouTube等等，但它们没有提供下载按钮，这时候就可以用开源的yt-dlp来进行下载。和Aria2一样，很多下载软件的核心就是yt-dlp.</p>
+<h2 id="li-shi">历史</h2>
 <ul>
 <li>
 <p><strong>起源与演进</strong>
@@ -128,21 +130,21 @@
 </li>
 <li>
 <p><strong>停滞，youtube-dlc → yt-dlp 的诞生</strong>
-随着开发进度放缓，社区于 2020 年衍生出 youtube-dlc 分支，随即在 <strong>2021 年</strong>演变为更活跃的 <code>yt-dlp</code> 项目,它继承了 youtube-dl 的核心功能，并引入更多改进，包括更好的格式选择、多线程下载等，迅速在 Linux 发行版中取代 youtube-dl (如 Ubuntu 22.04 之后).</p>
+随着开发进度放缓，社区于 2020 年衍生出 youtube-dlc 分支，在<strong>2021 年</strong>演变为更活跃的 <code>yt-dlp</code> 项目,它继承了 youtube-dl 的核心功能，并引入更多改进，包括更好的格式选择、多线程下载等，成为了GitHub上star最多的项目之一.</p>
 </li>
 <li>
 <p><strong>重构与功能拓展</strong>
 <code>yt-dlp</code> 从 youtube-dlc 完全重构，新增许多 extractor（解析器）、改进配置与默认行为，还扩展了插件系统和兼容性支持.</p>
 </li>
 </ul>
-<h2 id="ge-ping-tai-an-zhuang-zhi-nan">各平台安装指南</h2>
-<ul>
-<li>通用（Linux/macOS/Windows）</li>
-</ul>
-<p>下载官方最新可执行文件：</p>
-<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> curl</span><span style="color:#ffb964;"> -L</span><span> https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp</span><span style="color:#ffb964;"> -o</span><span> /usr/local/bin/yt-dlp
-</span><span style="color:#ffb964;">sudo</span><span> chmod a+rx /usr/local/bin/yt-dlp
-</span></code></pre>
+<h2 id="an-zhuang">安装</h2>
+<h3 id="windows">Windows</h3>
+<p>从yt-dlp官方GitHub上下载exe二进制文件：</p>
+<p><a href="https://github.com/yt-dlp/yt-dlp/releases/tag/2025.08.22">yt-dlp</a></p>
+<p>将其放到一个目录下，比如<code>C:\Users\&lt;你的用户名&gt;\yt-dlp\yt-dlp.exe</code>,随后添加环境变量。</p>
+<blockquote>
+<p>添加环境变量：Win键搜索“环境变量”，打开“编辑系统环境变量”，点击最下方的“环境变量”，选择“系统变量”中的path，点击“编辑”，新建一个变量，将上面的目录 C:\Users&lt;你的用户名&gt;\yt-dlp\ 写入，注意去掉前后引号，随后确定-确定-确定退出。</p>
+</blockquote>
 <p>更新版本：</p>
 <pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -U
 </span></code></pre>
@@ -151,29 +153,103 @@
 </ul>
 <pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">python3 -m</span><span> pip install</span><span style="color:#ffb964;"> -U</span><span> yt-dlp
 </span></code></pre>
+<h3 id="linux-fa-xing-ban">Linux 发行版</h3>
 <ul>
-<li>Linux 发行版仓库</li>
+<li>Debian / Ubuntu：<code>sudo apt install yt-dlp</code></li>
+<li>Arch / Manjaro：<code>sudo pacman -S yt-dlp</code></li>
+<li>Fedora：<code>sudo dnf install yt-dlp</code></li>
+<li>Nixos:</li>
 </ul>
-<p>各发行版可能提供略滞后的 yt-dlp：</p>
-<ul>
-<li>
-<p>Debian / Ubuntu：<code>sudo apt install yt-dlp</code></p>
-</li>
-<li>
-<p>Arch / Manjaro：<code>sudo pacman -S yt-dlp</code></p>
-</li>
-<li>
-<p>Fedora：<code>sudo dnf install yt-dlp</code> 等。</p>
-</li>
-<li>
-<p>Android（Termux）</p>
-</li>
-</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>{pkgs, ...}: {
+</span><span>  home.packages = with pkgs; [
+</span><span>    peazip
+</span><span>  ];
+</span><span>}
+</span></code></pre>
+<h3 id="android-termux">Android（Termux）</h3>
 <pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pkg</span><span> update &amp;&amp; </span><span style="color:#ffb964;">pkg</span><span> upgrade
 </span><span style="color:#ffb964;">pkg</span><span> install python libexpat openssl ffmpeg
 </span><span style="color:#ffb964;">python3 -m</span><span> pip install</span><span style="color:#ffb964;"> -U</span><span> yt-dlp
 </span></code></pre>
-<h2 id="chang-yong-ming-ling">常用命令</h2>
+<h2 id="xia-zai-shi-zhan">下载实战</h2>
+<ul>
+<li><strong>下载B站带字幕视频</strong>:</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>yt-dlp &quot;https://www.bilibili.com/video/BVxxxxx&quot; --write-subs --embed-subs --sub-langs all,-live_chat
+</span><span>
+</span><span>--write-subs: 将字幕文件下载为单独文件 (如 .vtt 或 .ass)
+</span><span>
+</span><span>--embed-subs: 将下载的字幕嵌入到视频文件中（如果格式支持）
+</span><span>
+</span><span>--sub-langs all,-live_chat: 下载所有字幕语言，但排除像“弹幕/实时聊天”之类的非标准字幕流
+</span></code></pre>
+<ul>
+<li><strong>下载YouTube视频</strong></li>
+</ul>
+<p>先使用这个命令查看可用格式：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>yt-dlp -F https://www.youtube.com/watch?v=xxxxxxxxxxxx
+</span></code></pre>
+<p>然后它会列举出所有可用的格式，如下：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>[youtube] MgtOAVOXBWo: Downloading webpage
+</span><span>[youtube] MgtOAVOXBWo: Downloading tv client config
+</span><span>[youtube] MgtOAVOXBWo: Downloading tv player API JSON
+</span><span>[youtube] MgtOAVOXBWo: Downloading ios player API JSON
+</span><span>[youtube] MgtOAVOXBWo: Downloading m3u8 information
+</span><span>[info] Available formats for MgtOAVOXBWo:
+</span><span>ID  EXT   RESOLUTION FPS │   FILESIZE   TBR PROTO │ VCODEC          VBR ACODEC     MORE INFO
+</span><span>──────────────────────────────────────────────────────────────────────────────────────────────────────────
+</span><span>sb2 mhtml 48x27        0 │                  mhtml │ images                         storyboard
+</span><span>sb1 mhtml 80x45        0 │                  mhtml │ images                         storyboard
+</span><span>sb0 mhtml 160x90       0 │                  mhtml │ images                         storyboard
+</span><span>233 mp4   audio only     │                  m3u8  │ audio only          unknown    Untested, Default, low
+</span><span>234 mp4   audio only     │                  m3u8  │ audio only          unknown    Untested, Default, high
+</span><span>602 mp4   256x144     15 │ ~  9.23MiB   81k m3u8  │ vp09.00.10.08   81k video only Untested
+</span><span>269 mp4   256x144     30 │ ~ 14.94MiB  130k m3u8  │ avc1.4D400C    130k video only Untested
+</span><span>603 mp4   256x144     30 │ ~ 15.90MiB  139k m3u8  │ vp09.00.11.08  139k video only Untested
+</span><span>229 mp4   426x240     30 │ ~ 33.33MiB  291k m3u8  │ avc1.4D4015    291k video only Untested
+</span><span>604 mp4   426x240     30 │ ~ 25.82MiB  225k m3u8  │ vp09.00.20.08  225k video only Untested
+</span><span>230 mp4   640x360     30 │ ~ 73.50MiB  642k m3u8  │ avc1.4D401E    642k video only Untested
+</span><span>605 mp4   640x360     30 │ ~ 55.73MiB  487k m3u8  │ vp09.00.21.08  487k video only Untested
+</span><span>231 mp4   854x480     30 │ ~104.35MiB  911k m3u8  │ avc1.4D401F    911k video only Untested
+</span><span>606 mp4   854x480     30 │ ~ 94.79MiB  827k m3u8  │ vp09.00.30.08  827k video only Untested
+</span><span>311 mp4   1280x720    60 │ ~330.73MiB 2887k m3u8  │ avc1.4D4020   2887k video only Untested
+</span><span>612 mp4   1280x720    60 │ ~197.04MiB 1720k m3u8  │ vp09.00.40.08 1720k video only Untested
+</span><span>312 mp4   1920x1080   60 │ ~486.64MiB 4248k m3u8  │ avc1.64002A   4248k video only Untested
+</span><span>617 mp4   1920x1080   60 │ ~369.06MiB 3222k m3u8  │ vp09.00.41.08 3222k video only Untested
+</span><span>623 mp4   2560x1440   60 │ ~  1.00GiB 8945k m3u8  │ vp09.00.50.08 8945k video only Untested
+</span></code></pre>
+<p>我们下载312和233,即视频和音频，使用以下命令：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>yt-dlp -f &quot;312+233&quot; -o &quot;&lt;新视频的名字，要短一点&gt;.%(ext)s&quot; https://www.youtube.com/watch?v=xxxxxxxxxxxx
+</span></code></pre>
+<p>这行命令会自动将下载的312的1080p/H.264的视频和233的音频合并为一个mp4视频，注意新的名称不能太长，否则会下载失败。</p>
+<p>如果要下载带字幕的视频，则使用</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>yt-dlp -f &quot;312+233&quot; --write-subs --write-auto-subs --embed-subs --sub-langs &quot;zh.*,en.*&quot; -o &quot;&lt;新视频的名字，要短一点&gt;.%(ext)s&quot; https://www.youtube.com/watch?v=xxxxxxxxxxx
+</span></code></pre>
+<p>这个命令会：</p>
+<ul>
+<li>
+<p>下载1080p视频</p>
+</li>
+<li>
+<p>下载中文和英文字幕（包括自动生成的）</p>
+</li>
+<li>
+<p>将字幕嵌入到视频文件中</p>
+</li>
+<li>
+<p>同时保存单独的字幕文件</p>
+</li>
+<li>
+<p>参数说明</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>--write-subs: 下载手动字幕
+</span><span>--write-auto-subs: 下载自动生成的字幕
+</span><span>--embed-subs: 将字幕嵌入到视频中
+</span><span>--sub-langs &quot;zh.*&quot;: 指定下载中文字幕（所有中文变体）
+</span><span>--sub-format srt: 指定字幕格式（可选）
+</span></code></pre>
+<h2 id="chang-yong-can-shu">常用参数</h2>
 <ul>
 <li>
 <p><strong>下载视频</strong>：</p>
@@ -249,40 +325,6 @@
 <p><strong>配置文件设定默认参数</strong>：</p>
 <p>在 <code>~/.config/yt-dlp/config</code> 文件中添加习惯参数，如下载路径、格式偏好等。</p>
 </li>
-<li>
-<p><strong>比如下载B站带字幕视频的命令</strong>:</p>
-</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>yt-dlp &quot;https://www.bilibili.com/video/BVxxxxx&quot; --write-subs --embed-subs --sub-langs all,-live_chat
-</span><span>
-</span><span>--write-subs: 将字幕文件下载为单独文件 (如 .vtt 或 .ass)
-</span><span>
-</span><span>--embed-subs: 将下载的字幕嵌入到视频文件中（如果格式支持）
-</span><span>
-</span><span>--sub-langs all,-live_chat: 下载所有字幕语言，但排除像“弹幕/实时聊天”之类的非标准字幕流
-</span></code></pre>
-<hr />
-<h2 id="jin-jie-ji-qiao">进阶技巧</h2>
-<ul>
-<li>
-<p><strong>FFmpeg 合并支持</strong>：若视频与音频分离，需安装 FFmpeg 才能完成合并。</p>
-</li>
-<li>
-<p><strong>处理地理限制</strong>：结合 <code>--proxy</code> 或 <code>--geo-bypass</code> 等选项使用 VPN/代理绕过区域限制。</p>
-</li>
-<li>
-<p><strong>应对下载失败（如 403）</strong>：</p>
-<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp --rm-cache-dir
-</span></code></pre>
-</li>
-<li>
-<p><strong>设置 UA、Referer、打印请求头调试</strong>：</p>
-<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">--add-headers </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">User-Agent: ...</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> --print</span><span> http_headers
-</span></code></pre>
-</li>
-<li>
-<p><strong>Stability &amp; 更新问题</strong>：建议避免使用发行版中的旧版本，推荐使用官方可执行或 pip 方法。</p>
-</li>
 </ul>
 <hr />
 <p><strong>Done.</strong></p>
@@ -299,14 +341,14 @@
                     <span class="button previous">
                         <a href="https://blog.dich.bid/network-download-1/">
                             <span class="button__icon">←</span>&nbsp;
-                            <span class="button__text">网络艺术:下载技术的历史</span>
+                            <span class="button__text">下载系列(1):下载技术的历史</span>
                         </a>
                     </span>
                 
                 
                     <span class="button next">
                         <a href="https://blog.dich.bid/network-aria2/">
-                            <span class="button__text">网络艺术:Aria2使用指南</span>&nbsp;
+                            <span class="button__text">下载系列(3):Aria2使用指南</span>&nbsp;
                             <span class="button__icon">→</span>
                         </a>
                     </span>

@@ -85,7 +85,7 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>网络艺术:Aria2使用指南</title>
+        <title>下载系列(3):Aria2使用指南</title>
         <published>2025-04-15T00:00:00+00:00</published>
         <updated>2025-04-15T00:00:00+00:00</updated>
         
@@ -104,7 +104,7 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>网络艺术:Yt-dlp使用指南</title>
+        <title>下载系列(2):Yt-dlp使用指南</title>
         <published>2025-04-12T00:00:00+00:00</published>
         <updated>2025-04-12T00:00:00+00:00</updated>
         
@@ -119,11 +119,11 @@
         <link rel="alternate" type="text/html" href="https://blog.dich.bid/network-yt-dlp/"/>
         <id>https://blog.dich.bid/network-yt-dlp/</id>
         
-        <summary type="html">&lt;p&gt;前言 有时候我们想要视频保存到本地以便离线回看。yt-dlp是一款功能强大的命令行工具，专注于下载视频与音频内容，支持数千个平台，是开源下载工具爱好者的常用选择。&lt;&#x2F;p&gt;</summary>
+        <summary type="html">&lt;p&gt;前言 yt-dlp是一款功能强大的命令行工具，专注于下载视频与音频内容，支持数千个平台，是开源下载工具爱好者的常用选择。&lt;&#x2F;p&gt;</summary>
         
     </entry>
     <entry xml:lang="en">
-        <title>网络艺术:下载技术的历史</title>
+        <title>下载系列(1):下载技术的历史</title>
         <published>2025-04-11T00:00:00+00:00</published>
         <updated>2025-04-11T00:00:00+00:00</updated>
         
