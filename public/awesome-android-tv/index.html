@@ -134,9 +134,27 @@
 <li>实现<strong>游戏主机串流</strong>，包括PS/Xbox/Switch等等；</li>
 </ul>
 <h2 id="yi-xuan-ze-he-gua-de-ping-tai">一.选择合适的平台</h2>
-<p>X86还是Arm？两者之间各有优点，截止到今天各种Arm电视盒子已经非常成熟，价格便宜，也可以使用运营商的电视盒子进行刷机，性能并不会太弱；而X86平台往往价格偏贵，且解码性能和功能适配没有和电视生态联系紧密，因此建议首选Arm平台。</p>
+<p>X86还是Arm？两者之间各有优点，截止到今天各种Arm电视盒子已经非常成熟，价格便宜，也可以使用运营商的电视盒子进行刷机，性能并不会太弱；而X86平台往往价格偏贵，且驱动不全，解码性能和功能适配没有和电视生态联系紧密，因此建议首选Arm平台.</p>
+<p>本文以s905l3a盒子为示例，截止目前平均价格在60rmb左右，非常具有性价比。</p>
+<table><thead><tr><th>项目</th><th>规格说明</th></tr></thead><tbody>
+<tr><td>CPU 架构</td><td>四核 ARM Cortex-A53 (64-bit)</td></tr>
+<tr><td>主频</td><td>~1.8 GHz</td></tr>
+<tr><td>制程工艺</td><td>12 nm</td></tr>
+<tr><td>GPU</td><td>Mali-G31 MP2，约 850 MHz，20.8 GFLOPS</td></tr>
+<tr><td>视频解码</td><td>H.265 4Kp75 (10-bit), H.264 4Kp30</td></tr>
+<tr><td>视频编码</td><td>H.264/H.265 1080p60</td></tr>
+<tr><td>最大显示输出</td><td>4K @ 75fps</td></tr>
+<tr><td>内存支持</td><td>支持 DDR3, DDR4-2666, LPDDR4-3200；设备常见 2 GB DDR4</td></tr>
+<tr><td>存储</td><td>常见 8 GB eMMC5.1</td></tr>
+<tr><td>接口支持</td><td>USB2.0/3.0, HDMI 2.0b/2.1</td></tr>
+<tr><td>网络支持</td><td>千兆 MAC (常见盒子为 10/100), Wi-Fi, BT4.1/5.0</td></tr>
+<tr><td>发布时间/制程</td><td>Q3 2022，12 nm</td></tr>
+</tbody></table>
+<blockquote>
+<p>如果预算充足，也可以选择s905x3，s905x4，以及rk3528等等芯片的盒子。如果有旧手机，也可以改装为电视盒子，比如骁龙865盒子，性能非常强大。</p>
+</blockquote>
 <h2 id="er-xuan-ze-he-gua-de-xi-tong">二.选择合适的系统</h2>
-<p>无论是运营商自带的电视盒子还是各种所谓的“无广告”电视盒子，往往都基于以下两种系统，且不要迷信所谓的“无广告”电视盒子，它们往往配置低下，性价比不高且还是有内置付费项目，甚至有一些根本没有做到去广告。</p>
+<p>无论是运营商自带的电视盒子还是各种所谓的“无广告”电视盒子，往往都基于以下两种系统，且要小心一些所谓的“无广告”电视盒子或者外贸盒子，它们往往配置低，性价比不高且还是有内置付费项目，甚至有一些还会偷偷跑PCDN。因此，建议买到手之后自行刷写固件。</p>
 <table><thead><tr><th>特性</th><th><strong>Android-x86</strong></th><th><strong>Android TV</strong></th></tr></thead><tbody>
 <tr><td><strong>目标用户</strong></td><td>面向 PC 用户，将 Android 运行在 x86/x86_64 设备上。</td><td>面向电视和机顶盒用户，优化用于遥控器或语音操作。</td></tr>
 <tr><td><strong>适配设备</strong></td><td>传统 PC、笔记本、平板电脑等 x86 架构设备。</td><td>智能电视、电视盒子等 ARM 或特定芯片架构设备。</td></tr>
@@ -149,77 +167,33 @@
 <tr><td><strong>遥控器支持</strong></td><td>不适配遥控器，主要使用鼠标键盘操作。</td><td>专为遥控器优化，支持按键导航和语音输入。</td></tr>
 <tr><td><strong>开源贡献</strong></td><td>由社区维护，支持各种自定义和实验功能。</td><td>由 Google 官方主导，OEM 厂商提供硬件优化支持。</td></tr>
 </tbody></table>
-<hr />
 <blockquote>
-<p>Android-x86 的安装类似windows，需要命令行界面配置；Android TV安装类似 Android手机，通过刷分区或TWRP卡刷安装。</p>
+<p>Android-x86 的安装类似windows；Android TV安装类似 Android手机，通过刷分区或TWRP卡刷安装。</p>
 </blockquote>
 <blockquote>
-<p>Tosathony 制作的 Android TV x86 是一个由社区成员制作的定制化 Android TV 版本,针对 Android TV 的大屏界面 和 遥控器操作 进行特别优化,但某些硬件（如 Wi-Fi、GPU、音频设备等）的驱动可能不兼容或需要额外的配置。</p>
+<p>Tosathony 制作的 Android TV x86 是一个由社区成员制作的定制化 Android TV 版本,针对 Android TV 的大屏界面 和 遥控器操作 进行特别优化,但某些硬件（如 Wi-Fi、GPU、音频设备等）的驱动可能不兼容或需要额外的配置,本文不再说明Android TV x86的安装与使用。</p>
 </blockquote>
-<p><strong>刷 Tosathony Android TV X86 准备工作</strong>：</p>
+<h2 id="san-an-zhuang-ruan-jian">三.安装软件</h2>
+<p>安装软件有很多方法，可以使用U盘将apk安装包拷入，也可以使用localsend将apk安装包通过内网传输过去。这里介绍一种通过ADB安装软件的方法。</p>
 <ul>
 <li>
-<p>1.<a href="https://pan.baidu.com/s/17eDDrf4WzWVmrc9hLw-c_w?pwd=a728">Tosathony 制作的 Android TV x86 9.0</a></p>
+<p>首先我们在设置中找到“设置”&gt;“设备首选项”&gt;“关于”，然后在“构建”上点击几次以解锁<code>开发者模式</code>，随后开启USB调试开关。</p>
 </li>
 <li>
-<p>2.<a href="https://www.423down.com/10080.html">Rufus 写盘工具</a></p>
-</li>
-<li>
-<p>3.<a href="https://android-tv-remote-control.en.softonic.com/android">Android tv Remote 手机遥控器软件：</a></p>
-</li>
-<li>
-<p>4.<a href="https://androidmtk.com/tiny-adb-and-fastboot-tool#installer">Tiny ADB 软件</a></p>
+<p>随后在设置 &gt; 设备首选项 &gt; 关于 &gt; 状态中找到并记下IP 地址，然后用ADB连接上去，这里使用命令<code>adb connect &lt;IP 地址&gt;:&lt;端口&gt; </code>，随后在ATV端授权连接，例如：</p>
 </li>
 </ul>
-<p><strong>一些可安装的软件</strong>：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>❯ adb connect 192.168.1.666:9527
+</span><span>
+</span><span>connected to 192.168.1.666:9527
+</span><span>
+</span><span>❯ adb devices
+</span><span>
+</span><span>xxxxxxxxx sideload
+</span></code></pre>
 <ul>
-<li>
-<p><a href="http://www.kodiplayer.cn/">kodi</a></p>
-</li>
-<li>
-<p><a href="https://www.dangbei.com/apps/">当贝市场</a></p>
-</li>
-<li>
-<p><a href="https://www.fenxm.com/104.html">哔哩哔哩TV版</a></p>
-</li>
-<li>
-<p><a href="https://www.fenxm.com/592.html">ATV Launcher</a></p>
-</li>
+<li>接着使用命令<code>adb install &lt;path to android app.apk&gt;</code>将要安装的软件包上传，也可以将文件拖到命令提示符窗口上以复制其路径，回车确认。</li>
 </ul>
-<h2 id="yi-xie-pan-biosqi-dong">一、写盘，BIOS启动</h2>
-<ul>
-<li>
-<p>使用 Rufus 将下载好的 ATV 镜像写入U盘。</p>
-</li>
-<li>
-<p>将U盘插到目标主机上，并设置 BIOS-boot 优先启动，不同设备进入 BIOS 的按键不同，大部分是F2或者DEL；</p>
-</li>
-</ul>
-<h2 id="er-kai-shi-an-zhuang">二、开始安装</h2>
-<ul>
-<li>
-<p>boot 成功后选择自动安装；</p>
-</li>
-<li>
-<p>经过跑码后进入若干个选项，一路 yes 过去，文件系统选 ext4;随后运行 ATV ，并拔出U盘；</p>
-</li>
-</ul>
-<h2 id="san-jin-ru-googlejie-mian">三、进入Google界面</h2>
-<p>由于国内网络环境问题，导致一些界面无法进入，可使用如下方法或全局科学。</p>
-<p>1.如果卡在 Google的logo 界面或者动画比较缓慢，或者重启后无法进入 ATV 界面，需要在<code>BIOS-Advanced-OS selection</code>中将其设置为Windows 8.X或者Android。</p>
-<p>2.然后可以看到 PayPal 界面，这里使用可以 <code>Ctrl+Alt+F1</code> 进入命令行界面，随后输入</p>
-<p><code>pm disable com.tosanthony.tv.networkprovider #注意空格</code></p>
-<p>回车执行，随后按<code>Ctrl+Alt+F7或F8</code>回到图形界面。</p>
-<p>3.下一步，我们可以看到自动更新界面，这里我们需要禁用它：</p>
-<p>同样<code>Ctrl+Alt+F1</code> 进入命令行界面，随后输入</p>
-<p><code>pm disable com.google.android.tungsten.setupwraith #注意空格</code></p>
-<p>回车执行，随后按<code>Ctrl+Alt+F7或F8</code>回到图形界面。</p>
-<p>4.此时会进入一个 WiFi 界面，如果你是使用网线直连就没有问题，或者用键盘连接家里的WiFi，作者因为工控机没有WiFi模块在这里卡了半天。</p>
-<p>5.随后进入了 AndroidTV 的桌面。</p>
-<h2 id="si-an-zhuang-ruan-jian-bing-she-zhi-zhuo-mian-qi-dong">四、安装软件并设置桌面启动</h2>
-<p>1.首先我们在设置中找到“设置”&gt;“设备首选项”&gt;“关于”，然后在“构建”上点击几次以解锁“开发人员”选项，随后开启USB调试开关。</p>
-<p>2.随后在设置 &gt; 设备首选项 &gt; 关于 &gt; 状态中找到并记下IP 地址，然后用Tiny ADB连接上去，这里使用命令<code>adb connect &lt;IP 地址&gt; </code>，随后在ATV端授权连接；</p>
-<p>3.接着使用命令adb install <path to android app.apk>将要安装的软件包上传，也可以将文件拖到命令提示符窗口上以复制其路径，回车确认。</p>
 <p><strong>一些 ADB 常用命令</strong>：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb reboot #将重启 Android 设备。
 </span><span>
@@ -231,21 +205,64 @@
 </span><span>
 </span><span>adb kill server #切断 PC 和 Android TV 之间的连接。
 </span></code></pre>
-<p>4.如果存在一些软件无法安装，可开启ARM兼容层，具体方法为在 <code>dl.android-x86.org/houdini/9_y/houdini.sfs</code> 中下载得到<code>houdini.sfs</code>，把文件名改成<code>houdini9_y.sfs</code>，随后拷贝进U盘，进入命令行界面，输入 <code>ls</code> 找到 storage 目录，输入 <code>cd storage</code> 进入你的U盘，输入 <code>ls</code> ，查看你拷贝的 <code>houdini9_y.sfs</code> 文件，并复制到该目录下。</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cp houdini9_y.sfs /system/etc
-</span><span>
-</span><span>enable_nativebridge
-</span><span>
-</span><span>reboot
+<p><strong>要安装的软件</strong></p>
+<ul>
+<li>
+<p><a href="https://github.com/o0HalfLife0o/TVBoxOSC/releases/tag/20250706-1456">TVBox</a>:前猫影视，可自行添加源，包括电影电视剧等等，选择 armeabi-generic-java.apk</p>
+</li>
+<li>
+<p><a href="https://www.ppsspp.org/download/">PPSSPP</a>:PSP模拟器，支持高清修复游戏，选择 APK for Android</p>
+</li>
+<li>
+<p><a href="https://github.com/xiaye13579/BBLL">BBLL</a>:第三方开源哔哩哔哩客户端，适配TV界面，不需要额外VIP</p>
+</li>
+<li>
+<p><a href="https://www.right.com.cn/FORUM/thread-8437225-1-1.html">酷9TV</a>:经典IPTV播放器，功能丰富，可导入IPTV源使用</p>
+</li>
+<li>
+<p><a href="http://www.videolan.org/vlc/download-android.html">VLC</a>:老牌开源音视频播放器，支持远程和串流功能</p>
+</li>
+<li>
+<p><a href="https://github.com/xbmc/xbmc">Kodi</a>:开源的跨平台多功能媒体播放器和数字媒体娱乐中心，非常强大</p>
+</li>
+<li>
+<p><a href="https://github.com/truefedex/tv-bro">TV-Bro</a>:适用与安卓TV的浏览器，经过了遥控器优化设计，可以作为网页播放器</p>
+</li>
+<li>
+<p><a href="https://github.com/zhanghai/MaterialFiles">MaterialFiles</a>:又名质感文件，优秀的开源文件管理器</p>
+</li>
+<li>
+<p><a href="https://github.com/localsend/localsend">Localsend</a>:经典内网互传工具，可以通过它传输apk安装包或者视频到TV上</p>
+</li>
+<li>
+<p><a href="https://www.fenxm.com/592.html">ATV Launcher</a>:平铺风格的安卓启动器，可以形成海报墙效果</p>
+</li>
+</ul>
+<blockquote>
+<p>注意s905l3a为32位架构，需要下载带armv7a的软件</p>
+</blockquote>
+<h2 id="si-she-zhi-atvzhuo-mian">四.设置ATV桌面</h2>
+<p>安装所需的软件包后我们可以删除自带的牛马软件或者不需要的软件，比如我们要安装ATV，就可以删除当贝桌面。</p>
+<ul>
+<li>
+<p>连接到ADB成功后我们使用<code>adb shell</code>进入shell，随后使用命令<code>pm list packages</code>列出所有软件包；</p>
+</li>
+<li>
+<p>可以先使用<code>pm disable-user --user 0 com.dangbei1.tvlauncher</code> 禁用软件，确认没有问题之后再用<code>pm uninstall -k --user 0 com.dangbei1.tvlauncher</code>删除；</p>
+</li>
+<li>
+<p>对于暂时无法确定包名的软件，可以先打开，再使用<code>adb shell dumpsys activity activities | grep mResumedActivity</code>获取当前前台应用的包名；</p>
+</li>
+<li>
+<p>可以进入安卓原生设置里面将默认主屏幕应用改为ATV，代替掉自带的桌面,并使用</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb shell pm disable-user --user 0 com.google.android.tvlauncher
+</span><span>adb shell pm disable-user --user 0 com.google.android.tungsten.setupwraith
 </span></code></pre>
-<p>5.安装一些软件包后我们发现需要代替掉ATV自带的桌面，从而形成海报墙的效果，这和 linux 的桌面环境切换有异曲同工之处。注意：替换前需要已经安装完成其他桌面！！！！（比如 ATV Launcher ）我们使用以下命令禁用 google 默认的桌面。随后重启，即可看到ATV的海报墙。</p>
-<p><code>pm disable-user --user 0 com.google.android.tvlauncher </code></p>
-<p>恢复原有桌面：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>C:\Users\root&gt;adb shell
-</span><span>generic_x86:/ $ su
-</span><span>generic_x86:/ # pm enable --user 0 com.google.android.tvlauncher
-</span><span>Package com.google.android.tvlauncher new state: enabled
-</span></code></pre>
+<p>命令禁用原来的默认桌面。随后重启盒子即可看到海报墙效果，如果ATV桌面没有开机自启动，可以使用Launch on Boot工具。</p>
+<p><strong>最终效果</strong>：</p>
+<p><img src="/images/s905-atv.webp" alt="s905-atv" /></p>
 <h2 id="hou-ji">后记</h2>
 <ul>
 <li>
@@ -262,6 +279,9 @@
 </li>
 <li>
 <p><a href="https://github.com/genius158/TVProjectUtils">TV 项目常用工具(焦点问题，适配问题等.)</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Calmact/e900v22c">e900v22c项目与讨论组文档</a></p>
 </li>
 </ul>
 
