@@ -121,7 +121,8 @@
         <div class="post-content">
             <p>前言 Aria2是一款开源、跨平台的命令行界面下载管理器，常常被各种下载器软件使用。</p>
 <span id="continue-reading"></span><h2 id="jie-shao">介绍</h2>
-<p><a href="https://github.com/aria2/aria2">Aria2</a>是一款开源、跨平台的命令行界面下载管理器，支持的下载协议有：<code>HTTP、HTTPS、FTP、Bittorrent 和 Metalink</code>。​它以高效、轻量和灵活著称，适用于需要批量下载、自动化任务或远程控制的用户。</p>
+<p>在上网的时候，我们可能需要下载一些东西，而浏览器自带的下载比较缓慢。为此，许多人安装了类似IDM或者Motrix等等软件，用多线程来加速下载。其实，许多开源的下载器就是Aria2的前端，我们可以直接使用Aria2进行下载。</p>
+<p><a href="https://github.com/aria2/aria2">Aria2</a>是一款开源、跨平台的命令行界面下载管理器，支持的下载协议有：<code>HTTP、HTTPS、FTP、Bittorrent 和 Metalink</code>。它以高效、轻量和灵活著称，适用于需要批量下载、自动化任务或远程控制的用户。</p>
 <p>Aria2 有以下几个特点：</p>
 <ul>
 <li><code>多连接下载</code>：可以从多个来源/协议下载文件并尝试利用您的最大下载带宽，真正加快您的下载体验；</li>
@@ -130,15 +131,45 @@
 <li><code>支持Metalink</code>：支持 Metalink 下载描述格式。 在下载中使用 Metalink 数据块的校验和自动验证下载的数据部分；</li>
 <li><code>远程控制</code>：支持 RPC 接口来控制 aria2 进程。 支持的接口是 JSON-RPC（通过 HTTP 和 WebSocket）和 XML-RPC。</li>
 </ul>
-<p>Aria2 原生使用命令行工具进行操作，为了更方便控制我们可以使用其他开源的面板配合本体，如<a href="https://github.com/mayswind/AriaNg">AriaNg</a>或者<a href="https://github.com/ziahamza/webui-aria2">webui-aria2</a>。</p>
-<h2 id="windows">Windows</h2>
-<p>首先下载<a href="https://github.com/aria2/aria2/releases/tag/release-1.37.0">aria2-1.37.0-win-64bit-build1.zip</a>，将下载好的文件解压并放到你喜欢的目录下，设置系统环境变量，类似<code>D:\DATA\Data\AriaNg-1.3.10-AllInOne</code>,随后即可在 CMD 中使用 Aria2 。</p>
-<p>随后可以安装 AriaNg 前端，AriaNg 使用纯 html &amp; javascript 开发, 所以其不需要任何编译器或运行环境.</p>
-<p><img src="https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png" alt="ariang-1" /></p>
-<p>AriaNg 现在提供三种版本, <code>标准版、单文件版和 AriaNg Native. </code>标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里<code>建议使用单文件版或者Native版。</code></p>
-<p><a href="https://github.com/mayswind/AriaNg/releases">单文件版(AllinOne)</a>
-<a href="https://github.com/mayswind/AriaNg-Native/releases/tag/1.3.10">Native版</a></p>
-<h2 id="arch-linux">Arch linux</h2>
+<p>要<strong>使用Aria2来替代浏览器自带的下载</strong>，一般需要三个条件：</p>
+<ol>
+<li>在系统中安装Aria2,并设置环境变量和开机自启；</li>
+<li>让Aria2接管浏览器的下载；</li>
+<li>需要一个前端面板来更方便的控制Aria2(可选).</li>
+</ol>
+<h2 id="an-zhuang">安装</h2>
+<h3 id="windows">Windows</h3>
+<p>首先下载<a href="https://github.com/aria2/aria2/releases/tag/release-1.37.0">aria2-1.37.0-win-64bit-build1.zip</a>，将下载好的文件解压并放到你喜欢的目录下，设置系统环境变量，类似<code>D:\DATA\Data\AriaNg-1.3.10-AllInOne</code>,随后即可在 CMD 中使用<code>aria2c -v</code>查看Aria2 。</p>
+<p>然后创建一个配置文件<code>C:\Users\&lt;你&gt;\.aria2\aria2.conf</code>，内容如下：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 下载目录
+</span><span>dir=C:/Users/&lt;你&gt;/Downloads
+</span><span>
+</span><span># 断点续传
+</span><span>continue=true
+</span><span>file-allocation=prealloc
+</span><span>
+</span><span># RPC 设置
+</span><span>enable-rpc=true
+</span><span>rpc-listen-all=true
+</span><span>rpc-allow-origin-all=true
+</span><span>rpc-listen-port=6800
+</span><span>rpc-secret=&lt;你的密码&gt;
+</span></code></pre>
+<p>随后在这个项目中<a href="https://github.com/winsw/winsw">winsw</a>下载 WinSW-x64.exe到一个目录，并重命名为 aria2-service.exe，并在同目录下创建<code>aria2-service.xml</code>，内容如下：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&lt;service&gt;
+</span><span>  &lt;id&gt;aria2&lt;/id&gt;
+</span><span>  &lt;name&gt;Aria2 Service&lt;/name&gt;
+</span><span>  &lt;description&gt;Aria2 Download Manager&lt;/description&gt;
+</span><span>  &lt;executable&gt;C:\Users\&lt;你&gt;\scoop\apps\aria2\current\aria2c.exe&lt;/executable&gt;
+</span><span>  &lt;arguments&gt;--conf-path=C:\Users\&lt;你&gt;\.aria2\aria2.conf&lt;/arguments&gt;
+</span><span>&lt;/service&gt;
+</span></code></pre>
+<p>随后使用<code>.\aria2-service.exe install</code>安装服务，并使用<code>.\aria2-service.exe start</code>启动服务，类似linux上的systemctl.</p>
+<blockquote>
+<p>注意修改用户名！</p>
+</blockquote>
+<h3 id="arch-linux">Arch linux</h3>
+<p>Arch linux 和大部分常规发行版可以适用此方法。</p>
 <p>首先安装aria2本体:</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>paru -S aria2
 </span></code></pre>
@@ -171,35 +202,106 @@
 </span><span>[Install]
 </span><span>WantedBy=default.target
 </span></code></pre>
-<p>在更新配置文件和服务文件后，执行以下命令以重启服务：​</p>
+<p>在更新配置文件和服务文件后，执行以下命令以重启服务：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>systemctl --user daemon-reload
 </span><span>systemctl --user enable aria2.service
 </span><span>systemctl --user start aria2.service
 </span></code></pre>
-<p>使用以下命令检查服务状态：​</p>
+<p>使用以下命令检查服务状态:</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>systemctl --user status aria2.service
 </span></code></pre>
+<h3 id="nixos">Nixos</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>{ lib, pkgs, username, ... }:
+</span><span>{
+</span><span>  services.aria2.enable = false;
+</span><span>  systemd.services.aria2 = {
+</span><span>    description = &quot;Aria2 Download Manager (dich)&quot;;
+</span><span>    after = [ &quot;network.target&quot; ];
+</span><span>    wants = [ &quot;network.target&quot; ];
+</span><span>    wantedBy = [ &quot;multi-user.target&quot; ];
+</span><span>
+</span><span>    serviceConfig = {
+</span><span>      Type = &quot;simple&quot;;
+</span><span>      User = username;
+</span><span>
+</span><span>      ExecStartPre = [
+</span><span>        &quot;${pkgs.coreutils}/bin/mkdir -p /home/${username}/.config/aria2&quot;
+</span><span>        &quot;${pkgs.coreutils}/bin/touch /home/${username}/.config/aria2/aria2.session&quot;
+</span><span>      ];
+</span><span>
+</span><span>      ExecStart = &quot;${pkgs.aria2}/bin/aria2c --conf-path=/home/${username}/.config/aria2/aria2.conf&quot;;
+</span><span>
+</span><span>      Restart = &quot;always&quot;;
+</span><span>      RestartSec = &quot;5s&quot;;
+</span><span>
+</span><span>      NoNewPrivileges = true;
+</span><span>      PrivateTmp = true;
+</span><span>    };
+</span><span>  };
+</span><span>}
+</span></code></pre>
+<h2 id="ming-ling-xing-yong-fa">命令行用法</h2>
+<p>如果你不想用浏览器插件或者面板，也可以直接使用命令行操作：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c </span><span style="color:#8fbfdc;">[</span><span>选项</span><span style="color:#8fbfdc;">] [</span><span>URL | 磁力链接 | .torrent文件</span><span style="color:#8fbfdc;">]
+</span></code></pre>
+<h3 id="li-zi">例子：</h3>
+<ol>
+<li><strong>下载单个文件</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c</span><span> https://example.com/file.iso
+</span></code></pre>
+<ol start="2">
+<li><strong>指定保存路径和文件名</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c -d ~</span><span>/Downloads</span><span style="color:#ffb964;"> -o</span><span> ubuntu.iso https://releases.ubuntu.com/24.04/ubuntu.iso
+</span></code></pre>
+<ol start="3">
+<li><strong>同时下载多个文件</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c</span><span> https://example.com/file1.zip https://example.com/file2.zip
+</span></code></pre>
+<ol start="4">
+<li><strong>从文件读取 URL 列表</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c -i</span><span> urls.txt
+</span></code></pre>
+<p>（<code>urls.txt</code> 每行一个链接）</p>
+<ol start="7">
+<li><strong>下载 torrent 文件</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c</span><span> ubuntu.torrent
+</span></code></pre>
+<ol start="8">
+<li><strong>下载磁力链接</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">magnet:?xt=urn:btih:xxxxx...</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<ol start="9">
+<li><strong>限制 BT 上传</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c --max-upload-limit</span><span>=50K ubuntu.torrent
+</span></code></pre>
 <h2 id="liu-lan-qi-cha-jian">浏览器插件</h2>
-<p>如果你想让其直接接管浏览器下载,可以使用以下几种浏览器插件：</p>
+<p>如果你想让其直接接管浏览器下载,可以使用以下几种浏览器插件,它们都自带面板：</p>
 <p><strong>Chrome 浏览器</strong></p>
 <ul>
-<li><a href="https://github.com/alexhua/Aria2-Explorer">Aria2 Explorer</a>是一款功能强大的扩展，能够自动拦截浏览器的下载任务，并通过 JSON-RPC 接口将其导出到 Aria2 进行下载。 ​</li>
-<li><a href="https://github.com/alexhua/Aria2-for-chrome">Aria2 for Chrome</a></li>
+<li><a href="https://github.com/alexhua/Aria2-Explorer">Aria2 Explorer</a>是一款功能强大的扩展，能够自动拦截浏览器下载任务并自带Aria2-NG面板。</li>
 </ul>
 <p><strong>Firefox 浏览器</strong></p>
 <ul>
-<li><a href="https://github.com/Cudiph/IA2DM">Integrated Aria2 Download Manager</a> 是一款 Firefox 扩展，能够拦截下载任务，并将其转发到 Aria2。</li>
+<li><a href="https://github.com/RossWang/Aria2-Integration?tab=readme-ov-file">Aria2-Integration</a>也是一款 Firefox 拓展，拦截下载任务的同时带有 Aria2-NG面板，方便使用。</li>
 </ul>
-<p><strong>通用版</strong></p>
-<ul>
-<li><a href="https://github.com/giantpinkrobots/varia">varia</a></li>
-</ul>
-<p>🔗</p>
-<p><strong>附带 aria2 的服务端应用</strong></p>
-<ul>
-<li><a href="https://github.com/openwrt/packages/tree/master/net/ariang">AriaNg for Openwrt</a></li>
-<li><a href="https://github.com/wahyd4/aria2-ariang-docker">aria2-ariang-docker</a></li>
-</ul>
+<blockquote>
+<p>注意！如果你前面配置中设置了rpc的密码，需要在面板中也写入才可连接成功。</p>
+</blockquote>
+<p><img src="/images/aria2-rpc.webp" alt="aria2-rpc" /></p>
+<h2 id="mian-ban">面板</h2>
+<p>如果你不想使用浏览器插件，也可以使用aria2+独立面板的方法，但这样就不能接管浏览器的下载，适合其他环境使用。</p>
+<p>这里推荐使用 AriaNg 前端，AriaNg 使用纯 html &amp; javascript 开发, 所以其不需要任何编译器或运行环境.</p>
+<p><img src="https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png" alt="ariang-1" /></p>
+<p>AriaNg 现在提供三种版本, <code>标准版、单文件版和 AriaNg Native. </code>标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里<code>建议使用单文件版或者Native版</code>,下之后打开其中的html并设为书签即可。</p>
+<p><a href="https://github.com/mayswind/AriaNg/releases">单文件版(AllinOne)</a>
+<a href="https://github.com/mayswind/AriaNg-Native/releases/tag/1.3.10">Native版</a></p>
 <hr />
 <p><strong>Done.</strong></p>
 

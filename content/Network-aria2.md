@@ -11,7 +11,9 @@ tags = ["网络艺术"]
 <!-- more -->
 ## 介绍
 
-[Aria2](https://github.com/aria2/aria2)是一款开源、跨平台的命令行界面下载管理器，支持的下载协议有：``HTTP、HTTPS、FTP、Bittorrent 和 Metalink``。​它以高效、轻量和灵活著称，适用于需要批量下载、自动化任务或远程控制的用户。
+在上网的时候，我们可能需要下载一些东西，而浏览器自带的下载比较缓慢。为此，许多人安装了类似IDM或者Motrix等等软件，用多线程来加速下载。其实，许多开源的下载器就是Aria2的前端，我们可以直接使用Aria2进行下载。
+
+[Aria2](https://github.com/aria2/aria2)是一款开源、跨平台的命令行界面下载管理器，支持的下载协议有：``HTTP、HTTPS、FTP、Bittorrent 和 Metalink``。它以高效、轻量和灵活著称，适用于需要批量下载、自动化任务或远程控制的用户。
 
 Aria2 有以下几个特点：
 
@@ -21,24 +23,53 @@ Aria2 有以下几个特点：
 - ``支持Metalink``：支持 Metalink 下载描述格式。 在下载中使用 Metalink 数据块的校验和自动验证下载的数据部分；
 - ``远程控制``：支持 RPC 接口来控制 aria2 进程。 支持的接口是 JSON-RPC（通过 HTTP 和 WebSocket）和 XML-RPC。
 
-Aria2 原生使用命令行工具进行操作，为了更方便控制我们可以使用其他开源的面板配合本体，如[AriaNg](https://github.com/mayswind/AriaNg)或者[webui-aria2](https://github.com/ziahamza/webui-aria2)。
+要**使用Aria2来替代浏览器自带的下载**，一般需要三个条件：
 
-## Windows
+1. 在系统中安装Aria2,并设置环境变量和开机自启；
+2. 让Aria2接管浏览器的下载；
+3. 需要一个前端面板来更方便的控制Aria2(可选).
 
-首先下载[aria2-1.37.0-win-64bit-build1.zip](https://github.com/aria2/aria2/releases/tag/release-1.37.0)，将下载好的文件解压并放到你喜欢的目录下，设置系统环境变量，类似``D:\DATA\Data\AriaNg-1.3.10-AllInOne``,随后即可在 CMD 中使用 Aria2 。
+## 安装
 
-随后可以安装 AriaNg 前端，AriaNg 使用纯 html & javascript 开发, 所以其不需要任何编译器或运行环境. 
+### Windows
 
-![ariang-1](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
+首先下载[aria2-1.37.0-win-64bit-build1.zip](https://github.com/aria2/aria2/releases/tag/release-1.37.0)，将下载好的文件解压并放到你喜欢的目录下，设置系统环境变量，类似``D:\DATA\Data\AriaNg-1.3.10-AllInOne``,随后即可在 CMD 中使用``aria2c -v``查看Aria2 。
 
-AriaNg 现在提供三种版本, ``标准版、单文件版和 AriaNg Native. ``标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里``建议使用单文件版或者Native版。``
+然后创建一个配置文件``C:\Users\<你>\.aria2\aria2.conf``，内容如下：
+```
+# 下载目录
+dir=C:/Users/<你>/Downloads
 
-[单文件版(AllinOne)](https://github.com/mayswind/AriaNg/releases)
-[Native版](https://github.com/mayswind/AriaNg-Native/releases/tag/1.3.10)
+# 断点续传
+continue=true
+file-allocation=prealloc
 
+# RPC 设置
+enable-rpc=true
+rpc-listen-all=true
+rpc-allow-origin-all=true
+rpc-listen-port=6800
+rpc-secret=<你的密码>
+```
+随后在这个项目中[winsw](https://github.com/winsw/winsw)下载 WinSW-x64.exe到一个目录，并重命名为 aria2-service.exe，并在同目录下创建``aria2-service.xml``，内容如下：
 
+```
+<service>
+  <id>aria2</id>
+  <name>Aria2 Service</name>
+  <description>Aria2 Download Manager</description>
+  <executable>C:\Users\<你>\scoop\apps\aria2\current\aria2c.exe</executable>
+  <arguments>--conf-path=C:\Users\<你>\.aria2\aria2.conf</arguments>
+</service>
+```
+随后使用``.\aria2-service.exe install``安装服务，并使用``.\aria2-service.exe start``启动服务，类似linux上的systemctl.
 
-## Arch linux
+> 注意修改用户名！
+
+### Arch linux
+
+Arch linux 和大部分常规发行版可以适用此方法。
+
 首先安装aria2本体:
 ```
 paru -S aria2
@@ -78,40 +109,129 @@ Restart=on-failure
 WantedBy=default.target
 ```
 
-在更新配置文件和服务文件后，执行以下命令以重启服务：​
+在更新配置文件和服务文件后，执行以下命令以重启服务：
 ```
 systemctl --user daemon-reload
 systemctl --user enable aria2.service
 systemctl --user start aria2.service
 ```
-使用以下命令检查服务状态：​
+使用以下命令检查服务状态:
 ```
 systemctl --user status aria2.service
+```
+### Nixos
+
+```
+{ lib, pkgs, username, ... }:
+{
+  services.aria2.enable = false;
+  systemd.services.aria2 = {
+    description = "Aria2 Download Manager (dich)";
+    after = [ "network.target" ];
+    wants = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "simple";
+      User = username;
+
+      ExecStartPre = [
+        "${pkgs.coreutils}/bin/mkdir -p /home/${username}/.config/aria2"
+        "${pkgs.coreutils}/bin/touch /home/${username}/.config/aria2/aria2.session"
+      ];
+
+      ExecStart = "${pkgs.aria2}/bin/aria2c --conf-path=/home/${username}/.config/aria2/aria2.conf";
+
+      Restart = "always";
+      RestartSec = "5s";
+
+      NoNewPrivileges = true;
+      PrivateTmp = true;
+    };
+  };
+}
+```
+## 命令行用法
+
+如果你不想用浏览器插件或者面板，也可以直接使用命令行操作：
+
+```bash
+aria2c [选项] [URL | 磁力链接 | .torrent文件]
+```
+
+### 例子：
+
+1. **下载单个文件**
+
+```bash
+aria2c https://example.com/file.iso
+```
+
+2. **指定保存路径和文件名**
+
+```bash
+aria2c -d ~/Downloads -o ubuntu.iso https://releases.ubuntu.com/24.04/ubuntu.iso
+```
+
+3. **同时下载多个文件**
+
+```bash
+aria2c https://example.com/file1.zip https://example.com/file2.zip
+```
+
+4. **从文件读取 URL 列表**
+
+```bash
+aria2c -i urls.txt
+```
+（`urls.txt` 每行一个链接）
+
+7. **下载 torrent 文件**
+
+```bash
+aria2c ubuntu.torrent
+```
+
+8. **下载磁力链接**
+
+```bash
+aria2c "magnet:?xt=urn:btih:xxxxx..."
+```
+
+9. **限制 BT 上传**
+
+```bash
+aria2c --max-upload-limit=50K ubuntu.torrent
 ```
 
 ## 浏览器插件
 
-如果你想让其直接接管浏览器下载,可以使用以下几种浏览器插件：
+如果你想让其直接接管浏览器下载,可以使用以下几种浏览器插件,它们都自带面板：
 
 **Chrome 浏览器**
 
-- [Aria2 Explorer](https://github.com/alexhua/Aria2-Explorer)是一款功能强大的扩展，能够自动拦截浏览器的下载任务，并通过 JSON-RPC 接口将其导出到 Aria2 进行下载。 ​
-- [Aria2 for Chrome](https://github.com/alexhua/Aria2-for-chrome)
+- [Aria2 Explorer](https://github.com/alexhua/Aria2-Explorer)是一款功能强大的扩展，能够自动拦截浏览器下载任务并自带Aria2-NG面板。
 
 **Firefox 浏览器**
 
-- [Integrated Aria2 Download Manager](https://github.com/Cudiph/IA2DM) 是一款 Firefox 扩展，能够拦截下载任务，并将其转发到 Aria2。
+- [Aria2-Integration](https://github.com/RossWang/Aria2-Integration?tab=readme-ov-file)也是一款 Firefox 拓展，拦截下载任务的同时带有 Aria2-NG面板，方便使用。
 
-**通用版**
+> 注意！如果你前面配置中设置了rpc的密码，需要在面板中也写入才可连接成功。
 
-- [varia](https://github.com/giantpinkrobots/varia)
+![aria2-rpc](/images/aria2-rpc.webp)
 
-🔗
+## 面板
 
-**附带 aria2 的服务端应用**
+如果你不想使用浏览器插件，也可以使用aria2+独立面板的方法，但这样就不能接管浏览器的下载，适合其他环境使用。
 
-- [AriaNg for Openwrt](https://github.com/openwrt/packages/tree/master/net/ariang)
-- [aria2-ariang-docker](https://github.com/wahyd4/aria2-ariang-docker)
+这里推荐使用 AriaNg 前端，AriaNg 使用纯 html & javascript 开发, 所以其不需要任何编译器或运行环境. 
+
+![ariang-1](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
+
+AriaNg 现在提供三种版本, ``标准版、单文件版和 AriaNg Native. ``标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里``建议使用单文件版或者Native版``,下之后打开其中的html并设为书签即可。
+
+[单文件版(AllinOne)](https://github.com/mayswind/AriaNg/releases)
+[Native版](https://github.com/mayswind/AriaNg-Native/releases/tag/1.3.10)
 
 ---
 **Done.**
