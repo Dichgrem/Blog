@@ -6,7 +6,7 @@
 	<xsl:template match="/">
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="referrer" content="unsafe-url" />
 		<title><xsl:value-of select="/atom:feed/atom:title"/></title>
 		<link rel="stylesheet" href="/css/water.min.css" />
