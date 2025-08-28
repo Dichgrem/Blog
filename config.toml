@@ -1,6 +1,6 @@
 # Be sure to change these!
 base_url = "https://blog.dich.bid"
-title = "Dich'blog"
+title = "Dich's Blog"
 description = "用电子罗盘，转赛博核桃，勘电磁风水，寻网络龙脉"
 
 # Sass compilation is required
@@ -37,7 +37,7 @@ accent_color = "blue"
 background_color = "dark"
 
 # The logo text - defaults to "Terminimal theme"
-logo_text = "Dich'blog"
+logo_text = "Dich's Blog"
 
 # The logo link - defaults to base_url.
 #logo_home_link = "/take/me/away!"
@@ -55,21 +55,23 @@ author = "Dichgrem"
 menu_items = [
     # each of these is optional, name and url are required
     # $BASE_URL is going to be substituted by base_url from configuration
-    {name = "blog", url = "$BASE_URL"},
+    {name = "Blog", url = "$BASE_URL"},
 
     # tags should only be enabled if you have "tags" taxonomy
     # see documentation below for more details
-    {name = "archive", url = "$BASE_URL/archive"},
-    {name = "tags", url = "$BASE_URL/tags"},
-    {name = "weekly", url = "$BASE_URL/weekly"},
-    {name = "search", url = "$BASE_URL/search"},
-    {name = "about me", url = "$BASE_URL/about"},
-    {name = "links", url = "$BASE_URL/links"},
-    {name = "rss", url = "$BASE_URL/atom.xml"},
+    {name = "Archive", url = "$BASE_URL/archive"},
+    {name = "Weekly", url = "$BASE_URL/weekly"},
     
-
+    {name = "Tags", url = "$BASE_URL/tags"},
+    {name = "Search", url = "$BASE_URL/search"},
+    
+    {name = "Links", url = "$BASE_URL/links"},
+    {name = "Rss", url = "$BASE_URL/atom.xml"},
+    
+    {name = "About me", url = "$BASE_URL/about"},
     # set newtab to true to make the link open in new tab
-    {name = "github", url = "https://github.com/Dichgrem", newtab = true},
+    {name = "My github", url = "https://github.com/Dichgrem", newtab = true},
+    {name = "Zola frame", url = "https://github.com/getzola/zola", newtab = true},
 ]
 
 # Whether to show links to earlier and later (aka. higher/lower) posts
