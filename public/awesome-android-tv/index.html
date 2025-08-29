@@ -176,6 +176,7 @@
 <blockquote>
 <p>Tosathony 制作的 Android TV x86 是一个由社区成员制作的定制化 Android TV 版本,针对 Android TV 的大屏界面 和 遥控器操作 进行特别优化,但某些硬件（如 Wi-Fi、GPU、音频设备等）的驱动可能不兼容或需要额外的配置,本文不再说明Android TV x86的安装与使用。</p>
 </blockquote>
+<p>刷写固件可以买一个“刷机神器”（HDMI短接器）和一个双公头的USB线，即可使用<a href="https://androidmtk.com/download-amlogic-usb-burning-tool">usb-burning-tool</a>来进行刷机，推荐使用2.2.4版本.</p>
 <h2 id="san-an-zhuang-ruan-jian">三.安装软件</h2>
 <p>安装软件有很多方法，可以使用U盘将apk安装包拷入，也可以使用localsend将apk安装包通过内网传输过去。这里介绍一种通过ADB安装软件的方法。</p>
 <ul>
@@ -246,20 +247,65 @@
 </blockquote>
 <h2 id="si-she-zhi-atvzhuo-mian">四.设置ATV桌面</h2>
 <p>安装所需的软件包后我们可以删除自带的牛马软件或者不需要的软件，比如我们要安装ATV，就可以删除当贝桌面。</p>
-<ul>
-<li>
-<p>连接到ADB成功后我们使用<code>adb shell</code>进入shell，随后使用命令<code>pm list packages</code>列出所有软件包；</p>
-</li>
-<li>
-<p>可以先使用<code>pm disable-user --user 0 com.dangbei1.tvlauncher</code> 禁用软件，确认没有问题之后再用<code>pm uninstall -k --user 0 com.dangbei1.tvlauncher</code>删除；</p>
-</li>
-<li>
-<p>对于暂时无法确定包名的软件，可以先打开，再使用<code>adb shell dumpsys activity activities | grep mResumedActivity</code>获取当前前台应用的包名；</p>
-</li>
-<li>
-<p>可以进入安卓原生设置里面将默认主屏幕应用改为ATV，代替掉自带的桌面,并使用</p>
-</li>
-</ul>
+<ol>
+<li>ADB连接：连接到ADB成功后我们使用<code>adb shell</code>进入shell，随后使用命令<code>pm list packages</code>列出所有软件包；</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pm list packages -s 列出系统软件包
+</span><span>pm list packages -3 列出第三方软件包
+</span></code></pre>
+<ol start="2">
+<li>获取包名：对于暂时无法确定包名的软件，可以先打开，再使用</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb shell dumpsys activity activities | grep mResumedActivity
+</span></code></pre>
+<p>获取当前前台应用的包名,随后再禁用或者删除.</p>
+<ol start="3">
+<li>删除软件：可以先使用</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pm disable-user --user 0 com.dangbei1.tvlauncher
+</span></code></pre>
+<p>禁用软件，确认没有问题之后再用</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pm uninstall -k --user 0 com.dangbei1.tvlauncher
+</span></code></pre>
+<p>删除；</p>
+<ol start="4">
+<li>备份软件：对于想要备份的软件，可以使用1和2中的方法获取软件包名，然后使用例如以下命令：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb shell pm path org.videolan.vlc
+</span><span>
+</span><span>package:/data/app/~~hY2Y0_PdaDlasfVwkUNcoQ==/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk
+</span></code></pre>
+<p>获取到安装路径，随后将apk包拿走就可以：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb pull /data/app/~~hY2Y0_PdaDlasfVwkUNcoQ==/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk ./Downloads/
+</span></code></pre>
+<ol start="5">
+<li>备份分区：如果你想要修改当前系统的img，可以用adb提取并导出</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 确定分区对应关系
+</span><span>ls -l /dev/block
+</span><span>ls -l /dev/block/platform
+</span><span>cat /proc/mounts
+</span><span>
+</span><span>
+</span><span># 导出到 /sdcard/
+</span><span>dd if=/dev/block/boot of=/sdcard/boot.img
+</span><span>dd if=/dev/block/recovery of=/sdcard/recovery.img
+</span><span>dd if=/dev/block/system of=/sdcard/system.img
+</span><span>dd if=/dev/block/vendor of=/sdcard/vendor.img
+</span><span>dd if=/dev/block/product of=/sdcard/product.img
+</span><span>dd if=/dev/block/odm of=/sdcard/odm.img
+</span><span>
+</span><span># 拉去到PC
+</span><span>adb pull /sdcard/boot.img
+</span><span>adb pull /sdcard/recovery.img
+</span><span>adb pull /sdcard/system.img
+</span><span>adb pull /sdcard/vendor.img
+</span><span>adb pull /sdcard/product.img
+</span><span>adb pull /sdcard/odm.img
+</span></code></pre>
+<ol start="5">
+<li>修改桌面：可以进入安卓原生设置里面将默认主屏幕应用改为ATV，代替掉自带的桌面,并使用</li>
+</ol>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>adb shell pm disable-user --user 0 com.google.android.tvlauncher
 </span><span>adb shell pm disable-user --user 0 com.google.android.tungsten.setupwraith
 </span></code></pre>
