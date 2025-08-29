@@ -69,6 +69,8 @@ X86还是Arm？两者之间各有优点，截止到今天各种Arm电视盒子�
 
 > Tosathony 制作的 Android TV x86 是一个由社区成员制作的定制化 Android TV 版本,针对 Android TV 的大屏界面 和 遥控器操作 进行特别优化,但某些硬件（如 Wi-Fi、GPU、音频设备等）的驱动可能不兼容或需要额外的配置,本文不再说明Android TV x86的安装与使用。
 
+刷写固件可以买一个“刷机神器”（HDMI短接器）和一个双公头的USB线，即可使用[usb-burning-tool](https://androidmtk.com/download-amlogic-usb-burning-tool)来进行刷机，推荐使用2.2.4版本.
+
 ## 三.安装软件
 
 安装软件有很多方法，可以使用U盘将apk安装包拷入，也可以使用localsend将apk安装包通过内网传输过去。这里介绍一种通过ADB安装软件的方法。
@@ -132,13 +134,73 @@ adb kill server #切断 PC 和 Android TV 之间的连接。
 
 安装所需的软件包后我们可以删除自带的牛马软件或者不需要的软件，比如我们要安装ATV，就可以删除当贝桌面。
 
-- 连接到ADB成功后我们使用``adb shell``进入shell，随后使用命令``pm list packages``列出所有软件包；
+1. ADB连接：连接到ADB成功后我们使用``adb shell``进入shell，随后使用命令``pm list packages``列出所有软件包；
 
-- 可以先使用``pm disable-user --user 0 com.dangbei1.tvlauncher`` 禁用软件，确认没有问题之后再用``pm uninstall -k --user 0 com.dangbei1.tvlauncher``删除；
+```
+pm list packages -s 列出系统软件包
+pm list packages -3 列出第三方软件包
+```
+2. 获取包名：对于暂时无法确定包名的软件，可以先打开，再使用
 
-- 对于暂时无法确定包名的软件，可以先打开，再使用``adb shell dumpsys activity activities | grep mResumedActivity``获取当前前台应用的包名；
+```
+adb shell dumpsys activity activities | grep mResumedActivity
+```
 
-- 可以进入安卓原生设置里面将默认主屏幕应用改为ATV，代替掉自带的桌面,并使用
+获取当前前台应用的包名,随后再禁用或者删除.
+
+3. 删除软件：可以先使用
+
+```
+pm disable-user --user 0 com.dangbei1.tvlauncher
+```
+
+禁用软件，确认没有问题之后再用
+
+```
+pm uninstall -k --user 0 com.dangbei1.tvlauncher
+```
+
+删除；
+
+4. 备份软件：对于想要备份的软件，可以使用1和2中的方法获取软件包名，然后使用例如以下命令：
+
+```
+adb shell pm path org.videolan.vlc
+
+package:/data/app/~~hY2Y0_PdaDlasfVwkUNcoQ==/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk
+```
+获取到安装路径，随后将apk包拿走就可以：
+
+```
+adb pull /data/app/~~hY2Y0_PdaDlasfVwkUNcoQ==/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk ./Downloads/
+```
+
+5. 备份分区：如果你想要修改当前系统的img，可以用adb提取并导出 
+
+```
+# 确定分区对应关系
+ls -l /dev/block
+ls -l /dev/block/platform
+cat /proc/mounts
+
+
+# 导出到 /sdcard/
+dd if=/dev/block/boot of=/sdcard/boot.img
+dd if=/dev/block/recovery of=/sdcard/recovery.img
+dd if=/dev/block/system of=/sdcard/system.img
+dd if=/dev/block/vendor of=/sdcard/vendor.img
+dd if=/dev/block/product of=/sdcard/product.img
+dd if=/dev/block/odm of=/sdcard/odm.img
+
+# 拉去到PC
+adb pull /sdcard/boot.img
+adb pull /sdcard/recovery.img
+adb pull /sdcard/system.img
+adb pull /sdcard/vendor.img
+adb pull /sdcard/product.img
+adb pull /sdcard/odm.img
+```
+5. 修改桌面：可以进入安卓原生设置里面将默认主屏幕应用改为ATV，代替掉自带的桌面,并使用
 
 ```
 adb shell pm disable-user --user 0 com.google.android.tvlauncher
