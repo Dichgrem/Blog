@@ -42,9 +42,9 @@ tags = ["Windows"]
 不管你是哪一种情况，都推荐你先下载ISO镜像，因为ISO镜像方法是最通用,最常用的。
 
 
-> 官方镜像:从[微软官网](https://www.microsoft.com/en-us/software-download/windows11)下载镜像或[MAS镜像站](https://massgrave.dev/genuine-installation-media)下载。
+- 官方镜像:从[微软官网](https://www.microsoft.com/en-us/software-download/windows11)下载镜像或[MAS镜像站](https://massgrave.dev/genuine-installation-media)下载。
 
-> Dichos镜像，是笔者个人制作的镜像，参考[乱七八糟:Windows封装与全自动安装](https://blog.dich.bid/windows-4-auto/)；
+- Dichos镜像，是笔者个人制作的镜像，参考[乱七八糟:Windows封装与全自动安装](https://blog.dich.bid/windows-4-auto/)；
 
 **PS:**
 > 镜像大小从1G~8G左右不等，因为有的不知道哪来的镜像里面版本不全，我们要下载的是包括所有主流版本的ISO，即为里面包括家庭版教育版专业版等等。如果你从其他地方下载ISO镜像，里面可能会捆绑流氓软件甚至有病毒。
@@ -130,6 +130,11 @@ tags = ["Windows"]
 - 激活 Windows 与 MS office
 - 停止自动更新并恢复单级菜单
 
+> 常用的优化软件:
+
+- [Dism++](https://github.com/Chuyu-Team/Dism-Multi-language)
+- [Winutil](https://github.com/ChrisTitusTech/winutil)
+- [Optimizer](https://github.com/hellzerg/optimizer)
 
 #### **三.驱动级:**
 
@@ -205,9 +210,20 @@ tags = ["Windows"]
 #### **六.测试级(可选)**
 
 - 查看PC型号与配置是否相同
-- 测试GPU/CPU/硬盘速率与使用时间
 - 屏幕坏点/喇叭/蓝牙检测
+- 查看硬盘健康度与使用时间
+- AIDA64稳定性测试/Diskinfo硬盘测试
+- 单烤/双烤机测试
 - 网络测速
+
+**常用测试软件**
+
+[CPU-Z](https://www.cpuid.com/softwares/cpu-z.html)
+[GPU-Z](https://www.techpowerup.com/download/)
+[AIDA64](https://www.aida64.com/downloads)
+[Diskinfo](https://crystalmark.info/en/)
+[Furmark](https://www.geeks3d.com/furmark/)
+[Afterburner](https://www.msi.com/Landing/afterburner/graphics-cards)
 
 ---
 **Done.**
