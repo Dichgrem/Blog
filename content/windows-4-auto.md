@@ -55,4 +55,5 @@ tags = ["Windows"]
 
 **SHA-256:5920ca1b839c2823cad5223cdff39671784d98d18da03fa4377a362ad480ce54**
 
-**下载链接：**[这里](https://drive.google.com/file/d/1CWXtHJRmDaGYVV7k9mRsn1cDxIwomavO/view?usp=drive_link)
+**下载链接：**[这里](https://drive.google.com/file/d/1L9WF_JqfJ1-pKtrnK-JsjqaR6th3hhQv/view)
+
