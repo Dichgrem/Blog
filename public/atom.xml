@@ -503,6 +503,25 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>乱七八糟:虚拟化常用设置与操作</title>
+        <published>2024-08-16T00:00:00+00:00</published>
+        <updated>2024-08-16T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/about-virtual/"/>
+        <id>https://blog.dich.bid/about-virtual/</id>
+        
+        <summary type="html">&lt;p&gt;前言 本文记录常用虚拟化平台的使用与操作，包括Vmware，Hypr-v，QEMU等等。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>谈天说地:狄奇周刊(十)</title>
         <published>2024-08-15T00:00:00+00:00</published>
         <updated>2024-08-15T00:00:00+00:00</updated>
