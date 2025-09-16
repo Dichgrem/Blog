@@ -237,6 +237,50 @@ qemu-img convert -f raw -O vmdk disk.img disk.vmdk
 # raw → vhdx
 qemu-img convert -f raw -O vhdx disk.img disk.vhdx
 ```
+## 扩展
+
+1. 扩展大小
+```
+virsh domblklist <虚拟机名字>
+Target   Source
+vda      /var/lib/libvirt/images/ubuntu-24-04.qcow2
+
+qemu-img resize /var/lib/libvirt/images/ubuntu-24-04.qcow2 +20G
+```
+
+
+2. 查看磁盘情况：
+
+```bash
+lsblk
+```
+
+3. 如果是单分区系统（ext4）：
+
+* 安装工具：
+
+```bash
+sudo nix-env -iA nixos.cloud-utils # 提供 growpart
+```
+
+* 扩展分区：
+
+```bash
+sudo growpart /dev/vda 1
+```
+
+* 扩展文件系统：
+
+ext4：
+```bash
+sudo resize2fs /dev/vda1
+```
+
+xfs：
+```bash
+sudo xfs_growfs /
+```
+
 
 ## 压缩
 
