@@ -313,6 +313,43 @@
 </span><span style="color:#888888;"># raw → vhdx
 </span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> raw</span><span style="color:#ffb964;"> -O</span><span> vhdx disk.img disk.vhdx
 </span></code></pre>
+<h2 id="kuo-zhan">扩展</h2>
+<ol>
+<li>扩展大小</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>virsh domblklist &lt;虚拟机名字&gt;
+</span><span>Target   Source
+</span><span>vda      /var/lib/libvirt/images/ubuntu-24-04.qcow2
+</span><span>
+</span><span>qemu-img resize /var/lib/libvirt/images/ubuntu-24-04.qcow2 +20G
+</span></code></pre>
+<ol start="2">
+<li>查看磁盘情况：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">lsblk
+</span></code></pre>
+<ol start="3">
+<li>如果是单分区系统（ext4）：</li>
+</ol>
+<ul>
+<li>安装工具：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> nix-env</span><span style="color:#ffb964;"> -iA</span><span> nixos.cloud-utils </span><span style="color:#888888;"># 提供 growpart
+</span></code></pre>
+<ul>
+<li>扩展分区：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> growpart /dev/vda 1
+</span></code></pre>
+<ul>
+<li>扩展文件系统：</li>
+</ul>
+<p>ext4：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> resize2fs /dev/vda1
+</span></code></pre>
+<p>xfs：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> xfs_growfs /
+</span></code></pre>
 <h2 id="ya-suo">压缩</h2>
 <p>有时候我们需要备份QEMU的镜像，但是镜像大小非常庞大，可以对其进行压缩。</p>
 <p>首先在虚拟机里（以Ubuntu为例）执行：</p>
