@@ -138,42 +138,17 @@
 </ul>
 <p>在<a href="https://www.anaconda.com/">Anaconda官网</a>下载并安装，安装成功后，命令行中敲<code>conda info</code>，会显示conda的版本和python的版本等详细信息；再敲<code>conda list</code>，会列出当前环境下所有安装的包。</p>
 <p>安装好了Anaconda，就相当于同时有了Python、环境管理器、包管理器以及一大堆开箱即用的科学计算工具包。</p>
-<h2 id="shi-yong">使用</h2>
-<p>安装好了，默认是在base虚拟环境下，此时我们从base环境复制一份出来，在新环境里工作。</p>
-<ul>
-<li>复制base环境, 创建test环境</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda create --name test --clone base
-</span></code></pre>
-<ul>
-<li>激活test环境</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda activate test
-</span></code></pre>
-<ul>
-<li>取消Conda默认激活base虚拟环境</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda config --set auto_activate_base false
-</span></code></pre>
-<ul>
-<li>列出本机的所有环境，如下，可见当前有2个环境，当前激活的是test环境：</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>(test) ➜  ~ conda info -e
-</span><span>- conda environments:
-</span><span>#
-</span><span>base                     /Volumes/300g/opt/anaconda3
-</span><span>test                  *  /Volumes/300g/opt/anaconda3/envs/test
-</span></code></pre>
-<ul>
-<li>Anaconda默认安装了jupyter，打开jupyter：</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>jupyter notebook
-</span></code></pre>
-<p>此时会自动弹出浏览器窗口打开Jupyter Notebook网页，默认为<code>http://localhost:8888</code></p>
 <blockquote>
-<p>Jupyter汉化/下载中文包：<code>pip install jupyterlab-language-pack-zh-CN</code></p>
+<p>linux中安装Miniconda</p>
 </blockquote>
-<h3 id="xu-ni-huan-jing-guan-li">虚拟环境管理</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># Miniconda安装脚本
+</span><span>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+</span><span># 执行以下命令启动安装程序：
+</span><span>bash Miniconda3-latest-Linux-x86_64.sh
+</span><span># 验证安装
+</span><span>conda --version
+</span></code></pre>
+<h2 id="shi-yong">使用</h2>
 <ul>
 <li>创建环境，后面的python=3.6是指定python的版本</li>
 </ul>
@@ -192,7 +167,7 @@
 <ul>
 <li>关闭某个环境</li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda deactivate
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda deactivate env_name
 </span></code></pre>
 <ul>
 <li>复制某个环境</li>
@@ -210,9 +185,18 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda env export &gt; environment.yml
 </span></code></pre>
 <ul>
-<li>别人在自己本地使用yml文件创建虚拟环境</li>
+<li>在本地使用yml文件创建虚拟环境</li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda env create -f environment.yml
+</span></code></pre>
+<ul>
+<li>列出本机的所有环境，如下，可见当前有2个环境，当前激活的是test环境：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>(test) ➜  ~ conda info -e
+</span><span>- conda environments:
+</span><span>#
+</span><span>base                     /Volumes/300g/opt/anaconda3
+</span><span>test                  *  /Volumes/300g/opt/anaconda3/envs/test
 </span></code></pre>
 <h3 id="bao-guan-li">包管理</h3>
 <ul>
@@ -272,57 +256,56 @@
 </span><span>
 </span><span>conda install --help
 </span></code></pre>
-<p>有了Conda包管理器，为什么Anaconda环境中，可能还需要用pip安装包呢？因为Anaconda本身只提供部分包，远没有pip提供的包多，有时conda无法安装我们需要的包，此时需要用pip将其装到conda环境里。</p>
-<p>安装特定版本的包，conda用=，pip用==。例如：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda install xxx=1.0.0
-</span><span>pip install xxx==1.0.0
-</span></code></pre>
 <h2 id="jupytershi-yong">Jupyter使用</h2>
 <p>安装Anaconda并启动一个环境之后，如何让Jupyter Notebook在我们要的环境中启动呢？</p>
 <ul>
-<li>激活目标环境</li>
+<li>安装jupyter</li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda activate myenv
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda install jupyter notebook
 </span></code></pre>
 <ul>
-<li>安装 ipykernel（如尚未安装）
-为了让 Jupyter Notebook 能识别该环境中的 Python 解释器，你需要在该环境中安装 ipykernel：</li>
+<li>配置虚拟机中允许宿主机访问</li>
 </ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span># 生成配置
+</span><span>jupyter notebook --generate-config
+</span><span># 编辑配置
+</span><span>nano ~/.jupyter/jupyter_notebook_config.py
+</span><span># 写入这三行
+</span><span>c.NotebookApp.ip = &#39;0.0.0.0&#39;         # 允许任何 IP 访问
+</span><span>c.NotebookApp.port = 8888            # 指定端口
+</span><span>c.NotebookApp.open_browser = False   # 不自动开浏览器
+</span><span># 重启jupyter
+</span><span>jupyter notebook
+</span></code></pre>
+<ul>
+<li>安装 ipykernel</li>
+</ul>
+<p>为了让 Jupyter Notebook 能识别该环境中的 Python 解释器，你需要在该环境中安装 ipykernel：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda install ipykernel
-</span><span>
-</span><span># 或者使用 pip
-</span><span>
-</span><span>pip install ipykernel
 </span></code></pre>
 <ul>
-<li>注册环境内核
-将该环境注册为 Jupyter 的一个内核（kernel），这样启动 Jupyter Notebook 后就能选择这个内核：</li>
+<li>注册环境内核</li>
 </ul>
+<p>将该环境注册为 Jupyter 的一个内核（kernel），这样启动 Jupyter Notebook 后就能选择这个内核：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>python -m ipykernel install --user --name myenv --display-name &quot;Python (myenv)&quot;
-</span><span>
-</span><span># 这里 --name 指定内核的名称，--display-name 是在 Jupyter Notebook 界面中显示的名称，你可以根据需要自定义。
 </span></code></pre>
+<p>这里 --name 指定内核的名称，--display-name 是在 Jupyter Notebook 界面中显示的名称，你可以根据需要自定义。</p>
 <ul>
-<li>启动 Jupyter Notebook：依然在激活后的环境中，启动 Jupyter Notebook：</li>
+<li>启动 Jupyter Notebook：依然在激活后的环境中，启动 Jupyter Notebook；启动后，你在新建 notebook 时可以选择刚刚注册的内核 “Python (myenv)” 来确保使用该环境的 Python 解释器。</li>
 </ul>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>jupyter notebook
 </span></code></pre>
 <ul>
-<li>启动后，你在新建 notebook 时可以选择刚刚注册的内核 “Python (myenv)” 来确保使用该环境的 Python 解释器。</li>
+<li>汉化jupyter(可选)</li>
 </ul>
+<p>Jupyter Notebook 本身没有官方语言包，但可以用第三方扩展 <code>jupyter_contrib_nbextensions</code>和<code>notebook-translation</code>来实现部分汉化</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pip install jupyter_contrib_nbextensions
+</span><span>jupyter contrib nbextension install --user
+</span><span>pip install jupyter-notebook-translation
+</span></code></pre>
 <blockquote>
 <p>当然，你也可以使用其他编辑器/IDE如 Sublime Text 或者 JetBrains 系列的 PyCharm 。</p>
 </blockquote>
-<blockquote>
-<p>linux中使用Miniconda</p>
-</blockquote>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span># Miniconda安装脚本
-</span><span>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-</span><span># 执行以下命令启动安装程序：
-</span><span>bash Miniconda3-latest-Linux-x86_64.sh
-</span><span># 验证安装
-</span><span>conda --version
-</span></code></pre>
 <h2 id="shi-yong-uvti-dai-conda">使用UV替代Conda</h2>
 <blockquote>
 <p>UV（由 Astral 团队开发）是一个用 Rust 编写的高性能包管理器，提供了类似 Conda 的虚拟环境管理和依赖解析功能，并且在大多数场景下比 pip 和 Conda 快 10–100 倍。它通过命令行工具如 uv venv（创建/管理虚拟环境）和 uv pip（安装/锁定/同步依赖）来覆盖传统的 conda create、conda install、conda env export 等操作，但本身并不管理底层的 C/C++ 库，因此对于诸如 GDAL、SciPy 等需要系统级二进制依赖的包，仍建议在 Conda/系统包管理器中预装相关库，然后用 UV 来管理 Python 包。</p>
@@ -386,6 +369,46 @@
 <li><strong>Python 包</strong>：用 UV 管理所有纯 Python 依赖（<code>uv pip install pandas scikit-learn</code>）。</li>
 <li><strong>统一锁定</strong>：把 <code>uv pip compile</code> 生成的 <code>requirements.txt</code> 放入版本控制，确保团队环境一致。</li>
 </ol>
+<h2 id="ipynbzhuan-markdown">ipynb转markdown</h2>
+<p>首先安装 nbformat 和 nbconvert包：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda install nbformat nbconvert -y
+</span><span>touch ipynb2md.py &amp;&amp; nano ipynb2md.py
+</span></code></pre>
+<p>写入以下脚本：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>import nbformat
+</span><span>from nbconvert import MarkdownExporter
+</span><span>from pathlib import Path
+</span><span>
+</span><span>def ipynb_to_md(ipynb_path: Path, output_dir: Path):
+</span><span>    &quot;&quot;&quot;单个 ipynb 转 md&quot;&quot;&quot;
+</span><span>    with open(ipynb_path, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+</span><span>        nb = nbformat.read(f, as_version=4)
+</span><span>
+</span><span>    exporter = MarkdownExporter()
+</span><span>    body, resources = exporter.from_notebook_node(nb)
+</span><span>
+</span><span>    output_file = output_dir / (ipynb_path.stem + &quot;.md&quot;)
+</span><span>    with open(output_file, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+</span><span>        f.write(body)
+</span><span>
+</span><span>    print(f&quot;✔ 转换完成: {ipynb_path} -&gt; {output_file}&quot;)
+</span><span>
+</span><span>def batch_convert(input_dir: str, output_dir: str = &quot;markdown_output&quot;):
+</span><span>    input_dir = Path(input_dir)
+</span><span>    output_dir = Path(output_dir)
+</span><span>    output_dir.mkdir(parents=True, exist_ok=True)
+</span><span>
+</span><span>    for ipynb_file in input_dir.glob(&quot;*.ipynb&quot;):
+</span><span>        ipynb_to_md(ipynb_file, output_dir)
+</span><span>
+</span><span>if __name__ == &quot;__main__&quot;:
+</span><span>    # 修改这里的目录路径即可
+</span><span>    batch_convert(input_dir=&quot;.&quot;)
+</span></code></pre>
+<p>运行脚本：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>python ipynb2md.py
+</span></code></pre>
+<p>脚本会自动扫描当前目录下的所有 .ipynb 文件，并把 .md 文件输出到 markdown_output/ 文件夹。</p>
 <hr />
 <p><strong>Done.</strong></p>
 
