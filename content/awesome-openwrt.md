@@ -448,6 +448,10 @@ btop iperf3 tcpdump
 ```
 luci-app-argon luci-app-upnp luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol luci-app-homeproxy luci-app-daed
 ```
+**lib**
+```
+kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
+```
 ## 单独编译openwrt的ipk包
 
 **其他步骤同上,下载并选中我们需要编译的包,这里以inyn为例：**
