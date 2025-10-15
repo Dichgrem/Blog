@@ -1281,4 +1281,23 @@
         <summary type="html">&lt;p&gt;前言 linux搭建安卓虚拟机有Waydroid，QEMU和Docker三种方案，各有不同。&lt;&#x2F;p&gt;</summary>
         
     </entry>
+    <entry xml:lang="en">
+        <title>Linux下的命令行操控</title>
+        <published>2023-07-20T00:00:00+00:00</published>
+        <updated>2023-07-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/linux-1-command/"/>
+        <id>https://blog.dich.bid/linux-1-command/</id>
+        
+        <summary type="html">&lt;p&gt;前言 本文基于常见发行版（systemd + NetworkManager + PipeWire&#x2F; PulseAudio &#x2F; ALSA）,目标是把常见的桌面&#x2F;笔记本硬件（Wi-Fi、蓝牙、亮度、音量）通过命令行可复现、可理解地组织起来。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
 </feed>

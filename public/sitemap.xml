@@ -142,6 +142,10 @@
         <loc>https://blog.dich.bid/links/link-7/</loc>
     </url>
     <url>
+        <loc>https://blog.dich.bid/linux-1-command/</loc>
+        <lastmod>2023-07-20</lastmod>
+    </url>
+    <url>
         <loc>https://blog.dich.bid/network-aria2/</loc>
         <lastmod>2025-04-15</lastmod>
     </url>
@@ -228,6 +232,9 @@
     </url>
     <url>
         <loc>https://blog.dich.bid/tags/</loc>
+    </url>
+    <url>
+        <loc>https://blog.dich.bid/tags/linux/</loc>
     </url>
     <url>
         <loc>https://blog.dich.bid/tags/luan-qi-ba-zao/</loc>
