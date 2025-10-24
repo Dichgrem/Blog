@@ -142,7 +142,7 @@
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># 更新系统
 </span><span>apt update &amp;&amp; apt upgrade -y
 </span><span>apt install wget curl vim sudo neofetch
-</span><span># 添加普通用户并赋予sudo
+</span><span># 创建用户并赋予sudo
 </span><span>adduser xxx
 </span><span>sudo usermod -aG sudo xxx
 </span></code></pre>
@@ -246,61 +246,6 @@
 <blockquote>
 <p>注意<strong>authorized_keys</strong>的权限为600，如果不是则需要改正：<code>chmod 600 ~/.ssh/authorized_keys</code></p>
 </blockquote>
-<h2 id="docker">Docker</h2>
-<h3 id="jiao-ben-an-zhuang">脚本安装</h3>
-<p>Docker 官方提供了一个安装脚本，可以自动选择适当版本，并规避仓库问题：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>curl -fsSL https://get.docker.com -o get-docker.sh
-</span><span>sudo sh get-docker.sh
-</span></code></pre>
-<p>这个脚本会为你的系统自动选择合适的安装方式。</p>
-<h3 id="xie-zai-docker">卸载 Docker</h3>
-<p>要删除所有 Docker 容器和 Docker 本身，可以按照以下步骤操作：</p>
-<ol>
-<li>首先停止所有正在运行的容器：</li>
-</ol>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker stop $(docker ps -aq)
-</span></code></pre>
-<ol start="2">
-<li>删除所有容器</li>
-</ol>
-<p>删除所有容器（包括停止的容器）：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker rm $(docker ps -aq)
-</span></code></pre>
-<ol start="3">
-<li>删除所有镜像</li>
-</ol>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker rmi $(docker images -q)
-</span></code></pre>
-<ol start="4">
-<li>删除所有网络</li>
-</ol>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker network prune -f
-</span></code></pre>
-<ol start="5">
-<li>删除所有未使用的卷</li>
-</ol>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker volume prune -f
-</span></code></pre>
-<ol start="6">
-<li>卸载 Docker</li>
-</ol>
-<p>最后，如果您希望完全删除 Docker 本身，可以执行以下命令:</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt-get purge docker-ce docker-ce-cli containerd.io
-</span><span>sudo apt-get autoremove --purge
-</span><span>sudo rm -rf /var/lib/docker
-</span><span>sudo rm -rf /etc/docker
-</span></code></pre>
-<p>这些命令会卸载 Docker 软件并删除 Docker 数据目录。</p>
-<h3 id="docker-chang-yong-ming-ling">Docker 常用命令</h3>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker-compose up -d    #在后台启动容器
-</span><span>docker-compose ps       #查看正在运行的容器
-</span><span>docker-compose down     #停止并移除所有运行中的容器
-</span><span>docker-compose stop     #停止容器，但保留数据和卷
-</span><span>docker pull &lt;镜像名称&gt;:latest #拉取最新镜像
-</span><span>docker-compose build    #更新镜像后重新构建
-</span><span>docker-compose logs     #查看日志
-</span><span>docker image prune -a   #删除所有未被容器使用的镜像
-</span></code></pre>
 <h2 id="chang-yong-huan-jing">常用环境</h2>
 <ul>
 <li>ALL</li>
@@ -494,6 +439,20 @@
 <p>然后：</p>
 <pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> update-grub
 </span></code></pre>
+<h2 id="geng-huan-xi-tong">更换系统</h2>
+<p>除了到VPS后台更换外，还可以使用这个脚本：</p>
+<ul>
+<li><a href="https://blog.dich.bid/about-server-set/github.com/bin456789/reinstall">bin456789/reinstall</a></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>一键重装到 Linux，支持 19 种常见发行版
+</span><span>一键重装到 Windows，使用官方原版 ISO 而非自制镜像，脚本支持自动查找 ISO 链接、自动安装 VirtIO 等公有云驱动
+</span><span>支持任意方向重装，即 Linux to Linux、Linux to Windows、Windows to Windows、Windows to Linux
+</span><span>自动设置 IP，智能设置动静态，支持 /32、/128、网关不在子网范围内、纯 IPv6、IPv4/IPv6 在不同的网卡
+</span><span>专门适配低配小鸡，比官方 netboot 需要更少的内存
+</span><span>全程用分区表 ID 识别硬盘，确保不会写错硬盘
+</span><span>支持 BIOS、EFI 引导，支持 ARM 服务器
+</span><span>不含自制包，所有资源均实时从镜像源获得
+</span></code></pre>
 <hr />
 <p><strong>Done.</strong></p>
 
@@ -515,7 +474,7 @@
                 
                 
                     <span class="button next">
-                        <a href="https://blog.dich.bid/network-nginx/">
+                        <a href="https://blog.dich.bid/network-docker/">
                             <span class="button__text">网络艺术:Docker建站与反向代理</span>&nbsp;
                             <span class="button__icon">→</span>
                         </a>

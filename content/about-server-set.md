@@ -26,7 +26,7 @@ tags = ["乱七八糟"]
 # 更新系统
 apt update && apt upgrade -y
 apt install wget curl vim sudo neofetch
-# 添加普通用户并赋予sudo
+# 创建用户并赋予sudo
 adduser xxx
 sudo usermod -aG sudo xxx
 ```
@@ -165,71 +165,6 @@ sudo cat /etc/ssh/sshd_config | grep -E 'PasswordAuthentication|PubkeyAuthentica
 如有**PasswordAuthentication no → 禁用密码登录**以及**PubkeyAuthentication yes → 允许密钥登录**则成功。
 
 > 注意**authorized_keys**的权限为600，如果不是则需要改正：``chmod 600 ~/.ssh/authorized_keys``
-
-
-## Docker
-
-### 脚本安装
-
-Docker 官方提供了一个安装脚本，可以自动选择适当版本，并规避仓库问题：
-```
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-```
-这个脚本会为你的系统自动选择合适的安装方式。
-
-
-### 卸载 Docker
-
-要删除所有 Docker 容器和 Docker 本身，可以按照以下步骤操作：
-1. 首先停止所有正在运行的容器：
-```
-docker stop $(docker ps -aq)
-```
-2. 删除所有容器
-
-删除所有容器（包括停止的容器）：
-```
-docker rm $(docker ps -aq)
-```
-3. 删除所有镜像
-
-```
-docker rmi $(docker images -q)
-```
-4. 删除所有网络
-
-```
-docker network prune -f
-```
-5. 删除所有未使用的卷
-
-```
-docker volume prune -f
-```
-6. 卸载 Docker
-
-最后，如果您希望完全删除 Docker 本身，可以执行以下命令:
-```
-sudo apt-get purge docker-ce docker-ce-cli containerd.io
-sudo apt-get autoremove --purge
-sudo rm -rf /var/lib/docker
-sudo rm -rf /etc/docker
-```
-
-这些命令会卸载 Docker 软件并删除 Docker 数据目录。
-
-### Docker 常用命令
-```
-docker-compose up -d    #在后台启动容器
-docker-compose ps       #查看正在运行的容器
-docker-compose down     #停止并移除所有运行中的容器
-docker-compose stop     #停止容器，但保留数据和卷
-docker pull <镜像名称>:latest #拉取最新镜像
-docker-compose build    #更新镜像后重新构建
-docker-compose logs     #查看日志
-docker image prune -a   #删除所有未被容器使用的镜像
-```
 
 ## 常用环境
 
@@ -442,6 +377,23 @@ GRUB_DEFAULT="Advanced options for Debian>Debian, with Linux 6.8.6-x64v3-xanmod1
 
 ```bash
 sudo update-grub
+```
+
+## 更换系统
+
+除了到VPS后台更换外，还可以使用这个脚本：
+
+- [bin456789/reinstall](github.com/bin456789/reinstall)
+
+```
+一键重装到 Linux，支持 19 种常见发行版
+一键重装到 Windows，使用官方原版 ISO 而非自制镜像，脚本支持自动查找 ISO 链接、自动安装 VirtIO 等公有云驱动
+支持任意方向重装，即 Linux to Linux、Linux to Windows、Windows to Windows、Windows to Linux
+自动设置 IP，智能设置动静态，支持 /32、/128、网关不在子网范围内、纯 IPv6、IPv4/IPv6 在不同的网卡
+专门适配低配小鸡，比官方 netboot 需要更少的内存
+全程用分区表 ID 识别硬盘，确保不会写错硬盘
+支持 BIOS、EFI 引导，支持 ARM 服务器
+不含自制包，所有资源均实时从镜像源获得
 ```
 
 ---

@@ -23,13 +23,13 @@
     <meta property="og:description" content="">
     <meta property="og:title" content="Dich's Blog">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://blog.dich.bid/network-nginx/">
+    <meta property="og:url" content="https://blog.dich.bid/network-docker/">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="">
     <meta name="twitter:title" content="Dich's Blog">
     <meta property="twitter:domain" content="blog.dich.bid">
-    <meta property="twitter:url" content="https://blog.dich.bid/network-nginx/">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-docker/">
 
                 <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
         <link rel="shortcut icon" type="image/webp" href="/dich.webp">
@@ -106,7 +106,7 @@
         
     <div class="post" data-pagefind-body>
         
-    <h1 class="post-title"><a href="https://blog.dich.bid/network-nginx/">网络艺术:Docker建站与反向代理</a></h1>
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-docker/">网络艺术:Docker建站与反向代理</a></h1>
     <div class="post-meta-inline">
         
     <span class="post-date">
@@ -155,6 +155,138 @@
 <p>现在可以使用以下命令更新存储库索引并安装 Docker：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update &amp;&amp; sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 </span></code></pre>
+<h2 id="chang-yong-ming-ling">常用命令</h2>
+<h3 id="ji-chu-ming-ling">基础命令</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker version</code></td><td>查看 Docker 版本信息</td></tr>
+<tr><td><code>docker info</code></td><td>查看 Docker 系统信息，包括镜像和容器数量</td></tr>
+<tr><td><code>docker help</code></td><td>查看帮助信息</td></tr>
+<tr><td><code>docker &lt;command&gt; --help</code></td><td>查看某个命令的详细帮助</td></tr>
+</tbody></table>
+<hr />
+<h3 id="jing-xiang-xiang-guan-ming-ling-images">镜像相关命令（Images）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker images</code></td><td>列出本地所有镜像</td></tr>
+<tr><td><code>docker search nginx</code></td><td>从 Docker Hub 搜索镜像</td></tr>
+<tr><td><code>docker pull nginx:latest</code></td><td>拉取镜像</td></tr>
+<tr><td><code>docker rmi nginx:latest</code></td><td>删除镜像</td></tr>
+<tr><td><code>docker rmi $(docker images -q)</code></td><td>删除所有镜像</td></tr>
+<tr><td><code>docker inspect nginx</code></td><td>查看镜像详细信息</td></tr>
+<tr><td><code>docker tag nginx myrepo/nginx:v1</code></td><td>给镜像打标签</td></tr>
+<tr><td><code>docker save -o nginx.tar nginx</code></td><td>导出镜像为 tar 包</td></tr>
+<tr><td><code>docker load -i nginx.tar</code></td><td>从 tar 文件加载镜像</td></tr>
+</tbody></table>
+<hr />
+<h3 id="rong-qi-guan-li-ming-ling-containers">容器管理命令（Containers）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker ps</code></td><td>查看正在运行的容器</td></tr>
+<tr><td><code>docker ps -a</code></td><td>查看所有容器（包括已停止）</td></tr>
+<tr><td><code>docker run -d -p 80:80 --name web nginx</code></td><td>启动容器（后台运行）</td></tr>
+<tr><td><code>docker run -it ubuntu /bin/bash</code></td><td>启动交互式容器</td></tr>
+<tr><td><code>docker exec -it web bash</code></td><td>进入正在运行的容器</td></tr>
+<tr><td><code>docker logs -f web</code></td><td>查看容器日志（<code>-f</code> 实时输出）</td></tr>
+<tr><td><code>docker stop web</code></td><td>停止容器</td></tr>
+<tr><td><code>docker start web</code></td><td>启动容器</td></tr>
+<tr><td><code>docker restart web</code></td><td>重启容器</td></tr>
+<tr><td><code>docker rm web</code></td><td>删除容器</td></tr>
+<tr><td><code>docker rm $(docker ps -aq)</code></td><td>删除所有容器</td></tr>
+<tr><td><code>docker inspect web</code></td><td>查看容器详细信息</td></tr>
+<tr><td><code>docker stats</code></td><td>查看容器资源使用情况</td></tr>
+<tr><td><code>docker top web</code></td><td>查看容器内运行的进程</td></tr>
+<tr><td><code>docker cp web:/path/in/container ./localdir</code></td><td>从容器复制文件到主机</td></tr>
+<tr><td><code>docker cp ./file web:/path/in/container</code></td><td>从主机复制文件到容器</td></tr>
+</tbody></table>
+<hr />
+<h3 id="wang-luo-xiang-guan-ming-ling-networks">网络相关命令（Networks）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker network ls</code></td><td>列出所有网络</td></tr>
+<tr><td><code>docker network inspect bridge</code></td><td>查看网络详情</td></tr>
+<tr><td><code>docker network create mynet</code></td><td>创建自定义网络</td></tr>
+<tr><td><code>docker network connect mynet web</code></td><td>将容器连接到网络</td></tr>
+<tr><td><code>docker network disconnect mynet web</code></td><td>将容器从网络断开</td></tr>
+<tr><td><code>docker network rm mynet</code></td><td>删除网络</td></tr>
+</tbody></table>
+<hr />
+<h3 id="shu-ju-juan-volumes">数据卷（Volumes）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker volume ls</code></td><td>查看所有卷</td></tr>
+<tr><td><code>docker volume create mydata</code></td><td>创建数据卷</td></tr>
+<tr><td><code>docker volume inspect mydata</code></td><td>查看卷详情</td></tr>
+<tr><td><code>docker volume rm mydata</code></td><td>删除数据卷</td></tr>
+<tr><td><code>docker run -v mydata:/data nginx</code></td><td>启动容器并挂载卷</td></tr>
+<tr><td><code>docker run -v $(pwd):/app nginx</code></td><td>挂载主机目录到容器中</td></tr>
+</tbody></table>
+<hr />
+<h3 id="gou-jian-yu-dao-chu-jing-xiang-build-export">构建与导出镜像（Build &amp; Export）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker build -t myapp:latest .</code></td><td>构建镜像</td></tr>
+<tr><td><code>docker commit web myimage:v1</code></td><td>将容器保存为镜像</td></tr>
+<tr><td><code>docker save -o myimage.tar myimage:v1</code></td><td>导出镜像文件</td></tr>
+<tr><td><code>docker load -i myimage.tar</code></td><td>导入镜像文件</td></tr>
+<tr><td><code>docker export web &gt; web.tar</code></td><td>导出容器文件系统</td></tr>
+<tr><td><code>docker import web.tar myweb:v1</code></td><td>从 tar 文件导入镜像</td></tr>
+</tbody></table>
+<hr />
+<h3 id="xi-tong-qing-li-yu-wei-hu">系统清理与维护</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker system df</code></td><td>显示磁盘使用情况</td></tr>
+<tr><td><code>docker system prune</code></td><td>清理无用的容器、镜像、卷和网络</td></tr>
+<tr><td><code>docker image prune</code></td><td>清理未使用的镜像</td></tr>
+<tr><td><code>docker container prune</code></td><td>清理已停止的容器</td></tr>
+<tr><td><code>docker volume prune</code></td><td>清理无用卷</td></tr>
+</tbody></table>
+<hr />
+<h3 id="docker-compose-duo-rong-qi-guan-li">Docker Compose（多容器管理）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker compose up -d</code></td><td>启动服务（后台）</td></tr>
+<tr><td><code>docker compose down</code></td><td>停止并删除容器</td></tr>
+<tr><td><code>docker compose ps</code></td><td>查看当前项目容器</td></tr>
+<tr><td><code>docker compose logs -f</code></td><td>查看日志</td></tr>
+<tr><td><code>docker compose build</code></td><td>重新构建服务镜像</td></tr>
+<tr><td><code>docker compose restart</code></td><td>重启服务</td></tr>
+</tbody></table>
+<hr />
+<h3 id="xie-zai-docker">卸载 Docker</h3>
+<blockquote>
+<p>删除所有 Docker 容器和 Docker 本身</p>
+</blockquote>
+<ol>
+<li>首先停止所有正在运行的容器：</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker stop $(docker ps -aq)
+</span></code></pre>
+<ol start="2">
+<li>删除所有容器</li>
+</ol>
+<p>删除所有容器（包括停止的容器）：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker rm $(docker ps -aq)
+</span></code></pre>
+<ol start="3">
+<li>删除所有镜像</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker rmi $(docker images -q)
+</span></code></pre>
+<ol start="4">
+<li>删除所有网络</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker network prune -f
+</span></code></pre>
+<ol start="5">
+<li>删除所有未使用的卷</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>docker volume prune -f
+</span></code></pre>
+<ol start="6">
+<li>卸载 Docker</li>
+</ol>
+<p>如果您希望完全删除 Docker 本身，可以执行以下命令:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt-get purge docker-ce docker-ce-cli containerd.io
+</span><span>sudo apt-get autoremove --purge
+</span><span>sudo rm -rf /var/lib/docker
+</span><span>sudo rm -rf /etc/docker
+</span></code></pre>
+<p>这些命令会卸载 Docker 软件并删除 Docker 数据目录。</p>
+<hr />
 <h2 id="shi-yong-docker-compose">使用Docker-Compose</h2>
 <ul>
 <li>目标：创建一个<code>Searxng服务</code>并对外开放。</li>
