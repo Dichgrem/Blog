@@ -57,6 +57,164 @@ echo \
 sudo apt update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ````
 
+## 常用命令
+### 基础命令
+
+| 命令                        | 说明                       |
+| ------------------------- | ------------------------ |
+| `docker version`          | 查看 Docker 版本信息           |
+| `docker info`             | 查看 Docker 系统信息，包括镜像和容器数量 |
+| `docker help`             | 查看帮助信息                   |
+| `docker <command> --help` | 查看某个命令的详细帮助              |
+
+---
+
+### 镜像相关命令（Images）
+
+| 命令                                 | 说明                |
+| ---------------------------------- | ----------------- |
+| `docker images`                    | 列出本地所有镜像          |
+| `docker search nginx`              | 从 Docker Hub 搜索镜像 |
+| `docker pull nginx:latest`         | 拉取镜像              |
+| `docker rmi nginx:latest`          | 删除镜像              |
+| `docker rmi $(docker images -q)`   | 删除所有镜像            |
+| `docker inspect nginx`             | 查看镜像详细信息          |
+| `docker tag nginx myrepo/nginx:v1` | 给镜像打标签            |
+| `docker save -o nginx.tar nginx`   | 导出镜像为 tar 包       |
+| `docker load -i nginx.tar`         | 从 tar 文件加载镜像      |
+
+---
+
+### 容器管理命令（Containers）
+
+| 命令                                            | 说明                |
+| --------------------------------------------- | ----------------- |
+| `docker ps`                                   | 查看正在运行的容器         |
+| `docker ps -a`                                | 查看所有容器（包括已停止）     |
+| `docker run -d -p 80:80 --name web nginx`     | 启动容器（后台运行）        |
+| `docker run -it ubuntu /bin/bash`             | 启动交互式容器           |
+| `docker exec -it web bash`                    | 进入正在运行的容器         |
+| `docker logs -f web`                          | 查看容器日志（`-f` 实时输出） |
+| `docker stop web`                             | 停止容器              |
+| `docker start web`                            | 启动容器              |
+| `docker restart web`                          | 重启容器              |
+| `docker rm web`                               | 删除容器              |
+| `docker rm $(docker ps -aq)`                  | 删除所有容器            |
+| `docker inspect web`                          | 查看容器详细信息          |
+| `docker stats`                                | 查看容器资源使用情况        |
+| `docker top web`                              | 查看容器内运行的进程        |
+| `docker cp web:/path/in/container ./localdir` | 从容器复制文件到主机        |
+| `docker cp ./file web:/path/in/container`     | 从主机复制文件到容器        |
+
+---
+
+### 网络相关命令（Networks）
+
+| 命令                                    | 说明       |
+| ------------------------------------- | -------- |
+| `docker network ls`                   | 列出所有网络   |
+| `docker network inspect bridge`       | 查看网络详情   |
+| `docker network create mynet`         | 创建自定义网络  |
+| `docker network connect mynet web`    | 将容器连接到网络 |
+| `docker network disconnect mynet web` | 将容器从网络断开 |
+| `docker network rm mynet`             | 删除网络     |
+
+---
+
+### 数据卷（Volumes）
+
+| 命令                                 | 说明         |
+| ---------------------------------- | ---------- |
+| `docker volume ls`                 | 查看所有卷      |
+| `docker volume create mydata`      | 创建数据卷      |
+| `docker volume inspect mydata`     | 查看卷详情      |
+| `docker volume rm mydata`          | 删除数据卷      |
+| `docker run -v mydata:/data nginx` | 启动容器并挂载卷   |
+| `docker run -v $(pwd):/app nginx`  | 挂载主机目录到容器中 |
+
+---
+
+### 构建与导出镜像（Build & Export）
+
+| 命令                                      | 说明           |
+| --------------------------------------- | ------------ |
+| `docker build -t myapp:latest .`        | 构建镜像         |
+| `docker commit web myimage:v1`          | 将容器保存为镜像     |
+| `docker save -o myimage.tar myimage:v1` | 导出镜像文件       |
+| `docker load -i myimage.tar`            | 导入镜像文件       |
+| `docker export web > web.tar`           | 导出容器文件系统     |
+| `docker import web.tar myweb:v1`        | 从 tar 文件导入镜像 |
+
+---
+
+### 系统清理与维护
+
+| 命令                       | 说明              |
+| ------------------------ | --------------- |
+| `docker system df`       | 显示磁盘使用情况        |
+| `docker system prune`    | 清理无用的容器、镜像、卷和网络 |
+| `docker image prune`     | 清理未使用的镜像        |
+| `docker container prune` | 清理已停止的容器        |
+| `docker volume prune`    | 清理无用卷           |
+
+---
+
+### Docker Compose（多容器管理）
+
+| 命令                       | 说明       |
+| ------------------------ | -------- |
+| `docker compose up -d`   | 启动服务（后台） |
+| `docker compose down`    | 停止并删除容器  |
+| `docker compose ps`      | 查看当前项目容器 |
+| `docker compose logs -f` | 查看日志     |
+| `docker compose build`   | 重新构建服务镜像 |
+| `docker compose restart` | 重启服务     |
+
+---
+
+### 卸载 Docker
+
+> 删除所有 Docker 容器和 Docker 本身
+
+1. 首先停止所有正在运行的容器：
+```
+docker stop $(docker ps -aq)
+```
+2. 删除所有容器
+
+删除所有容器（包括停止的容器）：
+```
+docker rm $(docker ps -aq)
+```
+3. 删除所有镜像
+
+```
+docker rmi $(docker images -q)
+```
+4. 删除所有网络
+
+```
+docker network prune -f
+```
+5. 删除所有未使用的卷
+
+```
+docker volume prune -f
+```
+6. 卸载 Docker
+
+如果您希望完全删除 Docker 本身，可以执行以下命令:
+```
+sudo apt-get purge docker-ce docker-ce-cli containerd.io
+sudo apt-get autoremove --purge
+sudo rm -rf /var/lib/docker
+sudo rm -rf /etc/docker
+```
+这些命令会卸载 Docker 软件并删除 Docker 数据目录。
+
+---
+
+
 ## 使用Docker-Compose
 
 - 目标：创建一个``Searxng服务``并对外开放。
