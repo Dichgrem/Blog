@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <!-- 字体预加载 - 减少布局偏移 CLS -->
+    <link rel="preload" href="https://blog.dich.bid/fonts/hack-regular.woff2?sha=3114f1256" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://blog.dich.bid/fonts/hack-bold.woff2?sha=3114f1256" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://blog.dich.bid/fonts/hack-italic.woff2?sha=3114f1256" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://blog.dich.bid/fonts/hack-bolditalic.woff2?sha=3114f1256" as="font" type="font/woff2" crossorigin>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <link rel="stylesheet" href="https://blog.dich.bid/font-hack-subset.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/linux-2-stm32/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/linux-2-stm32/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/linux-2-stm32/">Linux-STM32开发环境部署</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-07-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread同样是开源
+软件，但目前似乎没有Nixos上的打包。</p>
+<span id="continue-reading"></span><h2 id="huan-jing">环境</h2>
+<p>在ubuntu24.04中安装这些包，包括连接工具，工具链和调试器等等。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update
+</span><span>sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb-multiarch
+</span></code></pre>
+<h2 id="yuan-ma">源码</h2>
+<p>使用Git拉取RT-Thread开源项目：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/RT-Thread/rt-thread.git
+</span></code></pre>
+<h2 id="lian-jie">连接</h2>
+<p>使用USB连接开发板和开发PC，并使用lsusb查看是否连接成功：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>lsusb
+</span><span>Bus 001 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
+</span></code></pre>
+<p>如果你和我一样使用 qemu ，需要在libvirt中使用Add_hardware添加usb设备。</p>
+<p>添加成功后可以使用这个命令来检测：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>❯ st-info --probe
+</span><span>Found 1 stlink programmers
+</span><span>  version:    V2J35S26
+</span><span>  serial:     0671FF373654393143244522
+</span><span>  flash:      1048576 (pagesize: 16384)
+</span><span>  sram:       196608
+</span><span>  chipid:     0x413
+</span><span>  dev-type:   STM32F4x5_F4x7
+</span></code></pre>
+<h2 id="envgong-ju">ENV工具</h2>
+<p>使用Git拉取RT-Thread配套的linux开发环境，并添加Shell变量。我使用的是fish，你也可以用其他的Shell，命令有所不同。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/RT-Thread/env.git ~/env
+</span><span>set -x PATH $PATH ~/env
+</span><span>fish_add_path ~/env
+</span><span>echo $PATH
+</span><span>type pkgs
+</span></code></pre>
+<h2 id="pkggong-ju">PKG工具</h2>
+<p>由于该项目大量使用Python，所以需要PKG包支持。首先我们修改这个文件的交叉工具链部分：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>#修改 rtconfig.py 
+</span><span>
+</span><span># cross_tool provides the cross compiler
+</span><span># EXEC_PATH is the compiler execute path, for example, CodeSourcery, Keil MDK, IAR
+</span><span>import os
+</span><span>
+</span><span>if CROSS_TOOL == &#39;gcc&#39;:
+</span><span>    PLATFORM = &#39;gcc&#39;
+</span><span>    if os.name == &#39;nt&#39;:
+</span><span>        # Windows 平台
+</span><span>        EXEC_PATH = r&#39;C:\Users\XXYYZZ&#39;
+</span><span>    else:
+</span><span>        # Linux / macOS 平台
+</span><span>        EXEC_PATH = &#39;/usr/bin&#39;
+</span><span>
+</span><span>elif CROSS_TOOL == &#39;keil&#39;:
+</span><span>    PLATFORM = &#39;armclang&#39;  # KEIL AC6
+</span><span>    # PLATFORM = &#39;armcc&#39;   # KEIL AC5
+</span><span>    EXEC_PATH = r&#39;C:/Keil_v5&#39;
+</span><span>
+</span><span>elif CROSS_TOOL == &#39;iar&#39;:
+</span><span>    PLATFORM = &#39;iccarm&#39;
+</span><span>    EXEC_PATH = r&#39;C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.3&#39;
+</span><span>
+</span><span>elif CROSS_TOOL == &#39;llvm-arm&#39;:
+</span><span>    PLATFORM = &#39;llvm-arm&#39;
+</span><span>    if os.name == &#39;nt&#39;:
+</span><span>        EXEC_PATH = r&#39;D:\Progrem\LLVMEmbeddedToolchainForArm-17.0.1-Windows-x86_64\bin&#39;
+</span><span>    else:
+</span><span>        EXEC_PATH = &#39;/usr/bin&#39;
+</span></code></pre>
+<p>随后可以使用PKG初始化并安装两个必要的包：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pkgs --update
+</span><span>pip install kconfiglib
+</span><span>pip install scons
+</span></code></pre>
+<h2 id="bian-yi">编译</h2>
+<p>在完成以上设置之后我们可以开始编译。STM32使用scons编译系统，同样是menuconfig命令：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scons --menuconfig
+</span></code></pre>
+<p>修改配置并保存退出后即可开始编译，$(nproc)代表使用全部CPU线程来编译：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scons -j$(nproc)
+</span></code></pre>
+<h2 id="shao-ru">烧入</h2>
+<p>编译成功后你应该会看到有一个rtthread.bin在目录下，这就是我们编译出来的系统！</p>
+<p>在烧入之前，我们可以备份一下原来的系统：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>st-flash read firmware_backup.bin 0x08000000 0x100001
+</span></code></pre>
+<p>随后使用如下命令烧入系统：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>st-flash write rtthread.bin 0x08000000
+</span></code></pre>
+<h2 id="chuan-kou">串口</h2>
+<p>除了USB之外我们还可以使用串口连接：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt install picocom
+</span><span>picocom -b 115200 /dev/ttyACM0
+</span><span>version
+</span></code></pre>
+<p>可以使用<code>ctrl + A 然后 ctrl + x</code>退出。</p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-sports/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:运动健身基本理论</span>
+                        </a>
+                    </span>
+                
+                </div>
+        </div>
+    
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+

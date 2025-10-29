@@ -6,8 +6,28 @@
     <link rel="self" type="application/atom+xml" href="https://blog.dich.bid/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://blog.dich.bid"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2025-07-05T00:00:00+00:00</updated>
+    <updated>2025-07-20T00:00:00+00:00</updated>
     <id>https://blog.dich.bid/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Linux-STM32开发环境部署</title>
+        <published>2025-07-20T00:00:00+00:00</published>
+        <updated>2025-07-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.dich.bid/linux-2-stm32/"/>
+        <id>https://blog.dich.bid/linux-2-stm32/</id>
+        
+        <summary type="html">&lt;p&gt;前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread同样是开源
+软件，但目前似乎没有Nixos上的打包。&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
     <entry xml:lang="en">
         <title>乱七八糟:运动健身基本理论</title>
         <published>2025-07-05T00:00:00+00:00</published>
@@ -1282,7 +1302,7 @@
         
     </entry>
     <entry xml:lang="en">
-        <title>Linux下的命令行操控</title>
+        <title>Linux-命令行操控</title>
         <published>2023-07-20T00:00:00+00:00</published>
         <updated>2023-07-20T00:00:00+00:00</updated>
         
