@@ -555,15 +555,34 @@
 <p><strong>lib</strong></p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
 </span></code></pre>
-<h2 id="dan-du-bian-yi-openwrtde-ipkbao">单独编译openwrt的ipk包</h2>
-<p><strong>其他步骤同上,下载并选中我们需要编译的包,这里以inyn为例：</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/diredocks/openwrt-inyn.git ./package/inyn
-</span><span>make menuconfig
+<h2 id="shi-yong-sdkkuai-su-bian-yi-bao">使用SDK快速编译包</h2>
+<p>首先新建一个文件夹并将SDK克隆下来：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>mkdir imwrt-sdk
+</span><span>cd ./imwrt-sdk
+</span><span>wget https://downloads.immortalwrt.org/snapshots/targets/mediatek/filogic/immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
 </span></code></pre>
-<p>在 <code>menuconfig</code> 的命令行界面中，选中 <code>Network -&gt; inyn</code> 将其首部调整为 <code>&lt;M&gt;</code> 表示按需编译，最后选中 <code>Save -&gt; OK -&gt; Exit</code> 保存配置信息，然后 <code>Exit</code> 退出配置。</p>
-<p><strong>编译 inyn 软件包</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make package/inyn/compile V=s
-</span><span>## 如果不行则需要先编译工具链，即为 make j=4 ，j为CPU核数
+<p>新版本的SDK使用ZSTD压缩，因此解压的命令为</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>tar -I zstd -xvf ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
+</span></code></pre>
+<p>随后进入该目录并和一般流程一样更新Feeds：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cd ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64/
+</span><span>./scripts/feeds update -a
+</span><span>./scripts/feeds install -a
+</span></code></pre>
+<p>更新完成后克隆你要编译的包的源码到package下：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>cd ./package/
+</span><span>git clone https://github.com/Dichgrem/luci-app-nyn.git
+</span><span>cp ./luci-app-nyn/luci-app-zzz ./
+</span><span>cp ./luci-app-nyn/zzz ./
+</span><span>rm -rf ./luci-app-nyn
+</span><span>cd ../
+</span></code></pre>
+<p>随后开始编译，编译结果在对应架构的base目录下：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>make package/luci-app-zzz/compile V=s
+</span><span>
+</span><span>~/imwrt-sdk/immortalwrt-sdk-24.10.3-x86-64_gcc-13.3.0_musl.Linux-x86_64 dich@uos
+</span><span>❯ find ./ -name &quot;zzz*.ipk&quot;
+</span><span>./bin/packages/x86_64/base/zzz_0.1.1-r1_x86_64.ipk
 </span></code></pre>
 <h2 id="chang-yong-ming-ling">常用命令:</h2>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span># 更新软件列表
