@@ -452,20 +452,49 @@ luci-app-argon luci-app-upnp luci-app-ttyd luci-app-eqosplus luci-app-timecontro
 ```
 kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
 ```
-## 单独编译openwrt的ipk包
+## 使用SDK快速编译包
 
-**其他步骤同上,下载并选中我们需要编译的包,这里以inyn为例：**
+首先新建一个文件夹并将SDK克隆下来：
+
 ```
-git clone https://github.com/diredocks/openwrt-inyn.git ./package/inyn
-make menuconfig
+mkdir imwrt-sdk
+cd ./imwrt-sdk
+wget https://downloads.immortalwrt.org/snapshots/targets/mediatek/filogic/immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
 ```
 
-在 `menuconfig` 的命令行界面中，选中 `Network -> inyn` 将其首部调整为 `<M>` 表示按需编译，最后选中 `Save -> OK -> Exit` 保存配置信息，然后 `Exit` 退出配置。
+新版本的SDK使用ZSTD压缩，因此解压的命令为
 
-**编译 inyn 软件包**
 ```
-make package/inyn/compile V=s
-## 如果不行则需要先编译工具链，即为 make j=4 ，j为CPU核数
+tar -I zstd -xvf ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
+```
+
+随后进入该目录并和一般流程一样更新Feeds：
+
+```
+cd ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64/
+./scripts/feeds update -a
+./scripts/feeds install -a
+```
+
+更新完成后克隆你要编译的包的源码到package下：
+
+```
+cd ./package/
+git clone https://github.com/Dichgrem/luci-app-nyn.git
+cp ./luci-app-nyn/luci-app-zzz ./
+cp ./luci-app-nyn/zzz ./
+rm -rf ./luci-app-nyn
+cd ../
+```
+
+随后开始编译，编译结果在对应架构的base目录下：
+
+```
+make package/luci-app-zzz/compile V=s
+
+~/imwrt-sdk/immortalwrt-sdk-24.10.3-x86-64_gcc-13.3.0_musl.Linux-x86_64 dich@uos
+❯ find ./ -name "zzz*.ipk"
+./bin/packages/x86_64/base/zzz_0.1.1-r1_x86_64.ipk
 ```
 
 ## 常用命令:
