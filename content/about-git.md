@@ -71,6 +71,12 @@ git config [--global] user.email "[email address]"
 ```
 git config core.ignorecase  false
 ```
+
+- 配置git默认使用的编辑器
+```
+git config --global core.editor "nvim"
+```
+
 ## 连接远程仓库
 
 连接到远程仓库并推送需要证明你有权写入仓库。早期Github可以使用密码认证，现在则使用密钥认证。
