@@ -201,6 +201,50 @@ git push origin main
 ``` 
 git pull
 ```
+
+> Verified
+
+在 GitHub 的 commit 历史中看到的 “Verified” 标记，表示该提交是经过 签名验证（signed commit） 的，也就是 GitHub 能确认这个 commit 的确是由声明的提交者（你）签名并发布的。可以通过GPG或者SSH配置：
+
+- GPG方式
+
+```
+sudo pacman -S gnupg //安装 GPG
+gpg --full-generate-key //生成 GPG 密钥
+gpg --list-secret-keys --keyid-format=long //查看你生成的密钥 ID
+git config --global user.signingkey ABCDEF1234567890  //让 Git 使用该密钥签名
+git config --global commit.gpgsign true //启用自动签名所有提交
+gpg --armor --export ABCDEF1234567890 //导出公钥并添加到 GitHub
+```
+然后前往``GitHub → Settings → SSH and GPG keys → New GPG key``粘贴并保存。
+
+- SSH方式
+
+可以用你平时登录 GitHub 的同一个 SSH 密钥：
+```
+git config --global gpg.format ssh //让 Git 使用 SSH 格式签名
+git config --global user.signingkey ~/.ssh/Github.pub //指定使用的 SSH 公钥
+git config --global commit.gpgsign true  //表示自动签名所有提交
+```
+然后前往``Settings → SSH and GPG keys → New SSH key → Signing key``粘贴并保存。
+
+- 本地查看
+
+首先创建这个文件：
+```
+mkdir -p ~/.ssh
+nano ~/.ssh/allowed_signers
+```
+写入你的 ``test@mail.com ssh-ed25519 AAAABBBBBBBBBBBBBBBBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx``并保存。
+随后配置Git信任该文件：
+```
+git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+```
+随后使用``git log --show-signature``即可查看本地log中的
+```
+Good "git" signature for test@mail.com with ED25519 key SHA256:ssh-ed25519 AAAABBBBBBBBBBBBBBBBBBBBB
+```
+
 ## 合并分支
 
 分支是用来将特性开发绝缘开来的。比如你在本地的test分支新增了一个功能，想要合并到主分支中。
@@ -378,6 +422,16 @@ git log --pretty=oneline
 ```
 git log --name-status
 ```
+## 生成补丁
+
+比如你修改了项目中的``fs/proc/base.c``，然后
+
+```
+git add fs/proc/base.c
+git commit -m "fix:base"
+git format-patch origin/16.0
+```
+即可在目录下生成补丁``0001-fix-base.patch``.
 
 ## 删除前一个提交记录
 有时候手滑或者不想使用一个commit说明，可以用以下命令撤销上一个 commit：
