@@ -383,7 +383,7 @@ sudo update-grub
 
 除了到VPS后台更换外，还可以使用这个脚本：
 
-- [bin456789/reinstall](github.com/bin456789/reinstall)
+[bin456789/reinstall](github.com/bin456789/reinstall)
 
 ```
 一键重装到 Linux，支持 19 种常见发行版
