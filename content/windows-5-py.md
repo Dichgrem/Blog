@@ -184,77 +184,100 @@ pip install jupyter-notebook-translation
 
 > 当然，你也可以使用其他编辑器/IDE如 Sublime Text 或者 JetBrains 系列的 PyCharm 。
 
-## 使用UV替代Conda
 
-> UV（由 Astral 团队开发）是一个用 Rust 编写的高性能包管理器，提供了类似 Conda 的虚拟环境管理和依赖解析功能，并且在大多数场景下比 pip 和 Conda 快 10–100 倍。它通过命令行工具如 uv venv（创建/管理虚拟环境）和 uv pip（安装/锁定/同步依赖）来覆盖传统的 conda create、conda install、conda env export 等操作，但本身并不管理底层的 C/C++ 库，因此对于诸如 GDAL、SciPy 等需要系统级二进制依赖的包，仍建议在 Conda/系统包管理器中预装相关库，然后用 UV 来管理 Python 包。
+## 使用 UV 替代 Conda
 
-**安装与激活**
-```
+> UV（由 Astral 团队开发）是一个用 Rust 编写的高性能 Python 包管理器，提供类似 Conda 的虚拟环境管理和依赖解析功能，在大多数场景下比 pip 和 Conda 快 10–100 倍。它通过命令行工具如 `uv venv`（创建/管理虚拟环境）和 `uv pip`（安装/锁定/同步依赖）覆盖传统的 Conda 流程，但本身不管理底层的 C/C++ 库，因此对于 GDAL、SciPy 等需要系统级二进制依赖的包，仍建议先通过系统包管理器或 Conda 安装，然后用 UV 管理 Python 包。
+
+---
+
+- 安装 UV
+
+```bash
 wget -qO- https://astral.sh/uv/install.sh | sh
 ```
-- 在当前目录下创建 .venv，使用系统默认 Python（若不存在则自动下载）
-```
-uv venv
-```
-- 指定环境名称或路径
-```
-uv venv myenv
-```
-- 指定 Python 版本（需系统已有或可下载）
-```
-uv venv --python 3.11
-```
-- 激活
-```
+
+- 创建与管理环境
+
+```bash
+# 创建虚拟环境，指定 Python 版本
+uv venv --python 3.12
+
+# 激活环境
 source .venv/bin/activate
-```
-**安装包**
 
-```bash
-# 安装单个包
-uv pip install requests
+# 退出环境
+deactivate
 
-# 批量安装并自动锁定依赖
-uv pip install fastapi uvicorn sqlalchemy
+# 删除环境
+rm -rf .venv
 ```
 
-**生成与同步锁文件**
+- 直接运行
 
 ```bash
-# 从 requirements.in 生成统一依赖文件
-uv pip compile docs/requirements.in \
-   --universal \
-   --output-file docs/requirements.txt
-
-# 根据锁文件同步环境
-uv pip sync docs/requirements.txt
+uv run python
+uv run jupyter lab
 ```
 
-此流程替代 `conda env export` + `conda env update`，并保证跨平台一致性 ([GitHub][3])。
-
-**查看与卸载**
+- 注册 Jupyter 内核
 
 ```bash
-uv pip list       # 列出已安装包（类似 conda list）
+uv run python -m ipykernel install --user --name bank --display-name "Python (bank)"
+```
+
+---
+
+- 安装依赖
+
+```bash
+uv add tensorflow
+uv pip install requests fastapi uvicorn sqlalchemy
+```
+
+> 安装完成后，UV 会自动更新 `uv.lock` 文件锁定依赖版本，保证环境可复现。
+
+
+- 使用 TOML 配置管理依赖
+
+创建一个 `pyproject.toml`：
+
+```toml
+[tool.uv.dependencies]
+fastapi = "*"
+uvicorn = "*"
+sqlalchemy = "*"
+```
+
+然后同步环境：
+
+```bash
+uv pip sync
+```
+
+这会根据 `pyproject.toml` + `uv.lock` 安装和锁定所有依赖。
+
+
+- 查看与卸载包
+
+```bash
+uv pip list          # 列出已安装包
 uv pip uninstall numpy
 ```
 
-**替代常见 Conda 工作流**
+---
 
-| Conda 操作                         | UV 对应                                    |
-| -------------------------------- | ---------------------------------------- |
-| `conda create -n env python=3.x` | `uv venv --python 3.x`                   |
-| `conda activate env`             | `source .venv/bin/activate` 或 `activate` |
-| `conda install pkg1 pkg2`        | `uv pip install pkg1 pkg2`               |
-| `conda env export > env.yml`     | `uv pip compile requirements.in`         |
-| `conda env update -f env.yml`    | `uv pip sync requirements.txt`           |
-| `conda list`                     | `uv pip list`                            |
+### 替代常见 Conda 工作流
 
-**最佳实践**：
+| Conda 操作                         | UV 对应                                             |
+| -------------------------------- | ------------------------------------------------- |
+| `conda create -n env python=3.x` | `uv venv --python 3.x`                            |
+| `conda activate env`             | `source .venv/bin/activate` 或 `uv venv activate`  |
+| `conda install pkg1 pkg2`        | `uv pip install pkg1 pkg2`                        |
+| `conda env export > env.yml`     | 自动生成 `uv.lock` 或 `uv pip compile requirements.in` |
+| `conda env update -f env.yml`    | `uv pip sync`（根据 `uv.lock` 或 `pyproject.toml` 同步） |
+| `conda list`                     | `uv pip list`                                     |
 
-1. **系统依赖**：用 Conda/Mamba 安装较难编译的 C 库（`conda install gdal`）。
-2. **Python 包**：用 UV 管理所有纯 Python 依赖（`uv pip install pandas scikit-learn`）。
-3. **统一锁定**：把 `uv pip compile` 生成的 `requirements.txt` 放入版本控制，确保团队环境一致。
 
 ## ipynb转markdown
 
