@@ -306,69 +306,81 @@
 <blockquote>
 <p>当然，你也可以使用其他编辑器/IDE如 Sublime Text 或者 JetBrains 系列的 PyCharm 。</p>
 </blockquote>
-<h2 id="shi-yong-uvti-dai-conda">使用UV替代Conda</h2>
+<h2 id="shi-yong-uv-ti-dai-conda">使用 UV 替代 Conda</h2>
 <blockquote>
-<p>UV（由 Astral 团队开发）是一个用 Rust 编写的高性能包管理器，提供了类似 Conda 的虚拟环境管理和依赖解析功能，并且在大多数场景下比 pip 和 Conda 快 10–100 倍。它通过命令行工具如 uv venv（创建/管理虚拟环境）和 uv pip（安装/锁定/同步依赖）来覆盖传统的 conda create、conda install、conda env export 等操作，但本身并不管理底层的 C/C++ 库，因此对于诸如 GDAL、SciPy 等需要系统级二进制依赖的包，仍建议在 Conda/系统包管理器中预装相关库，然后用 UV 来管理 Python 包。</p>
+<p>UV（由 Astral 团队开发）是一个用 Rust 编写的高性能 Python 包管理器，提供类似 Conda 的虚拟环境管理和依赖解析功能，在大多数场景下比 pip 和 Conda 快 10–100 倍。它通过命令行工具如 <code>uv venv</code>（创建/管理虚拟环境）和 <code>uv pip</code>（安装/锁定/同步依赖）覆盖传统的 Conda 流程，但本身不管理底层的 C/C++ 库，因此对于 GDAL、SciPy 等需要系统级二进制依赖的包，仍建议先通过系统包管理器或 Conda 安装，然后用 UV 管理 Python 包。</p>
 </blockquote>
-<p><strong>安装与激活</strong></p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>wget -qO- https://astral.sh/uv/install.sh | sh
+<hr />
+<ul>
+<li>安装 UV</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">wget -qO-</span><span> https://astral.sh/uv/install.sh | </span><span style="color:#ffb964;">sh
 </span></code></pre>
 <ul>
-<li>在当前目录下创建 .venv，使用系统默认 Python（若不存在则自动下载）</li>
+<li>创建与管理环境</li>
 </ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>uv venv
-</span></code></pre>
-<ul>
-<li>指定环境名称或路径</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>uv venv myenv
-</span></code></pre>
-<ul>
-<li>指定 Python 版本（需系统已有或可下载）</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>uv venv --python 3.11
-</span></code></pre>
-<ul>
-<li>激活</li>
-</ul>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>source .venv/bin/activate
-</span></code></pre>
-<p><strong>安装包</strong></p>
-<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 安装单个包
-</span><span style="color:#ffb964;">uv</span><span> pip install requests
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 创建虚拟环境，指定 Python 版本
+</span><span style="color:#ffb964;">uv</span><span> venv</span><span style="color:#ffb964;"> --python</span><span> 3.12
 </span><span>
-</span><span style="color:#888888;"># 批量安装并自动锁定依赖
-</span><span style="color:#ffb964;">uv</span><span> pip install fastapi uvicorn sqlalchemy
-</span></code></pre>
-<p><strong>生成与同步锁文件</strong></p>
-<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 从 requirements.in 生成统一依赖文件
-</span><span style="color:#ffb964;">uv</span><span> pip compile docs/requirements.in \
-</span><span style="color:#ffb964;">   --universal </span><span>\
-</span><span style="color:#ffb964;">   --output-file</span><span> docs/requirements.txt
+</span><span style="color:#888888;"># 激活环境
+</span><span>source .venv/bin/activate
 </span><span>
-</span><span style="color:#888888;"># 根据锁文件同步环境
-</span><span style="color:#ffb964;">uv</span><span> pip sync docs/requirements.txt
+</span><span style="color:#888888;"># 退出环境
+</span><span style="color:#ffb964;">deactivate
+</span><span>
+</span><span style="color:#888888;"># 删除环境
+</span><span style="color:#ffb964;">rm -rf</span><span> .venv
 </span></code></pre>
-<p>此流程替代 <code>conda env export</code> + <code>conda env update</code>，并保证跨平台一致性 ([GitHub][3])。</p>
-<p><strong>查看与卸载</strong></p>
-<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> pip list       </span><span style="color:#888888;"># 列出已安装包（类似 conda list）
+<ul>
+<li>直接运行</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> run python
+</span><span style="color:#ffb964;">uv</span><span> run jupyter lab
+</span></code></pre>
+<ul>
+<li>注册 Jupyter 内核</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> run python</span><span style="color:#ffb964;"> -m</span><span> ipykernel install</span><span style="color:#ffb964;"> --user --name</span><span> bank</span><span style="color:#ffb964;"> --display-name </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Python (bank)</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<hr />
+<ul>
+<li>安装依赖</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> add tensorflow
+</span><span style="color:#ffb964;">uv</span><span> pip install requests fastapi uvicorn sqlalchemy
+</span></code></pre>
+<blockquote>
+<p>安装完成后，UV 会自动更新 <code>uv.lock</code> 文件锁定依赖版本，保证环境可复现。</p>
+</blockquote>
+<ul>
+<li>使用 TOML 配置管理依赖</li>
+</ul>
+<p>创建一个 <code>pyproject.toml</code>：</p>
+<pre data-lang="toml" style="background-color:#151515;color:#e8e8d3;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#ffb964;">tool</span><span>.</span><span style="color:#ffb964;">uv</span><span>.</span><span style="color:#ffb964;">dependencies</span><span>]
+</span><span style="color:#ffb964;">fastapi </span><span>= </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">*</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">uvicorn </span><span>= </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">*</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">sqlalchemy </span><span>= </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">*</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>然后同步环境：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> pip sync
+</span></code></pre>
+<p>这会根据 <code>pyproject.toml</code> + <code>uv.lock</code> 安装和锁定所有依赖。</p>
+<ul>
+<li>查看与卸载包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> pip list          </span><span style="color:#888888;"># 列出已安装包
 </span><span style="color:#ffb964;">uv</span><span> pip uninstall numpy
 </span></code></pre>
-<p><strong>替代常见 Conda 工作流</strong></p>
+<hr />
+<h3 id="ti-dai-chang-jian-conda-gong-zuo-liu">替代常见 Conda 工作流</h3>
 <table><thead><tr><th>Conda 操作</th><th>UV 对应</th></tr></thead><tbody>
 <tr><td><code>conda create -n env python=3.x</code></td><td><code>uv venv --python 3.x</code></td></tr>
-<tr><td><code>conda activate env</code></td><td><code>source .venv/bin/activate</code> 或 <code>activate</code></td></tr>
+<tr><td><code>conda activate env</code></td><td><code>source .venv/bin/activate</code> 或 <code>uv venv activate</code></td></tr>
 <tr><td><code>conda install pkg1 pkg2</code></td><td><code>uv pip install pkg1 pkg2</code></td></tr>
-<tr><td><code>conda env export &gt; env.yml</code></td><td><code>uv pip compile requirements.in</code></td></tr>
-<tr><td><code>conda env update -f env.yml</code></td><td><code>uv pip sync requirements.txt</code></td></tr>
+<tr><td><code>conda env export &gt; env.yml</code></td><td>自动生成 <code>uv.lock</code> 或 <code>uv pip compile requirements.in</code></td></tr>
+<tr><td><code>conda env update -f env.yml</code></td><td><code>uv pip sync</code>（根据 <code>uv.lock</code> 或 <code>pyproject.toml</code> 同步）</td></tr>
 <tr><td><code>conda list</code></td><td><code>uv pip list</code></td></tr>
 </tbody></table>
-<p><strong>最佳实践</strong>：</p>
-<ol>
-<li><strong>系统依赖</strong>：用 Conda/Mamba 安装较难编译的 C 库（<code>conda install gdal</code>）。</li>
-<li><strong>Python 包</strong>：用 UV 管理所有纯 Python 依赖（<code>uv pip install pandas scikit-learn</code>）。</li>
-<li><strong>统一锁定</strong>：把 <code>uv pip compile</code> 生成的 <code>requirements.txt</code> 放入版本控制，确保团队环境一致。</li>
-</ol>
 <h2 id="ipynbzhuan-markdown">ipynb转markdown</h2>
 <p>首先安装 nbformat 和 nbconvert包：</p>
 <pre style="background-color:#151515;color:#e8e8d3;"><code><span>conda install nbformat nbconvert -y
