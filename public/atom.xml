@@ -24,7 +24,7 @@
         <link rel="alternate" type="text/html" href="https://blog.dich.bid/linux-2-stm32/"/>
         <id>https://blog.dich.bid/linux-2-stm32/</id>
         
-        <summary type="html">&lt;p&gt;前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread同样是开源
+        <summary type="html">&lt;p&gt;前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread-studio同样是开源
 软件，但目前似乎没有Nixos上的打包。&lt;&#x2F;p&gt;</summary>
         
     </entry>

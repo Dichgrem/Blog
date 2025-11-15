@@ -122,25 +122,60 @@
     
 
         <div class="post-content">
-            <p>前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread同样是开源
+            <p>前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread-studio同样是开源
 软件，但目前似乎没有Nixos上的打包。</p>
 <span id="continue-reading"></span><h2 id="huan-jing">环境</h2>
-<p>在ubuntu24.04中安装这些包，包括连接工具，工具链和调试器等等。</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt update
+<ul>
+<li><strong>Ubuntu</strong></li>
+</ul>
+<p>以ubuntu24.04为例，安装这些包，包括连接工具，工具链和调试器等等。</p>
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>sudo apt update
 </span><span>sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb-multiarch
+</span></code></pre>
+<ul>
+<li><strong>Nixos</strong></li>
+</ul>
+<p>虽然没有RT-Thread-studio这个包，但是可以用flake.nix很方便的搭建一个开发环境：</p>
+<pre data-lang="nix" style="background-color:#151515;color:#e8e8d3;" class="language-nix "><code class="language-nix" data-lang="nix"><span>{
+</span><span>  </span><span style="color:#ffb964;">description </span><span>= </span><span style="color:#99ad6a;">&quot;STM32 &amp;&amp; RT-Thread development environment&quot;</span><span>;
+</span><span>  </span><span style="color:#ffb964;">inputs</span><span>.</span><span style="color:#ffb964;">nixpkgs</span><span>.</span><span style="color:#ffb964;">url </span><span>= </span><span style="color:#99ad6a;">&quot;github:NixOS/nixpkgs/nixpkgs-unstable&quot;</span><span>;
+</span><span>  </span><span style="color:#ffb964;">outputs </span><span>= { </span><span style="color:#ffb964;">self</span><span>, </span><span style="color:#ffb964;">nixpkgs </span><span>}:
+</span><span>  let
+</span><span>    </span><span style="color:#ffb964;">supportedSystems </span><span>= [ </span><span style="color:#99ad6a;">&quot;x86_64-linux&quot; &quot;aarch64-linux&quot; </span><span>];
+</span><span>    </span><span style="color:#ffb964;">forEachSupportedSystem </span><span>= </span><span style="color:#ffb964;">f</span><span>: </span><span style="color:#ffb964;">nixpkgs</span><span>.</span><span style="color:#ffb964;">lib</span><span>.</span><span style="color:#ffb964;">genAttrs supportedSystems </span><span>(</span><span style="color:#ffb964;">system</span><span>: </span><span style="color:#ffb964;">f </span><span>{
+</span><span>      </span><span style="color:#ffb964;">pkgs </span><span>= import </span><span style="color:#ffb964;">nixpkgs </span><span>{ inherit </span><span style="color:#ffb964;">self system</span><span>; };
+</span><span>    });
+</span><span>  in
+</span><span>  {
+</span><span>    </span><span style="color:#ffb964;">devShells </span><span>= </span><span style="color:#ffb964;">forEachSupportedSystem </span><span>({ </span><span style="color:#ffb964;">pkgs </span><span>}: {
+</span><span>      </span><span style="color:#ffb964;">default </span><span>= </span><span style="color:#ffb964;">pkgs</span><span>.</span><span style="color:#ffb964;">mkShell </span><span>{
+</span><span>        </span><span style="color:#ffb964;">packages </span><span>= with </span><span style="color:#ffb964;">pkgs</span><span>; [
+</span><span>          </span><span style="color:#ffb964;">python312
+</span><span>          </span><span style="color:#ffb964;">scons
+</span><span>          </span><span style="color:#ffb964;">openocd
+</span><span>          </span><span style="color:#ffb964;">stlink
+</span><span>          </span><span style="color:#ffb964;">stlink-tool
+</span><span>          </span><span style="color:#ffb964;">gcc-arm-embedded
+</span><span>          </span><span style="color:#ffb964;">picocom
+</span><span>        ];
+</span><span>      };
+</span><span>    });
+</span><span>  };
+</span><span>}
 </span></code></pre>
 <h2 id="yuan-ma">源码</h2>
 <p>使用Git拉取RT-Thread开源项目：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/RT-Thread/rt-thread.git
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>git clone https://github.com/RT-Thread/rt-thread.git
+</span><span>git clone https://github.com/RT-Thread-Studio/sdk-bsp-stm32f407-spark.git
 </span></code></pre>
 <h2 id="lian-jie">连接</h2>
 <p>使用USB连接开发板和开发PC，并使用lsusb查看是否连接成功：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>lsusb
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>lsusb
 </span><span>Bus 001 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 </span></code></pre>
 <p>如果你和我一样使用 qemu ，需要在libvirt中使用Add_hardware添加usb设备。</p>
 <p>添加成功后可以使用这个命令来检测：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>❯ st-info --probe
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>❯ st-info --probe
 </span><span>Found 1 stlink programmers
 </span><span>  version:    V2J35S26
 </span><span>  serial:     0671FF373654393143244522
@@ -151,7 +186,7 @@
 </span></code></pre>
 <h2 id="envgong-ju">ENV工具</h2>
 <p>使用Git拉取RT-Thread配套的linux开发环境，并添加Shell变量。我使用的是fish，你也可以用其他的Shell，命令有所不同。</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone https://github.com/RT-Thread/env.git ~/env
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>git clone https://github.com/RT-Thread/env.git ~/env
 </span><span>set -x PATH $PATH ~/env
 </span><span>fish_add_path ~/env
 </span><span>echo $PATH
@@ -159,64 +194,128 @@
 </span></code></pre>
 <h2 id="pkggong-ju">PKG工具</h2>
 <p>由于该项目大量使用Python，所以需要PKG包支持。首先我们修改这个文件的交叉工具链部分：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>#修改 rtconfig.py 
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#888888;">#修改 rtconfig.py 
 </span><span>
-</span><span># cross_tool provides the cross compiler
-</span><span># EXEC_PATH is the compiler execute path, for example, CodeSourcery, Keil MDK, IAR
-</span><span>import os
+</span><span style="color:#888888;"># cross_tool provides the cross compiler
+</span><span style="color:#888888;"># EXEC_PATH is the compiler execute path, for example, CodeSourcery, Keil MDK, IAR
+</span><span style="color:#8fbfdc;">import </span><span>os
 </span><span>
-</span><span>if CROSS_TOOL == &#39;gcc&#39;:
-</span><span>    PLATFORM = &#39;gcc&#39;
-</span><span>    if os.name == &#39;nt&#39;:
-</span><span>        # Windows 平台
-</span><span>        EXEC_PATH = r&#39;C:\Users\XXYYZZ&#39;
-</span><span>    else:
-</span><span>        # Linux / macOS 平台
-</span><span>        EXEC_PATH = &#39;/usr/bin&#39;
+</span><span style="color:#8fbfdc;">if </span><span style="color:#ffb964;">CROSS_TOOL </span><span>== </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">gcc</span><span style="color:#556633;">&#39;</span><span>:
+</span><span>    </span><span style="color:#ffb964;">PLATFORM </span><span>= </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">gcc</span><span style="color:#556633;">&#39;
+</span><span>    </span><span style="color:#8fbfdc;">if </span><span>os.name == </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">nt</span><span style="color:#556633;">&#39;</span><span>:
+</span><span>        </span><span style="color:#888888;"># Windows 平台
+</span><span>        </span><span style="color:#ffb964;">EXEC_PATH </span><span>= </span><span style="color:#8fbfdc;">r</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">C:\Users\XXYYZZ</span><span style="color:#556633;">&#39;
+</span><span>    </span><span style="color:#8fbfdc;">else</span><span>:
+</span><span>        </span><span style="color:#888888;"># Linux / macOS 平台
+</span><span>        </span><span style="color:#ffb964;">EXEC_PATH </span><span>= </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">/usr/bin</span><span style="color:#556633;">&#39;
 </span><span>
-</span><span>elif CROSS_TOOL == &#39;keil&#39;:
-</span><span>    PLATFORM = &#39;armclang&#39;  # KEIL AC6
-</span><span>    # PLATFORM = &#39;armcc&#39;   # KEIL AC5
-</span><span>    EXEC_PATH = r&#39;C:/Keil_v5&#39;
+</span><span style="color:#8fbfdc;">elif </span><span style="color:#ffb964;">CROSS_TOOL </span><span>== </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">keil</span><span style="color:#556633;">&#39;</span><span>:
+</span><span>    </span><span style="color:#ffb964;">PLATFORM </span><span>= </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">armclang</span><span style="color:#556633;">&#39;  </span><span style="color:#888888;"># KEIL AC6
+</span><span>    </span><span style="color:#888888;"># PLATFORM = &#39;armcc&#39;   # KEIL AC5
+</span><span>    </span><span style="color:#ffb964;">EXEC_PATH </span><span>= </span><span style="color:#8fbfdc;">r</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">C:/Keil_v5</span><span style="color:#556633;">&#39;
 </span><span>
-</span><span>elif CROSS_TOOL == &#39;iar&#39;:
-</span><span>    PLATFORM = &#39;iccarm&#39;
-</span><span>    EXEC_PATH = r&#39;C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.3&#39;
+</span><span style="color:#8fbfdc;">elif </span><span style="color:#ffb964;">CROSS_TOOL </span><span>== </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">iar</span><span style="color:#556633;">&#39;</span><span>:
+</span><span>    </span><span style="color:#ffb964;">PLATFORM </span><span>= </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">iccarm</span><span style="color:#556633;">&#39;
+</span><span>    </span><span style="color:#ffb964;">EXEC_PATH </span><span>= </span><span style="color:#8fbfdc;">r</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.3</span><span style="color:#556633;">&#39;
 </span><span>
-</span><span>elif CROSS_TOOL == &#39;llvm-arm&#39;:
-</span><span>    PLATFORM = &#39;llvm-arm&#39;
-</span><span>    if os.name == &#39;nt&#39;:
-</span><span>        EXEC_PATH = r&#39;D:\Progrem\LLVMEmbeddedToolchainForArm-17.0.1-Windows-x86_64\bin&#39;
-</span><span>    else:
-</span><span>        EXEC_PATH = &#39;/usr/bin&#39;
+</span><span style="color:#8fbfdc;">elif </span><span style="color:#ffb964;">CROSS_TOOL </span><span>== </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">llvm-arm</span><span style="color:#556633;">&#39;</span><span>:
+</span><span>    </span><span style="color:#ffb964;">PLATFORM </span><span>= </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">llvm-arm</span><span style="color:#556633;">&#39;
+</span><span>    </span><span style="color:#8fbfdc;">if </span><span>os.name == </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">nt</span><span style="color:#556633;">&#39;</span><span>:
+</span><span>        </span><span style="color:#ffb964;">EXEC_PATH </span><span>= </span><span style="color:#8fbfdc;">r</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">D:\Progrem\LLVMEmbeddedToolchainForArm-17.0.1-Windows-x86_64</span><span style="color:#8fbfdc;">\b</span><span style="color:#99ad6a;">in</span><span style="color:#556633;">&#39;
+</span><span>    </span><span style="color:#8fbfdc;">else</span><span>:
+</span><span>        </span><span style="color:#ffb964;">EXEC_PATH </span><span>= </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">/usr/bin</span><span style="color:#556633;">&#39;
 </span></code></pre>
 <p>随后可以使用PKG初始化并安装两个必要的包：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>pkgs --update
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>pkgs --update
 </span><span>pip install kconfiglib
 </span><span>pip install scons
 </span></code></pre>
 <h2 id="bian-yi">编译</h2>
 <p>在完成以上设置之后我们可以开始编译。STM32使用scons编译系统，同样是menuconfig命令：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scons --menuconfig
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>scons --menuconfig
 </span></code></pre>
 <p>修改配置并保存退出后即可开始编译，$(nproc)代表使用全部CPU线程来编译：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>scons -j$(nproc)
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>scons -j$(nproc)
 </span></code></pre>
 <h2 id="shao-ru">烧入</h2>
 <p>编译成功后你应该会看到有一个rtthread.bin在目录下，这就是我们编译出来的系统！</p>
 <p>在烧入之前，我们可以备份一下原来的系统：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>st-flash read firmware_backup.bin 0x08000000 0x100001
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>st-flash read firmware_backup.bin 0x08000000 0x100001
 </span></code></pre>
 <p>随后使用如下命令烧入系统：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>st-flash write rtthread.bin 0x08000000
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>st-flash write rtthread.bin 0x08000000
 </span></code></pre>
 <h2 id="chuan-kou">串口</h2>
 <p>除了USB之外我们还可以使用串口连接：</p>
-<pre style="background-color:#151515;color:#e8e8d3;"><code><span>sudo apt install picocom
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>sudo apt install picocom
 </span><span>picocom -b 115200 /dev/ttyACM0
 </span><span>version
 </span></code></pre>
 <p>可以使用<code>ctrl + A 然后 ctrl + x</code>退出。</p>
+<h2 id="shi-yong-cmake">使用Cmake</h2>
+<p>通过官方文档可以得知除了scons外还可以使用Cmake来编译.</p>
+<p>首先找到编译器的路径，并export：</p>
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>❯ which arm-none-eabi-gcc
+</span><span>/nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc
+</span><span>export RTT_EXEC_PATH=/nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin
+</span><span>export RTT_CC=gcc
+</span></code></pre>
+<p>随后使用指令<code>scons --target=cmake</code>：</p>
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>❯ scons --target=cmake
+</span><span>
+</span><span>scons: Reading SConscript files ...
+</span><span>Newlib version:4.5.0
+</span><span>Update setting files for CMakeLists.txt...
+</span><span>Done!
+</span><span>scons: done reading SConscript files.
+</span><span>scons: Building targets ...
+</span><span>scons: building associated VariantDir targets: build
+</span><span>CC build/applications/main.o
+</span><span>LINK rt-thread.elf
+</span><span>arm-none-eabi-objcopy -O binary rt-thread.elf rtthread.bin
+</span><span>arm-none-eabi-size rt-thread.elf
+</span><span>scons: done building targets.
+</span></code></pre>
+<p>可以看到生成CmakeLists.txt成功，随后开始构建：</p>
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>❯ cd ./build       
+</span><span>❯ cmake ..  
+</span><span>CMake Warning (dev) at CMakeLists.txt:43:
+</span><span>  Syntax Warning in cmake code at column 100
+</span><span>
+</span><span>  Argument not separated from preceding token by whitespace.
+</span><span>This warning is for project developers.  Use -Wno-dev to suppress it.
+</span><span>
+</span><span>-- The C compiler identification is GNU 14.3.1
+</span><span>-- The CXX compiler identification is GNU 14.3.1
+</span><span>-- The ASM compiler identification is GNU
+</span><span>-- Found assembler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc
+</span><span>-- Detecting C compiler ABI info
+</span><span>-- Detecting C compiler ABI info - done
+</span><span>-- Check for working C compiler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc - skipped
+</span><span>-- Detecting C compile features
+</span><span>-- Detecting C compile features - done
+</span><span>-- Detecting CXX compiler ABI info
+</span><span>-- Detecting CXX compiler ABI info - done
+</span><span>-- Check for working CXX compiler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-g++ - skipped
+</span><span>-- Detecting CXX compile features
+</span><span>-- Detecting CXX compile features - done
+</span><span>-- Configuring done (0.4s)
+</span><span>-- Generating done (0.0s)
+</span><span>-- Build files have been written to: /home/dich/Git/sdk-bsp-stm32f407-spark/projects/02_basic_ir/build
+</span></code></pre>
+<p>使用<code>make</code>命令编译：</p>
+<pre data-lang="shell" style="background-color:#151515;color:#e8e8d3;" class="language-shell "><code class="language-shell" data-lang="shell"><span>❯ make   
+</span><span>[  1%] Building C object CMakeFiles/rtthread.elf.dir/applications/main.c.obj
+</span><span>[  2%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/rt-thread/components/libc/compilers/common/cctype.c.obj
+</span><span>[  3%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/rt-thread/components/libc/compilers/common/cstdio.c.obj
+</span><span>......
+</span><span>[ 97%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/libraries/STM32F4xx_HAL/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
+</span><span>[ 98%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/libraries/STM32F4xx_HAL/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c.obj
+</span><span>[100%] Linking C executable rtthread.elf
+</span><span>   text    data     bss     dec     hex filename
+</span><span>  98516    1468    8400  108384   1a760 rtthread.elf
+</span><span>[100%] Built target rtthread.elf
+</span></code></pre>
 <hr />
 <p><strong>Done.</strong></p>
 

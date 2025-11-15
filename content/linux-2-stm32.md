@@ -6,29 +6,66 @@ date = 2025-07-20
 tags = ["Linux"]
 +++
 
-前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread同样是开源
+前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread-studio同样是开源
 软件，但目前似乎没有Nixos上的打包。
 <!-- more -->
 
 ## 环境
 
-在ubuntu24.04中安装这些包，包括连接工具，工具链和调试器等等。
-```
+- **Ubuntu**
+
+以ubuntu24.04为例，安装这些包，包括连接工具，工具链和调试器等等。
+```shell
 sudo apt update
 sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb-multiarch
+```
+
+- **Nixos**
+
+虽然没有RT-Thread-studio这个包，但是可以用flake.nix很方便的搭建一个开发环境：
+
+```nix
+{
+  description = "STM32 && RT-Thread development environment";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  outputs = { self, nixpkgs }:
+  let
+    supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+    forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
+      pkgs = import nixpkgs { inherit self system; };
+    });
+  in
+  {
+    devShells = forEachSupportedSystem ({ pkgs }: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          python312
+          scons
+          openocd
+          stlink
+          stlink-tool
+          gcc-arm-embedded
+          picocom
+        ];
+      };
+    });
+  };
+}
 ```
 
 ## 源码
 
 使用Git拉取RT-Thread开源项目：
-```
+
+```shell
 git clone https://github.com/RT-Thread/rt-thread.git
+git clone https://github.com/RT-Thread-Studio/sdk-bsp-stm32f407-spark.git
 ```
 
 ## 连接
 
 使用USB连接开发板和开发PC，并使用lsusb查看是否连接成功：
-```
+```shell
 lsusb
 Bus 001 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 ```
@@ -37,7 +74,7 @@ Bus 001 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 
 添加成功后可以使用这个命令来检测：
 
-```
+```shell
 ❯ st-info --probe
 Found 1 stlink programmers
   version:    V2J35S26
@@ -51,7 +88,7 @@ Found 1 stlink programmers
 ## ENV工具
 
 使用Git拉取RT-Thread配套的linux开发环境，并添加Shell变量。我使用的是fish，你也可以用其他的Shell，命令有所不同。
-```
+```shell
 git clone https://github.com/RT-Thread/env.git ~/env
 set -x PATH $PATH ~/env
 fish_add_path ~/env
@@ -63,7 +100,7 @@ type pkgs
 
 由于该项目大量使用Python，所以需要PKG包支持。首先我们修改这个文件的交叉工具链部分：
 
-```
+```python
 #修改 rtconfig.py 
 
 # cross_tool provides the cross compiler
@@ -97,7 +134,7 @@ elif CROSS_TOOL == 'llvm-arm':
 ```
 随后可以使用PKG初始化并安装两个必要的包：
 
-```
+```shell
 pkgs --update
 pip install kconfiglib
 pip install scons
@@ -105,11 +142,11 @@ pip install scons
 ## 编译
 
 在完成以上设置之后我们可以开始编译。STM32使用scons编译系统，同样是menuconfig命令：
-```
+```shell
 scons --menuconfig
 ```
 修改配置并保存退出后即可开始编译，$(nproc)代表使用全部CPU线程来编译：
-```
+```shell
 scons -j$(nproc)
 ```
 
@@ -119,23 +156,98 @@ scons -j$(nproc)
 
 在烧入之前，我们可以备份一下原来的系统：
 
-```
+```shell
 st-flash read firmware_backup.bin 0x08000000 0x100001
 ```
 随后使用如下命令烧入系统：
-```
+```shell
 st-flash write rtthread.bin 0x08000000
 ```
 
 ## 串口
 
 除了USB之外我们还可以使用串口连接：
-```
+```shell
 sudo apt install picocom
 picocom -b 115200 /dev/ttyACM0
 version
 ```
 可以使用``ctrl + A 然后 ctrl + x``退出。
+
+## 使用Cmake
+
+通过官方文档可以得知除了scons外还可以使用Cmake来编译.
+
+首先找到编译器的路径，并export：
+
+```shell
+❯ which arm-none-eabi-gcc
+/nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc
+export RTT_EXEC_PATH=/nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin
+export RTT_CC=gcc
+```
+
+随后使用指令``scons --target=cmake``：
+```shell
+❯ scons --target=cmake
+
+scons: Reading SConscript files ...
+Newlib version:4.5.0
+Update setting files for CMakeLists.txt...
+Done!
+scons: done reading SConscript files.
+scons: Building targets ...
+scons: building associated VariantDir targets: build
+CC build/applications/main.o
+LINK rt-thread.elf
+arm-none-eabi-objcopy -O binary rt-thread.elf rtthread.bin
+arm-none-eabi-size rt-thread.elf
+scons: done building targets.
+```
+可以看到生成CmakeLists.txt成功，随后开始构建：
+
+```shell
+❯ cd ./build       
+❯ cmake ..  
+CMake Warning (dev) at CMakeLists.txt:43:
+  Syntax Warning in cmake code at column 100
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The C compiler identification is GNU 14.3.1
+-- The CXX compiler identification is GNU 14.3.1
+-- The ASM compiler identification is GNU
+-- Found assembler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/dich/Git/sdk-bsp-stm32f407-spark/projects/02_basic_ir/build
+```
+使用``make``命令编译：
+
+```shell
+❯ make   
+[  1%] Building C object CMakeFiles/rtthread.elf.dir/applications/main.c.obj
+[  2%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/rt-thread/components/libc/compilers/common/cctype.c.obj
+[  3%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/rt-thread/components/libc/compilers/common/cstdio.c.obj
+......
+[ 97%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/libraries/STM32F4xx_HAL/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
+[ 98%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/libraries/STM32F4xx_HAL/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c.obj
+[100%] Linking C executable rtthread.elf
+   text    data     bss     dec     hex filename
+  98516    1468    8400  108384   1a760 rtthread.elf
+[100%] Built target rtthread.elf
+```
 
 ---
 **Done.**
