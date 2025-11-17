@@ -46,6 +46,7 @@ sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb
           stlink-tool
           gcc-arm-embedded
           picocom
+          renode-bin
         ];
       };
     });
@@ -55,7 +56,7 @@ sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb
 
 ## 源码
 
-使用Git拉取RT-Thread开源项目：
+使用Git拉取项目源码：
 
 ```shell
 git clone https://github.com/RT-Thread/rt-thread.git
@@ -247,6 +248,94 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
    text    data     bss     dec     hex filename
   98516    1468    8400  108384   1a760 rtthread.elf
 [100%] Built target rtthread.elf
+```
+
+## 使用Renode
+
+如果没有真实的开发版，可以使用Renode来进行仿真模拟：
+
+```shell
+# 启动renode
+renode
+
+# 创建机器
+(monitor) mach create
+
+# 加载STM32F407平台
+(monitor) machine LoadPlatformDescription @platforms/boards/stm32f4_discovery.repl
+
+# 加载你的固件
+(monitor) sysbus LoadELF @/你的路径/rtthread.elf
+
+# 打开串口窗口（finsh会显示在这里）
+(monitor) showAnalyzer sysbus.usart1
+
+# 启动仿真
+(monitor) start
+```
+
+> Renode 常用命令大全
+
+```bash
+# 机器管理
+mach add "名称"                 # 创建新机器（指定名称）
+mach create                     # 创建新机器（自动命名）
+mach set "名称"                 # 切换到指定机器
+mach set 0                      # 切换到编号0的机器
+mach rem "名称"                 # 删除机器
+mach clear                      # 清除当前选择
+mach                            # 显示帮助信息
+emulation                       # 查看仿真信息
+
+# 仿真控制
+start                           # 启动仿真
+pause                           # 暂停仿真
+quit                            # 退出Renode
+
+# 帮助
+help                            # 显示帮助
+help 命令名                     # 查看特定命令帮助
+
+# 加载固件
+sysbus LoadELF @/path/to/firmware.elf          # 加载ELF文件
+sysbus LoadBinary @/path/to/firmware.bin 0x8000000  # 加载BIN到指定地址
+
+# 重置
+sysbus Reset                    # 重置系统总线
+machine Reset                   # 重置整个机器
+
+# 读取内存
+sysbus ReadByte 0x20000000      # 读1字节
+sysbus ReadWord 0x20000000      # 读2字节
+sysbus ReadDoubleWord 0x20000000 # 读4字节
+
+# 写入内存
+sysbus WriteByte 0x20000000 0xFF
+sysbus WriteWord 0x20000000 0x1234
+sysbus WriteDoubleWord 0x20000000 0x12345678
+
+# 查看内存区域
+sysbus FindSymbolAt 0x08000000  # 查找地址对应的符号
+
+# 查看GPIO端口
+sysbus.gpioPortA
+
+# 设置GPIO状态
+sysbus.gpioPortA.0 Set true     # 设置PA0为高
+sysbus.gpioPortA.0 Set false    # 设置PA0为低
+sysbus.gpioPortA.0 Toggle       # 切换PA0状态
+
+# 读取GPIO状态
+sysbus.gpioPortA.0 State
+
+# 使用GDB调试
+(monitor) machine StartGdbServer 3333
+# 另一个终端
+arm-none-eabi-gdb firmware.elf
+(gdb) target remote :3333
+(gdb) load
+(gdb) b main
+(gdb) c
 ```
 
 ---
