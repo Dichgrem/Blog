@@ -6,15 +6,15 @@ date = 2025-07-20
 tags = ["Linux"]
 +++
 
-前言 本文记录STM32命令行开发环境在Ubuntu上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread-studio同样是开源
-软件，但目前似乎没有Nixos上的打包。
+前言 本文记录STM32命令行开发环境在Linux上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread-studio同样是开源
+软件，但目前没有Nixos上的打包。
 <!-- more -->
 
-## 环境
+## 依赖包
 
 - **Ubuntu**
 
-以ubuntu24.04为例，安装这些包，包括连接工具，工具链和调试器等等。
+以ubuntu24.04为例，首先安装这些包，包括连接工具，工具链和调试器等等。
 ```shell
 sudo apt update
 sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb-multiarch
@@ -22,7 +22,7 @@ sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb
 
 - **Nixos**
 
-虽然没有RT-Thread-studio这个包，但是可以用flake.nix很方便的搭建一个开发环境：
+虽然Nixos上没有RT-Thread-studio这个包，但是可以用flake.nix很方便的搭建一个开发环境：
 
 ```nix
 {
@@ -56,24 +56,44 @@ sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb
 
 ## 源码
 
-使用Git拉取项目源码：
+随后使用Git拉取项目源码：
 
 ```shell
-git clone https://github.com/RT-Thread/rt-thread.git
 git clone https://github.com/RT-Thread-Studio/sdk-bsp-stm32f407-spark.git
+```
+
+## ENV工具
+
+使用Git拉取RT-Thread配套的linux开发环境，并添加Shell变量。
+
+```shell
+# 克隆仓库
+git clone https://github.com/RT-Thread/env.git ~/env
+# 将 ~/env 添加到 PATH
+export PATH="$PATH:$HOME/env"
+# 显示 PATH
+echo "$PATH"
+# 查看 pkgs 命令是否存在
+type pkgs
+```
+
+随后可以使用PKG初始化并安装两个必要的包：
+
+```shell
+pkgs --update
+pip install kconfiglib
+pip install scons
 ```
 
 ## 连接
 
-使用USB连接开发板和开发PC，并使用lsusb查看是否连接成功：
+使用USB线连接开发板和开发PC，并使用lsusb命令查看是否出现：
 ```shell
 lsusb
 Bus 001 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 ```
 
-如果你和我一样使用 qemu ，需要在libvirt中使用Add_hardware添加usb设备。
-
-添加成功后可以使用这个命令来检测：
+添加成功后可以使用这个命令来检测是否连接成功：
 
 ```shell
 ❯ st-info --probe
@@ -86,20 +106,11 @@ Found 1 stlink programmers
   dev-type:   STM32F4x5_F4x7
 ```
 
-## ENV工具
+> 如果你和我一样将Ubuntu安装在QEMU虚拟机中 ，需要在libvirt中使用Add_hardware添加usb设备。
 
-使用Git拉取RT-Thread配套的linux开发环境，并添加Shell变量。我使用的是fish，你也可以用其他的Shell，命令有所不同。
-```shell
-git clone https://github.com/RT-Thread/env.git ~/env
-set -x PATH $PATH ~/env
-fish_add_path ~/env
-echo $PATH
-type pkgs
-```
+## 修改交叉工具链
 
-## PKG工具
-
-由于该项目大量使用Python，所以需要PKG包支持。首先我们修改这个文件的交叉工具链部分：
+链接成功后进入项目目录，发现``rtconfig.py``没有Linux路径，需要我们手动修改交叉工具链部分：
 
 ```python
 #修改 rtconfig.py 
@@ -114,6 +125,7 @@ if CROSS_TOOL == 'gcc':
         # Windows 平台
         EXEC_PATH = r'C:\Users\XXYYZZ'
     else:
+        # 修改这里
         # Linux / macOS 平台
         EXEC_PATH = '/usr/bin'
 
@@ -133,13 +145,7 @@ elif CROSS_TOOL == 'llvm-arm':
     else:
         EXEC_PATH = '/usr/bin'
 ```
-随后可以使用PKG初始化并安装两个必要的包：
 
-```shell
-pkgs --update
-pip install kconfiglib
-pip install scons
-```
 ## 编译
 
 在完成以上设置之后我们可以开始编译。STM32使用scons编译系统，同样是menuconfig命令：
@@ -171,7 +177,6 @@ st-flash write rtthread.bin 0x08000000
 ```shell
 sudo apt install picocom
 picocom -b 115200 /dev/ttyACM0
-version
 ```
 可以使用``ctrl + A 然后 ctrl + x``退出。
 
@@ -179,9 +184,9 @@ version
 
 通过官方文档可以得知除了scons外还可以使用Cmake来编译.
 
-首先找到编译器的路径，并export：
+首先找到编译器的路径，并export，我这里是Nixos的路径，如果你使用其他发行版注意修改：
 
-```shell
+```bash
 ❯ which arm-none-eabi-gcc
 /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc
 export RTT_EXEC_PATH=/nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin
@@ -189,7 +194,7 @@ export RTT_CC=gcc
 ```
 
 随后使用指令``scons --target=cmake``：
-```shell
+```bash
 ❯ scons --target=cmake
 
 scons: Reading SConscript files ...
@@ -207,7 +212,7 @@ scons: done building targets.
 ```
 可以看到生成CmakeLists.txt成功，随后开始构建：
 
-```shell
+```bash
 ❯ cd ./build       
 ❯ cmake ..  
 CMake Warning (dev) at CMakeLists.txt:43:
@@ -236,7 +241,7 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 ```
 使用``make``命令编译：
 
-```shell
+```bash
 ❯ make   
 [  1%] Building C object CMakeFiles/rtthread.elf.dir/applications/main.c.obj
 [  2%] Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/rt-thread/components/libc/compilers/common/cctype.c.obj
@@ -254,7 +259,7 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 
 如果没有真实的开发版，可以使用Renode来进行仿真模拟：
 
-```shell
+```bash
 # 启动renode
 renode
 
