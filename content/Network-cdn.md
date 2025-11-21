@@ -182,7 +182,7 @@ Netlify在考虑到CDN成本以及可用性的情况下选择了以下这些地�
 > 需要注意的是有些CDN的回源IP并不用作节点IP，比如Cloudflare的回源IP仅作回源IP使用，如果要获取Cloudflare的节点IP，可前往https://bgp.tools/as/13335#prefixes。而有些CDN的回源IP同时被用作CDN节点，比如BunnyCDN和Gcore CDN。
 
 Cloudflare
-```
+```bash
 # https://www.cloudflare.com/ips-v4
 103.21.244.0/22
 103.22.200.0/22
@@ -210,45 +210,45 @@ Cloudflare
 2c0f:f248::/32
 ```
 Gcore
-```
+```bash
 https://api.gcore.com/cdn/public-ip-list
 ```
 BunnyCDN
-```
+```bash
 https://api.bunny.net/system/edgeserverlist
 https://api.bunny.net/system/edgeserverlist/plain
 ```
 Cloudfront
-```
+```bash
 https://d7uri8nf7uskq.cloudfront.net/tools/list-cloudfront-ips
 https://files.imunify360.com/static/whitelist/v2/cloudfront-cdn.txt
 ```
 CDN77
-```
+```bash
 https://files.imunify360.com/static/whitelist/v2/cdn77.txt
 ```
 Fastly
-```
+```bash
 https://api.fastly.com/public-ip-list
 ```
 Keycdn
-```
+```bash
 https://www.keycdn.com/shield-prefixes.json
 ```
 quic.cloud
-```
+```bash
 https://quic.cloud/ips
 ```
 Google CDN
-```
+```bash
 https://files.imunify360.com/static/whitelist/v2/google-cdn.txt
 ```
 CacheFly
-```
+```bash
 https://cachefly.cachefly.net/ips/cdn.txt
 ```
 Akaima
-```
+```bash
 https://techdocs.akamai.com/origin-ip-acl/docs/update-your-origin-server
 ```
 ---

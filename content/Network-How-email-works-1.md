@@ -120,7 +120,7 @@ DKIM (DomainKeys Identified Mail) 的缩写，允许发送者通过在邮件的 
 
 经过了 SPF 和 DKIM 的保证,是不是就可以完美的发送接收邮件了?其实并不能，我们通过邮件后台来看一下邮件的原始文本。
 
-````
+````bash
 MIME-Version: 1.0
 Return-Path: xxx@fake.com
 DKIM-Signature: d=fake.com,b=adceabkekd12

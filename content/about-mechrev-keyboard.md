@@ -19,7 +19,7 @@ tags = ["乱七八糟"]
 ## 三.解决方法
 
 既然是高低电平表述的错误，那么我们只需建立DSDT 表副本，将其修改，然后让它优先启动，从而让键盘配置正常；另外还存在 BIOS 修复，内核编译的方法，比较复杂，这里不做说明。
-```
+```bash
 首先建立一个DSDT文件夹：
 sudo su
 mkdir -p /home/dsdt
@@ -75,7 +75,7 @@ reboot
 
 ### 修复wifi驱动
 
-```
+```bash
 # 内核小于5.18的
 git clone https://github.com/HRex39/rtl8852be.git
 # 内核大于等于5.18的
@@ -89,7 +89,7 @@ sudo modprobe 8852be
 
 ### 修复蓝牙驱动
 
-```
+```bash
 # 内核=5.15
 git clone https://github.com/HRex39/rtl8852be_bt.git -b 5.15
 # 内核=5.18
@@ -104,13 +104,13 @@ sudo make install
 
 首先去amd官网下载最新的linux-amd驱动：
 
-````
+````bash
 https://www.amd.com/zh-hans/support/linux-drivers // 22.20 for Ubuntu 20.04.5 HWE
 ````
 
 修改Deepin为ubuntu
 
-````
+````bash
 sudo vim /etc/os-release // ID=Deepin => ID=ubuntu
 
 sudo apt install ./amdgpu-install_22.20.50200-1_all.deb
@@ -128,7 +128,7 @@ sudo apt install inxi clinfo
 
 `inxi -G`
 
-````
+````bash
 Graphics:  Device-1: AMD Rembrandt driver: amdgpu v: kernel 
            Display: x11 server: X.Org 1.20.11 driver: amdgpu,ati unloaded: fbdev,modesetting,vesa 
            resolution: 1920x1080~60Hz 
@@ -138,14 +138,14 @@ Graphics:  Device-1: AMD Rembrandt driver: amdgpu v: kernel
 
 最后还原最初的修改：
 
-````
+````bash
 sudo vim /etc/os-release // ID=ubuntu => ID=Deepin
 sudo apt purge amdgpu-install
 ````
 
 看下效果图：
 
-````
+````bash
 ➜  ~ glxinfo -B
 name of display: :0
 display: :0  screen: 0
@@ -193,7 +193,7 @@ OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
 
 安装下面的三方电源管理工具 `Boost Changer`，选择 `Performance`策略即可
 
-````
+````bash
 wget https://github.com/nbebaw/boostchanger/releases/download/v4.4.0/boostchanger_4.4.0_amd64.deb
 ````
 ## 参考

@@ -28,21 +28,21 @@ Waydroid是Anbox配合Halium技术开发的LXC Android容器，可在GNU/Linux�
 目前Waydroid只支持Intel和AMD的显卡，对于 NVIDIA 显卡（除 Tegra 系列外），Waydroid 不支持硬件加速，推荐使用软件渲染或QEMU方案。
 
 - Waydroid必须使用Wayland，用此命令检查当前系统是否为Wayland：
-```
+```bash
 echo $XDG_SESSION_TYPE
 ```
 若显示X11代表不是Wayland。GNOME和KDE可在登入画面切换至Wayland工作阶段。
 
 - Waydroid要求Linux核心支持binder核心模组，但Arch Linux预设的linux核心並无开启此选项，因此需要从AUR安装binder_linux-dkms补齐。
-```
+```bash
 paru -S  binder_linux-dkms
 ```
 - 安装后载入binder核心模组
-```
+```bash
 sudo modprobe binder-linux devices=binder,hwbinder,vndbinder
 ```
 - 设定开机自动载入核心模组
-```
+```bash
 echo "binder_linux" | sudo tee -a /etc/modules-load.d/binder_linux.conf
 
 echo "options binder_linux devices=binder,hwbinder,vndbinder" | sudo tee -a /etc/modprobe.d/binder_linux.conf
@@ -51,36 +51,36 @@ echo "options binder_linux devices=binder,hwbinder,vndbinder" | sudo tee -a /etc
 ## 安装Waydroid
 
 - 安装以下软件包，让Linux与Waydroid共享剪切板
-```
+```bash
 paru -S wl-clipboard xclip
 paru -S python-pyclip
 ```
 
 - 安装Waydroid
-```
+```bash
 paru -S waydroid
 ```
 - 初始化Waydroid，下载含有GAPPS的Android系统映像档
-```
+```bash
 sudo waydroid init -s GAPPS -f
 ```
 - 启动Waydroid容器服务
-```
+```bash
 sudo systemctl start waydroid-container
 ```
 
 ## 常用命令
 
 - 开机自动启动
-```
+```bash
 sudo systemctl enable waydroid-container
 ```
 - 点选应用列表的「Waydroid」图示开启主画面，或者使用命令：
-```
+```bash
 waydroid show-full-ui
 ```
 - 若Waydroid无法连上网路，开放UFW防火墙：
-```
+```bash
 sudo ufw allow 53
 sudo ufw allow 67
 sudo ufw default allow FORWARD
@@ -88,21 +88,21 @@ sudo ufw reload
 sudo systemctl restart waydroid-container
 ```
 - 重启Waydroid
-```
+```bash
 sudo systemctl restart waydroid-container
 ```
 
 - 启动/停止Waydroid容器服务
-```
+```bash
 sudo systemctl start waydroid-container
 sudo systemctl stop waydroid-container
 ```
 - 用命令开启Waydroid主画面
-```
+```bash
 waydroid show-full-ui
 ```
 - 查看系统错误讯息
-```
+```bash
 waydroid log
 sudo waydroid logcat
 ```
@@ -116,35 +116,35 @@ sudo waydroid logcat
 安装Package Manager，用於查看APP的软件包名称。
 
 部份APP会要求开启Wifi才能上网，那么就如它所愿，开启fake wifi：
-```
+```bash
 waydroid prop set persist.waydroid.fake_wifi "软件包名称"
 ```
 例如给Fate/Go游戏开启模拟Wifi：
-```
+```bash
 waydroid prop set persist.waydroid.fake_wifi "com.aniplex.fategrandorder"
 ```
 - 模拟触控功能
 
 安装Package Manager，用於查看APP的软件包名称。有些APP认不到鼠标点击，需要启用模拟触控(fake touch)：
-```
+```bash
 waydroid prop set persist.waydroid.fake_touch "软件包名称"
 ```
 例如给Fate/Go游戏开启模拟触控：
-```
+```bash
 waydroid prop set persist.waydroid.fake_touch "com.aniplex.fategrandorder"
 ```
 - 用命令安装APK
-```
+```bash
 waydroid app install <APK档案路径>.apk
 ```
 - 进入ADB Shell
-```
+```bash
 sudo waydroid shell
 ```
 - 开启多视窗模式
 
 Waydroid的多视窗模式，看起来像Linux的原生应用。启动后按F11改回来。
-```
+```bash
 waydroid prop set persist.waydroid.multi_windows true
 sudo systemctl restart waydroid-container
 ```
@@ -154,13 +154,13 @@ sudo systemctl restart waydroid-container
 Waydroid第一次开机可能会收到``Device is not Play Protect certified``的通知，无法登入Google账号。
 
 用以下命令取得Waydroid的装置ID。该命令会印出一长串数字。
-```
+```bash
 sudo waydroid shell
 
 ANDROID_RUNTIME_ROOT=/apex/com.android.runtime ANDROID_DATA=/data ANDROID_TZDATA_ROOT=/apex/com.android.tzdata ANDROID_I18N_ROOT=/apex/com.android.i18n sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"
 ```
 开启装置注册页面，登入Google账号，输入装置ID注册，等个半小时应该就能登入Google账号了。如果还是不行就重新启动Waydroid容器服务：
-```
+```bash
 sudo systemctl restart waydroid-container
 ```
 现在可以安装APP了，Google Play和F-Droid会自动筛出適合x86架构的APP。
@@ -267,18 +267,18 @@ ReDroid（Remote-Android）是一款开源的容器化 Android 解决方案，�
 ## 日常使用
 
 - **ADB 连接与屏幕镜像**  
-  ```bash
-  adb connect localhost:5555
-  scrcpy -s localhost:5555 --audio-codec=aac
-  ```
+```bash
+adb connect localhost:5555
+scrcpy -s localhost:5555 --audio-codec=aac
+```
 - **安装 APK**：  
   - 使用 `adb install your_app.apk`  
   - 或在 Scrcpy 界面中拖拽 APK 文件进行安装
 - **停止与重启**：  
-  ```bash
-  sudo docker compose down
-  sudo docker compose up -d
-  ```
+```bash
+sudo docker compose down
+sudo docker compose up -d
+```
 - **数据持久化**：所有数据保存在 `~/redroid/redroid-11-data`，可备份或运行多实例。
 
 ## 高级操作与安全建议

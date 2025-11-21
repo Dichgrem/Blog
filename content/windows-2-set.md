@@ -13,11 +13,11 @@ tags = ["Windows"]
 
 
 开机之前，先断网，然后输入Shift+F10，会弹出命令行界面，并输入
-``
+``bash
 oobe\BypassNRO.cmd：
 ``
 回车之后会重启，之后就可以跳过联网了，选择
-``
+``bash
 I don't have internet
 ``
 即可。
@@ -36,7 +36,7 @@ I don't have internet
 ## 激活windows
 
 这里使用MAS的脚本:
-```
+```bash
 irm https://get.activated.win | iex
 ```
 
@@ -48,7 +48,7 @@ irm https://get.activated.win | iex
 
 3.然后就可以使用脚本彻底关闭更新：将以下命令保存为.bat文件，运行即可。
 
-```
+```bat
 ::Windows auomatic updates
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AutoInstallMinorUpdates /t REG_DWORD /d 1 /f
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v NoAutoUpdate /t REG_DWORD /d 1 /f
@@ -71,7 +71,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v Pause
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseQualityUpdatesEndTime /t REG_SZ /d "2100-01-01T00:00:00Z" /f
 ```
 如果要恢复更新，使用以下命令，同样保存为.bat运行：
-```
+```bat
 ::Windows auomatic updates
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AutoInstallMinorUpdates /t REG_DWORD /d 0 /f
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v NoAutoUpdate /t REG_DWORD /d 0 /f
@@ -103,17 +103,17 @@ Win11的`显示更多选项`的二级菜单过于繁琐，怎么设置才能将�
 
 **步骤2.** 输入以下命令并按**Enter**键执行。
 
-```
+```bash
 reg add HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32 /ve /d “” /f
 ```
 或者
-```
+```bash
 reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 taskkill /f /im explorer.exe 
 start explorer.exe
 ```
 如果想要重新打开Win11新样式的右键菜单的话，以同样的方式在命令提示符中执行此命令：
-```
+```bash
 reg delete "HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f
 ```
 ## Win11关闭 Windows Defender
@@ -151,7 +151,7 @@ pool.ntp.org（一个公共的 NTP 时间服务器池）
 应用更改：点击 "更新现在"，然后 "确定" 保存设置。
 
 - 如果有linux/win双系统，可以让 Windows 使用 UTC 作为硬件时钟时间：
-```
+```bash
 # 在 Windows 中以管理员权限运行命令提示符，执行：
 reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /t REG_DWORD /d 1 /f
 ```
@@ -159,11 +159,11 @@ reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation
 ## 调整网络优先级
 
 - 查看当前优先级（PowerShell/管理员）
-```
+```bash
 Get-NetIPInterface
 ```
 你会看到类似：
-```
+```bash
 IfIndex  InterfaceMetric   InterfaceAlias
 -------  --------------   --------------
 15       25              Wi-Fi
@@ -174,15 +174,15 @@ IfIndex  InterfaceMetric   InterfaceAlias
 - 修改网络优先级
 
 将有线网络（以太网） 设为更高优先级（值更小）：
-```
+```bash
 Set-NetIPInterface -InterfaceIndex 3 -InterfaceMetric 10
 ```
 - 将 WiFi 设为更低优先级：
-```
+```bash
 Set-NetIPInterface -InterfaceIndex 15 -InterfaceMetric 25
 ```
 - 重启网络
-```
+```bash
 Restart-NetAdapter -Name "以太网"
 ```
 这样，当网线插入时，Windows 会优先使用有线网络；断开网线后，自动切换到 WiFi。
@@ -191,7 +191,7 @@ Restart-NetAdapter -Name "以太网"
 - 如需永久设置，可修改注册表：
 
 Win + R 输入 regedit 打开注册表编辑器，进入路径：
-```
+```bash
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
 ```
 在 Interfaces 里找到你的有线网卡和无线网卡（可以根据 IP 或 MAC 地址确认）。
@@ -207,7 +207,7 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
 
 > 保存为.bat格式
 
-```
+```bat
 @echo off
 REM 清理代理设置
 REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /f
@@ -219,7 +219,7 @@ echo 代理设置已清除
 > 保存为.reg格式
 
 开启3D加速
-```
+```bat
 Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
 "EmulationOnly"=dword:00000000
@@ -232,7 +232,7 @@ Windows Registry Editor Version 5.00
 ```
 
 关闭3D加速
-```
+```bat
 Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
 "EmulationOnly"=dword:00000001

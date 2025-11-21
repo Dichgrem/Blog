@@ -113,7 +113,7 @@ keytool -genkey -v \
 ```
 
 - 修改app/build.gradle.kts
-```bash
+```java
     signingConfigs {
         create("release") {
             storeFile = System.getenv("KEYSTORE_FILE")?.let { file(it) }

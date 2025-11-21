@@ -28,7 +28,7 @@ Python是一种跨平台的编程语言,社区生态丰富，有许多现成的�
 安装好了Anaconda，就相当于同时有了Python、环境管理器、包管理器以及一大堆开箱即用的科学计算工具包。
 
 > linux中安装Miniconda 
-```
+```bash
 # Miniconda安装脚本
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # 执行以下命令启动安装程序：
@@ -40,39 +40,39 @@ conda --version
 ## 使用
 
 - 创建环境，后面的python=3.6是指定python的版本
-```
+```bash
 conda create --name env_name python=3.6
 ```
 - 创建包含某些包的环境（也可以加上版本信息）
-```
+```bash
 conda create --name env_name python=3.7 numpy scrapy
 ```
 - 激活某个环境
-```
+```bash
 conda activate env_name
 ```
 - 关闭某个环境
-```
+```bash
 conda deactivate env_name
 ```
 - 复制某个环境
-```
+```bash
 conda create --name new_env_name --clone old_env_name
 ```
 - 删除某个环境
-```
+```bash
 conda remove --name env_name --all
 ```
 - 生成需要分享环境的yml文件（需要在虚拟环境中执行）
-```
+```bash
 conda env export > environment.yml
 ```
 - 在本地使用yml文件创建虚拟环境
-```
+```bash
 conda env create -f environment.yml
 ```
 - 列出本机的所有环境，如下，可见当前有2个环境，当前激活的是test环境：
-```
+```bash
 (test) ➜  ~ conda info -e
 - conda environments:
 #
@@ -83,47 +83,47 @@ test                  *  /Volumes/300g/opt/anaconda3/envs/test
 ### 包管理
 
 - 列出当前环境下所有安装的包
-```
+```bash
 conda list
 ```
 - 列举一个指定环境下的所有包
-```
+```bash
 conda list -n env_name
 ```
 - 查询库
-```
+```bash
 conda search scrapys
 ```
 - 安装库安装时可以指定版本例如：（scrapy=1.5.0）
-```
+```bash
 conda install scrapy
 ```
 - 为指定环境安装某个包
-```
+```bash
 conda install --name target_env_name package_name
 ```
 - 更新安装的库
-```
+```bash
 conda update scrapy
 ```
 - 更新指定环境某个包
-```
+```bash
 conda update -n target_env_name package_name
 ```
 - 更新所有包
-```
+```bash
 conda update --all
 ```
 - 删除已经安装的库
-```
+```bash
 conda remove scrapy
 ```
 - 删除指定环境某个包
-```
+```bash
 conda remove -n target_env_name package_name
 ```
 - 更多命令请查看官方文档或者查询帮助命令：
-```
+```bash
 conda --help
 
 conda install --help
@@ -134,11 +134,11 @@ conda install --help
 安装Anaconda并启动一个环境之后，如何让Jupyter Notebook在我们要的环境中启动呢？
 
 - 安装jupyter
-```
+```bash
 conda install jupyter notebook
 ```
 - 配置虚拟机中允许宿主机访问
-```
+```bash
 # 生成配置
 jupyter notebook --generate-config
 # 编辑配置
@@ -155,20 +155,20 @@ jupyter notebook
 
 为了让 Jupyter Notebook 能识别该环境中的 Python 解释器，你需要在该环境中安装 ipykernel：
 
-```
+```bash
 conda install ipykernel
 ```
 - 注册环境内核
 
 将该环境注册为 Jupyter 的一个内核（kernel），这样启动 Jupyter Notebook 后就能选择这个内核：
-```
+```bash
 python -m ipykernel install --user --name myenv --display-name "Python (myenv)"
 ```
 这里 --name 指定内核的名称，--display-name 是在 Jupyter Notebook 界面中显示的名称，你可以根据需要自定义。
 
 - 启动 Jupyter Notebook：依然在激活后的环境中，启动 Jupyter Notebook；启动后，你在新建 notebook 时可以选择刚刚注册的内核 “Python (myenv)” 来确保使用该环境的 Python 解释器。
 
-```
+```bash
 jupyter notebook
 ```
 
@@ -176,7 +176,7 @@ jupyter notebook
 
 Jupyter Notebook 本身没有官方语言包，但可以用第三方扩展 ``jupyter_contrib_nbextensions``和``notebook-translation``来实现部分汉化
 
-```
+```bash
 pip install jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
 pip install jupyter-notebook-translation
@@ -282,12 +282,12 @@ uv pip uninstall numpy
 ## ipynb转markdown
 
 首先安装 nbformat 和 nbconvert包：
-```
+```bash
 conda install nbformat nbconvert -y
 touch ipynb2md.py && nano ipynb2md.py
 ```
 写入以下脚本：
-```
+```python
 import nbformat
 from nbconvert import MarkdownExporter
 from pathlib import Path
@@ -319,7 +319,7 @@ if __name__ == "__main__":
     batch_convert(input_dir=".")
 ```
 运行脚本：
-```
+```bash
 python ipynb2md.py
 ```
 脚本会自动扫描当前目录下的所有 .ipynb 文件，并把 .md 文件输出到 markdown_output/ 文件夹。

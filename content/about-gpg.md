@@ -52,19 +52,19 @@ tags = ["乱七八糟"]
 
 ## 安装 GnuPG
 
-```
+```bash
 paru -S gnupg
 ```
 
 ## 生成公钥与私钥
 
 使用如下命令：
-```
+```bash
 gpg --full-generate-key
 ```
 生成流程：
 
-```
+```bash
 gpg (GnuPG) 2.4.7; Copyright (C) 2024 g10 Code GmbH
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
@@ -116,7 +116,7 @@ generator a better chance to gain enough entropy.
 ```
 
 ## 列出密钥
-```
+```bash
 gpg --list-secret-keys --keyid-format long
 ```
 
@@ -126,18 +126,18 @@ gpg --list-secret-keys --keyid-format long
 
 例如上传你的 key：
 
-```
+```bash
 gpg --send-keys <你的Long‑Key‑ID>
 ```
 
 默认为你的 gpg.conf 中配置的 keyserver，也可以显式指定：
 
-```
+```bash
 gpg --keyserver hkps://keys.openpgp.org --send-keys <Key‑ID>
 ```
 
 也可以使用如下命令导出公钥为可读 ASCII 格式，类似ssh-keys，随后即可发布在个人博客上等等。
-```
+```bash
 gpg --armor --export <Key‑ID>  > mypubkey.asc
 ```
 
@@ -145,7 +145,7 @@ gpg --armor --export <Key‑ID>  > mypubkey.asc
 
 如果怀疑密钥被泄露或被中间人替换，立即发布“撤销证书”（revocation certificate）并上传到 keyserver。
 
-```
+```bash
 gpg --gen-revoke <KeyID> > revoke.asc
 ```
 上传撤销证书后，所有人都能知道该公钥已不再可信。

@@ -28,7 +28,7 @@ SSH 1 协议存在一些安全漏洞，所以``1996年又提出了 SSH 2 协议�
 
 李华是一个大学生，现在他买了一台服务器，公网IPv4为114.514.114.514,李华打算连到上面看看：
 
-```
+```bash
 ssh -p 22 root@114.514.114.514
 ```
 随后命令行弹出了密码输入，李华输入了初始密码114514,成功登录了进去；现在每次登录只要输入一行命令就可以，大功告成！
@@ -39,7 +39,7 @@ ssh -p 22 root@114.514.114.514
 
 于是，李华查阅了资料，发现有一篇博客[乱七八糟:服务器初始化与安全设置](https://blog.dich.bid/about-server-set/)，于是他将openssh-server的端口改成了2333,并开启了fail2ban，这下应该安全了！
 
-```
+```bash
 ### 更换SSH端口
 
 使用root账户或已经有sudo权限的用户登录到系统。
@@ -88,7 +88,7 @@ sudo systemctl status fail2ban
 
 但是服务器依然在被爆破，李华又又研究了以下教程，决定将自己的服务器由密码登录改为密钥登录，这下没有牛马来爆破了！
 
-```
+```bash
 #### 执行以下命令生成.pub后缀的公钥和无后缀的密钥：
 
 ssh-keygen
@@ -140,7 +140,7 @@ sudo cat /etc/ssh/sshd_config | grep -E 'PasswordAuthentication|PubkeyAuthentica
 
 随后，李华在.ssh文件夹下创建了一个文件，名为``config``，并在其中写入以下内容：
 
-```
+```bash
 Host US
     HostName 114.514.114.514
     User root
@@ -167,7 +167,7 @@ Host US
 首先，将.ssh文件夹中的config进行修改,把私钥文件改为公钥文件，同时创建对应的``~/.ssh/US.pub``公钥文件，里面是以ssh-ed25519或者ssh-rsa开头的公钥.
 
 
-```
+```bash
 Host US
     HostName 114.514.114.514
     User root

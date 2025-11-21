@@ -19,27 +19,27 @@ tags = ["乱七八糟"]
 ## 安装
 
 首先安装neovim,在arch linux上是：
-```
+```bash
 paru -S neovim
 ```
 在Ubuntu上是
-```
+```bash
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 sudo apt install -y \ neovim git curl unzip build-essential ripgrep fd-find
 ```
 
 备份现有配置：
-```
+```bash
 mv ~/.config/nvim ~/.config/nvim.bak
 mv ~/.local/share/nvim ~/.local/share/nvim.bak
 ```
 克隆 LazyVim Starter 模板：
-```
+```bash
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 ```
 启动 Neovim：
-```
+```bash
 nvim
 ```
 首次启动时，LazyVim 会自动安装并配置所需的插件。
@@ -47,7 +47,7 @@ nvim
 ## 结构
 
 LazyVim 的配置目录通常位于``~/.config/nvim/``中：
-``` 
+``` bash
 ~/.config/nvim
 ❯ tree
 .
@@ -231,7 +231,7 @@ LazyVim 默认使用``<space> 作为 <leader>``，\ 作为``<localleader>``，�
 
 在``~/config/nvim/lua/plugins/``下新建一个mp.lua，写入如下配置：
 
-```
+```lua
 return {
     {
         "iamcco/markdown-preview.nvim",
@@ -243,7 +243,7 @@ return {
 ```
 
 随后即可在 Neovim 中打开一个 Markdown 文件，执行以下命令启动预览：​
-```
+```bash
 :MarkdownPreview
 ```
 

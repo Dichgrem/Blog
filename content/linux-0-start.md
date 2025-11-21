@@ -211,7 +211,7 @@ Linux 的权限可以简单理解为``UGO+RWX``.
 - Linux命令查询：[linux-command](https://wangchujiang.com/linux-command/hot.html)
 - Linux常用命令表：[Quick Reference](https://wangchujiang.com/reference/docs/linux-command.html)
 
-```
+```bash
 ❯ date
 Sun Nov 16 09:16:15 PM +08 2025
 ❯ uname -a
@@ -243,7 +243,7 @@ which ls
 
 - 在一些精简 Linux（例如 Alpine、OpenWrt中），命令不来自 GNU coreutils，而来自一个叫 **BusyBox** 的单程序。BusyBox 只一个二进制文件，但内部包含了上百个命令，这种方式体积小，适用于嵌入式设备。
 
-```
+```bash
 /bin/busybox ls
 /bin/busybox cp
 /bin/busybox tar

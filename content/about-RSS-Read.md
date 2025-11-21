@@ -141,7 +141,7 @@ RSS客户端非常丰富，包括 Android 端，IOS 端，Windows 端，linux �
 
 （3）在文件中写入以下内容并保存：
 
-```
+```yaml
 version: '3.4'
 
 services:

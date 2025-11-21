@@ -52,14 +52,14 @@ MCSManager 面板（简称：MCSM 面板）是一款全中文，轻量级，开�
 ## 换源
 
 **禁用 Ceph 企业仓库:**
-```
+```bash
 nano /etc/apt/sources.list.d/ceph.list
 ```
 将文件内容注释掉或删除。
 
 **编辑仓库源文件：**
 
-```
+```bash
 nano /etc/apt/sources.list.d/pve-enterprise.list
 ```
 将文件内容注释掉或删除;
@@ -67,11 +67,11 @@ nano /etc/apt/sources.list.d/pve-enterprise.list
 **启用社区仓库:**
 
 确保社区仓库已启用。编辑社区仓库文件：
-```
+```bash
 nano /etc/apt/sources.list.d/pve-no-subscription.list
 ```
 确保文件内容如下：
-```
+```bash
 deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
 ```
 ## 二.新建虚拟机并安装Debian
@@ -95,12 +95,12 @@ deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
 在安装步骤进入到选择安装的桌面环境和软件时, 键入 Ctrl+Alt+F2 可以看到从图形界面转到了tty命令终端, 键入 Enter
 这里修改软件源配置文件
 
-```
+```bash
 nano /target/etc/apt/sources.list
 ```
 修改debian-security源地址  `http://mirrors.ustc.edu.cn ` 目测最快
 
-```
+```bash
 deb http://mirrors.ustc.edu.cn/debian-security bullseye-security main
 ```
 修改后 Ctrl+X 退出保存,然后退出终端重新进入界面继续安装，键入 Ctrl+Alt+F5。
@@ -144,7 +144,7 @@ deb http://mirrors.ustc.edu.cn/debian-security bullseye-security main
 
 在 PVE-防火墙中打开它们。如果还是不行，执行如下命令：
 
-```
+```bash
 systemctl stop firewalld
 
 systemctl disable firewalld

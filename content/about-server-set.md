@@ -22,7 +22,7 @@ tags = ["乱七八糟"]
 - **cn 域名有被停用的风险**。2008 年，有人以跳水奥运冠军吴敏霞拼音注册了 wuminxia.cn，[结果被中国互联网络信息中心（CNNIC）回收了域名](https://www.cnbeta.com/articles/tech/62209.htm)，并转交给国家体育总局。此域名在 2021 年 2 月 28 日被优视科技[注册](https://whois.cnnic.cn/WhoisServlet?queryType=Domain&domain=wuminxia.cn)，呵呵。2009 年，牛博网被域名注册商万网停止解析。
 
 ## VPS
-```
+```bash
 # 更新系统
 apt update && apt upgrade -y
 apt install wget curl vim sudo neofetch
@@ -33,15 +33,15 @@ sudo usermod -aG sudo xxx
 ## BBR
 
 - 查询系统所支持的拥塞控制算法
-````
+````bash
 sysctl net.ipv4.tcp_available_congestion_control
 ````
 - 查询正在使用中的拥塞控制算法（Linux 绝大部分系统默认为 Cubic 算法）
-````
+````bash
 sysctl net.ipv4.tcp_congestion_control
 ````
 - 指定拥塞控制算法为 bbr
-````
+````bash
 echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf && sysctl -p
 ````
 
@@ -56,43 +56,43 @@ echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf && sysctl -p
 
 打开SSH配置文件`sshd_config`，可以使用文本编辑器如nano或vi。以下是使用nano编辑器的示例：
 
-````
+````bash
 sudo vim /etc/ssh/sshd_config
 ````
 
 在配置文件中找到以下行：
 
-````
+````bash
 Port 22
 ````
 
 这是SSH默认的端口号，你可以将其更改为你想要的任何未被占用的端口号。例如，将端口更改为2222：
 
-````
+````bash
 Port 2222
 ````
 
 保存并关闭文本编辑器。重新启动SSH服务，以应用更改：
 
-````
+````bash
 sudo service ssh restart
 ````
 
 或者，如果你的系统使用systemd，可以使用以下命令：
 
-````
+````bash
 sudo systemctl restart ssh
 ````
 
 ### 安装 UFW
 
-````
+````bash
 sudo apt install ufw
 ````
 
 **如果你在远程位置连接你的服务器，在启用 UFW 防火墙之前，你必须显式允许进来的 SSH 连接。否则，你将永远都无法连接到机器上。**
 
-````
+````bash
 sudo ufw allow 22/tcp
 ````
 
@@ -100,37 +100,37 @@ sudo ufw allow 22/tcp
 
 **启动 UFW**
 
-````
+````bash
 sudo ufw enable
 ````
 
 ### 安装 Fail2ban
 
-````
+````bash
 sudo apt-get install fail2ban
 ````
 
 **2、Debian 12 及以上的版本需要手动安装 rsyslog**
 
-````
+````bash
 sudo apt-get install rsyslog
 ````
 
 **3、启动 Fail2ban 服务**
 
-````
+````bash
 sudo systemctl start fail2ban
 ````
 
 **4、开机自启动**
 
-````
+````bash
 sudo systemctl enable fail2ban
 ````
 
 **5、查看 Fail2ban 服务状态。**
 
-````
+````bash
 sudo systemctl status fail2ban
 ````
 
@@ -139,7 +139,7 @@ sudo systemctl status fail2ban
 ### 改为密钥登录
 
 - 执行以下命令生成.pub后缀的公钥和无后缀的密钥：
-```
+```bash
 ssh-keygen
 ```
 注意不同密钥对名称不能相同；同时可以为这两个文件用密码加密；
@@ -147,11 +147,11 @@ ssh-keygen
 - 随后将.pub后缀的公钥中的内容写入服务器的``~/.ssh/authorized_keys``中；
 
 - 使用以下命令编译服务器的SSH配置：
-```
+```bash
 vim /etc/ssh/sshd_config
 ```
 将其中的该行改为``PasswordAuthentication no``，保存退出；随后使用
-```
+```bash
 sudo systemctl restart sshd
 ```
 重启SSH即可禁用密码登录；
@@ -159,7 +159,7 @@ sudo systemctl restart sshd
 - 将**PermitRootLogin**一栏改为**PermitRootLogin prohibit-password**，即可实现仅root用户密钥登录；
 
 - 使用以下命令查看输出，
-```
+```bash
 sudo cat /etc/ssh/sshd_config | grep -E 'PasswordAuthentication|PubkeyAuthentication'
 ```
 如有**PasswordAuthentication no → 禁用密码登录**以及**PubkeyAuthentication yes → 允许密钥登录**则成功。
@@ -170,33 +170,33 @@ sudo cat /etc/ssh/sshd_config | grep -E 'PasswordAuthentication|PubkeyAuthentica
 
 - ALL 
 
-```
+```bash
 apt install curl wget gpg vim nano sudo neofetch openssh-server
 ```
 - C/C++ 
-```
+```bash
 sudo apt install build-essential gdb cmake clangd clang-format libstdc++-dev
 ```
 - Miniconda 
-```
+```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
 - UV
-```
+```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 - Docker
-```
+```bash
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
 - OpenCV
-```
+```bash
 sudo apt install tree libx11-dev libgtk-3-dev freeglut3-dev libopencv-dev libdlib-dev
 ```
 - Vmware
-```
+```bash
 sudo apt install open-vm-tools
 sudo apt install open-vm-tools-desktop
 ```
@@ -211,7 +211,7 @@ Set-Content "$env:USERPROFILE\.ssh\known_hosts"
 
 执行如下命令一键安装 1Panel:
 
-````
+````bash
 curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh && sudo bash quick_start.sh
 ````
 
@@ -220,27 +220,27 @@ curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_
 ### 禁用 IPv6
 
 手动 禁用 VPS 的 IPv6 命令:
-```
+```bash
 sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1
 ```
 如果想重启系统也生效， 执行：
-```
+```bash
 echo 'net.ipv6.conf.all.disable_ipv6=1' >> /etc/sysctl.conf
 echo 'net.ipv6.conf.default.disable_ipv6=1' >> /etc/sysctl.conf
 ```
 手动 启用 VPS 的 IPv6 命令:
-```
+```bash
 sysctl -w net.ipv6.conf.all.disable_ipv6=0
 sysctl -w net.ipv6.conf.default.disable_ipv6=0
 ```
 重新载入 sysctl 配置
-```
+```bash
 sysctl --system # reload sysctl
 ```
 如果重载, 还无效果, 可能要 reboot 重启下.
 查看 VPS 的 IPv6 信息
-```
+```bash
 ip -6 addr show scope global
 
 或者 curl ipv6.ip.sb
@@ -253,13 +253,13 @@ ip -6 addr show scope global
 
 - 然后在VPS上输入以下命令：
 
-```
+```bash
 mkdir -p ./.well-known/pki-validation
 ```
 - 随后在ZeroSSL中将所给出的类似**B992F08CB46748D02E4C553A4038BC.txt**复制；
 
 - 将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:``将pki-validation/之后EOF之前的内容``替换为你自己的。
-```
+```bash
 cat << EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
 254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
 comodoca.com
@@ -268,7 +268,7 @@ EOF
 ```
 随后在VPS上运行该命令。
 - 开启一个临时HTTP服务器：
-```
+```bash
 python3 -m http.server 80
 ```
 - 随后即可在ZeroSSL中验证证书并开启SSL。
@@ -285,15 +285,15 @@ python3 -m http.server 80
 - 进入恢复模式后，选择`root – Drop to root shell prompt`进入 root shell（不需要密码）。
 
 - 挂载文件系统为可写模式：
-```
+```bash
 mount -o remount,rw /
 ```
 - 将用户添加到 sudo 组：
-```
+```bash
 usermod -aG sudo 用户名
 ```
 - 重启计算机：
-```
+```bash
 reboot
 ```
 
@@ -315,7 +315,7 @@ sudo apt update
 ```
 
 3. 搜索可用内核
-```
+```bash
 apt search xanmod
 sudo apt install linux-image-6.8.6-x64v3-xanmod1 linux-headers-6.8.6-x64v3-xanmod1
 ```

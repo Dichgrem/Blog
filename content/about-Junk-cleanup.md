@@ -103,35 +103,35 @@ tags = ["乱七八糟"]
 8. **Docker日志文件**:  
    使用 `docker ps -a` 命令查找你感兴趣的容器的 ID。
 
-   ````
-   docker ps -a
-   ````
+````bash
+docker ps -a
+````
    进入容器的日志目录，路径类似于 `/var/lib/docker/containers/<container-id>/`。
 
-   ````
-   cd /var/lib/docker/containers/<container-id>/
-   ````
+````bash
+cd /var/lib/docker/containers/<container-id>/
+````
    使用命令清理或删除日志文件。你可以删除所有日志文件，或者只删除特定的日志文件。
 
-   ````
-   # 删除所有日志文件
-   rm *.log
-   
-   # 删除特定日志文件（例如 stdout 和 stderr）
-   rm *-json.log
-   ````
+````bash
+# 删除所有日志文件
+rm *.log
+
+# 删除特定日志文件（例如 stdout 和 stderr）
+rm *-json.log
+````
 
 ## **Arch Linux 安装备份**
 
 你可以定期备份 Arch Linux 安装的软件列表，以便在需要时轻松还原。
 
-````
+````bash
 pacman -Qqe > package-list.txt
 ````
 
 这将列出所有已安装的软件包，并将其保存到文件 `package-list.txt` 中。在还原系统时，你可以使用以下命令：
 
-````
+````bash
 sudo pacman -S --needed - < package-list.txt
 ````
 

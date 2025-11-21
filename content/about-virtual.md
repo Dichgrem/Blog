@@ -72,13 +72,13 @@ Hyper-V 是微软内建的虚拟化平台（native hypervisor）。开启后，�
 
 * PowerShell（以管理员权限运行）：
 
-```
+```bash
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 ```
 
 * DISM（部署映像服务和管理工具）：
 
-```
+```bash
 DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
 ```
 
@@ -90,23 +90,23 @@ DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
 ## 关闭 Hyper-V
 
 * PowerShell（管理员权限）：
-```
+```bash
 Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 ```
 * DISM：
 
-```
+```bash
 DISM /Online /Disable-Feature:Microsoft-Hyper-V
 ```
 * 用 bcdedit 修改启动配置，使系统启动时不加载 Hypervisor（Hyper-V 的虚拟化内核）但保留功能安装：
 
-```
+```bash
 bcdedit /set hypervisorlaunchtype off
 ```
 
 若要恢复加载，则：
 
-```
+```bash
 bcdedit /set hypervisorlaunchtype auto
 ```
 * Windows 功能 GUI 中，取消勾选 Hyper-V 相应项。
@@ -118,21 +118,21 @@ bcdedit /set hypervisorlaunchtype auto
 
 1. **给 VMware 或 VirtualBox 使用环境临时关闭 Hyper-V**
 
-```
+```bash
 bcdedit /set hypervisorlaunchtype off
 ```
 然后重启 Windows，就能让这些软件正常启动虚拟机。要还原 Hyper-V，改为 `auto` 或 `on`:
-```
+```bash
 bcdedit /set hypervisorlaunchtype auto
 ```
 
 2. **从命令行完全关闭 Hyper-V 功能**
 
-```powershell
+```bash
 Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 ```
 或者用 DISM：
-```
+```bash
 DISM /Online /Disable-Feature:Microsoft-Hyper-V
 ```
 

@@ -18,7 +18,7 @@ tags = ["乱七八糟"]
 > 作者：Bill Bynum/Tracy Camp 威廉玛丽学院/科罗拉多矿业学院 2002年11月5日
 
 ## 目录
-```
+```bash
 1. 引言
 2. C-- 编译器语法
 3. 并发结构
@@ -238,7 +238,7 @@ v(sem);
 
 为帮助解释信号量的使用，我们提供以下简短示例：
 
-```
+```java
 BACI System: C-- to PCODE Compiler, 09:24 2 May 2002
 Source file: semexample.cm Sun Apr 28 20:40:12 2002
 line pc
@@ -277,7 +277,7 @@ line pc
 
 我们使用以下命令生成上述编译器列表：
 
-```
+```bash
 prompt% bacc semexample
 Pcode and tables are stored in semexample.pco
 Compilation listing is stored in semexample.lst
@@ -285,7 +285,7 @@ Compilation listing is stored in semexample.lst
 
 然后可以使用 BACI PCODE 解释器执行 semexample.pco 文件：
 
-```
+```bash
 prompt% bainterp semexample
 Source file: semexample.cm Sun Apr 28 20:40:12 2002
 Executing PCODE ...
@@ -295,7 +295,7 @@ before p(count) value of count is 1
 
 这是程序可能产生的三种可能输出之一。另外两种可能的程序输出是：
 
-```
+```bash
 prompt% bainterp semexample
 Source file: semexample.cm Sun Apr 28 20:40:12 2002
 Executing PCODE ...
@@ -303,7 +303,7 @@ before p(count) value of count is 0
 before v(count) value of count is 0
 ```
 
-```
+```bash
 prompt% bainterp semexample
 Source file: semexample.cm Sun Apr 28 20:40:12 2002
 Executing PCODE ...
@@ -534,7 +534,7 @@ sprintf(x,".%12d. .%-20s. .%q. .%08X.",202,y,z,0x3c03);
 
 以下列表由 C-- BACI 编译器生成。行号右侧的数字是开始该行的指令的 PCODE 偏移量。BACI 编译器从文件 "incremen.cm" 创建此列表。该列表被放置在文件 "incremen.lst" 中。还创建了一个 "incremen.pco" 文件；此文件由解释器使用。
 
-```
+```java
 BACI System: C-- to PCODE Compiler, 09:24 2 May 2002
 Source file: incremen.cm Wed Oct 22 21:18:02 1997
 line pc
@@ -566,7 +566,7 @@ line pc
 
 以下列表由 BACI 解释器生成。解释器执行编译到文件 "incremen.pco" 中的程序。
 
-```
+```java
 Source file: incremen.cm Wed Oct 22 21:18:02 1997
 Executing PCODE ...
 C n =1 i =A n =1 C2 i =
@@ -600,7 +600,7 @@ dos2unix ~/Git/java/baci/scripts/baci
 ```
 
 - 编写baci脚本
-```
+```bash
 #!/usr/bin/env bash
 # 定位到项目根目录（包含 javabaci 子目录的目录）
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -613,19 +613,19 @@ exec java -cp "$CLASSPATH" "$@"
 ```
 
 - 给baci授予可执行权限
-```
+```bash
 chmod +x ~/Git/java/baci/scripts/baci
 ```
 - 添加系统环境变量
-```
+```bash
 fish_add_path ~/Git/java/baci/scripts
 ```
 - 查看baci是否存在
-```
+```bash
 which baci
 ```
 - 现在即可编译运行
-```
+```bash
 baci bacc ex3_1.cm
 baci bainterp ex3_1
 ```

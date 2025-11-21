@@ -140,12 +140,12 @@ tags = ["综合工程"]
 
 **使用adb备份分区**
 
-```
+```bash
 adb shell ls -l /dev/block/bootdevice/by-name
 ```
 可以看到有很多分区，例如这些
 
-```
+```bash
 ...
 lrwxrwxrwx 1 root root   15 1970-12-24 11:30 frp -> /dev/block/sda5
 lrwxrwxrwx 1 root root   16 1970-12-24 11:30 fsc -> /dev/block/sdf13
@@ -156,14 +156,14 @@ lrwxrwxrwx 1 root root   16 1970-12-24 11:30 hyp_b -> /dev/block/sde40
 ```
 随后使用root备份分区到手机上
 
-```
+```bash
 adb root
 
 adb shell "dd if=/dev/block/sda2 of=/sdcard/partition_backup/persist.img"
 ```
 然后可以上传到PC端
 
-```
+```bash
 adb pull /sdcard/partition_backup/ ./backup/
 ```
 

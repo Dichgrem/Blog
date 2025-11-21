@@ -68,7 +68,7 @@ nexttrace --queries 3 --parallel-requests 4 example.com
 nexttrace --table --no-rdns www.example.org
 ```
 ### 示例
-```
+```bash
 ❯ nexttrace 38.207.170.5x
 NextTrace v1.4.0 2025-04-16T01:10:07Z dccc41b
 [NextTrace API] preferred API IP - 198.18.0.61 - 601.41ms - 🐠 (Relay) → Misaka.HKG

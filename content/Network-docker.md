@@ -13,7 +13,7 @@ tags = ["Network"]
 
 这里以Debian12为例：
 - 官方安装脚本:
-```
+```bash
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
@@ -21,31 +21,31 @@ sudo sh get-docker.sh
 
 使用以下命令安装此方法的先决条件：
 
-````
+````bash
 sudo apt update && sudo apt install ca-certificates curl gnupg
 ````
 
 创建一个目录来存储密钥环：
 
-````
+````bash
 sudo install -m 0755 -d /etc/apt/keyrings
 ````
 
 使用给定的命令下载 GPG 密钥并将其存储在 `/etc/apt/keyrings/etc/apt/keyrings` 目录中：
 
-````
+````bash
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ````
 
 使用 chmod 命令更改 docker.gpg 文件的权限：
 
-````
+````bash
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 ````
 
 使用以下命令为 Docker 设置存储库：
 
-````
+````bash
 echo \
   "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
@@ -53,7 +53,7 @@ echo \
 ````
 现在可以使用以下命令更新存储库索引并安装 Docker：
 
-````
+````bash
 sudo apt update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ````
 
@@ -177,34 +177,34 @@ sudo apt update && sudo apt-get install docker-ce docker-ce-cli containerd.io do
 > 删除所有 Docker 容器和 Docker 本身
 
 1. 首先停止所有正在运行的容器：
-```
+```bash
 docker stop $(docker ps -aq)
 ```
 2. 删除所有容器
 
 删除所有容器（包括停止的容器）：
-```
+```bash
 docker rm $(docker ps -aq)
 ```
 3. 删除所有镜像
 
-```
+```bash
 docker rmi $(docker images -q)
 ```
 4. 删除所有网络
 
-```
+```bash
 docker network prune -f
 ```
 5. 删除所有未使用的卷
 
-```
+```bash
 docker volume prune -f
 ```
 6. 卸载 Docker
 
 如果您希望完全删除 Docker 本身，可以执行以下命令:
-```
+```bash
 sudo apt-get purge docker-ce docker-ce-cli containerd.io
 sudo apt-get autoremove --purge
 sudo rm -rf /var/lib/docker
@@ -221,7 +221,7 @@ sudo rm -rf /etc/docker
 - 方法：创建两个 docker-compose 文件，并``使用同一个外部 Docker 网络``使两个服务互联。
 
 0. 首先``创建好工作目录``,例如：
-```
+```bash
 .
 └── docker
     ├── docker-compose.nginx.yml
@@ -234,13 +234,13 @@ sudo rm -rf /etc/docker
 ```
 
 1. 在启动服务前，首先创建一个 Docker 外部网络（例如命名为 nginx）：
-```
+```bash
 docker network create nginx 
 ```
 这样，无论是哪个 docker-compose 项目中的容器，只要加入此网络，就能直接通信。
 
 2. 编写 searxng 的 docker-compose 文件
-```
+```yaml
 version: '3'
 
 services:
@@ -268,7 +268,7 @@ networks:
 3. 编写 Nginx 的 docker-compose 文件
 
 创建 nginx 的 docker-compose 文件，例如：
-```
+```yaml
 version: '3'
 
 services:
@@ -291,7 +291,7 @@ networks:
     external: true
 ```
 4. 编写 Nginx 配置文件
-```
+```conf
 server {
     listen 80;
     server_name searxng.dich.bid;
@@ -320,11 +320,11 @@ server {
 5. 启动服务
 
 - 启动 searxng 服务：
-```
+```bash
 docker-compose -f docker-compose.searxng.yml up -d
 ```
 - 启动 nginx 服务：
-```
+```bash
 docker-compose -f docker-compose.nginx.yml up -d
 ```
 由于两者都加入了外部网络 nginx，nginx 内的``proxy_pass http://searxng:8080``就能解析到 searxng 容器，实现反向代理效果。现在，访问``http://ip:18080``就可以访问Searxng搜索引擎。
@@ -337,7 +337,7 @@ docker-compose -f docker-compose.nginx.yml up -d
 1. 证书生成
 
 - 如果只是用于测试可以生成自签名证书：
-```
+```bash
 mkdir -p /home/dich/docker/nginx/certs
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout /home/dich/docker/nginx/certs/privkey.pem \
@@ -346,7 +346,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ```
 
 2. 更改searxng.conf:
-```
+```conf
 server {
     listen 443 ssl;
     server_name searxng.dich.bid;
@@ -385,7 +385,7 @@ server {
 ```
 
 3. 更改docker-compose.nginx.yml
-```
+```yaml
 version: '3'
 
 services:
@@ -412,11 +412,11 @@ networks:
 4. 启动新配置
 
 - 重启容器
-```
+```bash
 sudo docker compose -f docker-compose.nginx.yml up -d
 ```
 - 查看日志
-```
+```bash
 sudo docker logs searxng
 ```
 ## Caddy
@@ -424,7 +424,7 @@ sudo docker logs searxng
 > Caddy 自 2015 年起用 Go 语言重写，定位为“开箱即用”的现代 Web 服务器，内置自动 Let’s Encrypt 证书管理和续期，默认支持 HTTP/2 及 HTTP/3（QUIC），并通过简洁明了的 Caddyfile 语法极大降低配置成本.
 
 0. 示例结构：
-```
+```bash
 .
 └── compose
     ├── certs
@@ -437,11 +437,11 @@ sudo docker logs searxng
         └── Caddyfile
 ```
 1. 同样创建名为Caddy的docker网络：
-```
+```bash
 docker network create caddy
 ```
 2. 编写Caddy的compose，可以看到caddy可以自带签发证书：
-```
+```yaml
 version: '3.7'
 
 # 自动签发模式
@@ -498,7 +498,7 @@ networks:
     external: true
 ```
 3. 编写Caddyfile，可以看到自动开启HTTPS模式：
-```
+```conf
 # 自动签发模式
 searxng.dich.bid {
     reverse_proxy searxng:8080 {

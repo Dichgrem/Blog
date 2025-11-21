@@ -15,7 +15,7 @@ tags = ["Linux"]
 - **Ubuntu**
 
 以ubuntu24.04为例，首先安装这些包，包括连接工具，工具链和调试器等等。
-```shell
+```bash
 sudo apt update
 sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb-multiarch
 ```
@@ -58,7 +58,7 @@ sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb
 
 随后使用Git拉取项目源码：
 
-```shell
+```bash
 git clone https://github.com/RT-Thread-Studio/sdk-bsp-stm32f407-spark.git
 ```
 
@@ -66,7 +66,7 @@ git clone https://github.com/RT-Thread-Studio/sdk-bsp-stm32f407-spark.git
 
 使用Git拉取RT-Thread配套的linux开发环境，并添加Shell变量。
 
-```shell
+```bash
 # 克隆仓库
 git clone https://github.com/RT-Thread/env.git ~/env
 # 将 ~/env 添加到 PATH
@@ -79,7 +79,7 @@ type pkgs
 
 随后可以使用PKG初始化并安装两个必要的包：
 
-```shell
+```bash
 pkgs --update
 pip install kconfiglib
 pip install scons
@@ -88,14 +88,14 @@ pip install scons
 ## 连接
 
 使用USB线连接开发板和开发PC，并使用lsusb命令查看是否出现：
-```shell
+```bash
 lsusb
 Bus 001 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 ```
 
 添加成功后可以使用这个命令来检测是否连接成功：
 
-```shell
+```bash
 ❯ st-info --probe
 Found 1 stlink programmers
   version:    V2J35S26
@@ -149,11 +149,11 @@ elif CROSS_TOOL == 'llvm-arm':
 ## 编译
 
 在完成以上设置之后我们可以开始编译。STM32使用scons编译系统，同样是menuconfig命令：
-```shell
+```bash
 scons --menuconfig
 ```
 修改配置并保存退出后即可开始编译，$(nproc)代表使用全部CPU线程来编译：
-```shell
+```bash
 scons -j$(nproc)
 ```
 
@@ -163,18 +163,18 @@ scons -j$(nproc)
 
 在烧入之前，我们可以备份一下原来的系统：
 
-```shell
+```bash
 st-flash read firmware_backup.bin 0x08000000 0x100001
 ```
 随后使用如下命令烧入系统：
-```shell
+```bash
 st-flash write rtthread.bin 0x08000000
 ```
 
 ## 串口
 
 除了USB之外我们还可以使用串口连接：
-```shell
+```bash
 sudo apt install picocom
 picocom -b 115200 /dev/ttyACM0
 ```

@@ -129,7 +129,7 @@ uci commit luci
 
 - **编译依赖**
 
-```
+```bash
 sudo apt update
 sudo apt install -y \
   ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
@@ -147,32 +147,32 @@ sudo apt install -y \
 ```
 
 - **清理**
-```
+```bash
 sudo apt autoremove --purge
 sudo apt clean
 ```
 
 
 - **新建一个用户，用于编译固件(可选)**
-```
+```bash
 useradd -m openwrt  # 新建一个名为 openwrt 的用户
 ```
 > 不可以使用Root用户进行编译!!!
 
 - **修改用户默认的 Shell**
-```
+```bash
 apt install -y sudo
 usermod -s /bin/bash openwrt
 ```
  
 - **切换用户**
-```
+```bash
 su openwrt
 cd ~
 ```
 
 - **拉取源码，这里用的是 ImmortalWrt 24.10 分支源码：**
-```
+```bash
 git clone https://github.com/immortalwrt/immortalwrt.git
 cd immortalwrt
 ```
@@ -180,11 +180,11 @@ cd immortalwrt
 - **选择分支**
 
 如果你想要编译稳定版(stable),使用
-```
+```bash
 git checkout xxx #例如git checkout v24.10.2
 ```
 如果你想要编译最新版(snapshot),使用
-```
+```bash
 git switch xxx #例如git switch openwrt-24.10
 ```
 
@@ -211,19 +211,19 @@ git switch xxx #例如git switch openwrt-24.10
 
 
 - **添加软件源,可自行添加软件源至 feeds.conf.default 文件**
-```
+```bash
 vim feeds.conf.default
 ```
 
 **常用源**
-```
+```bash
 src-git kenzo https://github.com/kenzok8/openwrt-packages
 src-git small https://github.com/kenzok8/small
 src-git haibo https://github.com/haiibo/openwrt-packages
 src-git liuran001 https://github.com/liuran001/openwrt-packages
 ```
 **常用仓库**
-```
+```bash
 src/gz kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
 src/gz kwrt_base https://dl.openwrt.ai/releases/24.10/packages/x86_64/base
 src/gz kwrt_packages https://dl.openwrt.ai/releases/24.10/packages/x86_64/packages
@@ -234,12 +234,12 @@ src/gz kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
 
 - **单独添加**（在更新并安装插件之前执行）例如：
 
-```
+```bash
 git clone https://github.com/chenmozhijin/turboacc.git
 ```
 
 - **更新并安装插件**
-```
+```bash
 ./scripts/feeds clean
 ./scripts/feeds update -a
 ./scripts/feeds install -a
@@ -251,7 +251,7 @@ git clone https://github.com/chenmozhijin/turboacc.git
 
 - **自定义配置**
 
-```
+```bash
 #!/usr/bin/env bash
 # diy-part2.sh — 在镜像生成时注入默认设置和定制 SSH 横幅及模型修复
 
@@ -319,7 +319,7 @@ chmod +x package/base-files/files/etc/uci-defaults/99-model-fix
 
 ### **编译配置菜单说明（部分）**
 
-```
+```bash
 Target System (x86)                                # 选择目标平台
 └── Subtarget (x86_64)                             # 选择 64-bit 子架构
     └── Target Profile (Generic)                   # “Generic” 表示通用 x86_64 设备
@@ -369,21 +369,21 @@ Xorg                # 桌面环境支持（X11 图形系统）
 ```
 
 - **预下载编译所需的软件包**
-```
+```bash
 make download -j8
 ```
 
 - **检查文件完整性**
-```
+```bash
 find dl -size -1024c -exec ls -l {} \;
 ```
 检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查.确认所有文件完整可大大提高编译成功率，避免浪费时间
-```
+```bash
 find dl -size -1024c -exec rm -f {} \;
 ```
 
 - **最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.**
-```
+```bash
 make V=s -j1
 
 或者使用 make world -j1 V=s 2>&1 | tee world_debug.log
@@ -411,7 +411,7 @@ make V=s -j1
 | `make distclean` | 删除 `make dirclean` 的所有内容 + feeds 下载文件 + `.config`、patch 等所有状态 | 只有源码目录保持不变                              | 专用于回到一个“零配置、重做一切”的状态，完全从头开始构建。                 |
 
 恢复所有修改（包括未跟踪文件）:
-```
+```bash
 git clean -fd
 git restore --source=v24.10.2 --staged --worktree .
 ```
@@ -437,26 +437,26 @@ git restore --source=v24.10.2 --staged --worktree .
 要启用的软件包：
 
 **base**
-```
+```bash
 autocore base-files bash block-mount ca-bundle coremark curl dnsmasq-full dropbear ds-lite e2fsprogs fdisk firewall4 fstools grub2-bios-setup htop kmod-8139cp kmod-8139too kmod-amazon-ena kmod-amd-xgbe kmod-atlantic kmod-bnx2 kmod-bnx2x kmod-button-hotplug kmod-drm-amdgpu kmod-drm-i915 kmod-dwmac-intel kmod-e1000 kmod-e1000e kmod-forcedeth kmod-fs-f2fs kmod-fs-vfat kmod-i40e kmod-iavf kmod-igb kmod-igbvf kmod-igc kmod-ixgbe kmod-ixgbevf kmod-lib-zstd kmod-mlx4-core kmod-mlx5-core kmod-mmc kmod-pcnet32 kmod-phy-broadcom kmod-r8101 kmod-r8125 kmod-r8126 kmod-r8168 kmod-sdhci kmod-tcp-bbr kmod-tg3 kmod-tulip kmod-usb-hid kmod-vmxnet3 libc libgcc libustream-mbedtls lm-sensors-detect logd lsblk luci-app-fan luci-app-filemanager luci-app-firewall luci-app-log-viewer luci-app-package-manager luci-app-syscontrol luci-app-upnp  luci-base luci-compat luci-lib-fs luci-lib-ipkg  mkf2fs mtd nano netifd odhcp6c odhcpd-ipv6only openssh-sftp-server opkg partx-utils pciutils ppp ppp-mod-pppoe resolveip swconfig uci uclient-fetch urandom-seed urngd usbutils wget-ssl zram-swap
 ```
 **cli**
-```
+```bash
 btop iperf3 tcpdump
 ```
 **luci**
-```
+```bash
 luci-app-argon luci-app-upnp luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol luci-app-homeproxy luci-app-daed
 ```
 **lib**
-```
+```bash
 kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
 ```
 ## 使用SDK快速编译包
 
 首先新建一个文件夹并将SDK克隆下来：
 
-```
+```bash
 mkdir imwrt-sdk
 cd ./imwrt-sdk
 wget https://downloads.immortalwrt.org/snapshots/targets/mediatek/filogic/immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
@@ -464,13 +464,13 @@ wget https://downloads.immortalwrt.org/snapshots/targets/mediatek/filogic/immort
 
 新版本的SDK使用ZSTD压缩，因此解压的命令为
 
-```
+```bash
 tar -I zstd -xvf ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
 ```
 
 随后进入该目录并和一般流程一样更新Feeds：
 
-```
+```bash
 cd ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64/
 ./scripts/feeds update -a
 ./scripts/feeds install -a
@@ -478,7 +478,7 @@ cd ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64/
 
 更新完成后克隆你要编译的包的源码到package下：
 
-```
+```bash
 cd ./package/
 git clone https://github.com/Dichgrem/luci-app-nyn.git
 cp ./luci-app-nyn/luci-app-zzz ./
@@ -489,7 +489,7 @@ cd ../
 
 随后开始编译，编译结果在对应架构的base目录下：
 
-```
+```bash
 make package/luci-app-zzz/compile V=s
 
 ~/imwrt-sdk/immortalwrt-sdk-24.10.3-x86-64_gcc-13.3.0_musl.Linux-x86_64 dich@uos
@@ -498,7 +498,7 @@ make package/luci-app-zzz/compile V=s
 ```
 
 ## 常用命令:
-```
+```bash
 # 更新软件列表
 opkg update
 

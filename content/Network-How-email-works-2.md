@@ -13,15 +13,15 @@ tags = ["Network"]
 ## VPS上的配置
 
 ### 修改VPS hostname
-```
+```bash
 hostnamectl set-hostname mail.your-domain.com
 ```
 ### 修改hosts文件
-```
+```bash
 vim /etc/hosts
 ```
 添加一行
-```
+```bash
 127.0.1.1 localhost.localdomain mail.your-domain.com
 ```
 
@@ -30,7 +30,7 @@ vim /etc/hosts
 
 docker compose文件示例：
 
-```
+```yaml
 version: '3.7'
 
 services:

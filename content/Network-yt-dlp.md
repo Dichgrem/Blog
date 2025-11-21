@@ -54,7 +54,7 @@ python3 -m pip install -U yt-dlp
 - Arch / Manjaro：`sudo pacman -S yt-dlp`
 - Fedora：`sudo dnf install yt-dlp`
 - Nixos: 
-```
+```nix
 {pkgs, ...}: {
   home.packages = with pkgs; [
     peazip
@@ -74,7 +74,7 @@ python3 -m pip install -U yt-dlp
 
 - **下载B站带字幕视频**:
 
-```
+```bash
 yt-dlp "https://www.bilibili.com/video/BVxxxxx" --write-subs --embed-subs --sub-langs all,-live_chat
 
 --write-subs: 将字幕文件下载为单独文件 (如 .vtt 或 .ass)
@@ -87,11 +87,11 @@ yt-dlp "https://www.bilibili.com/video/BVxxxxx" --write-subs --embed-subs --sub-
 - **下载YouTube视频**
 
 先使用这个命令查看可用格式：
-```
+```bash
 yt-dlp -F https://www.youtube.com/watch?v=xxxxxxxxxxxx
 ```
 然后它会列举出所有可用的格式，如下：
-```
+```bash
 [youtube] MgtOAVOXBWo: Downloading webpage
 [youtube] MgtOAVOXBWo: Downloading tv client config
 [youtube] MgtOAVOXBWo: Downloading tv player API JSON
@@ -121,13 +121,13 @@ sb0 mhtml 160x90       0 │                  mhtml │ images                  
 623 mp4   2560x1440   60 │ ~  1.00GiB 8945k m3u8  │ vp09.00.50.08 8945k video only Untested
 ```
 我们下载312和233,即视频和音频，使用以下命令：
-```
+```bash
 yt-dlp -f "312+233" -o "<新视频的名字，要短一点>.%(ext)s" https://www.youtube.com/watch?v=xxxxxxxxxxxx
 ```
 这行命令会自动将下载的312的1080p/H.264的视频和233的音频合并为一个mp4视频，注意新的名称不能太长，否则会下载失败。
 
 如果要下载带字幕的视频，则使用
-```
+```bash
 yt-dlp -f "312+233" --write-subs --write-auto-subs --embed-subs --sub-langs "zh.*,en.*" -o "<新视频的名字，要短一点>.%(ext)s" https://www.youtube.com/watch?v=xxxxxxxxxxx
 ```
 这个命令会：
@@ -139,7 +139,7 @@ yt-dlp -f "312+233" --write-subs --write-auto-subs --embed-subs --sub-langs "zh.
 
 - 参数说明
 
-```
+```bash
 --write-subs: 下载手动字幕
 --write-auto-subs: 下载自动生成的字幕
 --embed-subs: 将字幕嵌入到视频中

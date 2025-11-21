@@ -31,7 +31,7 @@ tags = ["综合工程"]
 
 随后安装常用开源软件(KDE环境省略file和wayland)
 
-```
+```bash
 # gui
 
 paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio
@@ -90,7 +90,7 @@ paru -S hyprland waybar wofi network-manager-applet swww wl-gammarelay-rs bright
 
 输入法我们采用雾凇拼音，即前面我们安装的fcitx5系列软件包的一个输入方案，这里我们使用[自动部署脚本](https://github.com/Mark24Code/rime-auto-deploy)：
 
-```
+```bash
 # step1: 克隆/下载 latest 最新的稳定版到本地
 git clone --depth=1 https://github.com/Mark24Code/rime-auto-deploy.git --branch latest
 # step2: 进入项目目录
@@ -109,7 +109,7 @@ cd rime-auto-deploy
 安装完毕后可以看到KDE的界面较为简陋，这里给出笔者的美化配置：
 
 - 在设置中找到Colors&Themes，分别设置为：
-```
+```bash
 - Color：Breeze Dark
 - Application Style：Breeze
 - Plasma Style：Sweet
@@ -164,27 +164,27 @@ V2EX Polish（V站美化）
 如果Grub引导菜单中没有windows选项，可以通过以下方法添加：
 
 - 安装 os-prober：首先确保系统中安装了 os-prober，这是一个用于检测其他操作系统的工具。
-```
+```bash
 sudo pacman -S os-prober
 sudo os-prober
 ```
 
 - 打开 /etc/default/grub 文件进行编辑：
-```
+```bash
 sudo nano /etc/default/grub
 # 确保 GRUB_DISABLE_OS_PROBER 设置为 false
 ```
 
 - 保存文件并退出编辑器后，运行以下命令更新 GRUB 配置：
-```
+```bash
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 或者``手动添加``：
-```
+```bash
 nano /etc/grub.d/40_custom
 ```
-```
+```bash
 #!/bin/sh
 exec tail -n +3 $0
 # This file provides an easy way to add custom menu entries.  Simply type the
@@ -204,26 +204,26 @@ menuentry "Windows 11 (Manual)" {
 
 如果virt-manager报错无法找到Qemu，则：
 - ​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​
-```
+```bash
 sudo systemctl start libvirtd
 sudo systemctl enable libvirtd
 ```
 - 用户权限问题：​​将当前用户添加到 libvirt 组，以获得必要的权限。​
-```
+```bash
 sudo usermod -aG libvirt $(whoami)
 ```
 
 - 虚拟网络未激活：​virt-manager 可能无法连接到默认的虚拟网络。​
-```
+```bash
 sudo virsh net-start default
 ```
 默认网络在系统启动时自动启动，可以执行：
-```
+```bash
 sudo virsh net-autostart default
 ```
 - 配置文件权限问题：​配置文件的权限设置可能导致访问问题。
 
-```
+```bash
 sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
 ```
 随后安装虚拟机，流程大概为``选择镜像和系统类型--设置CPU/内存--设置空间大小--编辑配置项--开启UEFI引导和3D加速``.
@@ -231,7 +231,7 @@ sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
 **开启3D加速：**
 
 - NIC：
-```
+```xml
 <graphics type="spice">
   <listen type="none"/>
   <image compression="off"/>
@@ -240,7 +240,7 @@ sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
 
 ```
 - video virtio：
-```
+```xml
 <video>
   <model type="virtio" heads="1" primary="yes">
     <acceleration accel3d="yes"/>
@@ -255,17 +255,17 @@ sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
 如果安装了多个linux内核，可以使用以下方法调整启动顺序：
 
 - 使用以下命令查看内核名称：
-```
+```bash
 ls /boot/vmlinuz*
 ```
 - 在 /etc/default/grub 中添加或修改如下行：
-```
+```bash
 GRUB_TOP_LEVEL="/boot/vmlinuz-linux-cachyos"
 ```
 需要注意，这种方法会关闭 GRUB 的“记住上次启动项”的功能。
 
 - 修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：
-```
+```bash
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 **图形界面更改方法：**
@@ -273,12 +273,12 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 可以使用grub-customizer来修改Grub，这里以ubuntu为例子：
 
 - 添加PPA源并更新软件列表：
-```
+```bash
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer
 sudo apt update
 ```
 - 安装GRUB Customizer：
-```
+```bash
 sudo apt install grub-customizer
 ```
 随后在grub-customizer中将要默认启动的选项放在首位即可。
@@ -286,13 +286,13 @@ sudo apt install grub-customizer
 ## 开机自启动
 
 **设置Syncthing开机自启动**
-```
+```bash
 sudo systemctl enable --now syncthing@<username>.service
 ```
 
 **设置Aria2开机自启动**
 
-```
+```conf
 [Unit]
 Description=Aria2c - lightweight multi-protocol & multi-source command-line download utility
 After=network.target
@@ -315,41 +315,41 @@ WantedBy=multi-user.target
 ## 开启BBR
 
 - 确保你的内核版本 >= 4.9：
-```
+```bash
 uname -r
 ```
 - 启用 BBR
 
 你只需要设置两个 sysctl 参数即可：
-```
+```bash
 sudo sysctl -w net.core.default_qdisc=fq
 sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
 ```
 要让它们永久生效，把它们写入配置文件：
-```
+```bash
 sudo nano /etc/sysctl.d/99-bbr.conf
 ```
 加入以下内容：
-```
+```bash
 net.core.default_qdisc = fq
 net.ipv4.tcp_congestion_control = bbr
 ```
 然后重新加载配置：
-```
+```bash
 sudo sysctl --system
 ```
 - 验证 BBR 是否启用
-```
+```bash
 sysctl net.ipv4.tcp_congestion_control
 ```
 应该输出：
-```
+```bash
 net.ipv4.tcp_congestion_control = bbr
 ```
 
 ## 性能模式切换
 需要安装``power-profiles-daemon``
-```
+```bash
 # 查看可用的电源配置文件（profiles）
 powerprofilesctl list
 
@@ -367,7 +367,7 @@ sudo powerprofilesctl set power-saver
 ```
 ## 其他性能优化
 
-```
+```bash
 Profile‑sync‑daemon
 将浏览器配置文件和缓存挂载到内存，退出时再写回磁盘：
 
@@ -395,7 +395,7 @@ sudo systemctl enable --now ananicy-cpp
 
 ## 常用命令
 
-```
+```bash
 更新系统：sudo pacman -Syu
 
 重新安装所有软件包：sudo pacman -Qq | sudo pacman -S -
@@ -426,28 +426,28 @@ sudo reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 ## 在Arch Linux上安装Docker
 
 一般推荐在qemu虚拟机中安装，这里仅做示例：
-```
+```bash
 sudo pacman -S docker
 ```
 
 安装完成后，需要启动Docker服务，并设置为开机自启：
-```
+```bash
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
 运行以下命令来验证Docker是否正常工作：
-```
+```bash
 sudo docker run hello-world
 ```
 默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：
-```
+```bash
 sudo usermod -aG docker $USER
 ```
 之后，需要注销并重新登录，或者重启系统以使更改生效。
 
 安装Docker Compose：
-```
+```bash
 sudo pacman -S docker-compose
 ```
 ---

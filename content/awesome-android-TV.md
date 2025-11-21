@@ -79,7 +79,7 @@ X86还是Arm？两者之间各有优点，截止到今天各种Arm电视盒子�
 
 - 随后在设置 > 设备首选项 > 关于 > 状态中找到并记下IP 地址，然后用ADB连接上去，这里使用命令``adb connect <IP 地址>:<端口> ``，随后在ATV端授权连接，例如：
 
-```
+```bash
 ❯ adb connect 192.168.1.666:9527
 
 connected to 192.168.1.666:9527
@@ -93,7 +93,7 @@ xxxxxxxxx sideload
 
 **一些 ADB 常用命令**：
 
-```
+```bash
 adb reboot #将重启 Android 设备。
 
 adb reboot recovery #将设备重新启动到恢复模式。
@@ -136,13 +136,13 @@ adb kill server #切断 PC 和 Android TV 之间的连接。
 
 1. ADB连接：连接到ADB成功后我们使用``adb shell``进入shell，随后使用命令``pm list packages``列出所有软件包；
 
-```
+```bash
 pm list packages -s 列出系统软件包
 pm list packages -3 列出第三方软件包
 ```
 2. 获取包名：对于暂时无法确定包名的软件，可以先打开，再使用
 
-```
+```bash
 adb shell dumpsys activity activities | grep mResumedActivity
 ```
 
@@ -150,13 +150,13 @@ adb shell dumpsys activity activities | grep mResumedActivity
 
 3. 删除软件：可以先使用
 
-```
+```bash
 pm disable-user --user 0 com.dangbei1.tvlauncher
 ```
 
 禁用软件，确认没有问题之后再用
 
-```
+```bash
 pm uninstall -k --user 0 com.dangbei1.tvlauncher
 ```
 
@@ -164,20 +164,20 @@ pm uninstall -k --user 0 com.dangbei1.tvlauncher
 
 4. 备份软件：对于想要备份的软件，可以使用1和2中的方法获取软件包名，然后使用例如以下命令：
 
-```
+```bash
 adb shell pm path org.videolan.vlc
 
 package:/data/app/~~hY2Y0_PdaDlasfVwkUNcoQ==/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk
 ```
 获取到安装路径，随后将apk包拿走就可以：
 
-```
+```bash
 adb pull /data/app/~~hY2Y0_PdaDlasfVwkUNcoQ==/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk ./Downloads/
 ```
 
 5. 备份分区：如果你想要修改当前系统的img，可以用adb提取并导出 
 
-```
+```bash
 # 确定分区对应关系
 ls -l /dev/block
 ls -l /dev/block/platform
@@ -202,7 +202,7 @@ adb pull /sdcard/odm.img
 ```
 5. 修改桌面：可以进入安卓原生设置里面将默认主屏幕应用改为ATV，代替掉自带的桌面,并使用
 
-```
+```bash
 adb shell pm disable-user --user 0 com.google.android.tvlauncher
 adb shell pm disable-user --user 0 com.google.android.tungsten.setupwraith
 ```

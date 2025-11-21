@@ -36,7 +36,7 @@ Aria2 有以下几个特点：
 首先下载[aria2-1.37.0-win-64bit-build1.zip](https://github.com/aria2/aria2/releases/tag/release-1.37.0)，将下载好的文件解压并放到你喜欢的目录下，设置系统环境变量，类似``D:\DATA\Data\AriaNg-1.3.10-AllInOne``,随后即可在 CMD 中使用``aria2c -v``查看Aria2 。
 
 然后创建一个配置文件``C:\Users\<你>\.aria2\aria2.conf``，内容如下：
-```
+```conf
 # 下载目录
 dir=C:/Users/<你>/Downloads
 
@@ -53,7 +53,7 @@ rpc-secret=<你的密码>
 ```
 随后在这个项目中[winsw](https://github.com/winsw/winsw)下载 WinSW-x64.exe到一个目录，并重命名为 aria2-service.exe，并在同目录下创建``aria2-service.xml``，内容如下：
 
-```
+```xml
 <service>
   <id>aria2</id>
   <name>Aria2 Service</name>
@@ -71,16 +71,16 @@ rpc-secret=<你的密码>
 Arch linux 和大部分常规发行版可以适用此方法。
 
 首先安装aria2本体:
-```
+```bash
 paru -S aria2
 ```
 随后创建配置文件
-```
+```bash
 nano /home/<you-username>/.config/aria2/aria2.conf
 ```
 
 内容为
-```
+```conf
 enable-rpc=true
 rpc-listen-all=true
 rpc-allow-origin-all=true
@@ -92,11 +92,11 @@ save-session=/home/<you-username>/.config/aria2/aria2.session
 save-session-interval=60
 ```
 保存退出；随后创建守护进程以便开机自启动：
-```
+```bash
 nano ~/.config/systemd/user/aria2.service
 ```
 写入：
-```
+```conf
 [Unit]
 Description=Aria2 Daemon
 After=network.target
@@ -110,18 +110,18 @@ WantedBy=default.target
 ```
 
 在更新配置文件和服务文件后，执行以下命令以重启服务：
-```
+```bash
 systemctl --user daemon-reload
 systemctl --user enable aria2.service
 systemctl --user start aria2.service
 ```
 使用以下命令检查服务状态:
-```
+```bash
 systemctl --user status aria2.service
 ```
 ### Nixos
 
-```
+```nix
 { lib, pkgs, username, ... }:
 {
   services.aria2.enable = false;
@@ -151,6 +151,7 @@ systemctl --user status aria2.service
   };
 }
 ```
+
 ## 命令行用法
 
 如果你不想用浏览器插件或者面板，也可以直接使用命令行操作：

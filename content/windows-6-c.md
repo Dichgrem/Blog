@@ -44,7 +44,7 @@ tags = ["Windows"]
 ## 配置JSON
 
 - 回到 Visual Studio Code 继续配置。点击左侧的资源管理器，点击打开文件夹，创建一个``.cpp``文件，里面代码可以是
-```
+```bash
 #include <iostream>
 
 int main() {

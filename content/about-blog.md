@@ -24,7 +24,7 @@ tags = ["乱七八糟"]
 
 - 首先你需要有一台自己的云服务器，建议在1核1G以上配置，并安装Debian系统；
 - 随后我们安装1panel，执行以下命令一键安装：
-```
+```bash
 curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh && sudo bash quick_start.sh
 ```
 > 1panel依赖于docker，如果实现没有安装docker，脚本会帮你安装。
@@ -54,33 +54,33 @@ curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_
 1. **安装Hugo**:选择好你的框架与主题后（这里以hugo为例子），随后安装hugo以及对应的依赖：
 
 - **Windows**
-```
+```bash
 # 打开以管理员模式运行的PowerShell,输入命令安装 Hugo Extended：
 winget install Hugo.Hugo.Extended
 ```
 - **Arch linux**
-```
+```bash
 paru -S hugo
 ```
 - **检查版本**
-```
+```bash
 hugo version
 ```
 
 2. **创建新的 Hugo 站点**：选择一个文件夹打开命令行，执行：
-```
+```bash
 hugo new site myblog
 ```
 该命令会在``myblog``文件夹下生成hugo的基础目录。
 
 3. **安装主题**，这里以[hugo-blog-awesome](https://jamstackthemes.dev/theme/hugo-blog-awesome/)主题为例：
 
-```
+```bash
 cd myblog
 git clone https://github.com/hugo-sid/hugo-blog-awesome.git themes/hugo-blog-awesome
 ```
 并在``hugo.toml``顶层添加：
-```
+```bash
 theme = "hugo-blog-awesome"
 ```
 这样 Hugo 在构建时会从 themes/ 目录加载主题文件。后续可使用``git pull``获取主题更新。
@@ -88,7 +88,7 @@ theme = "hugo-blog-awesome"
 > 你也可以直接用theme中的文件夹替换掉项目根目录下的同名文件夹，并再次修改。
 
 4. **写入文章**：使用 Hugo 提供的命令创建新文章：
-```
+```bash
 hugo new posts/hello-world.md
 ```
 该命令会在``content/posts/``下生成 Markdown 文件，打开后修改``title、date、tags``等前缀然后撰写 Markdown 正文, Markdown 编辑器参考[前文](https://blog.dich.bid/about-markdown/)。
@@ -96,7 +96,7 @@ hugo new posts/hello-world.md
 > 注意md文章头部和正文之间得使用``<!-- more -->``隔断
 
 5. **本地测试**：在项目根目录运行：
-```
+```bash
 hugo server -D
 ```
 然后在浏览器访问``http://localhost:1313``即可实时预览并查看更新效果。
@@ -136,7 +136,7 @@ hugo server -D
 
 由于我所使用的平台不支持zola，因此我直接在本地编译public并推送，这样时间久了.git文件夹大小会非常大（记录public的变化），我又不想将zola的二进制包放入目录下，因此有了这个办法：
 
-```
+```bash
 # 安装git-filter-repo工具
 paru git-filter-repo
 # 清理public相关的历史

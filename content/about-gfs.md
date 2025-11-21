@@ -26,19 +26,19 @@ tags = ["乱七八糟"]
 ## 免密码运行TUN模式:
 
 - 检查 polkit 服务是否正在运行
-```
+```bash
 systemctl status polkit
 ```
 - 若返回状态为除 active (running) 之外的结果,运行
-```
+```bash
 sudo systemctl enable --now polkit
 ```
 - 创建 polkit 策略
-```
+```bash
 sudo vi /etc/polkit-1/rules.d/99-nopassword.rules
 ```
 - 添加以下内容并保存退出
-```
+```bash
 polkit.addRule(function (action, subject) {
   if (
     (action.id == "org.freedesktop.resolve1.set-domains" ||
@@ -53,11 +53,11 @@ polkit.addRule(function (action, subject) {
 });
 ```
 - 将当前用户添加至 wheel 组中,注意Debian 与衍生系统需要先创建 wheel 组,然后运行：
-```
+```bash
 sudo usermod -G wheel 当前用户
 ```
 - 重新加载 polkit 使更改生效
-```
+```bash
 sudo systemctl restart polkit
 ```
 
