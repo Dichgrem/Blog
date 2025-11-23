@@ -173,6 +173,31 @@ tags = ["乱七八糟"]
 - [离散数学-东北大学](https://www.bilibili.com/video/BV1d7411v7zu/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 - [统计学-个人 UP 主](https://space.bilibili.com/610062295/channel/seriesdetail?sid=2558242&ctype=0)
 
+## 英语相关
+
+| 频道名称 | 频道 URL | 内容类型 | 口音/特色 | 难度 | 推荐理由/备注 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Max Amini** | [youtube.com/@MaxAmini](https://www.youtube.com/@MaxAmini) | 娱乐 | 脱口秀 | 高阶 | 男、伊朗裔美国喜剧演员，语速快，内容幽默。 |
+| **Michelle Khare** | [youtube.com/@MichelleKhare](https://www.youtube.com/@MichelleKhare) | 兴趣频道 | Vlog | 中阶 | 女、兴趣内容、有挑战自我的性质。 |
+| **This Is How We Bingham** | [youtube.com/@ThisIsHowWeBingham](https://www.google.com/search?q=https://www.youtube.com/%40ThisIsHowWeBingham) | 生活 | 美音 | 初阶 | 一家人的生活记录，语速较慢，内容温馨。 |
+| **Travel with Wife and Baby** | [youtube.com/@TravelwithWifeandBaby](https://www.google.com/search?q=https://www.youtube.com/%40TravelwithWifeandBaby) | 生活 | 美音 | 初阶 | 男、旅行Vlog，语速适中，内容有趣。 |
+| **MKBHD** | [youtube.com/@mkbhd](https://www.youtube.com/@mkbhd) | 兴趣频道 | 美音 | 高阶 | 男、科技评测频道，语速快，内容专业，适合科技爱好者。 |
+| **Mark Wiens** | [youtube.com/@MarkWiens](https://www.youtube.com/@MarkWiens) | 兴趣频道 | 美音 | 中阶 | 男、美食旅行频道，语速适中，内容诱人。 |
+| **MrBeast** | [youtube.com/@MrBeast](https://www.youtube.com/@MrBeast) | 娱乐 | 美音 | 初阶 | 男、以大手笔挑战和慈善活动闻名，语速快，内容刺激。 |
+| **Medlife Crisis** | [youtube.com/@MedlifeCrisis](https://www.youtube.com/@MedlifeCrisis) | 知识 | 英音 | 中高阶 | 男、医学专业，内容深入浅出，语速较快。 |
+| **Learn English with Bob the Canadian** | [youtube.com/@LearnEnglishwithBobtheCanadian/videos](https://www.youtube.com/@LearnEnglishwithBobtheCanadian/videos) | 英文学习 | 美音 | 初中阶 | 男、内容以日常生活为主，语速较慢，发音清晰，适合初学者。 |
+| **The Late Late Show with James Corden** | [youtube.com/@TheLateLateShow](https://www.youtube.com/@TheLateLateShow) | 娱乐 | 英音 | 高阶 | James Corden的深夜秀，有很多明星访谈和各种有趣的单元，如Carpool Karaoke。 |
+| **The School of Life** | [youtube.com/@theschooloflifetv](https://www.youtube.com/@theschooloflifetv) | 知识 | 英音 | 中高阶 | 哲学、心理学、社会学等，内容发人深省，语速适中，是很好的听力材料。 |
+| **Kurzgesagt – In a Nutshell** | [youtube.com/@kurzgesagt](https://www.youtube.com/@kurzgesagt) | 知识 | 英音 | 中高阶 | 科普动画频道，内容严肃有趣，制作精良，适合拓展词汇和知识面。 |
+| **The LeBrons** | [youtube.com/@TheLeBrons](https://www.google.com/search?q=https://www.youtube.com/%40TheLeBrons) | 娱乐 | 美音 | 初阶 | 勒布朗·詹姆斯的播客频道。 |
+| **Keith Williams** | [youtube.com/@KeithWilliamsvideos](https://www.google.com/search?q=https://www.youtube.com/%40KeithWilliamsvideos) | 英文学习 | 美音 | 初中阶 | 男、视频内容较长、语速适中、发音标准，适合初学者。 |
+| **Kevin in Shanghai** | [youtube.com/@KevinInShanghai](https://www.google.com/search?q=https://www.youtube.com/%40KevinInShanghai) | 生活 | 住在华语地区的外国人 | 初中阶 | 男、在上海生活的外国人，语速慢，内容贴近生活。 |
+| **Kevin's English Class** | [youtube.com/@KevinsEnglishClass](https://www.youtube.com/@KevinsEnglishClass) | 英文学习 | 美音 | 初阶 | 男、英文教学频道，内容短小精悍，适合碎片时间学习。 |
+| **Leo Roget** | [youtube.com/@leoroget](https://www.google.com/search?q=https://www.youtube.com/%40leoroget) | 生活 | 美音 | 初阶 | 男、日常Vlog、语速适中、内容轻松。 |
+| **Learners English** | [youtube.com/@LearnersEnglish](https://www.google.com/search?q=https://www.youtube.com/%40LearnersEnglish) | 英文学习 | 美音 | 初阶 | 男、英文学习频道，内容全面、系统性强。 |
+| **LangFocus** | [youtube.com/@Langfocus](https://www.youtube.com/@Langfocus) | 知识 | 美音 | 中阶 | 男、语言学频道，内容涉及语言起源、发展、对比等，语速适中，知识点丰富。 |
+
+
 ## 哲学相关
 
 - [中国人民大学:西方哲学史-张志伟](https://www.bilibili.com/video/BV1y64y1r7Mt/?spm_id_from=333.337.search-card.all.click&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
