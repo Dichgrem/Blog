@@ -497,16 +497,19 @@ make package/luci-app-zzz/compile V=s
 ./bin/packages/x86_64/base/zzz_0.1.1-r1_x86_64.ipk
 ```
 
-## 常用命令:
+## 常用命令
+
+> 注意！不能升级kmod前缀的软件包！base-files是危险包，谨慎升级！
+
 ```bash
 # 更新软件列表
 opkg update
 
-# 更新所有 LUCI 插件
-opkg list-upgradable | grep luci- | cut -f 1 -d ' ' | xargs opkg upgrade
+# 列出可升级的非内核包
+opkg list-upgradable | grep -vE '^(kmod-|kernel)'
 
-# 如果要更新所有软件，包括 OpenWRT 内核、固件等
-opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
+# 升级单个软件包
+opkg upgrade 包名
 
 # 固件版本号
 vim /etc/os-release
