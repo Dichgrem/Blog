@@ -265,6 +265,12 @@ uv pip list          # 列出已安装包
 uv pip uninstall numpy
 ```
 
+- 更新UV自身
+
+```bash
+uv self update
+```
+
 ---
 
 ### 替代常见 Conda 工作流
