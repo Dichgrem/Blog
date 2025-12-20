@@ -6,86 +6,123 @@ date = 2025-07-20
 tags = ["Linux"]
 +++
 
-前言 本文记录STM32命令行开发环境在Linux上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread-studio同样是开源
-软件，但目前没有Nixos上的打包。
+前言 本文以星火一号开发板为例记录STM32命令行开发环境在Linux上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread开源，但RT-Thread-studio不是开源
+软件。
 <!-- more -->
 
-## 依赖包
+# Windows方案
 
-- **Ubuntu**
+> 该方案使用``scons+gcc-arm-none-eabi+openocd``,可以和Vscode等等配合使用.
 
-以ubuntu24.04为例，首先安装这些包，包括连接工具，工具链和调试器等等。
+## 拉取源码
+
+```bash
+https://github.com/Dichgrem/sdk-bsp-stm32f407-spark-template.git
+```
+
+## 安装依赖
+
+- 安装 Scons 构建工具
+
+```
+pip install scons
+```
+- 安装 gcc-arm-none-eabi 工具链
+
+在[官网](https://developer.arm.com/downloads/-/gnu-rm) 下载``gcc-arm-none-eabi-10.3-2021.10-win32.exe``,安装后使用以下命令设置环境变量
+
+```powershell
+$env:RTT_EXEC_PATH="C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\bin"
+```
+
+```powershell
+$path = [Environment]::GetEnvironmentVariable("Path", "Machine")
+[Environment]::SetEnvironmentVariable(
+  "Path",
+  "$path;C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\bin",
+  "Machine"
+)
+```
+
+- 安装 openocd 调试/烧录工具
+
+```bash
+scoop install openocd
+openocd --version
+```
+
+- 安装串口调试工具（可选，也可以用其他串口工具）
+
+```bash
+pip install pyserial
+```
+
+## 编译固件
+
+进入项目目录并在``projects``下使用scons编译固件,编译结果为``rt-thread.bin``和``rt-thread-elf``
+
+```bash
+sdk-bsp-stm32f407-spark
+❯ cd ./projects/03_driver_als_ps
+
+sdk-bsp-stm32f407-spark/projects/03_driver_als_ps studyvia C v14.3.0-gcc  via ❄️  impure (nix-shell-env)
+❯ scons
+scons: Reading SConscript files ...
+scons: done reading SConscript files.
+scons: Building targets ...
+scons: building associated VariantDir targets: build
+......
+CC build/kernel/components/drivers/i2c/i2c-bit-ops.o
+LINK rt-thread.elf
+arm-none-eabi-objcopy -O binary rt-thread.elf rtthread.bin
+arm-none-eabi-size rt-thread.elf
+   text	   data	    bss	    dec	    hex	filename
+  87128	    964	   4252	  92344	  168b8	rt-thread.elf
+scons: done building targets.
+```
+
+## 烧入测试
+
+使用``openocd``指定开发板对应的cfg并烧入，起始地址为``0x08000000``
+
+```bash
+openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
+openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program rtthread.bin 0x08000000 verify reset exit"
+```
+
+## 串口连接
+
+烧入完成后我们可以使用``pyserial``的这个命令连接到串口，退出使用``Ctrl+]``退出
+
+```bash
+python -m serial.tools.miniterm COM3 115200
+```
+
+> 注意Windows上和开发板连接的串口可能是COM3,COM4等等，需要和实际的相符，可以在设备管理器中查看.
+
+
+# Ubuntu 方案
+
+## 拉取源码
+
+```bash
+https://github.com/Dichgrem/sdk-bsp-stm32f407-spark-template.git
+```
+
+## 安装依赖
+
 ```bash
 sudo apt update
 sudo apt install -y git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb-multiarch
 ```
 
-- **Nixos**
-
-虽然Nixos上没有RT-Thread-studio这个包，但是可以用flake.nix很方便的搭建一个开发环境：
-
-```nix
-{
-  description = "STM32 && RT-Thread development environment";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
-  let
-    supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-    forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
-      pkgs = import nixpkgs { inherit self system; };
-    });
-  in
-  {
-    devShells = forEachSupportedSystem ({ pkgs }: {
-      default = pkgs.mkShell {
-        packages = with pkgs; [
-          python312
-          scons
-          openocd
-          stlink
-          stlink-tool
-          gcc-arm-embedded
-          picocom
-          renode-bin
-        ];
-      };
-    });
-  };
-}
-```
-
-## 源码
-
-随后使用Git拉取项目源码：
+## 编译固件
 
 ```bash
-git clone https://github.com/RT-Thread-Studio/sdk-bsp-stm32f407-spark.git
+scons -j$(nproc)
 ```
 
-## ENV工具
-
-使用Git拉取RT-Thread配套的linux开发环境，并添加Shell变量。
-
-```bash
-# 克隆仓库
-git clone https://github.com/RT-Thread/env.git ~/env
-# 将 ~/env 添加到 PATH
-export PATH="$PATH:$HOME/env"
-# 显示 PATH
-echo "$PATH"
-# 查看 pkgs 命令是否存在
-type pkgs
-```
-
-随后可以使用PKG初始化并安装两个必要的包：
-
-```bash
-pkgs --update
-pip install kconfiglib
-pip install scons
-```
-
-## 连接
+## 测试连接
 
 使用USB线连接开发板和开发PC，并使用lsusb命令查看是否出现：
 ```bash
@@ -106,58 +143,9 @@ Found 1 stlink programmers
   dev-type:   STM32F4x5_F4x7
 ```
 
-> 如果你和我一样将Ubuntu安装在QEMU虚拟机中 ，需要在libvirt中使用Add_hardware添加usb设备。
+> 如果你将Ubuntu安装在QEMU等虚拟机中 ，需要在libvirt中使用Add_hardware添加usb设备。
 
-## 修改交叉工具链
-
-链接成功后进入项目目录，发现``rtconfig.py``没有Linux路径，需要我们手动修改交叉工具链部分：
-
-```python
-#修改 rtconfig.py 
-
-# cross_tool provides the cross compiler
-# EXEC_PATH is the compiler execute path, for example, CodeSourcery, Keil MDK, IAR
-import os
-
-if CROSS_TOOL == 'gcc':
-    PLATFORM = 'gcc'
-    if os.name == 'nt':
-        # Windows 平台
-        EXEC_PATH = r'C:\Users\XXYYZZ'
-    else:
-        # 修改这里
-        # Linux / macOS 平台
-        EXEC_PATH = '/usr/bin'
-
-elif CROSS_TOOL == 'keil':
-    PLATFORM = 'armclang'  # KEIL AC6
-    # PLATFORM = 'armcc'   # KEIL AC5
-    EXEC_PATH = r'C:/Keil_v5'
-
-elif CROSS_TOOL == 'iar':
-    PLATFORM = 'iccarm'
-    EXEC_PATH = r'C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.3'
-
-elif CROSS_TOOL == 'llvm-arm':
-    PLATFORM = 'llvm-arm'
-    if os.name == 'nt':
-        EXEC_PATH = r'D:\Progrem\LLVMEmbeddedToolchainForArm-17.0.1-Windows-x86_64\bin'
-    else:
-        EXEC_PATH = '/usr/bin'
-```
-
-## 编译
-
-在完成以上设置之后我们可以开始编译。STM32使用scons编译系统，同样是menuconfig命令：
-```bash
-scons --menuconfig
-```
-修改配置并保存退出后即可开始编译，$(nproc)代表使用全部CPU线程来编译：
-```bash
-scons -j$(nproc)
-```
-
-## 烧入
+## 烧入测试
 
 编译成功后你应该会看到有一个rtthread.bin在目录下，这就是我们编译出来的系统！
 
@@ -171,7 +159,7 @@ st-flash read firmware_backup.bin 0x08000000 0x100001
 st-flash write rtthread.bin 0x08000000
 ```
 
-## 串口
+## 串口连接
 
 除了USB之外我们还可以使用串口连接：
 ```bash
@@ -180,7 +168,12 @@ picocom -b 115200 /dev/ttyACM0
 ```
 可以使用``ctrl + A 然后 ctrl + x``退出。
 
-## 使用Cmake
+
+---
+
+# 其他Tips
+
+- 使用Cmake编译
 
 通过官方文档可以得知除了scons外还可以使用Cmake来编译.
 
@@ -255,7 +248,42 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 [100%] Built target rtthread.elf
 ```
 
-## 使用Renode
+
+- Nixos
+
+虽然Nixos上没有RT-Thread-studio这个包，但是可以用flake.nix很方便的搭建一个开发环境：
+
+```nix
+{
+  description = "STM32 && RT-Thread development environment";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  outputs = { self, nixpkgs }:
+  let
+    supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+    forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
+      pkgs = import nixpkgs { inherit self system; };
+    });
+  in
+  {
+    devShells = forEachSupportedSystem ({ pkgs }: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          python312
+          scons
+          openocd
+          stlink
+          stlink-tool
+          gcc-arm-embedded
+          picocom
+          renode-bin
+        ];
+      };
+    });
+  };
+}
+```
+
+- 使用Renode
 
 如果没有真实的开发版，可以使用Renode来进行仿真模拟：
 
