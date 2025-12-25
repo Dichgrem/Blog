@@ -85,8 +85,8 @@ git config --list
 
 - 设置提交代码时的用户信息,这里的name推荐和你的GitHub用户名一致，邮箱可以不为真实邮箱，比如``no-reply@github.com``
 ```bash
-git config [--global] user.name "[name]"
-git config [--global] user.email "[email address]"
+git config --global user.name "[name]"
+git config --global user.email "[email address]"
 ```
 
 > 注意！如果你填写了你的真实邮箱，同时这个仓库又是Public的，那么其他人可以看到你的邮箱！
