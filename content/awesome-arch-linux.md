@@ -34,7 +34,7 @@ tags = ["综合工程"]
 ```bash
 # gui
 
-paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio
+paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio scx-manager daed
 
 # tui
 
@@ -55,7 +55,7 @@ paru -S peazip
 
 # Type
 
-paru -S fcitx5-configtool fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime
+paru -S fcitx5-configtool fcitx5-skin-material fcitx5-rime fcitx5-gtk
 
 # Blog
 
@@ -63,11 +63,12 @@ paru -S zola npm pnpm just go
 
 # ttf
 
-paru -S ttf-jetbrains-mono-nerd
+paru -S ttf-jetbrains-mono-nerd ttf-sarasa-gothic-sc
 
 # Wayland
 
-paru -S hyprland waybar wofi network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman wl-clipboard-rs swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
+paru -S hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman bluez-utils wl-clipboard-rs wl-clip-persist swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
+
 ```
 | 分类           | 软件列表                                             |
 | ------------ | ------------------------------------------------ |
@@ -198,6 +199,47 @@ menuentry "Windows 11 (Manual)" {
     chainloader /EFI/Microsoft/Boot/bootmgfw.efi
 }
 ```
+
+## 制服华硕VMD
+
+华硕的BIOS有一个VMD选项，它的机制是这样的：如果你想安linux，得先关闭VMD；但如果你的windows是出厂自带的，没有重装过，那又得开启VMD，否则无法进入windows；这里记录在不关闭VMD的情况下如何让linux支持它：(以arch linux为例)
+
+
+先使用这个命令查看磁盘：
+```
+> lsblk -f
+  nvme1n1
+  ├─nvme1n1p1  vfat   FAT32  SYSTEM   xxxx-xxxx
+  ├─nvme1n1p2  ntfs          OS
+  ├─nvme1n1p3  ntfs          新加卷
+  ├─nvme1n1p4  ntfs          新加卷
+  ├─nvme1n1p5  ntfs          新加卷
+  ├─nvme1n1p6  ntfs          新加卷
+  nvme0n1
+  ├─nvme0n1p1
+  ├─nvme0n1p2  ntfs 新加卷
+  └─nvme0n1p3  xfs   xxxxxxxxxxxxxx
+```
+随后使用以下方法将VMD支持加入initramfs：
+```
+## 挂载linux根分区
+mount /dev/nvme0n1p3 /mnt
+## 创建boot目录
+mkdir -p /mnt/boot
+## 挂载EFI
+mkdir -p /mnt/boot/EFI
+mount /dev/nvme1n1p1 /mnt/boot/EFI
+## Chroot进入已经安装的系统
+arch-chroot /mnt
+## 重新生成 initramfs
+nano /etc/mkinitcpio.conf
+MODULES=(vmd nvme)
+mkinitcpio -P
+## 退出重启
+exit
+reboot
+```
+
 ## Arch中安装QEMU虚拟机
 
 前面我们已经安装了Qemu高性能虚拟机平台和virt-manager用来管理虚拟机的图形界面，随后配置virt-manager并安装Ubuntu-server：
