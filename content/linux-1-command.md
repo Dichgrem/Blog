@@ -130,7 +130,7 @@ bluetoothctl info AA:BB:CC:DD:EE:FF
 
 交互式步骤（在 `bluetoothctl` 提示符下）：
 
-```text
+```bash
 $ bluetoothctl
 [bluetooth]# power on
 [bluetooth]# agent on

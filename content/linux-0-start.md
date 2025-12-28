@@ -76,7 +76,7 @@ Linux有许多不同的发行版，但大致可以分为几个系：
 
 因此对于Linux而言，文件系统是这样的：
 
-```shell
+```bash
 /      — 根
 /home  — 用户家目录
 /root  — 超级用户的家
@@ -114,7 +114,7 @@ Linux有许多不同的发行版，但大致可以分为几个系：
 
 在Ubuntu的界面中李华看到了一个名为``终端``的应用，输入``apt install neofetch``，就安装成功...不，暂时还没有成功,再次输入``sudo apt install neofetch``,就成功安装了neofetch这个软件，随后我们输入``neofetch``，可以看到系统的一些信息：
 
-```shell
+```bash
 ❯ neofetch
             .-/+oossssoo+/-.               dich@uos
         `:+ssssssssssssssssss+:`           --------
