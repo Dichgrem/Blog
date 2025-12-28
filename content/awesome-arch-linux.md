@@ -34,7 +34,7 @@ tags = ["综合工程"]
 ```bash
 # gui
 
-paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio
+paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio scx-manager daed
 
 # tui
 
@@ -55,7 +55,7 @@ paru -S peazip
 
 # Type
 
-paru -S fcitx5-configtool fcitx5-chinese-addons  fcitx5-skin-material fcitx5-im fcitx5-rime
+paru -S fcitx5-configtool fcitx5-skin-material fcitx5-rime fcitx5-gtk
 
 # Blog
 
@@ -63,11 +63,12 @@ paru -S zola npm pnpm just go
 
 # ttf
 
-paru -S ttf-jetbrains-mono-nerd
+paru -S ttf-jetbrains-mono-nerd ttf-sarasa-gothic-sc
 
 # Wayland
 
-paru -S hyprland waybar wofi network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman wl-clipboard-rs swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
+paru -S hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman bluez-utils wl-clipboard-rs wl-clip-persist swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
+
 ```
 | 分类           | 软件列表                                             |
 | ------------ | ------------------------------------------------ |
