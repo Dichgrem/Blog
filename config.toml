@@ -61,13 +61,13 @@ menu_items = [
     # see documentation below for more details
     {name = "Archive", url = "$BASE_URL/archive"},
     {name = "Weekly", url = "$BASE_URL/weekly"},
-    
+
     {name = "Tags", url = "$BASE_URL/tags"},
     {name = "Search", url = "$BASE_URL/search"},
-    
+
     {name = "Links", url = "$BASE_URL/links"},
     {name = "Rss", url = "$BASE_URL/atom.xml"},
-    
+
     {name = "About me", url = "$BASE_URL/about"},
     # set newtab to true to make the link open in new tab
     {name = "My github", url = "https://github.com/Dichgrem", newtab = true},

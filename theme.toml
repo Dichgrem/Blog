@@ -4,25 +4,7 @@ license = "MIT"
 homepage = "https://github.com/pawroman/zola-theme-terminimal"
 min_version = "0.11.0"
 
-# An optional live demo URL
-#demo = "https://pawroman.github.io/zola-theme-terminimal/"
-
-[author]
-name = "Dichgrem"
-homepage = "https://github.com/Dichgrem"
-
-# The original theme this one's been forked off.
-[original]
-author =  "Dichgrem"
-homepage = "https://github.com/Dichgrem"
-#repo = "https://github.com/panr/hugo-theme-terminal"
-
 [extra]
-# Author name: when specified, modifies the default
-# copyright text. Apart from author, it will
-# contain current year and a link to the theme.
-author = "Dichgrem"
-
 # One of: blue, green, orange, pink, red.
 # Defaults to blue.
 # Append -light for light themes, e.g. blue-light
