@@ -10,6 +10,22 @@
 
         {% set section = get_section(path="_index.md") %}
 
-        {{ post_macros::list_posts(pages=section.pages) }}
+        {% set pages_by_year = section.pages | group_by(attribute="year") %}
+        {%- for year, pages_in_year in pages_by_year %}
+            <h2 class="year-divider">{{ year }}</h2>
+            <ul>
+            {%- for page in pages_in_year %}
+                {%- if page.draft %}
+                    {% continue %}
+                {% endif -%}
+                <li class="post-list">
+                    <a href="{{ page.permalink | safe }}">
+                        <span class="post-date">{{ page.date }}</span>
+                        :: <span class="post-list-title">{{ page.title }}</span></a>
+                    {{ post_macros::tags(page=page, short=true) }}
+                </li>
+            {%- endfor %}
+            </ul>
+        {%- endfor %}
     </div>
 {% endblock content %}
