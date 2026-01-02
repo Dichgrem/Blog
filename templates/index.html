@@ -84,8 +84,9 @@
     </header>
     {% endblock header %}
 
-    <div class="content">
-        {% block content %}
+    <main>
+        <div class="content">
+            {% block content %}
         <div class="posts">
             {%- if paginator %}
                 {%- set show_pages = paginator.pages -%}
@@ -122,10 +123,10 @@
             </div>
         </div>
         {% endblock content %}
-    </div>
-
-    {% block footer %}
-    <footer class="footer">
+            </div>
+        </main>
+    
+        {% block footer %}    <footer class="footer">
         <div class="footer__inner">
             {%- if config.extra.copyright_html %}
                 <div class="copyright copyright--user">{{ config.extra.copyright_html | safe }}</div>
