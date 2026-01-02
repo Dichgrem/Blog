@@ -50,18 +50,16 @@ Enter file in which to save the key (/home/dich/.ssh/id_rsa): /home/dich/.ssh/Gi
 
 ```bash
 # GitHub
-
-Host github
+Host github github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/Github
+    IdentityFile ~/.ssh/github
 
 # Gitee
-
-Host gitee
+Host gitee gitee.com
     HostName gitee.com
     User git
-    IdentityFile ~/.ssh/Gitee
+    IdentityFile ~/.ssh/gitee
 ```
 
 > 这边的IdentityFile是你的私钥位置，即为不带pub后缀的文件。如果你不想将私钥放在~/.ssh/下，可以查看我的另一篇[博客](https://blog.dich.bid/network-ssh/)
