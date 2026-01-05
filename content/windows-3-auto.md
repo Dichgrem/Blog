@@ -1,6 +1,6 @@
 +++
-title = "Windows系列(4):封装与全自动安装"
-date = 2024-05-29
+title = "Windows系列(3):封装与全自动安装"
+date = 2024-05-27
 
 [taxonomies]
 tags = ["Windows"]

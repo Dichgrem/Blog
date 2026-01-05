@@ -1,6 +1,6 @@
 +++
 title = "Windows系列(5):Python开发配置"
-date = 2024-05-31
+date = 2024-05-30
 
 [taxonomies]
 tags = ["Windows"]

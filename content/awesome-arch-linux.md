@@ -29,47 +29,40 @@ tags = ["综合工程"]
 
 ## 安装软件
 
-随后安装常用开源软件(KDE环境省略file和wayland)
+随后安装常用开源软件,KDE环境和Wayland+WM环境安装的包不同：
 
 ```bash
 # gui
-
-paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio scx-manager daed
+paru -S floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio scx-manager
 
 # tui
-
 paru -S neovim yazi lazygit btop zellij termshark
 
 # cli
+paru -S alacritty fastfetch onefetch starship atuin bat fzf fd ripgrep eza tree android-tools payload-dumper-go-bin nexttrace-bin syncthing aria2
 
-paru -S alacritty fish fastfetch tealdeer expac fish-autopair fish-pure-prompt fisher onefetch starship atuin bat fzf fd ripgrep eza tree android-tools payload-dumper-go-bin nexttrace-bin syncthing aria2
-
-
-# file
-
-paru -S gvfs gvfs-mtp gvfs-afc gvfs-nfs nemo
+# fish
+fish tealdeer expac fish-autopair fish-pure-prompt fisher
 
 # zip
-
 paru -S peazip
 
 # Type
-
 paru -S fcitx5-configtool fcitx5-skin-material fcitx5-rime fcitx5-gtk
 
-# Blog
-
-paru -S zola npm pnpm just go
-
 # ttf
-
 paru -S ttf-jetbrains-mono-nerd ttf-sarasa-gothic-sc
+```
 
+如果使用Wayland+WM方案，需要额外安装以下这些：
+```bash
 # Wayland
-
 paru -S hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman bluez-utils wl-clipboard-rs wl-clip-persist swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
 
+# file
+paru -S gvfs gvfs-mtp gvfs-afc gvfs-nfs nemo
 ```
+
 | 分类           | 软件列表                                             |
 | ------------ | ------------------------------------------------ |
 | **窗口管理器**    | hyprland                     |

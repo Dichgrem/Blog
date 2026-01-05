@@ -1,95 +1,29 @@
 +++
-title = "乱七八糟:常用实用快捷键"
+title = "乱七八糟:VScode那些事"
 date = 2024-05-23
 
 [taxonomies]
 tags = ["乱七八糟"]
 +++
 
-前言 在日常使用浏览器时，掌握一些快捷键和技巧可以节省大量时间，提高工作和学习效率。通过学习和实践，能够更加轻松地应对各种网页浏览场景，让浏览器成为工作和学习的得力助手。
+前言 VScode 素有世界最强IDE之称，有着丰富的插件系统，优秀的图形界面和极快的响应速度，本文介绍VSCode的一些使用技巧。
 
 <!-- more -->
 
-## 浏览器快捷键
+## AI 插件
 
-### 常用
+| 插件名                                                                                      |       免费      |     付费     | 单模型 | 多模型 | 说明                                                      |
+| ---------------------------------------------------------------------------------------- | :-----------: | :--------: | :-: | :-: | ------------------------------------------------------- |
+| **[GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)** | ✔️（试用 / 学生优惠） |     ✔️     |  ❌  |  ✔️ | 主流 AI 编码助手，支持代码补全和聊天建议。([Visual Studio Marketplace][1]) |
+| **[GPT (ChatGPT)](https://open-vsx.org/extension/openai/chatgpt)**                       |       ✔️      | ✔️（API 模型） |  ❌  |  ✔️ | 基于 OpenAI 的 ChatGPT，可做代码解释/对话生成                         |
+| **[Gemini Code Assist](https://open-vsx.org/extension/Google/geminicodeassist)**         |       ✔️      |      ❌     |  ❌  |  ✔️ | Google Gemini 驱动的智能编码助手                                 |
+| **[Claude Code](https://open-vsx.org/extension/Anthropic/claude-code)**                  |    ❓（账户权限）    |     ✔️     |  ❌  |  ✔️ | Anthropic Claude 驱动的编码助手                                |
+| **[Cline (claude-dev)](https://open-vsx.org/extension/saoudrizwan/claude-dev)**          |       ✔️      |      ❌     |  ❌  |  ✔️ | 社区版 Claude 型 AI 编码插件                                    |
+| **[CodeGeeX](https://open-vsx.org/extension/AMiner/codegeex)**                           |       ✔️      |      ❌     |  ❌  |  ✔️ | 开源多模型 AI код助手                                          |
+| **[OpenCode](https://open-vsx.org/extension/sst-dev/opencode)**                          |       ✔️      |      ❌     |  ❌  |  ✔️ | 多模型聚合，可接多种后端                                            |
+| **[Windsurf (Codeium)](https://open-vsx.org/extension/Codeium/codeium)**                 |       ✔️      |      ❌     |  ❌  |  ✔️ | 轻量级 AI 代码补全助手（Codeium 改名）                               |
 
-| 快捷键               | 描述             |
-|----------------------|------------------|
-| Ctrl + A             | 全选             |
-| Ctrl + C             | 复制             |
-| Ctrl + X             | 剪切             |
-| Ctrl + V             | 粘贴             |
-| Ctrl + F             | 查找             |
-| Ctrl + Q             | 退出             |
-| Ctrl + T             | 新建标签页       |
-| Ctrl + W             | 关闭标签页       |
-| Ctrl + N             | 新建窗口         |
-| Ctrl + Shift + P     | 新建隐私浏览窗口 |
-
-### 历史
-
-| 快捷键                  | 描述                       |
-|-------------------------|----------------------------|
-| Ctrl + H                | 历史侧栏                   |
-| Ctrl + Shift + H        | 我的足迹窗口（历史）       |
-| Ctrl + Shift + Del      | 清除最近历史记录           |
-
-### 书签
-
-| 快捷键                        | 描述                               |
-|-------------------------------|------------------------------------|
-| Ctrl + D                      | 将此页加为书签                     |
-| Ctrl + I                      | 页面信息                           |
-| Ctrl + Shift + O              | 显示全部书签（我的足迹窗口）       |
-| Ctrl + B / Ctrl + Shift + B   | 书签侧栏 / 顶栏                    |
-
-### 下载与插件
-
-| 快捷键               | 描述           |
-|----------------------|----------------|
-| Ctrl + Shift + Y     | 下载           |
-| Ctrl + Shift + A     | 附加组件 / 插件 |
-
-### 控制台与开发
-
-| 快捷键               | 描述             |
-|----------------------|------------------|
-| Ctrl + Shift + K     | Web 控制台       |
-| Ctrl + Shift + C     | 查看器           |
-| Shift + F7           | 样式编辑器       |
-| Shift + F5           | 分析器           |
-| Ctrl + Shift + E     | 网络             |
-| Ctrl + U             | 页面源码         |
-| Ctrl + Shift + J     | 浏览器控制台     |
-
-### 标签页与界面
-
-| 快捷键                        | 描述                     |
-|-------------------------------|--------------------------|
-| Ctrl + S                      | 界面保存                 |
-| Ctrl + +                      | 放大                     |
-| Ctrl + -                      | 缩小                     |
-| Ctrl + 0                      | 重置缩放                 |
-| Ctrl + K / J                  | 搜索                     |
-| Ctrl + Home / End             | 到文件头 / 尾            |
-| Ctrl + Page Up                | 切换到左边标签页         |
-| Ctrl + Page Down              | 切换到右边标签页         |
-| Ctrl + Shift + Page Up        | 当前标签页左移           |
-| Ctrl + Shift + Page Down      | 当前标签页右移           |
-
-### 其他操作
-
-| 快捷键             | 描述             |
-|--------------------|------------------|
-| Alt + Space        | KDE 搜索栏       |
-| Alt + → / ←        | 前进 / 后退      |
-| Alt + 数字键       | 选择标签页（1–8）|
-| Alt + M            | 静音             |
-| End                | 到达页尾         |
-| Home               | 到达页首         |
-| F6                 | 地址栏           |
-
+[1]: https://marketplace.visualstudio.com/items?itemName=GitHub.copilot&utm_source=chatgpt.com "GitHub Copilot"
 
 
 ## VS Code 快捷键
@@ -301,6 +235,88 @@ tags = ["乱七八糟"]
 
 - **函数提示**：
   - 在悬停窗口上按下 `cmd`：提示函数的实现
+
+
+## 浏览器快捷键
+
+### 常用
+
+| 快捷键               | 描述             |
+|----------------------|------------------|
+| Ctrl + A             | 全选             |
+| Ctrl + C             | 复制             |
+| Ctrl + X             | 剪切             |
+| Ctrl + V             | 粘贴             |
+| Ctrl + F             | 查找             |
+| Ctrl + Q             | 退出             |
+| Ctrl + T             | 新建标签页       |
+| Ctrl + W             | 关闭标签页       |
+| Ctrl + N             | 新建窗口         |
+| Ctrl + Shift + P     | 新建隐私浏览窗口 |
+
+### 历史
+
+| 快捷键                  | 描述                       |
+|-------------------------|----------------------------|
+| Ctrl + H                | 历史侧栏                   |
+| Ctrl + Shift + H        | 我的足迹窗口（历史）       |
+| Ctrl + Shift + Del      | 清除最近历史记录           |
+
+### 书签
+
+| 快捷键                        | 描述                               |
+|-------------------------------|------------------------------------|
+| Ctrl + D                      | 将此页加为书签                     |
+| Ctrl + I                      | 页面信息                           |
+| Ctrl + Shift + O              | 显示全部书签（我的足迹窗口）       |
+| Ctrl + B / Ctrl + Shift + B   | 书签侧栏 / 顶栏                    |
+
+### 下载与插件
+
+| 快捷键               | 描述           |
+|----------------------|----------------|
+| Ctrl + Shift + Y     | 下载           |
+| Ctrl + Shift + A     | 附加组件 / 插件 |
+
+### 控制台与开发
+
+| 快捷键               | 描述             |
+|----------------------|------------------|
+| Ctrl + Shift + K     | Web 控制台       |
+| Ctrl + Shift + C     | 查看器           |
+| Shift + F7           | 样式编辑器       |
+| Shift + F5           | 分析器           |
+| Ctrl + Shift + E     | 网络             |
+| Ctrl + U             | 页面源码         |
+| Ctrl + Shift + J     | 浏览器控制台     |
+
+### 标签页与界面
+
+| 快捷键                        | 描述                     |
+|-------------------------------|--------------------------|
+| Ctrl + S                      | 界面保存                 |
+| Ctrl + +                      | 放大                     |
+| Ctrl + -                      | 缩小                     |
+| Ctrl + 0                      | 重置缩放                 |
+| Ctrl + K / J                  | 搜索                     |
+| Ctrl + Home / End             | 到文件头 / 尾            |
+| Ctrl + Page Up                | 切换到左边标签页         |
+| Ctrl + Page Down              | 切换到右边标签页         |
+| Ctrl + Shift + Page Up        | 当前标签页左移           |
+| Ctrl + Shift + Page Down      | 当前标签页右移           |
+
+### 其他操作
+
+| 快捷键             | 描述             |
+|--------------------|------------------|
+| Alt + Space        | KDE 搜索栏       |
+| Alt + → / ←        | 前进 / 后退      |
+| Alt + 数字键       | 选择标签页（1–8）|
+| Alt + M            | 静音             |
+| End                | 到达页尾         |
+| Home               | 到达页首         |
+| F6                 | 地址栏           |
+
 
 ---
 **Done.**

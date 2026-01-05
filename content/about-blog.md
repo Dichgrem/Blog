@@ -146,6 +146,60 @@ git gc --aggressive --prune=now
 # 重新推送到github
 git push --force --mirror
 ```
+当然这样还是不够智能，因此现在的方法是写一个GitHub Actions：
+
+```bash
+name: Blog CI (Zola)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Zola
+        uses: taiki-e/install-action@v2
+        with:
+          tool: zola
+
+      - name: Install Pagefind
+        run: |
+          wget https://github.com/Pagefind/pagefind/releases/download/v1.4.0/pagefind-v1.4.0-x86_64-unknown-linux-musl.tar.gz
+          tar xvf pagefind-v1.4.0-x86_64-unknown-linux-musl.tar.gz
+          sudo mv pagefind /usr/local/bin/
+
+      - name: Build Zola
+        run: zola build
+
+      - name: Build Pagefind
+        run: pagefind --site public --root-selector body
+
+      - name: Push public to dist
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: dist
+          force_orphan: true
+
+```
+
+这个action会自动在每次commit之后运行，下载zola并使用zola对仓库进行构建，随后构建出public文件夹在dist分支中，并且dist分支只保留一次commit，这样做的好处有：
+
+- 自动云端构建，无须本地再安装zola；
+- 构建Public在dist分支，git仓库大小不会膨胀；
+- 灵活可修改，支持各种框架包括Hugo/Hexo等等.
+
+> 注意需要在GitHub的仓库设置中的``Actions-General-Workflow permissions``中打开``Read and write permissions``，否则actions无法对仓库进行读写.
 
 
 ## 🔗
