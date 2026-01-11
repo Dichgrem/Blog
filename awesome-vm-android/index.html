@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-vm-android/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-vm-android/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-vm-android/">综合工程:linux搭建安卓虚拟机</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-10
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 linux搭建安卓虚拟机有Waydroid，QEMU和Docker三种方案，各有不同。</p>
+<span id="continue-reading"></span><h1 id="waydroid">Waydroid</h1>
+<p>Waydroid是Anbox配合Halium技术开发的LXC Android容器，可在GNU/Linux系统执行Android APP。以下是Waydroid的特色功能：</p>
+<ul>
+<li>开源</li>
+<li>支持x86与ARM架构</li>
+<li>与宿主机共用剪切板</li>
+<li>直接使用电脑显卡硬件加速</li>
+<li>內建GAPPS，可以使用Google Play</li>
+<li>支持Magisk</li>
+</ul>
+<blockquote>
+<p>Waydroid执行时的Android系统资料放在<code>~/.local/share/waydroid/data/</code>，系统映像档位于<code>/var/lib/waydroid</code>，APP图示位于<code>~/.local/share/applications/</code></p>
+</blockquote>
+<h2 id="an-zhuang-qian-zhun-bei">安装前准备</h2>
+<p>目前Waydroid只支持Intel和AMD的显卡，对于 NVIDIA 显卡（除 Tegra 系列外），Waydroid 不支持硬件加速，推荐使用软件渲染或QEMU方案。</p>
+<ul>
+<li>Waydroid必须使用Wayland，用此命令检查当前系统是否为Wayland：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>echo $</span><span style="color:#ffb964;">XDG_SESSION_TYPE
+</span></code></pre>
+<p>若显示X11代表不是Wayland。GNOME和KDE可在登入画面切换至Wayland工作阶段。</p>
+<ul>
+<li>Waydroid要求Linux核心支持binder核心模组，但Arch Linux预设的linux核心並无开启此选项，因此需要从AUR安装binder_linux-dkms补齐。</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">paru -S</span><span>  binder_linux-dkms
+</span></code></pre>
+<ul>
+<li>安装后载入binder核心模组</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> modprobe binder-linux devices=binder,hwbinder,vndbinder
+</span></code></pre>
+<ul>
+<li>设定开机自动载入核心模组</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>echo </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">binder_linux</span><span style="color:#556633;">&quot; </span><span>| </span><span style="color:#ffb964;">sudo</span><span> tee</span><span style="color:#ffb964;"> -a</span><span> /etc/modules-load.d/binder_linux.conf
+</span><span>
+</span><span>echo </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">options binder_linux devices=binder,hwbinder,vndbinder</span><span style="color:#556633;">&quot; </span><span>| </span><span style="color:#ffb964;">sudo</span><span> tee</span><span style="color:#ffb964;"> -a</span><span> /etc/modprobe.d/binder_linux.conf
+</span></code></pre>
+<h2 id="an-zhuang-waydroid">安装Waydroid</h2>
+<ul>
+<li>安装以下软件包，让Linux与Waydroid共享剪切板</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">paru -S</span><span> wl-clipboard xclip
+</span><span style="color:#ffb964;">paru -S</span><span> python-pyclip
+</span></code></pre>
+<ul>
+<li>安装Waydroid</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">paru -S</span><span> waydroid
+</span></code></pre>
+<ul>
+<li>初始化Waydroid，下载含有GAPPS的Android系统映像档</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> waydroid init</span><span style="color:#ffb964;"> -s</span><span> GAPPS</span><span style="color:#ffb964;"> -f
+</span></code></pre>
+<ul>
+<li>启动Waydroid容器服务</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl start waydroid-container
+</span></code></pre>
+<h2 id="chang-yong-ming-ling">常用命令</h2>
+<ul>
+<li>开机自动启动</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl enable waydroid-container
+</span></code></pre>
+<ul>
+<li>点选应用列表的「Waydroid」图示开启主画面，或者使用命令：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> show-full-ui
+</span></code></pre>
+<ul>
+<li>若Waydroid无法连上网路，开放UFW防火墙：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> ufw allow 53
+</span><span style="color:#ffb964;">sudo</span><span> ufw allow 67
+</span><span style="color:#ffb964;">sudo</span><span> ufw default allow FORWARD
+</span><span style="color:#ffb964;">sudo</span><span> ufw reload
+</span><span style="color:#ffb964;">sudo</span><span> systemctl restart waydroid-container
+</span></code></pre>
+<ul>
+<li>重启Waydroid</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl restart waydroid-container
+</span></code></pre>
+<ul>
+<li>启动/停止Waydroid容器服务</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl start waydroid-container
+</span><span style="color:#ffb964;">sudo</span><span> systemctl stop waydroid-container
+</span></code></pre>
+<ul>
+<li>用命令开启Waydroid主画面</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> show-full-ui
+</span></code></pre>
+<ul>
+<li>查看系统错误讯息</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> log
+</span><span style="color:#ffb964;">sudo</span><span> waydroid logcat
+</span></code></pre>
+<ul>
+<li>强制屏幕旋转</li>
+</ul>
+<p>安装Rotation Control这类APP，即可强制调整Waydroid屏幕方向.</p>
+<ul>
+<li>模拟Wifi</li>
+</ul>
+<p>安装Package Manager，用於查看APP的软件包名称。</p>
+<p>部份APP会要求开启Wifi才能上网，那么就如它所愿，开启fake wifi：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> prop set persist.waydroid.fake_wifi </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">软件包名称</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>例如给Fate/Go游戏开启模拟Wifi：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> prop set persist.waydroid.fake_wifi </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">com.aniplex.fategrandorder</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<ul>
+<li>模拟触控功能</li>
+</ul>
+<p>安装Package Manager，用於查看APP的软件包名称。有些APP认不到鼠标点击，需要启用模拟触控(fake touch)：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> prop set persist.waydroid.fake_touch </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">软件包名称</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>例如给Fate/Go游戏开启模拟触控：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> prop set persist.waydroid.fake_touch </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">com.aniplex.fategrandorder</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<ul>
+<li>用命令安装APK</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> app install &lt;APK档案路径&gt;.apk
+</span></code></pre>
+<ul>
+<li>进入ADB Shell</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> waydroid shell
+</span></code></pre>
+<ul>
+<li>开启多视窗模式</li>
+</ul>
+<p>Waydroid的多视窗模式，看起来像Linux的原生应用。启动后按F11改回来。</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">waydroid</span><span> prop set persist.waydroid.multi_windows true
+</span><span style="color:#ffb964;">sudo</span><span> systemctl restart waydroid-container
+</span></code></pre>
+<h2 id="jiang-waydroidzhu-ce-wei-googlezhuang-zhi">将Waydroid注册为Google装置</h2>
+<p>Waydroid第一次开机可能会收到<code>Device is not Play Protect certified</code>的通知，无法登入Google账号。</p>
+<p>用以下命令取得Waydroid的装置ID。该命令会印出一长串数字。</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> waydroid shell
+</span><span>
+</span><span style="color:#ffb964;">ANDROID_RUNTIME_ROOT</span><span>=</span><span style="color:#99ad6a;">/apex/com.android.runtime </span><span style="color:#ffb964;">ANDROID_DATA</span><span>=</span><span style="color:#99ad6a;">/data </span><span style="color:#ffb964;">ANDROID_TZDATA_ROOT</span><span>=</span><span style="color:#99ad6a;">/apex/com.android.tzdata </span><span style="color:#ffb964;">ANDROID_I18N_ROOT</span><span>=</span><span style="color:#99ad6a;">/apex/com.android.i18n </span><span style="color:#ffb964;">sqlite3</span><span> /data/data/com.google.android.gsf/databases/gservices.db </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">select * from main where name = \&quot;android_id\&quot;;</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>开启装置注册页面，登入Google账号，输入装置ID注册，等个半小时应该就能登入Google账号了。如果还是不行就重新启动Waydroid容器服务：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl restart waydroid-container
+</span></code></pre>
+<p>现在可以安装APP了，Google Play和F-Droid会自动筛出適合x86架构的APP。</p>
+<h1 id="qemu-kvm">QEMU/KVM</h1>
+<h2 id="gai-shu">概述</h2>
+<p>Bliss OS 是基于 Android-x86 的开源系统，已更新至 Android 13，并内建 Google Play 商店，可直接运行 64 位 APK，无需额外转译器；在 Linux 上通过 QEMU/KVM + virglrenderer 实现 GPU 加速，使得在虚拟机中也能流畅体验手游。</p>
+<h2 id="wei-shen-me-xuan-ze-bliss-os">为什么选择 Bliss OS？</h2>
+<ul>
+<li><strong>版本更新快</strong>：Bliss OS 最新测试版基于 Android 13，而 Android-x86 官方仅更新至 Android 9。</li>
+<li><strong>更完善的 ARM 转译</strong>：采用 Google libndk，可兼容 64 位 ARM-v8a APK；相比仅支持 32 位 ARM-v7 的 liboudini，兼容性大幅提升。</li>
+<li><strong>丰富实用功能</strong>：预装强制旋转、按键映射、游戏模式、模拟触控点击、KernelSU（难以检测的 root 权限）和 Gearlock 恢复环境等增强工具，提升桌面化体验。</li>
+</ul>
+<h2 id="huan-jing-zhun-bei">环境准备</h2>
+<ul>
+<li><strong>硬件要求</strong>：CPU 要开启 <code>VT-x/AMD-V</code>，并加载 KVM 内核模块；Intel 10 代及更新集成 GPU 可用，AMD 同理；闭源 Nvidia 驱动下 virglrenderer 不稳定，不建议使用硬件加速。</li>
+<li><strong>软件安装</strong>：在宿主机上安装 QEMU (≥8.1.1)、Libvirt、Virt-Manager，并部署 virglrenderer (≥0.10.4) 以获得半虚拟化 3D 加速；Ubuntu 与 Arch 安装方法分别见官方文档。</li>
+<li><strong>性能调优</strong>：可参考 Red Hat 虚拟化性能调优指南，启用 IOMMU、调整 CPU 调度与内存缓存策略，以提升 KVM 性能。</li>
+</ul>
+<h2 id="an-zhuang-liu-cheng-yu-fen-qu">安装流程与分区</h2>
+<ol>
+<li>从官方站点下载带 GApps 的 Bliss OS 15.x ISO 镜像，并在 Virt-Manager 中新建虚拟机，选择 <code>Q35 芯片组、UEFI (OVMF)</code>。</li>
+<li>推荐分配 ≥8 GB RAM、4 核 CPU 及 ≥64 GB 虚拟硬盘，并勾选 OpenGL、VirtIO 显示卡 + 3D 加速。</li>
+<li>进入 Bliss OS 安装器，使用 GPT 分区表：
+<ul>
+<li>首分区 512 MB，类型 EFI (<code>ef00</code>)，挂载点 <code>/mnt/efi</code>；</li>
+<li>次分区 全盘剩余空间格式化为 Ext4，用于系统安装。</li>
+</ul>
+</li>
+<li>安装 GRUB、格式化分区后强制关机，移除 ISO 并重启，即可启动已启用 virglrenderer 加速的系统。</li>
+</ol>
+<h2 id="fen-bian-lu-diao-zheng">分辨率调整</h2>
+<ul>
+<li>启动时选择 “Debug QEMU/KVM VirGL” 进入 shell，通过 <code>blkid</code> 找到 EFI 分区（如 <code>/dev/sda1</code>），挂载后编辑 <code>/mnt/efi/boot/android.cfg</code>：
+<ul>
+<li>在 <code>linux $kd/kernel</code> 行末添加 <code>video=1920x1080</code>；</li>
+<li>修改 <code>set gfxmode=</code> 为相应分辨率，保存并重启即可生效。</li>
+</ul>
+</li>
+<li>如需更灵活调整，可在系统内安装 SecondScreen 等第三方工具强制改分辨率。</li>
+</ul>
+<h2 id="xi-tong-shi-yong-ji-qiao">系统使用技巧</h2>
+<ul>
+<li>默认启用 Boringdroid 桌面模式，底部常驻任务栏；可在设置里为特定应用强制全屏运行。</li>
+<li>强制旋转：内置 Set Orientation 或使用更佳的 OHMAE Ryosuke 工具；屏幕录制推荐宿主机通过 OBS 采集 VM 窗口。</li>
+<li>多窗口：开发者选项启用“自由形式窗口”；Root 需在 KernelSU 中对指定应用授权，Termux 可提供终端环境。</li>
+<li>ADB 调试：可通过无线 ADB 连接，并在 shell 中为 <code>com.android.shell</code> 授予 Root 权限。</li>
+</ul>
+<h2 id="shou-you-shi-ce">手游实测</h2>
+<ul>
+<li>优先安装原生 x86 版游戏，减少 ARM 转译开销；多游戏如《水果忍者》、《Temple Run 2》均能流畅运行。</li>
+<li>部分大型游戏（如《原神》）因 virglrenderer 不稳定在着色器编译时易崩溃；《幻塔》可正常进入并游玩。</li>
+<li>若触控事件不响应，可启用 “Force Mouse Click as touch” 强制映射鼠标点击，但会导致滚轮失效；开启“游戏模式”可屏蔽通知并悬浮截屏。</li>
+</ul>
+<h1 id="docker">Docker</h1>
+<h2 id="gai-shu-1">概述</h2>
+<p>ReDroid（Remote-Android）是一款开源的容器化 Android 解决方案，支持在 x86 主机通过 Docker、Podman 或 Kubernetes 启动多实例 Android 系统，并提供 GPU 加速与多架构（arm64/amd64）支持，适用于云端游戏、自动化测试、虚拟手机等场景。本文从环境准备、部署配置、日常使用及进阶定制等方面，逐步讲解如何在 Linux 主机上用 Docker 容器运行并优化 ReDroid，使其能够流畅运行 ARM 架构的手游。</p>
+<h2 id="shen-me-shi-redroid">什么是 ReDroid？</h2>
+<ul>
+<li><strong>项目简介</strong>：ReDroid 即 Remote-Android，是一个多架构、GPU 加速的“Android In Cloud”（AIC）方案，可在任何具备必要内核特性（如 binderfs）的 Linux 主机上部署 Android 容器。</li>
+<li><strong>版本支持</strong>：活跃维护 Android 11–15 多个版本的镜像，并提供丰富的文档与社区支持。</li>
+<li><strong>应用场景</strong>：适用于云游戏、自动化测试、连续集成中的 UI 测试、远程开发等多种场景。</li>
+</ul>
+<h2 id="huan-jing-yu-yi-lai">环境与依赖</h2>
+<ul>
+<li><strong>内核模块</strong>：宿主机需开启 <code>binderfs</code>、<code>ashmem</code> 等内核模块，部分发行版可能需安装 <code>redroid-modules</code>。</li>
+<li><strong>GPU 加速</strong>：推荐使用 Intel/AMD 集成 GPU，避免闭源 NVIDIA 驱动下的不稳定性；也可在云端 GPU 实例上部署。</li>
+<li><strong>软件需求</strong>：安装 Docker / Docker Compose（或 Podman）、ADB（Android Debug Bridge）和 Scrcpy，用于容器管理与远程调试、画面传输。</li>
+<li><strong>硬件配置</strong>：8 GB 及以上内存、四核及以上 CPU、至少 20 GB 存储；若运行高负载游戏，推荐更高配置并开启 GPU 硬件加速。</li>
+</ul>
+<h2 id="bu-shu-yu-pei-zhi">部署与配置</h2>
+<ol>
+<li><strong>创建目录与编写 Compose 文件</strong><pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">mkdir ~</span><span>/redroid &amp;&amp; cd </span><span style="color:#ffb964;">~</span><span>/redroid
+</span><span style="color:#ffb964;">vim</span><span> docker-compose.yml
+</span></code></pre>
+</li>
+<li><strong>示例 <code>docker-compose.yml</code></strong><pre data-lang="yaml" style="background-color:#151515;color:#e8e8d3;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#ffb964;">version</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">3.8</span><span style="color:#556633;">&#39;
+</span><span style="color:#ffb964;">services</span><span>:
+</span><span>  </span><span style="color:#ffb964;">redroid</span><span>:
+</span><span>    </span><span style="color:#ffb964;">image</span><span>: </span><span style="color:#99ad6a;">redroid/redroid:11.0.0_gapps
+</span><span>    </span><span style="color:#ffb964;">stdin_open</span><span>: true
+</span><span>    </span><span style="color:#ffb964;">tty</span><span>: true
+</span><span>    </span><span style="color:#ffb964;">privileged</span><span>: true
+</span><span>    </span><span style="color:#ffb964;">ports</span><span>:
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">127.0.0.1:5555:5555</span><span style="color:#556633;">&quot;
+</span><span>    </span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">./redroid-11-data:/data
+</span><span>    </span><span style="color:#ffb964;">command</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">androidboot.redroid_width=720
+</span><span>      - </span><span style="color:#99ad6a;">androidboot.redroid_height=1280
+</span><span>      - </span><span style="color:#99ad6a;">androidboot.redroid_dpi=320
+</span><span>      - </span><span style="color:#99ad6a;">androidboot.redroid_fps=60
+</span><span>      - </span><span style="color:#99ad6a;">androidboot.redroid_gpu_mode=host
+</span><span>      - </span><span style="color:#99ad6a;">ro.product.cpu.abilist0=x86_64,arm64-v8a,x86,armeabi-v7a,armeabi
+</span><span>      - </span><span style="color:#99ad6a;">ro.enable.native.bridge.exec=1
+</span><span>      - </span><span style="color:#99ad6a;">ro.dalvik.vm.native.bridge=libndk_translation.so
+</span></code></pre>
+</li>
+<li><strong>启动容器</strong><pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> docker compose up</span><span style="color:#ffb964;"> -d
+</span></code></pre>
+</li>
+</ol>
+<h2 id="ri-chang-shi-yong">日常使用</h2>
+<ul>
+<li><strong>ADB 连接与屏幕镜像</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">adb</span><span> connect localhost:5555
+</span><span style="color:#ffb964;">scrcpy -s</span><span> localhost:5555</span><span style="color:#ffb964;"> --audio-codec</span><span>=aac
+</span></code></pre>
+<ul>
+<li><strong>安装 APK</strong>：
+<ul>
+<li>使用 <code>adb install your_app.apk</code></li>
+<li>或在 Scrcpy 界面中拖拽 APK 文件进行安装</li>
+</ul>
+</li>
+<li><strong>停止与重启</strong>：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> docker compose down
+</span><span style="color:#ffb964;">sudo</span><span> docker compose up</span><span style="color:#ffb964;"> -d
+</span></code></pre>
+<ul>
+<li><strong>数据持久化</strong>：所有数据保存在 <code>~/redroid/redroid-11-data</code>，可备份或运行多实例。</li>
+</ul>
+<h2 id="gao-ji-cao-zuo-yu-an-quan-jian-yi">高级操作与安全建议</h2>
+<ul>
+<li><strong>Google Play 验证</strong>：首次登录 Play Store 需获取设备 ID 并在 Google 控制台注册后重启容器。</li>
+<li><strong>3D 加速检测</strong>：通过 AIDA64 等应用验证 GPU 加速是否生效。</li>
+<li><strong>网络安全</strong>：只绑定本地回环地址监听 ADB 端口；如需外网访问，务必配置防火墙规则，避免安全风险。</li>
+</ul>
+<h2 id="ding-zhi-jing-xiang-yu-gapps">定制镜像与 GApps</h2>
+<ul>
+<li><strong>安装 GApps</strong>：下载 OpenGApps x86_64 Android 11 Pico 包，将其中 APK 拷贝到自建镜像的 <code>system</code> 目录，再在容器内推送并授权。</li>
+<li><strong>自定义 libndk</strong>：从 Android Studio 模拟器提取 Google 官方 ARM 翻译库（libndk），在 Dockerfile 中加入到基于 <code>redroid:13.0.0-latest</code> 的自定义镜像，提升兼容性与性能。</li>
+</ul>
+<hr />
+<p>🔗</p>
+<p><a href="https://ivonblog.com/posts/install-bliss-os-on-msi-modern-15-a10/">如何在Linux安裝Bliss OS</a></p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/linux-1-command/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Linux-命令行操控</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/awesome-pve-mcsm/">
+                            <span class="button__text">综合工程:PVE安装与MC服务器搭建</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+

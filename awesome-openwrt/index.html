@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-openwrt/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-openwrt/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-openwrt/">综合工程:OpenWrt路由部署与软件编译</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-12
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 openwrt 是一个自由的、兼容性好的嵌入式 linux 发行版。作为软路由玩家必备的一款神器，可以实现诸如去广告，多拨和科学上网等多种功能。本文介绍openwrt在各种平台上的部署流程。</p>
+<span id="continue-reading"></span><h2 id="yao-shi-xian-de-mu-biao"><strong>要实现的目标</strong></h2>
+<ul>
+<li>1.IPv6 分配到每个设备；</li>
+<li>2.NAT类型为NAT1（全锥形）；</li>
+<li>3.可控的流量记录与IP控制/QOS；</li>
+<li>4.可靠的硬件加速；</li>
+<li>5.多线多播/宽带提速；</li>
+<li>6.PPPoE拨号，替代一部分光猫功能；</li>
+<li>7.智能DNS配置与去广告；</li>
+<li>8.VPN配置回家；</li>
+<li>9.实现透明代理。</li>
+</ul>
+<h2 id="da-zhi-si-lu">大致思路</h2>
+<ul>
+<li>使用高性能的X86主机管理拨号和 DHCP 内网的工作，其他无线路由器桥接做AP，Mesh组网；</li>
+<li>使用绕过中国流量模式，国内流量不经过代理内核直接直连，加快国内网站访问。保持尽可能高的 NAT 等级；</li>
+<li>不使用旁路由，所有流量过主路由；由于第二点代理挂了也不影响国内正常上网；</li>
+<li>国内外域名分流查询，国内域名查运营商 DNS ，国外域名经代理查国外 DoH ，直接返回真实 IP；</li>
+<li>良好的国内 IPv6 支持，只对国内域名返回 IPv6 AAAA 结果，国外域名只用 IPv4；</li>
+<li>兼容 Adguard Home ，方便管理域名黑白名单；</li>
+<li>对能直连的国外服务能返回最优的节点，而不是绕路其他地方；</li>
+</ul>
+<h2 id="xuan-ze-he-gua-de-she-bei"><strong>选择合适的设备</strong></h2>
+<p>无论是传统的无线路由器还是小主机都有成为openwrt路由的潜力。截止到今天，已经有20多个品牌（小米，华硕，锐捷，华三等）30多种架构（x86,ipq,bcm,mtd等）支持刷入openwrt；你可以在这个<a href="https://mao.fan/select">网站</a>找到符合你预算和其他要求的，能刷机的路由器。
+传统家用无线路由器由于主频低，内存小，并不适合作为软路由；而 NAS-软路由一体式 又有 all in boom 的风险，因此推荐X86平台作为物理机。当然，也可以采用 armbian 平台或是开发板，例如网心云老母鸡、树莓派等设备。截至本文撰写时间，二手平台上的价格不太利好：一台J1900平台的售价往往在200左右，而专门的多网口工控机价格在200到1000不等，树莓派更是成为了理财产品，需要慎重选择。</p>
+<h2 id="xuan-ze-he-gua-de-xi-tong"><strong>选择合适的系统</strong></h2>
+<p>除了openwrt主线外，还可以选择：</p>
+<ul>
+<li>
+<p><a href="https://github.com/coolsnowwolf/lede">LEDE</a> 高质量，更新快速，具有新特性的openwrt分支。</p>
+</li>
+<li>
+<p><a href="https://github.com/istoreos">iStoreOS</a> iStoreOS是openwrt的一个分支，iStoreOS 提供了软件中心：iStore，以及较美观的界面和docker支持，对新手体验较好。</p>
+</li>
+<li>
+<p><a href="https://firmware-selector.immortalwrt.org/">ImmortalWrt</a> 是一个原版openwrt的分支，中文优化好，更新也勤快，内置镜像源可以直连下载&amp;更新。</p>
+</li>
+</ul>
+<h2 id="ru-he-de-dao-yi-ge-openwrtxi-tong"><strong>如何得到一个openwrt系统</strong></h2>
+<ol>
+<li>使用编译好的现成的镜像:</li>
+</ol>
+<ul>
+<li>恩山论坛上的"高大全","精品小包"等等，但存在一定风险；</li>
+<li>使用<a href="https://downloads.openwrt.org">官方固件</a>下载得到一个最小化的系统，再一步步添加自己要用的包；注意需要根据你的uboot来选择，注意固件名称是否带了uboot_mod!</li>
+</ul>
+<ol start="2">
+<li>自行编译:</li>
+</ol>
+<ul>
+<li><a href="https://openwrt.ai/?target=x86%2F64&amp;id=generic">Openwrt.ai</a>在线编译
+一个固件；</li>
+<li>可以使用GitHub action 云编译一个固件；</li>
+<li>可以在本地linux环境中进行编译。</li>
+</ul>
+<ol start="3">
+<li>ImageBuilder</li>
+</ol>
+<ul>
+<li>使用<a href="https://firmware-selector.openwrt.org/">Openwrt 官方ImageBuilder编译</a></li>
+<li>自行下载对应的ImageBuilder包并构建.</li>
+</ul>
+<h2 id="toolchain-sdk-imagebuilder">Toolchain/SDK/ImageBuilder</h2>
+<table><thead><tr><th>特性</th><th><strong>Toolchain</strong></th><th><strong>SDK</strong></th><th><strong>Image Builder</strong></th></tr></thead><tbody>
+<tr><td>包含内容</td><td>仅交叉编译工具链（二进制版 GCC、ld、musl、binutils）</td><td>完整交叉编译环境 + feeds 脚本 + package 目录，用于 <code>.ipk</code> 包开发</td><td>预编译的根文件系统 + opkg 包（无需源码编译），用于快速定制固件映像</td></tr>
+<tr><td>典型用途</td><td>用于编译第三方程序或 CI，如 hello-world 示例</td><td>编写和编译 <code>.ipk</code> 包，本地或自动化环境中离线开发</td><td>快速生成可刷写的固件镜像，集成所需包且无需完整源码树</td></tr>
+<tr><td>解压即用</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>在源码树中的作用</td><td><code>make toolchain/install</code> 自动识别并使用跳过编译流程</td><td>源码树中不会触发 SDK 安装，需要手动解压并进入其目录使用</td><td>不使用源码树，直接在 Image Builder 根目录下运行 <code>make image</code> 等命令</td></tr>
+<tr><td>大小</td><td>较小（几十 MB）</td><td>较大（上百 MB）</td><td>中等（约数百 MB，因包含预编译包）</td></tr>
+<tr><td>构建时间</td><td>几秒到几分钟</td><td>几分钟到十几分钟（取决于 feeds 大小）</td><td>极快，可在几十秒到几分钟内完成定制镜像</td></tr>
+<tr><td>兼容性</td><td>与对应 Release 完全匹配</td><td>与对应 Release 完全匹配</td><td>与对应 Release 完全匹配</td></tr>
+<tr><td>使用难度</td><td>简单，只需解压并设置 PATH</td><td>适中，需要理解 feeds 机制及包管理</td><td>最简单，适合终端用户或快速测试环境</td></tr>
+</tbody></table>
+<h2 id="x86ping-tai-an-zhuang-liu-cheng"><strong>X86平台安装流程：</strong></h2>
+<ol start="0">
+<li>安装准备：</li>
+</ol>
+<ul>
+<li>
+<p>一个U盘与一台双网口物理机</p>
+</li>
+<li>
+<p>openwrt 的编译包，官方网站：<a href="https://firmware-selector.openwrt.org/?version=24.10.0-rc2&amp;target=ipq40xx%2Fgeneric&amp;id=glinet_gl-a1300">OpenWrt Firmware Selector</a></p>
+</li>
+<li>
+<p>或者用由 eSir 大佬编译的<a href="https://drive.google.com/drive/folders/1uRXg_krKHPrQneI3F2GNcSVRoCgkqESr">懒人包</a></p>
+</li>
+<li>
+<p>PE 启动盘，这里推荐<a href="https://github.com/VirtualHotBar/HotPEToolBox">HotPE</a></p>
+</li>
+<li>
+<p><a href="https://www.roadkil.net/program.php?ProgramID=12#google_vignette">img 写盘工具</a></p>
+</li>
+</ul>
+<ol>
+<li>进入PE环境：</li>
+</ol>
+<ul>
+<li>打开微PE，将其安装进U盘中，安装完成后将 img 工具和 openwrt 包一起放进去；</li>
+<li>将U盘插入目标主机，进入 BIOS-boot 设置U盘优先启动，各主板进入 BIOS 的按键不同，不确定的话建议都试一遍。</li>
+</ul>
+<ol start="2">
+<li>格式化硬盘并写盘</li>
+</ol>
+<ul>
+<li>进入PE环境中，可以看到存在名为“分区助手”的软件，打开它并将目标主机硬盘格式化；注意不要分区！不要分区！不要设置文件系统！否则后续可能无法编译！点击左上角提交并执行</li>
+<li>打开img写盘工具，将openwrt包写入硬盘，注意不要写进U盘里。</li>
+</ul>
+<ol start="3">
+<li>进入配置界面</li>
+</ol>
+<ul>
+<li>重启系统并快速拔出U盘，避免重新进入PE；这时系统开始运行了。注意Esir固件是不跑码的，无需担心。- 一个U盘与一台双网口物理机</li>
+<li>当看到 <code>please press Enter to activate this console</code>这个提示的时候系统就安装完毕了。可使用 passwd 命令设置密码。软路由将自动获取IP地址，随后我们在浏览器中打开该地址，即可看到 Lucl 界面。</li>
+</ul>
+<ol start="4">
+<li>如果你使用官方固件，注意:</li>
+</ol>
+<ul>
+<li>硬盘空间有一部分没有被格式化，可以手动格式化为ext4并挂载。</li>
+<li>注意初始IP往往是192.168.1.1，如果和光猫冲突需要在网络-接口中更改。</li>
+<li>基本系统主题比较简陋，可以使用luci-theme-argon。</li>
+<li>刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）：
+<code>uci set luci.main.mediaurlbase='/luci-static/bootstrap' uci commit luci /etc/init.d/uhttpd restart</code>
+然后重新访问 Web 界面，查看是否恢复正常。</li>
+</ul>
+<h2 id="x86ping-tai-ben-di-bian-yi-wan-zheng-openwrt"><strong>X86平台本地编译完整openwrt</strong></h2>
+<ul>
+<li>
+<p><strong>系统版本：Debian 11 或者 Ubuntu LTS</strong></p>
+</li>
+<li>
+<p><strong>网络要求：科学上网环境，配置推荐 2H4G 以上</strong></p>
+</li>
+<li>
+<p><strong>编译依赖</strong></p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt update
+</span><span style="color:#ffb964;">sudo</span><span> apt install</span><span style="color:#ffb964;"> -y </span><span>\
+</span><span>  ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+</span><span>  bzip2 ccache clang cmake cpio curl device-tree-compiler diffutils diffstat findutils flex gawk \
+</span><span>  gcc-multilib g++-multilib git gettext gperf grep haveged help2man intltool \
+</span><span>  libelf-dev libfuse-dev libgmp3-dev libgl1-mesa-dev libgraphene-1.0-dev libglib2.0-dev \
+</span><span>  libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev \
+</span><span>  libtool lrzsz make mesa-common-dev msmtp ninja-build p7zip p7zip-full patch pkgconf \
+</span><span>  perl python-is-python3 python3 python3-dev python3-distutils-extra python3-pip python3-pyelftools \
+</span><span>  python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs \
+</span><span>  upx-ucl unzip vim wget gnu-which xmlto xxd zlib1g-dev genisoimage llvm llvm-runtime docutils-common \
+</span><span>  ecj fastjar java-wrappers libeclipse-jdt-core-java libgnutls-dane0t64 \
+</span><span>  libgnutls-openssl27t64 libgnutls28-dev libidn2-dev libp11-kit-dev libtasn1-6-dev libtasn1-doc \
+</span><span>  libunbound8 libyaml-dev lld lld-18 nettle-dev python3-docutils python3-ply python3-roman re2c
+</span></code></pre>
+<ul>
+<li><strong>清理</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt autoremove</span><span style="color:#ffb964;"> --purge
+</span><span style="color:#ffb964;">sudo</span><span> apt clean
+</span></code></pre>
+<ul>
+<li><strong>新建一个用户，用于编译固件(可选)</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">useradd -m</span><span> openwrt  </span><span style="color:#888888;"># 新建一个名为 openwrt 的用户
+</span></code></pre>
+<blockquote>
+<p>不可以使用Root用户进行编译!!!</p>
+</blockquote>
+<ul>
+<li><strong>修改用户默认的 Shell</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">apt</span><span> install</span><span style="color:#ffb964;"> -y</span><span> sudo
+</span><span style="color:#ffb964;">usermod -s</span><span> /bin/bash openwrt
+</span></code></pre>
+<ul>
+<li><strong>切换用户</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">su</span><span> openwrt
+</span><span>cd </span><span style="color:#ffb964;">~
+</span></code></pre>
+<ul>
+<li><strong>拉取源码，这里用的是 ImmortalWrt 24.10 分支源码：</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> clone https://github.com/immortalwrt/immortalwrt.git
+</span><span>cd immortalwrt
+</span></code></pre>
+<ul>
+<li><strong>选择分支</strong></li>
+</ul>
+<p>如果你想要编译稳定版(stable),使用</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> checkout xxx </span><span style="color:#888888;">#例如git checkout v24.10.2
+</span></code></pre>
+<p>如果你想要编译最新版(snapshot),使用</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> switch xxx </span><span style="color:#888888;">#例如git switch openwrt-24.10
+</span></code></pre>
+<h3 id="mu-lu-shuo-ming">目录说明</h3>
+<table><thead><tr><th>名称</th><th>作用</th></tr></thead><tbody>
+<tr><td><code>Makefile</code></td><td><strong>整个 OpenWrt 构建系统的总入口点</strong>（顶层 Makefile），运行 <code>make menuconfig</code>、<code>make</code> 都依赖它</td></tr>
+<tr><td><code>Config.in</code></td><td>Kconfig 系统的入口配置文件，决定 <code>make menuconfig</code> 菜单显示什么选项</td></tr>
+<tr><td><code>config/</code></td><td>构建系统的默认配置模板、菜单逻辑，和 <code>menuconfig</code> 相关</td></tr>
+<tr><td><code>include/</code></td><td>包含通用 makefile 片段的目录（比如编译选项、函数定义）</td></tr>
+<tr><td><code>rules.mk</code></td><td>所有包编译通用规则都写在这里，<code>include $(TOPDIR)/rules.mk</code> 是常见语句</td></tr>
+<tr><td><code>feeds.conf.default</code></td><td>定义 Feed 源（即可选的软件源），可用于管理外部包，比如 <code>luci</code>、<code>packages</code></td></tr>
+<tr><td><code>feeds/</code> <em>(克隆后还没出现)</em></td><td><code>./scripts/feeds update -a</code> 后才会出现，用来保存外部 feed 的代码</td></tr>
+<tr><td><code>package/</code></td><td>OpenWrt 自带的核心包和第三方包（除 feeds 外的）都在这，结构是 <code>package/&lt;分类&gt;/&lt;包名&gt;</code></td></tr>
+<tr><td><code>target/</code></td><td>支持的平台架构，比如 <code>x86</code>、<code>ramips</code>、<code>ath79</code>、<code>mediatek</code> 等都在里面</td></tr>
+<tr><td><code>toolchain/</code></td><td>编译器链、glibc/musl、binutils、gcc 都在这里构建</td></tr>
+<tr><td><code>tools/</code></td><td>构建工具目录，编译前工具如 <code>m4</code>、<code>autoconf</code>、<code>xz</code>、<code>patch</code> 等放在这</td></tr>
+<tr><td><code>scripts/</code></td><td>脚本工具目录，如 <code>feeds</code> 管理、镜像合并、menuconfig 支持等</td></tr>
+<tr><td><code>LICENSES/</code></td><td>所有包/组件的许可证归档</td></tr>
+<tr><td><code>COPYING</code></td><td>OpenWrt 的主许可证（GPLv2）</td></tr>
+<tr><td><code>README.md</code></td><td>简要介绍如何开始使用 OpenWrt 的说明文档</td></tr>
+<tr><td><code>BSDmakefile</code></td><td>为 BSD 系统一些兼容 makefile，Linux 用户用不到</td></tr>
+</tbody></table>
+<ul>
+<li><strong>添加软件源,可自行添加软件源至 feeds.conf.default 文件</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">vim</span><span> feeds.conf.default
+</span></code></pre>
+<p><strong>常用源</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">src-git</span><span> kenzo https://github.com/kenzok8/openwrt-packages
+</span><span style="color:#ffb964;">src-git</span><span> small https://github.com/kenzok8/small
+</span><span style="color:#ffb964;">src-git</span><span> haibo https://github.com/haiibo/openwrt-packages
+</span><span style="color:#ffb964;">src-git</span><span> liuran001 https://github.com/liuran001/openwrt-packages
+</span></code></pre>
+<p><strong>常用仓库</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">src/gz</span><span> kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
+</span><span style="color:#ffb964;">src/gz</span><span> kwrt_base https://dl.openwrt.ai/releases/24.10/packages/x86_64/base
+</span><span style="color:#ffb964;">src/gz</span><span> kwrt_packages https://dl.openwrt.ai/releases/24.10/packages/x86_64/packages
+</span><span style="color:#ffb964;">src/gz</span><span> kwrt_luci https://dl.openwrt.ai/releases/24.10/packages/x86_64/luci
+</span><span style="color:#ffb964;">src/gz</span><span> kwrt_routing https://dl.openwrt.ai/releases/24.10/packages/x86_64/routing
+</span><span style="color:#ffb964;">src/gz</span><span> kwrt_kiddin9 https://dl.openwrt.ai/releases/24.10/packages/x86_64/kiddin9
+</span></code></pre>
+<ul>
+<li><strong>单独添加</strong>（在更新并安装插件之前执行）例如：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> clone https://github.com/chenmozhijin/turboacc.git
+</span></code></pre>
+<ul>
+<li><strong>更新并安装插件</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">./scripts/feeds</span><span> clean
+</span><span style="color:#ffb964;">./scripts/feeds</span><span> update</span><span style="color:#ffb964;"> -a
+</span><span style="color:#ffb964;">./scripts/feeds</span><span> install</span><span style="color:#ffb964;"> -a
+</span></code></pre>
+<table><thead><tr><th><code>./scripts/feeds update -a</code></th><th>同步／更新 <strong>外部 feed</strong>（packages、luci、routing 等）的 Git 仓库到本地 <code>feeds/</code> 目录</th></tr></thead><tbody>
+<tr><td><code>./scripts/feeds install -a</code></td><td>把你在 feeds 里选要用的包 <strong>链接</strong> 到源码树的 <code>package/feeds/</code>，让它们参与编译</td></tr>
+</tbody></table>
+<ul>
+<li><strong>自定义配置</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;">#!/usr/bin/env bash
+</span><span style="color:#888888;"># diy-part2.sh — 在镜像生成时注入默认设置和定制 SSH 横幅及模型修复
+</span><span>
+</span><span style="color:#888888;"># 1. 默认 hostname（可选）
+</span><span style="color:#ffb964;">sed -i </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">s/=ImmortalWrt/=my-device/</span><span style="color:#556633;">&#39;</span><span> package/base-files/files/bin/config_generate
+</span><span>
+</span><span style="color:#888888;"># 2. 默认 IP 地址（可选）
+</span><span style="color:#ffb964;">sed -i </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">s/192.168.1.1/192.168.5.1/</span><span style="color:#556633;">&#39;</span><span> package/base-files/files/bin/config_generate
+</span><span>
+</span><span style="color:#888888;"># 3. 默认 root 密码（请换成安全密码）
+</span><span style="color:#ffb964;">HASH</span><span>=</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">openssl</span><span style="color:#99ad6a;"> passwd</span><span style="color:#ffb964;"> -1 </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">yourpassword</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">)
+</span><span style="color:#ffb964;">sed -i </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">s|root::0:0:99999|root:${</span><span style="color:#ffb964;">HASH</span><span style="color:#99ad6a;">}:0:0:99999|</span><span style="color:#556633;">&quot;</span><span> package/base-files/files/etc/shadow
+</span><span>
+</span><span style="color:#888888;"># 4. 设置默认 LuCI 主题为 argon（内置在 luci feeds）
+</span><span style="color:#ffb964;">cat </span><span>&gt;&gt;package/base-files/files/etc/uci-defaults/99_set_theme </span><span style="color:#99ad6a;">&lt;&lt;</span><span style="color:#556633;">&#39;</span><span style="color:#8fbfdc;">EOF</span><span style="color:#556633;">&#39;
+</span><span style="color:#99ad6a;">uci set luci.main.mediaurlbase=/luci-static/argon
+</span><span style="color:#99ad6a;">uci commit luci
+</span><span style="color:#8fbfdc;">EOF
+</span><span style="color:#ffb964;">chmod</span><span> +x package/base-files/files/etc/uci-defaults/99_set_theme
+</span><span>
+</span><span style="color:#888888;"># 5. 默认加载 BBR 拥塞控制算法
+</span><span style="color:#ffb964;">mkdir -p</span><span> package/base-files/files/etc/sysctl.d
+</span><span style="color:#ffb964;">cat </span><span>&gt;&gt;package/base-files/files/etc/sysctl.d/99-bbr.conf </span><span style="color:#99ad6a;">&lt;&lt;</span><span style="color:#556633;">&#39;</span><span style="color:#8fbfdc;">EOF</span><span style="color:#556633;">&#39;
+</span><span style="color:#99ad6a;">net.core.default_qdisc=fq_codel
+</span><span style="color:#99ad6a;">net.ipv4.tcp_congestion_control=bbr
+</span><span style="color:#8fbfdc;">EOF
+</span><span>
+</span><span style="color:#888888;"># 检查BBR: sysctl net.ipv4.tcp_congestion_control
+</span><span>
+</span><span style="color:#888888;"># 6. 将默认 shell 修改为 bash
+</span><span style="color:#ffb964;">sed -i </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">s|/bin/ash|/bin/bash|g</span><span style="color:#556633;">&quot;</span><span> package/base-files/files/etc/passwd
+</span><span style="color:#888888;"># 请在 .config 中添加 TARGET_PACKAGES += bash
+</span><span>
+</span><span style="color:#888888;"># 7. 自定义 SSH 登录横幅（banner）
+</span><span style="color:#ffb964;">mkdir -p</span><span> package/base-files/files/etc
+</span><span style="color:#8fbfdc;">if </span><span>[ </span><span style="color:#ffb964;">-f </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">scripts/custom-files/banner.txt</span><span style="color:#556633;">&quot; </span><span>]; </span><span style="color:#8fbfdc;">then
+</span><span>  </span><span style="color:#ffb964;">cp</span><span> scripts/custom-files/banner.txt package/base-files/files/etc/banner
+</span><span style="color:#8fbfdc;">else
+</span><span>  </span><span style="color:#ffb964;">cat </span><span>&gt;package/base-files/files/etc/banner </span><span style="color:#99ad6a;">&lt;&lt;</span><span style="color:#556633;">&#39;</span><span style="color:#8fbfdc;">EOF</span><span style="color:#556633;">&#39;
+</span><span style="color:#99ad6a;">Welcome to MyDevice (ImmortalWrt)\n
+</span><span style="color:#8fbfdc;">EOF
+</span><span style="color:#8fbfdc;">fi
+</span><span>
+</span><span style="color:#888888;"># 8. 自定义 LuCI 概览设备型号 🛠
+</span><span style="color:#888888;"># 通过 uci-defaults 脚本写入 /tmp/sysinfo/model
+</span><span style="color:#ffb964;">cat </span><span>&gt;&gt;package/base-files/files/etc/uci-defaults/99-model-fix </span><span style="color:#99ad6a;">&lt;&lt;</span><span style="color:#556633;">&#39;</span><span style="color:#8fbfdc;">EOF</span><span style="color:#556633;">&#39;
+</span><span style="color:#99ad6a;">#!/bin/sh
+</span><span style="color:#99ad6a;"># 设置自定义设备型号
+</span><span style="color:#99ad6a;">mkdir -p /tmp/sysinfo
+</span><span style="color:#99ad6a;">echo &quot;Your Router Model&quot; &gt; /tmp/sysinfo/model
+</span><span style="color:#99ad6a;">exit 0
+</span><span style="color:#8fbfdc;">EOF
+</span><span style="color:#ffb964;">chmod</span><span> +x package/base-files/files/etc/uci-defaults/99-model-fix
+</span></code></pre>
+<ul>
+<li>执行 <strong>make menuconfig</strong> 命令进入编译菜单。</li>
+</ul>
+<table><thead><tr><th>命令</th><th>功能描述</th><th>优点</th><th>适用场景</th></tr></thead><tbody>
+<tr><td><code>make menuconfig</code></td><td>以 ncurses 界面交互式地浏览、修改当前 <code>.config</code> 与最新 Kconfig 中的所有选项</td><td>界面友好，支持搜索和分类；可直观调整</td><td>想手动挑选/调整配置时</td></tr>
+<tr><td><code>make oldconfig</code></td><td>在命令行逐项对比 <code>.config</code> 与最新 Kconfig：保留原值、提示新增项、删除废弃项</td><td>快速同步，只对新增选项发出提示；无需界面</td><td>自动化脚本或快速同步配置时</td></tr>
+<tr><td><code>make defconfig</code></td><td>忽略当前 <code>.config</code>，直接加载架构/板级目录下的默认配置（<code>defconfig</code>）</td><td>一键生成官方/平台推荐的「干净」配置</td><td>想重置到官方默认或重新开始时</td></tr>
+</tbody></table>
+<h3 id="bian-yi-pei-zhi-cai-dan-shuo-ming-bu-fen"><strong>编译配置菜单说明（部分）</strong></h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Target</span><span> System (x86)                                </span><span style="color:#888888;"># 选择目标平台
+</span><span style="color:#ffb964;">└──</span><span> Subtarget (x86_64)                             </span><span style="color:#888888;"># 选择 64-bit 子架构
+</span><span>    </span><span style="color:#ffb964;">└──</span><span> Target Profile (Generic)                   </span><span style="color:#888888;"># “Generic” 表示通用 x86_64 设备
+</span><span>        </span><span style="color:#ffb964;">└──</span><span> Target Images                          </span><span style="color:#888888;"># 固件镜像设置
+</span><span>            </span><span style="color:#ffb964;">├──</span><span> ramdisk                            </span><span style="color:#888888;"># 可选内存盘镜像
+</span><span>            </span><span style="color:#ffb964;">│</span><span>   ├── Compression                    </span><span style="color:#888888;"># 压缩类型（如 none 表示无压缩）
+</span><span>            </span><span style="color:#ffb964;">│</span><span>   ├── Root filesystem archives       </span><span style="color:#888888;"># 压缩存档：cpio.gz 或 tar.gz
+</span><span>            </span><span style="color:#ffb964;">│</span><span>   └── Root filesystem images         </span><span style="color:#888888;"># 文件系统镜像：ext4、squashfs、Gzip
+</span><span>            </span><span style="color:#ffb964;">└──</span><span> Image Options                      </span><span style="color:#888888;"># 镜像选项
+</span><span>                </span><span style="color:#ffb964;">├──</span><span> Kernel partition size           </span><span style="color:#888888;"># 内核分配分区大小
+</span><span>                </span><span style="color:#ffb964;">├──</span><span> Root filesystem partition size </span><span style="color:#888888;"># 根文件系统分区大小
+</span><span>                </span><span style="color:#ffb964;">└──</span><span> Make /var persistent            </span><span style="color:#888888;"># 是否保留 /var 持久化
+</span><span>
+</span><span style="color:#ffb964;">Global</span><span> build settings                             </span><span style="color:#888888;"># 全局构建设置
+</span><span style="color:#ffb964;">Advanced</span><span> configuration options (for developers)  </span><span style="color:#888888;"># 开发者高级选项
+</span><span style="color:#ffb964;">Build</span><span> the OpenWrt Image Builder                  </span><span style="color:#888888;"># 编译镜像构建器
+</span><span style="color:#ffb964;">Build</span><span> the OpenWrt SDK                            </span><span style="color:#888888;"># 构建交叉编译 SDK
+</span><span style="color:#ffb964;">Package</span><span> the OpenWrt‑based Toolchain              </span><span style="color:#888888;"># 打包 OpenWrt 工具链
+</span><span style="color:#ffb964;">Image</span><span> configuration                              </span><span style="color:#888888;"># 镜像总体配置页面
+</span><span>
+</span><span style="color:#ffb964;">Base</span><span> system         </span><span style="color:#888888;"># 系统基础组件
+</span><span style="color:#ffb964;">Administration      </span><span style="color:#888888;"># 管理工具（如 ssh、管理员脚本）
+</span><span style="color:#ffb964;">Boot</span><span> Loaders        </span><span style="color:#888888;"># 引导程序（如 grub、syslinux）
+</span><span style="color:#ffb964;">Development         </span><span style="color:#888888;"># 编译/调试辅助工具
+</span><span style="color:#ffb964;">Extra</span><span> packages      </span><span style="color:#888888;"># 附加应用（如 wget、curl）
+</span><span style="color:#ffb964;">Firmware            </span><span style="color:#888888;"># 固件工具
+</span><span style="color:#ffb964;">Fonts               </span><span style="color:#888888;"># 字体支持
+</span><span style="color:#ffb964;">Kernel</span><span> modules      </span><span style="color:#888888;"># x86 内核模块驱动
+</span><span style="color:#ffb964;">Languages           </span><span style="color:#888888;"># 编程语言包（如 Python3、Node.js）
+</span><span style="color:#ffb964;">Libraries           </span><span style="color:#888888;"># 系统库依赖
+</span><span style="color:#ffb964;">LuCI                </span><span style="color:#888888;"># Web UI 前端
+</span><span style="color:#ffb964;">└──</span><span> Collections
+</span><span style="color:#ffb964;">└──</span><span> Modules
+</span><span style="color:#ffb964;">└──</span><span> Applications
+</span><span style="color:#ffb964;">└──</span><span> Themes
+</span><span style="color:#ffb964;">└──</span><span> Protocols
+</span><span style="color:#ffb964;">└──</span><span> Libraries
+</span><span style="color:#ffb964;">└──</span><span> default‑settings
+</span><span>
+</span><span style="color:#ffb964;">Mail                </span><span style="color:#888888;"># 邮件客户端
+</span><span style="color:#ffb964;">Multimedia          </span><span style="color:#888888;"># 媒体工具（如 ffmpeg）
+</span><span style="color:#ffb964;">Network             </span><span style="color:#888888;"># 网络功能（如 openvpn、wireguard）
+</span><span style="color:#ffb964;">Sound               </span><span style="color:#888888;"># 音频相关软件
+</span><span style="color:#ffb964;">Utilities           </span><span style="color:#888888;"># 常用实用程序（如 vim、htop）
+</span><span style="color:#ffb964;">Xorg                </span><span style="color:#888888;"># 桌面环境支持（X11 图形系统）
+</span><span>
+</span></code></pre>
+<ul>
+<li><strong>预下载编译所需的软件包</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">make</span><span> download</span><span style="color:#ffb964;"> -j8
+</span></code></pre>
+<ul>
+<li><strong>检查文件完整性</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">find</span><span> dl</span><span style="color:#ffb964;"> -size -1024c -exec</span><span> ls</span><span style="color:#ffb964;"> -l </span><span>{} \;
+</span></code></pre>
+<p>检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查.确认所有文件完整可大大提高编译成功率，避免浪费时间</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">find</span><span> dl</span><span style="color:#ffb964;"> -size -1024c -exec</span><span> rm</span><span style="color:#ffb964;"> -f </span><span>{} \;
+</span></code></pre>
+<ul>
+<li><strong>最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.</strong></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">make</span><span> V=s</span><span style="color:#ffb964;"> -j1
+</span><span>
+</span><span style="color:#ffb964;">或者使用</span><span> make world</span><span style="color:#ffb964;"> -j1</span><span> V=s </span><span style="color:#cf6a4c;">2</span><span>&gt;&amp;</span><span style="color:#cf6a4c;">1 </span><span>| </span><span style="color:#ffb964;">tee</span><span> world_debug.log
+</span><span>
+</span><span style="color:#ffb964;">如果报错可查看</span><span> grep</span><span style="color:#ffb964;"> -E </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">(error|fatal|Cannot install package)</span><span style="color:#556633;">&quot;</span><span> world_debug.log</span><span style="color:#ffb964;"> -n
+</span></code></pre>
+<table><thead><tr><th>make层级</th><th>目录示例</th><th>说明</th></tr></thead><tbody>
+<tr><td>make[1]</td><td>顶层 Makefile</td><td>解析依赖，调度模块</td></tr>
+<tr><td>make[2]</td><td><code>tools/</code></td><td>编译辅助工具</td></tr>
+<tr><td>make[2]</td><td><code>toolchain/</code></td><td>编译交叉编译工具链</td></tr>
+<tr><td>make[2]</td><td><code>target/linux/</code></td><td>编译内核及设备树</td></tr>
+<tr><td>make[2]</td><td><code>package/</code></td><td>进入包管理，调度包构建</td></tr>
+<tr><td>make[3]</td><td><code>package/libs/libc</code></td><td>单个包的 Makefile</td></tr>
+<tr><td>make[3]</td><td><code>package/utils/busybox</code></td><td>单个包的 Makefile</td></tr>
+<tr><td>make[4]</td><td><code>build_dir/target-...</code></td><td>包源码目录，运行源码的 make</td></tr>
+<tr><td>make[4]</td><td><code>build_dir/target-linux-...</code></td><td>内核源码目录</td></tr>
+</tbody></table>
+<h2 id="er-ci-bian-yi">二次编译</h2>
+<table><thead><tr><th>命令</th><th>清除内容</th><th>保留内容</th><th>适用场景</th></tr></thead><tbody>
+<tr><td><code>make clean</code></td><td>删除 <code>bin/</code> 镜像、<code>build_dir/</code> 编译产物</td><td><code>.config</code>、<code>staging_dir/</code>、<code>toolchain/</code> 等</td><td>小修改后重建镜像，速度快，常用于增量编译。</td></tr>
+<tr><td><code>make dirclean</code></td><td>和 <code>make clean</code> 一样，还删除 <code>staging_dir/</code>、<code>toolchain/</code>、<code>logs</code></td><td><code>.config</code></td><td>彻底重建交叉编译环境，适合更改编译配置如 <code>.config</code>、feeds 等。</td></tr>
+<tr><td><code>make distclean</code></td><td>删除 <code>make dirclean</code> 的所有内容 + feeds 下载文件 + <code>.config</code>、patch 等所有状态</td><td>只有源码目录保持不变</td><td>专用于回到一个“零配置、重做一切”的状态，完全从头开始构建。</td></tr>
+</tbody></table>
+<p>恢复所有修改（包括未跟踪文件）:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> clean</span><span style="color:#ffb964;"> -fd
+</span><span style="color:#ffb964;">git</span><span> restore</span><span style="color:#ffb964;"> --source</span><span>=v24.10.2</span><span style="color:#ffb964;"> --staged --worktree</span><span> .
+</span></code></pre>
+<h2 id="dwrt-fang-an">Dwrt 方案</h2>
+<table><thead><tr><th>作用</th><th>组件</th></tr></thead><tbody>
+<tr><td>主题</td><td>argon</td></tr>
+<tr><td>Shell</td><td>bash</td></tr>
+<tr><td>SSH 服务器</td><td>dropbear</td></tr>
+<tr><td>Web 服务器</td><td>uhttpd</td></tr>
+<tr><td>DNS/DHCP 服务</td><td>dnsmasq‑full</td></tr>
+<tr><td>加密库</td><td>openssl</td></tr>
+<tr><td>压缩算法</td><td>zram+zstd</td></tr>
+<tr><td>拥塞控制</td><td>bbr</td></tr>
+<tr><td>防火墙</td><td>nftables + iptables</td></tr>
+<tr><td>调度模块</td><td>BPF + kmod-sched-xxx</td></tr>
+<tr><td>时间同步</td><td>ntpd-full</td></tr>
+<tr><td>文本编辑</td><td>vim-full vim-runtime</td></tr>
+<tr><td>编译优化</td><td>LTO + O3</td></tr>
+</tbody></table>
+<p>要启用的软件包：</p>
+<p><strong>base</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">autocore</span><span> base-files bash block-mount ca-bundle coremark curl dnsmasq-full dropbear ds-lite e2fsprogs fdisk firewall4 fstools grub2-bios-setup htop kmod-8139cp kmod-8139too kmod-amazon-ena kmod-amd-xgbe kmod-atlantic kmod-bnx2 kmod-bnx2x kmod-button-hotplug kmod-drm-amdgpu kmod-drm-i915 kmod-dwmac-intel kmod-e1000 kmod-e1000e kmod-forcedeth kmod-fs-f2fs kmod-fs-vfat kmod-i40e kmod-iavf kmod-igb kmod-igbvf kmod-igc kmod-ixgbe kmod-ixgbevf kmod-lib-zstd kmod-mlx4-core kmod-mlx5-core kmod-mmc kmod-pcnet32 kmod-phy-broadcom kmod-r8101 kmod-r8125 kmod-r8126 kmod-r8168 kmod-sdhci kmod-tcp-bbr kmod-tg3 kmod-tulip kmod-usb-hid kmod-vmxnet3 libc libgcc libustream-mbedtls lm-sensors-detect logd lsblk luci-app-fan luci-app-filemanager luci-app-firewall luci-app-log-viewer luci-app-package-manager luci-app-syscontrol luci-app-upnp  luci-base luci-compat luci-lib-fs luci-lib-ipkg  mkf2fs mtd nano netifd odhcp6c odhcpd-ipv6only openssh-sftp-server opkg partx-utils pciutils ppp ppp-mod-pppoe resolveip swconfig uci uclient-fetch urandom-seed urngd usbutils wget-ssl zram-swap
+</span></code></pre>
+<p><strong>cli</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">btop</span><span> iperf3 tcpdump
+</span></code></pre>
+<p><strong>luci</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">luci-app-argon</span><span> luci-app-upnp luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol luci-app-homeproxy luci-app-daed
+</span></code></pre>
+<p><strong>lib</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">kmod-ipt-conntrack</span><span> kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
+</span></code></pre>
+<h2 id="shi-yong-sdkkuai-su-bian-yi-bao">使用SDK快速编译包</h2>
+<p>首先新建一个文件夹并将SDK克隆下来：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">mkdir</span><span> imwrt-sdk
+</span><span>cd ./imwrt-sdk
+</span><span style="color:#ffb964;">wget</span><span> https://downloads.immortalwrt.org/snapshots/targets/mediatek/filogic/immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
+</span></code></pre>
+<p>新版本的SDK使用ZSTD压缩，因此解压的命令为</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">tar -I</span><span> zstd</span><span style="color:#ffb964;"> -xvf</span><span> ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64.tar.zst
+</span></code></pre>
+<p>随后进入该目录并和一般流程一样更新Feeds：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>cd ./immortalwrt-sdk-mediatek-filogic_gcc-14.3.0_musl.Linux-x86_64/
+</span><span style="color:#ffb964;">./scripts/feeds</span><span> update</span><span style="color:#ffb964;"> -a
+</span><span style="color:#ffb964;">./scripts/feeds</span><span> install</span><span style="color:#ffb964;"> -a
+</span></code></pre>
+<p>更新完成后克隆你要编译的包的源码到package下：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>cd ./package/
+</span><span style="color:#ffb964;">git</span><span> clone https://github.com/Dichgrem/luci-app-nyn.git
+</span><span style="color:#ffb964;">cp</span><span> ./luci-app-nyn/luci-app-zzz ./
+</span><span style="color:#ffb964;">cp</span><span> ./luci-app-nyn/zzz ./
+</span><span style="color:#ffb964;">rm -rf</span><span> ./luci-app-nyn
+</span><span>cd ../
+</span></code></pre>
+<p>随后开始编译，编译结果在对应架构的base目录下：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">make</span><span> package/luci-app-zzz/compile V=s
+</span><span>
+</span><span style="color:#ffb964;">~/imwrt-sdk/immortalwrt-sdk-24.10.3-x86-64_gcc-13.3.0_musl.Linux-x86_64</span><span> dich@uos
+</span><span style="color:#ffb964;">❯</span><span> find ./</span><span style="color:#ffb964;"> -name </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">zzz*.ipk</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">./bin/packages/x86_64/base/zzz_0.1.1-r1_x86_64.ipk
+</span></code></pre>
+<h2 id="chang-yong-ming-ling">常用命令</h2>
+<blockquote>
+<p>注意！不能升级kmod前缀的软件包！base-files是危险包，谨慎升级！</p>
+</blockquote>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 更新软件列表
+</span><span style="color:#ffb964;">opkg</span><span> update
+</span><span>
+</span><span style="color:#888888;"># 列出可升级的非内核包
+</span><span style="color:#ffb964;">opkg</span><span> list-upgradable | </span><span style="color:#ffb964;">grep -vE </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">^(kmod-|kernel)</span><span style="color:#556633;">&#39;
+</span><span>
+</span><span style="color:#888888;"># 升级单个软件包
+</span><span style="color:#ffb964;">opkg</span><span> upgrade 包名
+</span><span>
+</span><span style="color:#888888;"># 固件版本号
+</span><span style="color:#ffb964;">vim</span><span> /etc/os-release
+</span><span>
+</span><span style="color:#888888;"># 脚本&amp;脚注
+</span><span style="color:#ffb964;">vim</span><span> /etc/openwrt_release
+</span><span>
+</span><span style="color:#888888;"># ASCII字符画
+</span><span style="color:#ffb964;">vim</span><span> /etc/banner
+</span><span>
+</span><span style="color:#888888;"># 登录脚本显示
+</span><span style="color:#ffb964;">vim</span><span> /etc/profile
+</span></code></pre>
+<h2 id="chang-yong-ke-xue-cha-jian">常用科学插件</h2>
+<table><thead><tr><th>特性</th><th>HomeProxy</th><th>OpenClash</th><th>Passwall</th><th>ShellClash</th></tr></thead><tbody>
+<tr><td><strong>核心</strong></td><td>Sing-box、Xray</td><td>Clash</td><td>Xray、Sing-box</td><td>Clash、Xray、Sing-box</td></tr>
+<tr><td><strong>UI 管理</strong></td><td>✅（Web UI、桌面端 GUI）</td><td>✅（OpenClash Web UI）</td><td>✅（Luci Web UI）</td><td>❌（Shell 终端管理）</td></tr>
+<tr><td><strong>适用场景</strong></td><td>性能较好,但分流设置复杂</td><td>适用于clash系,机场首选</td><td>操作简单,分流完善,但对路由器性能要求较高</td><td>没有UI界面，性能最好，支持完善，可以通过clashapi安装UI</td></tr>
+</tbody></table>
+<h2 id="xiao-yuan-wang-duo-she-bei-fang-jian-ce">校园网多设备防检测</h2>
+<p><strong>常见检测方法</strong>：</p>
+<ul>
+<li>TTL检测法 解法：插件统一修复或使用桥接；使用kmod-iptables-ipot模块；</li>
+<li>User-Agent 解法：统一经过singbox代理或使用UA2F/UA3F；</li>
+<li>时间戳检测法 解法：统一NTP服务器；</li>
+</ul>
+<p><strong>高性能开销检测方法</strong>：</p>
+<ul>
+<li>IP-ID检测法 解法：UDP over TCP或rkp-IPid；</li>
+<li>Flash cookie 解法：内置防火墙组件；</li>
+<li>DPI检测法 深度包检测特征值 解法：代理协议；</li>
+</ul>
+<blockquote>
+<p>高性能开销的检测方法会浪费大量性能，一般很少有学校这么做。IP-ID和Flash检测法如今已经不多见。</p>
+</blockquote>
+<p><strong>TTL修复</strong>:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>依赖包
+</span><span>opkg install kmod-nft-core kmod-nft-bridge kmod-nft-net kmod-nft-offload kmod-nft-nat
+</span><span>
+</span><span>首先检查 mangle 表是否存在
+</span><span>nft list tables
+</span><span>
+</span><span>创建 mangle 表（如果不存在）
+</span><span>nft add table ip mangle
+</span><span>
+</span><span>创建 POSTROUTING 链（如果不存在）
+</span><span>nft add chain ip mangle POSTROUTING { type nat hook postrouting priority 0 \; }
+</span><span>
+</span><span>
+</span><span>添加 TTL 规则
+</span><span>nft add rule ip mangle POSTROUTING ip ttl set 64
+</span><span>
+</span><span>检查规则是否生效
+</span><span>nft list table ip mangle
+</span></code></pre>
+<h2 id="openwrtgai-apmo-shi">Openwrt改AP模式</h2>
+<p>有时候我们使用X86做主路由，想让无线路由器只起到发射信号的作用，就可以将其改为AP模式，一般步骤为：</p>
+<ul>
+<li>更改lan地址，将lan口地址改到主路由下的一个IP;</li>
+<li>关闭DHCP服务；</li>
+<li>关闭WAN口；</li>
+<li>关闭防火墙的禁止转发规则，全部允许；</li>
+<li>将X86主路由的网线插到AP的任意一个LAN口。</li>
+</ul>
+<h2 id="link">🔗</h2>
+<ul>
+<li><a href="https://openwrt.org/zh/docs/start">Openwrt wiki</a></li>
+<li><a href="https://openwrt.ai/?target=ipq807x%2Fgeneric&amp;id=xiaomi_ax3600">OpenWrt在线定制编译</a></li>
+<li><a href="https://www.cnblogs.com/tfel-ypoc/p/17226064.html">openwrt luci 页面无法访问 问题排查</a></li>
+<li><a href="https://post.smzdm.com/p/axz6369w/">超详细，多图，简单，OpenWRT 设置，IPV6配置</a></li>
+<li><a href="https://blog.csdn.net/weixin_44548582/article/details/121064734">保姆级-光猫改桥接-路由拨号-openwrt端口转发</a></li>
+</ul>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-pve-mcsm/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">综合工程:PVE安装与MC服务器搭建</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/awesome-android-root/">
+                            <span class="button__text">综合工程:安卓刷机与root教程</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+</body>
+</html>
+
