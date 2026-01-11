@@ -244,5 +244,64 @@ Windows Registry Editor Version 5.00
 "SoftwareOnly"=dword:00000001
 ```
 
+
+## powershell强化
+
+
+- 安装模块
+```bash
+winget install junegunn.fzf
+fzf --version
+winget install JanDeDobbeleer.OhMyPosh
+oh-my-posh version
+winget install ajeetdsouza.zoxide
+zoxide --version
+```
+
+- 导入模块
+```bash
+Install-Module PSReadLine     -Scope CurrentUser -Force
+Install-Module posh-git       -Scope CurrentUser -Force
+Install-Module PSFzf      -Scope CurrentUser -Force
+notepad $PROFILE
+```
+
+- 写入配置
+```bash
+# ---------- PSReadLine ----------
+Import-Module PSReadLine
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle InlineView
+
+# ---------- Git ----------
+Import-Module posh-git
+
+# ---------- fzf ----------
+Import-Module PSFzf
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+
+# ---------- zoxide ----------
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+# ---------- oh-my-posh ----------
+
+oh-my-posh init pwsh | Invoke-Expression
+
+# ---------- Bash-style line editing ----------
+
+# Ctrl+A → 行首
+Set-PSReadLineKeyHandler -Key Ctrl+a -Function BeginningOfLine
+
+# Ctrl+E → 行尾
+Set-PSReadLineKeyHandler -Key Ctrl+e -Function EndOfLine
+
+# Ctrl+U → 删除从光标到行首
+Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
+
+# Ctrl+K → 删除从光标到行尾
+Set-PSReadLineKeyHandler -Key Ctrl+k -Function ForwardDeleteLine
+```
+
+
 ---
 **Done.**
