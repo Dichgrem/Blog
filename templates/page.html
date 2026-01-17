@@ -44,3 +44,7 @@
     {% endif %}
 {% endblock content %}
 
+{% block extra_body %}
+    <script src="{{ get_url(path='copy.js', trailing_slash=false) | safe }}"></script>
+{% endblock extra_body %}
+
