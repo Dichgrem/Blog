@@ -578,6 +578,17 @@ nft list table ip mangle
 - 关闭防火墙的禁止转发规则，全部允许；
 - 将X86主路由的网线插到AP的任意一个LAN口。
 
+## 更新所有包
+
+```
+opkg update
+
+opkg list-upgradable \
+| awk '{print $1}' \
+| grep -vE '^(base-files|busybox|libc|libgcc|libstdc\+\+|procd|netifd|ubus|uci|kernel|kmod-|fstools|mtd|fwtool)$' \
+| xargs -r opkg upgrade
+```
+
 ## 🔗
 
 - [Openwrt wiki](https://openwrt.org/zh/docs/start)
