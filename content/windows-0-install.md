@@ -178,7 +178,7 @@ tags = ["Windows"]
 - **抓包**: [Wireshark](https://www.wireshark.org/download.html)
 - **启动器**: [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher)
 - **输入法**: [Rime](https://rime.im/download/)
-- **浏览器**: [Floorp](https://github.com/Floorp-Projects/Floorp) / [Chrome](https://www.google.com/chrome/)
+- **浏览器**: [Floorp](https://github.com/Floorp-Projects/Floorp) / [Chrome](https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe)
 - **编辑器**: [VSCodium](https://github.com/VSCodium/vscodium)
 - **虚拟机**: Hyper‑V
 - **科学上网**: [GFS](https://github.com/GUI-for-Cores/GUI.for.SingBox)
