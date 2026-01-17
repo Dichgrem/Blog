@@ -1,0 +1,88 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.toc-container {
+    position: fixed;
+    right: 150px;
+    top: 180px;
+    width: 250px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+    
+    @media (min-width: 1400px) {
+        display: block;
+    }
+}
+
+.toc {
+    padding: 15px 0;
+    
+    &-title {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        color: var(--color);
+    }
+    
+    ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+    
+    li {
+        margin: 4px 0;
+    }
+    
+    ul ul {
+        padding-left: 20px;
+        margin-top: 4px;
+    }
+    
+    a {
+        display: block;
+        text-decoration: none;
+        color: var(--color);
+        font-size: 0.9rem;
+        padding: 2px 0;
+        transition: color 0.2s ease;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        
+        &:hover {
+            color: var(--accent);
+        }
+        
+        &:target {
+            color: var(--accent);
+            font-weight: bold;
+        }
+    }
+    
+    .toc-level-1 {
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+    
+    .toc-level-2 {
+        font-size: 0.9rem;
+    }
+    
+    .toc-level-3 {
+        font-size: 0.85rem;
+    }
+    
+    .toc-level-4,
+    .toc-level-5,
+    .toc-level-6 {
+        font-size: 0.8rem;
+    }
+}
+
+.post-content {
+    scroll-margin-top: 80px;
+}

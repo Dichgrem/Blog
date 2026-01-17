@@ -10,5 +10,37 @@
         {{ post_macros::content(page=page, summary=false, show_only_description=false) }}
         {{ post_macros::earlier_later(page=page) }}
     </div>
+    {% if page.toc %}
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            {% for h in page.toc %}
+                <li class="toc-level-{{ h.level }}">
+                    <a href="#{{ h.id | safe }}">{{ h.title }}</a>
+                    {% if h.children %}
+                        <ul>
+                        {% for h2 in h.children %}
+                            <li class="toc-level-{{ h2.level }}">
+                                <a href="#{{ h2.id | safe }}">{{ h2.title }}</a>
+                                {% if h2.children %}
+                                    <ul>
+                                    {% for h3 in h2.children %}
+                                        <li class="toc-level-{{ h3.level }}">
+                                            <a href="#{{ h3.id | safe }}">{{ h3.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
 {% endblock content %}
 

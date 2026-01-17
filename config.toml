@@ -22,6 +22,22 @@ taxonomies = [
 [markdown]
 highlight_code = true
 highlight_theme = "boron"
+render_emoji = false
+external_links_target_blank = true
+external_links_no_follow = true
+external_links_no_referrer = true
+smart_punctuation = false
+bottom_footnotes = true
+table_of_contents = { start_level = 2, end_level = 4 }
+
+[markdown.highlight_themes]
+light = "boron"
+dark = "dracula"
+
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
 
 [extra]
 
