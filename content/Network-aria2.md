@@ -33,12 +33,13 @@ Aria2 有以下几个特点：
 
 ### Windows
 
-首先下载[aria2-1.37.0-win-64bit-build1.zip](https://github.com/aria2/aria2/releases/tag/release-1.37.0)，将下载好的文件解压并放到你喜欢的目录下，设置系统环境变量，类似``D:\DATA\Data\AriaNg-1.3.10-AllInOne``,随后即可在 CMD 中使用``aria2c -v``查看Aria2 。
+首先在Github下载aria2[aria2-1.37.0-win-64bit-build1.zip](https://github.com/aria2/aria2/releases/tag/release-1.37.0)，将下载好的文件解压并放到你喜欢的目录下，这里放到``D:\Software\aria2\aria2c.exe``
 
-然后创建一个配置文件``C:\Users\<你>\.aria2\aria2.conf``，内容如下：
+然后在同一个目录下创建一个配置文件``aria2.conf``，内容如下：
+
 ```conf
 # 下载目录
-dir=C:/Users/<你>/Downloads
+dir=C:/Users/<你的用户名>/Downloads
 
 # 断点续传
 continue=true
@@ -49,20 +50,31 @@ enable-rpc=true
 rpc-listen-all=true
 rpc-allow-origin-all=true
 rpc-listen-port=6800
-rpc-secret=<你的密码>
+rpc-secret=<设置一个密码>
 ```
-随后在这个项目中[winsw](https://github.com/winsw/winsw)下载 WinSW-x64.exe到一个目录，并重命名为 aria2-service.exe，并在同目录下创建``aria2-service.xml``，内容如下：
 
-```xml
-<service>
-  <id>aria2</id>
-  <name>Aria2 Service</name>
-  <description>Aria2 Download Manager</description>
-  <executable>C:\Users\<你>\scoop\apps\aria2\current\aria2c.exe</executable>
-  <arguments>--conf-path=C:\Users\<你>\.aria2\aria2.conf</arguments>
-</service>
+随后使用winfet安装servy，servy是一个将任何应用变成原生 Windows 服务的软件，可以让aria2服务开机自启动，类似linux上的systemctl.
+
 ```
-随后使用``.\aria2-service.exe install``安装服务，并使用``.\aria2-service.exe start``启动服务，类似linux上的systemctl.
+winget install servy
+```
+安装完成后打开管理员权限的powershell，运行以下命令，注意路径要和你实际的路径相同：
+
+```bash
+servy-cli install `
+  --name aria2 `
+  --displayName "aria2 download service" `
+  --description "aria2 background download daemon" `
+  --path D:\Software\aria2\aria2c.exe `
+  --params="--conf-path=D:\Software\aria2\aria2.conf" `
+  --startupDir D:\Software\aria2 `
+  --startupType Automatic `
+  --recoveryAction RestartProcess `
+  --stdout D:\Software\aria2\stdout.log `
+  --stderr D:\Software\aria2\stderr.log
+```
+
+随后使用``servy-cli start --name aria2``开启服务，并使用``servy-cli status --name aria2``查看服务，在running中则一切正常！现在可以到本文的末尾安装浏览器插件并连接使用。
 
 > 注意修改用户名！
 
@@ -119,6 +131,8 @@ systemctl --user start aria2.service
 ```bash
 systemctl --user status aria2.service
 ```
+现在可以到本文的末尾安装浏览器插件并连接使用。
+
 ### Nixos
 
 ```nix
@@ -151,6 +165,7 @@ systemctl --user status aria2.service
   };
 }
 ```
+现在可以到本文的末尾安装浏览器插件并连接使用。
 
 ## 命令行用法
 
