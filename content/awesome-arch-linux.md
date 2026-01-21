@@ -333,12 +333,12 @@ Description=Aria2c - lightweight multi-protocol & multi-source command-line down
 After=network.target
 
 [Service]
-User=dich
-Group=dich
-WorkingDirectory=/home/dich
-Environment=HOME=/home/dich
-Environment=USER=dich
-ExecStart=/usr/bin/aria2c --conf-path=/home/dich/.config/aria2/aria2.conf
+User=<username>
+Group=<groupname>
+WorkingDirectory=/home/<username>
+Environment=HOME=/home/<username>
+Environment=USER=<username>
+ExecStart=/usr/bin/aria2c --conf-path=/home/<username>/.config/aria2/aria2.conf
 Restart=always
 NoNewPrivileges=true
 PrivateTmp=true
@@ -383,24 +383,21 @@ net.ipv4.tcp_congestion_control = bbr
 ```
 
 ## 性能模式切换
-需要安装``power-profiles-daemon``
+需要安装``tlp-git tlp-pd-git tlp-rdw-git``
 ```bash
-# 查看可用的电源配置文件（profiles）
-powerprofilesctl list
-
-# 查看当前正在使用的 profile
-powerprofilesctl get
+# 查看当前状态
+tlp-stat -s
 
 # 切换到“性能”模式
-sudo powerprofilesctl set performance
+sudo tlp performance
 
 # 切换到“平衡”模式
-sudo powerprofilesctl set balanced
+sudo tlp balanced
 
 # 切换到“省电”模式
-sudo powerprofilesctl set power-saver
+sudo tlp power-saver
 ```
-## 其他性能优化
+## 其他可选性能优化
 
 ```bash
 Profile‑sync‑daemon
