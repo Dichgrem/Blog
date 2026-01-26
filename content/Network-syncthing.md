@@ -29,7 +29,7 @@ Windows 下推荐直接使用[SyncthingWindowsSetup](https://github.com/Bill-Ste
 
 - Web UI 默认地址：
 
-```text
+```bash
 http://127.0.0.1:8384
 ```
 
@@ -55,7 +55,7 @@ systemctl --user status syncthing.service
 
 - Web UI 默认地址：
 
-```text
+```bash
 http://127.0.0.1:8384
 ```
 
@@ -87,7 +87,7 @@ systemctl status syncthing.service
 
 Syncthing 的所有核心操作都可以通过 Web UI 完成，进入 Web UI 后先设置用户名和密码：
 
-```text
+```bash
 http://127.0.0.1:8384
 ```
 
