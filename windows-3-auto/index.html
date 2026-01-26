@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/windows-3-auto/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-3-auto/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-3-auto/">Windows系列(3):封装与全自动安装</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-05-27
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/windows/">#Windows</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 由于厂商默认安装windows家庭版导致各种问题频发,这里作者封装了一个开箱即用的，全自动安装，激活和优化的Windows11镜像。</p>
+<span id="continue-reading"></span>
+<p><strong>Dich-OS base on zh-cn_windows_11_business_23h2</strong></p>
+<h3 id="shi-xian-liao-yi-xia-gong-neng">实现了以下功能</h3>
+<h3 id="an-zhuang-guo-cheng-zhong">安装过程中</h3>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+绕过 Windows 11 要求检查(TPM/安全启动等)</li>
+<li><input disabled="" type="checkbox" checked=""/>
+允许在没有互联网连接的情况下安装 Windows 11</li>
+<li><input disabled="" type="checkbox" checked=""/>
+在安装过程中以交互方式添加本地用户，无需注册云端账户</li>
+<li><input disabled="" type="checkbox" checked=""/>
+在OOBE阶段自动激活Windows(专业工作站版本)</li>
+<li><input disabled="" type="checkbox" checked=""/>
+随机生成的计算机名称,例如:DESKTOP-ZFAH8Z2</li>
+</ul>
+<h3 id="zui-zhong-xiao-guo">最终效果</h3>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+禁用 Windows 更新</li>
+<li><input disabled="" type="checkbox" checked=""/>
+删除了默认应用程序</li>
+<li><input disabled="" type="checkbox" checked=""/>
+使用单级右键菜单</li>
+<li><input disabled="" type="checkbox" checked=""/>
+始终显示文件扩展名</li>
+<li><input disabled="" type="checkbox" checked=""/>
+任务栏中隐藏搜索框,任务视图和小部件</li>
+<li><input disabled="" type="checkbox" checked=""/>
+打开文件资源管理器到“此电脑”而不是“快速访问”</li>
+</ul>
+<h3 id="qi-ta-you-hua-te-xing">其他优化特性</h3>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+强化 ACL</li>
+<li><input disabled="" type="checkbox" checked=""/>
+启用长路径</li>
+<li><input disabled="" type="checkbox" checked=""/>
+禁用快速启动</li>
+<li><input disabled="" type="checkbox" checked=""/>
+用户密码不会过期</li>
+<li><input disabled="" type="checkbox" checked=""/>
+启用远程桌面服务 (RDP)</li>
+<li><input disabled="" type="checkbox" checked=""/>
+阻止设备 BitLocker 加密</li>
+<li><input disabled="" type="checkbox" checked=""/>
+阻止 Windows Update 重新启动您的计算机</li>
+<li><input disabled="" type="checkbox" checked=""/>
+自动将ISO中的 $OEM$\Setup\Scripts\Files文件夹中的软件放到桌面</li>
+</ul>
+<p><strong>PS</strong>:</p>
+<ul>
+<li>
+<p>禁用自动更新是创建一个名为 PauseWindowsUpdate 的计划任务,一次又一次地暂停更新一周.如果要运行 Windows 更新一次,请单击 “设置”中的“恢复更新 ”.</p>
+</li>
+<li>
+<p>删除默认应用程序,但保留了记事本,照片,PowerShell,Windows Terminal ,Windows Media Player (classic) ,Calculator , Clock , Xbox Apps(游戏手柄用)</p>
+</li>
+<li>
+<p>这会创建一个计划任务,诱使 Windows 认为设备一直在使用中,即使更新也不会突然关机.</p>
+</li>
+<li>
+<p>可以将要用的软件安装包放入该文件夹中,会自动放到桌面.</p>
+</li>
+</ul>
+<p><strong>感谢以下项目</strong>:</p>
+<ul>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/cschneegans/unattend-generator/">unattend-generator</a></p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/zbezj/HEU_KMS_Activator">HEU_KMS_Activator</a></p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/massgravel/Microsoft-Activation-Scripts">Microsoft-Activation-Scripts</a></p>
+</li>
+</ul>
+<p><strong>SHA-256:5920ca1b839c2823cad5223cdff39671784d98d18da03fa4377a362ad480ce54</strong></p>
+<p><strong>下载链接：</strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://drive.google.com/file/d/160BjAvq0zdQPz3MjVowuCtcucj1PFPQ8/view">这里</a></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/windows-2-jh/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Windows系列(2):分类与激活</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/windows-4-use/">
+                            <span class="button__text">Windows系列(4):高效操作与强化</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-3">
+                    <a href="#shi-xian-liao-yi-xia-gong-neng">实现了以下功能</a>
+                    
+                </li>
+            
+                <li class="toc-level-3">
+                    <a href="#an-zhuang-guo-cheng-zhong">安装过程中</a>
+                    
+                </li>
+            
+                <li class="toc-level-3">
+                    <a href="#zui-zhong-xiao-guo">最终效果</a>
+                    
+                </li>
+            
+                <li class="toc-level-3">
+                    <a href="#qi-ta-you-hua-te-xing">其他优化特性</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

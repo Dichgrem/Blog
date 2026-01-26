@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/windows-1-set/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-1-set/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-1-set/">Windows系列(1):常用操作与配置</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-05-25
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/windows/">#Windows</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Windows操作系统作为全球最为普及的桌面操作系统之一，其用户界面的设计非常经典，但存在许多不足之处，本篇记录一些常用脚本。</p>
+<span id="continue-reading"></span><h2 id="windows11tiao-guo-lian-wang-ji-huo-shi-yong-ben-di-zhang-hao"><strong>Windows11跳过联网激活 &amp; 使用本地账号</strong></h2>
+<p>开机之前，先断网，然后输入Shift+F10，会弹出命令行界面，并输入
+<code>bash oobe\BypassNRO.cmd： </code>
+回车之后会重启，之后就可以跳过联网了，选择
+<code>bash I don't have internet </code>
+即可。</p>
+<blockquote>
+<p>微软在 Windows 11 最新版中删除了 BypassNRO 脚本，以下是最新方法：</p>
+</blockquote>
+<ul>
+<li>
+<p>在 Windows 11 OOBE 登录用户账户界面按 Shift+F10 打开命令提示符 (CMD)</p>
+</li>
+<li>
+<p>在命令提示符窗口中输入命令<code>start ms-cxh:localonly</code>按回车</p>
+</li>
+<li>
+<p>此时系统将自动打开微软账户管理的窗口，在这里可以输入用户名称；在这里输入用户名和密码后继续即可，此时不再需要 BypassNRO 脚本或注册表</p>
+</li>
+</ul>
+<p>需要注意的是目前该命令仅适用于 Windows 11 家庭版和专业版系列 (包括专业版、专业工作站版和专业教育版)。</p>
+<h2 id="ji-huo-windows">激活windows</h2>
+<p>这里使用MAS的脚本:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">irm</span><span> https://get.activated.win | </span><span style="color:#ffb964;">iex
+</span></code></pre>
+<h2 id="win11guan-bi-zi-dong-geng-xin"><strong>Win11关闭自动更新</strong></h2>
+<p>1.按Win+I打开Windows设置页面。</p>
+<p>2.单击“更新和安全”&gt;“Windows更新”，然后在右侧详情页中选择“暂停更新7天”选项即可在此后7天内关闭Windows更新。</p>
+<p>3.然后就可以使用脚本彻底关闭更新：将以下命令保存为.bat文件，运行即可。</p>
+<pre data-lang="bat" style="background-color:#151515;color:#e8e8d3;" class="language-bat "><code class="language-bat" data-lang="bat"><span style="color:#888888;">::Windows auomatic updates
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AutoInstallMinorUpdates /t REG_DWORD /d </span><span style="color:#cf6a4c;">1</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v NoAutoUpdate /t REG_DWORD /d </span><span style="color:#cf6a4c;">1</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AUOptions /t REG_DWORD /d </span><span style="color:#cf6a4c;">4</span><span> /f
+</span><span>reg add </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update</span><span style="color:#556633;">&quot;</span><span> /v AUOptions /t REG_DWORD /d </span><span style="color:#cf6a4c;">4</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v DisableWindowsUpdateAccess /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v ElevateNonAdmins /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer /v NoWindowsUpdate /t REG_DWORD /d </span><span style="color:#cf6a4c;">1</span><span> /f
+</span><span>reg add </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKLM\SYSTEM\Internet Communication Management\Internet Communication</span><span style="color:#556633;">&quot;</span><span> /v DisableWindowsUpdateAccess /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\WindowsUpdate /v DisableWindowsUpdateAccess /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>sc stop wuauserv
+</span><span>sc config wuauserv start=disabled
+</span><span>sc stop WaaSMedicSvc
+</span><span>sc config WaaSMedicSvc start=disabled
+</span><span>reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\InstallService\State /v AutoUpdateLastSuccessTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2100-01-01T00:00:00+08:00</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseFeatureUpdatesStartTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2100-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseQualityUpdatesStartTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2100-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseUpdatesExpiryTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2100-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseFeatureUpdatesEndTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2100-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseQualityUpdatesEndTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2100-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span></code></pre>
+<p>如果要恢复更新，使用以下命令，同样保存为.bat运行：</p>
+<pre data-lang="bat" style="background-color:#151515;color:#e8e8d3;" class="language-bat "><code class="language-bat" data-lang="bat"><span style="color:#888888;">::Windows auomatic updates
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AutoInstallMinorUpdates /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v NoAutoUpdate /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AUOptions /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>reg add </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update</span><span style="color:#556633;">&quot;</span><span> /v AUOptions /t REG_DWORD /d </span><span style="color:#cf6a4c;">4</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v DisableWindowsUpdateAccess /t REG_DWORD /d </span><span style="color:#cf6a4c;">1</span><span> /f
+</span><span>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v ElevateNonAdmins /t REG_DWORD /d </span><span style="color:#cf6a4c;">1</span><span> /f
+</span><span>reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer /v NoWindowsUpdate /t REG_DWORD /d </span><span style="color:#cf6a4c;">0</span><span> /f
+</span><span>reg add </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKLM\SYSTEM\Internet Communication Management\Internet Communication</span><span style="color:#556633;">&quot;</span><span> /v DisableWindowsUpdateAccess /t REG_DWORD /d </span><span style="color:#cf6a4c;">1</span><span> /f
+</span><span>reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\WindowsUpdate /v DisableWindowsUpdateAccess /t REG_DWORD /d </span><span style="color:#cf6a4c;">1</span><span> /f
+</span><span>sc config wuauserv start=auto
+</span><span>sc start wuauserv
+</span><span>sc config WaaSMedicSvc start=auto
+</span><span>sc start WaaSMedicSvc
+</span><span>reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\InstallService\State /v AutoUpdateLastSuccessTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2000-01-01T00:00:00+08:00</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseFeatureUpdatesStartTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2000-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseQualityUpdatesStartTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2000-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseUpdatesExpiryTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2000-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseFeatureUpdatesEndTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2000-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings /v PauseQualityUpdatesEndTime /t REG_SZ /d </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">2000-01-01T00:00:00Z</span><span style="color:#556633;">&quot;</span><span> /f
+</span><span>pause
+</span></code></pre>
+<h2 id="shi-yong-cmdhui-fu-wan-zheng-you-jian-cai-dan"><strong>使用CMD恢复完整右键菜单</strong></h2>
+<p>Win11的<code>显示更多选项</code>的二级菜单过于繁琐，怎么设置才能将其关闭,并恢复成Win10的状态呢？</p>
+<p><strong>步骤1.</strong> 按<strong>Win+S</strong>打开搜索框，输入<strong>cmd</strong>并以管理员身份运行命令提示符。</p>
+<p><strong>步骤2.</strong> 输入以下命令并按<strong>Enter</strong>键执行。</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">reg</span><span> add HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32 /ve /d “” /f
+</span></code></pre>
+<p>或者</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">reg</span><span> add </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32</span><span style="color:#556633;">&quot;</span><span> /f /ve
+</span><span style="color:#ffb964;">taskkill</span><span> /f /im explorer.exe 
+</span><span style="color:#ffb964;">start</span><span> explorer.exe
+</span></code></pre>
+<p>如果想要重新打开Win11新样式的右键菜单的话，以同样的方式在命令提示符中执行此命令：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">reg</span><span> delete </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKCU\Software\Classes\CLSID{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}</span><span style="color:#556633;">&quot;</span><span> /f
+</span></code></pre>
+<h2 id="win11guan-bi-windows-defender">Win11关闭 Windows Defender</h2>
+<p><code>Windows Defender</code>具有防篡改保护，因此需要先在<code>设置-安全中心-设备保护</code>中将实时防护关闭，然后在组策略或者注册表中将其禁用。</p>
+<ul>
+<li>使用<code>Windows + R</code>快捷键打开「运行」对话框，执行<code>regedit</code>打开注册表编辑器。</li>
+<li>导航至以下路径：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+</span></code></pre>
+<ul>
+<li>将名为<code>DisableAntiSpyware</code>的 DWORD (32位) 值设置为1，如果没有就新建。</li>
+<li>重启后生效。</li>
+</ul>
+<blockquote>
+<p>也可以使用<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/es3n1n/defendnot">defendnot</a></p>
+</blockquote>
+<h2 id="win11tian-jia-kai-ji-zi-qi-dong-xiang-fang-fa"><strong>Win11添加开机自启动项方法</strong></h2>
+<p>选择“开始”按钮 ，然后滚动查找你希望在启动时运行的应用。</p>
+<p>右键单击该应用，选择“更多”，然后选择“打开文件位置”。此操作会打开保存应用快捷方式的位置。如果没有“打开文件位置”选项，这意味着该应用无法在启动时运行。</p>
+<p>文件位置打开后，按<code>win+ R，键入“shell:startup”</code>然后选择“确定”。这将打开“启动”文件夹。</p>
+<p><code>将该应用的快捷方式</code>从文件位置复制并<code>粘贴到“启动”文件夹中</code>,即添加启动项成功。</p>
+<h2 id="windows-zhi-ding-shi-jian-fu-wu-qi-shi-yong-utc">Windows 指定时间服务器&amp;&amp;使用UTC</h2>
+<p>右键点击任务栏上的时间，选择 "调整日期/时间"。在<code>日期和时间</code>窗口中，点击<code>互联网时间</code>标签。点击 "更改设置…" 按钮。在弹出的对话框中，勾选<strong>同步时钟与 Internet 时间服务器</strong>，然后在 "服务器" 输入框中填写你想要的时间服务器，例如：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>time.windows.com（微软默认服务器）
+</span><span>time.nist.gov（美国国家标准技术研究院的时间服务器）
+</span><span>pool.ntp.org（一个公共的 NTP 时间服务器池）
+</span></code></pre>
+<p>应用更改：点击 "更新现在"，然后 "确定" 保存设置。</p>
+<ul>
+<li>如果有linux/win双系统，可以让 Windows 使用 UTC 作为硬件时钟时间：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 在 Windows 中以管理员权限运行命令提示符，执行：
+</span><span style="color:#ffb964;">reg</span><span> add </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation</span><span style="color:#556633;">&quot;</span><span> /v RealTimeIsUniversal /t REG_DWORD /d 1 /f
+</span></code></pre>
+<h2 id="diao-zheng-wang-luo-you-xian-ji">调整网络优先级</h2>
+<ul>
+<li>查看当前优先级（PowerShell/管理员）</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Get-NetIPInterface
+</span></code></pre>
+<p>你会看到类似：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">IfIndex</span><span>  InterfaceMetric   InterfaceAlias
+</span><span style="color:#ffb964;">-------</span><span>  --------------   --------------
+</span><span style="color:#ffb964;">15</span><span>       25              Wi-Fi
+</span><span style="color:#ffb964;">3</span><span>        15              以太网
+</span><span>
+</span><span style="color:#888888;"># InterfaceMetric 值越小，优先级越高。
+</span></code></pre>
+<ul>
+<li>修改网络优先级</li>
+</ul>
+<p>将有线网络（以太网） 设为更高优先级（值更小）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Set-NetIPInterface -InterfaceIndex</span><span> 3</span><span style="color:#ffb964;"> -InterfaceMetric</span><span> 10
+</span></code></pre>
+<ul>
+<li>将 WiFi 设为更低优先级：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Set-NetIPInterface -InterfaceIndex</span><span> 15</span><span style="color:#ffb964;"> -InterfaceMetric</span><span> 25
+</span></code></pre>
+<ul>
+<li>重启网络</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Restart-NetAdapter -Name </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">以太网</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>这样，当网线插入时，Windows 会优先使用有线网络；断开网线后，自动切换到 WiFi。</p>
+<ul>
+<li>如需永久设置，可修改注册表：</li>
+</ul>
+<p>Win + R 输入 regedit 打开注册表编辑器，进入路径：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
+</span></code></pre>
+<p>在 Interfaces 里找到你的有线网卡和无线网卡（可以根据 IP 或 MAC 地址确认）。</p>
+<ul>
+<li>创建/修改 Metric 值：</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>有线网卡（Ethernet）：设为 10
+</span><span>无线网卡（WiFi）：设为 25
+</span></code></pre>
+<p>重启电脑生效。</p>
+<h2 id="qing-li-dai-li">清理代理</h2>
+<blockquote>
+<p>保存为.bat格式</p>
+</blockquote>
+<pre data-lang="bat" style="background-color:#151515;color:#e8e8d3;" class="language-bat "><code class="language-bat" data-lang="bat"><span>@echo off
+</span><span>REM</span><span style="color:#888888;"> 清理代理设置
+</span><span>REG DELETE </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings</span><span style="color:#556633;">&quot;</span><span> /v ProxyEnable /f
+</span><span>REG DELETE </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings</span><span style="color:#556633;">&quot;</span><span> /v ProxyServer /f
+</span><span>echo 代理设置已清除
+</span></code></pre>
+<h2 id="kai-guan-3djia-su">开/关3D加速</h2>
+<blockquote>
+<p>保存为.reg格式</p>
+</blockquote>
+<p>开启3D加速</p>
+<pre data-lang="bat" style="background-color:#151515;color:#e8e8d3;" class="language-bat "><code class="language-bat" data-lang="bat"><span>Windows Registry Editor Version </span><span style="color:#cf6a4c;">5</span><span>.</span><span style="color:#cf6a4c;">00
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">EmulationOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000000
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Direct3D\Drivers]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">SoftwareOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000000
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectDraw]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">EmulationOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000000
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Direct3D\Drivers]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">SoftwareOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000000
+</span></code></pre>
+<p>关闭3D加速</p>
+<pre data-lang="bat" style="background-color:#151515;color:#e8e8d3;" class="language-bat "><code class="language-bat" data-lang="bat"><span>Windows Registry Editor Version </span><span style="color:#cf6a4c;">5</span><span>.</span><span style="color:#cf6a4c;">00
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectDraw]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">EmulationOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000001
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Direct3D\Drivers]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">SoftwareOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000001
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectDraw]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">EmulationOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000001
+</span><span>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Direct3D\Drivers]
+</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">SoftwareOnly</span><span style="color:#556633;">&quot;</span><span>=dword:</span><span style="color:#cf6a4c;">00000001
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/windows-0-install/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Windows系列(0):系统安装与设置</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/windows-2-jh/">
+                            <span class="button__text">Windows系列(2):分类与激活</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#windows11tiao-guo-lian-wang-ji-huo-shi-yong-ben-di-zhang-hao">Windows11跳过联网激活 &amp; 使用本地账号</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#ji-huo-windows">激活windows</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#win11guan-bi-zi-dong-geng-xin">Win11关闭自动更新</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#shi-yong-cmdhui-fu-wan-zheng-you-jian-cai-dan">使用CMD恢复完整右键菜单</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#win11guan-bi-windows-defender">Win11关闭 Windows Defender</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#win11tian-jia-kai-ji-zi-qi-dong-xiang-fang-fa">Win11添加开机自启动项方法</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#windows-zhi-ding-shi-jian-fu-wu-qi-shi-yong-utc">Windows 指定时间服务器&amp;&amp;使用UTC</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#diao-zheng-wang-luo-you-xian-ji">调整网络优先级</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#qing-li-dai-li">清理代理</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#kai-guan-3djia-su">开&#x2F;关3D加速</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

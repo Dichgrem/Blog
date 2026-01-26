@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-homenet-1/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-homenet-1/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-homenet-1/">家庭组网系列(1):方案与设备选购</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-01-21
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文介绍一些家庭组网方案和家庭网络升级方案。</p>
+<span id="continue-reading"></span><h1 id="ling-yu-bei-zhi-shi">零.预备知识</h1>
+<ul>
+<li>AC：<code>网络控制器</code>，一般为闭源的成熟方案；起到路由和管理的功能。</li>
+<li>AP：<code>Wi-Fi发射器</code>，一般不起路由功能，对性能要求不高。</li>
+<li>PPPoE拨号：输入用户名、密码认证成功后即可<code>点对点拨号上网</code>。</li>
+<li>桥接：让<code>光猫只起到光电转换作用</code>，路由工作交给下一级设备。</li>
+<li>Mesh：一种网络拓扑结构，可以实现节点之间的多跳通信，使其<code>覆盖范围和信号质量大幅提高</code>。</li>
+<li>FTTH：<code>Fiber to the Home</code>，小区光纤箱到你家然后下级连网线。</li>
+<li>FTTR：<code>Fiber to The Room</code>，光纤到你家然后下级也连光纤。</li>
+<li>软路由：即为<code>X86设备或Arm设备的小主机刷Openwrt</code>或其他路由系统，一般没有Wi-Fi功能，具有<code>两个以上的RJ45网口</code>，性能较强；</li>
+<li>硬路由：即为常见的<code>带有天线的路由器</code>，带有Wi-Fi，一般为arm或mips设备，搭载板载内存，<code>性能较弱</code>。</li>
+</ul>
+<h1 id="yi-dian-zu-wang-wang-xian-fang-an">一.电组网（网线）方案</h1>
+<h2 id="ac-ap">AC+AP</h2>
+<ul>
+<li><strong>1.弱电箱光猫+箱内AC+各个房间网线直连AP</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>企业级方案，美观漫游信号好，成本稍高，比较省心；
+</span></code></pre>
+<ul>
+<li><strong>2.弱电箱光猫+软路由AC+各个硬路由刷AP</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>同上，自定义程度高，适用与有一定技术基础的用户，性价比高；
+</span><span>一般可以使用集客AC/AP系统。
+</span></code></pre>
+<ul>
+<li><strong>3.弱电箱光猫（光电转换）+软路由（PPPoE+DHCP）+AC</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>即为光猫改桥接，软路由PPPoe拨号；这样增加了一层设备，需要谨慎考虑。
+</span></code></pre>
+<ul>
+<li><strong>4.SFP猫棒（光模块）+2.5G网管型交换机/AC+AP</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>光猫一般有Wifi+PPPoE+IPTV+光纤固话功能，如果不想用光猫可以替代为此方案;
+</span><span>IPTV设置Vlan解决，固定电话设置为转发到个人手机号或取消.
+</span></code></pre>
+<h2 id="mesh">Mesh</h2>
+<ul>
+<li><strong>5.弱电箱光猫+网线直连硬路由+无线Mesh连接到另一台同型号路由器</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>适用与家里预埋的网口不多的情况，无线Mesh需要AX3000及以上同型号路由器;
+</span><span>也可以将硬路由刷机用Easymesh实现。
+</span></code></pre>
+<ul>
+<li><strong>6.弱电箱光猫+网线直连硬路由+有线连接到另一台同型号路由器</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>适用与有足够的预埋网口，比无线Mesh稳定。
+</span><span>如果两台路由器之间不能直接连接，则需要有线回程，
+</span><span>即为弱电箱光猫+有线连接到路由器+连回弱电箱交换机+有线连接到另一台路由器.
+</span></code></pre>
+<ul>
+<li><strong>7.弱电箱光猫+电力猫+220V电线+电力猫</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>比较小众的组网方案，使用电线传输数据，速度不高，容易受到大功率电器的干扰，
+</span><span>适用与没有预留网口/布线不方便的环境；
+</span></code></pre>
+<h2 id="hun-he-fang-an">混合方案</h2>
+<ul>
+<li>8.弱电箱光猫+软路由（主路由）+两台路由器（AP模式）互相Mesh</li>
+</ul>
+<blockquote>
+<p>单层楼环境优先考虑Mesh组网，多层楼环境优先考虑AC+AP；</p>
+</blockquote>
+<blockquote>
+<p>如果要实现全屋2.5G网络，可以直接更换<strong>2.5G光猫+带2.5G口下接设备</strong>，注意需要宽带套餐/光猫/路由器/网线/终端设备全部支持2.5G才能跑到近似网速；</p>
+</blockquote>
+<blockquote>
+<p>如果需要2.5G以上更高带宽，则考虑光组网方案，也可以像方案4买相应性能的交换机设备；</p>
+</blockquote>
+<blockquote>
+<p>不建议使用光猫自带的wifi，光猫同时PPPoE拨号+DHCP路由+发射wifi，性能不够会造成大量发热。</p>
+</blockquote>
+<h1 id="er-guang-zu-wang-guang-xian-fang-an">二.光组网（光纤）方案</h1>
+<p>光纤方案性能强大，但光纤便宜而光电转换设备贵，而且最终还是要连到RJ45网口或无线，中间需要光转电转换器，性能要打个问号；且后期维护成本高，需谨慎考虑。</p>
+<ul>
+<li><strong>8.FTTR：OLT+FTTR光猫（AC）+分光器和单模/多模光纤+多个从光路由（AP）</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>光AC+AP，性能强大，但比较昂贵，自定义程度小；
+</span></code></pre>
+<ul>
+<li><strong>9.FTTR：OLT+FTTR光猫（主）+分光器和单模/多模光纤+从光路由（副）</strong></li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>主副光猫Mesh，性质同上；
+</span><span>光纤需要考虑光衰，且没有网线耐用，打头工具也比网线贵的多,而且需要注意合约内容；
+</span><span>当然，也可以在装修阶段就部署光电复合缆，会有更多的选择空间。
+</span></code></pre>
+<h2 id="san-lu-you-qi-gong-zuo-yuan-li">三.路由器工作原理</h2>
+<p>路由器是计算机网络中的重要设备，主要用于连接不同的网络，并在这些网络之间转发数据。其工作原理涉及以下几个主要方面：</p>
+<ul>
+<li>
+<p>1.数据包转发：路由器<code>根据目标地址将数据包从一个网络转发到另一个网络</code>。它通过查找路由表来确定最佳路径，并将数据包转发到正确的输出端口。</p>
+</li>
+<li>
+<p>2.路由表：路由器<code>维护一个路由表</code>，其中包含了网络的拓扑结构以及到达每个网络的最佳路径信息。路由表可以通过静态配置或动态路由协议（如OSPF、BGP等）自动学习和更新。</p>
+</li>
+<li>
+<p>3.数据包处理：当路由器接收到数据包时，它会检查数据包的目标IP地址，并根据路由表确定应该转发到哪个端口。路由器还可能执行其他功能，如<code>网络地址转换（NAT）、质量服务（QoS）和防火墙</code>等。</p>
+</li>
+<li>
+<p>4.连接多个网络：路由器通常具有多个网络接口，可以连接不同的网络。这些网络接口可以是<code>以太网、Wi-Fi、光纤</code>等，使路由器能够在不同类型的网络之间进行数据转发。</p>
+</li>
+<li>
+<p>5.路由器协议：路由器使用不同的协议来实现数据包转发和路由表的更新。这些协议包括<code>IP协议用于数据包交换，动态路由协议用于路由表的学习和更新</code>，以及其他协议用于网络管理和安全。</p>
+</li>
+</ul>
+<p>一般而言，家用路由器使用 DHCP 模式，由上级网关的网线连接到路由器的WAN口，如小米路由器的192.168.31.1,在浏览器输入此地址可以进入管理界面，并可以发现了解连接该无线网络的设备地址都为192168.31.xx；且路由器的几个Lan口可以做交换机使用。</p>
+<h2 id="si-lu-you-qi-de-xuan-ze-yu-chang-jian-wu-qu">四.路由器的选择与常见误区</h2>
+<p>路由器的信号好不好，一般而言，与以下几点相关：</p>
+<p><strong>1.路由器支持的协议类型：</strong></p>
+<p>路由器命名常见的格式为AX3000、AC1800等，<code>前面代表协议，后面数字表示速率</code>（Mbps）；<code>AX（802.11ax）在相同速率下比AC更快</code>，即Wifi6比Wifi5要好。在<code>相同协议下，一般速率越高越好</code>；千兆优于百兆，但需注意千兆端口和千兆天线的产品。</p>
+<ul>
+<li>
+<p>速度：Wi-Fi 6 比 Wi-Fi 5 更快。<code>Wi-Fi 5 支持的最高速度为1.3 Gbps（理论上），而 Wi-Fi 6 的最高速度为9.6 Gbps</code>（同样是理论上的速度）。这意味着Wi-Fi 6可以提供更快的数据传输速率，特别是在拥挤的网络环境中。</p>
+</li>
+<li>
+<p>容量：Wi-Fi 6比 Wi-Fi 5具有更好的网络容量管理。Wi-Fi 6采用了一些技术，如 <code>OFDMA（正交频分复用多址）和 MU-MIMO（多用户多输入多输出）</code>，使得网络更有效地管理多个设备的连接。这意味着 Wi-Fi 6在拥挤的网络环境中能够更好地处理大量设备的连接，而不会出现性能下降。</p>
+</li>
+<li>
+<p>延迟与功耗：Wi-Fi 6 比 Wi-Fi 5 具有更低的延迟。通过一些新的技术，如<code>目标唤醒时间（TWT）和 BSS 领导者切换</code>，Wi-Fi 6 能够在连接设备之间实现更快的响应时间和更低的延迟，也可以更有效地管理设备的电量消耗，延长设备的电池寿命。这对于需要快速响应的应用，如在线游戏和视频会议，尤其重要。</p>
+</li>
+</ul>
+<p>在 Wifi6 普及的当下，建议购买 WiFi6 路由器，并且此类路由器往往还带有 wifi5 备用网络，可与老旧设备兼容，不必担心。<code>小心百兆网口和千兆天线的牛马产品</code>！</p>
+<blockquote>
+<p>目前Wifi7设备逐渐推出，但在中国大陆地区大部分频段被划分给5G使用，Wifi7实际的提升微乎其微。</p>
+</blockquote>
+<p><strong>2.路由器支持的速率：</strong></p>
+<p>不要盲目追求大数字：路由器标注的无线速率是叠加速率，并非单一设备接入的最大速率。例如，<code>标注为1750Mbps的路由器，实际上是由2.4GHz的450Mbps和5GHz的1300Mbps相加而成</code>，单一设备的最大通信速率只有1300Mbps。大多数家庭接入的光纤速率为千兆（1000Mbps），因此最大速度为125MB/s，因此瓶颈通常不在于路由器性能；选购家用路由器，更重要的是提高信号覆盖面积和强度，能跑满千兆已经不错。</p>
+<p><strong>3.路由器的无线频段：</strong></p>
+<p>2.4GHz频段稳定性高，覆盖范围广，<code>穿墙能力强</code>；而5GHz频段速度快但<code>穿墙能力较弱</code>；</p>
+<p><strong>4.无线网络的频段带宽：</strong></p>
+<p>2.4G有<code>20Mhz和40Mhz</code>两种频道带宽，5G则有<code>80Mhz和160Mhz</code>两种；频道带宽就是发射频率的宽度，带宽越低穿透性越好。如果连的设备多的话，就用低频段；</p>
+<p><strong>5.芯片的主频和板载内存</strong></p>
+<p>路由器处理器的主频越高，加解密性能越好，速度和带机量也更大；目前低价位路由器通常使用<code>MTK、瑞昱、海思</code>等廉价处理器，配以64MB/128MB的内存。而高端路由器多使用<code>博通</code>的高端芯片，在内存的配置上往往可以达到256MB以上。博通高端芯片在各个方面表现都不错，同时各位大神对刷机的支持力度也比较大。板载内存越大可为后续刷机留下空间，并支持插件等；</p>
+<p><strong>6.其他功能</strong></p>
+<p>如 QOS，设备管理，IPTV 支持，IPV6 等等；</p>
+<blockquote>
+<p>天线越多信号不一定越强。</p>
+</blockquote>
+<p>路由器的发射范围是由协议决定的，与根数无关。对于双频的路由来说，4根或者6根其实只有一半（2根2.4g和2根5g使用）。</p>
+<blockquote>
+<p>无线功率不是越大越好。</p>
+</blockquote>
+<p>因为<code>无线通信是双向的</code>，路由器功率大了，但是你的手机等无线终端设备功率是不变的。在符合国家标准的情况下，wifi 功率是有硬性标准的，单台路由器覆盖80平以上的面积不太现实。因此当你面对信号差、覆盖死角的时候，应该首要想到的是增加覆盖节点，而<code>不要相信宣传所谓的“穿墙王”</code>。</p>
+<h2 id="wu-wang-xian-de-xuan-ze-yu-bu-xian">五.网线的选择与布线</h2>
+<p><strong>1. 网线选择建议：</strong></p>
+<p>在考虑网络建设方面，从经济效益角度而言，<code>超五类网线已经足以满足大多数家庭的千兆网络需求</code>（1Gbps）。在短距离内，质量较高的五类/超五类网线支持高达2500兆的传输速率（2.5Gbps）。因此，一般情况下，考虑到成本因素，建议家庭网络布线选用符合标准的超五类网线。</p>
+<p>若愿意适度增加布线成本，则推荐选择支持万兆（10Gbps）网络的六类/超六类以上网线，尤其是从光猫到主路由/交换机的这一段线路，最好支持万兆。即便今后需要扩展网络速度无法满足万兆的有线条件，也可以通过 Wi-Fi7 标准实现无线超万兆速度覆盖。</p>
+<p><strong>2. 网线布线注意事项：</strong></p>
+<p>在进行网线布线时，无论是屏蔽网线还是非屏蔽网线，都应确保<code>将强电线和弱电线分开放置于不同的管道中</code>。同时，在走线过程中应保持一定的间距，以减少干扰。若需要考虑未来更换网线的情况，建议选择更大的穿线管道，并确保每条网线单独走一根管道。若出现强、弱电交叉走线的情况，可采用铝/锡纸包裹弱电管道以实现简单的屏蔽作用。应避免与大功率强电线相交或并行走线，如空调、烤火炉、微波炉等。</p>
+<p><strong>3. 弱电箱至电视柜网线布线：</strong></p>
+<p>考虑到当前电信运营商提供的IPTV功能，如果不熟悉设置VLAN的单线复用，或者未来可能使用到链中聚合技术，<code>建议从弱电箱至电视柜至少布置两条网线</code>，以免后悔。</p>
+<p><strong>4. 接线盒的预留：</strong></p>
+<p>许多人可能认为随着21世纪的到来，有线布线已经过时。因此，为了节约成本或受装修公司的误导，一些卧室甚至书房都没有进行网线布置，这是不可取的。无线网络虽然方便，但速度远不如有线快速稳定。因此，<code>建议在每个卧室的相应位置安装一个网线接线盒</code>，并在墙壁上安装电视时，下方也应预留一个网线接线盒。如果有地下室或楼阁，也应该布置一条网线。多预留一些接线盒总比今后发现需要网线却没有的尴尬情况要好。</p>
+<p><strong>5. 死角位置的网线和电源接口预留：</strong></p>
+<p>对于信号死角的位置，根据实际情况，如阳台、露台等不需要路由器设备可见的地方，可以考虑将路由器隐藏在吊顶中，甚至包括厕所的吊顶也可以考虑。在这些位置预留多个网线和电源接口是明智的选择。</p>
+<p><strong>6. 路由器放置位置推荐：</strong></p>
+<p>一般来说，家庭会将路由器放置在弱电箱或电视柜内，然而，周围其他电器设备运行时会产生电磁干扰，对2.4G和5G信号都会造成影响，甚至蓝牙设备也会有干扰。基于信号向下传播的特性，<code>建议将路由器放置在较高位置</code>，如吊顶内或进门处的高处，并最好选择居住区域的中心位置以实现更好的信号覆盖。</p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-virtual/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:虚拟化常用设置与操作</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-homenet-2/">
+                            <span class="button__text">家庭组网系列(2):路由器性能测试</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-1">
+                    <a href="#ling-yu-bei-zhi-shi">零.预备知识</a>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#yi-dian-zu-wang-wang-xian-fang-an">一.电组网（网线）方案</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#ac-ap">AC+AP</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#mesh">Mesh</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#hun-he-fang-an">混合方案</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#er-guang-zu-wang-guang-xian-fang-an">二.光组网（光纤）方案</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#san-lu-you-qi-gong-zuo-yuan-li">三.路由器工作原理</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#si-lu-you-qi-de-xuan-ze-yu-chang-jian-wu-qu">四.路由器的选择与常见误区</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#wu-wang-xian-de-xuan-ze-yu-bu-xian">五.网线的选择与布线</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

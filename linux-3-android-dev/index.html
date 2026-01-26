@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/linux-3-android-dev/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/linux-3-android-dev/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/linux-3-android-dev/">Linux-Android开发环境部署</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-11-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文记录Android命令行开发环境在Linux上的部署，用以替代Android-studio。</p>
+<span id="continue-reading"></span><h2 id="ubuntufang-an">Ubuntu方案</h2>
+<ul>
+<li>首先安装依赖包：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt install openjdk-17-jdk nodejs
+</span></code></pre>
+<ul>
+<li>安装Command-tools：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">mkdir -p ~</span><span>/Android/cmdline-tools/latest
+</span><span style="color:#888888;">## 下载链接：https://developer.android.com/studio?hl=zh-cn#command-tools
+</span><span>cd </span><span style="color:#ffb964;">~</span><span>/Android/cmdline-tools/latest
+</span><span style="color:#ffb964;">wget</span><span> https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+</span><span style="color:#ffb964;">unzip</span><span> ./commandlinetools-linux-13114758_latest.zip
+</span></code></pre>
+<ul>
+<li>使用官方脚本安装Sdkman包管理器：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">curl -s </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">https://get.sdkman.io</span><span style="color:#556633;">&quot; </span><span>| </span><span style="color:#ffb964;">bash
+</span><span>source </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">HOME</span><span style="color:#99ad6a;">/.sdkman/bin/sdkman-init.sh</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<ul>
+<li>随后使用Sdkman下载并安装gradle/kotlin：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sdk</span><span> install gradle
+</span><span style="color:#ffb964;">sdk</span><span> install kotlin
+</span></code></pre>
+<ul>
+<li>设置环境变量：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">ANDROID_HOME</span><span>=</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">HOME</span><span style="color:#99ad6a;">/Android
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">PATH</span><span>=</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">PATH</span><span style="color:#99ad6a;">:$</span><span style="color:#ffb964;">ANDROID_HOME</span><span style="color:#99ad6a;">/emulator
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">PATH</span><span>=</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">PATH</span><span style="color:#99ad6a;">:$</span><span style="color:#ffb964;">ANDROID_HOME</span><span style="color:#99ad6a;">/platform-tools
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">PATH</span><span>=</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">PATH</span><span style="color:#99ad6a;">:$</span><span style="color:#ffb964;">ANDROID_HOME</span><span style="color:#99ad6a;">/cmdline-tools/latest/bin
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">PATH</span><span>=</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">PATH</span><span style="color:#99ad6a;">:$</span><span style="color:#ffb964;">ANDROID_HOME</span><span style="color:#99ad6a;">/build-tools/34.0.0
+</span><span>source </span><span style="color:#ffb964;">~</span><span>/.bashrc
+</span></code></pre>
+<ul>
+<li>继续下载一些SDK平台与构建工具：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sdkmanager </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">platforms;android-34</span><span style="color:#556633;">&quot; &quot;</span><span style="color:#99ad6a;">build-tools;34.0.0</span><span style="color:#556633;">&quot; &quot;</span><span style="color:#99ad6a;">platform-tools</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">sdkmanager </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">emulator</span><span style="color:#556633;">&quot;</span><span>   //虚拟机中调试
+</span></code></pre>
+<ul>
+<li>查看版本</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>(</span><span style="color:#ffb964;">base</span><span>) dich@uos:</span><span style="color:#ffb964;">~</span><span>$ sdk version
+</span><span>
+</span><span style="color:#ffb964;">SDKMAN!
+</span><span style="color:#ffb964;">script:</span><span> 5.20.0
+</span><span style="color:#ffb964;">native:</span><span> 0.7.14 (linux x86_64)
+</span><span>
+</span><span>(</span><span style="color:#ffb964;">base</span><span>) dich@uos:</span><span style="color:#ffb964;">~</span><span>$ gradle</span><span style="color:#ffb964;"> -v
+</span><span>
+</span><span style="color:#ffb964;">------------------------------------------------------------
+</span><span style="color:#ffb964;">Gradle</span><span> 8.10.2
+</span><span style="color:#ffb964;">------------------------------------------------------------
+</span><span>
+</span><span style="color:#ffb964;">Build</span><span> time:    2024-09-23 21:28:39 UTC
+</span><span style="color:#ffb964;">Revision:</span><span>      415adb9e06a516c44b391edff552fd42139443f7
+</span><span>
+</span><span style="color:#ffb964;">Kotlin:</span><span>        1.9.24
+</span><span style="color:#ffb964;">Groovy:</span><span>        3.0.22
+</span><span style="color:#ffb964;">Ant:</span><span>           Apache Ant(TM) </span><span style="color:#ffb964;">version</span><span> 1.10.14 compiled on August 16 2023
+</span><span style="color:#ffb964;">Launcher</span><span> JVM:  17.0.16 (Ubuntu 17.0.16+8-Ubuntu-0ubuntu124.04.1)
+</span><span style="color:#ffb964;">Daemon</span><span> JVM:    /usr/lib/jvm/java-17-openjdk-amd64 (no JDK specified, using current Java home)
+</span><span style="color:#ffb964;">OS:</span><span>            Linux 6.14.0-35-generic amd64
+</span><span>
+</span><span>(</span><span style="color:#ffb964;">base</span><span>) dich@uos:</span><span style="color:#ffb964;">~</span><span>/Git/android-templates$ kotlin</span><span style="color:#ffb964;"> -version
+</span><span style="color:#ffb964;">Kotlin</span><span> version 1.6.21-release-334 (JRE 21.0.8+9-Ubuntu-0ubuntu124.04.1)
+</span><span>(</span><span style="color:#ffb964;">base</span><span>) dich@uos:</span><span style="color:#ffb964;">~</span><span>/Git/android-templates/template-compose$ kscript</span><span style="color:#ffb964;"> -v
+</span><span style="color:#ffb964;">Copyright</span><span> : 2022 Holger Brandl
+</span><span style="color:#ffb964;">License</span><span>   : MIT
+</span><span style="color:#ffb964;">Version</span><span>   : v4.0.3
+</span><span style="color:#ffb964;">Website</span><span>   : https://github.com/holgerbrandl/kscript
+</span><span style="color:#ffb964;">A</span><span> new version (v4.2.0) </span><span style="color:#ffb964;">of</span><span> kscript is available.
+</span><span style="color:#ffb964;">Kotlin</span><span>    : 2.1.10-release-473
+</span><span style="color:#ffb964;">Java</span><span>      : JRE 17.0.16+8
+</span></code></pre>
+<h2 id="keyfang-an">Key方案</h2>
+<p>构建Release包需要密钥签名验证，可以使用传统的环境变量配置或者使用密钥管理器.</p>
+<h3 id="xiang-tong-bu-fen">相同部分</h3>
+<ul>
+<li>生成密钥</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">keytool -genkey -v </span><span>\
+</span><span style="color:#ffb964;">  -keystore ~</span><span>/.android/jetlagged-release.keystore \
+</span><span style="color:#ffb964;">  -alias</span><span> jetlagged \
+</span><span style="color:#ffb964;">  -keyalg</span><span> RSA \
+</span><span style="color:#ffb964;">  -keysize</span><span> 2048 \
+</span><span style="color:#ffb964;">  -validity</span><span> 10000
+</span></code></pre>
+<ul>
+<li>修改app/build.gradle.kts</li>
+</ul>
+<pre data-lang="java" style="background-color:#151515;color:#e8e8d3;" class="language-java "><code class="language-java" data-lang="java"><span>    signingConfigs {
+</span><span>        </span><span style="color:#ffb964;">create</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">release</span><span style="color:#556633;">&quot;</span><span>) {
+</span><span>            storeFile = </span><span style="color:#ffb964;">System</span><span>.</span><span style="color:#ffb964;">getenv</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">KEYSTORE_FILE</span><span style="color:#556633;">&quot;</span><span>)?.let { </span><span style="color:#ffb964;">file</span><span>(it) }
+</span><span>            storePassword = </span><span style="color:#ffb964;">System</span><span>.</span><span style="color:#ffb964;">getenv</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">KEYSTORE_PASSWORD</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>            keyAlias = </span><span style="color:#ffb964;">System</span><span>.</span><span style="color:#ffb964;">getenv</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">KEY_ALIAS</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>            keyPassword = </span><span style="color:#ffb964;">System</span><span>.</span><span style="color:#ffb964;">getenv</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">KEY_PASSWORD</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    buildTypes {
+</span><span>        release {
+</span><span>            signingConfig = signingConfigs.</span><span style="color:#ffb964;">getByName</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">release</span><span style="color:#556633;">&quot;</span><span>)  </span><span style="color:#888888;">// 添加这行
+</span><span>            isMinifyEnabled = true
+</span><span>            </span><span style="color:#ffb964;">proguardFiles</span><span>(
+</span><span>                </span><span style="color:#ffb964;">getDefaultProguardFile</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">proguard-android-optimize.txt</span><span style="color:#556633;">&quot;</span><span>),
+</span><span>                </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">proguard-rules.pro</span><span style="color:#556633;">&quot;
+</span><span>            )
+</span><span>        }
+</span><span>    }
+</span></code></pre>
+<h3 id="chuan-tong-fang-fa">传统方法</h3>
+<ul>
+<li>创建配置文件</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">cat </span><span>&gt; </span><span style="color:#ffb964;">~</span><span>/.android-signing-secrets </span><span style="color:#99ad6a;">&lt;&lt; </span><span style="color:#556633;">&#39;</span><span style="color:#8fbfdc;">EOF</span><span style="color:#556633;">&#39;
+</span><span style="color:#99ad6a;">export KEYSTORE_FILE=&quot;$HOME/.android/jetlagged-release.keystore&quot;
+</span><span style="color:#99ad6a;">export KEYSTORE_PASSWORD=&quot;你的keystore密码&quot;
+</span><span style="color:#99ad6a;">export KEY_ALIAS=&quot;jetlagged&quot;
+</span><span style="color:#99ad6a;">export KEY_PASSWORD=&quot;你的key密码&quot;
+</span><span style="color:#8fbfdc;">EOF
+</span><span>
+</span><span style="color:#888888;"># 设置权限
+</span><span style="color:#ffb964;">chmod</span><span> 600 </span><span style="color:#ffb964;">~</span><span>/.android-signing-secrets
+</span><span>
+</span><span style="color:#888888;"># 添加到 gitignore (全局)
+</span><span>echo </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">.android-signing-secrets</span><span style="color:#556633;">&quot; </span><span>&gt;&gt; </span><span style="color:#ffb964;">~</span><span>/.gitignore_global
+</span></code></pre>
+<ul>
+<li>flake配置</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># Auto load Key
+</span><span style="color:#8fbfdc;">if </span><span>[ </span><span style="color:#ffb964;">-f </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">HOME</span><span style="color:#99ad6a;">/.android-signing-secrets</span><span style="color:#556633;">&quot; </span><span>]; </span><span style="color:#8fbfdc;">then
+</span><span>    source </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">HOME</span><span style="color:#99ad6a;">/.android-signing-secrets</span><span style="color:#556633;">&quot;
+</span><span>    echo </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">KeyOK</span><span style="color:#556633;">&quot;
+</span><span style="color:#8fbfdc;">fi
+</span></code></pre>
+<h3 id="xian-dai-fang-fa">现代方法</h3>
+<ul>
+<li>安装libsecret包</li>
+<li>keepassxc新建Android群组，添加条目<code>android_key_password</code>和<code>android_keystore_password</code>；</li>
+<li>设置密码，和上面生成的相同；</li>
+<li>在条目的高级-属性中添加<code>name/android_key_password</code>和<code>name/android_keystore_password</code>；</li>
+<li>打开设置-保密服务集成，公开Android文件夹</li>
+<li>flake中写</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># Release Key
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">KEYSTORE_FILE</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">HOME</span><span style="color:#99ad6a;">/.android/jetlagged-release.keystore</span><span style="color:#556633;">&quot;
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">KEY_ALIAS</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">jetlagged</span><span style="color:#556633;">&quot;
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">KEYSTORE_PASSWORD</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">secret-tool</span><span style="color:#99ad6a;"> lookup name android_keystore_password)</span><span style="color:#556633;">&quot;
+</span><span style="color:#8fbfdc;">export </span><span style="color:#ffb964;">KEY_PASSWORD</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">secret-tool</span><span style="color:#99ad6a;"> lookup name android_key_password)</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-github/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:Github的使用</span>
+                        </a>
+                    </span>
+                
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#ubuntufang-an">Ubuntu方案</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#keyfang-an">Key方案</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xiang-tong-bu-fen">相同部分</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#chuan-tong-fang-fa">传统方法</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xian-dai-fang-fa">现代方法</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

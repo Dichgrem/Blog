@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/linux-0-start/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/linux-0-start/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/linux-0-start/">Linux-优雅过渡</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-06-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文面向刚刚从Windows转向Linux的一般使用者和想在Linux上进行开发的开发者，主要说明其系统特点和使用须知。</p>
+<span id="continue-reading"></span><h2 id="0-qi-cheng">0.启程</h2>
+<h3 id="nei-he-fa-xing-ban">内核/发行版</h3>
+<p>Linux 是一种开源的类 UNIX 操作系统内核，广泛应用于各种设备，包括个人计算机、服务器、手机、嵌入式系统等。它由芬兰的 Linus Torvalds 于1991年开始开发，是一个自由、免费的操作系统。与 Windows 和 macOS 等操作系统不同，Linux 的源代码对所有人开放，任何人都可以查看、修改和重新分发。我们常常说的Linux，实际上是指各种发行版，比如Ubuntu，Arch Linux，Debian等等。</p>
+<blockquote>
+<p>Liunx可以用来玩游戏吗？
+实际上著名的 Steam Deck 的系统就是基于Arch linux 的。对于个人使用而言，现在有不少原生支持linux 的游戏；也可以使用Wine来运行Windows下的游戏。</p>
+</blockquote>
+<h3 id="linuxde-zhu-yao-gou-cheng">Linux的主要构成</h3>
+<p>Linux操作系统主要由以下几个部分组成：</p>
+<ol>
+<li><strong>内核</strong>：操作系统的核心，负责管理系统资源。如Zen内核，LTS内核等。</li>
+<li><strong>Shell</strong>：命令行界面，用户通过它与系统交互，如Bash,Zsh等。</li>
+<li><strong>图形用户界面（GUI）</strong>：提供图形化操作界面，如GNOME、KDE、XFCE等。</li>
+<li><strong>文件系统</strong>：如ext4、Btrfs等，用于组织和管理磁盘上的文件。</li>
+<li><strong>系统库</strong>：为应用程序提供运行时支持。</li>
+<li><strong>应用程序</strong>：用户可以直接使用的软件，如文本编辑器、网页浏览器等。其中也有著名的GNU工具，如Vim,GCC等。</li>
+</ol>
+<h3 id="xuan-ze-linuxfa-xing-ban">选择Linux发行版</h3>
+<p>从上文可以发现，选择Linux发行版实际上是在选择 <strong>内核/包管理器/图形界面</strong> 等组件的排列组合。其中最主要的因素是包管理器。</p>
+<p>Linux有许多不同的发行版，但大致可以分为几个系：</p>
+<p><strong>Debian系：</strong></p>
+<ul>
+<li>
+<p>Debian：Debian以稳定性，安全性和轻量级著称，适合用于服务器和桌面环境。我们常说的Ubuntu就是基于Debian的发行版，注重用户友好性和易用性。它提供了多种桌面环境选择，以及许多现成的软件包。</p>
+</li>
+<li>
+<p>APT（Advanced Package Tool）是Debian系发行版的主要包管理器。它使用命令行工具如apt-get、aptitude等来管理软件包。</p>
+</li>
+</ul>
+<p><strong>Red Hat系：</strong></p>
+<ul>
+<li>Red Hat Enterprise Linux（RHEL）：RHEL是一款商业发行版，专注于企业级应用和支持。它提供了长期支持和专业技术支持服务，适用于企业级服务器和工作站。</li>
+<li>CentOS：CentOS是基于RHEL源代码编译而成的免费发行版，与RHEL兼容并提供类似的功能和性能。它也提供了长期支持版本和稳定性较高的特点。</li>
+<li>Fedora：Fedora是由Red Hat支持的社区驱动的发行版，注重提供最新的软件特性和技术。它适用于开发者和技术爱好者，提供了稳定的发布周期和丰富的软件包。</li>
+<li>YUM（Yellowdog Updater, Modified）是Red Hat系发行版的主要包管理器。最近的版本也开始采用DNF（Dandified YUM）。</li>
+</ul>
+<p><strong>Arch系：</strong></p>
+<ul>
+<li>
+<p>Arch Linux：Arch Linux是一个简洁、轻量级且灵活的发行版，注重简洁性和滚动更新。它采用“滚动发布”的方式，用户可以通过自定义安装来构建自己的系统，适合有一定Linux经验的用户。</p>
+</li>
+<li>
+<p>Pacman（Package Manager）是Arch Linux的主要包管理器。它使用简洁的命令来管理软件包，如pacman -S安装软件包、pacman -Syu更新系统等。</p>
+</li>
+</ul>
+<p><strong>Gentoo系：</strong></p>
+<ul>
+<li>
+<p>Gentoo：Gentoo是一个源码驱动的发行版，用户可以通过源代码自定义编译软件包以满足自己的需求。它注重性能和灵活性，适合高级用户和技术爱好者。</p>
+</li>
+<li>
+<p>Portage是Gentoo的包管理器，它是一个源代码驱动的包管理器，允许用户从源代码构建和安装软件包。</p>
+</li>
+</ul>
+<p>除了以上列举的包管理器外，还有其他一些较为特殊的包管理器，如Slackware系的pkgtool、SUSE系的zypper等。</p>
+<p>对于个人使用而言，我个人建议新手使用Ubuntu,有比较易用的界面和完善的资料参考；如果你是一个系统极客，可以使用Arch linux 或者 NixOS。</p>
+<h2 id="1-chu-tan-fhs">1.初探FHS</h2>
+<p>李华是一个从WindowsXP时代一直使用到Win11的微软“老资历”用户，这一天，他下定决心要学会使用Linux！于是他按照网上CSDN的教程，在VMware中安装了大名鼎鼎的Ubuntu系统！但很快他发现，为什么系统里面<code>没有C盘和D盘</code>，只有一个神秘的<code>/</code>和一堆奇怪的英文？</p>
+<p>在 Windows 的世界里，存储设备是用字母区分的，比如<code>C: D: E:</code>等等。但Linux 不给磁盘分字母，它采用的是一种叫做 <code>FHS（Filesystem Hierarchy Standard，文件系统层次结构标准</code>） 的方式来组织系统。在 FHS 的世界里，整个系统就像一棵树：</p>
+<ul>
+<li>树根是 /（根目录）</li>
+<li>所有磁盘、分区、U盘、设备都会被“挂载（mount）”到这棵树的某个枝丫上</li>
+</ul>
+<p>因此对于Linux而言，文件系统是这样的：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">/</span><span>      — 根
+</span><span style="color:#ffb964;">/home</span><span>  — 用户家目录
+</span><span style="color:#ffb964;">/root</span><span>  — 超级用户的家
+</span><span style="color:#ffb964;">/bin</span><span>   — 基础命令/二进制文件
+</span><span style="color:#ffb964;">/sbin</span><span>  — 管理命令
+</span><span style="color:#ffb964;">/usr</span><span>   — 大多数程序和资源
+</span><span style="color:#ffb964;">/lib</span><span>   — 库文件
+</span><span style="color:#ffb964;">/etc</span><span>   — 配置文件
+</span><span style="color:#ffb964;">/var</span><span>   — 日志、缓存、变化的数据
+</span><span style="color:#ffb964;">/tmp</span><span>   — 临时文件
+</span><span style="color:#ffb964;">/dev</span><span>   — 设备文件
+</span><span style="color:#ffb964;">/media</span><span> — 自动挂载U盘
+</span><span style="color:#ffb964;">/mnt</span><span>   — 手动挂载点
+</span><span style="color:#ffb964;">/opt</span><span>   — 第三方软件
+</span><span style="color:#ffb964;">/boot</span><span>  — 系统启动文件
+</span><span style="color:#ffb964;">/proc</span><span>  — 虚拟进程信息
+</span><span style="color:#ffb964;">/sys</span><span>   — 虚拟硬件信息
+</span><span style="color:#ffb964;">/run</span><span>   — 系统运行状态
+</span></code></pre>
+<p>其中Home目录类似Windows上的<code>C:\Users\你的名字</code>，里面有<code>桌面/文档/下载/图片/音乐/视频/</code>，是不是非常眼熟？</p>
+<p>可以看出，Linux下是不用专门分出系统盘和数据盘的，某种意义上解决了Windows的C盘空间不足红色爆满的问题。</p>
+<blockquote>
+<p>小知识：为什么Windows上是“\”而Linux是“/”？ Unix 在1970年代就使用“/”，诞生于 1980 年代的 MS-DOS 本来也是用“/”的！但后来微软加入了命令行参数（如 /help），和路径冲突了。为了区分选项和路径，微软紧急决定：“/” 用来当选项前缀（至今仍如此：dir /a），文件路径改用“\”，于是 Windows 专门和全世界不一样。</p>
+</blockquote>
+<blockquote>
+<p>并非所有Linux发行版都遵守FHS，比如Nixos.</p>
+</blockquote>
+<p>理解了FHS，下一步就是，要如何安装软件呢？</p>
+<h2 id="2-bao-guan-li-qi-yu-elf">2.包管理器与ELF</h2>
+<p>在windows中，当我们想要安装某个软件的时候，第一时间就是去寻找<code>EXE安装包</code>，而后点击安装-确定，软件就出现在桌面了！但李华很快发现，他将下载的EXE文件放在Ubuntu的桌面并点击，显示无法运行？</p>
+<p>这是因为Linux下不使用Windows的PE格式，而是用ELF格式；这并不是说李华得手动一个个下载ELF并点击运行，实际上Linux上使用的是名为<code>包管理器</code>的方法。</p>
+<p>在Ubuntu的界面中李华看到了一个名为<code>终端</code>的应用，输入<code>apt install neofetch</code>，就安装成功...不，暂时还没有成功,再次输入<code>sudo apt install neofetch</code>,就成功安装了neofetch这个软件，随后我们输入<code>neofetch</code>，可以看到系统的一些信息：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">❯</span><span> neofetch
+</span><span>            </span><span style="color:#ffb964;">.-/+oossssoo+/-.</span><span>               dich@uos
+</span><span>        `</span><span style="color:#ffb964;">:+ssssssssssssssssss+:</span><span>`           --------
+</span><span>      </span><span style="color:#ffb964;">-+ssssssssssssssssssyyssss+-</span><span>         OS: Ubuntu 24.04.3 LTS x86_64
+</span><span>    </span><span style="color:#ffb964;">.ossssssssssssssssssdMMMNysssso.</span><span>       Host: KVM/QEMU (Standard PC (Q35 + ICH9, 2009) </span><span style="color:#ffb964;">pc-q35-10.0</span><span>)
+</span><span>   </span><span style="color:#ffb964;">/ssssssssssshdmmNNmmyNMMMMhssssss/</span><span>      Kernel: 6.14.0-35-generic
+</span><span>  </span><span style="color:#ffb964;">+ssssssssshmydMMMMMMMNddddyssssssss+</span><span>     Uptime: 2 mins
+</span><span> </span><span style="color:#ffb964;">/sssssssshNMMMyhhyyyyhmNMMMNhssssssss/</span><span>    Packages: 2522 (dpkg)</span><span style="color:#ffb964;">,</span><span> 12 (snap)
+</span><span style="color:#ffb964;">.ssssssssdMMMNhsssssssssshNMMMdssssssss.</span><span>   Shell: zsh 5.9
+</span><span style="color:#ffb964;">+sssshhhyNMMNyssssssssssssyNMMMysssssss+</span><span>   Resolution: 1280x800
+</span><span style="color:#ffb964;">ossyNMMMNyMMhsssssssssssssshmmmhssssssso</span><span>   Terminal: /dev/pts/0
+</span><span style="color:#ffb964;">ossyNMMMNyMMhsssssssssssssshmmmhssssssso</span><span>   GPU: 00:01.0 Red Hat, Inc. Virtio 1.0 GPU
+</span><span style="color:#ffb964;">+sssshhhyNMMNyssssssssssssyNMMMysssssss+</span><span>   Memory: 1126MiB / 13976MiB
+</span><span style="color:#ffb964;">.ssssssssdMMMNhsssssssssshNMMMdssssssss.   
+</span><span> </span><span style="color:#ffb964;">/sssssssshNMMMyhhyyyyhdNMMMNhssssssss/
+</span><span>  </span><span style="color:#ffb964;">+sssssssssdmydMMMMMMMMddddyssssssss+
+</span><span>   </span><span style="color:#ffb964;">/ssssssssssshdmNNNNmyNMMMMhssssss/
+</span><span>    </span><span style="color:#ffb964;">.ossssssssssssssssssdMMMNysssso.
+</span><span>      </span><span style="color:#ffb964;">-+sssssssssssssssssyyyssss+-
+</span><span>        `</span><span style="color:#ffb964;">:+ssssssssssssssssss+:</span><span>`
+</span><span>            </span><span style="color:#ffb964;">.-/+oossssoo+/-.
+</span></code></pre>
+<p>可见，在Linux上安装软件其实比Windows的简单，只需一行命令，包管理器会从<code>源</code>下载软件包，并进行解压，<code>处理依赖项/动态链接/环境变量</code>等等；这并非代表不安全，Linux上大部分是开源软件；关于开源软件，日后我们再进行说明。那么，如何知道安装需要的命令呢？</p>
+<p>我们可以从Ubuntu的软件源<code>https://packages.ubuntu.com/</code>上搜索软件包的名字，输入关键字（如 firefox、python、vlc），它会列出：</p>
+<ul>
+<li>软件包的准确名字</li>
+<li>所属版本（如 24.04、22.04）</li>
+<li>依赖关系</li>
+<li>下载链接（如果你想手工装）</li>
+</ul>
+<p>或者使用<code>apt search 包名</code>；如果apt没有某个包，还可以使用<code>AppImage / Flatpak / Snap</code>等等管理器来下载。</p>
+<blockquote>
+<p>包管理器常用命令</p>
+</blockquote>
+<table><thead><tr><th>功能</th><th>apt（Ubuntu/Debian）</th><th>paru/pacman（Arch/Manjaro）</th><th>说明</th></tr></thead><tbody>
+<tr><td>更新软件包索引</td><td><code>sudo apt update</code></td><td><code>sudo paru -Sy</code></td><td>先更新仓库信息</td></tr>
+<tr><td>升级已安装的软件</td><td><code>sudo apt upgrade</code></td><td><code>sudo paru -Syu</code></td><td>升级所有已安装的软件（包含系统更新）</td></tr>
+<tr><td>安装软件包</td><td><code>sudo apt install &lt;package&gt;</code></td><td><code>sudo paru -S &lt;package&gt;</code></td><td>安装指定软件</td></tr>
+<tr><td>移除软件包（保留配置）</td><td><code>sudo apt remove &lt;package&gt;</code></td><td><code>sudo paru -R &lt;package&gt;</code></td><td>删除软件包，但保留配置文件</td></tr>
+<tr><td>完全删除软件包（含配置）</td><td><code>sudo apt purge &lt;package&gt;</code></td><td><code>sudo paru -Rns &lt;package&gt;</code></td><td>删除软件包及依赖、配置文件</td></tr>
+<tr><td>搜索软件包</td><td><code>apt search &lt;package&gt;</code></td><td><code>paru -Ss &lt;package&gt;</code></td><td>查找仓库中的软件包</td></tr>
+<tr><td>查看已安装软件</td><td><code>apt list --installed</code></td><td><code>paru -Q</code></td><td>列出系统已安装软件</td></tr>
+<tr><td>查看软件信息</td><td><code>apt show &lt;package&gt;</code></td><td><code>paru -Si &lt;package&gt;</code></td><td>显示软件包详细信息</td></tr>
+<tr><td>自动清理无用依赖</td><td><code>sudo apt autoremove</code></td><td><code>sudo paru -Rns $(pacman -Qdtq)</code></td><td>删除不再需要的依赖包</td></tr>
+<tr><td>清理下载缓存</td><td><code>sudo apt clean</code></td><td><code>sudo paru -Sc</code></td><td>删除已下载的软件包缓存</td></tr>
+<tr><td>升级单个软件包</td><td><code>sudo apt install --only-upgrade &lt;package&gt;</code></td><td><code>sudo paru -S &lt;package&gt;</code></td><td>仅升级指定软件</td></tr>
+</tbody></table>
+<blockquote>
+<p>AppImage：可直接运行，像“可携带版 EXE”;Flatpak：沙盒化、现代、安全;Snap：由 Ubuntu 官方主推;第三方仓库 PPA：常见于开发版软件...</p>
+</blockquote>
+<blockquote>
+<p>如果你使用其他Linux发行版，也有对应的包管理器。比如Arch的Pacman/Paru，Fedora 的 dnf，openSUSE 的 zypper，NixOS 的 nix...</p>
+</blockquote>
+<blockquote>
+<p>实际上Windows上也是有包管理的，比如 Windows 10/11 内置的 winget（Windows Package Manager），choco（Chocolatey），scoop...由于历史原因不为大部分人所熟悉.可以使用这个项目<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/marticliment/UniGetUI">UniGetUI</a>在Windows上方便的进行包管理.</p>
+</blockquote>
+<h2 id="3-quan-xian-xi-tong-sudo-root">3.权限系统/Sudo/Root</h2>
+<p>还记得前面我们使用的<code>sudo apt install xxx</code>吗？为什么不加上sudo就无法运行呢？这其实和Linux的权限系统有关.在Windows中有些无法直接运行的软件，需要右键单击并选择<code>以管理员权限运行</code>.这表示某个操作会修改系统，需要管理员（Administrator）的允许。Linux 也有类似的概念，但名字不一样，Linux 的管理员叫：<code>root</code>.</p>
+<p>在Linux中，普通用户（如你的账户）只能管理自己的文件、自己的程序
+，而root 用户能管理整个系统、安装软件、删除系统文件、修改配置；所以，日常使用的时候不是“管理员账号”，而是一个安全的普通用户。<code>sudo</code>（super user do）就是：“请允许我<strong>暂时</strong>以 root 的身份执行这一条命令。”</p>
+<p>为什么不用 root 账号直接登录呢？因为 root 太强大了：</p>
+<ul>
+<li>可以删掉任何文件</li>
+<li>可以覆盖系统配置</li>
+<li>可以误操作把系统搞到无法启动</li>
+</ul>
+<p>所以日常使用 root 类似于：“天天坐在一个自带核弹按钮的办公桌前”。这就是为什么 Linux 默认让你用普通用户，然后用 <code>sudo</code> 临时提升权限。</p>
+<p>当李华学会使用 <code>sudo</code> 后，他又开始好奇：</p>
+<blockquote>
+<p>“为什么有些文件我能读，有些不能？
+为什么有些文件能执行，有些却提示权限不够？”</p>
+</blockquote>
+<p>Linux 的权限可以简单理解为<code>UGO+RWX</code>.</p>
+<ul>
+<li>
+<p>UGO由用户（User）/ 用户组（Group）/ 其他人（Others）构成，每个文件都有 Owner（所有者）和 Group（用户组）。</p>
+</li>
+<li>
+<p>RWX权限分为 <strong>r 读 / w 写 / x 执行</strong>，并以类似 <code>-rwxr-x---</code> 的形式展示（文件类型 + Owner 权限 + Group 权限 + Others 权限）。</p>
+</li>
+<li>
+<p><strong>用户组（Group）</strong> 是“权限相同的用户集合”，如：<code>sudo</code> 组能用 sudo，<code>audio</code> 组能访问音频，<code>video</code> 组能用 GPU，<code>docker</code> 组能管理容器。Linux 通过把用户加入不同组来决定他们能操作什么。</p>
+</li>
+<li>
+<p><strong>chmod</strong> 用于修改权限：<code>chmod +x a.sh</code>（所有人加执行权限），<code>chmod u+x</code>（给 Owner 加执行权限），<code>chmod g-w</code>（去掉 Group 写权限），<code>chmod o-r</code>（禁掉 Others 读权限）。数字模式如 <code>755</code>、<code>644</code> 表示 r/w/x 的数字和（<code>r=4, w=2, x=1</code>）：例如 <code>755</code> = Owner(rwx) / Group(r-x) / Others(r-x)。</p>
+</li>
+</ul>
+<p>比如创建一个新用户，可以使用<code>sudo adduser &lt;用户名&gt;</code>，授予这个用户sudo权限可以使用<code>sudo usermod -aG sudo &lt;用户名&gt;</code>.</p>
+<h2 id="4-ming-ling-xing">4.命令行</h2>
+<p>看到这里，李华发觉Linux很多操作都是命令行式的，在终端里面操作的，但李华不知道有那些命令可以使用，于是李华找了一些网站，并尝试了一些常用的命令：</p>
+<ul>
+<li>Linux命令查询：<a rel="noopener nofollow noreferrer" target="_blank" href="https://wangchujiang.com/linux-command/hot.html">linux-command</a></li>
+<li>Linux常用命令表：<a rel="noopener nofollow noreferrer" target="_blank" href="https://wangchujiang.com/reference/docs/linux-command.html">Quick Reference</a></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">❯</span><span> date
+</span><span style="color:#ffb964;">Sun</span><span> Nov 16 09:16:15 PM +08 2025
+</span><span style="color:#ffb964;">❯</span><span> uname</span><span style="color:#ffb964;"> -a
+</span><span style="color:#ffb964;">Linux</span><span> dos 6.17.7-cachyos </span><span style="color:#888888;">#1-NixOS SMP PREEMPT_DYNAMIC Sun Nov  2 13:18:05 UTC 2025 x86_64 GNU/Linux
+</span><span style="color:#ffb964;">❯</span><span> uptime
+</span><span> </span><span style="color:#ffb964;">21:16:23</span><span>  up   4:54,  0 users,  load average: 0.79, 0.74, 0.70
+</span><span style="color:#ffb964;">❯</span><span> ls
+</span><span style="color:#ffb964;">Data</span><span>   Desktop   Documents   Downloads   Git   go   Picback   Pictures
+</span><span style="color:#ffb964;">❯</span><span> cd ./Downloads
+</span><span style="color:#ffb964;">~/Downloads
+</span></code></pre>
+<p>李华很好奇：这些 <code>ls</code>、<code>cd</code>、<code>uname</code>、<code>date</code> 等命令究竟来自哪里？它们是 Linux 内置的吗？其实，Linux 里的命令大致可以分为三类：<strong>Shell 内建命令、外部二进制程序、BusyBox 提供的工具</strong>。</p>
+<ul>
+<li>一些命令是由 Shell 自己实现的，例如<code>cd</code> <code>echo</code> <code>pwd</code> <code>export</code> <code>alias</code> <code>history</code>这些命令不需要执行外部程序，由 Shell 本身的代码直接完成。可以用下面的方式判断命令是否是内建的：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>type cd
+</span><span style="color:#888888;"># cd is a shell builtin
+</span></code></pre>
+<ul>
+<li>大多数常用命令是独立的可执行文件，例如 <code>/usr/bin/ls</code>、<code>/usr/bin/date</code>，它们通常来自一个叫 <strong>coreutils（GNU Core Utilities）</strong> 的软件集合。可以用 <code>which</code> 查看一个命令的真实位置：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">which</span><span> ls
+</span><span style="color:#888888;"># /usr/bin/ls
+</span></code></pre>
+<p>这类命令本质上是：ELF 可执行文件/被内核加载/在用户空间运行</p>
+<ul>
+<li>在一些精简 Linux（例如 Alpine、OpenWrt中），命令不来自 GNU coreutils，而来自一个叫 <strong>BusyBox</strong> 的单程序。BusyBox 只一个二进制文件，但内部包含了上百个命令，这种方式体积小，适用于嵌入式设备。</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">/bin/busybox</span><span> ls
+</span><span style="color:#ffb964;">/bin/busybox</span><span> cp
+</span><span style="color:#ffb964;">/bin/busybox</span><span> tar
+</span></code></pre>
+<h2 id="5-shell-terminal-tty">5.Shell/Terminal/TTY</h2>
+<p>随着李华在系统中的探索，李华发现常常遇到诸如<code>Terminal，Console，bash,zsh,shell,tty</code>等概念，这些概念常常被混淆，似乎都和命令行相关，但又不太清楚它们之间是什么关系？</p>
+<h3 id="zhong-duan-he-kong-zhi-tai">终端和控制台</h3>
+<p>终端，英文叫做 terminal ,通常简称为 term；控制台，英文叫做 console。</p>
+<p>要明白这两者的关系，还得从最初的计算机说起。当时的计算机价格昂贵，一台计算机一般是由多个人同时使用的。在这种情况下一台计算机需要连接上许多套键盘和显示器来供多个人使用。在以前专门有这种可以连上一台电脑的设备，只有显示器和键盘，还有简单的处理电路，本身不具有处理计算机信息的能力，他是负责连接到一台正常的计算机上（通常是通过串口） ，然后登陆计算机，并对该计算机进行操作。当然，那时候的计算机操作系统都是多任务多用户的操作系统。这样一台<code>只有显示器和键盘能够通过串口连接到计算机的设备就叫做终端</code>。</p>
+<p>而控制台又是什么回事呢？其概念来自于管风琴的控制台。顾名思义，控制台就是一个直接控制设备的台面（一个面板，上面有很多控制按钮）。 在计算机里，把那套<code>直接连接在电脑上的键盘和显示器就叫做控制台</code>。</p>
+<p>终端是通过串口连接上的，不是计算机本身就有的设备，而控制台是计算机本身就有的设备，一个计算机只有一个控制台。计算机启动的时候，所有的信息都会显示到控制台上，而不会显示到终端上。也就是说，<code>控制台是计算机的基本设备，而终端是附加设备</code>。 当然，由于控制台也有终端一样的功能，控制台有时候也被模糊的统称为终端。</p>
+<p>以上是控制台和终端的历史遗留区别。现在由于计算机硬件越来越便宜，终端和控制台的概念也慢慢演化了。<code>终端和控制台由硬件的概念，演化成了软件的概念</code>。</p>
+<h3 id="nei-he-yu-wai-ke">内核与外壳</h3>
+<p>内核（ Kernel ）和外壳（ Shell ）是 linux 的两个主要部分。Kernel 是操作系统的核心，系统的文件管理、进程管理、内存管理、设备管理这些功能，都是由 Kernel 提供的。</p>
+<p>用户和操作系统内核交流需要一个工具，那么这个工具就是 Shell。</p>
+<p>什么是 Shell？在 Linux 中，最常见的 Shell 形式有命令行界面命令行界面和图形界面两种。并不是打开的那个终端窗口就是 Shell，如Alacritty、Gnome-Terminal、xterm 、kitty等程序，它们不是 Shell，而它们里面<code>运行的 Bash、Zsh、fish 等命令行解释器程序，才是 Shell</code>。</p>
+<p>那<code>Alacritty、Gnome-Terminal、xtermxterm</code>是什么？</p>
+<p>它们是<code>终端模拟器</code>。</p>
+<p>前面提到过，在远古时代，终端和控制台都是有实体的。控制台直接和计算机在一起，你可以通过控制台控制计算机。终端通过数据线和计算机连接，终端也提供一个键盘和一个屏幕，你可以通过键盘向计算机下达指令，然后通过屏幕观察输出。</p>
+<p>但是现在的计算机组成和以前不一样了，一般一台电脑都是自带键盘和屏幕，很少再外接终端设备。</p>
+<p>所以 Linux 提供了另外一个更高级的功能，那就是虚拟终端。那就是在一台电脑上，通过软件的模拟，好像有好几个终端连接在这台计算机上一样。</p>
+<p><code>现在说的终端，比如 linux 中的虚拟终端，都是软件的概念</code>。虚拟终端称之为 tty，tty 是电传打字机电传打字机 Teletypewriter 的缩写，在带显示屏的视频终端出现之前，tty是最流行的终端设备。每一个 tty 都有一个编号，在/dev目录下有相应的设备文件。其中/dev/tty1到/dev/tty7可以通过 Ctrl+Alt+F1 到 Ctrl+Alt+F7 进行切换，也可以通过 chvt 命令进行切换，就好比是以前多人公用的计算机中的六个终端设备，这就是为什么这个叫“虚拟终端”的原因。</p>
+<blockquote>
+<p>如果你现在使用linux，可以使用Ctrl+Alt+F2切换到TTY界面！</p>
+</blockquote>
+<h2 id="6-de-wm-wayland-x11">6.DE/WM/Wayland/X11</h2>
+<p>在 Windows 上，图形界面是系统密不可分的一部分。但李华发现，他安装的 Ubuntu 界面叫 GNOME，而他同学安装的 Mint 界面却是 Cinnamon，而且他听说还有 KDE、XFCE 等等，这让他感到困惑。</p>
+<p>在 Linux 中，<code>图形界面是可以高度定制和替换的</code>。它主要由以下几个核心组件构成：</p>
+<ul>
+<li>桌面环境（Desktop Environment, DE）</li>
+</ul>
+<p><strong>桌面环境（DE）</strong> 是一整套完整的、提供图形化操作体验的软件集合。它包括了：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>窗口管理器（Window Manager, WM）：负责绘制窗口边框、最大化/最小化按钮、控制窗口的移动和堆叠。
+</span><span>文件管理器：如 Nautilus (GNOME)、Dolphin (KDE)。
+</span><span>面板/任务栏：提供应用启动器、系统托盘、时钟等。
+</span><span>显示管理器（Display Manager, DM）：负责登录界面（如 GDM, LightDM）。
+</span><span>一系列配套应用：如文本编辑器、图片查看器等。
+</span></code></pre>
+<ul>
+<li>窗口管理器（Window Manager, WM）</li>
+</ul>
+<p><strong>窗口管理器（WM）</strong> 是 DE 的核心组件之一，但也可以独立运行。如果你不需要一个完整的桌面环境（如文件管理器、面板等），只想要管理窗口的显示和布局，就可以只安装一个 WM。</p>
+<table><thead><tr><th>常见 DE</th><th>常见 WM</th></tr></thead><tbody>
+<tr><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.kde.org/">KDE</a></td><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://i3wm.org/">i3</a></td></tr>
+<tr><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.xfce.org/">Xfce</a></td><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/YaLTeR/niri">niri</a></td></tr>
+<tr><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://help.gnome.org/">Gnome</a></td><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/qtile/qtile/">qtile</a></td></tr>
+<tr><td>—</td><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/baskerville/bspwm">bspwm</a></td></tr>
+<tr><td>—</td><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/hyprwm/Hyprland">Hyprland</a></td></tr>
+<tr><td>—</td><td><a rel="noopener nofollow noreferrer" target="_blank" href="https://awesomewm.org/">awesomewm</a></td></tr>
+</tbody></table>
+<h3 id="tu-xing-xie-yi-x11-yu-wayland">图形协议：X11 与 Wayland</h3>
+<p>无论是 DE 还是 WM，它们都需要一套机制来告诉应用程序“在哪里绘制一个按钮”、“如何响应鼠标点击”等。这就是 <strong>图形显示协议</strong>。</p>
+<ul>
+<li><strong>X Window System（X11/Xorg）：</strong> 历史悠久、功能强大但结构复杂的图形协议，已经使用了几十年。它的设计初衷是网络透明——理论上你可以在一台机器上运行程序，并在另一台机器上显示其图形界面。</li>
+<li><strong>Wayland：</strong> X11 的现代替代品。它设计更简洁、安全性更高、性能更好，尤其是在高分屏和混合刷新率显示器上。目前 GNOME 和 KDE 都在积极转向 Wayland。</li>
+</ul>
+<blockquote>
+<p>对于新手，建议直接使用主流发行版的默认 DE（如 Ubuntu 的 GNOME 或 CachyOS 的 KDE），它们都提供了完整的用户体验。如果你是开发者或极客，可以尝试平铺式 WM，并关注 Wayland 的发展。</p>
+</blockquote>
+<h2 id="7-xdg">7.XDG</h2>
+<p>李华在折腾 GNOME 桌面时，发现很多配置文件夹都藏在 <code>~/.config</code> 下，而缓存文件在 <code>~/.cache</code>，下载的应用数据却在 <code>~/.local/share</code>。他发现这比 Windows 时代全部扔在 <code>C:\Users\username\AppData</code> 里规范多了！</p>
+<p>这套规范就是 <strong>XDG 基础目录规范（XDG Base Directory Specification）</strong>，它是 Freedesktop.org（一个致力于桌面环境互操作性的组织）推广的一项标准。</p>
+<p>XDG 规范的核心思想是将用户的文件按照用途分离，而不是像 Windows 那样把所有数据都塞进一个 <code>AppData</code> 文件夹。</p>
+<table><thead><tr><th style="text-align: left">环境变量/目录</th><th style="text-align: left">默认路径（若未设置）</th><th style="text-align: left">用途</th></tr></thead><tbody>
+<tr><td style="text-align: left"><code>$XDG_CONFIG_HOME</code></td><td style="text-align: left"><code>~/.config</code></td><td style="text-align: left">存放<strong>用户配置文件</strong>（Configuration files）。</td></tr>
+<tr><td style="text-align: left"><code>$XDG_CACHE_HOME</code></td><td style="text-align: left"><code>~/.cache</code></td><td style="text-align: left">存放<strong>非关键的缓存文件</strong>（Cache files），可以随时删除。</td></tr>
+<tr><td style="text-align: left"><code>$XDG_DATA_HOME</code></td><td style="text-align: left"><code>~/.local/share</code></td><td style="text-align: left">存放<strong>应用程序生成的用户数据</strong>（Data files），如游戏存档、下载的图标等。</td></tr>
+<tr><td style="text-align: left"><code>$XDG_RUNTIME_DIR</code></td><td style="text-align: left">通常是 <code>/run/user/$(id -u)</code></td><td style="text-align: left">存放<strong>运行时文件</strong>，生命周期与用户登录会话一致，重启或注销后消失。</td></tr>
+</tbody></table>
+<p>通过遵守 XDG 规范，可以带来很多好处：</p>
+<ul>
+<li><strong>清理更方便：</strong> 想清理缓存？直接删除 <code>$XDG_CACHE_HOME</code> 下的文件即可，不会误删配置。</li>
+<li><strong>备份更清晰：</strong> 只需要备份 <code>$XDG_CONFIG_HOME</code> 就可以保留所有应用程序的配置。</li>
+<li><strong>兼容性更好：</strong> 不同 Linux 发行版和桌面环境下的应用程序都能遵循一致的目录结构。</li>
+</ul>
+<h2 id="8-dev-mian-xiang-kai-fa-zhe">8.DEV（面向开发者）</h2>
+<p>对于想在 Linux 上进行开发的李华来说，Linux 简直是为开发而生的系统。由于其开源、类 UNIX 的特性，它在软件开发领域拥有巨大的优势。</p>
+<p>Linux 默认提供了强大的 GNU 工具链：</p>
+<ul>
+<li><strong>GCC/Clang：</strong> 编译 C/C++ 等语言。</li>
+<li><strong>Make/CMake：</strong> 构建自动化工具。</li>
+<li><strong>Git：</strong> 版本控制的行业标准，Linux 对其支持极佳。</li>
+<li><strong>Bash/Zsh/Shell Scripting：</strong> 强大的命令行脚本能力，用于自动化运维。</li>
+<li><strong>Docker/Podman：</strong> 容器化技术在 Linux 上天然且高效。</li>
+</ul>
+<p>在 Windows 上，安装 Python 或 Node.js 往往需要下载安装包并手动设置环境变量，管理多版本很麻烦。在 Linux 上，这变得非常优雅：</p>
+<ul>
+<li><strong>包管理器：</strong> 可以直接通过 <code>apt</code> 或 <code>pacman</code> 安装主流编程语言及其依赖。</li>
+<li><strong>版本管理器：</strong> 开发者通常会使用专门的工具来隔离和管理不同项目的语言版本，例如：</li>
+<li><strong>Python：</strong> <code>pyenv</code></li>
+<li><strong>Node.js：</strong> <code>nvm</code></li>
+<li><strong>Go：</strong> <code>gvm</code></li>
+<li><strong>Ruby：</strong> <code>rvm</code> / <code>rbenv</code></li>
+</ul>
+<p>Linux 的内核天然支持 <strong>Cgroups</strong> 和 <strong>Namespaces</strong>，这是 <strong>Docker</strong> 和 <strong>Kubernetes</strong> 等容器化技术的基础。</p>
+<ul>
+<li><strong>Docker：</strong> 在 Linux 上运行 Docker 几乎没有性能损耗，是开发、测试和部署微服务的理想平台。</li>
+<li><strong>KVM/QEMU：</strong> 内置的高性能虚拟化技术，相比 Windows 的 Hyper-V 或 VMware，性能更好更通用。</li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/linux-1-command/">
+                            <span class="button__text">Linux-命令行操控</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#0-qi-cheng">0.启程</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#nei-he-fa-xing-ban">内核&#x2F;发行版</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#linuxde-zhu-yao-gou-cheng">Linux的主要构成</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xuan-ze-linuxfa-xing-ban">选择Linux发行版</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#1-chu-tan-fhs">1.初探FHS</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#2-bao-guan-li-qi-yu-elf">2.包管理器与ELF</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#3-quan-xian-xi-tong-sudo-root">3.权限系统&#x2F;Sudo&#x2F;Root</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#4-ming-ling-xing">4.命令行</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#5-shell-terminal-tty">5.Shell&#x2F;Terminal&#x2F;TTY</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#zhong-duan-he-kong-zhi-tai">终端和控制台</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#nei-he-yu-wai-ke">内核与外壳</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#6-de-wm-wayland-x11">6.DE&#x2F;WM&#x2F;Wayland&#x2F;X11</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#tu-xing-xie-yi-x11-yu-wayland">图形协议：X11 与 Wayland</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#7-xdg">7.XDG</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#8-dev-mian-xiang-kai-fa-zhe">8.DEV（面向开发者）</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

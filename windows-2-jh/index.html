@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/windows-2-jh/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-2-jh/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-2-jh/">Windows系列(2):分类与激活</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-05-26
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/windows/">#Windows</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Windows的正版售价十分昂贵，2025年的今天大部分人都使用着OEM厂商自带的windows系统或自己想办法激活，那么，激活到底是什么原理？</p>
+<span id="continue-reading"></span><h2 id="yi-fen-lei-gong-neng-yu-qu-dao"><strong>一.分类：功能与渠道</strong></h2>
+<p>一般情况下，提到Windows和Office的版本，是按功能分类的，如：</p>
+<ul>
+<li>标准版（Standard）</li>
+<li>初级版（Starter）</li>
+<li>家庭基础版（Home Basic）</li>
+<li>家庭高级版（Home Premium）</li>
+<li>专业版（Professional）</li>
+<li>企业版（Enterprise）</li>
+<li>旗舰版（Ultimate）</li>
+<li>教育版（Education）</li>
+<li>移动版（Mobile）等等。</li>
+</ul>
+<p>在按功能划分的基础上，根据销售渠道又细分出以下几种不同版本，激活方式与之对应，激活原理也各不相同：</p>
+<ul>
+<li>零售版（Retail）：个人单独购买，一般是盒装光盘，配发一个激活码；</li>
+<li>批量版（VOL，Volume Licensing for Organizations）：企业批量购买，提供了方便大量激活的方案；</li>
+<li>厂商版（OEM，Original Equipment Manufacturer）：随电脑整机附赠，主板BIOS内嵌激活信息；</li>
+</ul>
+<p><strong>大版本分类</strong></p>
+<table><thead><tr><th>分类</th><th>消费者版（Consumer）</th><th>商务版（Business）</th><th>物联网版（IoT）</th><th>长期服务版（LTSC）</th></tr></thead><tbody>
+<tr><td><strong>目标用户</strong></td><td>家庭用户、个人消费者</td><td>企业、机构、教育用户</td><td>嵌入式设备、工业控制、POS、医疗设备等</td><td>关键任务系统、长期稳定运行的设备</td></tr>
+<tr><td><strong>主要版本</strong></td><td>Windows Home、Home Single Language、Education</td><td>Windows Professional、Enterprise、Education</td><td>Windows IoT Core、IoT Enterprise、IoT Enterprise LTSC</td><td>Windows Enterprise LTSC、IoT Enterprise LTSC</td></tr>
+<tr><td><strong>预装应用</strong></td><td>包含 Microsoft Store、娱乐和社交类应用</td><td>精简部分消费类应用，保留企业管理工具</td><td>极度精简，移除大部分消费类应用</td><td>移除 Microsoft Store、Cortana 等非必要功能</td></tr>
+<tr><td><strong>更新策略</strong></td><td>定期推送功能和安全更新</td><td>可由企业控制更新策略，支持延迟功能更新</td><td>可选择常规更新或 LTSC 版本，更新策略灵活</td><td>仅推送安全补丁和关键修复，无新功能更新</td></tr>
+<tr><td><strong>支持周期</strong></td><td>通常为 18 个月</td><td>通常为 18～30 个月，取决于版本和配置</td><td>IoT Enterprise LTSC 支持周期可达 10～15 年</td><td>通常为 5 年主流支持 + 5 年扩展支持，共 10 年</td></tr>
+<tr><td><strong>授权方式</strong></td><td>零售授权，需在线激活</td><td>批量许可（Volume Licensing）、OEM 授权</td><td>OEM 授权，适用于特定硬件设备</td><td>批量许可，适用于特定行业和关键任务设备</td></tr>
+<tr><td><strong>适用场景</strong></td><td>日常办公、娱乐、学习</td><td>企业办公、教育机构、专业工作站</td><td>工业自动化、零售终端、医疗设备等嵌入式系统</td><td>医疗设备、金融终端、工业控制系统等需长期稳定运行的环境</td></tr>
+</tbody></table>
+<hr />
+<h2 id="er-ji-huo-fang-fa-he-yuan-li"><strong>二.激活方法和原理</strong></h2>
+<h3 id="ling-shou-retail-ji-huo"><strong>零售(Retail)激活</strong></h3>
+<p>零售版 Windows 和 Office 的激活机制可以通俗地类比为在商店购买记事本：用户支付费用获得记事本，如何使用由用户决定。</p>
+<ul>
+<li>
+<p><strong>试用期与激活码输入</strong><br />
+安装零售版后，系统会有一段试用期。用户需进入激活界面，输入零售版激活码。激活组件会验证激活码的正确性，并根据激活码和硬件信息生成 Installation ID（IID）。</p>
+</li>
+<li>
+<p><strong>激活方式</strong></p>
+<ul>
+<li><strong>网络激活</strong>：系统自动将 IID 发送至微软服务器，服务器校验后生成 Confirmation ID（CID）并返回，激活组件完成验证后激活成功。</li>
+<li><strong>电话激活</strong>：用户拨打微软电话，手动输入 IID，并根据语音提供的 CID 填入激活界面完成激活。</li>
+</ul>
+</li>
+<li>
+<p><strong>服务器记录与限制</strong><br />
+微软服务器会记录硬件信息和激活码信息。如果激活码使用次数过多，可能被限制为仅电话激活；若激活的电脑数量超标，则激活码会被封禁，无法再使用。尽管微软封禁激活码，但违规泄露的新激活码常被二手商以低价出售。</p>
+</li>
+<li>
+<p><strong>激活机制的技术特性</strong><br />
+零售版激活依赖微软服务器的校验，采用不对称加密技术：公钥在系统中，私钥在服务器上。用户只能校验 CID，无法从 IID 计算 CID。这使得激活必须经过服务器验证。</p>
+</li>
+<li>
+<p><strong>盗版激活手段</strong></p>
+<ul>
+<li><strong>购买盗版激活码</strong>：通过二手商获取违规泄露的激活码。</li>
+<li><strong>暴力破解</strong>：修改系统激活组件绕过校验，但更新可能导致破解失效，且可能影响系统稳定性，因此已逐渐被淘汰。</li>
+</ul>
+</li>
+</ul>
+<h3 id="volji-huo"><strong>VOL激活</strong></h3>
+<p>VOL版有两种激活方式：一种是MAK激活（Multiple Activation Key），另一种是KMS激活（Key Management Service）。</p>
+<ul>
+<li>
+<p><strong>MAK激活流程</strong>：  MAK激活的流程类似于零售版，但激活码属性有所不同。每个 MAK 激活码预设了有限的可用次数，可以用于激活任意数量的电脑。</p>
+<ul>
+<li>用户输入 MAK 激活码。</li>
+<li>系统通过网络向微软服务器发送激活请求。</li>
+<li>微软服务器返回 CID 并完成激活，同时将激活码的可用次数减 1。</li>
+</ul>
+</li>
+<li>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>激活码的使用次数有限，用尽后激活码失效。</li>
+<li>激活成功后永久生效，无需重新激活。</li>
+<li>MAK 激活码常因违规泄露成为盗版交易的高风险区。</li>
+</ul>
+</li>
+<li>
+<p><strong>KMS激活流程</strong>：  KMS 激活通过本地搭建的激活服务器实现，适合需要批量激活的企业或大规模组织。</p>
+<ul>
+<li>系统管理员搭建 KMS 服务器（激活服务端）。</li>
+<li>客户端输入 KMS 激活码（GVLK）并配置 KMS 服务端地址。</li>
+<li>客户端发送包含系统版本、激活码信息、硬件信息等内容的激活请求到服务器。</li>
+<li>服务器校验激活请求并返回激活结果。</li>
+<li>客户端读取结果，完成激活。</li>
+</ul>
+</li>
+<li>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>可以自行搭建激活服务器；</li>
+<li>激活有效期为 <strong>180 天</strong>，到期后需重新激活。</li>
+<li>适用于局域网环境，可通过 KMS 批量管理客户端设备。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>没有花钱购买微软授权，擅自使用KMS激活仍是盗版，个人使用微软懒得管，企业这么搞会吃官司。</p>
+</blockquote>
+<blockquote>
+<p>弊端就是：必须每180天再激活一次；成功激活后，你的电脑就会变成团队电脑。KMS工具开发者就是管理员。不要不以为然，管理员能够执行的操作权限非常高，拷贝个数据收集个信息简直是小菜一碟，更厉害的还能直接reset你的系统而保留KMS的权限。说不定，哪天KMS的开发者不开心，就帮你清空一下电脑。</p>
+</blockquote>
+<h3 id="oemji-huo"><strong>OEM激活</strong></h3>
+<p>OEM激活（Original Equipment Manufacturer）是三种激活方式中最特殊的，因为它<strong>完全脱离了联网认证</strong>，实现了高度绑定于硬件的激活机制。</p>
+<ul>
+<li>
+<p><strong>OEM激活机制</strong>：生产厂商在主板 BIOS 芯片中加入 <strong>SLIC 信息（Software Licensing Internal Code）</strong>，同时在操作系统中预装对应的<strong>厂商证书</strong>和一个 <strong>OEM 激活码</strong>。</p>
+<ul>
+<li>当电脑启动时，BIOS 会将 SLIC 信息加载到内存。</li>
+<li>操作系统接管后，从内存中读取 SLIC 数据，与厂商证书和激活码进行匹配验证。</li>
+<li>验证通过后，系统被视为已激活，无需联网认证。</li>
+</ul>
+</li>
+<li>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>激活严格绑定硬件（主板）。</li>
+<li>不需联网认证，减少了服务器交互过程。</li>
+<li>系统重装后仍能自动激活，只要硬件没有更改。</li>
+</ul>
+</li>
+<li>
+<p><strong>破解与改装方法</strong>：由于 OEM 激活省略了联网步骤，激活逻辑被高度依赖硬件信息，这也给破解提供了多个切入点：</p>
+<ul>
+<li>
+<p><strong>硬改流</strong></p>
+</li>
+<li>
+<p>直接刷写主板 BIOS，将 SLIC 信息写入其中，使主板伪装成具备 OEM 激活能力的硬件。缺点：风险较高，操作不当可能损坏 BIOS，导致主板无法启动。</p>
+</li>
+<li>
+<p><strong>暗改流</strong></p>
+</li>
+<li>
+<p>找到内存中存储 BIOS 数据的位置，将 SLIC 信息直接注入内存。优点：无需修改主板 BIOS，操作更灵活。缺点：仅在系统运行时生效，重启或关机后需重新注入。</p>
+</li>
+<li>
+<p><strong>破解流</strong></p>
+</li>
+<li>
+<p>修改操作系统读取 BIOS 数据的逻辑，让系统从伪造的 SLIC 数据中完成验证。</p>
+</li>
+<li>
+<p>配合导入对应的厂商证书和 OEM 激活码，实现伪装成 OEM 激活。操作相对简单，适用于多种硬件。缺点：可能影响系统稳定性，且破解工具质量参差不齐。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="shu-zi-quan-li-ji-huo"><strong>数字权利激活</strong></h3>
+<p>微软在 Windows 10 中推出了全新的激活方式——<strong>数字激活（Digital License Activation）</strong>。这种激活方式彻底改变了传统激活依赖激活码或联网验证的逻辑，通过绑定硬件信息和微软账户，为用户提供更加便捷的体验，同时也带来了新的破解手段。</p>
+<ul>
+<li>
+<p><strong>数字激活的原理</strong></p>
+<ul>
+<li>用户需通过传统方式（如零售版激活、MAK激活、OEM激活）激活系统。</li>
+<li>激活成功后，系统会将电脑硬件信息（HWID）、激活凭证和微软账户绑定。</li>
+<li>激活凭证会上传至微软服务器，记录为永久激活状态。</li>
+<li>以后在同一台电脑上重装系统时，只需登录微软账户，系统即可自动完成激活。</li>
+</ul>
+</li>
+<li>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>激活状态与电脑硬件绑定，与激活码无直接关系。</li>
+<li>用户无需保留激活码或再次手动激活，方便重装系统。</li>
+<li>对硬件改动较大（如更换主板）时，需重新激活。</li>
+</ul>
+</li>
+<li>
+<p><strong>数字激活的漏洞利用</strong></p>
+</li>
+</ul>
+<p>微软为支持用户从低版本（如 Win7/Win8）升级到 Win10，引入了系统升级继承激活状态的规则，这成为数字激活漏洞的核心：如果升级前的系统已经激活，无论激活手段是否合法，升级后的 Win10 系统都会继承激活状态。即使此前是通过盗版手段激活的系统，也能顺利完成升级并绑定数字激活状态。</p>
+<ul>
+<li>
+<p><strong>关键组件：gatherosstate.exe</strong></p>
+<ul>
+<li>此组件在升级过程中验证当前系统是否激活。</li>
+<li>验证通过后，生成一份与电脑硬件相关的 GenuineTicket.xml 文件，包含 HWID（Hardware Identifier）等信息。</li>
+<li>升级后的系统会导入该文件，将激活信息绑定至微软服务器，实现数字激活。</li>
+</ul>
+</li>
+<li>
+<p><strong>数字激活的破解演变</strong>：</p>
+<ul>
+<li>
+<p><strong>手动操作版本</strong>：从 Win10 安装包中提取 gatherosstate.exe，将其放到 Win7/Win8 系统中，利用任何激活手段（如 OEM 激活或暴力破解）骗过 gatherosstate，生成 GenuineTicket.xml。在 Win10 系统中导入该文件，重启联网，即可激活系统。</p>
+</li>
+<li>
+<p><strong>进阶版数字激活工具</strong>：集成破解的激活组件（如 slc.dll），跳过预先激活 Win7/Win8 的步骤，直接生成 GenuineTicket.xml。本质等同于暴力破解，只是流程更加自动化。</p>
+</li>
+<li>
+<p><strong>HWID Key 的出现</strong>：经过逆向分析，发现 gatherosstate.exe 完全在本地运行，生成 HWID 的算法无需联网验证。专业人士破解并提取了生成 HWID 的算法，开发出 HWID Key 工具，能够在任意电脑上生成有效的 HWID 并完成数字激活。用户无需再通过升级路径或手动操作，随时随地实现数字激活。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>最新消息，MAS团队破解了SSP，现在可以使用<a rel="noopener nofollow noreferrer" target="_blank" href="https://massgrave.dev/blog/tsforge">TSforge</a>来激活自 Windows 7 以来每个版本的 Windows 的每个版本，以及自 Office 2013 以来的每个 Windows 插件和 Office 版本！</p>
+</blockquote>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/windows-1-set/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Windows系列(1):常用操作与配置</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/windows-3-auto/">
+                            <span class="button__text">Windows系列(3):封装与全自动安装</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#yi-fen-lei-gong-neng-yu-qu-dao">一.分类：功能与渠道</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#er-ji-huo-fang-fa-he-yuan-li">二.激活方法和原理</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ling-shou-retail-ji-huo">零售(Retail)激活</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#volji-huo">VOL激活</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#oemji-huo">OEM激活</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#shu-zi-quan-li-ji-huo">数字权利激活</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

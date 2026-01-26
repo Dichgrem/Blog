@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-gpg/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-gpg/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-gpg/">乱七八糟:GPG使用小记</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-06-17
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 PGP/GPG 的核心功能——公钥加密、数字签名、信任管理广泛用于各个行业，本文简单说明了其使用方法。</p>
+<span id="continue-reading"></span><h2 id="shen-me-shi-pgp-yu-gpg">什么是 PGP 与 GPG</h2>
+<ul>
+<li>
+<p><strong>PGP（Pretty Good Privacy）</strong></p>
+<ul>
+<li>由 Phil Zimmermann 于 1991 年发布，是第一个面向个人用户的大众化加密软件。</li>
+<li>采用公钥加密体系，用于对邮件和文件进行加密、签名与验证。</li>
+</ul>
+</li>
+<li>
+<p><strong>GPG（GNU Privacy Guard，又称 GnuPG）</strong></p>
+<ul>
+<li>项目发起于 1997 年，由 Free Software Foundation 推动，是 GPL 许可的自由软件实现。</li>
+<li>完全兼容 OpenPGP 标准（RFC 4880），可无缝替代 PGP 软件。</li>
+</ul>
+</li>
+</ul>
+<h2 id="li-shi-yan-ge">历史沿革</h2>
+<table><thead><tr><th>时间</th><th>事件</th></tr></thead><tbody>
+<tr><td>1991 年</td><td>Phil Zimmermann 发布 PGP 1.0，标志个人加密进入大众市场</td></tr>
+<tr><td>1994 年</td><td>PGP 因出口管制遭到美国政府调查，后续改版加密算法合规化</td></tr>
+<tr><td>1997 年</td><td>GNU 推出 GnuPG，目标创建一个开源、自由的 OpenPGP 实现</td></tr>
+<tr><td>2001 年</td><td>OpenPGP 正式成为 IETF 标准（RFC 2440）</td></tr>
+<tr><td>2006 年</td><td>GnuPG 2.0 发布，引入多子系统（gpg-agent、dirmngr 等）</td></tr>
+<tr><td>2014 年</td><td>OpenPGP 更新为 RFC 4880bis，GnuPG 不断改进对新算法的支持</td></tr>
+</tbody></table>
+<h2 id="he-xin-zuo-yong">核心作用</h2>
+<table><thead><tr><th>应用领域</th><th>描述</th></tr></thead><tbody>
+<tr><td><strong>1. 电子邮件加密与签名</strong></td><td>- <strong>PGP/MIME</strong>：通过邮件客户端（如 Thunderbird + Enigmail）对正文和附件加密，并用私钥签名。<br>- <strong>PGP inline</strong>：将加密/签名内容以纯文本形式嵌入邮件，兼容性更强。</td></tr>
+<tr><td><strong>2. 文件与目录的加密签名</strong></td><td>- <strong>单文件加密/解密</strong>：<br><code>gpg --encrypt --recipient Alice file.txt</code><br><code>gpg --decrypt file.txt.gpg</code><br>- <strong>归档目录加密</strong>：使用 <code>tar</code> 打包后再加密。<br>- <strong>签名校验</strong>：<br><code>gpg --detach-sign --armor release.tar.gz</code><br><code>gpg --verify release.tar.gz.asc release.tar.gz</code></td></tr>
+<tr><td><strong>3. 软件包与系统镜像签名</strong></td><td>- Linux 包管理签名：APT、pacman-key 等验证来源可信性。<br>- 容器镜像签名：结合 TUF/Notary 使用 GPG 保护 Docker 镜像完整性。</td></tr>
+<tr><td><strong>4. SSH 公钥管理与登录</strong></td><td>- 将 GPG 子密钥作为 SSH 密钥使用：<br><code>echo "enable-ssh-support" &gt;&gt; ~/.gnupg/gpg-agent.conf</code><br><code>gpgconf --reload gpg-agent</code><br><code>ssh-add -L</code><br>- 好处：私钥集中管理、PIN保护、跨平台一致。</td></tr>
+<tr><td><strong>5. 自动化脚本与 CI/CD 环境</strong></td><td>- 用 GPG 自动签名构建产物，供用户验证。<br>- 将签名集成进发布脚本（如 <code>release.sh</code>），自动生成 <code>.sig</code> 并上传。</td></tr>
+<tr><td><strong>6. 文档与 PDF 数字签名</strong></td><td>- 利用 <code>gpgsm</code> 或 <code>OpenPGP.js</code> 对 PDF、Office 文档签名，保障法律或审计合规性。</td></tr>
+<tr><td><strong>7. 密码管理与“密码库”</strong></td><td>- <strong>pass</strong>：每个密码为一个 GPG 加密文件，支持 Git 同步和版本控制。<br>- <strong>git-crypt</strong>：自动加密 Git 仓库中的敏感文件，仅授权者可解密。</td></tr>
+<tr><td><strong>8. 安全聊天与即时通讯</strong></td><td>- 将 OTR 会话密钥托管在 GPG 中（如 <code>mcabber</code> + OTR），实现端到端加密。</td></tr>
+<tr><td><strong>9. 时间戳与不可篡改日志</strong></td><td>- 结合 GPG 签名与时间戳协议（如 RFC 3161）验证文件/日志未被篡改。</td></tr>
+<tr><td><strong>10. 去中心化信任与身份管理</strong></td><td>- 使用 Web of Trust 模型构建可信身份网络，用于开源社区签名、Key Signing Party、LDAP 交换等。</td></tr>
+</tbody></table>
+<h2 id="an-zhuang-gnupg">安装 GnuPG</h2>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">paru -S</span><span> gnupg
+</span></code></pre>
+<h2 id="sheng-cheng-gong-yao-yu-si-yao">生成公钥与私钥</h2>
+<p>使用如下命令：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">gpg --full-generate-key
+</span></code></pre>
+<p>生成流程：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">gpg</span><span> (GnuPG) </span><span style="color:#ffb964;">2.4.7</span><span>; </span><span style="color:#ffb964;">Copyright</span><span> (C) </span><span style="color:#ffb964;">2024</span><span> g10 Code GmbH
+</span><span style="color:#ffb964;">This</span><span> is free software: you are free to change and redistribute it.
+</span><span style="color:#ffb964;">There</span><span> is NO WARRANTY, to the extent permitted by law.
+</span><span>
+</span><span style="color:#ffb964;">Please</span><span> select what kind of key you want:
+</span><span>   (</span><span style="color:#ffb964;">1</span><span>) RSA and RSA
+</span><span>   (</span><span style="color:#ffb964;">2</span><span>) DSA and Elgamal
+</span><span>   (</span><span style="color:#ffb964;">3</span><span>) DSA (sign only)
+</span><span>   (</span><span style="color:#ffb964;">4</span><span>) RSA (sign only)
+</span><span>   (</span><span style="color:#ffb964;">9</span><span>) ECC (sign and encrypt) </span><span style="color:#ffb964;">*default*
+</span><span>  (</span><span style="color:#ffb964;">10</span><span>) ECC (sign only)
+</span><span>  (</span><span style="color:#ffb964;">14</span><span>) Existing key from card
+</span><span style="color:#ffb964;">Your</span><span> selection? 9   </span><span style="color:#888888;">## 默认选择ECC算法
+</span><span style="color:#ffb964;">Please</span><span> select which elliptic curve you want:
+</span><span>   (</span><span style="color:#ffb964;">1</span><span>) Curve 25519 *default*
+</span><span>   (</span><span style="color:#ffb964;">4</span><span>) NIST P-384
+</span><span>   (</span><span style="color:#ffb964;">6</span><span>) Brainpool P-256
+</span><span style="color:#ffb964;">Your</span><span> selection? 1   </span><span style="color:#888888;">## 默认选择标准椭圆曲线
+</span><span style="color:#ffb964;">Please</span><span> specify how long the key should be valid.
+</span><span>         </span><span style="color:#ffb964;">0</span><span> = key does not expire
+</span><span>      &lt;n&gt;  = </span><span style="color:#ffb964;">key</span><span> expires in n days
+</span><span>      &lt;n&gt;w = </span><span style="color:#ffb964;">key</span><span> expires in n weeks
+</span><span>      &lt;n&gt;m = </span><span style="color:#ffb964;">key</span><span> expires in n months
+</span><span>      &lt;n&gt;y = </span><span style="color:#ffb964;">key</span><span> expires in n years
+</span><span style="color:#ffb964;">Key</span><span> is valid for? (0) </span><span style="color:#ffb964;">1y   </span><span style="color:#888888;">## 默认有效期为一年
+</span><span style="color:#ffb964;">Key</span><span> expires at 2026年06月17日 星期三 13时06分27秒 CST
+</span><span style="color:#ffb964;">Is</span><span> this correct? (y/N) </span><span style="color:#ffb964;">y
+</span><span>
+</span><span style="color:#ffb964;">GnuPG</span><span> needs to construct a user ID to identify your key.
+</span><span>
+</span><span style="color:#888888;">## 输入名字与邮箱,comment可省略
+</span><span>
+</span><span style="color:#ffb964;">Real</span><span> name: xxx
+</span><span style="color:#ffb964;">Email</span><span> address: xxx@gmail.com
+</span><span style="color:#ffb964;">Comment:
+</span><span style="color:#ffb964;">You</span><span> selected this USER-ID:
+</span><span>    </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">xxx &lt;xxx@gmail.com&gt;</span><span style="color:#556633;">&quot;
+</span><span>
+</span><span style="color:#ffb964;">Change</span><span> (N)</span><span style="color:#ffb964;">ame,</span><span> (C)</span><span style="color:#ffb964;">omment,</span><span> (E)</span><span style="color:#ffb964;">mail</span><span> or (O)</span><span style="color:#ffb964;">kay/</span><span>(Q)</span><span style="color:#ffb964;">uit?
+</span><span style="color:#ffb964;">Change</span><span> (N)</span><span style="color:#ffb964;">ame,</span><span> (C)</span><span style="color:#ffb964;">omment,</span><span> (E)</span><span style="color:#ffb964;">mail</span><span> or (O)</span><span style="color:#ffb964;">kay/</span><span>(Q)</span><span style="color:#ffb964;">uit?</span><span> O
+</span><span style="color:#ffb964;">We</span><span> need to generate a lot of random bytes. It is a good idea to perform
+</span><span style="color:#ffb964;">some</span><span> other action (type on the keyboard, move the mouse, utilize the
+</span><span style="color:#ffb964;">disks</span><span>) </span><span style="color:#ffb964;">during</span><span> the prime generation; </span><span style="color:#ffb964;">this</span><span> gives the random number
+</span><span style="color:#ffb964;">generator</span><span> a better chance to gain enough entropy.
+</span><span style="color:#ffb964;">We</span><span> need to generate a lot of random bytes. It is a good idea to perform
+</span><span style="color:#ffb964;">some</span><span> other action (type on the keyboard, move the mouse, utilize the
+</span><span style="color:#ffb964;">disks</span><span>) </span><span style="color:#ffb964;">during</span><span> the prime generation; </span><span style="color:#ffb964;">this</span><span> gives the random number
+</span><span style="color:#ffb964;">generator</span><span> a better chance to gain enough entropy.
+</span></code></pre>
+<h2 id="lie-chu-mi-yao">列出密钥</h2>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">gpg --list-secret-keys --keyid-format</span><span> long
+</span></code></pre>
+<p>其中<code>sec ed25519/xxxxxxxxx 2025-06-17 [SC] [expires: 2026-06-17]</code>的xxxxxxxxx即为公钥ID。</p>
+<h2 id="fa-bu-gong-yao">发布公钥</h2>
+<p>例如上传你的 key：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">gpg --send-keys </span><span>&lt;你的Long‑Key‑ID&gt;
+</span></code></pre>
+<p>默认为你的 gpg.conf 中配置的 keyserver，也可以显式指定：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">gpg --keyserver</span><span> hkps://keys.openpgp.org</span><span style="color:#ffb964;"> --send-keys </span><span>&lt;Key‑ID&gt;
+</span></code></pre>
+<p>也可以使用如下命令导出公钥为可读 ASCII 格式，类似ssh-keys，随后即可发布在个人博客上等等。</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">gpg --armor --export </span><span>&lt;Key‑ID&gt;  &gt; mypubkey.asc
+</span></code></pre>
+<h2 id="che-xiao-gong-yao">撤销公钥</h2>
+<p>如果怀疑密钥被泄露或被中间人替换，立即发布“撤销证书”（revocation certificate）并上传到 keyserver。</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">gpg --gen-revoke </span><span>&lt;KeyID&gt; &gt; revoke.asc
+</span></code></pre>
+<p>上传撤销证书后，所有人都能知道该公钥已不再可信。</p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-ssh/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">网络艺术:SSH使用指南</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-sports/">
+                            <span class="button__text">乱七八糟:运动健身基本理论</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#shen-me-shi-pgp-yu-gpg">什么是 PGP 与 GPG</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#li-shi-yan-ge">历史沿革</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#he-xin-zuo-yong">核心作用</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang-gnupg">安装 GnuPG</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#sheng-cheng-gong-yao-yu-si-yao">生成公钥与私钥</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#lie-chu-mi-yao">列出密钥</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#fa-bu-gong-yao">发布公钥</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#che-xiao-gong-yao">撤销公钥</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

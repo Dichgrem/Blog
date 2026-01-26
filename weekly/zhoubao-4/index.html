@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/weekly/zhoubao-4/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/weekly/zhoubao-4/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/weekly/zhoubao-4/">谈天说地:狄奇周刊(四)</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-07-04
+        </span>
+
+    </div>
+
+    
+
+        <div class="post-content">
+            <p>前言 这里是Dich的周刊,通过博客的形式讲述每周互联网形势,以及分享一些文章,每周四更新.</p>
+<span id="continue-reading"></span><h1 id="shi-ji"><strong>事记</strong></h1>
+<h2 id="yi-ri-ben-zheng-fu-xuan-bu-fei-chu-suo-you-ruan-pan-shi-yong-gui-ding"><strong>一.<a rel="noopener nofollow noreferrer" target="_blank" href="https://newsdig.tbs.co.jp/articles/1270285">日本政府宣布废除所有软盘使用规定</a></strong></h2>
+<p>日本数字厅大臣河野在上月的发布会表示：“在 1,034 项法规中，我们已经完成了对 1,033 项要求通过软盘提交的法规的审查”，<code>法规关于软盘的使用已全部废除</code>。河野大臣表示，接下来还会<code>推动废除传真机办公</code>。</p>
+<h2 id="er-zui-xin-de-cvelou-dong-mu-qian-yan-zhong-ying-xiang-liao-open-sshde-an-quan-xing"><strong>二.<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.qualys.com/regresshion-cve-2024-6387/">最新的CVE漏洞目前严重影响了Open-SSH的安全性</a></strong></h2>
+<p><code>SSH RCE: CVE-2024-638</code>该漏洞是由于 OpenSSH 服务器 (sshd) 中的信号处理程序竞争问题，未经身份验证的攻击者可以利用此漏洞在 Linux 系统上以 root 身份执行任意代码。</p>
+<p>影响版本：<code>8.5p1 &lt;= OpenSSH &lt; 9.8p1</code></p>
+<p>在我们的实验中，平均需要约 10,000 次尝试才能赢得这种竞争条件，因此每 120 秒 (LoginGraceTime) 接受 100 个连接 (MaxStartups) 需要约 3-4 小时。最终，<code>平均需要约 6-8 小时才能获得远程 root shell</code>，因为我们只有一半的时间可以正确猜出 glibc 的地址（由于 ASLR）。</p>
+<blockquote>
+<p>目前几个发行版的动静:</p>
+</blockquote>
+<ul>
+<li>Fedora: 💤 [9.6p1]</li>
+<li>openSUSE: 几分钟前打了 patch [9.6p1]，二进制包可能要稍晚更新；Leap 中 15.6 依旧 💤 [9.6p1]</li>
+<li>ArchLinux: 推了 9.8p1-1</li>
+<li>Ubuntu: 22.04-24.04 均已 backport [src]</li>
+<li>Alpine: 💤 [9.7p1]，因为人家用的是 musl 压根不受影响</li>
+<li>Debian: bookworm 在 6/22 悄悄 backport 直到今日才推送 [9.2p1-2+deb12u3]，sid 依旧有漏洞 [9.7p1-6]</li>
+<li>NixOS: backport 了补丁 [9.8p1]</li>
+<li>CentOS Stream: 💤 [9.6p1-1]</li>
+<li>Gentoo: 已 backport [9.6p1,9.7p1]</li>
+<li>openEuler: 💤 [9.3p2-3]</li>
+<li>openAnolis: 💤 [9.3p2-1]</li>
+<li>AOSC OS: 推了 [9.8p1]</li>
+<li>Deepin: backport 了 [9.7p1-4deepin2]</li>
+<li>openKylin: 💤 [9.6p1-ok4]</li>
+<li>LoongnixServer: 不受影响 [8.0p1]</li>
+<li>Loongnix: 不受影响 [7.9p1]</li>
+</ul>
+<h2 id="san-duo-kuan-guo-nei-an-zhuo-xi-tong-she-bei-ming-cheng-lian-wang-xiao-yan"><strong>三.<a rel="noopener nofollow noreferrer" target="_blank" href="https://s.v2ex.com/t/1053659">多款国内安卓系统设备名称联网校验</a></strong></h2>
+<p>Android 系统里存在<code>设备名称</code>这个配置，它会作为蓝牙、Wi-Fi 热点网络共享的默认名称，展示给其他设备。并且会作为环境变量 Settings.Global.DEVICE_NAME，能被 App 读取。</p>
+<p>2024年6月 下旬，真我（realme）手机在系统更新日志中提到：</p>
+<blockquote>
+<p>新增 更改手机名称联网校验功能，系统会检测手机名称是否存在敏感字符，校验未通过将无法保存或使用更改的手机名称</p>
+</blockquote>
+<p>根据 V2EX 上的讨论来看，<code>小米手机也被添加了此限制</code>。而造成此审查的直接原因，可能与限制 AirDrop 相同，都是在<code>尝试管理「近距离自组网」</code></p>
+<p>关于使用 Wi-Fi 名称来抗议，在俄罗斯存在类似的先例：<code>2024年3月，一名学生将路由器的名称设置为：Slava Ukraini!（荣耀属于乌克兰！），</code>如果有人在范围里检查 Wi-Fi 选项，就会看到这段口号。随后该学生在莫斯科被捕，法院以展示「极端主义组织标志」的罪名，判处其 10 天监禁，该学生随后还被莫斯科国立大学开除。</p>
+<h2 id="si-zhi-hu-jia-qiang-pa-chong-xian-zhi"><strong>四.<a rel="noopener nofollow noreferrer" target="_blank" href="https://t.me/zaihuapd/25788">知乎加强爬虫限制</a></strong></h2>
+<p>使用包含"bot"或"spider"的UA访问知乎时，页面的部分内容被替换为随机汉字</p>
+<p>知乎在<code> robots.txt 中移除 Google 和 Bing 等搜索引擎</code>后，近期又针对UA进行了严格的限制。目前，在 <code>User Agent 中出现"bot"或"spider"的访问结果</code>中，知乎会将问题或专栏的标题、发布者的用户名、文章正文等文本<code>替换为随机汉字</code>。必应的部分搜索结果已经受到了影响。</p>
+<h2 id="wu-centos-linux-7-sheng-ming-zhou-qi-zheng-shi-jie-shu"><strong>五.<a rel="noopener nofollow noreferrer" target="_blank" href="https://t.me/CE_Observe/34311">CentOS Linux 7 生命周期正式结束</a></strong></h2>
+<p>此外，与 CentOS 7 同源的红帽企业<code> Linux 7（RHEL 7）也于今日进入 EOM 停止维护阶段</code>，企业可通过 ELS 订阅付费获得额外 4 年的延长支持。</p>
+<p>据介绍，CentOS 项目与红帽已于 2020 年结束 CentOS Linux 开发，将<code>全部投资转向 CentOS Stream</code>：</p>
+<ul>
+<li>
+<p>在 RHEL 新版本发布之前，红帽会在 <code>CentOS Stream 上持续发布源代码，作为 RHEL 的上游</code>开源开发平台</p>
+</li>
+<li>
+<p>CentOS 创始人 Gregory Kurtzer 启动 <code>Rocky Linux </code>项目，开发 RHEL 的下游二进制兼容版本</p>
+</li>
+</ul>
+<h2 id="liu-ya-ma-xun-kindlezhong-guo-fu-wu-zheng-shi-ting-zhi"><strong>六.<a rel="noopener nofollow noreferrer" target="_blank" href="https://t.me/xhqcankao/11529">亚马逊Kindle中国服务正式停止</a></strong></h2>
+<p>据亚马逊中国官网消息，<code>2024年6月30日起，Kindle中国电子书店停止云端下载服务</code>，此后<code>未下载的电子书将无法下载和阅读</code>。同时，Kindle客户服务也将停止支持。</p>
+<p>Kindle中国电子书店已于2023年6月30日停止运营。亚马逊建议用户及时将已购买电子书及其他Kindle内容下载至Kindle阅读器和Kindle App (含手机端和电脑端).</p>
+<h1 id="wen-tui"><strong>文推</strong></h1>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://tw93.fun/2024-06-30/china.html">置身事内 - 读书笔记</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://mp.weixin.qq.com/s/Fxczq9ba_WFs9WM32-7AtA">我们所认识的胡友平</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://telegra.ph/%E6%98%AF%E8%AF%AD%E8%A8%80%E5%9F%BA%E4%BA%8E%E6%96%87%E5%AD%97%E8%BF%98%E6%98%AF%E6%96%87%E5%AD%97%E5%9F%BA%E4%BA%8E%E8%AF%AD%E8%A8%80---%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-06-26-3">是语言基于文字，还是文字基于语言？</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://usefulness.zhubai.love/posts/2420277964471472128">066｜真正松弛的感觉是：听从内心，去创造，去生活</a></p>
+<h1 id="xiang-mu"><strong>项目</strong></h1>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst">全栈 DS/DA 养成手册</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/FeeiCN/SecurityInterviewGuide">网络信息安全从业者面试指南</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/zhangdi168/VitePressSimple">Go 写的 VitePress 可视化配置工具</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://cn.tradingview.com/markets/world-stocks/worlds-largest-companies/">TradingView : 一个图表平台和社交网络，全球60M+交易员和投资者使用它</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/folke/tokyonight.nvim?tab=readme-ov-file">一个干净、深色的 Neovim 主题，用 Lua 编写，支持 lsp、treesitter 和许多插件</a></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/weekly/zhoubao-3/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">谈天说地:狄奇周刊(三)</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/weekly/zhoubao-5/">
+                            <span class="button__text">谈天说地:狄奇周刊(五)</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-1">
+                    <a href="#shi-ji">事记</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#yi-ri-ben-zheng-fu-xuan-bu-fei-chu-suo-you-ruan-pan-shi-yong-gui-ding">一.日本政府宣布废除所有软盘使用规定</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#er-zui-xin-de-cvelou-dong-mu-qian-yan-zhong-ying-xiang-liao-open-sshde-an-quan-xing">二.最新的CVE漏洞目前严重影响了Open-SSH的安全性</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#san-duo-kuan-guo-nei-an-zhuo-xi-tong-she-bei-ming-cheng-lian-wang-xiao-yan">三.多款国内安卓系统设备名称联网校验</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#si-zhi-hu-jia-qiang-pa-chong-xian-zhi">四.知乎加强爬虫限制</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#wu-centos-linux-7-sheng-ming-zhou-qi-zheng-shi-jie-shu">五.CentOS Linux 7 生命周期正式结束</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#liu-ya-ma-xun-kindlezhong-guo-fu-wu-zheng-shi-ting-zhi">六.亚马逊Kindle中国服务正式停止</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#wen-tui">文推</a>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#xiang-mu">项目</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

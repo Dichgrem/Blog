@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-how-email-works-1/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-how-email-works-1/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-how-email-works-1/">网络艺术:电子邮件的工作原理</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-02-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 在互联网的日常使用中，电子邮件作为一项基础服务扮演着重要的角色。尽管在过去几十年里出现了各种新型的通讯方式，但电子邮件仍然保持着其不可替代的地位。了解电子邮件的工作原理，有助于更好地理解这一基础服务是如何运作的。</p>
+<span id="continue-reading"></span><h2 id="yi-ji-yu-xie-yi-de-chuan-shu">一. 基于协议的传输</h2>
+<p>与许多其他基于协议的应用一样，电子邮件依赖于一系列协议来进行传输和交换。而基于协议的应用一般不会轻易地被历史淘汰：在过去的几十年里，基于 HTTP 上层的网站，以及技术更新换代了好几波，但底层的协议依然还是 HTTP（HTTPS）。基于 BitTorrent 协议的文件交换协议，和基于SMTP（Simple Mail Transfer Protocol）的电子邮件传输便是其中之一。</p>
+<h2 id="er-you-jian-fa-song-de-liu-cheng">二. 邮件发送的流程</h2>
+<p>电子邮件的发送过程可以简单地描述为以下几个步骤：</p>
+<ul>
+<li>用户在邮件客户端（例如Gmail）中<code>撰写并发送一封邮件</code>。</li>
+<li>邮件客户端<code>使用SMTP协议将邮件发送</code>到相应的邮件服务器。</li>
+<li>通过<code>DNS查询MX记录</code>找到接收方的邮件服务器。</li>
+<li>发送邮件服务器使用SMTP协议将邮件传递给接收方的邮件服务器。</li>
+<li>接收方的邮件服务器将邮件存储在相应的邮箱中，供用户查看。</li>
+</ul>
+<p>为了确保通信安全，电子邮件的发送还引入了一些安全机制，如SPF、DKIM和DMARC。</p>
+<ul>
+<li><code>SPF（Sender Policy Framework）</code>用于验证发件人的身份，防止发件人伪造。</li>
+<li><code>DKIM（DomainKeys Identified Mail）</code>通过数字签名验证邮件的真实性。</li>
+<li><code>DMARC（Domain-based Message Authentication, Reporting, and Conformance）</code>结合了SPF和DKIM，提供了更严格的邮件验证机制。</li>
+</ul>
+<h2 id="san-ju-ti-liu-cheng">三.具体流程</h2>
+<p>假设用户 a@gmail.com 发送一封邮件到 b@qq.com，会执行如下的流程。</p>
+<p><strong>1.查询 MX 记录</strong></p>
+<p>当我们在 Gmail 网页上撰写一封邮件，并点击发送按钮之后。Gmail 会用自己的内部协议链接 Gmail 的 Outgoing SMTP 邮件服务器。</p>
+<p>Outgoing SMTP <code>验证用户权限</code>，然后将邮件<code>以 MIME 格式发送到发送队列</code>中。</p>
+<p>Gmail SMTP 服务器会<code>通过 DNS 查询到域名</code> qq.com MX（Mail Exchanger） 记录(dig MX qq.com)，<code>找到邮件服务器的 IP </code>所在。</p>
+<p>在 Linux 下也可以通过 dig mx qq.com 来查询到。这一步在对应到自建的邮件服务器的时候，就是通过配置 DNS 的 MX 记录来实现的。</p>
+<p>一般情况下会配置一个 A 记录 mx.example.com 指向服务器的 IP 地址。然后再配置一个 [[MX 记录]]，@ 全部域名的 MX 请求全部转发给 mx.example.com。</p>
+<p><strong>2.SMTP 发送</strong></p>
+<p>当 Gmail 的服务器找到 QQ 邮箱的 IP 地址之后，邮件就会通过 SMTP（Simple Mail Transfer Protocol ） 协议连接服务器的连接，尝试发送给 QQ 的服务器。</p>
+<p>为了简化理解，SMTP 传输的时候就直接声明，我 <a href="mailto:a@gmail.com">a@gmail.com</a> ，我要发送邮件到 <a href="mailto:b@qq.com">b@qq.com</a> ，内容是某某某。QQ 邮箱的服务器接收到 Gmail 的邮件之后，再根据用户名决定发给具体谁的邮箱。</p>
+<p>这中间会发现不存在任何验证发送方身份的过程，这也就意味着任何人都可以伪装一个任意的发送邮箱以一个伪装的邮箱发送邮件。SMTP 最早是建立在相互信任的基础之上的，所以也给后面的恶意使用留下了一些漏洞，为了修复这个漏洞发明了 SPF。</p>
+<p><strong>3.SPF 验证</strong></p>
+<p>上文提到过 SMTP 协议发送邮件的过程中没有验证发送方，这也就意味着发信方可以任意指定发件人邮箱地址，这会存在一些安全问题。</p>
+<p>具体来说，本来我的 Gmail 邮箱是 <code>a@gmail.com</code>，假如有不法分子，就可以利用这个漏洞，伪装成自己是 <code>a@gmail.com</code> 给别人发送邮件。</p>
+<p>[[SPF]] 的目的就是为了防止伪造发信人。</p>
+<ul>
+<li>SPF 的原理</li>
+</ul>
+<p>SPF 的实现原理非常简单，就是通过添加一条 DNS 记录。</p>
+<p>如果邮件服务器收到一封来自主机 <code>1.1.1.1</code> 的邮件，并且发件人是 <code>a@gmai.com</code>，为了确认发件人，邮件服务器就会去查询 <code>gmail.com</code> 的 SPF 记录。如果域名设置了 SPF 记录，允许 <code>1.1.1.1</code> 的 IP 地址发送邮件，那么收件的邮件服务器就会认为邮件是合法的，否则就会退信。</p>
+<p>有了 SPF 记录之后，如果有人想要伪装成 <code>a@gmail.com</code> 他既不能修改 gmail.com 的 DNS 解析，也无法伪造 IP 地址，就有效的防止了伪装。</p>
+<ul>
+<li>SPF 的语法</li>
+</ul>
+<p>在自建邮件服务器的时候，经常会让我们设置一个 TXT 记录，配置值为 <code>v=spf1 mx ~all</code>，这表示的意思是允许当前域名的 MX 记录对应的 IP 地址。</p>
+<p>下面再举个非常常见的例子：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>v=spf1 a mx ip4:173.10.10.10 -all
+</span></code></pre>
+<p>表示允许当前域名配置的 A 记录，MX 记录的 IP 地址，以及一个额外的 IP 进行发信。</p>
+<ul>
+<li>SPF 存在的问题</li>
+</ul>
+<p>SPF 机制可以有效地规避了发送邮件方伪造发件人的问题。但实际使用的时候，如果你使用多个邮箱，然后设置了其中 <a href="mailto:c@163.com">c@163.com</a> 邮箱自动转发到 <a href="mailto:a@gmail.com">a@gmail.com</a> 中。</p>
+<p>那么这个时候如果 <code>b@qq.com</code> QQ 邮箱发送了一封邮件到 <code>c@163.com</code> 邮箱，163 邮箱原封不动地将邮件转发到 Gmail 邮箱，这个时候发件人是 <code>b@qq.com</code>，但是 Gmail 回去查询 qq.com 的 SPF 记录，但会发现并不包含 163 邮箱的 IP 地址，会误判转发的邮件；所以又诞生了 DKIM。</p>
+<p><strong>4.DKIM</strong></p>
+<p>DKIM (DomainKeys Identified Mail) 的缩写，允许发送者通过在邮件的 header 中包含一段数字签名来验证邮件。DKIM 使用公私密钥来确保邮件内容是从授信的邮件服务器发送的。</p>
+<p>还是利用上面的例子，因为我们把所有发送到 163 邮箱的邮件都转发到了 Gmail 邮箱，所以来自 QQ 邮箱的邮件在验证 SPF 时会失败。</p>
+<p>那么在 DKIM 中，发送邮件的服务器，比如 QQ 邮箱，会使用公私钥对邮件内容进行签名，并将签名和邮件内容一起发送。当 Gmail 收到从 163 邮箱转发过来的 QQ 邮箱邮件的时候，就会去查询 <code>qq.com</code> 的 DNS 记录，拿到公钥。然后使用公钥和签名来验证邮件内容。如果验签不通过，则将邮件判定为伪造。</p>
+<p><strong>5.DMARC</strong></p>
+<p>经过了 SPF 和 DKIM 的保证,是不是就可以完美的发送接收邮件了?其实并不能，我们通过邮件后台来看一下邮件的原始文本。</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">MIME-Version:</span><span> 1.0
+</span><span style="color:#ffb964;">Return-Path:</span><span> xxx@fake.com
+</span><span style="color:#ffb964;">DKIM-Signature:</span><span> d=fake.com,b=adceabkekd12
+</span><span style="color:#ffb964;">Date:</span><span> Tue, 22 Mar 2022 06:37:58 +0000
+</span><span style="color:#ffb964;">Content-Type:</span><span> multipart/alternative;
+</span><span> </span><span style="color:#ffb964;">boundary</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">--=_RainLoop_587_997816661.1647931078</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">From:</span><span> admin@a.com
+</span><span style="color:#ffb964;">Message-ID: </span><span>&lt;a67d96a38592cdad46cca89e98dda26d@techfm.club&gt;
+</span><span style="color:#ffb964;">Subject:</span><span> Seems it works
+</span><span style="color:#ffb964;">To: </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Somebody</span><span style="color:#556633;">&quot; </span><span>&lt;a@gmail.com&gt;
+</span><span>
+</span><span>
+</span><span style="color:#ffb964;">---</span><span>-=</span><span style="color:#99ad6a;">_RainLoop_587_997816661.1647931078
+</span><span style="color:#ffb964;">Content-Type:</span><span> text/plain; </span><span style="color:#ffb964;">charset</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">utf-8</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">Content-Transfer-Encoding:</span><span> quoted-printable
+</span><span>
+</span><span style="color:#ffb964;">~~
+</span><span>
+</span><span style="color:#ffb964;">---</span><span>-=</span><span style="color:#99ad6a;">_RainLoop_587_997816661.1647931078
+</span><span style="color:#ffb964;">Content-Type:</span><span> text/html; </span><span style="color:#ffb964;">charset</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">utf-8</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">Content-Transfer-Encoding:</span><span> quoted-printable
+</span><span>
+</span><span>&lt;!DOCTYPE </span><span style="color:#ffb964;">html</span><span>&gt;&lt;html&gt;&lt;head&gt;&lt;meta http-equiv=3D</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Content-Type</span><span style="color:#556633;">&quot;</span><span> content=3D</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">t=
+</span><span style="color:#99ad6a;">ext/html; charset=3Dutf-8</span><span style="color:#556633;">&quot;</span><span> /&gt;&lt;/head&gt;&lt;body&gt;&lt;div data-html-editor-font-wrap=
+</span><span style="color:#ffb964;">per</span><span>=</span><span style="color:#99ad6a;">3D</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">true</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">style</span><span>=</span><span style="color:#99ad6a;">3D</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">font-family: arial, sans-serif; font-size: 13px;</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">&gt;&lt;=
+</span><span style="color:#ffb964;">br</span><span>&gt;</span><span style="color:#ffb964;">~~</span><span>&lt;signature&gt;&lt;/signature&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+</span><span>
+</span><span style="color:#ffb964;">---</span><span>-=</span><span style="color:#99ad6a;">_RainLoop_587_997816661.1647931078--
+</span><span>
+</span></code></pre>
+<p>SPF 解决了接收方验证发件人域名 SPF 记录内 IP 地址从而验证发件人的问题。但是因为 SPF 定义的发件人是 RFC5321 协议中规定的 Return-Path，而 DKIM 在邮件头中直接包含了域名，只要使用该域名的公钥验证通过即可。</p>
+<p>而现在的邮件服务给用户展示的发件人都是 From 字段，而不是 SPF 的 <code>Return-Path</code>，也不是 DKIM 的 <code>DKIM-Sginatur: d=</code>，所以攻击者可以通过伪造这两个字段，发送如上的邮件，完美通过 SPF 和 DKIM 检查，因为 SPF 检查 <code>Return-Path</code> 而 DKIM 验证的 <code>d=</code> 也是 <code>fake.com</code> 所以最终用户看到的发件人却是 <code>admin@q.com</code>。</p>
+<p>所以就诞生了 DMARC。DMARC 结合了 SPF 和 DKIM，规定了 <code>Return-Path</code> 和 <code>DKIM-Signature: d=</code> 两个至少需要有一个与 From 头对应，否则判定为失败。</p>
+<p>当邮件服务器接收到邮件时，先验证 DKIM，SPF，然后再根据 DMARC 的配置检查。这样就能确保最终用户看到的 <code>From</code> 字段和 SPF、DKIM 认证的发件人一致了。</p>
+<h2 id="si-qi-ta-xie-yi">四.其他协议</h2>
+<p>POP3、IMAP 和 SMTP 是用于电子邮件传输的常见协议和服务,这些协议共同构成了电子邮件系统的基础，允许用户接收、发送和管理电子邮件。</p>
+<ol>
+<li><strong>POP3（邮局协议版本3）</strong>：POP3 是一种用于接收电子邮件的协议。当你使用 POP3 时，电子邮件会从服务器下载到你的设备上，并且通常会从服务器上删除。这意味着邮件只存在于你的设备上，而不再保留在服务器上。POP3 通常用于单一设备或者设备上少量的邮件存储需求。</li>
+<li><strong>IMAP（互联网邮件访问协议）</strong>：IMAP 也是一种用于接收电子邮件的协议，但它与 POP3 不同的是，IMAP 允许邮件保留在服务器上，并且同步到多个设备上。这意味着无论你使用哪个设备访问邮件，都能看到同样的邮件状态，包括已读、未读、已删除等。IMAP 适用于需要在多个设备之间同步邮件的情况，例如在手机、平板电脑和台式电脑之间。</li>
+<li><strong>SMTP（简单邮件传输协议）</strong>：SMTP 是用于发送电子邮件的协议。当你发送一封电子邮件时，你的邮件客户端会使用 SMTP 协议将邮件发送到电子邮件服务器。SMTP 负责将邮件从发送者的电子邮件客户端传送到接收者的邮件服务器。SMTP 是一个推送协议，它将邮件推送给服务器，而不是拉取邮件。</li>
+</ol>
+<p>这是每个协议的简要技术原理：</p>
+<h3 id="pop3-you-ju-xie-yi-ban-ben-3"><strong>POP3（邮局协议版本3）</strong></h3>
+<ul>
+<li>客户端连接到邮件服务器上的 POP3 端口（通常是 110 端口）。</li>
+<li>客户端发送身份验证信息（通常是用户名和密码）以登录到邮箱。</li>
+<li>一旦登录成功，客户端可以请求收件箱中的邮件列表。</li>
+<li>客户端可以选择下载邮件到本地设备。</li>
+<li>下载的邮件通常从服务器上删除，但可以根据设置保留一份副本。</li>
+<li>客户端可以选择在下载后删除邮件，或者在稍后删除它们。</li>
+</ul>
+<h3 id="imap-hu-lian-wang-you-jian-fang-wen-xie-yi"><strong>IMAP（互联网邮件访问协议）</strong>：</h3>
+<ul>
+<li>客户端连接到邮件服务器上的 IMAP 端口（通常是 143 端口）。</li>
+<li>客户端发送身份验证信息（通常是用户名和密码）以登录到邮箱。</li>
+<li>一旦登录成功，客户端可以请求收件箱中的邮件列表，以及邮件的状态信息（如已读、未读、已删除等）。</li>
+<li>客户端可以选择下载完整的邮件或邮件的部分内容到本地设备，同时保留邮件在服务器上的副本。</li>
+<li>客户端对邮件的操作（如标记为已读、移动到文件夹等）将反映在服务器上，从而在其他设备上同步。</li>
+</ul>
+<h3 id="smtp-jian-dan-you-jian-chuan-shu-xie-yi"><strong>SMTP（简单邮件传输协议）</strong>：</h3>
+<ul>
+<li>客户端连接到邮件服务器上的 SMTP 端口（通常是 25 端口）。</li>
+<li>客户端发送邮件内容和邮件头信息（如发件人、收件人、主题等）给服务器。</li>
+<li>服务器接受邮件，并将其转发到接收者的邮件服务器。</li>
+<li>接收者的邮件服务器接收邮件，并将其存储在相应的收件人邮箱中。</li>
+<li>SMTP 是一个简单的推送协议，它负责将邮件从发送方传送到接收方，但不涉及接收方对邮件的确认或响应。</li>
+</ul>
+<h3 id="ta-men-de-qu-bie-he-gong-tong-dian"><strong>它们的区别和共同点：</strong></h3>
+<p><strong>区别：</strong></p>
+<p><strong>功能：</strong></p>
+<ul>
+<li>POP3 主要用于从邮件服务器上下载邮件到本地设备，通常会将邮件从服务器上删除。</li>
+<li>IMAP 允许用户在多个设备之间同步邮件状态，并且邮件保留在服务器上。</li>
+<li>SMTP 用于发送电子邮件。</li>
+</ul>
+<p><strong>邮件管理：</strong></p>
+<ul>
+<li>POP3 在客户端下载邮件后通常会将邮件从服务器上删除，因此邮件只存在于本地设备上。</li>
+<li>IMAP 允许邮件在多个设备之间同步，因为邮件保留在服务器上。</li>
+<li>SMTP 不管理邮件存储，它只是负责将邮件从发送方传送到接收方。</li>
+</ul>
+<p><strong>端口号：</strong></p>
+<ul>
+<li>POP3 默认端口号是 110。</li>
+<li>IMAP 默认端口号是 143。</li>
+<li>SMTP 默认端口号是 25。</li>
+</ul>
+<p><strong>操作方式：</strong></p>
+<ul>
+<li>POP3 是拉取协议，客户端需要主动连接到服务器并拉取邮件。</li>
+<li>IMAP 是双向同步协议，客户端与服务器之间进行交互，可以同步邮件状态。</li>
+<li>SMTP 是推送协议，用于将邮件从发送方传送到接收方。</li>
+</ul>
+<p><strong>共同点：</strong></p>
+<ul>
+<li>
+<p><strong>用途：</strong>：它们都是用于电子邮件传输的标准协议。</p>
+</li>
+<li>
+<p><strong>与邮件服务器的通信：</strong>：它们都涉及客户端与邮件服务器之间的通信。</p>
+</li>
+<li>
+<p><strong>身份验证：</strong>：它们都需要用户身份验证来访问邮箱。</p>
+</li>
+</ul>
+<h3 id="yi-ci-wan-zheng-de-you-jian-tong-xin-guo-cheng"><strong>一次完整的邮件通信过程</strong></h3>
+<p><strong>发送方（发件人）:</strong></p>
+<ul>
+<li>
+<p><strong>撰写邮件：</strong> 发件人使用邮件客户端（如Outlook、Gmail等）撰写邮件，并填写收件人的电子邮件地址、主题和邮件内容。</p>
+</li>
+<li>
+<p><strong>SPF 检查：</strong> 发送邮件服务器可能会执行 SPF（Sender Policy Framework）检查。它查询发件人域名的 DNS 记录，以确认发送邮件的服务器是否被授权发送邮件。</p>
+</li>
+<li>
+<p><strong>DKIM 签名：</strong> 发送邮件服务器对邮件进行 DKIM（DomainKeys Identified Mail）签名。它使用发件人域名的私钥对邮件进行加密签名，以确保邮件内容在传输过程中不被篡改。</p>
+</li>
+<li>
+<p><strong>SMTP 发送邮件：</strong> 发送邮件服务器使用 SMTP（简单邮件传输协议）将邮件发送到接收邮件服务器。SMTP 服务器与接收邮件服务器之间建立连接，并通过指定的端口（通常是 25 端口）传输邮件。</p>
+</li>
+</ul>
+<p><strong>接收方（收件人）:</strong></p>
+<ul>
+<li>
+<p><strong>SMTP 接收邮件：</strong> 接收邮件服务器接收到发送方发送的邮件。SMTP 协议负责将邮件从发送方传输到接收方。</p>
+</li>
+<li>
+<p><strong>SPF 验证：</strong> 接收邮件服务器执行 SPF 验证，检查发送方服务器的 IP 地址是否在发件人域名的 SPF 记录中被授权发送邮件。</p>
+</li>
+<li>
+<p><strong>DKIM 验证：</strong> 接收邮件服务器对收到的邮件执行 DKIM 验证。它使用发件人域名的公钥来验证邮件的 DKIM 签名，以确保邮件内容的完整性和真实性。</p>
+</li>
+<li>
+<p><strong>DMARC 检查：</strong> 如果接收邮件服务器支持 DMARC（Domain-based Message Authentication, Reporting, and Conformance），它会执行 DMARC 检查。DMARC 结合了 SPF 和 DKIM，允许域名所有者指定如何处理未通过验证的邮件。</p>
+</li>
+<li>
+<p><strong>投递邮件到邮箱：</strong> 如果邮件通过了所有的验证步骤，并且没有被识别为垃圾邮件，接收邮件服务器将把邮件投递到收件人的邮箱中。</p>
+</li>
+</ul>
+<p><strong>邮件获取（收件人）：</strong></p>
+<ul>
+<li>
+<p><strong>POP3 获取邮件（可选）：</strong> 收件人可以使用 POP3（邮局协议版本3）从邮件服务器上下载邮件到本地设备。POP3 客户端通过指定的端口（通常是 110 端口）连接到邮件服务器，并下载邮件到本地设备上。根据设置，邮件可能会从服务器上删除。</p>
+</li>
+<li>
+<p><strong>IMAP 获取邮件（可选）：</strong> 收件人可以使用 IMAP（互联网邮件访问协议）从邮件服务器上获取邮件。IMAP 允许邮件保留在服务器上，并且在多个设备之间同步邮件状态。IMAP 客户端通过指定的端口（通常是 143 端口）连接到邮件服务器，并获取邮件列表和邮件内容。</p>
+</li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-isps/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">网络艺术:国内&#x2F;国际骨干ISP线路整理</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-how-email-works-2/">
+                            <span class="button__text">网络艺术:自建域名邮箱</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#yi-ji-yu-xie-yi-de-chuan-shu">一. 基于协议的传输</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#er-you-jian-fa-song-de-liu-cheng">二. 邮件发送的流程</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#san-ju-ti-liu-cheng">三.具体流程</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#si-qi-ta-xie-yi">四.其他协议</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#pop3-you-ju-xie-yi-ban-ben-3">POP3（邮局协议版本3）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#imap-hu-lian-wang-you-jian-fang-wen-xie-yi">IMAP（互联网邮件访问协议）：</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#smtp-jian-dan-you-jian-chuan-shu-xie-yi">SMTP（简单邮件传输协议）：</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ta-men-de-qu-bie-he-gong-tong-dian">它们的区别和共同点：</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#yi-ci-wan-zheng-de-you-jian-tong-xin-guo-cheng">一次完整的邮件通信过程</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

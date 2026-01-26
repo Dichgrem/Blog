@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-markdown/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-markdown/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-markdown/">乱七八糟:Markdown使用快速教程</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-04-08
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文为 Markdown 教程，内容涵盖 Markdown 的历史、作用、基本语法和显示效果，可以在github将本文的源码拷贝供大家参考和学习。</p>
+<span id="continue-reading"></span><h1 id="markdown-jiao-cheng">Markdown 教程</h1>
+<h2 id="ling-chang-yong-de-markdownbian-ji-qi">零.常用的markdown编辑器</h2>
+<ul>
+<li>VSCode的<code>Markdown Preview Enhanced</code>插件；</li>
+<li>跨平台的<a rel="noopener nofollow noreferrer" target="_blank" href="https://obsidian.md/download">obsdian</a>或者<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/1943time/inkdown">inkdown</a>，<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/laurent22/joplin">joplin</a>或<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/Zettlr/Zettlr">zettlr</a></li>
+</ul>
+<h2 id="yi-markdown-jian-jie">一、Markdown 简介</h2>
+<h3 id="1-1-shen-me-shi-markdown">1.1 什么是 Markdown？</h3>
+<p>Markdown 是一种轻量级标记语言，最初由约翰·格鲁伯（John Gruber）在 2004 年创建，其设计目标在于简洁易读，同时能够快速转换为 HTML。Markdown 被广泛用于撰写文档、博客、论坛帖子以及 README 文档，其直观的语法和高度可读性受到开发者和写作者的一致好评。</p>
+<h3 id="1-2-markdown-de-li-shi-he-zuo-yong">1.2 Markdown 的历史和作用</h3>
+<ul>
+<li>
+<p><strong>历史沿革：</strong><br />
+2004 年左右，随着互联网内容量的增加以及对纯文本格式的需求不断上升，人们开始寻找一种既能保留纯文本的可读性，又能方便地生成格式化内容（如 HTML）的解决方案。Markdown 应运而生。经过十多年的发展，Markdown 已衍生出多个方言（例如 GitHub Flavored Markdown、CommonMark 等），并被各种编辑器、静态博客生成器（如 Zola、Jekyll、Hugo 等）以及内容管理系统所支持。</p>
+</li>
+<li>
+<p><strong>主要作用：</strong></p>
+<ul>
+<li><strong>快速排版：</strong> Markdown 语法简单，使用自然语言符号来表示标题、列表、链接、图片等格式。</li>
+<li><strong>跨平台兼容：</strong> 由于基于纯文本格式，Markdown 文件可以在任何文本编辑器中打开和编辑，而且可以很容易地转换成 HTML、PDF 等格式。</li>
+<li><strong>降低学习成本：</strong> 与复杂的 HTML 标记相比，Markdown 的语法简单易懂，非常适合非程序员使用。</li>
+<li><strong>促进内容创作：</strong> 许多博客平台和文档系统都采用 Markdown 作为主要写作格式，降低了内容创作和协作的门槛。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="er-markdown-ji-ben-yu-fa">二、Markdown 基本语法</h2>
+<p>下面详细介绍 Markdown 常用的语法，并演示其在渲染后显示的效果。</p>
+<h3 id="2-1-biao-ti">2.1 标题</h3>
+<p>使用井号 <code>#</code> 来表示标题，井号的数量表示标题级别（1~6级）。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span># </span><span style="color:#ffb964;">这是一级标题
+</span><span>## </span><span style="color:#ffb964;">这是二级标题
+</span><span>### </span><span style="color:#ffb964;">这是三级标题
+</span><span>#### </span><span style="color:#ffb964;">这是四级标题
+</span><span>##### </span><span style="color:#ffb964;">这是五级标题
+</span><span>###### </span><span style="color:#ffb964;">这是六级标题
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<h1 id="zhe-shi-yi-ji-biao-ti">这是一级标题</h1>
+<h2 id="zhe-shi-er-ji-biao-ti">这是二级标题</h2>
+<h3 id="zhe-shi-san-ji-biao-ti">这是三级标题</h3>
+<h4 id="zhe-shi-si-ji-biao-ti">这是四级标题</h4>
+<h5 id="zhe-shi-wu-ji-biao-ti">这是五级标题</h5>
+<h6 id="zhe-shi-liu-ji-biao-ti">这是六级标题</h6>
+<hr />
+<h3 id="2-2-qiang-diao-wen-ben">2.2 强调文本</h3>
+<ul>
+<li><em>斜体</em>：在文字两侧加上一个星号 <code>*</code> 或下划线 <code>_</code>。</li>
+<li><strong>加粗</strong>：在文字两侧加上两个星号 <code>**</code> 或下划线 <code>__</code>。</li>
+<li><em><strong>斜体加粗</strong></em>：在文字两侧加上三个星号 <code>***</code>。</li>
+</ul>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>*这是斜体*
+</span><span>_这也是斜体_
+</span><span>
+</span><span>**这是加粗**
+</span><span>__这也是加粗__
+</span><span>
+</span><span>***这是斜体加粗***
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<p><em>这是斜体</em><br />
+<em>这也是斜体</em></p>
+<p><strong>这是加粗</strong><br />
+<strong>这也是加粗</strong></p>
+<p><em><strong>这是斜体加粗</strong></em></p>
+<hr />
+<h3 id="2-3-lie-biao">2.3 列表</h3>
+<h4 id="wu-xu-lie-biao">无序列表</h4>
+<p>使用 <code>-</code>、<code>*</code> 或 <code>+</code> 表示无序列表项。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>- 项目 1
+</span><span>- 项目 2
+</span><span>  - 子项目 2.1
+</span><span>  - 子项目 2.2
+</span><span>- 项目 3
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<ul>
+<li>项目 1</li>
+<li>项目 2
+<ul>
+<li>子项目 2.1</li>
+<li>子项目 2.2</li>
+</ul>
+</li>
+<li>项目 3</li>
+</ul>
+<h4 id="you-xu-lie-biao">有序列表</h4>
+<p>使用数字后面跟点号来表示有序列表：</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>1. 第一项
+</span><span>2. 第二项
+</span><span>3. 第三项
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ol>
+<hr />
+<h3 id="2-4-lian-jie-yu-tu-pian">2.4 链接与图片</h3>
+<h4 id="lian-jie">链接</h4>
+<p>格式：<a href="https://blog.dich.bid/about-markdown/URL" title="可选标题">链接文字</a>。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>[GitHub](https://github.com </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">GitHub 官网</span><span style="color:#556633;">&quot;</span><span>)
+</span></code></pre>
+<p><strong>渲染效果：</strong><br />
+<a rel="noopener nofollow noreferrer" target="_blank" title="GitHub 官网" href="https://github.com">GitHub</a></p>
+<h4 id="tu-pian">图片</h4>
+<p>格式：<code>![图片替代文本](图片 URL "可选标题")</code>。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>![Markdown Logo](https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Markdown</span><span style="color:#556633;">&quot;</span><span>)
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg" alt="Markdown Logo" /></p>
+<hr />
+<h3 id="2-5-dai-ma">2.5 代码</h3>
+<h4 id="xing-nei-dai-ma">行内代码</h4>
+<p>使用反引号 <code>`</code> 来表示行内代码。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>使用 `printf()` 函数输出内容。
+</span></code></pre>
+<p><strong>渲染效果：</strong><br />
+使用 <code>printf()</code> 函数输出内容。</p>
+<h4 id="dai-ma-kuai">代码块</h4>
+<p>代码块使用三个反引号（```）包裹，也可以指定语言以便进行语法高亮。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>```</span><span style="color:#7697d6;">python
+</span><span style="color:#8fbfdc;">def </span><span style="color:#fad07a;">hello</span><span>():
+</span><span>    </span><span style="color:#ffb964;">print</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello, World!</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>```
+</span></code></pre>
+<blockquote>
+<p>注意：上述代码块中第一行的三个反引号后面紧跟着语言名称（如 <code>python</code>），结束时用相同的三个反引号结束。</p>
+</blockquote>
+<p><strong>渲染效果（依赖编辑器或平台的语法高亮支持）：</strong></p>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8fbfdc;">def </span><span style="color:#fad07a;">hello</span><span>():
+</span><span>    </span><span style="color:#ffb964;">print</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello, World!</span><span style="color:#556633;">&quot;</span><span>)
+</span></code></pre>
+<hr />
+<h3 id="2-6-yin-yong-kuai">2.6 引用块</h3>
+<p>使用 <code>&gt;</code> 来表示引用（Blockquote）。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>&gt; 这是引用的内容，可以用于引用名言或文章片段。
+</span><span>&gt; 
+</span><span>&gt; 多行引用时，每行前面都加上 `&gt;`。
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<blockquote>
+<p>这是引用的内容，可以用于引用名言或文章片段。</p>
+<p>多行引用时，每行前面都加上 <code>&gt;</code>。</p>
+</blockquote>
+<hr />
+<h3 id="2-7-fen-ge-xian">2.7 分割线</h3>
+<p>使用三个或更多的横线 <code>---</code>、星号 <code>***</code> 或下划线 <code>___</code> 来产生水平分割线。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>---
+</span><span>或者
+</span><span>***
+</span><span>或者
+</span><span>___
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<hr />
+<p>或者</p>
+<hr />
+<p>或者</p>
+<hr />
+<hr />
+<h3 id="2-8-biao-ge">2.8 表格</h3>
+<p>Markdown 表格可以使用管道符 <code>|</code> 和短横线 <code>-</code> 来创建。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>| 表头1 | 表头2 | 表头3 |
+</span><span>| :---  | :---: | ---:  |
+</span><span>| 左对齐 | 居中对齐 | 右对齐 |
+</span><span>| 单元格内容 | 更多内容 | 数据 |
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<table><thead><tr><th style="text-align: left">表头1</th><th style="text-align: center">表头2</th><th style="text-align: right">表头3</th></tr></thead><tbody>
+<tr><td style="text-align: left">左对齐</td><td style="text-align: center">居中对齐</td><td style="text-align: right">右对齐</td></tr>
+<tr><td style="text-align: left">单元格内容</td><td style="text-align: center">更多内容</td><td style="text-align: right">数据</td></tr>
+</tbody></table>
+<blockquote>
+<p><strong>注：</strong><br />
+“:---” 表示左对齐；<br />
+“:---:” 表示居中对齐；<br />
+“---:” 表示右对齐。</p>
+</blockquote>
+<hr />
+<h2 id="san-markdown-gao-ji-yu-fa-yu-kuo-zhan">三、Markdown 高级语法与扩展</h2>
+<p>不同平台可能支持额外的 Markdown 扩展语法，下面列举一些常见的扩展功能：</p>
+<h3 id="3-1-jiao-zhu">3.1 脚注</h3>
+<p>某些 Markdown 方言支持脚注。脚注格式如下：</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>这是一个带脚注的句子.[^1]
+</span><span>
+</span><span>[</span><span style="color:#ffb964;">^1</span><span>]: 这是脚注的内容。
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<p>这是一个带脚注的句子.<sup class="footnote-reference" id="fr-1-1"><a href="#fn-1">1</a></sup></p>
+<h3 id="3-2-ren-wu-lie-biao">3.2 任务列表</h3>
+<p>GitHub Flavored Markdown（GFM）支持任务列表，可以用于表示待办事项。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>- [x] 完成 Markdown 教程
+</span><span>- [ ] 阅读更多文章
+</span><span>- [ ] 分享教程
+</span></code></pre>
+<p><strong>渲染效果：</strong></p>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+完成 Markdown 教程</li>
+<li><input disabled="" type="checkbox"/>
+阅读更多文章</li>
+<li><input disabled="" type="checkbox"/>
+分享教程</li>
+</ul>
+<hr />
+<h2 id="si-markdown-shi-yong-zhu-yi-shi-xiang">四、Markdown 使用注意事项</h2>
+<ol>
+<li>
+<p><strong>空行与段落：</strong><br />
+Markdown 使用一个或多个空行来分隔不同的段落。如果要换行但不创建新段落，在行尾添加两个或更多空格后回车即可。</p>
+</li>
+<li>
+<p><strong>转义字符：</strong><br />
+如果想要显示 Markdown 特殊符号而不被解析，比如 <code>*</code>、<code>#</code>、<code>\</code> 等，可以在前面加上反斜杠 <code>\</code>。</p>
+<pre data-lang="markdown" style="background-color:#151515;color:#e8e8d3;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>\*这不是斜体，而是普通的星号\*
+</span></code></pre>
+<p><strong>渲染效果：</strong><br />
+*这不是斜体，而是普通的星号*</p>
+</li>
+<li>
+<p><strong>原始文本展示：</strong><br />
+为了展示 Markdown 源码而不被渲染，请使用代码块（反引号包围）或适用平台支持的原始文本标签（例如 <code>{% raw %}</code> 与 <code>{% endraw %}</code>）。</p>
+</li>
+</ol>
+<hr />
+<p><strong>Done.</strong></p>
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn-1">
+<p>这是脚注的内容。 <a href="#fr-1-1">↩</a></p>
+</li>
+</ol>
+</section>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-gfs/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:GFS项目考量笔记</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-download-1/">
+                            <span class="button__text">下载系列(1):下载技术的历史</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-1">
+                    <a href="#markdown-jiao-cheng">Markdown 教程</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#ling-chang-yong-de-markdownbian-ji-qi">零.常用的markdown编辑器</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#yi-markdown-jian-jie">一、Markdown 简介</a>
+                                
+                                    <ul>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#1-1-shen-me-shi-markdown">1.1 什么是 Markdown？</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#1-2-markdown-de-li-shi-he-zuo-yong">1.2 Markdown 的历史和作用</a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#er-markdown-ji-ben-yu-fa">二、Markdown 基本语法</a>
+                                
+                                    <ul>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-1-biao-ti">2.1 标题</a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#zhe-shi-yi-ji-biao-ti">这是一级标题</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#zhe-shi-er-ji-biao-ti">这是二级标题</a>
+                                
+                                    <ul>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#zhe-shi-san-ji-biao-ti">这是三级标题</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-2-qiang-diao-wen-ben">2.2 强调文本</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-3-lie-biao">2.3 列表</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-4-lian-jie-yu-tu-pian">2.4 链接与图片</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-5-dai-ma">2.5 代码</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-6-yin-yong-kuai">2.6 引用块</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-7-fen-ge-xian">2.7 分割线</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#2-8-biao-ge">2.8 表格</a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#san-markdown-gao-ji-yu-fa-yu-kuo-zhan">三、Markdown 高级语法与扩展</a>
+                                
+                                    <ul>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#3-1-jiao-zhu">3.1 脚注</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#3-2-ren-wu-lie-biao">3.2 任务列表</a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#si-markdown-shi-yong-zhu-yi-shi-xiang">四、Markdown 使用注意事项</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

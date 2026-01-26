@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-android-tv/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-android-tv/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-android-tv/">综合工程:Android-TV 折腾小记</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-14
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 由于 AppleTV 的高昂的售价和普通电视盒子广告的泛滥，一台开源、多功能的原生安卓电视盒子逐渐成为智能家居的必备神器。出于对 IPTV、YouTube 和家庭影院等需求，以及对一面赏心悦目电视墙的期待，这里分享 Android TV （以下简称ATV）安装的一些要点。</p>
+<span id="continue-reading"></span><h2 id="ling-yao-shi-xian-de-mu-biao">零.要实现的目标</h2>
+<ul>
+<li>实现自己的设备(X86/Arm)上安装TV系统；</li>
+<li>实现<strong>无开机广告和内置广告</strong>；</li>
+<li>实现<strong>海报墙效果</strong>（矩形磁帖），或自定义安卓桌面启动器；</li>
+<li>实现<strong>影视番剧观看</strong>，基于TVbox/Kodi/Kazumi；</li>
+<li>实现<strong>国内流媒体观看</strong>，包括Bilibili，爱优腾等等；</li>
+<li>实现<strong>国外流媒体观看</strong>，包括Netflix，YouTube，Disney+，Spotify等等；</li>
+<li>实现<strong>家庭影院</strong>，Emby类软件自动刮削；</li>
+<li>实现<strong>IPTV</strong>观看，采用自抓取源或者公共源；</li>
+<li>实现<strong>复古游戏</strong>游玩，包括GBA/FC等等，基于RetroArch/PPSSPP/Emuelec,可以连接手柄；</li>
+<li>实现<strong>游戏主机串流</strong>，包括PS/Xbox/Switch等等；</li>
+</ul>
+<h2 id="yi-xuan-ze-he-gua-de-ping-tai">一.选择合适的平台</h2>
+<p>X86还是Arm？两者之间各有优点，截止到今天各种Arm电视盒子已经非常成熟，价格便宜，也可以使用运营商的电视盒子进行刷机，性能并不会太弱；而X86平台往往价格偏贵，且驱动不全，解码性能和功能适配没有和电视生态联系紧密，因此建议首选Arm平台.</p>
+<p>本文以s905l3a盒子为示例，截止目前平均价格在60rmb左右，非常具有性价比。</p>
+<table><thead><tr><th>项目</th><th>规格说明</th></tr></thead><tbody>
+<tr><td>CPU 架构</td><td>四核 ARM Cortex-A53 (64-bit)</td></tr>
+<tr><td>主频</td><td>~1.8 GHz</td></tr>
+<tr><td>制程工艺</td><td>12 nm</td></tr>
+<tr><td>GPU</td><td>Mali-G31 MP2，约 850 MHz，20.8 GFLOPS</td></tr>
+<tr><td>视频解码</td><td>H.265 4Kp75 (10-bit), H.264 4Kp30</td></tr>
+<tr><td>视频编码</td><td>H.264/H.265 1080p60</td></tr>
+<tr><td>最大显示输出</td><td>4K @ 75fps</td></tr>
+<tr><td>内存支持</td><td>支持 DDR3, DDR4-2666, LPDDR4-3200；设备常见 2 GB DDR4</td></tr>
+<tr><td>存储</td><td>常见 8 GB eMMC5.1</td></tr>
+<tr><td>接口支持</td><td>USB2.0/3.0, HDMI 2.0b/2.1</td></tr>
+<tr><td>网络支持</td><td>千兆 MAC (常见盒子为 10/100), Wi-Fi, BT4.1/5.0</td></tr>
+<tr><td>发布时间/制程</td><td>Q3 2022，12 nm</td></tr>
+</tbody></table>
+<blockquote>
+<p>如果预算充足，也可以选择s905x3，s905x4，以及rk3528等等芯片的盒子。如果有旧手机，也可以改装为电视盒子，比如骁龙865盒子，性能非常强大。</p>
+</blockquote>
+<h2 id="er-xuan-ze-he-gua-de-xi-tong">二.选择合适的系统</h2>
+<p>无论是运营商自带的电视盒子还是各种所谓的“无广告”电视盒子，往往都基于以下两种系统，且要小心一些所谓的“无广告”电视盒子或者外贸盒子，它们往往配置低，性价比不高且还是有内置付费项目，甚至有一些还会偷偷跑PCDN。因此，建议买到手之后自行刷写固件。</p>
+<table><thead><tr><th>特性</th><th><strong>Android-x86</strong></th><th><strong>Android TV</strong></th></tr></thead><tbody>
+<tr><td><strong>目标用户</strong></td><td>面向 PC 用户，将 Android 运行在 x86/x86_64 设备上。</td><td>面向电视和机顶盒用户，优化用于遥控器或语音操作。</td></tr>
+<tr><td><strong>适配设备</strong></td><td>传统 PC、笔记本、平板电脑等 x86 架构设备。</td><td>智能电视、电视盒子等 ARM 或特定芯片架构设备。</td></tr>
+<tr><td><strong>界面设计</strong></td><td>和标准 Android 类似，为触摸屏和鼠标键盘优化。</td><td>专为大屏设计，使用 Leanback UI，适配遥控器操作。</td></tr>
+<tr><td><strong>Google 服务</strong></td><td>默认不包含 Google 服务，需要用户手动安装。</td><td>官方版本内置 Google 服务（例如 Play Store、Assistant）。</td></tr>
+<tr><td><strong>开机启动器</strong></td><td>使用标准 Android 桌面启动器（Launcher3）。</td><td>使用电视优化的启动器（Leanback Launcher）。</td></tr>
+<tr><td><strong>架构支持</strong></td><td>专注于 <strong>x86/x86_64</strong>，但支持 ARM 仿真（通过 Houdini）。</td><td>主要支持 <strong>ARM/ARM64</strong> 架构，有限支持 x86。</td></tr>
+<tr><td><strong>硬件支持</strong></td><td>需要额外优化，部分硬件（如 GPU 驱动）可能无法正常工作。</td><td>深度集成硬件，默认支持电视硬件（如 HDMI CEC、音频输出）。</td></tr>
+<tr><td><strong>应用市场</strong></td><td>默认不内置 Google Play，需要手动安装 Aurora Store 等替代方案。</td><td>默认集成 Google Play 商店，提供大屏优化的应用程序。</td></tr>
+<tr><td><strong>遥控器支持</strong></td><td>不适配遥控器，主要使用鼠标键盘操作。</td><td>专为遥控器优化，支持按键导航和语音输入。</td></tr>
+<tr><td><strong>开源贡献</strong></td><td>由社区维护，支持各种自定义和实验功能。</td><td>由 Google 官方主导，OEM 厂商提供硬件优化支持。</td></tr>
+</tbody></table>
+<blockquote>
+<p>Android-x86 的安装类似windows；Android TV安装类似 Android手机，通过刷分区或TWRP卡刷安装。</p>
+</blockquote>
+<blockquote>
+<p>Tosathony 制作的 Android TV x86 是一个由社区成员制作的定制化 Android TV 版本,针对 Android TV 的大屏界面 和 遥控器操作 进行特别优化,但某些硬件（如 Wi-Fi、GPU、音频设备等）的驱动可能不兼容或需要额外的配置,本文不再说明Android TV x86的安装与使用。</p>
+</blockquote>
+<p>刷写固件可以买一个“刷机神器”（HDMI短接器）和一个双公头的USB线，即可使用<a rel="noopener nofollow noreferrer" target="_blank" href="https://androidmtk.com/download-amlogic-usb-burning-tool">usb-burning-tool</a>来进行刷机，推荐使用2.2.4版本.</p>
+<h2 id="san-an-zhuang-ruan-jian">三.安装软件</h2>
+<p>安装软件有很多方法，可以使用U盘将apk安装包拷入，也可以使用localsend将apk安装包通过内网传输过去。这里介绍一种通过ADB安装软件的方法。</p>
+<ul>
+<li>
+<p>首先我们在设置中找到“设置”&gt;“设备首选项”&gt;“关于”，然后在“构建”上点击几次以解锁<code>开发者模式</code>，随后开启USB调试开关。</p>
+</li>
+<li>
+<p>随后在设置 &gt; 设备首选项 &gt; 关于 &gt; 状态中找到并记下IP 地址，然后用ADB连接上去，这里使用命令<code>adb connect &lt;IP 地址&gt;:&lt;端口&gt; </code>，随后在ATV端授权连接，例如：</p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">❯</span><span> adb connect 192.168.1.666:9527
+</span><span>
+</span><span style="color:#ffb964;">connected</span><span> to 192.168.1.666:9527
+</span><span>
+</span><span style="color:#ffb964;">❯</span><span> adb devices
+</span><span>
+</span><span style="color:#ffb964;">xxxxxxxxx</span><span> sideload
+</span></code></pre>
+<ul>
+<li>接着使用命令<code>adb install &lt;path to android app.apk&gt;</code>将要安装的软件包上传，也可以将文件拖到命令提示符窗口上以复制其路径，回车确认。</li>
+</ul>
+<p><strong>一些 ADB 常用命令</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">adb</span><span> reboot </span><span style="color:#888888;">#将重启 Android 设备。
+</span><span>
+</span><span style="color:#ffb964;">adb</span><span> reboot recovery </span><span style="color:#888888;">#将设备重新启动到恢复模式。
+</span><span>
+</span><span style="color:#ffb964;">adb</span><span> push &lt;local&gt; &lt;remote&gt; </span><span style="color:#888888;">#将文件从您的 PC 复制到您的 Android 设备。
+</span><span>
+</span><span style="color:#ffb964;">adb</span><span> shell wm density &lt;dpi&gt; </span><span style="color:#888888;">#改变显示器的像素密度。
+</span><span>
+</span><span style="color:#ffb964;">adb</span><span> kill server </span><span style="color:#888888;">#切断 PC 和 Android TV 之间的连接。
+</span></code></pre>
+<p><strong>要安装的软件</strong></p>
+<ul>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/o0HalfLife0o/TVBoxOSC/releases/tag/20250706-1456">TVBox</a>:前猫影视，可自行添加源，包括电影电视剧等等，选择 armeabi-generic-java.apk</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.ppsspp.org/download/">PPSSPP</a>:PSP模拟器，支持高清修复游戏，选择 APK for Android</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/xiaye13579/BBLL">BBLL</a>:第三方开源哔哩哔哩客户端，适配TV界面，不需要额外VIP</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.right.com.cn/FORUM/thread-8437225-1-1.html">酷9TV</a>:经典IPTV播放器，功能丰富，可导入IPTV源使用</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="http://www.videolan.org/vlc/download-android.html">VLC</a>:老牌开源音视频播放器，支持远程和串流功能</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/xbmc/xbmc">Kodi</a>:开源的跨平台多功能媒体播放器和数字媒体娱乐中心，非常强大</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/truefedex/tv-bro">TV-Bro</a>:适用与安卓TV的浏览器，经过了遥控器优化设计，可以作为网页播放器</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/zhanghai/MaterialFiles">MaterialFiles</a>:又名质感文件，优秀的开源文件管理器</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/localsend/localsend">Localsend</a>:经典内网互传工具，可以通过它传输apk安装包或者视频到TV上</p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.fenxm.com/592.html">ATV Launcher</a>:平铺风格的安卓启动器，可以形成海报墙效果</p>
+</li>
+</ul>
+<blockquote>
+<p>注意s905l3a为32位架构，需要下载带armv7a的软件</p>
+</blockquote>
+<h2 id="si-she-zhi-atvzhuo-mian">四.设置ATV桌面</h2>
+<p>安装所需的软件包后我们可以删除自带的牛马软件或者不需要的软件，比如我们要安装ATV，就可以删除当贝桌面。</p>
+<ol>
+<li>ADB连接：连接到ADB成功后我们使用<code>adb shell</code>进入shell，随后使用命令<code>pm list packages</code>列出所有软件包；</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pm</span><span> list packages</span><span style="color:#ffb964;"> -s</span><span> 列出系统软件包
+</span><span style="color:#ffb964;">pm</span><span> list packages</span><span style="color:#ffb964;"> -3</span><span> 列出第三方软件包
+</span></code></pre>
+<ol start="2">
+<li>获取包名：对于暂时无法确定包名的软件，可以先打开，再使用</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">adb</span><span> shell dumpsys activity activities | </span><span style="color:#ffb964;">grep</span><span> mResumedActivity
+</span></code></pre>
+<p>获取当前前台应用的包名,随后再禁用或者删除.</p>
+<ol start="3">
+<li>删除软件：可以先使用</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pm</span><span> disable-user</span><span style="color:#ffb964;"> --user</span><span> 0 com.dangbei1.tvlauncher
+</span></code></pre>
+<p>禁用软件，确认没有问题之后再用</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pm</span><span> uninstall</span><span style="color:#ffb964;"> -k --user</span><span> 0 com.dangbei1.tvlauncher
+</span></code></pre>
+<p>删除；</p>
+<ol start="4">
+<li>备份软件：对于想要备份的软件，可以使用1和2中的方法获取软件包名，然后使用例如以下命令：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">adb</span><span> shell pm path org.videolan.vlc
+</span><span>
+</span><span style="color:#ffb964;">package:/data/app/~~hY2Y0_PdaDlasfVwkUNcoQ</span><span>=</span><span style="color:#99ad6a;">=/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk
+</span></code></pre>
+<p>获取到安装路径，随后将apk包拿走就可以：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">adb</span><span> pull /data/app/</span><span style="color:#ffb964;">~~</span><span>hY2Y0_PdaDlasfVwkUNcoQ==/org.videolan.vlc-WnNhCJLQUJdZYYzUxzBNBA==/base.apk ./Downloads/
+</span></code></pre>
+<ol start="5">
+<li>备份分区：如果你想要修改当前系统的img，可以用adb提取并导出</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 确定分区对应关系
+</span><span style="color:#ffb964;">ls -l</span><span> /dev/block
+</span><span style="color:#ffb964;">ls -l</span><span> /dev/block/platform
+</span><span style="color:#ffb964;">cat</span><span> /proc/mounts
+</span><span>
+</span><span>
+</span><span style="color:#888888;"># 导出到 /sdcard/
+</span><span style="color:#ffb964;">dd</span><span> if=/dev/block/boot of=/sdcard/boot.img
+</span><span style="color:#ffb964;">dd</span><span> if=/dev/block/recovery of=/sdcard/recovery.img
+</span><span style="color:#ffb964;">dd</span><span> if=/dev/block/system of=/sdcard/system.img
+</span><span style="color:#ffb964;">dd</span><span> if=/dev/block/vendor of=/sdcard/vendor.img
+</span><span style="color:#ffb964;">dd</span><span> if=/dev/block/product of=/sdcard/product.img
+</span><span style="color:#ffb964;">dd</span><span> if=/dev/block/odm of=/sdcard/odm.img
+</span><span>
+</span><span style="color:#888888;"># 拉去到PC
+</span><span style="color:#ffb964;">adb</span><span> pull /sdcard/boot.img
+</span><span style="color:#ffb964;">adb</span><span> pull /sdcard/recovery.img
+</span><span style="color:#ffb964;">adb</span><span> pull /sdcard/system.img
+</span><span style="color:#ffb964;">adb</span><span> pull /sdcard/vendor.img
+</span><span style="color:#ffb964;">adb</span><span> pull /sdcard/product.img
+</span><span style="color:#ffb964;">adb</span><span> pull /sdcard/odm.img
+</span></code></pre>
+<ol start="5">
+<li>修改桌面：可以进入安卓原生设置里面将默认主屏幕应用改为ATV，代替掉自带的桌面,并使用</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">adb</span><span> shell pm disable-user</span><span style="color:#ffb964;"> --user</span><span> 0 com.google.android.tvlauncher
+</span><span style="color:#ffb964;">adb</span><span> shell pm disable-user</span><span style="color:#ffb964;"> --user</span><span> 0 com.google.android.tungsten.setupwraith
+</span></code></pre>
+<p>命令禁用原来的默认桌面。随后重启盒子即可看到海报墙效果，如果ATV桌面没有开机自启动，可以使用Launch on Boot工具。</p>
+<p><strong>最终效果</strong>：</p>
+<p><img src="/images/s905-atv.webp" alt="s905-atv" /></p>
+<h2 id="hou-ji">后记</h2>
+<ul>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/googlesamples/leanback-showcase">Android TV google 官方 TV 库</a></p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/boxmate/tvframe">智能电视，电视盒子开发 SDK</a></p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/EZJasonBoy/FocusChangeAnimation">选中框切换动画，适用于电视</a></p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/FrozenFreeFall/Android-tv-widget">Android tv，盒子，投影仪 控件</a></p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/genius158/TVProjectUtils">TV 项目常用工具(焦点问题，适配问题等.)</a></p>
+</li>
+<li>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/Calmact/e900v22c">e900v22c项目与讨论组文档</a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-android-root/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">综合工程:安卓刷机与root教程</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/awesome-arch-linux/">
+                            <span class="button__text">综合工程:Arch-linux 安装与配置</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#ling-yao-shi-xian-de-mu-biao">零.要实现的目标</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#yi-xuan-ze-he-gua-de-ping-tai">一.选择合适的平台</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#er-xuan-ze-he-gua-de-xi-tong">二.选择合适的系统</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#san-an-zhuang-ruan-jian">三.安装软件</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#si-she-zhi-atvzhuo-mian">四.设置ATV桌面</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#hou-ji">后记</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

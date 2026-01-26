@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-docker/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-docker/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-docker/">网络艺术:Docker建站与反向代理</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-07-14
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Docker的出现极大简化了建站流程，较过去的LAMP方式优雅了许多，配合Nginx反向代理可以快速上线HTTPS站点。</p>
+<span id="continue-reading"></span><h2 id="an-zhuang-docker">安装Docker</h2>
+<p>这里以Debian12为例：</p>
+<ul>
+<li>官方安装脚本:</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">curl -fsSL</span><span> https://get.docker.com</span><span style="color:#ffb964;"> -o</span><span> get-docker.sh
+</span><span style="color:#ffb964;">sudo</span><span> sh get-docker.sh
+</span></code></pre>
+<ul>
+<li>使用 Docker 存储库安装</li>
+</ul>
+<p>使用以下命令安装此方法的先决条件：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt update &amp;&amp; </span><span style="color:#ffb964;">sudo</span><span> apt install ca-certificates curl gnupg
+</span></code></pre>
+<p>创建一个目录来存储密钥环：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> install</span><span style="color:#ffb964;"> -m</span><span> 0755</span><span style="color:#ffb964;"> -d</span><span> /etc/apt/keyrings
+</span></code></pre>
+<p>使用给定的命令下载 GPG 密钥并将其存储在 <code>/etc/apt/keyrings/etc/apt/keyrings</code> 目录中：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">curl -fsSL</span><span> https://download.docker.com/linux/debian/gpg | </span><span style="color:#ffb964;">sudo</span><span> gpg</span><span style="color:#ffb964;"> --dearmor -o</span><span> /etc/apt/keyrings/docker.gpg
+</span></code></pre>
+<p>使用 chmod 命令更改 docker.gpg 文件的权限：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> chmod a+r /etc/apt/keyrings/docker.gpg
+</span></code></pre>
+<p>使用以下命令为 Docker 设置存储库：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>echo \
+</span><span>  </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">deb [arch=</span><span style="color:#556633;">&quot;</span><span>$(</span><span style="color:#ffb964;">dpkg --print-architecture</span><span>)</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+</span><span style="color:#99ad6a;">  </span><span style="color:#556633;">&quot;</span><span>$(. /etc/os-release &amp;&amp; echo </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">VERSION_CODENAME</span><span style="color:#556633;">&quot;</span><span>)</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;"> stable</span><span style="color:#556633;">&quot; </span><span>| \
+</span><span>  </span><span style="color:#ffb964;">sudo</span><span> tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></code></pre>
+<p>现在可以使用以下命令更新存储库索引并安装 Docker：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt update &amp;&amp; </span><span style="color:#ffb964;">sudo</span><span> apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</span></code></pre>
+<h2 id="chang-yong-ming-ling">常用命令</h2>
+<h3 id="ji-chu-ming-ling">基础命令</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker version</code></td><td>查看 Docker 版本信息</td></tr>
+<tr><td><code>docker info</code></td><td>查看 Docker 系统信息，包括镜像和容器数量</td></tr>
+<tr><td><code>docker help</code></td><td>查看帮助信息</td></tr>
+<tr><td><code>docker &lt;command&gt; --help</code></td><td>查看某个命令的详细帮助</td></tr>
+</tbody></table>
+<hr />
+<h3 id="jing-xiang-xiang-guan-ming-ling-images">镜像相关命令（Images）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker images</code></td><td>列出本地所有镜像</td></tr>
+<tr><td><code>docker search nginx</code></td><td>从 Docker Hub 搜索镜像</td></tr>
+<tr><td><code>docker pull nginx:latest</code></td><td>拉取镜像</td></tr>
+<tr><td><code>docker rmi nginx:latest</code></td><td>删除镜像</td></tr>
+<tr><td><code>docker rmi $(docker images -q)</code></td><td>删除所有镜像</td></tr>
+<tr><td><code>docker inspect nginx</code></td><td>查看镜像详细信息</td></tr>
+<tr><td><code>docker tag nginx myrepo/nginx:v1</code></td><td>给镜像打标签</td></tr>
+<tr><td><code>docker save -o nginx.tar nginx</code></td><td>导出镜像为 tar 包</td></tr>
+<tr><td><code>docker load -i nginx.tar</code></td><td>从 tar 文件加载镜像</td></tr>
+</tbody></table>
+<hr />
+<h3 id="rong-qi-guan-li-ming-ling-containers">容器管理命令（Containers）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker ps</code></td><td>查看正在运行的容器</td></tr>
+<tr><td><code>docker ps -a</code></td><td>查看所有容器（包括已停止）</td></tr>
+<tr><td><code>docker run -d -p 80:80 --name web nginx</code></td><td>启动容器（后台运行）</td></tr>
+<tr><td><code>docker run -it ubuntu /bin/bash</code></td><td>启动交互式容器</td></tr>
+<tr><td><code>docker exec -it web bash</code></td><td>进入正在运行的容器</td></tr>
+<tr><td><code>docker logs -f web</code></td><td>查看容器日志（<code>-f</code> 实时输出）</td></tr>
+<tr><td><code>docker stop web</code></td><td>停止容器</td></tr>
+<tr><td><code>docker start web</code></td><td>启动容器</td></tr>
+<tr><td><code>docker restart web</code></td><td>重启容器</td></tr>
+<tr><td><code>docker rm web</code></td><td>删除容器</td></tr>
+<tr><td><code>docker rm $(docker ps -aq)</code></td><td>删除所有容器</td></tr>
+<tr><td><code>docker inspect web</code></td><td>查看容器详细信息</td></tr>
+<tr><td><code>docker stats</code></td><td>查看容器资源使用情况</td></tr>
+<tr><td><code>docker top web</code></td><td>查看容器内运行的进程</td></tr>
+<tr><td><code>docker cp web:/path/in/container ./localdir</code></td><td>从容器复制文件到主机</td></tr>
+<tr><td><code>docker cp ./file web:/path/in/container</code></td><td>从主机复制文件到容器</td></tr>
+</tbody></table>
+<hr />
+<h3 id="wang-luo-xiang-guan-ming-ling-networks">网络相关命令（Networks）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker network ls</code></td><td>列出所有网络</td></tr>
+<tr><td><code>docker network inspect bridge</code></td><td>查看网络详情</td></tr>
+<tr><td><code>docker network create mynet</code></td><td>创建自定义网络</td></tr>
+<tr><td><code>docker network connect mynet web</code></td><td>将容器连接到网络</td></tr>
+<tr><td><code>docker network disconnect mynet web</code></td><td>将容器从网络断开</td></tr>
+<tr><td><code>docker network rm mynet</code></td><td>删除网络</td></tr>
+</tbody></table>
+<hr />
+<h3 id="shu-ju-juan-volumes">数据卷（Volumes）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker volume ls</code></td><td>查看所有卷</td></tr>
+<tr><td><code>docker volume create mydata</code></td><td>创建数据卷</td></tr>
+<tr><td><code>docker volume inspect mydata</code></td><td>查看卷详情</td></tr>
+<tr><td><code>docker volume rm mydata</code></td><td>删除数据卷</td></tr>
+<tr><td><code>docker run -v mydata:/data nginx</code></td><td>启动容器并挂载卷</td></tr>
+<tr><td><code>docker run -v $(pwd):/app nginx</code></td><td>挂载主机目录到容器中</td></tr>
+</tbody></table>
+<hr />
+<h3 id="gou-jian-yu-dao-chu-jing-xiang-build-export">构建与导出镜像（Build &amp; Export）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker build -t myapp:latest .</code></td><td>构建镜像</td></tr>
+<tr><td><code>docker commit web myimage:v1</code></td><td>将容器保存为镜像</td></tr>
+<tr><td><code>docker save -o myimage.tar myimage:v1</code></td><td>导出镜像文件</td></tr>
+<tr><td><code>docker load -i myimage.tar</code></td><td>导入镜像文件</td></tr>
+<tr><td><code>docker export web &gt; web.tar</code></td><td>导出容器文件系统</td></tr>
+<tr><td><code>docker import web.tar myweb:v1</code></td><td>从 tar 文件导入镜像</td></tr>
+</tbody></table>
+<hr />
+<h3 id="xi-tong-qing-li-yu-wei-hu">系统清理与维护</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker system df</code></td><td>显示磁盘使用情况</td></tr>
+<tr><td><code>docker system prune</code></td><td>清理无用的容器、镜像、卷和网络</td></tr>
+<tr><td><code>docker image prune</code></td><td>清理未使用的镜像</td></tr>
+<tr><td><code>docker container prune</code></td><td>清理已停止的容器</td></tr>
+<tr><td><code>docker volume prune</code></td><td>清理无用卷</td></tr>
+</tbody></table>
+<hr />
+<h3 id="docker-compose-duo-rong-qi-guan-li">Docker Compose（多容器管理）</h3>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>docker compose up -d</code></td><td>启动服务（后台）</td></tr>
+<tr><td><code>docker compose down</code></td><td>停止并删除容器</td></tr>
+<tr><td><code>docker compose ps</code></td><td>查看当前项目容器</td></tr>
+<tr><td><code>docker compose logs -f</code></td><td>查看日志</td></tr>
+<tr><td><code>docker compose build</code></td><td>重新构建服务镜像</td></tr>
+<tr><td><code>docker compose restart</code></td><td>重启服务</td></tr>
+</tbody></table>
+<hr />
+<h3 id="xie-zai-docker">卸载 Docker</h3>
+<blockquote>
+<p>删除所有 Docker 容器和 Docker 本身</p>
+</blockquote>
+<ol>
+<li>首先停止所有正在运行的容器：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker</span><span> stop $(</span><span style="color:#ffb964;">docker</span><span> ps</span><span style="color:#ffb964;"> -aq</span><span>)
+</span></code></pre>
+<ol start="2">
+<li>删除所有容器</li>
+</ol>
+<p>删除所有容器（包括停止的容器）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker</span><span> rm $(</span><span style="color:#ffb964;">docker</span><span> ps</span><span style="color:#ffb964;"> -aq</span><span>)
+</span></code></pre>
+<ol start="3">
+<li>删除所有镜像</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker</span><span> rmi $(</span><span style="color:#ffb964;">docker</span><span> images</span><span style="color:#ffb964;"> -q</span><span>)
+</span></code></pre>
+<ol start="4">
+<li>删除所有网络</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker</span><span> network prune</span><span style="color:#ffb964;"> -f
+</span></code></pre>
+<ol start="5">
+<li>删除所有未使用的卷</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker</span><span> volume prune</span><span style="color:#ffb964;"> -f
+</span></code></pre>
+<ol start="6">
+<li>卸载 Docker</li>
+</ol>
+<p>如果您希望完全删除 Docker 本身，可以执行以下命令:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt-get purge docker-ce docker-ce-cli containerd.io
+</span><span style="color:#ffb964;">sudo</span><span> apt-get autoremove</span><span style="color:#ffb964;"> --purge
+</span><span style="color:#ffb964;">sudo</span><span> rm</span><span style="color:#ffb964;"> -rf</span><span> /var/lib/docker
+</span><span style="color:#ffb964;">sudo</span><span> rm</span><span style="color:#ffb964;"> -rf</span><span> /etc/docker
+</span></code></pre>
+<p>这些命令会卸载 Docker 软件并删除 Docker 数据目录。</p>
+<hr />
+<h2 id="shi-yong-docker-compose">使用Docker-Compose</h2>
+<ul>
+<li>目标：创建一个<code>Searxng服务</code>并对外开放。</li>
+<li>方法：创建两个 docker-compose 文件，并<code>使用同一个外部 Docker 网络</code>使两个服务互联。</li>
+</ul>
+<ol start="0">
+<li>首先<code>创建好工作目录</code>,例如：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>.
+</span><span style="color:#ffb964;">└──</span><span> docker
+</span><span>    </span><span style="color:#ffb964;">├──</span><span> docker-compose.nginx.yml
+</span><span>    </span><span style="color:#ffb964;">├──</span><span> docker-compose.searxng.yml
+</span><span>    </span><span style="color:#ffb964;">└──</span><span> nginx
+</span><span>        </span><span style="color:#ffb964;">├──</span><span> certs
+</span><span>        </span><span style="color:#ffb964;">│</span><span>   ├── fullchain.pem
+</span><span>        </span><span style="color:#ffb964;">│</span><span>   └── privkey.pem
+</span><span>        </span><span style="color:#ffb964;">└──</span><span> searxng.conf
+</span></code></pre>
+<ol>
+<li>在启动服务前，首先创建一个 Docker 外部网络（例如命名为 nginx）：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker</span><span> network create nginx 
+</span></code></pre>
+<p>这样，无论是哪个 docker-compose 项目中的容器，只要加入此网络，就能直接通信。</p>
+<ol start="2">
+<li>编写 searxng 的 docker-compose 文件</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#151515;color:#e8e8d3;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#ffb964;">version</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">3</span><span style="color:#556633;">&#39;
+</span><span>
+</span><span style="color:#ffb964;">services</span><span>:
+</span><span>  </span><span style="color:#ffb964;">searxng</span><span>:
+</span><span>    </span><span style="color:#ffb964;">image</span><span>: </span><span style="color:#99ad6a;">searxng/searxng
+</span><span>    </span><span style="color:#ffb964;">container_name</span><span>: </span><span style="color:#99ad6a;">searxng
+</span><span>    </span><span style="color:#ffb964;">restart</span><span>: </span><span style="color:#99ad6a;">unless-stopped
+</span><span>    </span><span style="color:#ffb964;">ulimits</span><span>:
+</span><span>      </span><span style="color:#ffb964;">nproc</span><span>: </span><span style="color:#cf6a4c;">65535
+</span><span>      </span><span style="color:#ffb964;">nofile</span><span>:
+</span><span>        </span><span style="color:#ffb964;">soft</span><span>: </span><span style="color:#cf6a4c;">65535
+</span><span>        </span><span style="color:#ffb964;">hard</span><span>: </span><span style="color:#cf6a4c;">65535   
+</span><span>    </span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">/var/lib/docker/volumes/searxng/_data:/etc/searxng
+</span><span>    </span><span style="color:#ffb964;">networks</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">nginx
+</span><span>    </span><span style="color:#ffb964;">ports</span><span>:
+</span><span>      </span><span style="color:#888888;"># 如果希望 searxng 只对内部服务开放，则可不映射外部端口
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">127.0.0.1:18080:8080</span><span style="color:#556633;">&quot;
+</span><span>
+</span><span style="color:#ffb964;">networks</span><span>:
+</span><span>  </span><span style="color:#ffb964;">nginx</span><span>:
+</span><span>    </span><span style="color:#ffb964;">external</span><span>: true
+</span></code></pre>
+<ol start="3">
+<li>编写 Nginx 的 docker-compose 文件</li>
+</ol>
+<p>创建 nginx 的 docker-compose 文件，例如：</p>
+<pre data-lang="yaml" style="background-color:#151515;color:#e8e8d3;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#ffb964;">version</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">3</span><span style="color:#556633;">&#39;
+</span><span>
+</span><span style="color:#ffb964;">services</span><span>:
+</span><span>  </span><span style="color:#ffb964;">nginx</span><span>:
+</span><span>    </span><span style="color:#ffb964;">image</span><span>: </span><span style="color:#99ad6a;">nginx:latest
+</span><span>    </span><span style="color:#ffb964;">container_name</span><span>: </span><span style="color:#99ad6a;">nginx
+</span><span>    </span><span style="color:#ffb964;">restart</span><span>: </span><span style="color:#99ad6a;">unless-stopped
+</span><span>    </span><span style="color:#ffb964;">ports</span><span>:
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">80:80</span><span style="color:#556633;">&quot;
+</span><span>      </span><span style="color:#888888;"># 如需要 HTTPS，请映射 443 端口并挂载证书目录
+</span><span>      </span><span style="color:#888888;">#- &quot;443:443&quot;
+</span><span>    </span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">./nginx/searxng.conf:/etc/nginx/conf.d/default.conf:ro
+</span><span>      </span><span style="color:#888888;">#- ./nginx/certs:/etc/nginx/certs:ro
+</span><span>    </span><span style="color:#ffb964;">networks</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">nginx
+</span><span>
+</span><span style="color:#ffb964;">networks</span><span>:
+</span><span>  </span><span style="color:#ffb964;">nginx</span><span>:
+</span><span>    </span><span style="color:#ffb964;">external</span><span>: true
+</span></code></pre>
+<ol start="4">
+<li>编写 Nginx 配置文件</li>
+</ol>
+<pre data-lang="conf" style="background-color:#151515;color:#e8e8d3;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#8fbfdc;">server </span><span>{
+</span><span>    </span><span style="color:#ffb964;">listen </span><span style="color:#cf6a4c;">80</span><span>;
+</span><span>    </span><span style="color:#ffb964;">server_name </span><span>searxng.dich.bid;
+</span><span>
+</span><span>    </span><span style="color:#ffb964;">client_max_body_size </span><span style="color:#cf6a4c;">10M</span><span>;
+</span><span>
+</span><span>    location / {
+</span><span>        </span><span style="color:#ffb964;">proxy_pass </span><span style="color:#7697d6;">http://searxng:8080</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>Host </span><span style="color:#8fbfdc;">$host</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>X-Real-IP </span><span style="color:#8fbfdc;">$remote_addr</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>X-Forwarded-For </span><span style="color:#8fbfdc;">$proxy_add_x_forwarded_for</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>X-Forwarded-Proto </span><span style="color:#8fbfdc;">$scheme</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_http_version </span><span style="color:#cf6a4c;">1</span><span>.</span><span style="color:#cf6a4c;">1</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>Connection </span><span style="color:#99ad6a;">&quot;&quot;</span><span>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#ffb964;">error_page </span><span style="color:#cf6a4c;">502 </span><span>/</span><span style="color:#cf6a4c;">502</span><span>.html;
+</span><span>    location = /</span><span style="color:#cf6a4c;">502</span><span>.html {
+</span><span>        </span><span style="color:#ffb964;">root </span><span>/usr/share/nginx/html;
+</span><span>        internal;
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<ol start="5">
+<li>启动服务</li>
+</ol>
+<ul>
+<li>启动 searxng 服务：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker-compose -f</span><span> docker-compose.searxng.yml up</span><span style="color:#ffb964;"> -d
+</span></code></pre>
+<ul>
+<li>启动 nginx 服务：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker-compose -f</span><span> docker-compose.nginx.yml up</span><span style="color:#ffb964;"> -d
+</span></code></pre>
+<p>由于两者都加入了外部网络 nginx，nginx 内的<code>proxy_pass http://searxng:8080</code>就能解析到 searxng 容器，实现反向代理效果。现在，访问<code>http://ip:18080</code>就可以访问Searxng搜索引擎。</p>
+<h2 id="tian-jia-https">添加HTTPS</h2>
+<p>在实际生产环境中我们不能使用IP直接访问，因此需要为我们的站点开启SSL证书，也就是要申请证书并在配置文件中声明。</p>
+<ol>
+<li>证书生成</li>
+</ol>
+<ul>
+<li>如果只是用于测试可以生成自签名证书：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">mkdir -p</span><span> /home/dich/docker/nginx/certs
+</span><span style="color:#ffb964;">openssl</span><span> req</span><span style="color:#ffb964;"> -x509 -nodes -days</span><span> 365</span><span style="color:#ffb964;"> -newkey</span><span> rsa:2048 \
+</span><span style="color:#ffb964;">  -keyout</span><span> /home/dich/docker/nginx/certs/privkey.pem \
+</span><span style="color:#ffb964;">  -out</span><span> /home/dich/docker/nginx/certs/fullchain.pem \
+</span><span style="color:#ffb964;">  -subj </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">/CN=your-domain.com</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<ol start="2">
+<li>更改searxng.conf:</li>
+</ol>
+<pre data-lang="conf" style="background-color:#151515;color:#e8e8d3;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#8fbfdc;">server </span><span>{
+</span><span>    </span><span style="color:#ffb964;">listen </span><span style="color:#cf6a4c;">443</span><span> ssl;
+</span><span>    </span><span style="color:#ffb964;">server_name </span><span>searxng.dich.bid;
+</span><span>
+</span><span>    </span><span style="color:#888888;"># SSL 证书配置
+</span><span>    </span><span style="color:#ffb964;">ssl_certificate </span><span>/home/dich/docker/nginx/certs/fullchain.pem;
+</span><span>    </span><span style="color:#ffb964;">ssl_certificate_key </span><span>/home/dich/docker/nginx/certs/privkey.pem;
+</span><span>    </span><span style="color:#ffb964;">ssl_protocols </span><span>TLSv1.</span><span style="color:#cf6a4c;">2</span><span> TLSv1.</span><span style="color:#cf6a4c;">3</span><span>;
+</span><span>    </span><span style="color:#ffb964;">ssl_ciphers </span><span>HIGH:!aNULL:!MD5;
+</span><span>
+</span><span>    </span><span style="color:#ffb964;">client_max_body_size </span><span style="color:#cf6a4c;">10M</span><span>;
+</span><span>
+</span><span>    location / {
+</span><span>        </span><span style="color:#ffb964;">proxy_pass </span><span style="color:#7697d6;">http://searxng:8080</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>Host </span><span style="color:#8fbfdc;">$host</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>X-Real-IP </span><span style="color:#8fbfdc;">$remote_addr</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>X-Forwarded-For </span><span style="color:#8fbfdc;">$proxy_add_x_forwarded_for</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>X-Forwarded-Proto </span><span style="color:#8fbfdc;">$scheme</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_http_version </span><span style="color:#cf6a4c;">1</span><span>.</span><span style="color:#cf6a4c;">1</span><span>;
+</span><span>        </span><span style="color:#ffb964;">proxy_set_header </span><span>Connection </span><span style="color:#99ad6a;">&quot;&quot;</span><span>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#ffb964;">error_page </span><span style="color:#cf6a4c;">502 </span><span>/</span><span style="color:#cf6a4c;">502</span><span>.html;
+</span><span>    location = /</span><span style="color:#cf6a4c;">502</span><span>.html {
+</span><span>        </span><span style="color:#ffb964;">root </span><span>/usr/share/nginx/html;
+</span><span>        internal;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#888888;"># HTTP 服务器块，将所有流量重定向到 HTTPS
+</span><span style="color:#8fbfdc;">server </span><span>{
+</span><span>    </span><span style="color:#ffb964;">listen </span><span style="color:#cf6a4c;">80</span><span>;
+</span><span>    </span><span style="color:#ffb964;">server_name </span><span>searxng.dich.bid;
+</span><span>    </span><span style="color:#ffb964;">return </span><span style="color:#cf6a4c;">301 </span><span style="color:#7697d6;">https://$host$request_uri</span><span>;
+</span><span>}
+</span></code></pre>
+<ol start="3">
+<li>更改docker-compose.nginx.yml</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#151515;color:#e8e8d3;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#ffb964;">version</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">3</span><span style="color:#556633;">&#39;
+</span><span>
+</span><span style="color:#ffb964;">services</span><span>:
+</span><span>  </span><span style="color:#ffb964;">nginx</span><span>:
+</span><span>    </span><span style="color:#ffb964;">image</span><span>: </span><span style="color:#99ad6a;">nginx:latest
+</span><span>    </span><span style="color:#ffb964;">container_name</span><span>: </span><span style="color:#99ad6a;">nginx
+</span><span>    </span><span style="color:#ffb964;">restart</span><span>: </span><span style="color:#99ad6a;">unless-stopped
+</span><span>    </span><span style="color:#ffb964;">ports</span><span>:
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">80:80</span><span style="color:#556633;">&quot;
+</span><span>      </span><span style="color:#888888;"># 如需要 HTTPS，请映射 443 端口并挂载证书目录
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">443:443</span><span style="color:#556633;">&quot;
+</span><span>    </span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">./nginx/searxng.conf:/etc/nginx/conf.d/default.conf:ro
+</span><span>      - </span><span style="color:#99ad6a;">./nginx/certs:/home/dich/docker/nginx/certs
+</span><span>    </span><span style="color:#ffb964;">networks</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">nginx
+</span><span>
+</span><span style="color:#ffb964;">networks</span><span>:
+</span><span>  </span><span style="color:#ffb964;">nginx</span><span>:
+</span><span>    </span><span style="color:#ffb964;">external</span><span>: true
+</span></code></pre>
+<ol start="4">
+<li>启动新配置</li>
+</ol>
+<ul>
+<li>重启容器</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> docker compose</span><span style="color:#ffb964;"> -f</span><span> docker-compose.nginx.yml up</span><span style="color:#ffb964;"> -d
+</span></code></pre>
+<ul>
+<li>查看日志</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> docker logs searxng
+</span></code></pre>
+<h2 id="caddy">Caddy</h2>
+<blockquote>
+<p>Caddy 自 2015 年起用 Go 语言重写，定位为“开箱即用”的现代 Web 服务器，内置自动 Let’s Encrypt 证书管理和续期，默认支持 HTTP/2 及 HTTP/3（QUIC），并通过简洁明了的 Caddyfile 语法极大降低配置成本.</p>
+</blockquote>
+<ol start="0">
+<li>示例结构：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>.
+</span><span style="color:#ffb964;">└──</span><span> compose
+</span><span>    </span><span style="color:#ffb964;">├──</span><span> certs
+</span><span>    </span><span style="color:#ffb964;">│</span><span>   ├── cert.pem
+</span><span>    </span><span style="color:#ffb964;">│</span><span>   └── key.pem
+</span><span>    </span><span style="color:#ffb964;">├──</span><span> compose.caddy.yml
+</span><span>    </span><span style="color:#ffb964;">├──</span><span> compose.miniflux.yml
+</span><span>    </span><span style="color:#ffb964;">├──</span><span> compose.searxng.yml
+</span><span>    </span><span style="color:#ffb964;">└──</span><span> conf
+</span><span>        </span><span style="color:#ffb964;">└──</span><span> Caddyfile
+</span></code></pre>
+<ol>
+<li>同样创建名为Caddy的docker网络：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">docker</span><span> network create caddy
+</span></code></pre>
+<ol start="2">
+<li>编写Caddy的compose，可以看到caddy可以自带签发证书：</li>
+</ol>
+<pre data-lang="yaml" style="background-color:#151515;color:#e8e8d3;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#ffb964;">version</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">3.7</span><span style="color:#556633;">&#39;
+</span><span>
+</span><span style="color:#888888;"># 自动签发模式
+</span><span>
+</span><span style="color:#ffb964;">services</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy</span><span>:
+</span><span>    </span><span style="color:#ffb964;">image</span><span>: </span><span style="color:#99ad6a;">caddy:latest
+</span><span>    </span><span style="color:#ffb964;">container_name</span><span>: </span><span style="color:#99ad6a;">caddy
+</span><span>    </span><span style="color:#ffb964;">restart</span><span>: </span><span style="color:#99ad6a;">unless-stopped
+</span><span>    </span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">./conf:/etc/caddy:ro 
+</span><span>      - </span><span style="color:#99ad6a;">caddy_data:/data
+</span><span>      - </span><span style="color:#99ad6a;">caddy_config:/config
+</span><span>    </span><span style="color:#ffb964;">ports</span><span>:
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">80:80</span><span style="color:#556633;">&quot;    
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">443:443</span><span style="color:#556633;">&quot;  
+</span><span>    </span><span style="color:#ffb964;">networks</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">caddy     
+</span><span>
+</span><span style="color:#ffb964;">networks</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy</span><span>:
+</span><span>    </span><span style="color:#ffb964;">external</span><span>: true
+</span><span>
+</span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy_data</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy_config</span><span>:
+</span><span>
+</span><span>
+</span><span style="color:#888888;"># 自备证书模式
+</span><span>
+</span><span style="color:#ffb964;">services</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy</span><span>:
+</span><span>    </span><span style="color:#ffb964;">image</span><span>: </span><span style="color:#99ad6a;">caddy:latest
+</span><span>    </span><span style="color:#ffb964;">container_name</span><span>: </span><span style="color:#99ad6a;">caddy
+</span><span>    </span><span style="color:#ffb964;">restart</span><span>: </span><span style="color:#99ad6a;">unless-stopped
+</span><span>    </span><span style="color:#ffb964;">environment</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">CADDYPATH=/etc/caddycerts    
+</span><span>    </span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">./conf:/etc/caddy
+</span><span>      - </span><span style="color:#99ad6a;">./certs:/etc/caddycerts   
+</span><span>      - </span><span style="color:#99ad6a;">caddy_data:/data
+</span><span>      - </span><span style="color:#99ad6a;">caddy_config:/config
+</span><span>    </span><span style="color:#ffb964;">ports</span><span>:
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">80:80</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">443:443</span><span style="color:#556633;">&quot;
+</span><span>    </span><span style="color:#ffb964;">networks</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">caddy
+</span><span>
+</span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy_data</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy_config</span><span>:
+</span><span style="color:#ffb964;">networks</span><span>:
+</span><span>  </span><span style="color:#ffb964;">caddy</span><span>:
+</span><span>    </span><span style="color:#ffb964;">external</span><span>: true
+</span></code></pre>
+<ol start="3">
+<li>编写Caddyfile，可以看到自动开启HTTPS模式：</li>
+</ol>
+<pre data-lang="conf" style="background-color:#151515;color:#e8e8d3;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#888888;"># 自动签发模式
+</span><span style="color:#ffb964;">searxng</span><span>.dich.bid {
+</span><span>    </span><span style="color:#ffb964;">reverse_proxy </span><span>searxng:</span><span style="color:#cf6a4c;">8080</span><span> {
+</span><span>        </span><span style="color:#ffb964;">header_up </span><span>Host {upstream_hostport}
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#ffb964;">miniflux</span><span>.dich.bid {
+</span><span>    </span><span style="color:#ffb964;">reverse_proxy </span><span>miniflux:</span><span style="color:#cf6a4c;">8080</span><span> {
+</span><span>        </span><span style="color:#ffb964;">header_up </span><span>Host {upstream_hostport}
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#888888;"># 自备证书模式
+</span><span style="color:#ffb964;">searxng</span><span>.dich.bid {
+</span><span>    </span><span style="color:#ffb964;">reverse_proxy </span><span>searxng:</span><span style="color:#cf6a4c;">8080
+</span><span>    </span><span style="color:#ffb964;">tls </span><span>/etc/caddycerts/cert.pem /etc/caddycerts/key.pem
+</span><span>}
+</span><span style="color:#ffb964;">miniflux</span><span>.dich.bid {
+</span><span>    </span><span style="color:#ffb964;">reverse_proxy </span><span>miniflux:</span><span style="color:#cf6a4c;">8080
+</span><span>    </span><span style="color:#ffb964;">tls </span><span>/etc/caddycerts/cert.pem /etc/caddycerts/key.pem
+</span><span>}
+</span></code></pre>
+<ol start="4">
+<li>Docker compose的用法不再赘述。</li>
+</ol>
+<p><strong>FAQ</strong></p>
+<ul>
+<li>使用nginx的docker版本而非apt安装的版本；</li>
+<li>注意相对路径和绝对路径，不同容器可能冲突；</li>
+<li>使用网络创建的方法简化了配置；</li>
+<li>使用127.0.0.1:port的配置增加了安全性，无法ip访问；</li>
+<li>conf中的服务端口是compose中的port：port的后一个；</li>
+<li>更改配置后需要删除现有的容器再生成；</li>
+<li>version字段可以不需要；</li>
+<li>注意加上container_name；</li>
+<li>每增加一个服务需要在nginx中更新volume；</li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-server-set/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:服务器初始化与安全设置</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-virtual/">
+                            <span class="button__text">乱七八糟:虚拟化常用设置与操作</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang-docker">安装Docker</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#chang-yong-ming-ling">常用命令</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ji-chu-ming-ling">基础命令</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#jing-xiang-xiang-guan-ming-ling-images">镜像相关命令（Images）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#rong-qi-guan-li-ming-ling-containers">容器管理命令（Containers）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#wang-luo-xiang-guan-ming-ling-networks">网络相关命令（Networks）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#shu-ju-juan-volumes">数据卷（Volumes）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#gou-jian-yu-dao-chu-jing-xiang-build-export">构建与导出镜像（Build &amp; Export）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xi-tong-qing-li-yu-wei-hu">系统清理与维护</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#docker-compose-duo-rong-qi-guan-li">Docker Compose（多容器管理）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xie-zai-docker">卸载 Docker</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#shi-yong-docker-compose">使用Docker-Compose</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#tian-jia-https">添加HTTPS</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#caddy">Caddy</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-yt-dlp/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-yt-dlp/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-yt-dlp/">下载系列(2):Yt-dlp使用指南</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-04-12
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 yt-dlp是一款功能强大的命令行工具，专注于下载视频与音频内容，支持数千个平台，是开源下载工具爱好者的常用选择。</p>
+<span id="continue-reading"></span>
+<p>有时候我们想要下载网络上的某些视频，比如Bilibili，YouTube等等，但它们没有提供下载按钮，这时候就可以用开源的yt-dlp来进行下载。和Aria2一样，很多下载软件的核心就是yt-dlp.</p>
+<h2 id="li-shi">历史</h2>
+<ul>
+<li>
+<p><strong>起源与演进</strong>
+<code>youtube-dl</code> 由 Ricardo García González 于 <strong>2006 年</strong>创建，最初仅支持 YouTube，随后扩展至其他网站，成为 GitHub 上最受欢迎的开源下载项目之一.项目维护者在 2011 年、2021 年等阶段陆续交替，由 phihag、dstftw 等接手.2020 年，唱片业协会（RIAA）发起 DMCA 要求删除该项目，虽一度被移除，但在公众与 EFF 的推动下于当年 11 月恢复，并促使 GitHub 改进相关策略.</p>
+</li>
+<li>
+<p><strong>停滞，youtube-dlc → yt-dlp 的诞生</strong>
+随着开发进度放缓，社区于 2020 年衍生出 youtube-dlc 分支，在<strong>2021 年</strong>演变为更活跃的 <code>yt-dlp</code> 项目,它继承了 youtube-dl 的核心功能，并引入更多改进，包括更好的格式选择、多线程下载等，成为了GitHub上star最多的项目之一.</p>
+</li>
+<li>
+<p><strong>重构与功能拓展</strong>
+<code>yt-dlp</code> 从 youtube-dlc 完全重构，新增许多 extractor（解析器）、改进配置与默认行为，还扩展了插件系统和兼容性支持.</p>
+</li>
+</ul>
+<h2 id="an-zhuang">安装</h2>
+<h3 id="windows">Windows</h3>
+<p>从yt-dlp官方GitHub上下载exe二进制文件：</p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/yt-dlp/yt-dlp/releases/tag/2025.08.22">yt-dlp</a></p>
+<p>将其放到一个目录下，比如<code>C:\Users\&lt;你的用户名&gt;\yt-dlp\yt-dlp.exe</code>,随后添加环境变量。</p>
+<blockquote>
+<p>添加环境变量：Win键搜索“环境变量”，打开“编辑系统环境变量”，点击最下方的“环境变量”，选择“系统变量”中的path，点击“编辑”，新建一个变量，将上面的目录 C:\Users&lt;你的用户名&gt;\yt-dlp\ 写入，注意去掉前后引号，随后确定-确定-确定退出。</p>
+</blockquote>
+<p>更新版本：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -U
+</span></code></pre>
+<ul>
+<li>Python Pip 安装</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">python3 -m</span><span> pip install</span><span style="color:#ffb964;"> -U</span><span> yt-dlp
+</span></code></pre>
+<h3 id="linux-fa-xing-ban">Linux 发行版</h3>
+<ul>
+<li>Debian / Ubuntu：<code>sudo apt install yt-dlp</code></li>
+<li>Arch / Manjaro：<code>sudo pacman -S yt-dlp</code></li>
+<li>Fedora：<code>sudo dnf install yt-dlp</code></li>
+<li>Nixos:</li>
+</ul>
+<pre data-lang="nix" style="background-color:#151515;color:#e8e8d3;" class="language-nix "><code class="language-nix" data-lang="nix"><span>{</span><span style="color:#ffb964;">pkgs</span><span>, ...}: {
+</span><span>  </span><span style="color:#ffb964;">home</span><span>.</span><span style="color:#ffb964;">packages </span><span>= with </span><span style="color:#ffb964;">pkgs</span><span>; [
+</span><span>    </span><span style="color:#ffb964;">peazip
+</span><span>  ];
+</span><span>}
+</span></code></pre>
+<h3 id="android-termux">Android（Termux）</h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pkg</span><span> update &amp;&amp; </span><span style="color:#ffb964;">pkg</span><span> upgrade
+</span><span style="color:#ffb964;">pkg</span><span> install python libexpat openssl ffmpeg
+</span><span style="color:#ffb964;">python3 -m</span><span> pip install</span><span style="color:#ffb964;"> -U</span><span> yt-dlp
+</span></code></pre>
+<h2 id="xia-zai-shi-zhan">下载实战</h2>
+<ul>
+<li><strong>下载B站带字幕视频</strong>:</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">https://www.bilibili.com/video/BVxxxxx</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> --write-subs --embed-subs --sub-langs</span><span> all,-live_chat
+</span><span>
+</span><span style="color:#ffb964;">--write-subs:</span><span> 将字幕文件下载为单独文件 (如 .vtt 或 .ass)
+</span><span>
+</span><span style="color:#ffb964;">--embed-subs:</span><span> 将下载的字幕嵌入到视频文件中（如果格式支持）
+</span><span>
+</span><span style="color:#ffb964;">--sub-langs</span><span> all,-live_chat: 下载所有字幕语言，但排除像“弹幕/实时聊天”之类的非标准字幕流
+</span></code></pre>
+<ul>
+<li><strong>下载YouTube视频</strong></li>
+</ul>
+<p>先使用这个命令查看可用格式：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -F</span><span> https://www.youtube.com/watch?v=xxxxxxxxxxxx
+</span></code></pre>
+<p>然后它会列举出所有可用的格式，如下：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">[youtube]</span><span> MgtOAVOXBWo: Downloading webpage
+</span><span style="color:#ffb964;">[youtube]</span><span> MgtOAVOXBWo: Downloading tv client config
+</span><span style="color:#ffb964;">[youtube]</span><span> MgtOAVOXBWo: Downloading tv player API JSON
+</span><span style="color:#ffb964;">[youtube]</span><span> MgtOAVOXBWo: Downloading ios player API JSON
+</span><span style="color:#ffb964;">[youtube]</span><span> MgtOAVOXBWo: Downloading m3u8 information
+</span><span style="color:#ffb964;">[info]</span><span> Available formats for MgtOAVOXBWo:
+</span><span style="color:#ffb964;">ID</span><span>  EXT   RESOLUTION FPS │   FILESIZE   TBR PROTO │ VCODEC          VBR ACODEC     MORE INFO
+</span><span style="color:#ffb964;">──────────────────────────────────────────────────────────────────────────────────────────────────────────
+</span><span style="color:#ffb964;">sb2</span><span> mhtml 48x27        0 │                  mhtml │ images                         storyboard
+</span><span style="color:#ffb964;">sb1</span><span> mhtml 80x45        0 │                  mhtml │ images                         storyboard
+</span><span style="color:#ffb964;">sb0</span><span> mhtml 160x90       0 │                  mhtml │ images                         storyboard
+</span><span style="color:#ffb964;">233</span><span> mp4   audio only     │                  m3u8  │ audio only          unknown    Untested, Default, low
+</span><span style="color:#ffb964;">234</span><span> mp4   audio only     │                  m3u8  │ audio only          unknown    Untested, Default, high
+</span><span style="color:#ffb964;">602</span><span> mp4   256x144     15 │ </span><span style="color:#ffb964;">~</span><span>  9.23MiB   81k m3u8  │ vp09.00.10.08   81k video only Untested
+</span><span style="color:#ffb964;">269</span><span> mp4   256x144     30 │ </span><span style="color:#ffb964;">~</span><span> 14.94MiB  130k m3u8  │ avc1.4D400C    130k video only Untested
+</span><span style="color:#ffb964;">603</span><span> mp4   256x144     30 │ </span><span style="color:#ffb964;">~</span><span> 15.90MiB  139k m3u8  │ vp09.00.11.08  139k video only Untested
+</span><span style="color:#ffb964;">229</span><span> mp4   426x240     30 │ </span><span style="color:#ffb964;">~</span><span> 33.33MiB  291k m3u8  │ avc1.4D4015    291k video only Untested
+</span><span style="color:#ffb964;">604</span><span> mp4   426x240     30 │ </span><span style="color:#ffb964;">~</span><span> 25.82MiB  225k m3u8  │ vp09.00.20.08  225k video only Untested
+</span><span style="color:#ffb964;">230</span><span> mp4   640x360     30 │ </span><span style="color:#ffb964;">~</span><span> 73.50MiB  642k m3u8  │ avc1.4D401E    642k video only Untested
+</span><span style="color:#ffb964;">605</span><span> mp4   640x360     30 │ </span><span style="color:#ffb964;">~</span><span> 55.73MiB  487k m3u8  │ vp09.00.21.08  487k video only Untested
+</span><span style="color:#ffb964;">231</span><span> mp4   854x480     30 │ </span><span style="color:#ffb964;">~</span><span>104.35MiB  911k m3u8  │ avc1.4D401F    911k video only Untested
+</span><span style="color:#ffb964;">606</span><span> mp4   854x480     30 │ </span><span style="color:#ffb964;">~</span><span> 94.79MiB  827k m3u8  │ vp09.00.30.08  827k video only Untested
+</span><span style="color:#ffb964;">311</span><span> mp4   1280x720    60 │ </span><span style="color:#ffb964;">~</span><span>330.73MiB 2887k m3u8  │ avc1.4D4020   2887k video only Untested
+</span><span style="color:#ffb964;">612</span><span> mp4   1280x720    60 │ </span><span style="color:#ffb964;">~</span><span>197.04MiB 1720k m3u8  │ vp09.00.40.08 1720k video only Untested
+</span><span style="color:#ffb964;">312</span><span> mp4   1920x1080   60 │ </span><span style="color:#ffb964;">~</span><span>486.64MiB 4248k m3u8  │ avc1.64002A   4248k video only Untested
+</span><span style="color:#ffb964;">617</span><span> mp4   1920x1080   60 │ </span><span style="color:#ffb964;">~</span><span>369.06MiB 3222k m3u8  │ vp09.00.41.08 3222k video only Untested
+</span><span style="color:#ffb964;">623</span><span> mp4   2560x1440   60 │ </span><span style="color:#ffb964;">~</span><span>  1.00GiB 8945k m3u8  │ vp09.00.50.08 8945k video only Untested
+</span></code></pre>
+<p>我们下载312和233,即视频和音频，使用以下命令：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -f </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">312+233</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> -o </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">&lt;新视频的名字，要短一点&gt;.%(ext)s</span><span style="color:#556633;">&quot;</span><span> https://www.youtube.com/watch?v=xxxxxxxxxxxx
+</span></code></pre>
+<p>这行命令会自动将下载的312的1080p/H.264的视频和233的音频合并为一个mp4视频，注意新的名称不能太长，否则会下载失败。</p>
+<p>如果要下载带字幕的视频，则使用</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -f </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">312+233</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> --write-subs --write-auto-subs --embed-subs --sub-langs </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">zh.*,en.*</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> -o </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">&lt;新视频的名字，要短一点&gt;.%(ext)s</span><span style="color:#556633;">&quot;</span><span> https://www.youtube.com/watch?v=xxxxxxxxxxx
+</span></code></pre>
+<p>这个命令会：</p>
+<ul>
+<li>
+<p>下载1080p视频</p>
+</li>
+<li>
+<p>下载中文和英文字幕（包括自动生成的）</p>
+</li>
+<li>
+<p>将字幕嵌入到视频文件中</p>
+</li>
+<li>
+<p>同时保存单独的字幕文件</p>
+</li>
+<li>
+<p>参数说明</p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">--write-subs:</span><span> 下载手动字幕
+</span><span style="color:#ffb964;">--write-auto-subs:</span><span> 下载自动生成的字幕
+</span><span style="color:#ffb964;">--embed-subs:</span><span> 将字幕嵌入到视频中
+</span><span style="color:#ffb964;">--sub-langs </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">zh.*</span><span style="color:#556633;">&quot;</span><span>: 指定下载中文字幕（所有中文变体）
+</span><span style="color:#ffb964;">--sub-format</span><span> srt: 指定字幕格式（可选）
+</span></code></pre>
+<h2 id="chang-yong-can-shu">常用参数</h2>
+<ul>
+<li>
+<p><strong>下载视频</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">视频链接</span><span style="color:#556633;">&quot;
+</span></code></pre>
+</li>
+<li>
+<p><strong>提取为 MP3 音频</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -x --audio-format</span><span> mp3 </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">视频链接</span><span style="color:#556633;">&quot;
+</span></code></pre>
+</li>
+<li>
+<p><strong>下载播放列表</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -i </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">播放列表链接</span><span style="color:#556633;">&quot;
+</span></code></pre>
+</li>
+<li>
+<p><strong>批量处理（文件或多个 URL）</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -a</span><span> urls.txt
+</span></code></pre>
+</li>
+<li>
+<p><strong>选择格式下载</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -F </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">视频链接</span><span style="color:#556633;">&quot;      </span><span style="color:#888888;"># 显示所有格式
+</span><span style="color:#ffb964;">yt-dlp -f</span><span> 137+140 </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">链接</span><span style="color:#556633;">&quot;  </span><span style="color:#888888;"># 下载指定视频 + 音频合并
+</span></code></pre>
+</li>
+<li>
+<p><strong>自定义输出路径与模板</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp -o </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">%(title)s by %(uploader)s on %(upload_date)s.%(ext)s</span><span style="color:#556633;">&#39;
+</span></code></pre>
+</li>
+<li>
+<p><strong>日期过滤</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp --dateafter</span><span> 20230101</span><span style="color:#ffb964;"> --datebefore</span><span> 20231231 </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">链接</span><span style="color:#556633;">&quot;
+</span></code></pre>
+</li>
+<li>
+<p><strong>速度限制 / 恢复下载 / 年龄筛选</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">-r</span><span> 500K        </span><span style="color:#888888;"># 限速
+</span><span style="color:#ffb964;">-c             </span><span style="color:#888888;"># 断点续传
+</span><span style="color:#ffb964;">--age-limit</span><span> 18 </span><span style="color:#888888;"># 仅下载适合年龄 ≥18 的视频
+</span></code></pre>
+</li>
+<li>
+<p><strong>只输出描述，不下载内容</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp --skip-download </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">链接</span><span style="color:#556633;">&quot;
+</span></code></pre>
+</li>
+<li>
+<p><strong>下载封面、字幕、缩略图、元数据等</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">--write-thumbnail --write-sub --embed-subs --embed-thumbnail
+</span></code></pre>
+</li>
+<li>
+<p><strong>使用浏览器 Cookies 下载私密内容</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">--cookies</span><span> your-cookies.txt
+</span><span style="color:#ffb964;">--cookies-from-browser</span><span> firefox
+</span></code></pre>
+</li>
+<li>
+<p><strong>并行下载示例（Hacker News 用户提供）</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp --flat-playlist --print</span><span> id playlist_url | \
+</span><span>  </span><span style="color:#ffb964;">parallel</span><span> yt-dlp</span><span style="color:#ffb964;"> -x --wait-for-video</span><span> 3</span><span style="color:#ffb964;"> --download-archive</span><span> archive.txt https://www.youtube.com/watch?v={}
+</span></code></pre>
+</li>
+<li>
+<p><strong>记录下载历史</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">yt-dlp --download-archive</span><span> archive.txt </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">链接</span><span style="color:#556633;">&quot;
+</span></code></pre>
+</li>
+<li>
+<p><strong>配置文件设定默认参数</strong>：</p>
+<p>在 <code>~/.config/yt-dlp/config</code> 文件中添加习惯参数，如下载路径、格式偏好等。</p>
+</li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-download-1/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">下载系列(1):下载技术的历史</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-aria2/">
+                            <span class="button__text">下载系列(3):Aria2使用指南</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#li-shi">历史</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang">安装</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#windows">Windows</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#linux-fa-xing-ban">Linux 发行版</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#android-termux">Android（Termux）</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#xia-zai-shi-zhan">下载实战</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#chang-yong-can-shu">常用参数</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

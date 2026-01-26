@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/windows-5-py/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-5-py/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-5-py/">Windows系列(5):Python开发配置</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-05-30
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/windows/">#Windows</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 由于 Windows 中开发环境较 linux 复杂，这里总结 Windows 中使用 Jupyter 开发 Python 的环境配置。</p>
+<span id="continue-reading"></span><h2 id="an-zhuang">安装</h2>
+<p>Python是一种跨平台的编程语言,社区生态丰富，有许多现成的包可以调用。传统的安装方法如下：</p>
+<ul>
+<li>下载、安装Pythond解释器；</li>
+<li>验证安装；</li>
+<li>安装VScode以及Python的拓展；</li>
+</ul>
+<p>但Python开发项目时往往需要不同版本，不同的第三方包，如果用传统方法难以管理；因此现在的主流方法是：</p>
+<ul>
+<li>安装Anaconda或miniconda等Python集成包；</li>
+<li>使用conda创建并启动一个Python环境；</li>
+<li>安装jupyter编辑器编写python。</li>
+</ul>
+<p>在<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.anaconda.com/">Anaconda官网</a>下载并安装，安装成功后，命令行中敲<code>conda info</code>，会显示conda的版本和python的版本等详细信息；再敲<code>conda list</code>，会列出当前环境下所有安装的包。</p>
+<p>安装好了Anaconda，就相当于同时有了Python、环境管理器、包管理器以及一大堆开箱即用的科学计算工具包。</p>
+<blockquote>
+<p>linux中安装Miniconda</p>
+</blockquote>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># Miniconda安装脚本
+</span><span style="color:#ffb964;">wget</span><span> https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+</span><span style="color:#888888;"># 执行以下命令启动安装程序：
+</span><span style="color:#ffb964;">bash</span><span> Miniconda3-latest-Linux-x86_64.sh
+</span><span style="color:#888888;"># 验证安装
+</span><span style="color:#ffb964;">conda --version
+</span></code></pre>
+<h2 id="shi-yong">使用</h2>
+<ul>
+<li>创建环境，后面的python=3.6是指定python的版本</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> create</span><span style="color:#ffb964;"> --name</span><span> env_name python=3.6
+</span></code></pre>
+<ul>
+<li>创建包含某些包的环境（也可以加上版本信息）</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> create</span><span style="color:#ffb964;"> --name</span><span> env_name python=3.7 numpy scrapy
+</span></code></pre>
+<ul>
+<li>激活某个环境</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> activate env_name
+</span></code></pre>
+<ul>
+<li>关闭某个环境</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> deactivate env_name
+</span></code></pre>
+<ul>
+<li>复制某个环境</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> create</span><span style="color:#ffb964;"> --name</span><span> new_env_name</span><span style="color:#ffb964;"> --clone</span><span> old_env_name
+</span></code></pre>
+<ul>
+<li>删除某个环境</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> remove</span><span style="color:#ffb964;"> --name</span><span> env_name</span><span style="color:#ffb964;"> --all
+</span></code></pre>
+<ul>
+<li>生成需要分享环境的yml文件（需要在虚拟环境中执行）</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> env export &gt; environment.yml
+</span></code></pre>
+<ul>
+<li>在本地使用yml文件创建虚拟环境</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> env create</span><span style="color:#ffb964;"> -f</span><span> environment.yml
+</span></code></pre>
+<ul>
+<li>列出本机的所有环境，如下，可见当前有2个环境，当前激活的是test环境：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>(</span><span style="color:#ffb964;">test</span><span>) ➜  </span><span style="color:#ffb964;">~</span><span> conda info</span><span style="color:#ffb964;"> -e
+</span><span style="color:#ffb964;">-</span><span> conda environments:
+</span><span style="color:#888888;">#
+</span><span style="color:#ffb964;">base</span><span>                     /Volumes/300g/opt/anaconda3
+</span><span style="color:#ffb964;">test                  </span><span>*  /Volumes/300g/opt/anaconda3/envs/test
+</span></code></pre>
+<h3 id="bao-guan-li">包管理</h3>
+<ul>
+<li>列出当前环境下所有安装的包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> list
+</span></code></pre>
+<ul>
+<li>列举一个指定环境下的所有包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> list</span><span style="color:#ffb964;"> -n</span><span> env_name
+</span></code></pre>
+<ul>
+<li>查询库</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> search scrapys
+</span></code></pre>
+<ul>
+<li>安装库安装时可以指定版本例如：（scrapy=1.5.0）</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> install scrapy
+</span></code></pre>
+<ul>
+<li>为指定环境安装某个包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> install</span><span style="color:#ffb964;"> --name</span><span> target_env_name package_name
+</span></code></pre>
+<ul>
+<li>更新安装的库</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> update scrapy
+</span></code></pre>
+<ul>
+<li>更新指定环境某个包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> update</span><span style="color:#ffb964;"> -n</span><span> target_env_name package_name
+</span></code></pre>
+<ul>
+<li>更新所有包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> update</span><span style="color:#ffb964;"> --all
+</span></code></pre>
+<ul>
+<li>删除已经安装的库</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> remove scrapy
+</span></code></pre>
+<ul>
+<li>删除指定环境某个包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> remove</span><span style="color:#ffb964;"> -n</span><span> target_env_name package_name
+</span></code></pre>
+<ul>
+<li>更多命令请查看官方文档或者查询帮助命令：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda --help
+</span><span>
+</span><span style="color:#ffb964;">conda</span><span> install</span><span style="color:#ffb964;"> --help
+</span></code></pre>
+<h2 id="jupytershi-yong">Jupyter使用</h2>
+<p>安装Anaconda并启动一个环境之后，如何让Jupyter Notebook在我们要的环境中启动呢？</p>
+<ul>
+<li>安装jupyter</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> install jupyter notebook
+</span></code></pre>
+<ul>
+<li>配置虚拟机中允许宿主机访问</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 生成配置
+</span><span style="color:#ffb964;">jupyter</span><span> notebook</span><span style="color:#ffb964;"> --generate-config
+</span><span style="color:#888888;"># 编辑配置
+</span><span style="color:#ffb964;">nano ~</span><span>/.jupyter/jupyter_notebook_config.py
+</span><span style="color:#888888;"># 写入这三行
+</span><span style="color:#ffb964;">c.NotebookApp.ip</span><span> = </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">0.0.0.0</span><span style="color:#556633;">&#39;         </span><span style="color:#888888;"># 允许任何 IP 访问
+</span><span style="color:#ffb964;">c.NotebookApp.port</span><span> = 8888            </span><span style="color:#888888;"># 指定端口
+</span><span style="color:#ffb964;">c.NotebookApp.open_browser</span><span> = False   </span><span style="color:#888888;"># 不自动开浏览器
+</span><span style="color:#888888;"># 重启jupyter
+</span><span style="color:#ffb964;">jupyter</span><span> notebook
+</span></code></pre>
+<ul>
+<li>安装 ipykernel</li>
+</ul>
+<p>为了让 Jupyter Notebook 能识别该环境中的 Python 解释器，你需要在该环境中安装 ipykernel：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> install ipykernel
+</span></code></pre>
+<ul>
+<li>注册环境内核</li>
+</ul>
+<p>将该环境注册为 Jupyter 的一个内核（kernel），这样启动 Jupyter Notebook 后就能选择这个内核：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">python -m</span><span> ipykernel install</span><span style="color:#ffb964;"> --user --name</span><span> myenv</span><span style="color:#ffb964;"> --display-name </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Python (myenv)</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>这里 --name 指定内核的名称，--display-name 是在 Jupyter Notebook 界面中显示的名称，你可以根据需要自定义。</p>
+<ul>
+<li>启动 Jupyter Notebook：依然在激活后的环境中，启动 Jupyter Notebook；启动后，你在新建 notebook 时可以选择刚刚注册的内核 “Python (myenv)” 来确保使用该环境的 Python 解释器。</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">jupyter</span><span> notebook
+</span></code></pre>
+<ul>
+<li>汉化jupyter(可选)</li>
+</ul>
+<p>Jupyter Notebook 本身没有官方语言包，但可以用第三方扩展 <code>jupyter_contrib_nbextensions</code>和<code>notebook-translation</code>来实现部分汉化</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pip</span><span> install jupyter_contrib_nbextensions
+</span><span style="color:#ffb964;">jupyter</span><span> contrib nbextension install</span><span style="color:#ffb964;"> --user
+</span><span style="color:#ffb964;">pip</span><span> install jupyter-notebook-translation
+</span></code></pre>
+<blockquote>
+<p>当然，你也可以使用其他编辑器/IDE如 Sublime Text 或者 JetBrains 系列的 PyCharm 。</p>
+</blockquote>
+<h2 id="shi-yong-uv-ti-dai-conda">使用 UV 替代 Conda</h2>
+<blockquote>
+<p>UV（由 Astral 团队开发）是一个用 Rust 编写的高性能 Python 包管理器，提供类似 Conda 的虚拟环境管理和依赖解析功能，在大多数场景下比 pip 和 Conda 快 10–100 倍。它通过命令行工具如 <code>uv venv</code>（创建/管理虚拟环境）和 <code>uv pip</code>（安装/锁定/同步依赖）覆盖传统的 Conda 流程，但本身不管理底层的 C/C++ 库，因此对于 GDAL、SciPy 等需要系统级二进制依赖的包，仍建议先通过系统包管理器或 Conda 安装，然后用 UV 管理 Python 包。</p>
+</blockquote>
+<hr />
+<ul>
+<li>安装 UV</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">wget -qO-</span><span> https://astral.sh/uv/install.sh | </span><span style="color:#ffb964;">sh
+</span></code></pre>
+<ul>
+<li>创建与管理环境</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 创建虚拟环境，指定 Python 版本
+</span><span style="color:#ffb964;">uv</span><span> venv</span><span style="color:#ffb964;"> --python</span><span> 3.12
+</span><span>
+</span><span style="color:#888888;"># 激活环境
+</span><span>source .venv/bin/activate
+</span><span>
+</span><span style="color:#888888;"># 退出环境
+</span><span style="color:#ffb964;">deactivate
+</span><span>
+</span><span style="color:#888888;"># 删除环境
+</span><span style="color:#ffb964;">rm -rf</span><span> .venv
+</span></code></pre>
+<ul>
+<li>直接运行</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> run python
+</span><span style="color:#ffb964;">uv</span><span> run jupyter lab
+</span></code></pre>
+<ul>
+<li>注册 Jupyter 内核</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> run python</span><span style="color:#ffb964;"> -m</span><span> ipykernel install</span><span style="color:#ffb964;"> --user --name</span><span> bank</span><span style="color:#ffb964;"> --display-name </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Python (bank)</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<hr />
+<ul>
+<li>安装依赖</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> add tensorflow
+</span><span style="color:#ffb964;">uv</span><span> pip install requests fastapi uvicorn sqlalchemy
+</span></code></pre>
+<blockquote>
+<p>安装完成后，UV 会自动更新 <code>uv.lock</code> 文件锁定依赖版本，保证环境可复现。</p>
+</blockquote>
+<ul>
+<li>使用 TOML 配置管理依赖</li>
+</ul>
+<p>创建一个 <code>pyproject.toml</code>：</p>
+<pre data-lang="toml" style="background-color:#151515;color:#e8e8d3;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#ffb964;">tool</span><span>.</span><span style="color:#ffb964;">uv</span><span>.</span><span style="color:#ffb964;">dependencies</span><span>]
+</span><span style="color:#ffb964;">fastapi </span><span>= </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">*</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">uvicorn </span><span>= </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">*</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">sqlalchemy </span><span>= </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">*</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>然后同步环境：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> pip sync
+</span></code></pre>
+<p>这会根据 <code>pyproject.toml</code> + <code>uv.lock</code> 安装和锁定所有依赖。</p>
+<ul>
+<li>查看与卸载包</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> pip list          </span><span style="color:#888888;"># 列出已安装包
+</span><span style="color:#ffb964;">uv</span><span> pip uninstall numpy
+</span></code></pre>
+<ul>
+<li>更新UV自身</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uv</span><span> self update
+</span></code></pre>
+<hr />
+<h3 id="ti-dai-chang-jian-conda-gong-zuo-liu">替代常见 Conda 工作流</h3>
+<table><thead><tr><th>Conda 操作</th><th>UV 对应</th></tr></thead><tbody>
+<tr><td><code>conda create -n env python=3.x</code></td><td><code>uv venv --python 3.x</code></td></tr>
+<tr><td><code>conda activate env</code></td><td><code>source .venv/bin/activate</code> 或 <code>uv venv activate</code></td></tr>
+<tr><td><code>conda install pkg1 pkg2</code></td><td><code>uv pip install pkg1 pkg2</code></td></tr>
+<tr><td><code>conda env export &gt; env.yml</code></td><td>自动生成 <code>uv.lock</code> 或 <code>uv pip compile requirements.in</code></td></tr>
+<tr><td><code>conda env update -f env.yml</code></td><td><code>uv pip sync</code>（根据 <code>uv.lock</code> 或 <code>pyproject.toml</code> 同步）</td></tr>
+<tr><td><code>conda list</code></td><td><code>uv pip list</code></td></tr>
+</tbody></table>
+<h2 id="ipynbzhuan-markdown">ipynb转markdown</h2>
+<p>首先安装 nbformat 和 nbconvert包：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">conda</span><span> install nbformat nbconvert</span><span style="color:#ffb964;"> -y
+</span><span style="color:#ffb964;">touch</span><span> ipynb2md.py &amp;&amp; </span><span style="color:#ffb964;">nano</span><span> ipynb2md.py
+</span></code></pre>
+<p>写入以下脚本：</p>
+<pre data-lang="python" style="background-color:#151515;color:#e8e8d3;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#8fbfdc;">import </span><span>nbformat
+</span><span style="color:#8fbfdc;">from </span><span>nbconvert </span><span style="color:#8fbfdc;">import </span><span>MarkdownExporter
+</span><span style="color:#8fbfdc;">from </span><span>pathlib </span><span style="color:#8fbfdc;">import </span><span>Path
+</span><span>
+</span><span style="color:#8fbfdc;">def </span><span style="color:#fad07a;">ipynb_to_md</span><span>(</span><span style="color:#ffb964;">ipynb_path</span><span>: Path, </span><span style="color:#ffb964;">output_dir</span><span>: Path):
+</span><span>    </span><span style="color:#888888;">&quot;&quot;&quot;单个 ipynb 转 md&quot;&quot;&quot;
+</span><span>    </span><span style="color:#8fbfdc;">with </span><span style="color:#ffb964;">open</span><span>(ipynb_path, </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">r</span><span style="color:#556633;">&quot;</span><span>, </span><span style="color:#ffb964;">encoding</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">utf-8</span><span style="color:#556633;">&quot;</span><span>) </span><span style="color:#8fbfdc;">as </span><span>f:
+</span><span>        nb = nbformat.</span><span style="color:#ffb964;">read</span><span>(f, </span><span style="color:#ffb964;">as_version</span><span>=</span><span style="color:#cf6a4c;">4</span><span>)
+</span><span>
+</span><span>    exporter = </span><span style="color:#ffb964;">MarkdownExporter</span><span>()
+</span><span>    body, resources = exporter.</span><span style="color:#ffb964;">from_notebook_node</span><span>(nb)
+</span><span>
+</span><span>    output_file = output_dir / (ipynb_path.stem + </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">.md</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>    </span><span style="color:#8fbfdc;">with </span><span style="color:#ffb964;">open</span><span>(output_file, </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">w</span><span style="color:#556633;">&quot;</span><span>, </span><span style="color:#ffb964;">encoding</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">utf-8</span><span style="color:#556633;">&quot;</span><span>) </span><span style="color:#8fbfdc;">as </span><span>f:
+</span><span>        f.</span><span style="color:#ffb964;">write</span><span>(body)
+</span><span>
+</span><span>    </span><span style="color:#ffb964;">print</span><span>(</span><span style="color:#8fbfdc;">f</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">✔ 转换完成: </span><span>{ipynb_path}</span><span style="color:#99ad6a;"> -&gt; </span><span>{output_file}</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>
+</span><span style="color:#8fbfdc;">def </span><span style="color:#fad07a;">batch_convert</span><span>(</span><span style="color:#ffb964;">input_dir</span><span>: str, </span><span style="color:#ffb964;">output_dir</span><span>: str = </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">markdown_output</span><span style="color:#556633;">&quot;</span><span>):
+</span><span>    input_dir = </span><span style="color:#ffb964;">Path</span><span>(input_dir)
+</span><span>    output_dir = </span><span style="color:#ffb964;">Path</span><span>(output_dir)
+</span><span>    output_dir.</span><span style="color:#ffb964;">mkdir</span><span>(</span><span style="color:#ffb964;">parents</span><span>=True, </span><span style="color:#ffb964;">exist_ok</span><span>=True)
+</span><span>
+</span><span>    </span><span style="color:#8fbfdc;">for </span><span>ipynb_file </span><span style="color:#8fbfdc;">in </span><span>input_dir.</span><span style="color:#ffb964;">glob</span><span>(</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">*.ipynb</span><span style="color:#556633;">&quot;</span><span>):
+</span><span>        </span><span style="color:#ffb964;">ipynb_to_md</span><span>(ipynb_file, output_dir)
+</span><span>
+</span><span style="color:#8fbfdc;">if </span><span>__name__ == </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">__main__</span><span style="color:#556633;">&quot;</span><span>:
+</span><span>    </span><span style="color:#888888;"># 修改这里的目录路径即可
+</span><span>    </span><span style="color:#ffb964;">batch_convert</span><span>(</span><span style="color:#ffb964;">input_dir</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">.</span><span style="color:#556633;">&quot;</span><span>)
+</span></code></pre>
+<p>运行脚本：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">python</span><span> ipynb2md.py
+</span></code></pre>
+<p>脚本会自动扫描当前目录下的所有 .ipynb 文件，并把 .md 文件输出到 markdown_output/ 文件夹。</p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/windows-4-use/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Windows系列(4):高效操作与强化</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/windows-6-c/">
+                            <span class="button__text">Windows系列(6):C&#x2F;C++开发配置</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang">安装</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#shi-yong">使用</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#bao-guan-li">包管理</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#jupytershi-yong">Jupyter使用</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#shi-yong-uv-ti-dai-conda">使用 UV 替代 Conda</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ti-dai-chang-jian-conda-gong-zuo-liu">替代常见 Conda 工作流</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#ipynbzhuan-markdown">ipynb转markdown</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

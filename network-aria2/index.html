@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-aria2/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-aria2/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-aria2/">下载系列(3):Aria2使用指南</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-04-15
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Aria2是一款开源、跨平台的命令行界面下载管理器，常常被各种下载器软件使用。</p>
+<span id="continue-reading"></span><h2 id="jie-shao">介绍</h2>
+<p>在上网的时候，我们可能需要下载一些东西，而浏览器自带的下载比较缓慢。为此，许多人安装了类似IDM或者Motrix等等软件，用多线程来加速下载。其实，许多开源的下载器就是Aria2的前端，我们可以直接使用Aria2进行下载。</p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/aria2/aria2">Aria2</a>是一款开源、跨平台的命令行界面下载管理器，支持的下载协议有：<code>HTTP、HTTPS、FTP、Bittorrent 和 Metalink</code>。它以高效、轻量和灵活著称，适用于需要批量下载、自动化任务或远程控制的用户。</p>
+<p>Aria2 有以下几个特点：</p>
+<ul>
+<li><code>多连接下载</code>：可以从多个来源/协议下载文件并尝试利用您的最大下载带宽，真正加快您的下载体验；</li>
+<li><code>轻量</code>：不需要太多内存和 CPU 时间；</li>
+<li><code>全功能的 BitTorrent 客户端</code>：BitTorrent 客户端的所有功能都可用,，如 DHT、PEX、加密、Magnet URI、网络播种、选择性下载、本地对等发现和 UDP 跟踪器；</li>
+<li><code>支持Metalink</code>：支持 Metalink 下载描述格式。 在下载中使用 Metalink 数据块的校验和自动验证下载的数据部分；</li>
+<li><code>远程控制</code>：支持 RPC 接口来控制 aria2 进程。 支持的接口是 JSON-RPC（通过 HTTP 和 WebSocket）和 XML-RPC。</li>
+</ul>
+<p>要<strong>使用Aria2来替代浏览器自带的下载</strong>，一般需要三个条件：</p>
+<ol>
+<li>在系统中安装Aria2,并设置环境变量和开机自启；</li>
+<li>让Aria2接管浏览器的下载；</li>
+<li>需要一个前端面板来更方便的控制Aria2(可选).</li>
+</ol>
+<h2 id="an-zhuang">安装</h2>
+<h3 id="windows">Windows</h3>
+<p>首先在Github下载aria2<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/aria2/aria2/releases/tag/release-1.37.0">aria2-1.37.0-win-64bit-build1.zip</a>，将下载好的文件解压并放到你喜欢的目录下，这里放到<code>D:\Software\aria2\aria2c.exe</code></p>
+<p>然后在同一个目录下创建一个配置文件<code>aria2.conf</code>，内容如下：</p>
+<pre data-lang="conf" style="background-color:#151515;color:#e8e8d3;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#888888;"># 下载目录
+</span><span style="color:#ffb964;">dir</span><span>=C:/Users/&lt;你的用户名&gt;/Downloads
+</span><span>
+</span><span style="color:#888888;"># 断点续传
+</span><span style="color:#ffb964;">continue</span><span>=true
+</span><span style="color:#ffb964;">file-allocation</span><span>=prealloc
+</span><span>
+</span><span style="color:#888888;"># RPC 设置
+</span><span style="color:#ffb964;">enable-rpc</span><span>=true
+</span><span style="color:#ffb964;">rpc-listen-all</span><span>=true
+</span><span style="color:#ffb964;">rpc-allow-origin-all</span><span>=true
+</span><span style="color:#ffb964;">rpc-listen-port</span><span>=</span><span style="color:#cf6a4c;">6800
+</span><span style="color:#ffb964;">rpc-secret</span><span>=&lt;设置一个密码&gt;
+</span></code></pre>
+<p>随后使用winfet安装servy，servy是一个将任何应用变成原生 Windows 服务的软件，可以让aria2服务开机自启动，类似linux上的systemctl.</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>winget install servy
+</span></code></pre>
+<p>安装完成后打开管理员权限的powershell，运行以下命令，注意路径要和你实际的路径相同：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">servy-cli</span><span> install `
+</span><span>  </span><span style="color:#ffb964;">--name</span><span> aria2 `
+</span><span>  </span><span style="color:#ffb964;">--displayName </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">aria2 download service</span><span style="color:#556633;">&quot; </span><span>`
+</span><span>  </span><span style="color:#ffb964;">--description </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">aria2 background download daemon</span><span style="color:#556633;">&quot; </span><span>`
+</span><span>  </span><span style="color:#ffb964;">--path</span><span> D:\Software\aria2\aria2c.exe `
+</span><span>  </span><span style="color:#ffb964;">--params</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">--conf-path=D:\Software\aria2\aria2.conf</span><span style="color:#556633;">&quot; </span><span>`
+</span><span>  </span><span style="color:#ffb964;">--startupDir</span><span> D:\Software\aria2 `
+</span><span>  </span><span style="color:#ffb964;">--startupType</span><span> Automatic `
+</span><span>  </span><span style="color:#ffb964;">--recoveryAction</span><span> RestartProcess `
+</span><span>  </span><span style="color:#ffb964;">--stdout</span><span> D:\Software\aria2\stdout.log `
+</span><span>  </span><span style="color:#ffb964;">--stderr</span><span> D:\Software\aria2\stderr.log
+</span></code></pre>
+<p>随后使用<code>servy-cli start --name aria2</code>开启服务，并使用<code>servy-cli status --name aria2</code>查看服务，在running中则一切正常！现在可以到本文的末尾安装浏览器插件并连接使用。</p>
+<blockquote>
+<p>注意修改用户名！</p>
+</blockquote>
+<h3 id="arch-linux">Arch linux</h3>
+<p>Arch linux 和大部分常规发行版可以适用此方法。</p>
+<p>首先安装aria2本体:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">paru -S</span><span> aria2
+</span></code></pre>
+<p>随后创建配置文件</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nano</span><span> /home/&lt;you-username&gt;/.config/aria2/aria2.conf
+</span></code></pre>
+<p>内容为</p>
+<pre data-lang="conf" style="background-color:#151515;color:#e8e8d3;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#ffb964;">enable-rpc</span><span>=true
+</span><span style="color:#ffb964;">rpc-listen-all</span><span>=true
+</span><span style="color:#ffb964;">rpc-allow-origin-all</span><span>=true
+</span><span style="color:#ffb964;">rpc-listen-port</span><span>=</span><span style="color:#cf6a4c;">6800
+</span><span style="color:#ffb964;">continue</span><span>=true
+</span><span style="color:#ffb964;">dir</span><span>=/home/&lt;you-username&gt;/Downloads
+</span><span style="color:#ffb964;">input-file</span><span>=/home/&lt;you-username&gt;/.config/aria2/aria2.session
+</span><span style="color:#ffb964;">save-session</span><span>=/home/&lt;you-username&gt;/.config/aria2/aria2.session
+</span><span style="color:#ffb964;">save-session-interval</span><span>=</span><span style="color:#cf6a4c;">60
+</span></code></pre>
+<p>保存退出；随后创建守护进程以便开机自启动：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nano ~</span><span>/.config/systemd/user/aria2.service
+</span></code></pre>
+<p>写入：</p>
+<pre data-lang="conf" style="background-color:#151515;color:#e8e8d3;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#8fbfdc;">[Unit]
+</span><span style="color:#ffb964;">Description</span><span>=Aria2 Daemon
+</span><span style="color:#ffb964;">After</span><span>=network.target
+</span><span>
+</span><span style="color:#8fbfdc;">[Service]
+</span><span style="color:#ffb964;">ExecStart</span><span>=/usr/bin/aria2c --conf-path=/home/&lt;you-username&gt;/.config/aria2/aria2.conf
+</span><span style="color:#ffb964;">Restart</span><span>=on-failure
+</span><span>
+</span><span style="color:#8fbfdc;">[Install]
+</span><span style="color:#ffb964;">WantedBy</span><span>=default.target
+</span></code></pre>
+<p>在更新配置文件和服务文件后，执行以下命令以重启服务：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">systemctl --user</span><span> daemon-reload
+</span><span style="color:#ffb964;">systemctl --user</span><span> enable aria2.service
+</span><span style="color:#ffb964;">systemctl --user</span><span> start aria2.service
+</span></code></pre>
+<p>使用以下命令检查服务状态:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">systemctl --user</span><span> status aria2.service
+</span></code></pre>
+<p>现在可以到本文的末尾安装浏览器插件并连接使用。</p>
+<h3 id="nixos">Nixos</h3>
+<pre data-lang="nix" style="background-color:#151515;color:#e8e8d3;" class="language-nix "><code class="language-nix" data-lang="nix"><span>{ </span><span style="color:#ffb964;">lib</span><span>, </span><span style="color:#ffb964;">pkgs</span><span>, </span><span style="color:#ffb964;">username</span><span>, ... }:
+</span><span>{
+</span><span>  </span><span style="color:#ffb964;">services</span><span>.</span><span style="color:#ffb964;">aria2</span><span>.</span><span style="color:#ffb964;">enable </span><span>= false;
+</span><span>  </span><span style="color:#ffb964;">systemd</span><span>.</span><span style="color:#ffb964;">services</span><span>.</span><span style="color:#ffb964;">aria2 </span><span>= {
+</span><span>    </span><span style="color:#ffb964;">description </span><span>= </span><span style="color:#99ad6a;">&quot;Aria2 Download Manager (dich)&quot;</span><span>;
+</span><span>    </span><span style="color:#ffb964;">after </span><span>= [ </span><span style="color:#99ad6a;">&quot;network.target&quot; </span><span>];
+</span><span>    </span><span style="color:#ffb964;">wants </span><span>= [ </span><span style="color:#99ad6a;">&quot;network.target&quot; </span><span>];
+</span><span>    </span><span style="color:#ffb964;">wantedBy </span><span>= [ </span><span style="color:#99ad6a;">&quot;multi-user.target&quot; </span><span>];
+</span><span>
+</span><span>    </span><span style="color:#ffb964;">serviceConfig </span><span>= {
+</span><span>      </span><span style="color:#ffb964;">Type </span><span>= </span><span style="color:#99ad6a;">&quot;simple&quot;</span><span>;
+</span><span>      </span><span style="color:#ffb964;">User </span><span>= </span><span style="color:#ffb964;">username</span><span>;
+</span><span>
+</span><span>      </span><span style="color:#ffb964;">ExecStartPre </span><span>= [
+</span><span>        </span><span style="color:#99ad6a;">&quot;${</span><span style="color:#ffb964;">pkgs</span><span style="color:#99ad6a;">.</span><span style="color:#ffb964;">coreutils</span><span style="color:#99ad6a;">}/bin/mkdir -p /home/${</span><span style="color:#ffb964;">username</span><span style="color:#99ad6a;">}/.config/aria2&quot;
+</span><span>        </span><span style="color:#99ad6a;">&quot;${</span><span style="color:#ffb964;">pkgs</span><span style="color:#99ad6a;">.</span><span style="color:#ffb964;">coreutils</span><span style="color:#99ad6a;">}/bin/touch /home/${</span><span style="color:#ffb964;">username</span><span style="color:#99ad6a;">}/.config/aria2/aria2.session&quot;
+</span><span>      ];
+</span><span>
+</span><span>      </span><span style="color:#ffb964;">ExecStart </span><span>= </span><span style="color:#99ad6a;">&quot;${</span><span style="color:#ffb964;">pkgs</span><span style="color:#99ad6a;">.</span><span style="color:#ffb964;">aria2</span><span style="color:#99ad6a;">}/bin/aria2c --conf-path=/home/${</span><span style="color:#ffb964;">username</span><span style="color:#99ad6a;">}/.config/aria2/aria2.conf&quot;</span><span>;
+</span><span>
+</span><span>      </span><span style="color:#ffb964;">Restart </span><span>= </span><span style="color:#99ad6a;">&quot;always&quot;</span><span>;
+</span><span>      </span><span style="color:#ffb964;">RestartSec </span><span>= </span><span style="color:#99ad6a;">&quot;5s&quot;</span><span>;
+</span><span>
+</span><span>      </span><span style="color:#ffb964;">NoNewPrivileges </span><span>= true;
+</span><span>      </span><span style="color:#ffb964;">PrivateTmp </span><span>= true;
+</span><span>    };
+</span><span>  };
+</span><span>}
+</span></code></pre>
+<p>现在可以到本文的末尾安装浏览器插件并连接使用。</p>
+<h2 id="ming-ling-xing-yong-fa">命令行用法</h2>
+<p>如果你不想用浏览器插件或者面板，也可以直接使用命令行操作：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c </span><span style="color:#8fbfdc;">[</span><span>选项</span><span style="color:#8fbfdc;">] [</span><span>URL | 磁力链接 | .torrent文件</span><span style="color:#8fbfdc;">]
+</span></code></pre>
+<h3 id="li-zi">例子：</h3>
+<ol>
+<li><strong>下载单个文件</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c</span><span> https://example.com/file.iso
+</span></code></pre>
+<ol start="2">
+<li><strong>指定保存路径和文件名</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c -d ~</span><span>/Downloads</span><span style="color:#ffb964;"> -o</span><span> ubuntu.iso https://releases.ubuntu.com/24.04/ubuntu.iso
+</span></code></pre>
+<ol start="3">
+<li><strong>同时下载多个文件</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c</span><span> https://example.com/file1.zip https://example.com/file2.zip
+</span></code></pre>
+<ol start="4">
+<li><strong>从文件读取 URL 列表</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c -i</span><span> urls.txt
+</span></code></pre>
+<p>（<code>urls.txt</code> 每行一个链接）</p>
+<ol start="7">
+<li><strong>下载 torrent 文件</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c</span><span> ubuntu.torrent
+</span></code></pre>
+<ol start="8">
+<li><strong>下载磁力链接</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">magnet:?xt=urn:btih:xxxxx...</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<ol start="9">
+<li><strong>限制 BT 上传</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">aria2c --max-upload-limit</span><span>=50K ubuntu.torrent
+</span></code></pre>
+<h2 id="liu-lan-qi-cha-jian">浏览器插件</h2>
+<p>如果你想让其直接接管浏览器下载,可以使用以下几种浏览器插件,它们都自带面板：</p>
+<p><strong>Chrome 浏览器</strong></p>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/alexhua/Aria2-Explorer">Aria2 Explorer</a>是一款功能强大的扩展，能够自动拦截浏览器下载任务并自带Aria2-NG面板。</li>
+</ul>
+<p><strong>Firefox 浏览器</strong></p>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/RossWang/Aria2-Integration?tab=readme-ov-file">Aria2-Integration</a>也是一款 Firefox 拓展，拦截下载任务的同时带有 Aria2-NG面板，方便使用。</li>
+</ul>
+<blockquote>
+<p>注意！如果你前面配置中设置了rpc的密码，需要在面板中也写入才可连接成功。</p>
+</blockquote>
+<p><img src="/images/aria2-rpc.webp" alt="aria2-rpc" /></p>
+<h2 id="mian-ban">面板</h2>
+<p>如果你不想使用浏览器插件，也可以使用aria2+独立面板的方法，但这样就不能接管浏览器的下载，适合其他环境使用。</p>
+<p>这里推荐使用 AriaNg 前端，AriaNg 使用纯 html &amp; javascript 开发, 所以其不需要任何编译器或运行环境.</p>
+<p><img src="https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png" alt="ariang-1" /></p>
+<p>AriaNg 现在提供三种版本, <code>标准版、单文件版和 AriaNg Native. </code>标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里<code>建议使用单文件版或者Native版</code>,下之后打开其中的html并设为书签即可。</p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/mayswind/AriaNg/releases">单文件版(AllinOne)</a>
+<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/mayswind/AriaNg-Native/releases/tag/1.3.10">Native版</a></p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-yt-dlp/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">下载系列(2):Yt-dlp使用指南</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-syncthing/">
+                            <span class="button__text">网络艺术:Syncthing 使用指南</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#jie-shao">介绍</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang">安装</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#windows">Windows</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#arch-linux">Arch linux</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#nixos">Nixos</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#ming-ling-xing-yong-fa">命令行用法</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#li-zi">例子：</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#liu-lan-qi-cha-jian">浏览器插件</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#mian-ban">面板</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

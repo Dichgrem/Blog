@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-vscode/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-vscode/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-vscode/">乱七八糟:VScode那些事</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-05-23
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 VScode 素有世界最强IDE之称，有着丰富的插件系统，优秀的图形界面和极快的响应速度，本文介绍VSCode的一些使用技巧。</p>
+<span id="continue-reading"></span><h2 id="ai-cha-jian">AI 插件</h2>
+<table><thead><tr><th>插件名</th><th style="text-align: center">免费</th><th style="text-align: center">付费</th><th style="text-align: center">单模型</th><th style="text-align: center">多模型</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://marketplace.visualstudio.com/items?itemName=GitHub.copilot">GitHub Copilot</a></strong></td><td style="text-align: center">✔️（试用 / 学生优惠）</td><td style="text-align: center">✔️</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>主流 AI 编码助手，支持代码补全和聊天建议。(<a rel="noopener nofollow noreferrer" target="_blank" title="GitHub Copilot" href="https://marketplace.visualstudio.com/items?itemName=GitHub.copilot&amp;utm_source=chatgpt.com">Visual Studio Marketplace</a>)</td></tr>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://open-vsx.org/extension/openai/chatgpt">GPT (ChatGPT)</a></strong></td><td style="text-align: center">✔️</td><td style="text-align: center">✔️（API 模型）</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>基于 OpenAI 的 ChatGPT，可做代码解释/对话生成</td></tr>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://open-vsx.org/extension/Google/geminicodeassist">Gemini Code Assist</a></strong></td><td style="text-align: center">✔️</td><td style="text-align: center">❌</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>Google Gemini 驱动的智能编码助手</td></tr>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://open-vsx.org/extension/Anthropic/claude-code">Claude Code</a></strong></td><td style="text-align: center">❓（账户权限）</td><td style="text-align: center">✔️</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>Anthropic Claude 驱动的编码助手</td></tr>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://open-vsx.org/extension/saoudrizwan/claude-dev">Cline (claude-dev)</a></strong></td><td style="text-align: center">✔️</td><td style="text-align: center">❌</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>社区版 Claude 型 AI 编码插件</td></tr>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://open-vsx.org/extension/AMiner/codegeex">CodeGeeX</a></strong></td><td style="text-align: center">✔️</td><td style="text-align: center">❌</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>开源多模型 AI код助手</td></tr>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://open-vsx.org/extension/sst-dev/opencode">OpenCode</a></strong></td><td style="text-align: center">✔️</td><td style="text-align: center">❌</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>多模型聚合，可接多种后端</td></tr>
+<tr><td><strong><a rel="noopener nofollow noreferrer" target="_blank" href="https://open-vsx.org/extension/Codeium/codeium">Windsurf (Codeium)</a></strong></td><td style="text-align: center">✔️</td><td style="text-align: center">❌</td><td style="text-align: center">❌</td><td style="text-align: center">✔️</td><td>轻量级 AI 代码补全助手（Codeium 改名）</td></tr>
+</tbody></table>
+<h2 id="vs-code-kuai-jie-jian">VS Code 快捷键</h2>
+<h3 id="jie-mian-gai-lan">界面概览</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + shift + e</code></td><td>文件资源管理器</td></tr>
+<tr><td><code>cmd + shift + f</code></td><td>跨文件搜索</td></tr>
+<tr><td><code>ctrl + shift + g</code></td><td>源代码管理</td></tr>
+<tr><td><code>cmd + shift + d</code></td><td>启动和调试</td></tr>
+<tr><td><code>cmd + shift + x</code></td><td>扩展管理</td></tr>
+<tr><td><code>cmd + shift + p</code></td><td>查找并运行所有命令</td></tr>
+<tr><td><code>cmd + j</code></td><td>打开、关闭面板</td></tr>
+</tbody></table>
+<h3 id="ming-ling-xing-de-shi-yong">命令行的使用</h3>
+<table><thead><tr><th>命令</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>code $path</code></td><td>新窗口中打开文件或文件夹</td></tr>
+<tr><td><code>code -r $path</code></td><td>窗口复用打开文件</td></tr>
+<tr><td><code>code -r -g $file:lineno</code></td><td>打开文件并跳转到指定行</td></tr>
+<tr><td><code>code -r -d $file1 $file2</code></td><td>比较两个文件</td></tr>
+<tr><td><code>ls code -</code></td><td>查看可用命令</td></tr>
+</tbody></table>
+<h3 id="guang-biao-yi-dong">光标移动</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>option + 左/右方向键</code></td><td>按单词移动光标</td></tr>
+<tr><td><code>cmd + 左/右方向键</code></td><td>移动到行首/行尾</td></tr>
+<tr><td><code>cmd + shift + \</code></td><td>在花括号之间跳转</td></tr>
+<tr><td><code>cmd + 上/下方向键</code></td><td>移动到文档首/尾</td></tr>
+</tbody></table>
+<h3 id="wen-ben-xuan-ze">文本选择</h3>
+<ul>
+<li>使用 <code>shift + 光标移动</code> 进行文本选择。</li>
+</ul>
+<h3 id="shan-chu-cao-zuo">删除操作</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + fn + del</code></td><td>删除到行尾</td></tr>
+<tr><td><code>cmd + del</code></td><td>删除到行首</td></tr>
+<tr><td><code>option + del</code></td><td>向前删除单词</td></tr>
+<tr><td><code>option + fn + del</code></td><td>向后删除单词</td></tr>
+</tbody></table>
+<h3 id="dai-ma-xing-bian-ji">代码行编辑</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + shift + k</code></td><td>删除行</td></tr>
+<tr><td><code>cmd + x</code></td><td>剪切行</td></tr>
+<tr><td><code>cmd + enter</code></td><td>在当前行下方插入新行</td></tr>
+<tr><td><code>cmd + shift + enter</code></td><td>在当前行上方插入新行</td></tr>
+<tr><td><code>option + 上/下方向键</code></td><td>移动当前行</td></tr>
+<tr><td><code>option + shift + 上/下方向键</code></td><td>复制当前行</td></tr>
+<tr><td><code>cmd + /</code></td><td>注释/取消注释当前行</td></tr>
+<tr><td><code>option + shift + a</code></td><td>注释/取消注释代码块</td></tr>
+<tr><td><code>option + shift + f</code></td><td>格式化代码</td></tr>
+<tr><td><code>cmd + k cmd + f</code></td><td>格式化选中代码</td></tr>
+<tr><td><code>ctrl + t</code></td><td>调换光标前后字符</td></tr>
+<tr><td><code>cmd + shift + p</code> + <code>transform to up/low case</code></td><td>转换大小写</td></tr>
+<tr><td><code>ctrl + j</code></td><td>合并代码行</td></tr>
+<tr><td><code>cmd + u</code></td><td>撤销光标移动</td></tr>
+</tbody></table>
+<h3 id="chuang-jian-duo-ge-guang-biao">创建多个光标</h3>
+<ul>
+<li>使用鼠标：<code>option + 鼠标左键</code></li>
+<li>使用键盘：</li>
+</ul>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + option + 上/下方向键</code></td><td>创建多个光标</td></tr>
+<tr><td><code>cmd + d</code></td><td>选中相同单词并创建多个光标</td></tr>
+<tr><td><code>option + shift + i</code></td><td>在选中的多行后创建光标</td></tr>
+</tbody></table>
+<h3 id="wen-jian-tiao-zhuan">文件跳转</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>ctrl + tab</code></td><td>文件标签之间跳转</td></tr>
+<tr><td><code>cmd + p</code></td><td>打开文件列表</td></tr>
+</tbody></table>
+<h3 id="xing-tiao-zhuan">行跳转</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>ctrl + g</code></td><td>跳转到指定行</td></tr>
+</tbody></table>
+<h3 id="fu-hao-tiao-zhuan">符号跳转</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + shift + o</code></td><td>当前文件所有符号列表</td></tr>
+<tr><td><code>@:</code></td><td>符号分类排列</td></tr>
+<tr><td><code>cmd + t</code></td><td>在多个文件中进行符号跳转</td></tr>
+<tr><td><code>cmd + F12</code></td><td>跳转到函数的实现位置</td></tr>
+<tr><td><code>shift + F12</code></td><td>查看函数引用列表</td></tr>
+<tr><td><code>ctrl + -</code></td><td>跳回上一次光标所在位置</td></tr>
+<tr><td><code>ctrl + shift + -</code></td><td>跳回下一次光标所在位置</td></tr>
+</tbody></table>
+<h3 id="dai-ma-zi-dong-bu-quan">代码自动补全</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>ctrl + space</code></td><td>调出建议列表</td></tr>
+<tr><td><code>cmd + shift + space</code></td><td>调出参数预览窗口</td></tr>
+<tr><td><code>cmd + .</code></td><td>快速修复建议列表</td></tr>
+<tr><td><code>F2</code></td><td>函数名重构</td></tr>
+</tbody></table>
+<h3 id="dai-ma-zhe-die">代码折叠</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + option + [</code></td><td>最内层折叠</td></tr>
+<tr><td><code>cmd + option + ]</code></td><td>最内层展开</td></tr>
+<tr><td><code>cmd + k cmd + 0</code></td><td>全部折叠</td></tr>
+<tr><td><code>cmd + k cmd + j</code></td><td>全部展开</td></tr>
+</tbody></table>
+<h3 id="sou-suo">搜索</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + f</code></td><td>搜索</td></tr>
+<tr><td><code>cmd + g</code></td><td>搜索并跳转</td></tr>
+<tr><td><code>cmd + option + f</code></td><td>查找替换</td></tr>
+<tr><td><code>cmd + shift + f</code></td><td>多文件搜索</td></tr>
+</tbody></table>
+<h3 id="bian-ji-qi-cao-zuo">编辑器操作</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + \</code></td><td>拆分编辑器</td></tr>
+<tr><td><code>option + cmd + 左/右方向键</code></td><td>编辑器间切换</td></tr>
+<tr><td><code>cmd + 数字键</code></td><td>在拆分的编辑器窗口跳转</td></tr>
+<tr><td><code>cmd + /</code></td><td>缩放整个工作区</td></tr>
+<tr><td><code>cmd + shift + p</code> + <code>reset zoom</code></td><td>重置缩放</td></tr>
+</tbody></table>
+<h3 id="zhuan-zhu-mo-shi">专注模式</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + b</code></td><td>打开或关闭侧边栏</td></tr>
+<tr><td><code>cmd + j</code></td><td>打开或关闭面板</td></tr>
+<tr><td><code>cmd + shift + p</code> + <code>Toggle Zen Mode</code></td><td>切换禅模式</td></tr>
+<tr><td><code>cmd + shift + p</code> + <code>Toggle Centered Layout</code></td><td>切换居中布局</td></tr>
+</tbody></table>
+<h3 id="ming-ling-mian-ban">命令面板</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + shift + p</code></td><td>打开命令面板</td></tr>
+</tbody></table>
+<p>命令面板的前缀符号功能：</p>
+<ul>
+<li><code>?</code>：列出所有可用功能</li>
+<li><code>&gt;</code>：显示所有命令</li>
+<li><code>@</code>：显示并跳转文件中的符号</li>
+<li><code>@:</code>：按类别归类符号</li>
+<li><code>#</code>：显示并跳转工作区中的符号</li>
+<li><code>:</code>：跳转到当前文件中的某一行</li>
+<li><code>edt</code>：显示所有已打开的文件</li>
+<li><code>edt active</code>：显示当前活动组中的文件</li>
+<li><code>ext</code>：插件管理</li>
+<li><code>ext install</code>：搜索和安装插件</li>
+<li><code>task</code>：任务管理</li>
+<li><code>debug</code>：调试功能</li>
+<li><code>term</code>：创建和管理终端实例</li>
+<li><code>view</code>：打开各个 UI 组件</li>
+</ul>
+<h3 id="chuang-kou-guan-li">窗口管理</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>ctrl + w</code></td><td>关闭当前窗口</td></tr>
+<tr><td><code>ctrl + r</code></td><td>切换文件夹</td></tr>
+<tr><td><code>ctrl + r</code> + <code>cmd + enter</code></td><td>新建窗口打开文件夹</td></tr>
+</tbody></table>
+<h3 id="ji-cheng-zhong-duan">集成终端</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>`ctrl + ``</td><td>切换集成终端</td></tr>
+<tr><td>`ctrl + shift + ``</td><td>新建集成终端</td></tr>
+<tr><td><code>cmd + shift + p</code> + <code>Run Active File In Active Terminal</code></td><td>在终端中运行当前文件</td></tr>
+<tr><td><code>cmd + shift + p</code> + <code>Run Selected Text In Active Terminal</code></td><td>在终端中运行选中文本</td></tr>
+</tbody></table>
+<h3 id="ren-wu-guan-li">任务管理</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>cmd + shift + p</code> + <code>run task</code></td><td>自动检测可运行的任务</td></tr>
+<tr><td><code>cmd + shift + p</code> + <code>Configure Task</code></td><td>配置任务</td></tr>
+<tr><td><code>cmd + shift + b</code></td><td>运行默认的生成任务</td></tr>
+</tbody></table>
+<h3 id="shu-biao-cao-zuo">鼠标操作</h3>
+<ul>
+<li>
+<p><strong>文本选择</strong>：</p>
+<ul>
+<li>双击：选中单词</li>
+<li>三击：选中一行</li>
+<li>四击：选中整个文档</li>
+<li>单击行号：选中整行</li>
+</ul>
+</li>
+<li>
+<p><strong>文本编辑</strong>：</p>
+<ul>
+<li>拖动选中文本：移动文本</li>
+<li>拖动时按住 <code>option</code>：复制文本</li>
+</ul>
+</li>
+<li>
+<p><strong>函数提示</strong>：</p>
+<ul>
+<li>在悬停窗口上按下 <code>cmd</code>：提示函数的实现</li>
+</ul>
+</li>
+</ul>
+<h2 id="liu-lan-qi-kuai-jie-jian">浏览器快捷键</h2>
+<h3 id="chang-yong">常用</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>Ctrl + A</td><td>全选</td></tr>
+<tr><td>Ctrl + C</td><td>复制</td></tr>
+<tr><td>Ctrl + X</td><td>剪切</td></tr>
+<tr><td>Ctrl + V</td><td>粘贴</td></tr>
+<tr><td>Ctrl + F</td><td>查找</td></tr>
+<tr><td>Ctrl + Q</td><td>退出</td></tr>
+<tr><td>Ctrl + T</td><td>新建标签页</td></tr>
+<tr><td>Ctrl + W</td><td>关闭标签页</td></tr>
+<tr><td>Ctrl + N</td><td>新建窗口</td></tr>
+<tr><td>Ctrl + Shift + P</td><td>新建隐私浏览窗口</td></tr>
+</tbody></table>
+<h3 id="li-shi">历史</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>Ctrl + H</td><td>历史侧栏</td></tr>
+<tr><td>Ctrl + Shift + H</td><td>我的足迹窗口（历史）</td></tr>
+<tr><td>Ctrl + Shift + Del</td><td>清除最近历史记录</td></tr>
+</tbody></table>
+<h3 id="shu-qian">书签</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>Ctrl + D</td><td>将此页加为书签</td></tr>
+<tr><td>Ctrl + I</td><td>页面信息</td></tr>
+<tr><td>Ctrl + Shift + O</td><td>显示全部书签（我的足迹窗口）</td></tr>
+<tr><td>Ctrl + B / Ctrl + Shift + B</td><td>书签侧栏 / 顶栏</td></tr>
+</tbody></table>
+<h3 id="xia-zai-yu-cha-jian">下载与插件</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>Ctrl + Shift + Y</td><td>下载</td></tr>
+<tr><td>Ctrl + Shift + A</td><td>附加组件 / 插件</td></tr>
+</tbody></table>
+<h3 id="kong-zhi-tai-yu-kai-fa">控制台与开发</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>Ctrl + Shift + K</td><td>Web 控制台</td></tr>
+<tr><td>Ctrl + Shift + C</td><td>查看器</td></tr>
+<tr><td>Shift + F7</td><td>样式编辑器</td></tr>
+<tr><td>Shift + F5</td><td>分析器</td></tr>
+<tr><td>Ctrl + Shift + E</td><td>网络</td></tr>
+<tr><td>Ctrl + U</td><td>页面源码</td></tr>
+<tr><td>Ctrl + Shift + J</td><td>浏览器控制台</td></tr>
+</tbody></table>
+<h3 id="biao-qian-ye-yu-jie-mian">标签页与界面</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>Ctrl + S</td><td>界面保存</td></tr>
+<tr><td>Ctrl + +</td><td>放大</td></tr>
+<tr><td>Ctrl + -</td><td>缩小</td></tr>
+<tr><td>Ctrl + 0</td><td>重置缩放</td></tr>
+<tr><td>Ctrl + K / J</td><td>搜索</td></tr>
+<tr><td>Ctrl + Home / End</td><td>到文件头 / 尾</td></tr>
+<tr><td>Ctrl + Page Up</td><td>切换到左边标签页</td></tr>
+<tr><td>Ctrl + Page Down</td><td>切换到右边标签页</td></tr>
+<tr><td>Ctrl + Shift + Page Up</td><td>当前标签页左移</td></tr>
+<tr><td>Ctrl + Shift + Page Down</td><td>当前标签页右移</td></tr>
+</tbody></table>
+<h3 id="qi-ta-cao-zuo">其他操作</h3>
+<table><thead><tr><th>快捷键</th><th>描述</th></tr></thead><tbody>
+<tr><td>Alt + Space</td><td>KDE 搜索栏</td></tr>
+<tr><td>Alt + → / ←</td><td>前进 / 后退</td></tr>
+<tr><td>Alt + 数字键</td><td>选择标签页（1–8）</td></tr>
+<tr><td>Alt + M</td><td>静音</td></tr>
+<tr><td>End</td><td>到达页尾</td></tr>
+<tr><td>Home</td><td>到达页首</td></tr>
+<tr><td>F6</td><td>地址栏</td></tr>
+</tbody></table>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-podcast-use/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:播客收听指北</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/windows-0-install/">
+                            <span class="button__text">Windows系列(0):系统安装与设置</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#ai-cha-jian">AI 插件</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#vs-code-kuai-jie-jian">VS Code 快捷键</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#jie-mian-gai-lan">界面概览</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ming-ling-xing-de-shi-yong">命令行的使用</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#guang-biao-yi-dong">光标移动</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#wen-ben-xuan-ze">文本选择</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#shan-chu-cao-zuo">删除操作</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#dai-ma-xing-bian-ji">代码行编辑</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#chuang-jian-duo-ge-guang-biao">创建多个光标</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#wen-jian-tiao-zhuan">文件跳转</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xing-tiao-zhuan">行跳转</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#fu-hao-tiao-zhuan">符号跳转</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#dai-ma-zi-dong-bu-quan">代码自动补全</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#dai-ma-zhe-die">代码折叠</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#sou-suo">搜索</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#bian-ji-qi-cao-zuo">编辑器操作</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#zhuan-zhu-mo-shi">专注模式</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ming-ling-mian-ban">命令面板</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#chuang-kou-guan-li">窗口管理</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ji-cheng-zhong-duan">集成终端</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#ren-wu-guan-li">任务管理</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#shu-biao-cao-zuo">鼠标操作</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#liu-lan-qi-kuai-jie-jian">浏览器快捷键</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#chang-yong">常用</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#li-shi">历史</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#shu-qian">书签</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xia-zai-yu-cha-jian">下载与插件</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#kong-zhi-tai-yu-kai-fa">控制台与开发</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#biao-qian-ye-yu-jie-mian">标签页与界面</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#qi-ta-cao-zuo">其他操作</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

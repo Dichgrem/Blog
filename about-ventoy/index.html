@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-ventoy/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-ventoy/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-ventoy/">乱七八糟:Ventoy战斗盘部署</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-02-14
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 ​Ventoy 是一款开源免费的多系统启动盘制作工具，这里说明其主要功能的制作流程。</p>
+<span id="continue-reading"></span><h3 id="jie-shao">介绍</h3>
+<p>​Ventoy 是一款开源免费的多系统启动盘制作工具，旨在简化操作系统的安装过程。​与传统的启动盘制作方法不同，Ventoy 允许用户将多个操作系统的镜像文件<code>如 ISO、WIM、IMG、VHD(x)、EFI 等</code>直接复制到 U 盘，无需反复格式化或使用专门的工具写入镜像。</p>
+<p><img src="https://www.ventoy.net/static/img/screen/screen_uefi_cn.png?v=4" alt="ventoy" /></p>
+<h2 id="mu-biao">目标</h2>
+<blockquote>
+<p>PE启动盘 / ISO系统安装盘 / Win-to-go / Linux-to-go / 文件存储 五功能合一</p>
+</blockquote>
+<h2 id="zhi-zuo-liu-cheng">制作流程</h2>
+<ul>
+<li>首先<code>在官网下载</code><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.ventoy.net/cn/download.html">Ventoy</a></li>
+<li>随后在<code>language</code>中改为中文显示，可以看到左上角有<code>配置选项</code></li>
+<li>将分区类型设置为<code>GPT</code>，开启安全启动支持；</li>
+<li>将<code>分区格式</code>设置为NTFS；</li>
+<li>随后在<code>分区设置</code>中进行分区，选择在<code>磁盘后保留一段空间</code>，这里的空间将不被分区，即为空闲空间，可以当作普通的文件存储盘；</li>
+<li>Ventoy分区则会使用<code>U盘总容量-保留空间-ventoy保留分区</code>的空间新建一个盘，这里可以放<code>ISO、WIM、IMG、VHD(x)、EFI</code>等等</li>
+<li>随后<code>选择磁盘</code>并开始安装；</li>
+<li>制作完成后即可使用 <code>BIOS Legacy</code>模式 或 <code>UEFI</code> 模式启动。</li>
+</ul>
+<blockquote>
+<p>注意不可在PE环境下安装Ventoy！</p>
+</blockquote>
+<h2 id="wen-jian-cun-chu-pan">文件存储盘</h2>
+<p>使用<code>DiskGenius</code>或其他磁盘工具，可以看到刚刚制作的磁盘有两个分区：ventoy保留分区(有文件)和Ventoy分区(无文件)以及一个空闲空间。</p>
+<p>将空闲空间<code>格式化并新建磁盘</code>，随后会出现一个新的可用盘，<code>可以用这个盘进行存储</code>。</p>
+<h2 id="peqi-dong-pan-zhi-zuo">PE启动盘制作</h2>
+<p>将PE的ISO文件放入Ventoy分区即可。常用PE:</p>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.wepe.com.cn/download.html">微PE</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/VirtualHotBar/HotPEToolBox">HotPE</a></li>
+</ul>
+<h2 id="isoxi-tong-an-zhuang-pan">ISO系统安装盘</h2>
+<p>将要安装的系统的ISO镜像放入Ventoy分区即可。常用系统:</p>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://ubuntu.com/download">Ubuntu</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://cdimage.debian.org/debian-cd/">Debian-DVD</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://massgrave.dev/genuine-installation-media">Windows</a></li>
+</ul>
+<h2 id="win-to-go">Win-to-go</h2>
+<p>Ventoy 使用名为ventoy_vhdboot插件来支持直接启动 VHD(x) 文件(Win7以上).支持 Legacy BIOS 和 UEFI 模式。<code>支持固定大小以及动态扩展类型</code>的 VHD/VHDX 格式。</p>
+<p>从下面任意一个链接中下载<code>ventoy_vhdboot.img</code>文件即可（几个链接中的文件都是一样的）。</p>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/ventoy/vhdiso/releases">Github</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://ventoy.lanzoub.com/b01dlxuaj">蓝奏云/密码7my4</a></li>
+</ul>
+<p>把下载后的文件放在U盘第1个分区（就是放ISO文件的分区）的 ventoy 目录下（默认没有这个目录，<code>需手动创建，注意大小写</code>），即 /ventoy/ventoy_vhdboot.img 就可以了。</p>
+<p>随后将vhd或vhdx后缀的Windows虚拟机镜像放入其中即可出现在启动栏。</p>
+<blockquote>
+<p>可以使用<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.virtualbox.org/">Virtualbox</a>创建Windows虚拟机并将镜像复制到ventoy中。</p>
+</blockquote>
+<h2 id="linux-to-go">Linux-to-go</h2>
+<p>Ventoy 使用<code>plugin_vtoyboot</code>插件来支持在物理机上直接启动安装了 Linux系统的 vdisk 文件 （vhd/vdi/raw 等）。这种模式的优点有：</p>
+<ul>
+<li>系统是在真实物理机上运行，并不是在虚拟机里运行，<code>没有性能损失</code>。</li>
+<li>同一个 vhd/vdi 文件<code>既可以在 Legacy BIOS 模式下启动，也可以在 UEFI 模式</code>下启动。</li>
+<li>Linux系统<code>无需独占一个磁盘或者分区</code>，相当于把一个完整的Linux系统放在一个文件里。 比如，你的主系统是 C 盘里的 Windows 系统，你可以在D盘里放一些</li>
+<li>Deepin、UOS、Ubuntu、Arch 等系统的 VHD 文件，想启动哪个选哪个，不用了就把对应的 VHD 文件删除即可。</li>
+</ul>
+<p>支持的 vdisk 格式:</p>
+<ul>
+<li><code>固定大小的 vhd</code> （注意只能是vhd, 不支持vhdx）</li>
+<li><code>固定大小的 vdi</code></li>
+<li><code>Raw Disk 镜像</code>格式</li>
+</ul>
+<h3 id="an-zhuang-linux-xi-tong-dao-vdisk">安装 Linux 系统到 vdisk</h3>
+<p>VirtualBox中创建固定大小的 vhd/vdi，注意<code>只支持静态大小的，不支持动态扩展类型的</code>。然后把支持的 Linux 系统安装到 vhd/vdi 中即可。</p>
+<p>注意：</p>
+<ul>
+<li><code>虚拟硬盘必须是全新创建的</code>，不能使用之前用过的。</li>
+<li>新版本的 VirtualBox 在创建虚拟机时不要选择操作系统ISO文件，等创建完虚拟机之后再添加ISO文件进行安装。</li>
+<li>安装系统时，VirtualBox <code>必须设置为 UEFI 模式</code>！</li>
+<li>注意，系统安装完之后<code>不能对虚拟机创建快照</code>，否则会导致 vdi/vhd 无法识别。</li>
+</ul>
+<p>有一些系统安装完之后还需要再额外安装一个 grub 的包才可以，否则最终的 vhd/vdi 文件只能在 UEFI 模式下启动，无法在 Legacy BIOS 模式下启动。对于这种，在前面表格最后的 "备注" 一栏有说明，没有特殊说明的就不需要。详见<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.ventoy.net/cn/plugin_vtoyboot.html">Linux vDisk 文件启动插件</a></p>
+<h3 id="zai-xi-tong-xia-zhi-xing-vtoyboot-jiao-ben">在系统下执行 vtoyboot 脚本</h3>
+<ul>
+<li>
+<p>安装完成并启动到 Linux 系统中之后，执行 vtoyboot 脚本。这一步是为了在系统中做一些处理，以支持Ventoy启动。</p>
+</li>
+<li>
+<p>vtoyboot 是配套 Ventoy 开发的一个项目，单独发布。从 https://github.com/ventoy/vtoyboot/releases 下载压缩包即可。</p>
+</li>
+<li>
+<p>下载到 Linux 系统中，解压，然后以root权限执行里面的脚本 sudo bash vtoyboot.sh 脚本执行完之后，使用 poweroff 命令关机。</p>
+</li>
+<li>
+<p>注意 vtoyboot 会经常更新以支持更多的 Linux 版本以及修复 BUG，所以请使用最新版本。</p>
+</li>
+</ul>
+<blockquote>
+<p>如果是对内核、驱动进行了升级、或者类似于通过 dnf update 命令进行了系统的大升级之后， 建议再重新执行一次 vtoyboot 脚本，防止下次重启之后vDisk文件无法启动。</p>
+</blockquote>
+<p>随后拷贝到U盘，改后缀名为 .vtoy 然后用 Ventoy 启动即可。</p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-homenet-2/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">家庭组网系列(2):路由器性能测试</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-frp/">
+                            <span class="button__text">网络艺术:FRP使用指南</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-3">
+                    <a href="#jie-shao">介绍</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#mu-biao">目标</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#zhi-zuo-liu-cheng">制作流程</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#wen-jian-cun-chu-pan">文件存储盘</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#peqi-dong-pan-zhi-zuo">PE启动盘制作</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#isoxi-tong-an-zhuang-pan">ISO系统安装盘</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#win-to-go">Win-to-go</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#linux-to-go">Linux-to-go</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#an-zhuang-linux-xi-tong-dao-vdisk">安装 Linux 系统到 vdisk</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#zai-xi-tong-xia-zhi-xing-vtoyboot-jiao-ben">在系统下执行 vtoyboot 脚本</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

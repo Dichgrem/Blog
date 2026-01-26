@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-server-set/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-server-set/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-server-set/">乱七八糟:服务器初始化与安全设置</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-06-12
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文记录服务器常用操作步骤。</p>
+<span id="continue-reading"></span><h2 id="doamin">Doamin</h2>
+<p>建站不一定需要服务器、域名和备案。尤其不要买腾讯云，不要买CN域名；备案过程要填很多个人信息，且一周没有解析网站，备案就会自动注销。</p>
+<ul>
+<li>
+<p><strong>cn 域名没有隐私保护（whois protection）</strong>。国内域名注册商说的隐私保护根本是自欺欺人，在它们隐私保护就是在自己的查询服务隐藏注册人信息。但在别的地方是能查到的，在<a rel="noopener nofollow noreferrer" target="_blank" href="https://whois.cnnic.cn/">中国互联网络信息中心</a>可以查到每个 cn 域名注册人的姓名和邮箱。</p>
+</li>
+<li>
+<p><strong>注册 cn 域名必须使用真实身份信息</strong>。要是你想用假信息注册来保护隐私，那就太天真了。审核的时候不会通过的。真的不想用自己的信息注册的话，要么以公司名义注册，但公司的法定代表人还是能查到的。要么叫别人注册域名之后给你用，可谁愿意冒这种风险呢。</p>
+</li>
+<li>
+<p><strong>cn 域名无法删除</strong>。如果你觉得 cn 域名暴露了你的隐私，那对不起，这是不能注销的<a rel="noopener nofollow noreferrer" target="_blank" href="https://cyrusyip.org/zh-cn/post/2021/05/25/damn-cn-domain/#fn:3">3</a>。你只能修改邮箱地址，然后等到它过期。或者转让给别人，不过感觉把别人推到火坑里不太好啊。</p>
+</li>
+<li>
+<p><strong>cn 域名有被停用的风险</strong>。2008 年，有人以跳水奥运冠军吴敏霞拼音注册了 wuminxia.cn，<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.cnbeta.com/articles/tech/62209.htm">结果被中国互联网络信息中心（CNNIC）回收了域名</a>，并转交给国家体育总局。此域名在 2021 年 2 月 28 日被优视科技<a rel="noopener nofollow noreferrer" target="_blank" href="https://whois.cnnic.cn/WhoisServlet?queryType=Domain&amp;domain=wuminxia.cn">注册</a>，呵呵。2009 年，牛博网被域名注册商万网停止解析。</p>
+</li>
+</ul>
+<h2 id="vps">VPS</h2>
+<ul>
+<li>名称格式</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>日本-GreenCloud-2C-4G-22G-SSD-1.5Tb@10Gbps-$60-3year
+</span><span>
+</span><span>## 国家-公司-CPU-内存-硬盘-硬盘类型-流量@端口速度-价格-付费周期
+</span></code></pre>
+<ul>
+<li>初始化</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 更新系统
+</span><span style="color:#ffb964;">apt</span><span> update &amp;&amp; </span><span style="color:#ffb964;">apt</span><span> upgrade</span><span style="color:#ffb964;"> -y
+</span><span style="color:#ffb964;">apt</span><span> install wget curl vim sudo neofetch
+</span><span style="color:#888888;"># 创建用户并赋予sudo
+</span><span style="color:#ffb964;">adduser</span><span> xxx
+</span><span style="color:#ffb964;">sudo</span><span> usermod</span><span style="color:#ffb964;"> -aG</span><span> sudo xxx
+</span></code></pre>
+<h2 id="bbr">BBR</h2>
+<ul>
+<li>查询系统所支持的拥塞控制算法</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sysctl</span><span> net.ipv4.tcp_available_congestion_control
+</span></code></pre>
+<ul>
+<li>查询正在使用中的拥塞控制算法（Linux 绝大部分系统默认为 Cubic 算法）</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sysctl</span><span> net.ipv4.tcp_congestion_control
+</span></code></pre>
+<ul>
+<li>指定拥塞控制算法为 bbr</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>echo net.ipv4.tcp_congestion_control=bbr &gt;&gt; /etc/sysctl.conf &amp;&amp; </span><span style="color:#ffb964;">sysctl -p
+</span></code></pre>
+<h2 id="safe">Safe</h2>
+<blockquote>
+<p>使用密码登录：更换SSH端口+安装UFW+安装Fail2ban
+使用密钥登录：不用额外操作</p>
+</blockquote>
+<h3 id="geng-huan-sshduan-kou">更换SSH端口</h3>
+<p>使用root账户或已经有sudo权限的用户登录到系统。</p>
+<p>打开SSH配置文件<code>sshd_config</code>，可以使用文本编辑器如nano或vi。以下是使用nano编辑器的示例：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> vim /etc/ssh/sshd_config
+</span></code></pre>
+<p>在配置文件中找到以下行：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Port</span><span> 22
+</span></code></pre>
+<p>这是SSH默认的端口号，你可以将其更改为你想要的任何未被占用的端口号。例如，将端口更改为2222：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Port</span><span> 2222
+</span></code></pre>
+<p>保存并关闭文本编辑器。重新启动SSH服务，以应用更改：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> service ssh restart
+</span></code></pre>
+<p>或者，如果你的系统使用systemd，可以使用以下命令：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl restart ssh
+</span></code></pre>
+<h3 id="an-zhuang-ufw">安装 UFW</h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt install ufw
+</span></code></pre>
+<p><strong>如果你在远程位置连接你的服务器，在启用 UFW 防火墙之前，你必须显式允许进来的 SSH 连接。否则，你将永远都无法连接到机器上。</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> ufw allow 22/tcp
+</span></code></pre>
+<blockquote>
+<p>如果 SSH 运行在非标准端口，你需要将上述命令中的 22 端口替换为对应的 SSH 端口。</p>
+</blockquote>
+<p><strong>启动 UFW</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> ufw enable
+</span></code></pre>
+<h3 id="an-zhuang-fail2ban">安装 Fail2ban</h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt-get install fail2ban
+</span></code></pre>
+<p><strong>2、Debian 12 及以上的版本需要手动安装 rsyslog</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt-get install rsyslog
+</span></code></pre>
+<p><strong>3、启动 Fail2ban 服务</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl start fail2ban
+</span></code></pre>
+<p><strong>4、开机自启动</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl enable fail2ban
+</span></code></pre>
+<p><strong>5、查看 Fail2ban 服务状态。</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl status fail2ban
+</span></code></pre>
+<h3 id="gai-wei-mi-yao-deng-lu">改为密钥登录</h3>
+<ul>
+<li>执行以下命令生成.pub后缀的公钥和无后缀的密钥：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">ssh-keygen
+</span></code></pre>
+<p>注意不同密钥对名称不能相同；同时可以为这两个文件用密码加密；</p>
+<ul>
+<li>
+<p>随后将.pub后缀的公钥中的内容写入服务器的<code>~/.ssh/authorized_keys</code>中；</p>
+</li>
+<li>
+<p>使用以下命令编译服务器的SSH配置：</p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">vim</span><span> /etc/ssh/sshd_config
+</span></code></pre>
+<p>将其中的该行改为<code>PasswordAuthentication no</code>，保存退出；随后使用</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl restart sshd
+</span></code></pre>
+<p>重启SSH即可禁用密码登录；</p>
+<ul>
+<li>
+<p>将<strong>PermitRootLogin</strong>一栏改为<strong>PermitRootLogin prohibit-password</strong>，即可实现仅root用户密钥登录；</p>
+</li>
+<li>
+<p>使用以下命令查看输出，</p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> cat /etc/ssh/sshd_config | </span><span style="color:#ffb964;">grep -E </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">PasswordAuthentication|PubkeyAuthentication</span><span style="color:#556633;">&#39;
+</span></code></pre>
+<p>如有<strong>PasswordAuthentication no → 禁用密码登录</strong>以及<strong>PubkeyAuthentication yes → 允许密钥登录</strong>则成功。</p>
+<blockquote>
+<p>注意<strong>authorized_keys</strong>的权限为600，如果不是则需要改正：<code>chmod 600 ~/.ssh/authorized_keys</code></p>
+</blockquote>
+<h2 id="chang-yong-huan-jing">常用环境</h2>
+<ul>
+<li>ALL</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">apt</span><span> install curl wget gpg vim nano sudo neofetch openssh-server
+</span></code></pre>
+<ul>
+<li>C/C++</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt install build-essential gdb cmake clangd clang-format libstdc++-dev
+</span></code></pre>
+<ul>
+<li>Miniconda</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">wget</span><span> https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+</span><span style="color:#ffb964;">bash</span><span> Miniconda3-latest-Linux-x86_64.sh
+</span></code></pre>
+<ul>
+<li>UV</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">curl -LsSf</span><span> https://astral.sh/uv/install.sh | </span><span style="color:#ffb964;">sh
+</span></code></pre>
+<ul>
+<li>Docker</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">curl -fsSL</span><span> https://get.docker.com</span><span style="color:#ffb964;"> -o</span><span> get-docker.sh
+</span><span style="color:#ffb964;">sudo</span><span> sh get-docker.sh
+</span></code></pre>
+<ul>
+<li>OpenCV</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt install tree libx11-dev libgtk-3-dev freeglut3-dev libopencv-dev libdlib-dev
+</span></code></pre>
+<ul>
+<li>Vmware</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt install open-vm-tools
+</span><span style="color:#ffb964;">sudo</span><span> apt install open-vm-tools-desktop
+</span></code></pre>
+<blockquote>
+<p>Vscode无法连接：需要删除本地存储的错误密钥，powershell：</p>
+</blockquote>
+<pre data-lang="powershell" style="background-color:#151515;color:#e8e8d3;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>(Get-Content </span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;">$env:USERPROFILE</span><span style="color:#99ad6a;">\.ssh\known_hosts</span><span style="color:#556633;">&quot;</span><span>) | 
+</span><span>Where-Object { $_ -notmatch </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">&lt;你的IP&gt;</span><span style="color:#556633;">&#39; </span><span>} | 
+</span><span>Set-Content </span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;">$env:USERPROFILE</span><span style="color:#99ad6a;">\.ssh\known_hosts</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<h2 id="1panel">1panel</h2>
+<p>执行如下命令一键安装 1Panel:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">curl -sSL</span><span> https://resource.fit2cloud.com/1panel/package/quick_start.sh</span><span style="color:#ffb964;"> -o</span><span> quick_start.sh &amp;&amp; </span><span style="color:#ffb964;">sudo</span><span> bash quick_start.sh
+</span></code></pre>
+<h3 id="jin-yong-ipv6">禁用 IPv6</h3>
+<p>手动 禁用 VPS 的 IPv6 命令:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sysctl -w</span><span> net.ipv6.conf.all.disable_ipv6=1
+</span><span style="color:#ffb964;">sysctl -w</span><span> net.ipv6.conf.default.disable_ipv6=1
+</span></code></pre>
+<p>如果想重启系统也生效， 执行：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>echo </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">net.ipv6.conf.all.disable_ipv6=1</span><span style="color:#556633;">&#39; </span><span>&gt;&gt; /etc/sysctl.conf
+</span><span>echo </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">net.ipv6.conf.default.disable_ipv6=1</span><span style="color:#556633;">&#39; </span><span>&gt;&gt; /etc/sysctl.conf
+</span></code></pre>
+<p>手动 启用 VPS 的 IPv6 命令:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sysctl -w</span><span> net.ipv6.conf.all.disable_ipv6=0
+</span><span style="color:#ffb964;">sysctl -w</span><span> net.ipv6.conf.default.disable_ipv6=0
+</span></code></pre>
+<p>重新载入 sysctl 配置</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sysctl --system </span><span style="color:#888888;"># reload sysctl
+</span></code></pre>
+<p>如果重载, 还无效果, 可能要 reboot 重启下.
+查看 VPS 的 IPv6 信息</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">ip -6</span><span> addr show scope global
+</span><span>
+</span><span style="color:#ffb964;">或者</span><span> curl ipv6.ip.sb
+</span></code></pre>
+<h2 id="ipzheng-shu-shen-qing-bu-shu">IP证书申请部署</h2>
+<ul>
+<li>
+<p>在 <a rel="noopener nofollow noreferrer" target="_blank" href="https://zerossl.com/">ZeroSSL</a> 中申请一个90天的证书；</p>
+</li>
+<li>
+<p>然后在VPS上输入以下命令：</p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">mkdir -p</span><span> ./.well-known/pki-validation
+</span></code></pre>
+<ul>
+<li>
+<p>随后在ZeroSSL中将所给出的类似<strong>B992F08CB46748D02E4C553A4038BC.txt</strong>复制；</p>
+</li>
+<li>
+<p>将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:<code>将pki-validation/之后EOF之前的内容</code>替换为你自己的。</p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">cat </span><span style="color:#99ad6a;">&lt;&lt; </span><span style="color:#8fbfdc;">EOF </span><span>| </span><span style="color:#ffb964;">sudo</span><span> tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
+</span><span style="color:#99ad6a;">254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
+</span><span style="color:#99ad6a;">comodoca.com
+</span><span style="color:#99ad6a;">ca5792984e3f0a1
+</span><span style="color:#8fbfdc;">EOF
+</span></code></pre>
+<p>随后在VPS上运行该命令。</p>
+<ul>
+<li>开启一个临时HTTP服务器：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">python3 -m</span><span> http.server 80
+</span></code></pre>
+<ul>
+<li>随后即可在ZeroSSL中验证证书并开启SSL。</li>
+</ul>
+<h2 id="wang-ji-mi-ma-zen-me-ban">忘记密码怎么办</h2>
+<p>通过恢复模式 (Recovery Mode) 修改用户权限：</p>
+<ul>
+<li>
+<p>重启计算机，按住 Shift 键进入 GRUB 菜单（或者按 Esc 键）。</p>
+</li>
+<li>
+<p>在 GRUB 菜单中，选择<code>Advanced options for Ubuntu</code>然后选择带有<code>recovery mode</code>的内核版本。</p>
+</li>
+<li>
+<p>进入恢复模式后，选择<code>root – Drop to root shell prompt</code>进入 root shell（不需要密码）。</p>
+</li>
+<li>
+<p>挂载文件系统为可写模式：</p>
+</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">mount -o</span><span> remount,rw /
+</span></code></pre>
+<ul>
+<li>将用户添加到 sudo 组：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">usermod -aG</span><span> sudo 用户名
+</span></code></pre>
+<ul>
+<li>重启计算机：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">reboot
+</span></code></pre>
+<h2 id="geng-huan-nei-he">更换内核</h2>
+<p>以Xanmod为例：</p>
+<ol>
+<li>添加 XanMod 仓库密钥和源</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span>echo </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">deb [signed-by=/usr/share/keyrings/xanmod.gpg] http://deb.xanmod.org releases main</span><span style="color:#556633;">&#39; </span><span>| </span><span style="color:#ffb964;">sudo</span><span> tee /etc/apt/sources.list.d/xanmod.list
+</span><span style="color:#ffb964;">curl -fsSL</span><span> https://dl.xanmod.org/gpg.key | </span><span style="color:#ffb964;">gpg --dearmor </span><span>| </span><span style="color:#ffb964;">sudo</span><span> tee /usr/share/keyrings/xanmod.gpg &gt; /dev/null
+</span></code></pre>
+<ol start="2">
+<li>更新软件包列表</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt update
+</span></code></pre>
+<ol start="3">
+<li>搜索可用内核</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">apt</span><span> search xanmod
+</span><span style="color:#ffb964;">sudo</span><span> apt install linux-image-6.8.6-x64v3-xanmod1 linux-headers-6.8.6-x64v3-xanmod1
+</span></code></pre>
+<h3 id="chang-jian-xanmod-nei-he-hou-zhui-han-yi-dui-bi">常见 XanMod 内核后缀含义对比</h3>
+<table><thead><tr><th>后缀示例</th><th>含义简述</th><th>适合用途</th></tr></thead><tbody>
+<tr><td><code>xanmod1</code>, <code>xanmod2</code>, …</td><td>主线 XanMod 版本编号（带通用优化）</td><td>桌面、通用、游戏</td></tr>
+<tr><td><code>x64v3-xanmod1</code></td><td>针对 <strong>x86_64-v3 架构优化</strong>（AVX2 以上指令集）</td><td>高性能桌面、较新 CPU（2011+）</td></tr>
+<tr><td><code>rt-xanmod1</code></td><td><strong>实时（RT）内核</strong>，用于极低延迟任务</td><td>音频制作、工业控制</td></tr>
+<tr><td><code>lts-xanmod1</code></td><td><strong>长期支持版本</strong>（LTS）</td><td>服务器、稳定性优先</td></tr>
+<tr><td><code>edge-xanmod1</code></td><td>更前沿、不稳定的测试版本</td><td>喜欢尝鲜的高级用户</td></tr>
+<tr><td><code>x64v2-xanmod1</code>, <code>x64v4-…</code></td><td>针对特定 <strong>微架构（CPU 指令集）</strong> 的优化版本</td><td>有特定硬件支持的系统</td></tr>
+</tbody></table>
+<p>你可以用以下命令检测你的 CPU 是否支持 <code>x64v3</code>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">lscpu </span><span>| </span><span style="color:#ffb964;">grep</span><span> avx2
+</span></code></pre>
+<p>如果输出中有 <code>avx2</code>，就可以用 <code>x64v3</code> 版本。</p>
+<ol start="4">
+<li>更新 GRUB 并重启</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> update-grub
+</span><span style="color:#ffb964;">sudo</span><span> reboot
+</span><span style="color:#ffb964;">uname -r
+</span></code></pre>
+<ol start="5">
+<li>移除旧内核（可选）</li>
+</ol>
+<p>查看已安装内核：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">dpkg --list </span><span>| </span><span style="color:#ffb964;">grep</span><span> linux-image
+</span></code></pre>
+<p>移除旧的：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt remove linux-image-5.10.0-26-amd64
+</span></code></pre>
+<hr />
+<ol start="6">
+<li>自动选择 XanMod 为默认（可选）</li>
+</ol>
+<p>如果你想默认引导到 XanMod 内核：</p>
+<p>编辑 <code>/etc/default/grub</code>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">GRUB_DEFAULT</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Advanced options for Debian&gt;Debian, with Linux 6.8.6-x64v3-xanmod1</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>然后：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> update-grub
+</span></code></pre>
+<h2 id="geng-huan-xi-tong">更换系统</h2>
+<p>除了到VPS后台更换外，还可以使用这个脚本：</p>
+<p><a href="https://blog.dich.bid/about-server-set/github.com/bin456789/reinstall">bin456789/reinstall</a></p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>一键重装到 Linux，支持 19 种常见发行版
+</span><span>一键重装到 Windows，使用官方原版 ISO 而非自制镜像，脚本支持自动查找 ISO 链接、自动安装 VirtIO 等公有云驱动
+</span><span>支持任意方向重装，即 Linux to Linux、Linux to Windows、Windows to Windows、Windows to Linux
+</span><span>自动设置 IP，智能设置动静态，支持 /32、/128、网关不在子网范围内、纯 IPv6、IPv4/IPv6 在不同的网卡
+</span><span>专门适配低配小鸡，比官方 netboot 需要更少的内存
+</span><span>全程用分区表 ID 识别硬盘，确保不会写错硬盘
+</span><span>支持 BIOS、EFI 引导，支持 ARM 服务器
+</span><span>不含自制包，所有资源均实时从镜像源获得
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-cslearning/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:计算机科学优质视频</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-docker/">
+                            <span class="button__text">网络艺术:Docker建站与反向代理</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#doamin">Doamin</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#vps">VPS</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#bbr">BBR</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#safe">Safe</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#geng-huan-sshduan-kou">更换SSH端口</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#an-zhuang-ufw">安装 UFW</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#an-zhuang-fail2ban">安装 Fail2ban</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#gai-wei-mi-yao-deng-lu">改为密钥登录</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#chang-yong-huan-jing">常用环境</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#1panel">1panel</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#jin-yong-ipv6">禁用 IPv6</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#ipzheng-shu-shen-qing-bu-shu">IP证书申请部署</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#wang-ji-mi-ma-zen-me-ban">忘记密码怎么办</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#geng-huan-nei-he">更换内核</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#chang-jian-xanmod-nei-he-hou-zhui-han-yi-dui-bi">常见 XanMod 内核后缀含义对比</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#geng-huan-xi-tong">更换系统</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+
