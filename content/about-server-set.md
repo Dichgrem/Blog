@@ -22,6 +22,17 @@ tags = ["乱七八糟"]
 - **cn 域名有被停用的风险**。2008 年，有人以跳水奥运冠军吴敏霞拼音注册了 wuminxia.cn，[结果被中国互联网络信息中心（CNNIC）回收了域名](https://www.cnbeta.com/articles/tech/62209.htm)，并转交给国家体育总局。此域名在 2021 年 2 月 28 日被优视科技[注册](https://whois.cnnic.cn/WhoisServlet?queryType=Domain&domain=wuminxia.cn)，呵呵。2009 年，牛博网被域名注册商万网停止解析。
 
 ## VPS
+
+
+- 名称格式
+
+```
+日本-GreenCloud-2C-4G-22G-SSD-1.5Tb@10Gbps-$60-3year
+
+## 国家-公司-CPU-内存-硬盘-硬盘类型-流量@端口速度-价格-付费周期
+```
+
+- 初始化
 ```bash
 # 更新系统
 apt update && apt upgrade -y
