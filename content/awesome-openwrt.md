@@ -425,20 +425,20 @@ git restore --source=v24.10.2 --staged --worktree .
 | SSH 服务器     | dropbear             |
 | Web 服务器    | uhttpd               |
 | DNS/DHCP 服务 | dnsmasq‑full         |
-| 加密库         | openssl              |
-| 压缩算法        | zram+zstd                 |
-| 拥塞控制        | bbr                  |
+| 加密库         | libopenssl              |
+| 压缩算法        | zram-swap+zstd                 |
+| 拥塞控制        | kmod-tcp-bbr                 |
 | 防火墙         | nftables + iptables  |
 | 调度模块    | BPF + kmod-sched-xxx |
-| 时间同步        | ntpd-full            |
-| 文本编辑        | vim-full vim-runtime |
+| 时间同步        | ntpd + ntp-utils            |
+| 文本编辑        | vim-full + vim-runtime |
 | 编译优化        | LTO + O3             |
 
 要启用的软件包：
 
 **base**
 ```bash
-autocore base-files bash block-mount ca-bundle coremark curl dnsmasq-full dropbear ds-lite e2fsprogs fdisk firewall4 fstools grub2-bios-setup htop kmod-8139cp kmod-8139too kmod-amazon-ena kmod-amd-xgbe kmod-atlantic kmod-bnx2 kmod-bnx2x kmod-button-hotplug kmod-drm-amdgpu kmod-drm-i915 kmod-dwmac-intel kmod-e1000 kmod-e1000e kmod-forcedeth kmod-fs-f2fs kmod-fs-vfat kmod-i40e kmod-iavf kmod-igb kmod-igbvf kmod-igc kmod-ixgbe kmod-ixgbevf kmod-lib-zstd kmod-mlx4-core kmod-mlx5-core kmod-mmc kmod-pcnet32 kmod-phy-broadcom kmod-r8101 kmod-r8125 kmod-r8126 kmod-r8168 kmod-sdhci kmod-tcp-bbr kmod-tg3 kmod-tulip kmod-usb-hid kmod-vmxnet3 libc libgcc libustream-mbedtls lm-sensors-detect logd lsblk luci-app-fan luci-app-filemanager luci-app-firewall luci-app-log-viewer luci-app-package-manager luci-app-syscontrol luci-app-upnp  luci-base luci-compat luci-lib-fs luci-lib-ipkg  mkf2fs mtd nano netifd odhcp6c odhcpd-ipv6only openssh-sftp-server opkg partx-utils pciutils ppp ppp-mod-pppoe resolveip swconfig uci uclient-fetch urandom-seed urngd usbutils wget-ssl zram-swap
+openssh-sftp-server wget-ssl curl nano
 ```
 **cli**
 ```bash
@@ -446,11 +446,11 @@ btop iperf3 tcpdump
 ```
 **luci**
 ```bash
-luci-app-argon luci-app-upnp luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol luci-app-homeproxy luci-app-daed
+luci luci-i18n-base-zh-cn luci-compat luci-app-argon luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol
 ```
 **lib**
 ```bash
-kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
+kmod-nft-queue kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
 ```
 ## 使用SDK快速编译包
 
