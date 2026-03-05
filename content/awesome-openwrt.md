@@ -10,7 +10,7 @@ tags = ["综合工程"]
 前言 openwrt 是一个自由的、兼容性好的嵌入式 linux 发行版。作为软路由玩家必备的一款神器，可以实现诸如去广告，多拨和科学上网等多种功能。本文介绍openwrt在各种平台上的部署流程。
 <!-- more -->
 
-## **要实现的目标**
+## 要实现的目标
 
 - 1.IPv6 分配到每个设备；
 - 2.NAT类型为NAT1（全锥形）；
@@ -33,13 +33,13 @@ tags = ["综合工程"]
 - 对能直连的国外服务能返回最优的节点，而不是绕路其他地方；
 
 
-## **选择合适的设备**
+## 选择合适的设备
 
 无论是传统的无线路由器还是小主机都有成为openwrt路由的潜力。截止到今天，已经有20多个品牌（小米，华硕，锐捷，华三等）30多种架构（x86,ipq,bcm,mtd等）支持刷入openwrt；你可以在这个[网站](https://mao.fan/select)找到符合你预算和其他要求的，能刷机的路由器。
 传统家用无线路由器由于主频低，内存小，并不适合作为软路由；而 NAS-软路由一体式 又有 all in boom 的风险，因此推荐X86平台作为物理机。当然，也可以采用 armbian 平台或是开发板，例如网心云老母鸡、树莓派等设备。截至本文撰写时间，二手平台上的价格不太利好：一台J1900平台的售价往往在200左右，而专门的多网口工控机价格在200到1000不等，树莓派更是成为了理财产品，需要慎重选择。
 
 
-## **选择合适的系统**
+## 选择合适的系统
 除了openwrt主线外，还可以选择：
 
 - [LEDE](https://github.com/coolsnowwolf/lede) 高质量，更新快速，具有新特性的openwrt分支。
@@ -48,7 +48,7 @@ tags = ["综合工程"]
 
 - [ImmortalWrt](https://firmware-selector.immortalwrt.org/) 是一个原版openwrt的分支，中文优化好，更新也勤快，内置镜像源可以直连下载&更新。
 
-## **如何得到一个openwrt系统**
+## 如何得到一个openwrt系统
 
 1. 使用编译好的现成的镜像:
 
@@ -80,7 +80,7 @@ tags = ["综合工程"]
 | 兼容性      | 与对应 Release 完全匹配                       | 与对应 Release 完全匹配                               | 与对应 Release 完全匹配                                                               |
 | 使用难度     | 简单，只需解压并设置 PATH                        | 适中，需要理解 feeds 机制及包管理                           | 最简单，适合终端用户或快速测试环境
 
-## **X86平台安装流程：**
+## X86平台安装流程
 
 0. 安装准备：
 
@@ -121,7 +121,7 @@ uci commit luci
 然后重新访问 Web 界面，查看是否恢复正常。
 
 
-## **X86平台本地编译完整openwrt**
+## X86平台本地编译完整openwrt
 
 - **系统版本：Debian 11 或者 Ubuntu LTS**
 
@@ -188,28 +188,6 @@ git checkout xxx #例如git checkout v24.10.2
 git switch xxx #例如git switch openwrt-24.10
 ```
 
-### 目录说明
-
-| 名称                   | 作用                                                                     |
-| -------------------- | ---------------------------------------------------------------------- |
-| `Makefile`           | **整个 OpenWrt 构建系统的总入口点**（顶层 Makefile），运行 `make menuconfig`、`make` 都依赖它 |
-| `Config.in`          | Kconfig 系统的入口配置文件，决定 `make menuconfig` 菜单显示什么选项                        |
-| `config/`            | 构建系统的默认配置模板、菜单逻辑，和 `menuconfig` 相关                                     |
-| `include/`           | 包含通用 makefile 片段的目录（比如编译选项、函数定义）                                       |
-| `rules.mk`           | 所有包编译通用规则都写在这里，`include $(TOPDIR)/rules.mk` 是常见语句                      |
-| `feeds.conf.default` | 定义 Feed 源（即可选的软件源），可用于管理外部包，比如 `luci`、`packages`                       |
-| `feeds/` *(克隆后还没出现)* | `./scripts/feeds update -a` 后才会出现，用来保存外部 feed 的代码                      |
-| `package/`           | OpenWrt 自带的核心包和第三方包（除 feeds 外的）都在这，结构是 `package/<分类>/<包名>`             |
-| `target/`            | 支持的平台架构，比如 `x86`、`ramips`、`ath79`、`mediatek` 等都在里面                     |
-| `toolchain/`         | 编译器链、glibc/musl、binutils、gcc 都在这里构建                                    |
-| `tools/`             | 构建工具目录，编译前工具如 `m4`、`autoconf`、`xz`、`patch` 等放在这                        |
-| `scripts/`           | 脚本工具目录，如 `feeds` 管理、镜像合并、menuconfig 支持等                                |
-| `LICENSES/`          | 所有包/组件的许可证归档                                                           |
-| `COPYING`            | OpenWrt 的主许可证（GPLv2）                                                   |
-| `README.md`          | 简要介绍如何开始使用 OpenWrt 的说明文档                                               |
-| `BSDmakefile`        | 为 BSD 系统一些兼容 makefile，Linux 用户用不到                                      |
-
-
 - **添加软件源,可自行添加软件源至 feeds.conf.default 文件**
 ```bash
 vim feeds.conf.default
@@ -249,63 +227,6 @@ git clone https://github.com/chenmozhijin/turboacc.git
 | ---------------------------- | ----------------------------------------------------------------- |
 | `./scripts/feeds install -a` | 把你在 feeds 里选要用的包 **链接** 到源码树的 `package/feeds/`，让它们参与编译            |
 
-- **自定义配置**
-
-```bash
-#!/usr/bin/env bash
-# diy-part2.sh — 在镜像生成时注入默认设置和定制 SSH 横幅及模型修复
-
-# 1. 默认 hostname（可选）
-sed -i 's/=ImmortalWrt/=my-device/' package/base-files/files/bin/config_generate
-
-# 2. 默认 IP 地址（可选）
-sed -i 's/192.168.1.1/192.168.5.1/' package/base-files/files/bin/config_generate
-
-# 3. 默认 root 密码（请换成安全密码）
-HASH=$(openssl passwd -1 'yourpassword')
-sed -i "s|root::0:0:99999|root:${HASH}:0:0:99999|" package/base-files/files/etc/shadow
-
-# 4. 设置默认 LuCI 主题为 argon（内置在 luci feeds）
-cat >>package/base-files/files/etc/uci-defaults/99_set_theme <<'EOF'
-uci set luci.main.mediaurlbase=/luci-static/argon
-uci commit luci
-EOF
-chmod +x package/base-files/files/etc/uci-defaults/99_set_theme
-
-# 5. 默认加载 BBR 拥塞控制算法
-mkdir -p package/base-files/files/etc/sysctl.d
-cat >>package/base-files/files/etc/sysctl.d/99-bbr.conf <<'EOF'
-net.core.default_qdisc=fq_codel
-net.ipv4.tcp_congestion_control=bbr
-EOF
-
-# 检查BBR: sysctl net.ipv4.tcp_congestion_control
-
-# 6. 将默认 shell 修改为 bash
-sed -i "s|/bin/ash|/bin/bash|g" package/base-files/files/etc/passwd
-# 请在 .config 中添加 TARGET_PACKAGES += bash
-
-# 7. 自定义 SSH 登录横幅（banner）
-mkdir -p package/base-files/files/etc
-if [ -f "scripts/custom-files/banner.txt" ]; then
-  cp scripts/custom-files/banner.txt package/base-files/files/etc/banner
-else
-  cat >package/base-files/files/etc/banner <<'EOF'
-Welcome to MyDevice (ImmortalWrt)\n
-EOF
-fi
-
-# 8. 自定义 LuCI 概览设备型号 🛠
-# 通过 uci-defaults 脚本写入 /tmp/sysinfo/model
-cat >>package/base-files/files/etc/uci-defaults/99-model-fix <<'EOF'
-#!/bin/sh
-# 设置自定义设备型号
-mkdir -p /tmp/sysinfo
-echo "Your Router Model" > /tmp/sysinfo/model
-exit 0
-EOF
-chmod +x package/base-files/files/etc/uci-defaults/99-model-fix
-```
 
 - 执行 **make menuconfig** 命令进入编译菜单。
 
@@ -317,7 +238,183 @@ chmod +x package/base-files/files/etc/uci-defaults/99-model-fix
 | `make defconfig`  | 忽略当前 `.config`，直接加载架构/板级目录下的默认配置（`defconfig`）        | 一键生成官方/平台推荐的「干净」配置   | 想重置到官方默认或重新开始时 |
 
 
-### **编译配置菜单说明（部分）**
+- **预下载编译所需的软件包**
+```bash
+make download -j8
+```
+
+- **检查文件完整性**
+```bash
+find dl -size -1024c -exec ls -l {} \;
+```
+检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查.确认所有文件完整可大大提高编译成功率，避免浪费时间
+```bash
+find dl -size -1024c -exec rm -f {} \;
+```
+
+- **最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.**
+```bash
+make V=s -j1
+
+或者使用 make world -j1 V=s 2>&1 | tee world_debug.log
+
+如果报错可查看 grep -E "(error|fatal|Cannot install package)" world_debug.log -n
+```
+| make层级   | 目录示例                         | 说明               |
+| -------- | ---------------------------- | ---------------- |
+| make\[1] | 顶层 Makefile                  | 解析依赖，调度模块        |
+| make\[2] | `tools/`                     | 编译辅助工具           |
+| make\[2] | `toolchain/`                 | 编译交叉编译工具链        |
+| make\[2] | `target/linux/`              | 编译内核及设备树         |
+| make\[2] | `package/`                   | 进入包管理，调度包构建      |
+| make\[3] | `package/libs/libc`          | 单个包的 Makefile    |
+| make\[3] | `package/utils/busybox`      | 单个包的 Makefile    |
+| make\[4] | `build_dir/target-...`       | 包源码目录，运行源码的 make |
+| make\[4] | `build_dir/target-linux-...` | 内核源码目录           |
+
+
+## 自定义配置脚本
+
+```bash
+#!/usr/bin/env bash
+
+set -e
+
+# 检测项目类型（OpenWrt 或 ImmortalWrt）
+DETECT_TARGET_FILE="package/base-files/files/etc/openwrt_release"
+if [ -f "$DETECT_TARGET_FILE" ]; then
+  if grep -qi "immortalwrt" "$DETECT_TARGET_FILE"; then
+    TARGET_TYPE="ImmortalWrt"
+  elif grep -qi "openwrt" "$DETECT_TARGET_FILE"; then
+    TARGET_TYPE="OpenWrt"
+  else
+    TARGET_TYPE="OpenWrt"
+  fi
+else
+  # 如果检测文件不存在，通过其他方式判断
+  if [ -d "feeds/packages" ]; then
+    TARGET_TYPE="ImmortalWrt"
+  else
+    TARGET_TYPE="OpenWrt"
+  fi
+fi
+
+echo "📋 检测到目标类型：$TARGET_TYPE"
+
+# 1. 默认 hostname
+CONFIG_GEN_FILE="package/base-files/files/bin/config_generate"
+if [ -f "$CONFIG_GEN_FILE" ]; then
+  if [ "$TARGET_TYPE" = "ImmortalWrt" ]; then
+    sed -i "s/ImmortalWrt/Dwrt/g" "$CONFIG_GEN_FILE"
+  else
+    sed -i "s/OpenWrt/Dwrt/g" "$CONFIG_GEN_FILE"
+  fi
+  echo "✅ Hostname 已修改为 Dwrt"
+else
+  echo "⚠️  $CONFIG_GEN_FILE 不存在，跳过 hostname 修改"
+fi
+
+# 2. 默认 IP 地址
+if [ -f "$CONFIG_GEN_FILE" ]; then
+  if grep -q "192.168.2.1" "$CONFIG_GEN_FILE"; then
+    sed -i 's/192.168.2.1/192.168.1.1/' "$CONFIG_GEN_FILE"
+    echo "✅ 默认 IP 已修改为 192.168.1.1"
+  elif grep -q "192.168.1.1" "$CONFIG_GEN_FILE"; then
+    echo "✅ 默认 IP 已经是 192.168.1.1"
+  else
+    echo "⚠️  $CONFIG_GEN_FILE 中未找到默认 IP 地址"
+  fi
+fi
+
+# 3. 默认 root 密码
+SHADOW_FILE="package/base-files/files/etc/shadow"
+if [ -f "$SHADOW_FILE" ]; then
+  HASH=$(openssl passwd -1 'password')
+  if grep -q "^root::" "$SHADOW_FILE"; then
+    sed -i "s|root::0:0:99999|root:${HASH}:0:0:99999|" "$SHADOW_FILE"
+    echo "✅ root 密码已设置"
+  elif grep -q "^root:" "$SHADOW_FILE"; then
+    echo "⚠️  root 账户已设置密码，跳过"
+  else
+    echo "⚠️  $SHADOW_FILE 中未找到 root 账户"
+  fi
+else
+  echo "⚠️  $SHADOW_FILE 不存在，跳过 root 密码设置"
+fi
+
+# 4. 设置默认 LuCI 主题为 argon
+mkdir -p package/base-files/files/etc/uci-defaults
+cat >package/base-files/files/etc/uci-defaults/99_set_theme <<'EOF'
+uci set luci.main.mediaurlbase=/luci-static/argon
+uci commit luci
+EOF
+chmod +x package/base-files/files/etc/uci-defaults/99_set_theme
+echo "✅ LuCI 主题已设置为 argon"
+
+# 5. 默认加载 BBR 拥塞控制算法
+mkdir -p package/base-files/files/etc/sysctl.d
+cat >package/base-files/files/etc/sysctl.d/99-bbr.conf <<'EOF'
+net.core.default_qdisc=fq_codel
+net.ipv4.tcp_congestion_control=bbr
+EOF
+echo "✅ BBR 拥塞控制算法已启用"
+
+# 6. 修改默认 shell 为 bash
+PASSWD_FILE="package/base-files/files/etc/passwd"
+if [ -f "$PASSWD_FILE" ]; then
+  if grep -q "/bin/ash" "$PASSWD_FILE"; then
+    sed -i "s|/bin/ash|/bin/bash|g" "$PASSWD_FILE"
+    echo "✅ 默认 shell 已修改为 bash"
+  elif grep -q "/bin/bash" "$PASSWD_FILE"; then
+    echo "✅ 默认 shell 已经是 bash"
+  else
+    echo "⚠️  $PASSWD_FILE 中未找到 ash 或 bash"
+  fi
+else
+  echo "⚠️  $PASSWD_FILE 不存在，跳过 shell 修改"
+fi
+
+# # 7. 自定义 SSH 登录横幅
+# mkdir -p package/base-files/files/etc
+# if [ -f "scripts/custom-files/banner.txt" ]; then
+#   cp scripts/custom-files/banner.txt package/base-files/files/etc/banner
+#   echo "✅ 使用自定义 banner"
+# else
+#   cat >package/base-files/files/etc/banner <<'EOF'
+# |   | _____   _____   ____________/  |______  |  |
+# |   |/     \ /     \ /  _ \_  __ \   __\__  \ |  |
+# |   |  Y Y  \  Y Y  (  <_> )  | \/|  |  / __ \|  |__
+# |___|__|_|  /__|_|  /\____/|__|   |__| (____  /____/
+#           \/      \/             By Dich    \/
+# -----------------------------------------------------
+# EOF
+#   echo "✅ 默认 banner 已设置"
+# fi
+echo "✅ diy.sh 执行完毕"
+```
+
+## 目录说明
+
+| 名称                   | 作用                                                                     |
+| -------------------- | ---------------------------------------------------------------------- |
+| `Makefile`           | **整个 OpenWrt 构建系统的总入口点**（顶层 Makefile），运行 `make menuconfig`、`make` 都依赖它 |
+| `Config.in`          | Kconfig 系统的入口配置文件，决定 `make menuconfig` 菜单显示什么选项                        |
+| `config/`            | 构建系统的默认配置模板、菜单逻辑，和 `menuconfig` 相关                                     |
+| `include/`           | 包含通用 makefile 片段的目录（比如编译选项、函数定义）                                       |
+| `rules.mk`           | 所有包编译通用规则都写在这里，`include $(TOPDIR)/rules.mk` 是常见语句                      |
+| `feeds.conf.default` | 定义 Feed 源（即可选的软件源），可用于管理外部包，比如 `luci`、`packages`                       |
+| `feeds/` *(克隆后还没出现)* | `./scripts/feeds update -a` 后才会出现，用来保存外部 feed 的代码                      |
+| `package/`           | OpenWrt 自带的核心包和第三方包（除 feeds 外的）都在这，结构是 `package/<分类>/<包名>`             |
+| `target/`            | 支持的平台架构，比如 `x86`、`ramips`、`ath79`、`mediatek` 等都在里面                     |
+| `toolchain/`         | 编译器链、glibc/musl、binutils、gcc 都在这里构建                                    |
+| `tools/`             | 构建工具目录，编译前工具如 `m4`、`autoconf`、`xz`、`patch` 等放在这                        |
+| `scripts/`           | 脚本工具目录，如 `feeds` 管理、镜像合并、menuconfig 支持等                                |
+| `LICENSES/`          | 所有包/组件的许可证归档                                                           |
+| `COPYING`            | OpenWrt 的主许可证（GPLv2）                                                   |
+| `README.md`          | 简要介绍如何开始使用 OpenWrt 的说明文档                                               |
+| `BSDmakefile`        | 为 BSD 系统一些兼容 makefile，Linux 用户用不到                                      |
+
+## 编译配置菜单
 
 ```bash
 Target System (x86)                                # 选择目标平台
@@ -368,41 +465,7 @@ Xorg                # 桌面环境支持（X11 图形系统）
 
 ```
 
-- **预下载编译所需的软件包**
-```bash
-make download -j8
-```
-
-- **检查文件完整性**
-```bash
-find dl -size -1024c -exec ls -l {} \;
-```
-检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查.确认所有文件完整可大大提高编译成功率，避免浪费时间
-```bash
-find dl -size -1024c -exec rm -f {} \;
-```
-
-- **最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.**
-```bash
-make V=s -j1
-
-或者使用 make world -j1 V=s 2>&1 | tee world_debug.log
-
-如果报错可查看 grep -E "(error|fatal|Cannot install package)" world_debug.log -n
-```
-| make层级   | 目录示例                         | 说明               |
-| -------- | ---------------------------- | ---------------- |
-| make\[1] | 顶层 Makefile                  | 解析依赖，调度模块        |
-| make\[2] | `tools/`                     | 编译辅助工具           |
-| make\[2] | `toolchain/`                 | 编译交叉编译工具链        |
-| make\[2] | `target/linux/`              | 编译内核及设备树         |
-| make\[2] | `package/`                   | 进入包管理，调度包构建      |
-| make\[3] | `package/libs/libc`          | 单个包的 Makefile    |
-| make\[3] | `package/utils/busybox`      | 单个包的 Makefile    |
-| make\[4] | `build_dir/target-...`       | 包源码目录，运行源码的 make |
-| make\[4] | `build_dir/target-linux-...` | 内核源码目录           |
-
-## 二次编译
+## 清理编译
 
 | 命令               | 清除内容                                                          | 保留内容                                    | 适用场景                                           |
 | ---------------- | ------------------------------------------------------------- | --------------------------------------- | ---------------------------------------------- |
@@ -416,42 +479,6 @@ git clean -fd
 git restore --source=v24.10.2 --staged --worktree .
 ```
 
-## Dwrt 方案
-
-| 作用          | 组件                   |
-| ----------- | -------------------- |
-| 主题        | argon                |
-| Shell    | bash                 |
-| SSH 服务器     | dropbear             |
-| Web 服务器    | uhttpd               |
-| DNS/DHCP 服务 | dnsmasq‑full         |
-| 加密库         | libopenssl              |
-| 压缩算法        | zram-swap+zstd                 |
-| 拥塞控制        | kmod-tcp-bbr                 |
-| 防火墙         | nftables + iptables  |
-| 调度模块    | BPF + kmod-sched-xxx |
-| 时间同步        | ntpd + ntp-utils            |
-| 文本编辑        | vim-full + vim-runtime |
-| 编译优化        | LTO + O3             |
-
-要启用的软件包：
-
-**base**
-```bash
-openssh-sftp-server wget-ssl curl nano
-```
-**cli**
-```bash
-btop iperf3 tcpdump
-```
-**luci**
-```bash
-luci luci-i18n-base-zh-cn luci-compat luci-app-argon luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol
-```
-**lib**
-```bash
-kmod-nft-queue kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
-```
 ## 使用SDK快速编译包
 
 首先新建一个文件夹并将SDK克隆下来：
@@ -497,40 +524,53 @@ make package/luci-app-zzz/compile V=s
 ./bin/packages/x86_64/base/zzz_0.1.1-r1_x86_64.ipk
 ```
 
-## 常用命令
 
-> 注意！不能升级kmod前缀的软件包！base-files是危险包，谨慎升级！
+## Dwrt 方案
 
+| 作用          | 组件                   |
+| ----------- | -------------------- |
+| 主题        | argon                |
+| Shell    | bash                 |
+| SSH 服务器     | dropbear             |
+| Web 服务器    | uhttpd               |
+| DNS/DHCP 服务 | dnsmasq‑full         |
+| 加密库         | libopenssl              |
+| 压缩算法        | zram-swap+zstd                 |
+| 拥塞控制        | kmod-tcp-bbr                 |
+| 防火墙         | nftables + iptables  |
+| 调度模块    | BPF + kmod-sched-xxx |
+| 时间同步        | ntpd + ntp-utils            |
+| 文本编辑        | vim-full + vim-runtime |
+| 编译优化        | LTO + O3             |
+
+要启用的软件包：
+
+**base**
 ```bash
-# 更新软件列表
-opkg update
-
-# 列出可升级的非内核包
-opkg list-upgradable | grep -vE '^(kmod-|kernel)'
-
-# 升级单个软件包
-opkg upgrade 包名
-
-# 固件版本号
-vim /etc/os-release
-
-# 脚本&脚注
-vim /etc/openwrt_release
-
-# ASCII字符画
-vim /etc/banner
-
-# 登录脚本显示
-vim /etc/profile
+openssh-sftp-server wget-ssl curl nano
+```
+**cli**
+```bash
+btop iperf3 tcpdump
+```
+**luci**
+```bash
+luci luci-i18n-base-zh-cn luci-compat luci-app-argon luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol
+```
+**lib**
+```bash
+kmod-nft-queue kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
 ```
 
 ## 常用科学插件
 
-| 特性         | HomeProxy | OpenClash  | Passwall  | ShellClash  |
-|-------------|----------|------------|------------|-------------|
-| **核心** | Sing-box、Xray | Clash | Xray、Sing-box | Clash、Xray、Sing-box |
-| **UI 管理** | ✅（Web UI、桌面端 GUI） | ✅（OpenClash Web UI） | ✅（Luci Web UI） | ❌（Shell 终端管理） |
-| **适用场景** | 性能较好,但分流设置复杂 | 适用于clash系,机场首选 | 操作简单,分流完善,但对路由器性能要求较高 | 没有UI界面，性能最好，支持完善，可以通过clashapi安装UI |
+- [OpenWrt-momo](https://github.com/nikkinikki-org/OpenWrt-momo)
+- [OpenWrt-nikki](https://github.com/nikkinikki-org/OpenWrt-nikki)
+- [ShellCrash](https://github.com/juewuy/ShellCrash)
+- [homeproxy](https://github.com/immortalwrt/homeproxy)
+- [OpenClash](https://github.com/vernesong/OpenClash)
+- [openwrt-passwall](https://github.com/Openwrt-Passwall/openwrt-passwall)
+- [luci-app-daed](https://github.com/QiuSimons/luci-app-daed)
 
 
 ## 校园网多设备防检测
@@ -568,6 +608,7 @@ nft add rule ip mangle POSTROUTING ip ttl set 64
 检查规则是否生效
 nft list table ip mangle
 ```
+
 ## Openwrt改AP模式
 
 有时候我们使用X86做主路由，想让无线路由器只起到发射信号的作用，就可以将其改为AP模式，一般步骤为：
@@ -577,6 +618,33 @@ nft list table ip mangle
 - 关闭WAN口；
 - 关闭防火墙的禁止转发规则，全部允许；
 - 将X86主路由的网线插到AP的任意一个LAN口。
+
+## 关闭IPv6
+
+- 关闭 LAN IPv6 分配
+```
+uci set network.lan.ip6assign='0'
+uci commit network
+```
+
+- 关闭 DHCPv6 & RA
+```
+uci set dhcp.lan.ra='disabled'
+uci set dhcp.lan.dhcpv6='disabled'
+uci set dhcp.lan.ndp='disabled'
+uci commit dhcp
+```
+
+- 停掉 odhcpd
+```
+/etc/init.d/odhcpd stop
+/etc/init.d/odhcpd disable
+```
+
+- 重启网络
+```
+/etc/init.d/network restart
+```
 
 ## 更新所有包
 
@@ -588,6 +656,13 @@ opkg list-upgradable \
 | grep -vE '^(base-files|busybox|libc|libgcc|libstdc\+\+|procd|netifd|ubus|uci|kernel|kmod-|fstools|mtd|fwtool)$' \
 | xargs -r opkg upgrade
 ```
+25.x以后：
+
+```
+apk update
+apk upgrade
+```
+
 
 ## 🔗
 
