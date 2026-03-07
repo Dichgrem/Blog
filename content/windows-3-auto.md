@@ -1,5 +1,5 @@
 +++
-title = "Windows系列(3):封装与全自动安装"
+title = "Windows系列(3):封装与自动安装"
 date = 2024-05-27
 
 [taxonomies]
