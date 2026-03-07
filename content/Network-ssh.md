@@ -181,6 +181,53 @@ Host US
 
 > 注意每次登录前先开启keepassxc并解锁！
 
+
+## 保持连接
+
+SSH 连接断开通常有三个层面的原因：
+
+- SSH 服务端:ClientAliveInterval / ClientAliveCountMax超时:服务端主动断开空闲连接
+- 网络设备:NAT/防火墙的空闲连接超时（通常 5-15 分钟）:连接静默死亡，终端卡住无响应
+- SSH 客户端:客户端侧的 ServerAliveInterval 未配置:客户端不发送心跳，无法维持连接
+
+SSH 的连接保活机制依赖以下三个关键参数：
+
+- TCPKeepAlive：是否启用 TCP 层的 keepalive 探测。设为 yes 可以检测已死亡的连接并回收资源
+- ClientAliveInterval：服务端每隔多少秒向客户端发送一次心跳请求（通过加密通道）。客户端收到后自动回复，以此维持连接活性
+- ClientAliveCountMax：连续多少次心跳无响应后，服务端判定连接已死并断开
+
+编辑 SSH 服务端配置文件 /etc/ssh/sshd_config，找到或添加以下三行：
+
+```bash
+TCPKeepAlive yes
+ClientAliveInterval 60
+ClientAliveCountMax 360
+```
+
+TCPKeepAlive yes：启用 TCP keepalive，确保死连接能被检测到
+ClientAliveInterval 60：每 60 秒发送一次心跳
+ClientAliveCountMax 360：允许连续 360 次无响应
+最大空闲时长：60 × 360 = 21600 秒 = 6 小时。
+
+修改配置后需要重启 sshd 使其生效：
+
+```bash
+systemctl restart sshd
+```
+
+查看配置是否生效：
+```bash
+sshd -T | grep -i "clientalive\|tcpkeepalive"
+```
+
+编辑客户端的 ~/.ssh/config（不存在则创建）：
+
+```bash
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 30
+```
+
 ---
 **Done.**
 
