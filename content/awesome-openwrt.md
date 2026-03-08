@@ -524,6 +524,158 @@ make package/luci-app-zzz/compile V=s
 ./bin/packages/x86_64/base/zzz_0.1.1-r1_x86_64.ipk
 ```
 
+## 更换Uboot并切换到openwrt
+
+如果你想从immotalwrt切换回openwrt，可以使用以下步骤（以mt798x为例）：
+
+完整流程图
+
+```
+编译 kmod-mtd-rw
+      ↓
+解锁 MTD
+      ↓
+备份 BL2 / FIP
+      ↓
+刷 openwrt FIP
+      ↓
+Linux 启动 TFTP (192.168.1.254)
+      ↓
+U-Boot TFTP recovery
+      ↓
+启动 initramfs
+      ↓
+sysupgrade 刷正式系统
+```
+
+- 1.先从 OpenWrt firmware selector 下载设备文件：
+
+```
+openwrt-mediatek-filogic-nokia_ea0326gmp-bl31-uboot.fip
+openwrt-mediatek-filogic-nokia_ea0326gmp-initramfs-recovery.itb
+```
+
+- 2.编译安装 `kmod-mtd-rw`
+
+因为 **BL2 / FIP 默认是只读的**，必须安装 `kmod-mtd-rw` 才能写。如果你的固件仓库没有该模块，就要自己编译。或者可以去immortalwrt downloads下载。
+
+
+- 3.解锁 MTD
+
+在路由器 SSH：
+
+```bash
+scp kmod-mtd-rw*.ipk root@192.168.1.1:/tmp
+```
+
+安装：
+
+```bash
+opkg install /tmp/kmod-mtd-rw*.ipk
+```
+
+加载模块：
+
+```bash
+insmod mtd-rw.ko i_want_a_brick=1
+```
+
+- 4.备份关键分区
+
+在路由器后台-系统-备份与更新-保存 mtdblock 内容下备份所有分区。
+
+- 5.刷写新 Bootloader
+
+先上传文件：
+
+```bash
+scp openwrt-mediatek-filogic-nokia_ea0326gmp-bl31-uboot.fip root@192.168.1.1:/tmp
+```
+
+刷写：
+
+```bash
+mtd write /tmp/openwrt-mediatek-filogic-nokia_ea0326gmp-bl31-uboot.fip FIP
+```
+
+这一步实际上就是替换 **U-Boot**
+
+- 6.启动 TFTP
+
+先设置网卡的ip：
+```bash
+sudo ip addr add 192.168.1.254/24 dev enp5s0f3u2
+sudo ip link set enp5s0f3u2 up
+```
+
+然后创建tftp的工作目录，将要上传的itb放进去：
+
+```bash
+mkdir ~/tftp
+cp openwrt-mediatek-filogic-nokia_ea0326gmp-initramfs-recovery.itb ~/tftp
+cd ~/tftp
+sudo tftpd -i 192.168.1.254 -p 69 -d ~/tftp
+```
+
+- 7.进入 U-Boot TFTP recovery
+
+路由器断电 -- 按住 **RESET** 或者 **WPS** -- 插电 -- 等 **10 秒** --松开
+
+U-Boot 会自动：
+
+```
+TFTP server: 192.168.1.254
+Router IP:   192.168.1.1
+```
+
+并下载：
+
+```
+initramfs-recovery.itb
+```
+
+然后启动。
+
+- 8.进入 initramfs
+
+启动成功后：
+
+```
+IP: 192.168.1.1
+user: root
+password: (空)
+```
+
+SSH：
+
+```bash
+ssh root@192.168.1.1
+```
+
+- 9.刷正式系统
+
+把 sysupgrade 传上去：
+
+```bash
+scp openwrt-mediatek-filogic-nokia_ea0326gmp-squashfs-sysupgrade.itb root@192.168.1.1:/tmp
+```
+
+执行：
+
+```bash
+sysupgrade -n /tmp/openwrt-mediatek-filogic-nokia_ea0326gmp-squashfs-sysupgrade.itb
+```
+
+- 10.完成
+
+重启后：
+
+```
+http://192.168.1.1
+```
+
+就是正式 OpenWrt。
+
 
 ## Dwrt 方案
 
