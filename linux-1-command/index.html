@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/linux-1-command/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/linux-1-command/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/linux-1-command/">Linux-命令行操控</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-07-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文基于常见发行版（systemd + NetworkManager + PipeWire/ PulseAudio / ALSA）,目标是把常见的桌面/笔记本硬件（Wi-Fi、蓝牙、亮度、音量）通过命令行可复现、可理解地组织起来。</p>
+<span id="continue-reading"></span><h1 id="wifi-kong-zhi">Wifi 控制</h1>
+<p>现代桌面大多使用 NetworkManager 管理网络，<code>nmcli</code> 是其命令行接口。<code>nmcli</code> 能列出可用网络、连接/断开、创建配置文件（包括 WPA/WPA2/PSK、enterprise）等。相比直接编辑 wpa_supplicant 配置，<code>nmcli</code> 更安全、统一，能与 GUI 保持一致。</p>
+<h3 id="chang-yong-ming-ling">常用命令</h3>
+<p>列出接口及设备状态：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nmcli</span><span> device status
+</span></code></pre>
+<p>列出附近 Wi-Fi（SSID、信号强度、安全类型）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nmcli</span><span> device wifi list
+</span></code></pre>
+<p>交互式连接（会提示输入密码）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nmcli</span><span> device wifi connect </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">wifi-2.4G</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> --ask
+</span></code></pre>
+<p>不交互式连接（将密码放在命令里 — 注意安全风险）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nmcli</span><span> device wifi connect </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">wifi-2.4G</span><span style="color:#556633;">&quot;</span><span> password </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">your_password</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>基于已有配置文件连接（例如创建一个保存的 connection 名称）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 创建连接（自动选择设备）
+</span><span style="color:#ffb964;">nmcli</span><span> connection add type wifi ifname wlan0 con-name my-home ssid </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">wifi-2.4G</span><span style="color:#556633;">&quot; </span><span>\
+</span><span>  wifi-sec.key-mgmt wpa-psk wifi-sec.psk </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">your_password</span><span style="color:#556633;">&quot;
+</span><span>
+</span><span style="color:#888888;"># 启用连接
+</span><span style="color:#ffb964;">nmcli</span><span> connection up my-home
+</span></code></pre>
+<p>断开或禁用接口：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 断开当前连接
+</span><span style="color:#ffb964;">nmcli</span><span> device disconnect wlan0
+</span><span>
+</span><span style="color:#888888;"># 禁用设备（软禁用）
+</span><span style="color:#ffb964;">nmcli</span><span> device set wlan0 managed no
+</span></code></pre>
+<p>查看连接详情：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nmcli -f</span><span> all connection show my-home
+</span><span style="color:#ffb964;">nmcli</span><span> device show wlan0
+</span></code></pre>
+<hr />
+<h1 id="lan-ya-kong-zhi">蓝牙控制</h1>
+<p>Linux 上常见蓝牙栈为 BlueZ（蓝牙守护 <code>bluetoothd</code>），<code>bluetoothctl</code> 提供交互式 CLI。音频设备通常通过 BlueZ + PulseAudio（或 PipeWire）进行音频路由；配对/信任步骤必须完成才能稳定连接音频/键盘/鼠标等设备。</p>
+<h3 id="yi-lan-ya-fu-wu-yu-mo-kuai-qi-yong-jin-yong">一、蓝牙服务与模块启用/禁用</h3>
+<p>启用蓝牙服务（systemd）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl enable</span><span style="color:#ffb964;"> --now</span><span> bluetooth.service
+</span></code></pre>
+<p>打开蓝牙适配器电源：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bluetoothctl</span><span> power on
+</span></code></pre>
+<p>打开配对代理（用于交互式配对）并设置为默认：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bluetoothctl</span><span> agent on
+</span><span style="color:#ffb964;">bluetoothctl</span><span> default-agent
+</span></code></pre>
+<p>开启可发现（让其它设备能扫描到）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bluetoothctl</span><span> discoverable on
+</span></code></pre>
+<p>重启蓝牙服务（排错常用）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl restart bluetooth
+</span><span style="color:#ffb964;">sudo</span><span> journalctl</span><span style="color:#ffb964;"> -u</span><span> bluetooth</span><span style="color:#ffb964;"> -f
+</span></code></pre>
+<blockquote>
+<p>注意：某些发行版在使用 PipeWire 做音频时还需要 <code>pipewire</code> / <code>wireplumber</code> 正确运行，否则音频通道（A2DP/HFP）无法建立。</p>
+</blockquote>
+<h3 id="er-cha-kan-she-bei-yu-zhuang-tai">二、查看设备与状态</h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 列出本机所有蓝牙适配器
+</span><span style="color:#ffb964;">bluetoothctl</span><span> list
+</span><span>
+</span><span style="color:#888888;"># 查看本地适配器详细状态
+</span><span style="color:#ffb964;">bluetoothctl</span><span> show
+</span><span>
+</span><span style="color:#888888;"># 查看已配对设备
+</span><span style="color:#ffb964;">bluetoothctl</span><span> paired-devices
+</span><span>
+</span><span style="color:#888888;"># 查看某个设备详情（包括 UUID、已连接服务）
+</span><span style="color:#ffb964;">bluetoothctl</span><span> info AA:BB:CC:DD:EE:FF
+</span></code></pre>
+<h3 id="san-jiao-hu-shi-pei-dui-yu-lian-jie">三、交互式配对与连接</h3>
+<p>交互式步骤（在 <code>bluetoothctl</code> 提示符下）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">$</span><span> bluetoothctl
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> power on
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> agent on
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> default-agent
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> scan on
+</span><span style="color:#888888;"># 等待几秒，看到目标设备（并记录 MAC）
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> pair AA:BB:CC:DD:EE:FF
+</span><span style="color:#888888;"># 如果是需要 PIN 的设备，会提示配对码；确认或输入即可
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> trust AA:BB:CC:DD:EE:FF    </span><span style="color:#888888;"># 使系统信任设备（开机后自动连接）
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> connect AA:BB:CC:DD:EE:FF
+</span><span style="color:#ffb964;">[bluetooth]#</span><span> exit
+</span></code></pre>
+<h3 id="si-duan-kai-yu-shan-chu-she-bei">四、断开与删除设备</h3>
+<p>断开连接：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bluetoothctl</span><span> disconnect AA:BB:CC:DD:EE:FF
+</span></code></pre>
+<p>删除配对信息（“忘记设备”）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bluetoothctl</span><span> remove AA:BB:CC:DD:EE:FF
+</span></code></pre>
+<h3 id="wu-lan-ya-ruan-ying-feng-suo">五、蓝牙软/硬封锁</h3>
+<p>查看封锁状态：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">rfkill</span><span> list bluetooth
+</span></code></pre>
+<p>封锁（禁用）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> rfkill block bluetooth
+</span></code></pre>
+<p>解封（启用）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> rfkill unblock bluetooth
+</span></code></pre>
+<p>如果设备被<strong>硬封锁</strong>（硬件开关），软件方法无效，需要物理开关或 BIOS 设置。</p>
+<h3 id="liu-yin-pin-shu-chu-qie-huan">六、音频输出切换</h3>
+<ul>
+<li>现代发行版多用 PipeWire 替代 PulseAudio，但 PipeWire 提供兼容接口，因此 <code>pactl</code>（PulseAudio 控制工具）在很多系统仍然可用。</li>
+<li>蓝牙设备会在连接后生成类似 <code>bluez_output.XX_XX_XX_XX_XX_XX.a2dp_sink</code> 的 sink 名称；有时名称会略有差异，建议先查询。</li>
+</ul>
+<p>列出 sinks（输出设备）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> list short sinks
+</span></code></pre>
+<p>设置默认输出为蓝牙耳机（示例）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> set-default-sink bluez_output.XX_XX_XX_XX_XX_XX.a2dp_sink
+</span></code></pre>
+<p>把当前正在播放的流移动到蓝牙设备：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> list short sink-inputs         </span><span style="color:#888888;"># 找到输入编号
+</span><span style="color:#ffb964;">pactl</span><span> move-sink-input &lt;输入编号&gt; bluez_output.XX_XX_XX_XX_XX_XX.a2dp_sink
+</span></code></pre>
+<p>如果使用 PipeWire，遇到连接但没有声音的问题：</p>
+<ul>
+<li>确保 <code>wireplumber</code> 或 <code>pipewire-media-session</code> 正常运行。</li>
+<li>检查 profile（A2DP vs HFP）：A2DP 提供高音质但不可通话，HFP 可通话但质量较低。可通过 <code>pactl list cards</code> / <code>pactl set-card-profile</code> 调整。</li>
+</ul>
+<hr />
+<h1 id="liang-du-kong-zhi">亮度控制</h1>
+<p>笔记本屏幕亮度通常由内核暴露的 SysFS 接口 <code>/sys/class/backlight/*/brightness</code> 提供，写入该文件需要 root 权限或合适的权限（udev 规则）。桌面显示器、USB 显卡或 Wayland（特别是 wlroots）环境可能不会使用该接口，需要使用专门工具（如 <code>light</code>、<code>brightnessctl</code>、或 DE/Compositor 提供的接口）。</p>
+<h3 id="yi-sysfs-duo-shu-bi-ji-ben-gua-yong">一、SysFS（多数笔记本适用）</h3>
+<p>查看最大亮度值与当前亮度：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">cat</span><span> /sys/class/backlight/*/max_brightness
+</span><span style="color:#ffb964;">cat</span><span> /sys/class/backlight/*/brightness
+</span></code></pre>
+<p>设置亮度（需要 root）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 写入数值（0~max_brightness）
+</span><span>echo 5 | </span><span style="color:#ffb964;">sudo</span><span> tee /sys/class/backlight/*/brightness
+</span><span>
+</span><span style="color:#888888;"># 或者重定向（注意 sudo 的作用域）
+</span><span style="color:#ffb964;">sudo</span><span> sh</span><span style="color:#ffb964;"> -c </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">echo 5 &gt; /sys/class/backlight/*/brightness</span><span style="color:#556633;">&#39;
+</span></code></pre>
+<p>如果遇到 “权限被拒绝”：</p>
+<ul>
+<li>使用 <code>sudo tee</code> 或 <code>sudo sh -c</code>；或添加 udev 规则给某个用户写权限。</li>
+<li>在某些内核/驱动下，背光接口名称可能不同（<code>intel_backlight</code>、<code>amdgpu_bl0</code> 等）。</li>
+</ul>
+<h3 id="er-brightnessctl">二、brightnessctl</h3>
+<p><code>brightnessctl</code> 是一个用户友好、支持百分比与设备选择的工具。</p>
+<p>安装：</p>
+<ul>
+<li>Debian/Ubuntu:</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt install brightnessctl
+</span></code></pre>
+<ul>
+<li>Arch:</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> brightnessctl
+</span></code></pre>
+<p>用法示例：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">brightnessctl</span><span> info       </span><span style="color:#888888;"># 显示当前设备信息
+</span><span style="color:#ffb964;">brightnessctl</span><span> get        </span><span style="color:#888888;"># 当前亮度
+</span><span style="color:#ffb964;">brightnessctl</span><span> max        </span><span style="color:#888888;"># 最大亮度
+</span><span style="color:#ffb964;">brightnessctl</span><span> set +10%   </span><span style="color:#888888;"># 增加 10%
+</span><span style="color:#ffb964;">brightnessctl</span><span> set 50%    </span><span style="color:#888888;"># 设为 50%
+</span></code></pre>
+<hr />
+<h1 id="yin-liang-kong-zhi">音量控制</h1>
+<p>Linux 下有几层音量控制：硬件（ALSA）、中间层（PulseAudio / PipeWire）、用户层（桌面音量控制器）。常用命令行工具：<code>pactl</code>（PulseAudio / PipeWire）、<code>pamixer</code>（PulseAudio 前端）、<code>amixer</code>（ALSA 原生）。</p>
+<h3 id="yi-pactl-pulseaudio-pipewire">一、pactl（PulseAudio / PipeWire）</h3>
+<p>查看 sinks：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> list short sinks
+</span></code></pre>
+<p>查看默认 sink：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> info | </span><span style="color:#ffb964;">grep </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">Default Sink</span><span style="color:#556633;">&#39;
+</span></code></pre>
+<p>设置默认音量：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> set-sink-volume @DEFAULT_SINK@ 50%
+</span></code></pre>
+<p>增量调节：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> set-sink-volume @DEFAULT_SINK@ +5%
+</span><span style="color:#ffb964;">pactl</span><span> set-sink-volume @DEFAULT_SINK@</span><span style="color:#ffb964;"> -5</span><span>%
+</span></code></pre>
+<p>静音/取消静音/切换：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> set-sink-mute @DEFAULT_SINK@ 1
+</span><span style="color:#ffb964;">pactl</span><span> set-sink-mute @DEFAULT_SINK@ 0
+</span><span style="color:#ffb964;">pactl</span><span> set-sink-mute @DEFAULT_SINK@ toggle
+</span></code></pre>
+<p>移动播放流（见蓝牙章节）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pactl</span><span> list short sink-inputs
+</span><span style="color:#ffb964;">pactl</span><span> move-sink-input &lt;输入编号&gt; &lt;目标-sink&gt;
+</span></code></pre>
+<h3 id="er-amixer-alsa">二、amixer（ALSA）</h3>
+<p>列出通道与当前值：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">amixer</span><span> sget Master
+</span></code></pre>
+<p>设置音量（绝对 / 相对）：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">amixer</span><span> sset Master 50%     </span><span style="color:#888888;"># 绝对值
+</span><span style="color:#ffb964;">amixer</span><span> sset Master 5%</span><span style="color:#ffb964;">+     </span><span style="color:#888888;"># 增加
+</span><span style="color:#ffb964;">amixer</span><span> sset Master 5%</span><span style="color:#ffb964;">-     </span><span style="color:#888888;"># 减少
+</span></code></pre>
+<p>静音：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">amixer</span><span> set Master mute
+</span><span style="color:#ffb964;">amixer</span><span> set Master unmute
+</span><span style="color:#ffb964;">amixer</span><span> set Master toggle
+</span></code></pre>
+<blockquote>
+<p>当使用 PipeWire/PulseAudio 时，<code>amixer</code> 仍然可以操作底层硬件，但用户可听到的效果可能被上层音量（PulseWire/PulseAudio）覆盖。</p>
+</blockquote>
+<h3 id="san-pamixer-pulseaudio">三、pamixer（PulseAudio）</h3>
+<p>简洁的命令行前端，适合脚本：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">pamixer --get-volume
+</span><span style="color:#ffb964;">pamixer --set-volume</span><span> 40
+</span><span style="color:#ffb964;">pamixer --increase</span><span> 5
+</span><span style="color:#ffb964;">pamixer --decrease</span><span> 5
+</span><span style="color:#ffb964;">pamixer --toggle-mute
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/linux-0-start/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Linux-优雅过渡</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/awesome-vm-android/">
+                            <span class="button__text">综合工程:linux搭建安卓虚拟机</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-1">
+                    <a href="#wifi-kong-zhi">Wifi 控制</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#chang-yong-ming-ling">常用命令</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#lan-ya-kong-zhi">蓝牙控制</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#yi-lan-ya-fu-wu-yu-mo-kuai-qi-yong-jin-yong">一、蓝牙服务与模块启用&#x2F;禁用</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#er-cha-kan-she-bei-yu-zhuang-tai">二、查看设备与状态</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#san-jiao-hu-shi-pei-dui-yu-lian-jie">三、交互式配对与连接</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#si-duan-kai-yu-shan-chu-she-bei">四、断开与删除设备</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#wu-lan-ya-ruan-ying-feng-suo">五、蓝牙软&#x2F;硬封锁</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#liu-yin-pin-shu-chu-qie-huan">六、音频输出切换</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#liang-du-kong-zhi">亮度控制</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#yi-sysfs-duo-shu-bi-ji-ben-gua-yong">一、SysFS（多数笔记本适用）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#er-brightnessctl">二、brightnessctl</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#yin-liang-kong-zhi">音量控制</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#yi-pactl-pulseaudio-pipewire">一、pactl（PulseAudio &#x2F; PipeWire）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#er-amixer-alsa">二、amixer（ALSA）</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#san-pamixer-pulseaudio">三、pamixer（PulseAudio）</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

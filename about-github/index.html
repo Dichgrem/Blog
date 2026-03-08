@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-github/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-github/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-github/">乱七八糟:Github的使用</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-08-24
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 对于GitHub，相信我们都不陌生。本文介绍GitHub上许多好用的服务和资源。</p>
+<span id="continue-reading"></span><h2 id="github-gist">Github Gist</h2>
+<p>GitHub Gist 是 GitHub 提供的代码片段服务，用来<code>存放单个或少量文件的代码/文本</code>（如示例代码、配置片段、日志、临时笔记等）。</p>
+<p>官方说明是</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Instantly share code, notes, and snippets.
+</span></code></pre>
+<p>和 repo 相同的是，gist 也分为<code>public</code>和<code>private</code>；</p>
+<p>我们可以从一个简单的书签同步服务来实践：</p>
+<ol>
+<li>
+<p>创建一个gist，权限为 private; 随后可以看到类似<code>Dichgrem / gist:37f2ebad89923d49d8854c368d7f5c91</code>，gist后面这一串就是GistID；</p>
+</li>
+<li>
+<p>在这个<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/settings/tokens">界面</a>创建一个token，选择开启gist权限；</p>
+</li>
+<li>
+<p>安装这个书签同步<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.github.com/dudor/BookmarkHub">浏览器扩展</a>；</p>
+</li>
+<li>
+<p>将tokens 和 前面的 GistID 复制到这个浏览器扩展中；</p>
+</li>
+<li>
+<p>随后可以使用这个插件进行书签同步。</p>
+</li>
+</ol>
+<blockquote>
+<p>原理：使用浏览器api提取出书签，向 gist 仓库进行上传，gist仓库验证 tokens 后保存，在另一个浏览器中用同样的插件进行下载，即可同步.</p>
+</blockquote>
+<h2 id="github-pages">GitHub Pages</h2>
+<p>GitHub Pages 是 GitHub 提供的静态托管服务，常常用于快速部署纯前端网站。</p>
+<p>比如你有一个 Vue 写的网站仓库，在该仓库的<code>设置-Build and deployment</code>下，选择source，选择分支，并将public目录部署到GitHub Pages，随后会得到一个类似dichgrem.github.io 的域名，即可看到网站。</p>
+<p>当然你也可以绑定自己的域名，在custom dommain下添加，并在你的dns解析处添加对应的CNAME记录。</p>
+<blockquote>
+<p>具体流程可以参考Hexo的<a rel="noopener nofollow noreferrer" target="_blank" href="https://hexo.io/zh-cn/docs/github-pages">文档</a></p>
+</blockquote>
+<blockquote>
+<p>GitHub Pages 的限制</p>
+</blockquote>
+<ul>
+<li>不能运行后端代码</li>
+<li>站点大小有限制</li>
+<li>构建和发布有时间限制</li>
+<li>私有仓库 Pages 需要付费计划</li>
+</ul>
+<h2 id="github-actions">Github actions</h2>
+<p>GitHub Actions 是 GitHub 提供的 CI/CD 与自动化平台，用于<code>在代码仓库中自动执行任务，比如测试、构建、发布、部署</code>等。</p>
+<p>听起来有点抽象，实际上就是在仓库的这个位置放入一个yml文件 <code>.github/workflows/*.yml</code>，比如</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">name:</span><span> C Build
+</span><span>
+</span><span style="color:#ffb964;">on:
+</span><span>  </span><span style="color:#ffb964;">push:
+</span><span>  </span><span style="color:#ffb964;">pull_request:
+</span><span>  </span><span style="color:#ffb964;">workflow_dispatch:
+</span><span>
+</span><span style="color:#ffb964;">jobs:
+</span><span>  </span><span style="color:#ffb964;">build-and-run:
+</span><span>    </span><span style="color:#ffb964;">runs-on:</span><span> ubuntu-latest
+</span><span>    </span><span style="color:#ffb964;">steps:
+</span><span>      </span><span style="color:#ffb964;">-</span><span> name: Checkout
+</span><span>        </span><span style="color:#ffb964;">uses:</span><span> actions/checkout@v4
+</span><span>
+</span><span>      </span><span style="color:#ffb964;">-</span><span> name: Show compiler version
+</span><span>        </span><span style="color:#ffb964;">run:</span><span> gcc</span><span style="color:#ffb964;"> --version
+</span><span>
+</span><span>      </span><span style="color:#ffb964;">-</span><span> name: Build
+</span><span>        </span><span style="color:#ffb964;">run:</span><span> gcc</span><span style="color:#ffb964;"> -O2 -Wall -Wextra -std</span><span>=c11</span><span style="color:#ffb964;"> -o</span><span> app main.c
+</span><span>
+</span><span>      </span><span style="color:#ffb964;">-</span><span> name: Run
+</span><span>        </span><span style="color:#ffb964;">run:</span><span> ./app
+</span></code></pre>
+<p>这个文件的意思就是</p>
+<ul>
+<li>触发条件：push / pull_request / 手动触发</li>
+<li>actions/checkout@v4：拉取仓库代码</li>
+<li>gcc ... main.c：将main.c编译成产物 app</li>
+<li>./app：运行，确保编译出来的程序能执行</li>
+</ul>
+<p>把本地的环境迁移到github的runner中，这样做有几个好处：</p>
+<ul>
+<li>统一了编译环境，不用考虑开发成员之间的环境区别；</li>
+<li>将构建自动化，开发者可以专注于代码，新人也可以快速上手；</li>
+<li>自动发布到release，极大方便了项目管理;</li>
+<li>GitHub Actions提供许多现有的steps，类似乐高积木的体验;</li>
+</ul>
+<blockquote>
+<p>GitHub Actions的限制</p>
+</blockquote>
+<ul>
+<li>public仓库通常没有限制</li>
+<li>privat仓库为2,000 分钟，500 MB</li>
+</ul>
+<h2 id="github-copilot">GitHub Copilot</h2>
+<p>从11月起GitHub首页增加了AI对话功能，调用的就是 <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/features/copilot">GitHub Copilot</a>。</p>
+<p>GitHub Copilot 是一个 AI 驱动的 智能编码助手，由 GitHub 和 OpenAI 联合开发。可以调用GPT/gemini/Claude等多家模型.</p>
+<p>你可以在vscode中下载copilot插件并使用，它会给你带来自动补全以及按照上下文生成整段代码的功能.</p>
+<blockquote>
+<p>现在copilot已经开源，并且在vscode中自带，直接登录就可以使用，无须手动下载.</p>
+</blockquote>
+<blockquote>
+<p>GitHub Copilot的限制</p>
+</blockquote>
+<ul>
+<li>免费版本约 2,000 次代码自动完成（completions） —— 即 Copilot 在 IDE 里根据你的输入生成代码的次数。</li>
+<li>约 50 次 Copilot Chat 消息 / 会话请求 —— 即和 Copilot Chat 对话或高级问答次数。</li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/linux-2-stm32/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Linux-STM32开发环境部署</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/linux-3-android-dev/">
+                            <span class="button__text">Linux-Android开发环境部署</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#github-gist">Github Gist</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#github-pages">GitHub Pages</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#github-actions">Github actions</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#github-copilot">GitHub Copilot</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

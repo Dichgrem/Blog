@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-baci/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-baci/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-baci/">乱七八糟:Baci实验笔记</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-04-23
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 ​BACI是一个简化的并发程序模拟器，这里对其语法与运行环境进行说明。</p>
+<span id="continue-reading"></span>
+<p>​BACI（<code>Ben-Ari Concurrent Interpreter</code>）由计算机科学家 M. Ben-Ari 开发，是一个用于教学目的的并发程序模拟器，提供了一个简化的编程环境，使学习者能够编写、编译和执行并发程序，从而深入<code>理解进程同步、互斥、信号量</code>等核心概念。</p>
+<h1 id="guan-fang-zhi-nan">官方指南</h1>
+<p><code>BACI C−− User’s Guide</code>：详细介绍了 C−− 编译器（bacc）与 PCODE 解释器（bainterp）的使用方法、语法说明及示例程序。该指南<code>包含编译命令、信号量、监视器等并发原语</code>介绍。 这里对官方文档进行了汉化：</p>
+<blockquote>
+<p>作者：Bill Bynum/Tracy Camp 威廉玛丽学院/科罗拉多矿业学院 2002年11月5日</p>
+</blockquote>
+<h2 id="mu-lu">目录</h2>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">1.</span><span> 引言
+</span><span style="color:#ffb964;">2.</span><span> C-- 编译器语法
+</span><span style="color:#ffb964;">3.</span><span> 并发结构
+</span><span>   </span><span style="color:#ffb964;">3.1</span><span> cobegin 块
+</span><span>   </span><span style="color:#ffb964;">3.2</span><span> 信号量
+</span><span>      </span><span style="color:#ffb964;">3.2.1</span><span> 初始化信号量
+</span><span>      </span><span style="color:#ffb964;">3.2.2</span><span> p (或 wait) </span><span style="color:#ffb964;">和</span><span> v (或 signal) </span><span style="color:#ffb964;">函数
+</span><span>      </span><span style="color:#ffb964;">3.2.3</span><span> 信号量使用示例
+</span><span>   </span><span style="color:#ffb964;">3.3</span><span> 管程
+</span><span>      </span><span style="color:#ffb964;">3.3.1</span><span> 条件变量
+</span><span>      </span><span style="color:#ffb964;">3.3.2</span><span> waitc 和 signalc 函数
+</span><span>      </span><span style="color:#ffb964;">3.3.3</span><span> 立即恢复要求
+</span><span>      </span><span style="color:#ffb964;">3.3.4</span><span> 管程示例
+</span><span>   </span><span style="color:#ffb964;">3.4</span><span> 其他并发结构
+</span><span>      </span><span style="color:#ffb964;">3.4.1</span><span> atomic 关键字
+</span><span>      </span><span style="color:#ffb964;">3.4.2</span><span> void suspend( void );
+</span><span>      </span><span style="color:#ffb964;">3.4.3</span><span> void revive( int process_number );
+</span><span>      </span><span style="color:#ffb964;">3.4.4</span><span> int which_proc( void );
+</span><span>      </span><span style="color:#ffb964;">3.4.5</span><span> int random( int range );
+</span><span style="color:#ffb964;">4.</span><span> 内置字符串处理函数
+</span><span>   </span><span style="color:#ffb964;">4.1</span><span> void stringCopy(string dest, string src);
+</span><span>   </span><span style="color:#ffb964;">4.2</span><span> void stringConcat(string dest, string src);
+</span><span>   </span><span style="color:#ffb964;">4.3</span><span> int stringCompare(string x, string y);
+</span><span>   </span><span style="color:#ffb964;">4.4</span><span> int stringLength(string x);
+</span><span>   </span><span style="color:#ffb964;">4.5</span><span> int sscanf(string x, rawstring fmt,...);
+</span><span>   </span><span style="color:#ffb964;">4.6</span><span> void sprintf(string x, rawstring fmt,...);
+</span><span style="color:#ffb964;">5.</span><span> 使用 BACI C-- 编译器和 PCODE 解释器
+</span><span style="color:#ffb964;">6.</span><span> 示例程序和输出
+</span></code></pre>
+<h2 id="1-yin-yan">1. 引言</h2>
+<p>本文档旨在简要描述 C-- BACI 编译器和并发 PCODE 解释器程序，并说明如何使用它们。C-- 编译器首先将用户程序编译成一种称为 PCODE 的中间目标代码，然后由解释器执行。C-- 编译器支持二进制和计数信号量以及 Hoare 管程。解释器模拟并发进程执行。</p>
+<p>BACI 系统程序：</p>
+<table><thead><tr><th>程序</th><th>功能</th><th>相关文档</th></tr></thead><tbody>
+<tr><td>bacc</td><td>BACI C-- 到 PCODE 编译器</td><td>本指南 (cmimi.ps)</td></tr>
+<tr><td>bapas</td><td>BACI Pascal 到 PCODE 编译器</td><td>guidepas.ps</td></tr>
+<tr><td>bainterp</td><td>命令行 PCODE 解释器</td><td>cmimi.ps, guidepas.ps, disasm.ps</td></tr>
+<tr><td>bagui</td><td>PCODE 解释器的图形用户界面（仅限 UNIX 系统）</td><td>guiguide.ps</td></tr>
+<tr><td>badis</td><td>PCODE 反编译器</td><td>disasm.ps</td></tr>
+<tr><td>baar</td><td>PCODE 归档程序</td><td>sepcomp.ps</td></tr>
+<tr><td>bald</td><td>PCODE 链接器</td><td>sepcomp.ps</td></tr>
+</tbody></table>
+<p>Pascal 版本的编译器和解释器最初是 M. Ben-Ari 编写的程序中的过程，基于 Niklaus Wirth 的原始 Pascal 编译器。程序源代码作为附录包含在 Ben-Ari 的著作《并发编程原理》中。BACI 编译器和解释器的原始版本就是从该源代码创建的。最终，Pascal 编译器和解释器被分成两个独立的程序，并开发了 C-- 编译器，用于将用 C++ 的受限子集编写的源程序编译成可由解释器执行的 PCODE。</p>
+<p>下面将解释 C-- 编译器的语法。本指南仅适用于 C-- 编译器，不适用于 BACI 并发 Pascal 编译器。对 Pascal 编译器感兴趣的用户应参考其用户指南（见文件 guidepas.ps）。</p>
+<h2 id="2-c-bian-yi-qi-yu-fa">2. C-- 编译器语法</h2>
+<ol>
+<li>
+<p>如同 C++，注释可以用 '/<em>' 和 '</em>/' 或 '//' 来界定。</p>
+</li>
+<li>
+<p>除了标准输入和输出外没有其他文件：cout、cin 和 endl 在 C-- BACI 中的行为与标准 C++ 一致。主程序必须具有以下形式之一：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">int </span><span style="color:#fad07a;">main</span><span>()
+</span><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">main</span><span>()
+</span><span style="color:#ffb964;">main</span><span>()
+</span></code></pre>
+</li>
+<li>
+<p>C-- BACI 中唯一可用的简单 C/C++ 类型是 int 和 char。还有其他与并发控制相关的类型，将在下面讨论。</p>
+<p>所有变量必须在它们出现的代码块开头声明。特别是，for 循环的索引变量不能在循环头中声明，而必须在包含该 for 循环的块的开头声明。</p>
+</li>
+<li>
+<p>支持 string 类型。声明字符串时，必须指定字符串的长度。以下声明定义了一个长度为 20 的字符串：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>string[</span><span style="color:#cf6a4c;">20</span><span>] string_name;
+</span></code></pre>
+<p>长度说明符应该是字符串应具有的字符数，不应包括终止字节的空间。编译器负责为终止字节保留空间。长度说明符必须是字面常量或程序常量。</p>
+<p>在函数声明中，string 关键字用于声明 string 类型的参数：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">proc</span><span>(string </span><span style="color:#ffb964;">formal_parm</span><span>)
+</span></code></pre>
+<p>此声明断言 formal_parm 的类型为 string[n]，其中 n 为某个正值。string 类型的参数是通过引用传递的。不执行字符串溢出检查。</p>
+</li>
+<li>
+<p>支持任何有效类型的数组。数组声明遵循通常的 C 语法：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>element_type arrayname[index1][index2][index3]...[indexN];
+</span></code></pre>
+</li>
+<li>
+<p>C-- BACI 支持关键字 typedef。例如，要使变量名 length 成为 int 的同义词：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">typedef int </span><span style="color:#ffb964;">length</span><span>;
+</span></code></pre>
+</li>
+<li>
+<p>支持简单类型的常量 (const)：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">const int</span><span> m = </span><span style="color:#cf6a4c;">5</span><span>;
+</span></code></pre>
+</li>
+<li>
+<p>在声明 int 和 char 类型的变量时，支持初始化器。初始化器的值必须是字面量或程序常量：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">const int</span><span> m = </span><span style="color:#cf6a4c;">5</span><span>;
+</span><span style="color:#8fbfdc;">int</span><span> j = m;
+</span><span style="color:#8fbfdc;">int</span><span> k = </span><span style="color:#cf6a4c;">3</span><span>;
+</span><span style="color:#8fbfdc;">char</span><span> c = </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">a</span><span style="color:#556633;">&#39;</span><span>;
+</span></code></pre>
+</li>
+<li>
+<p>支持过程和函数。适用标准作用域规则。支持递归。参数声明为传值或传引用：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">int </span><span style="color:#fad07a;">afunc</span><span>(</span><span style="color:#8fbfdc;">int </span><span style="color:#ffb964;">a</span><span>, </span><span style="color:#888888;">/* 传值 */
+</span><span>        </span><span style="color:#8fbfdc;">int</span><span>&amp; </span><span style="color:#ffb964;">b</span><span>) </span><span style="color:#888888;">/* 传引用 */
+</span></code></pre>
+<p>每个程序必须有一个 int 或 void 类型的 main() 函数，并且该函数必须是源文件中的最后一个函数。执行从 main() 的调用开始。</p>
+</li>
+<li>
+<p>可执行语句包括 if-else、switch/case、for、while、do-while、break 和 continue。这些语句的语法与标准 C/C++ 相同。代码的括号也是标准的，即 { ... }。</p>
+</li>
+<li>
+<p>支持标准 C/C++ 文件包含：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">#include </span><span style="color:#556633;">&lt;</span><span style="color:#99ad6a;"> ... </span><span style="color:#556633;">&gt;
+</span><span style="color:#8fbfdc;">#include </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;"> ... </span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>两种包含语句风格具有相同的语义，因为没有"系统"包含目录。</p>
+</li>
+<li>
+<p>支持用于定义外部变量的 extern 关键字。外部变量可以是任何有效的 C-- 类型。外部变量不能使用初始化器。extern 关键字只能出现在全局（"外部"）级别。典型示例：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">extern int</span><span> i;
+</span><span style="color:#8fbfdc;">extern char</span><span> a[</span><span style="color:#cf6a4c;">20</span><span>];
+</span><span style="color:#8fbfdc;">extern</span><span> string[</span><span style="color:#cf6a4c;">30</span><span>] b;
+</span><span style="color:#888888;">// 不允许初始化器 ----&gt; extern int i = 30;
+</span><span style="color:#888888;">// (如果有初始化，必须在 i 定义的地方进行)
+</span><span style="color:#8fbfdc;">extern int </span><span style="color:#fad07a;">func</span><span>(</span><span style="color:#8fbfdc;">int </span><span style="color:#ffb964;">k</span><span>);
+</span><span style="color:#8fbfdc;">extern</span><span> monitor monSemaphore { </span><span style="color:#888888;">// 见第 3 节。这里只需给出
+</span><span>  </span><span style="color:#8fbfdc;">void </span><span style="color:#ffb964;">monP</span><span>();              </span><span style="color:#888888;">// 管程的外部可见细节
+</span><span>  </span><span style="color:#8fbfdc;">void </span><span style="color:#ffb964;">monV</span><span>();
+</span><span>}
+</span></code></pre>
+<p>使用 bacc 编译包含外部引用的源文件时，必须使用 -c 选项。有关使用外部变量的更多信息，请参阅 BACI 系统分离编译指南。</p>
+</li>
+</ol>
+<h2 id="3-bing-fa-jie-gou">3. 并发结构</h2>
+<h3 id="3-1-cobegin-kuai">3.1 cobegin 块</h3>
+<p>C-- 进程是一个 void 函数。在 BACI 系统中，"并发进程"一词与"并发线程"一词同义。要并发运行的进程列表封装在一个 cobegin 块中。这种块不能嵌套，必须出现在主程序中。</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>cobegin {
+</span><span>  </span><span style="color:#ffb964;">proc1</span><span>(...); </span><span style="color:#ffb964;">proc2</span><span>(...); ... ; </span><span style="color:#ffb964;">procN</span><span>(...);
+</span><span>}
+</span></code></pre>
+<p>列出的过程中的 PCODE 语句由解释器以任意的"随机"顺序交错执行，因此，包含 cobegin 块的同一程序的多次执行将表现为非确定性的。主程序被挂起，直到 cobegin 块中的所有进程终止，此时主程序在块结尾后的语句处恢复执行。</p>
+<h3 id="3-2-xin-hao-liang">3.2 信号量</h3>
+<p>解释器有一个预先声明的 semaphore 类型。也就是说，C-- 中的信号量是一个非负整数变量（见下面的定义），只能以受限方式访问。二进制信号量，即只取值 0 和 1 的信号量，由 semaphore 类型的 binarysem 子类型支持。在编译和执行过程中，编译器和解释器强制限制 binarysem 变量只能取值 0 或 1，而 semaphore 类型只能是非负的。</p>
+<h4 id="3-2-1-chu-shi-hua-xin-hao-liang">3.2.1 初始化信号量</h4>
+<p>只有在定义信号量变量时才允许对其赋值。例如，以下任一声明都是有效的：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>semaphore s = </span><span style="color:#cf6a4c;">17</span><span>;
+</span><span>binarysem b = </span><span style="color:#cf6a4c;">0</span><span>;
+</span></code></pre>
+<p>内置过程：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#ffb964;">initialsem</span><span>(semaphore, integer_expression);
+</span></code></pre>
+<p>是在运行时初始化任一类型信号量的唯一可用方法。在调用中，integer_expression 可以是计算结果为整数且对信号量类型有效的任何表达式（semaphore 类型为非负，binarysem 类型为 0 或 1）。例如，以下两个 initialsem 调用显示了初始化上述两个信号量的另一种方式：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#ffb964;">initialsem</span><span>(s, </span><span style="color:#cf6a4c;">17</span><span>);
+</span><span style="color:#ffb964;">initialsem</span><span>(b, </span><span style="color:#cf6a4c;">0</span><span>);
+</span></code></pre>
+<h4 id="3-2-2-p-huo-wait-he-v-huo-signal-han-shu">3.2.2 p (或 wait) 和 v (或 signal) 函数</h4>
+<p>p 函数（或同义的 wait）和 v 函数（或同义的 signal）由并发执行的进程用于同步它们的操作。这些函数为用户提供了更改信号量值的唯一方式。</p>
+<p>这两个函数的原型如下：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">p</span><span>(semaphore&amp; </span><span style="color:#ffb964;">s</span><span>);
+</span></code></pre>
+<p>或等效地：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">wait</span><span>(semaphore&amp; </span><span style="color:#ffb964;">s</span><span>);
+</span></code></pre>
+<p>以及：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">v</span><span>(semaphore&amp; </span><span style="color:#ffb964;">s</span><span>);
+</span></code></pre>
+<p>或等效地：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">signal</span><span>(semaphore&amp; </span><span style="color:#ffb964;">s</span><span>);
+</span></code></pre>
+<p>每个函数的信号量参数显示为引用参数，因为函数会修改信号量的值。</p>
+<p>p 和 v 函数调用的语义如下：</p>
+<p>p(sem);</p>
+<ul>
+<li>如果 sem &gt; 0，则将 sem 减 1 并返回，允许 p 的调用者继续。</li>
+<li>如果 sem = 0，则使 p 的调用者休眠。这些操作是原子的，即它们是不可中断的，从开始到结束执行。</li>
+</ul>
+<p>v(sem);</p>
+<ul>
+<li>如果 sem = 0 且一个或多个进程正在 sem 上休眠，则唤醒其中一个进程。如果没有进程在 sem 上等待，则将 sem 加一。在任何情况下，v 的调用者都被允许继续。这些操作是原子的，即它们是不可中断的，从开始到结束执行。</li>
+<li>v 的某些实现要求按 FIFO 顺序唤醒等待信号量的进程（队列信号量），但 BACI 符合 Dijkstra 的原始提议，在信号到达时随机选择要重新唤醒的进程。</li>
+</ul>
+<h4 id="3-2-3-xin-hao-liang-shi-yong-shi-li">3.2.3 信号量使用示例</h4>
+<p>为帮助解释信号量的使用，我们提供以下简短示例：</p>
+<pre data-lang="java" style="background-color:#151515;color:#e8e8d3;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#7697d6;">BACI </span><span style="color:#ffb964;">System</span><span>: </span><span style="color:#ffb964;">C</span><span>-- to </span><span style="color:#7697d6;">PCODE </span><span style="color:#ffb964;">Compiler</span><span>, </span><span style="color:#cf6a4c;">09</span><span>:</span><span style="color:#cf6a4c;">24 2 </span><span style="color:#ffb964;">May </span><span style="color:#cf6a4c;">2002
+</span><span style="color:#ffb964;">Source</span><span> file: semexample.cm </span><span style="color:#ffb964;">Sun Apr </span><span style="color:#cf6a4c;">28 20</span><span>:</span><span style="color:#cf6a4c;">40</span><span>:</span><span style="color:#cf6a4c;">12 2002
+</span><span>line pc
+</span><span style="color:#cf6a4c;">1 0 </span><span style="color:#888888;">// C-- 信号量使用示例
+</span><span style="color:#cf6a4c;">2 0
+</span><span style="color:#cf6a4c;">3 0</span><span> semaphore count; </span><span style="color:#888888;">// 一个&quot;通用&quot;信号量
+</span><span style="color:#cf6a4c;">4 0</span><span> binarysem output; </span><span style="color:#888888;">// 一个二进制（0 或 1）信号量，用于解除输出混乱
+</span><span style="color:#cf6a4c;">5 0
+</span><span style="color:#cf6a4c;">6 0</span><span> void </span><span style="color:#ffb964;">increment</span><span>()
+</span><span style="color:#cf6a4c;">7 0 </span><span>{
+</span><span style="color:#cf6a4c;">8 0 </span><span style="color:#ffb964;">p</span><span>(output); </span><span style="color:#888888;">// 获取对标准输出的独占访问权
+</span><span style="color:#cf6a4c;">9 2</span><span> cout &lt;&lt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">before v(count) value of count is </span><span style="color:#556633;">&quot; </span><span>&lt;&lt; count &lt;&lt; endl;
+</span><span style="color:#cf6a4c;">10 6 </span><span style="color:#ffb964;">v</span><span>(output);
+</span><span style="color:#cf6a4c;">11 8 </span><span style="color:#ffb964;">v</span><span>(count); </span><span style="color:#888888;">// 增加信号量
+</span><span style="color:#cf6a4c;">12 10 </span><span>} </span><span style="color:#888888;">// increment
+</span><span style="color:#cf6a4c;">13 11
+</span><span style="color:#cf6a4c;">14 11</span><span> void </span><span style="color:#ffb964;">decrement</span><span>()
+</span><span style="color:#cf6a4c;">15 11 </span><span>{
+</span><span style="color:#cf6a4c;">16 11 </span><span style="color:#ffb964;">p</span><span>(output); </span><span style="color:#888888;">// 获取对标准输出的独占访问权
+</span><span style="color:#cf6a4c;">17 13</span><span> cout &lt;&lt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">before p(count) value of count is </span><span style="color:#556633;">&quot; </span><span>&lt;&lt; count &lt;&lt; endl;
+</span><span style="color:#cf6a4c;">18 17 </span><span style="color:#ffb964;">v</span><span>(output);
+</span><span style="color:#cf6a4c;">19 19 </span><span style="color:#ffb964;">p</span><span>(count); </span><span style="color:#888888;">// 减少信号量（或停止 -- 见手册文本）
+</span><span style="color:#cf6a4c;">20 21 </span><span>} </span><span style="color:#888888;">// decrement
+</span><span style="color:#cf6a4c;">21 22
+</span><span style="color:#cf6a4c;">22 22 </span><span style="color:#ffb964;">main</span><span>()
+</span><span style="color:#cf6a4c;">23 23 </span><span>{
+</span><span style="color:#cf6a4c;">24 23 </span><span style="color:#ffb964;">initialsem</span><span>(count,</span><span style="color:#cf6a4c;">0</span><span>);
+</span><span style="color:#cf6a4c;">25 26 </span><span style="color:#ffb964;">initialsem</span><span>(output,</span><span style="color:#cf6a4c;">1</span><span>);
+</span><span style="color:#cf6a4c;">26 29</span><span> cobegin {
+</span><span style="color:#cf6a4c;">27 30 </span><span style="color:#ffb964;">decrement</span><span>(); </span><span style="color:#ffb964;">increment</span><span>();
+</span><span style="color:#cf6a4c;">28 36 </span><span>}
+</span><span style="color:#cf6a4c;">29 37 </span><span>} </span><span style="color:#888888;">// main
+</span></code></pre>
+<p>该程序使用两个信号量。一个信号量 count 属于 semaphore 类型，这向 BACI 系统表明该信号量将被允许具有任何非负值。两个并发过程 increment 和 decrement 通过 count 信号量相互"发送信号"。另一个信号量 output 属于 binarysem 类型，这向 BACI 系统表明该信号量应始终具有值 0 或 1；任何其他值都会导致运行时异常。该信号量用于防止两个并发执行的过程 increment 和 decrement 的输出混合在一起。</p>
+<p>我们使用以下命令生成上述编译器列表：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">prompt%</span><span> bacc semexample
+</span><span style="color:#ffb964;">Pcode</span><span> and tables are stored in semexample.pco
+</span><span style="color:#ffb964;">Compilation</span><span> listing is stored in semexample.lst
+</span></code></pre>
+<p>然后可以使用 BACI PCODE 解释器执行 semexample.pco 文件：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">prompt%</span><span> bainterp semexample
+</span><span style="color:#ffb964;">Source</span><span> file: semexample.cm Sun Apr 28 20:40:12 2002
+</span><span style="color:#ffb964;">Executing</span><span> PCODE ...
+</span><span style="color:#ffb964;">before</span><span> v(count) </span><span style="color:#ffb964;">value</span><span> of count is 0
+</span><span style="color:#ffb964;">before</span><span> p(count) </span><span style="color:#ffb964;">value</span><span> of count is 1
+</span></code></pre>
+<p>这是程序可能产生的三种可能输出之一。另外两种可能的程序输出是：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">prompt%</span><span> bainterp semexample
+</span><span style="color:#ffb964;">Source</span><span> file: semexample.cm Sun Apr 28 20:40:12 2002
+</span><span style="color:#ffb964;">Executing</span><span> PCODE ...
+</span><span style="color:#ffb964;">before</span><span> p(count) </span><span style="color:#ffb964;">value</span><span> of count is 0
+</span><span style="color:#ffb964;">before</span><span> v(count) </span><span style="color:#ffb964;">value</span><span> of count is 0
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">prompt%</span><span> bainterp semexample
+</span><span style="color:#ffb964;">Source</span><span> file: semexample.cm Sun Apr 28 20:40:12 2002
+</span><span style="color:#ffb964;">Executing</span><span> PCODE ...
+</span><span style="color:#ffb964;">before</span><span> v(count) </span><span style="color:#ffb964;">value</span><span> of count is 0
+</span><span style="color:#ffb964;">before</span><span> p(count) </span><span style="color:#ffb964;">value</span><span> of count is 0
+</span></code></pre>
+<p>有兴趣的读者可能会发现，提供这三种程序输出生成方式的解释，并证明这三种输出是唯一可能的输出，是很有指导意义的。</p>
+<h3 id="3-3-guan-cheng">3.3 管程</h3>
+<p>支持 Hoare 提出的管程概念，但有一些限制。管程是一个 C-- 块，类似于由过程或函数定义的块，但具有一些额外的属性。管程块中的所有函数都是可见的（即可从块外部调用的入口过程），但管程变量在块外部不可访问，并且只能由管程函数访问。</p>
+<p>在 C-- 中，管程只能在最外层、全局级别声明。管程不能嵌套。管程可以选择在最后一个块中有一个 init{} 块，用于初始化管程变量的值。这段代码在主程序启动时运行。</p>
+<p>管程块的只有一个过程或函数可以在任何时候执行。这一特性使得可以使用管程来实现互斥。使用管程控制并发是有优势的，因为所有控制并发的代码都位于管程中，而不是像使用信号量那样广泛分布在调用者中。</p>
+<p>管程的过程和函数使用三种结构来控制并发：条件变量、waitc（等待条件）和 signalc（表示条件）。</p>
+<h4 id="3-3-1-tiao-jian-bian-liang">3.3.1 条件变量</h4>
+<p>条件变量只能在管程中定义，因此只能由管程的进程访问。条件变量实际上从不"有"值；它是等待的地方或信号的东西。管程进程可以通过 waitc 和 signalc 调用等待条件成立或表示给定条件现在成立。</p>
+<h4 id="3-3-2-waitc-he-signalc-han-shu">3.3.2 waitc 和 signalc 函数</h4>
+<p>waitc 和 signalc 调用具有以下语法和语义：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">waitc</span><span>(condition </span><span style="color:#ffb964;">cond</span><span>, </span><span style="color:#8fbfdc;">int </span><span style="color:#ffb964;">prio</span><span>);
+</span></code></pre>
+<p>管程进程（因此，也是调用管程进程的外部进程）被阻塞并被分配优先级 prio 以便被重新唤醒（见下面的 signalc）。请注意，这种阻塞操作允许另一个管程进程执行，如果有的话。</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">waitc</span><span>(condition </span><span style="color:#ffb964;">cond</span><span>);
+</span></code></pre>
+<p>此调用具有与上面的 waitc 调用相同的语义，但等待被分配默认优先级 10。</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">signalc</span><span>(condition </span><span style="color:#ffb964;">cond</span><span>);
+</span></code></pre>
+<p>唤醒在 cond 上等待的、具有最小（最高）优先级的某个进程；否则，不执行任何操作。请注意，这与信号量 v 或 signal 完全不同，因为如果没有人等待，signalc 是一个空操作，而 v(sem) 在没有人等待时会增加 sem，从而在将来的 p(sem) 发生时"记住"该操作。</p>
+<p>优先级方案可用于实现重新唤醒等待者的 FIFO 规则。如果每个管程进程都增加与当前分配给条件的优先级相关联的管程变量，那么对该条件的连续 signalc 将按照 FIFO 顺序唤醒休眠进程。</p>
+<p>C-- 编译器提供了一个 int 函数 empty(cond)，如果条件 cond 的队列中没有进程等待，则返回 1，否则返回 0。</p>
+<h4 id="3-3-3-li-ji-hui-fu-yao-qiu">3.3.3 立即恢复要求</h4>
+<p>这是指刚刚被发送信号的条件上等待的进程应该优先于新调用管程进程（那些想要"从顶部"进入的进程）重新进入管程的要求。该要求基于这样的假设：刚刚被发送信号的条件比新进入管程的情况具有更"紧急"的业务要执行。立即恢复要求在 BACI 中通过挂起条件的发送者并随机选择一个具有适当优先级的条件等待者来运行来实现。因此，signalc 条件的管程过程通常将其作为最后一条指令。</p>
+<p>当被 signalc 重新唤醒的进程离开管程时，在发出 signalc 调用后被挂起的在管程中执行的进程被允许优先于尝试"从顶部"进入管程的进程恢复在管程中的执行。</p>
+<h4 id="3-3-4-guan-cheng-shi-li">3.3.4 管程示例</h4>
+<p>以下通过管程实现通用信号量的示例说明了管程语法：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>monitor monSemaphore {
+</span><span>  </span><span style="color:#8fbfdc;">int</span><span> semvalue;
+</span><span>  condition notbusy;
+</span><span>  </span><span style="color:#8fbfdc;">void </span><span style="color:#ffb964;">monP</span><span>()
+</span><span>  {
+</span><span>    </span><span style="color:#8fbfdc;">if </span><span>(!semvalue)
+</span><span>      </span><span style="color:#ffb964;">waitc</span><span>(notbusy);
+</span><span>    </span><span style="color:#8fbfdc;">else
+</span><span>      semvalue--;
+</span><span>  }
+</span><span>  </span><span style="color:#8fbfdc;">void </span><span style="color:#ffb964;">monV</span><span>()
+</span><span>  {
+</span><span>    </span><span style="color:#8fbfdc;">if </span><span>(</span><span style="color:#ffb964;">empty</span><span>(notbusy))
+</span><span>      semvalue++;
+</span><span>    </span><span style="color:#8fbfdc;">else
+</span><span>      </span><span style="color:#ffb964;">signalc</span><span>(notbusy);
+</span><span>  }
+</span><span>  init{ semvalue = </span><span style="color:#cf6a4c;">1</span><span>; }
+</span><span>} </span><span style="color:#888888;">// monSemaphore 管程结束
+</span></code></pre>
+<h3 id="3-4-qi-ta-bing-fa-jie-gou">3.4 其他并发结构</h3>
+<p>BACI C-- 提供了几个低级并发结构，可用于创建新的并发控制原语：这些函数可用于创建"公平"（FIFO）队列信号量。实现这一点的代码超出了本用户指南的范围。</p>
+<h4 id="3-4-1-atomic-guan-jian-zi">3.4.1 atomic 关键字</h4>
+<p>如果一个函数被定义为 atomic，那么该函数是不可抢占的。解释器不会用上下文切换中断一个原子函数。这为用户提供了定义新原语的方法。以下程序说明了如何定义 test_and_set 原语并使用它来强制互斥：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>atomic </span><span style="color:#8fbfdc;">int </span><span style="color:#fad07a;">test_and_set</span><span>(</span><span style="color:#8fbfdc;">int</span><span>&amp; </span><span style="color:#ffb964;">target</span><span>) {
+</span><span>  </span><span style="color:#8fbfdc;">int</span><span> u;
+</span><span>  u = target;
+</span><span>  target = </span><span style="color:#cf6a4c;">1</span><span>;
+</span><span>  </span><span style="color:#8fbfdc;">return</span><span> u;
+</span><span>}
+</span><span>
+</span><span style="color:#8fbfdc;">int</span><span> lock = </span><span style="color:#cf6a4c;">0</span><span>;
+</span><span>
+</span><span style="color:#8fbfdc;">void </span><span style="color:#fad07a;">proc</span><span>(</span><span style="color:#8fbfdc;">int </span><span style="color:#ffb964;">id</span><span>) {
+</span><span>  </span><span style="color:#8fbfdc;">int</span><span> i = </span><span style="color:#cf6a4c;">0</span><span>;
+</span><span>  </span><span style="color:#8fbfdc;">while</span><span>(i &lt; </span><span style="color:#cf6a4c;">10</span><span>) {
+</span><span>    </span><span style="color:#8fbfdc;">while </span><span>(</span><span style="color:#ffb964;">test_and_set</span><span>(lock)) </span><span style="color:#888888;">/* wait */ </span><span>;
+</span><span>    cout &lt;&lt; id;
+</span><span>    lock = </span><span style="color:#cf6a4c;">0</span><span>;
+</span><span>    i++;
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span style="color:#ffb964;">main</span><span>() {
+</span><span>  cobegin { </span><span style="color:#ffb964;">proc</span><span>(</span><span style="color:#cf6a4c;">1</span><span>); </span><span style="color:#ffb964;">proc</span><span>(</span><span style="color:#cf6a4c;">2</span><span>); </span><span style="color:#ffb964;">proc</span><span>(</span><span style="color:#cf6a4c;">3</span><span>); }
+</span><span>}
+</span></code></pre>
+<h4 id="3-4-2-void-suspend-void">3.4.2 void suspend(void);</h4>
+<p>suspend 函数使调用线程休眠。</p>
+<h4 id="3-4-3-void-revive-int-process-number">3.4.3 void revive(int process_number);</h4>
+<p>revive 函数重新激活给定编号的进程。</p>
+<h4 id="3-4-4-int-which-proc-void">3.4.4 int which_proc(void);</h4>
+<p>which_proc 函数返回当前线程的进程编号。</p>
+<h4 id="3-4-5-int-random-int-range">3.4.5 int random(int range);</h4>
+<p>random 函数返回一个在 0 到 range - 1（包含）之间"随机选择"的整数。它使用与解释器使用的不同的随机数生成器流；也就是说，random() 调用不会影响解释器执行。</p>
+<h2 id="4-nei-zhi-zi-fu-chuan-chu-li-han-shu">4. 内置字符串处理函数</h2>
+<h3 id="4-1-void-stringcopy-string-dest-string-src">4.1 void stringCopy(string dest, string src);</h3>
+<p>stringCopy 函数将 src 字符串复制到 dest 字符串中。不执行字符串溢出检查。例如：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>string[</span><span style="color:#cf6a4c;">20</span><span>] x;
+</span><span>...
+</span><span style="color:#ffb964;">stringCopy</span><span>(x,</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Hello, world!</span><span style="color:#556633;">&quot;</span><span>);
+</span><span style="color:#ffb964;">stringCopy</span><span>(x,</span><span style="color:#556633;">&quot;&quot;</span><span>);
+</span></code></pre>
+<p>将把字符串 x 初始化为一个众所周知的值。第二个 stringCopy 将字符串 x 重置为零长度字符串。</p>
+<h3 id="4-2-void-stringconcat-string-dest-string-src">4.2 void stringConcat(string dest, string src);</h3>
+<p>stringConcat 函数将 src 字符串连接到 dest 的末尾。不执行字符串溢出检查。</p>
+<h3 id="4-3-int-stringcompare-string-x-string-y">4.3 int stringCompare(string x, string y);</h3>
+<p>stringCompare 函数与 C 字符串库中的 strcmp 函数具有相同的语义：如果字符串 x 按字典顺序在字符串 y 之后，则返回正数；如果字符串相等，则返回零；如果字符串 x 按字典顺序在字符串 y 之前，则返回负数。</p>
+<h3 id="4-4-int-stringlength-string-x">4.4 int stringLength(string x);</h3>
+<p>stringLength 函数返回字符串 x 的长度，不包括终止字节。</p>
+<h3 id="4-5-int-sscanf-string-x-rawstring-fmt">4.5 int sscanf(string x, rawstring fmt,...);</h3>
+<p>与"真正的" sscanf 一样，sscanf 函数根据格式字符串 fmt 扫描字符串 x，将扫描到的值存储到参数列表中提供的变量中，并返回扫描到的项目数。仅支持真正的 sscanf 的 %d、%x 和 %s 格式说明符。还支持 BACI 独有的附加格式说明符 %q（带引号的字符串）。对于此说明符，所有由一对双引号（"）分隔的字符都将被扫描到相应的字符串变量中。当在格式字符串中遇到 %q 说明符时，如果要扫描的字符串中的下一个非空白字符不是双引号，则 %q 扫描失败，并且字符串的扫描终止。</p>
+<p>格式字符串后面出现的变量是引用变量（即，不需要 &amp; 符号）。</p>
+<p>在以下示例中，sscanf 调用返回的 i 值将为 4，存储在变量 j 中的值将为 202，存储在字符串 x 中的字符串值将为 alongstring，存储在变量 k 中的值将为 0x3c03，存储在字符串 y 中的字符串将为 a long string。</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>string[</span><span style="color:#cf6a4c;">50</span><span>] x,y;
+</span><span style="color:#8fbfdc;">int</span><span> i,j,k;
+</span><span style="color:#ffb964;">stringCopy</span><span>(x,</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">202 alongstring 3c03 \&quot;a long string\&quot;</span><span style="color:#556633;">&quot;</span><span>);
+</span><span>i = sscanf(x,</span><span style="color:#556633;">&quot;</span><span style="color:#7697d6;">%d %s %x</span><span style="color:#99ad6a;"> %q</span><span style="color:#556633;">&quot;</span><span>,j,x,k,y);
+</span></code></pre>
+<h3 id="4-6-void-sprintf-string-x-rawstring-fmt">4.6 void sprintf(string x, rawstring fmt,...);</h3>
+<p>与 C 库中的"真正的" sprintf 函数一样，sprintf 函数使用格式字符串 fmt 和格式字符串后面的变量创建存储在变量 x 中的字符串。</p>
+<p>支持 %d、%o、%x、%X、%c 和 %s 格式说明符，其全部功能与真正的 sprintf 相同。此外，%q 格式说明符将在输出字符串中插入带双引号的字符串。%q 格式说明符等同于 "%s" 说明符。</p>
+<p>例如，在以下代码片段中：</p>
+<pre data-lang="c" style="background-color:#151515;color:#e8e8d3;" class="language-c "><code class="language-c" data-lang="c"><span>string[</span><span style="color:#cf6a4c;">80</span><span>] x;
+</span><span>string[</span><span style="color:#cf6a4c;">15</span><span>] y,z;
+</span><span style="color:#ffb964;">stringCopy</span><span>(y,</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">alongstring</span><span style="color:#556633;">&quot;</span><span>);
+</span><span style="color:#ffb964;">stringCopy</span><span>(z,</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">a long string</span><span style="color:#556633;">&quot;</span><span>);
+</span><span style="color:#ffb964;">sprintf</span><span>(x,</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">.</span><span style="color:#7697d6;">%12d</span><span style="color:#99ad6a;">. .</span><span style="color:#7697d6;">%-20s</span><span style="color:#99ad6a;">. .%q. .</span><span style="color:#7697d6;">%08X</span><span style="color:#99ad6a;">.</span><span style="color:#556633;">&quot;</span><span>,</span><span style="color:#cf6a4c;">202</span><span>,y,z,</span><span style="color:#cf6a4c;">0x3c03</span><span>);
+</span></code></pre>
+<p>字符串 x 变为：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>. 202. .alongstring . .&quot;a long string&quot;. .00003C03.
+</span></code></pre>
+<h2 id="5-shi-yong-baci-c-bian-yi-qi-he-pcode-jie-shi-qi">5. 使用 BACI C-- 编译器和 PCODE 解释器</h2>
+<p>使用 BACI 系统执行程序有两个步骤。</p>
+<ol>
+<li>
+<p>编译 ".cm" 文件以获取 ".pco" 文件。</p>
+<p>用法：bacc [可选标志] 源文件名</p>
+<p>可选标志：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>-h 显示此帮助
+</span><span>-c 创建一个 .pob 目标文件以便后续链接
+</span></code></pre>
+<p>源文件名是必需的。如果缺少，您将被提示输入。如果您不提供，将附加文件后缀 ".cm"。</p>
+</li>
+<li>
+<p>解释 ".pco" 文件以执行程序</p>
+<p>用法：baininterp [可选标志] pcode文件名</p>
+<p>可选标志：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>-d 进入调试器，单步执行，设置断点
+</span><span>-e 在进入每个进程时显示活动记录 (AR)
+</span><span>-x 在退出每个进程时显示 AR
+</span><span>-t 宣布进程终止
+</span><span>-h 显示此帮助
+</span><span>-p 显示正在执行的 PCODE 指令
+</span></code></pre>
+<p>PCODE 文件名是必需的。如果缺少，您将被提示输入。文件后缀 ".pco" 将附加到您给出的文件名。</p>
+</li>
+</ol>
+<p>每次用 bainterp 执行 .pco 文件时，不必重新编译源文件。有一个 shell 脚本 baccint，它将为您调用编译器，然后调用解释器。它会将您给它的选项（见上文）传递给解释器。</p>
+<h2 id="6-shi-li-cheng-xu-he-shu-chu">6. 示例程序和输出</h2>
+<p>以下列表由 C-- BACI 编译器生成。行号右侧的数字是开始该行的指令的 PCODE 偏移量。BACI 编译器从文件 "incremen.cm" 创建此列表。该列表被放置在文件 "incremen.lst" 中。还创建了一个 "incremen.pco" 文件；此文件由解释器使用。</p>
+<pre data-lang="java" style="background-color:#151515;color:#e8e8d3;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#7697d6;">BACI </span><span style="color:#ffb964;">System</span><span>: </span><span style="color:#ffb964;">C</span><span>-- to </span><span style="color:#7697d6;">PCODE </span><span style="color:#ffb964;">Compiler</span><span>, </span><span style="color:#cf6a4c;">09</span><span>:</span><span style="color:#cf6a4c;">24 2 </span><span style="color:#ffb964;">May </span><span style="color:#cf6a4c;">2002
+</span><span style="color:#ffb964;">Source</span><span> file: incremen.cm </span><span style="color:#ffb964;">Wed Oct </span><span style="color:#cf6a4c;">22 21</span><span>:</span><span style="color:#cf6a4c;">18</span><span>:</span><span style="color:#cf6a4c;">02 1997
+</span><span>line pc
+</span><span style="color:#cf6a4c;">1 0 </span><span>const </span><span style="color:#8fbfdc;">int</span><span> m = </span><span style="color:#cf6a4c;">5</span><span>;
+</span><span style="color:#cf6a4c;">2 0 </span><span style="color:#8fbfdc;">int</span><span> n;
+</span><span style="color:#cf6a4c;">3 0
+</span><span style="color:#cf6a4c;">4 0</span><span> void </span><span style="color:#ffb964;">incr</span><span>(</span><span style="color:#8fbfdc;">char</span><span> id)
+</span><span style="color:#cf6a4c;">5 0 </span><span>{
+</span><span style="color:#cf6a4c;">6 0 </span><span style="color:#8fbfdc;">int</span><span> i;
+</span><span style="color:#cf6a4c;">7 0
+</span><span style="color:#cf6a4c;">8 0 </span><span style="color:#8fbfdc;">for</span><span>(i = </span><span style="color:#cf6a4c;">1</span><span>; i &lt;= m; i = i + </span><span style="color:#cf6a4c;">1</span><span>)
+</span><span style="color:#cf6a4c;">9 14 </span><span>{
+</span><span style="color:#cf6a4c;">10 14</span><span> n = n + </span><span style="color:#cf6a4c;">1</span><span>;
+</span><span style="color:#cf6a4c;">11 19</span><span> cout &lt;&lt; id &lt;&lt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;"> n =</span><span style="color:#556633;">&quot; </span><span>&lt;&lt; n &lt;&lt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;"> i =</span><span style="color:#556633;">&quot;</span><span>;
+</span><span style="color:#cf6a4c;">12 25</span><span> cout &lt;&lt; i &lt;&lt; </span><span style="color:#556633;">&quot; &quot; </span><span>&lt;&lt; id &lt;&lt; endl;
+</span><span style="color:#cf6a4c;">13 31 </span><span>}
+</span><span style="color:#cf6a4c;">14 32 </span><span>}
+</span><span style="color:#cf6a4c;">15 33
+</span><span style="color:#cf6a4c;">16 33 </span><span style="color:#ffb964;">main</span><span>()
+</span><span style="color:#cf6a4c;">17 34 </span><span>{
+</span><span style="color:#cf6a4c;">18 34</span><span> n = </span><span style="color:#cf6a4c;">0</span><span>;
+</span><span style="color:#cf6a4c;">19 37</span><span> cobegin
+</span><span style="color:#cf6a4c;">20 38 </span><span>{
+</span><span style="color:#cf6a4c;">21 38 </span><span style="color:#ffb964;">incr</span><span>( </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">A</span><span style="color:#556633;">&#39;</span><span>); </span><span style="color:#ffb964;">incr</span><span>( </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">B</span><span style="color:#556633;">&#39; </span><span>); </span><span style="color:#ffb964;">incr</span><span>(</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">C</span><span style="color:#556633;">&#39;</span><span>);
+</span><span style="color:#cf6a4c;">22 50 </span><span>}
+</span><span style="color:#cf6a4c;">23 51</span><span> cout &lt;&lt; </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">The sum is </span><span style="color:#556633;">&quot; </span><span>&lt;&lt; n &lt;&lt; endl;
+</span><span style="color:#cf6a4c;">24 55 </span><span>}
+</span></code></pre>
+<p>以下列表由 BACI 解释器生成。解释器执行编译到文件 "incremen.pco" 中的程序。</p>
+<pre data-lang="java" style="background-color:#151515;color:#e8e8d3;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#ffb964;">Source</span><span> file: incremen.cm </span><span style="color:#ffb964;">Wed Oct </span><span style="color:#cf6a4c;">22 21</span><span>:</span><span style="color:#cf6a4c;">18</span><span>:</span><span style="color:#cf6a4c;">02 1997
+</span><span style="color:#ffb964;">Executing </span><span style="color:#7697d6;">PCODE </span><span>...
+</span><span style="color:#ffb964;">C</span><span> n =</span><span style="color:#cf6a4c;">1</span><span> i =</span><span style="color:#ffb964;">A</span><span> n =</span><span style="color:#cf6a4c;">1 </span><span style="color:#7697d6;">C2</span><span> i =
+</span><span style="color:#cf6a4c;">1 </span><span style="color:#ffb964;">A
+</span><span style="color:#ffb964;">C</span><span> n =</span><span style="color:#cf6a4c;">4</span><span> i =</span><span style="color:#cf6a4c;">2 </span><span style="color:#ffb964;">C
+</span><span style="color:#ffb964;">B</span><span> n =</span><span style="color:#ffb964;">A</span><span> n =</span><span style="color:#cf6a4c;">5</span><span> i =</span><span style="color:#cf6a4c;">24 </span><span style="color:#ffb964;">A
+</span><span>i =</span><span style="color:#cf6a4c;">1 </span><span style="color:#ffb964;">B
+</span><span style="color:#7697d6;">AC</span><span> n = n =</span><span style="color:#cf6a4c;">6</span><span> i =</span><span style="color:#cf6a4c;">3 </span><span style="color:#7697d6;">C6</span><span> i =</span><span style="color:#cf6a4c;">3
+</span><span style="color:#ffb964;">A
+</span><span style="color:#ffb964;">C</span><span> n =</span><span style="color:#cf6a4c;">7</span><span> i =</span><span style="color:#cf6a4c;">4 </span><span style="color:#ffb964;">C
+</span><span style="color:#ffb964;">B</span><span> n =</span><span style="color:#cf6a4c;">9</span><span> i =</span><span style="color:#cf6a4c;">2 </span><span style="color:#7697d6;">BA</span><span> n =</span><span style="color:#cf6a4c;">8
+</span><span>i =</span><span style="color:#cf6a4c;">4 </span><span style="color:#ffb964;">A
+</span><span style="color:#ffb964;">C</span><span> n =</span><span style="color:#cf6a4c;">8</span><span> i =</span><span style="color:#cf6a4c;">5 </span><span style="color:#ffb964;">A</span><span> n =9C
+</span><span>i =</span><span style="color:#cf6a4c;">5 </span><span style="color:#ffb964;">A
+</span><span style="color:#ffb964;">B</span><span> n =</span><span style="color:#cf6a4c;">10</span><span> i =</span><span style="color:#cf6a4c;">3 </span><span style="color:#ffb964;">B
+</span><span style="color:#ffb964;">B</span><span> n =</span><span style="color:#cf6a4c;">11</span><span> i =</span><span style="color:#cf6a4c;">4 </span><span style="color:#ffb964;">B
+</span><span style="color:#ffb964;">B</span><span> n =</span><span style="color:#cf6a4c;">12</span><span> i =</span><span style="color:#cf6a4c;">5 </span><span style="color:#ffb964;">B
+</span><span style="color:#ffb964;">The</span><span> sum is </span><span style="color:#cf6a4c;">12
+</span></code></pre>
+<h1 id="linuxhuan-jing-yun-xing-baci">linux环境运行baci</h1>
+<ul>
+<li>首先安装jdk和dos2unix</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>apt install jdk-openjdk  dos2unix
+</span></code></pre>
+<ul>
+<li>使用dos2unix转换格式</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>dos2unix ~/Git/java/baci/scripts/baci
+</span></code></pre>
+<ul>
+<li>编写baci脚本</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;">#!/usr/bin/env bash
+</span><span style="color:#888888;"># 定位到项目根目录（包含 javabaci 子目录的目录）
+</span><span style="color:#ffb964;">BASEDIR</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$(cd </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">dirname </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">${</span><span style="color:#ffb964;">BASH_SOURCE[</span><span style="color:#cf6a4c;">0</span><span style="color:#ffb964;">]</span><span style="color:#99ad6a;">}</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">)/..</span><span style="color:#556633;">&quot; </span><span style="color:#99ad6a;">&amp;&amp; </span><span style="color:#ffb964;">pwd</span><span style="color:#99ad6a;">)</span><span style="color:#556633;">&quot;
+</span><span>
+</span><span style="color:#888888;"># 将 javabaci/bin（默认包类）和项目根目录（javabaci 包根）加入 classpath
+</span><span style="color:#ffb964;">CLASSPATH</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">BASEDIR</span><span style="color:#99ad6a;">/javabaci/bin:$</span><span style="color:#ffb964;">BASEDIR</span><span style="color:#556633;">&quot;
+</span><span>
+</span><span style="color:#888888;"># 将所有参数原样传递给 java 运行
+</span><span>exec java -cp </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">CLASSPATH</span><span style="color:#556633;">&quot; &quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">@</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<ul>
+<li>给baci授予可执行权限</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">chmod</span><span> +x </span><span style="color:#ffb964;">~</span><span>/Git/java/baci/scripts/baci
+</span></code></pre>
+<ul>
+<li>添加系统环境变量</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">fish_add_path ~</span><span>/Git/java/baci/scripts
+</span></code></pre>
+<ul>
+<li>查看baci是否存在</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">which</span><span> baci
+</span></code></pre>
+<ul>
+<li>现在即可编译运行</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">baci</span><span> bacc ex3_1.cm
+</span><span style="color:#ffb964;">baci</span><span> bainterp ex3_1
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-lazyvim/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:lazyvim快速上手</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-ssh/">
+                            <span class="button__text">网络艺术:SSH使用指南</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-1">
+                    <a href="#guan-fang-zhi-nan">官方指南</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#mu-lu">目录</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#1-yin-yan">1. 引言</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#2-c-bian-yi-qi-yu-fa">2. C-- 编译器语法</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#3-bing-fa-jie-gou">3. 并发结构</a>
+                                
+                                    <ul>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#3-1-cobegin-kuai">3.1 cobegin 块</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#3-2-xin-hao-liang">3.2 信号量</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#3-3-guan-cheng">3.3 管程</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#3-4-qi-ta-bing-fa-jie-gou">3.4 其他并发结构</a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#4-nei-zhi-zi-fu-chuan-chu-li-han-shu">4. 内置字符串处理函数</a>
+                                
+                                    <ul>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#4-1-void-stringcopy-string-dest-string-src">4.1 void stringCopy(string dest, string src);</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#4-2-void-stringconcat-string-dest-string-src">4.2 void stringConcat(string dest, string src);</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#4-3-int-stringcompare-string-x-string-y">4.3 int stringCompare(string x, string y);</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#4-4-int-stringlength-string-x">4.4 int stringLength(string x);</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#4-5-int-sscanf-string-x-rawstring-fmt">4.5 int sscanf(string x, rawstring fmt,...);</a>
+                                        </li>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#4-6-void-sprintf-string-x-rawstring-fmt">4.6 void sprintf(string x, rawstring fmt,...);</a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#5-shi-yong-baci-c-bian-yi-qi-he-pcode-jie-shi-qi">5. 使用 BACI C-- 编译器和 PCODE 解释器</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#6-shi-li-cheng-xu-he-shu-chu">6. 示例程序和输出</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#linuxhuan-jing-yun-xing-baci">linux环境运行baci</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

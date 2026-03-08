@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/windows-6-c/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-6-c/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-6-c/">Windows系列(6):C&#x2F;C++开发配置</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-05-31
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/windows/">#Windows</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 由于 Windows 中开发环境较 linux 复杂，这里总结 Windows 中使用 VScode 开发 C/C++ 的环境配置。</p>
+<span id="continue-reading"></span><h2 id="bu-zou">步骤</h2>
+<ul>
+<li>下载安装 Vscode(Visual Studio Code)</li>
+<li>配置安装中文插件,C/C++插件和 Code Runner 插件</li>
+<li>安装 MinGW64 编译器并配置环境变量</li>
+<li>配置 tasks.json 和 launch.json</li>
+<li>开始C/C++之旅！</li>
+</ul>
+<h2 id="an-zhuang-vscode">安装VScode</h2>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://code.visualstudio.com/">官网</a>-微软官方版</li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/VSCodium/vscodium">vscodium</a>-社区开源版本，去除官方版中不开源成分</li>
+</ul>
+<h2 id="pei-zhi-cha-jian">配置插件</h2>
+<ul>
+<li>默认为英文，在左侧 <code>Extensions</code> 中安装 <code>Chinese(simplified)</code> 插件，重启即可变为中文；</li>
+<li>随后安装<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/Microsoft/vscode-cpptools">C/C++插件</a>，即下载名称为<code>cpptools-windows-x64.vsix</code>
+的插件并在扩展中<code>从VSIX安装</code>，然后搜索 Code Runner 并安装。</li>
+</ul>
+<h2 id="an-zhuang-mingw64-bian-yi-qi">安装 MinGW64 编译器</h2>
+<ul>
+<li>
+<p>首先打开<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.mingw-w64.org/">官方文档</a>，然后点击左侧的 Downloads，再点击 Pre-built Toolchains。往下拉，可以看到许多系统的下载包，这里我们选<code>MinGW-W64-builds</code>并点击。页面自动跳转，再点击最上方的 MinGW-W64-builds 下的 GitHub 链接。</p>
+</li>
+<li>
+<p>进入Github，找到<code>x86_64-14.2.0-release-win32-seh-ucrt-rt_v12-rev1.7z</code>（版本会更新，选择最新的即可）点击然后下载。</p>
+</li>
+<li>
+<p>下载完成后解压得到 mingw64 文件夹，将其移动到<code>C:\Program Files</code>下，随后复制该文件夹中/bin的路径。</p>
+</li>
+<li>
+<p>按下 Win + S，在搜索框中输入“系统环境变量”，点击“编辑系统环境变量“，点击环境变量。在下方的系统变量中，选中<code>Path</code>，然后点击编辑，点击右侧的新建，然后黏贴刚刚拷贝的路径，随后一直用<code>确定</code>退出。</p>
+</li>
+<li>
+<p>检验是否成功：在cmd中输入<code>gcc -v</code>，如果有版本号则成功。</p>
+</li>
+</ul>
+<h2 id="pei-zhi-json">配置JSON</h2>
+<ul>
+<li>回到 Visual Studio Code 继续配置。点击左侧的资源管理器，点击打开文件夹，创建一个<code>.cpp</code>文件，里面代码可以是</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;">#include &lt;iostream&gt;
+</span><span>
+</span><span style="color:#ffb964;">int</span><span> main() {
+</span><span>    </span><span style="color:#ffb964;">std::cout </span><span style="color:#99ad6a;">&lt;&lt; </span><span style="color:#556633;">&quot;</span><span style="color:#8fbfdc;">Hello</span><span style="color:#556633;">&quot; </span><span style="color:#99ad6a;">&lt;&lt; </span><span style="color:#8fbfdc;">std</span><span>::endl;
+</span><span style="color:#99ad6a;">    return 0;
+</span><span style="color:#99ad6a;">}
+</span></code></pre>
+<ul>
+<li>
+<p>保存，然后点击右上角的三角形，选择“运行C/C++文件”。此时上方的搜索框会有弹出，点击“C/C++: g++.exe 构建和调试活动文件”。 然后会生成一个 .vscode 的文件夹，里面包含 tasks.json 文件。打开这个文件，然后按需调整，设置栈空间（这里设置成了256MB）和 C++ 标准（这里设置成C++17）。</p>
+</li>
+<li>
+<p>接着生成调试文件，用于进行 debug。点击左侧的运行和调试，然后点击“创建 launch.json 文件”。点击弹出的“另外 C++ (GDB/LLDB) 个选项”。</p>
+</li>
+<li>
+<p>点击右下角的“添加配置”，然后点击“C/C++: (gbd) 启动”。对Program部分进行修改（编译产物的路径）。</p>
+</li>
+</ul>
+<blockquote>
+<p>手动编译：<code>g++ &lt;源代码的相对路径&gt;</code> 手动运行编译产物：一般为<code>./a.out</code></p>
+</blockquote>
+<p>至此 Visual Studio Code 的 C++ 环境已经配置完成。</p>
+<blockquote>
+<p>在ubuntu上配置环境需要安装 <code>sudo apt install build-essential gdb cmake clangd clang-format libstdc++-dev</code></p>
+</blockquote>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/windows-5-py/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Windows系列(5):Python开发配置</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-cslearning/">
+                            <span class="button__text">乱七八糟:计算机科学优质视频</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#bu-zou">步骤</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang-vscode">安装VScode</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#pei-zhi-cha-jian">配置插件</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang-mingw64-bian-yi-qi">安装 MinGW64 编译器</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#pei-zhi-json">配置JSON</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

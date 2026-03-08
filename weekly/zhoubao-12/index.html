@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/weekly/zhoubao-12/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/weekly/zhoubao-12/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/weekly/zhoubao-12/">谈天说地:狄奇周刊(十二)</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-08-29
+        </span>
+
+    </div>
+
+    
+
+        <div class="post-content">
+            <p>前言 这里是Dich的周刊,通过博客的形式讲述每周互联网形势,以及分享一些文章。</p>
+<span id="continue-reading"></span><h1 id="shi-ji"><strong>事记</strong></h1>
+<h2 id="yi-hou-dou-bing-du-bei-fa-xian-ke-yi-tong-guo-hu-xi-dao-fei-mo-chuan-bo"><strong>一.<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.bilibili.com/video/av1856623583?p=1">猴痘病毒被发现可以通过呼吸道飞沫传播</a></strong></h2>
+<p>据新华社报道，泰国公共卫生部召开新闻发布会，称该国发现了首例猴痘Ib变异株病例。此次发现的该种变异株<code>新增了可通过呼吸道飞沫等分泌物、皮疹、受感染物品等的传播途径</code>。此外，包括中国在内的多个国家已开启针对入境人员的防疫措施。</p>
+<h2 id="er-wei-ruan-chuang-huo-linuxtang-qiang-geng-xin-zhi-hou-linuxda-bu-kai-liao"><strong>二.<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.qbitai.com/2024/08/183019.html">微软“闯祸”Linux躺枪：更新之后，Linux打不开了</a></strong></h2>
+<p>两年前GRUB有个漏洞，能绕过安全启动机制;<code>微软去修 Windows+Linux 的双OS用户的 GRUB 引导，修坏了</code>...
+此次事件中受到波及的，是<code>Windows+Linux的双系统用户</code>。</p>
+<p>安装更新后，这些用户在启动Linux时会发生报错，提示“出现严重错误”。</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Verifying shim SBAT data failed: Security Policy Violation.
+</span><span>shim SBAT数据校验失败：违反安全策略
+</span><span>Something has gone seriously wrong: SBAT self-check failed: Security Policy Violation.
+</span><span>出现严重错误：SBAT自检失败：违反安全策略
+</span></code></pre>
+<p>应急补救措施——</p>
+<p>首先进入<code>BIOS关闭安全启动</code>，目的是先进入到Linux系统。</p>
+<p>之后利用<code>命令行把引发故障的SBAT策略删除</code>，然后重启让设置生效。</p>
+<p>最后，再次进入BIOS重新打开安全启动，问题就暂时解决了。</p>
+<h2 id="san-wei-ruan-zheng-shi-que-ren-windows-kong-zhi-mian-ban-jiang-bei-qi-yong"><strong>三.<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.ithome.com/0/790/274.htm">微软正式确认：Windows 控制面板将被弃用</a></strong></h2>
+<p>微软一直致力于为 Windows 添加新功能，同时也会淘汰一些不再必要的旧功能。这些功能会被添加到 Windows 过时功能列表中，<code>最近的一个是 Paint 3D，微软宣布其即将被淘汰</code>。与 Paint 3D 类似，微软似乎也希望尽快淘汰控制面板。</p>
+<p>早在 2011 年，就有传闻称微软计划用<code>“PC 设置”取代控制面板</code>。虽然“PC 设置”的设计更加适合触摸操作，但控制面板仍然存在。</p>
+<p>直到几天前，微软才在其网页上正式发布相关信息。在一个关于各种原生 Windows 配置工具的新支持页面上，微软终于表示，控制面板“正在被弃用，取而代之的是设置应用”。</p>
+<blockquote>
+<p>控制面板是于 1985 年首次在 Windows 1.0 中引入的。</p>
+</blockquote>
+<h2 id="si-telegram-chuang-shi-ren-pa-wei-er-du-luo-fu-zai-ba-li-bei-bu"><strong>四.<a rel="noopener nofollow noreferrer" target="_blank" href="https://t.me/zaihua/26960">Telegram 创始人帕维尔-杜罗夫在巴黎被捕</a></strong></h2>
+<p>据法国媒体TF1 Info报道，加密通讯公司 Telegram 的创始人兼首席执行官帕维尔·杜罗夫 (Pavel Durov) 于法国时间24日晚上 8 点（北京时间周日凌晨 2 时）左右在勒布尔热机场的停机坪上从私人飞机上下来时被捕。这位 39 岁的法俄混血男子由他的保镖和一名女子陪同。</p>
+<p>根据通缉人员档案，杜罗夫<code>从阿塞拜疆直接抵达</code>。Telegram 创始人头上挂着法国司法警察局 OFMIN（隶属于法国海关部门的国家反欺诈办公室）签发的法国搜查令，该搜查令在初步调查的基础上签发。</p>
+<p>法国当局认为，Telegram 缺乏审核、与执法部门的合作以及其提供的工具（一次性号码和加密货币）使其成为<code>贩毒、恋童癖和欺诈的帮凶</code>。但该搜查令只有当帕维尔·杜罗夫在法国国土上时才有效。</p>
+<p><code>当前，ONAF 的调查人员通知了他并将其拘留</code>。他应该在本周六晚上被送交调查法官，然后周日可能会因多项罪行被起诉：恐怖主义、毒品、同谋、欺诈、洗钱、收受赃物、儿童犯罪内容等。</p>
+<blockquote>
+<p>Toncoin 价格 已下跌17.4%，部分交易所出现 20% 以上的剧烈跌幅</p>
+</blockquote>
+<h2 id="wu-wu-xian-chong-dian-xin-gui-9yue-1ri-qi-shi-xing-magsafe-qi2yin-pin-lu-chong-tu-ting-shou-iphonewu-xian-gong-lu-diao-zheng-zhi-7-5w"><strong>五.<a rel="noopener nofollow noreferrer" target="_blank" href="https://t.me/zaihua/26966">无线充电新规9月1日起施行：MagSafe/Qi2因频率冲突停售，iPhone无线功率调整至7.5W</a></strong></h2>
+<p>中国将于2024年9月1日起实施新的《无线充电（电力传输）设备无线电管理暂行规定》，规定无线充电设备的工作频率和额定传输功率。MagSafe和Qi2协议使用的频率为360kHz，不符合新规要求的频率范围，可能面临停售。工信部明确指出，<code>325-405KHz频段在中国不可用于无线充电设备</code>。苹果官网已更新iPhone的无线充电参数，显示<code>额定传输功率为7.5W，工作频率为127.7kHz</code>，符合新规。</p>
+<p>苹果iPhone 15等机型目前<code>仍显示支持MagSafe与Qi2无线充电，最高功率达15W</code>。新规施行后，不符合要求的设备将停止生产或进口，但<code>已生产或进口的设备可继续销售至报废</code>。新规对无线充电设备市场及苹果产品销售策略可能产生影响。</p>
+<h1 id="wen-tui"><strong>文推</strong></h1>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://telegra.ph/%E9%9D%A0%E6%89%93%E9%9B%B6%E5%B7%A5%E7%94%9F%E6%B4%BB%E7%9A%84%E5%B9%B4%E8%BD%BB%E4%BA%BA%E6%8C%A4%E5%9C%A8%E5%BB%89%E4%BB%B7%E9%9D%92%E6%97%85-08-27-2">靠打零工生活的年轻人挤在廉价青旅</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://telegra.ph/%E6%9C%88%E8%96%AA10%E4%B8%87%E7%9A%84%E4%BA%BA%E4%B8%8D%E6%83%B3%E5%90%83%E9%BC%8E%E6%B3%B0%E4%B8%B0%E4%BA%86-08-28">月薪10万的人，不想吃鼎泰丰了</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://telegra.ph/%E7%9F%AD%E7%AF%87%E6%BC%AB%E7%94%BB%E5%B0%8F%E7%8B%90%E7%8B%B8%E5%8C%96%E5%BD%A2%E8%AE%B0-08-23-2">短篇漫画小狐狸化形记</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://telegra.ph/%E6%99%AE%E9%80%9A%E4%BA%BA%E8%AF%A5%E5%A6%82%E4%BD%95%E8%AE%A4%E6%B8%85%E5%BD%93%E4%B8%8B%E7%9A%84%E7%BB%8F%E6%B5%8E%E7%8E%AF%E5%A2%83-08-23">普通人该如何认清当下的经济环境</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://telegra.ph/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E9%99%A2%E7%9A%84%E8%80%81%E5%B8%88%E4%BB%AC%E7%9A%84%E5%AE%9E%E9%99%85%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B%E5%A6%82%E4%BD%95-08-22">计算机学院的老师们的实际编程能力如何</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://sspai.com/post/91396">终于可以愉快地扫描了：Linux 扫描仪配置与使用攻略</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/easychen/one-person-businesses-methodology-v2.0">《一人企业方法论》第二版，也适合做其他副业（比如自媒体、电商、数字商品）的非技术人群</a></p>
+<hr />
+<h1 id="xiang-mu"><strong>项目</strong></h1>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.faviconextractor.com/">网站图标下载器 </a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/neodb-social/neodb">开源的豆瓣替代品</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/qiye45/wechatDownload">微信公众号文章批量下载工具</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/LucasGGamerM/moshidon">Megalodon 的一个分支，功能丰富</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/zen-browser/desktop">Zen Browser：基于firefox的新浏览器</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/dweymouth/supersonic">Supersonic:自托管音乐服务器的轻量全功能跨平台桌面客户端</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/scenery/mediax">Go 语言开发的个人阅读/观影/看剧/追番/游戏记录 Web 管理工具</a></p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/deku-messaging/Deku-SMS-Android">Deku SMS – 开源安卓短信工具，支持 Webhook、SMTP、FTP 转发短信｜集成 RabbitMQ </a></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/weekly/zhoubao-11/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">谈天说地:狄奇周刊(十一)</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/weekly/zhoubao-13/">
+                            <span class="button__text">谈天说地:狄奇周刊(十三)</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-1">
+                    <a href="#shi-ji">事记</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#yi-hou-dou-bing-du-bei-fa-xian-ke-yi-tong-guo-hu-xi-dao-fei-mo-chuan-bo">一.猴痘病毒被发现可以通过呼吸道飞沫传播</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#er-wei-ruan-chuang-huo-linuxtang-qiang-geng-xin-zhi-hou-linuxda-bu-kai-liao">二.微软“闯祸”Linux躺枪：更新之后，Linux打不开了</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#san-wei-ruan-zheng-shi-que-ren-windows-kong-zhi-mian-ban-jiang-bei-qi-yong">三.微软正式确认：Windows 控制面板将被弃用</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#si-telegram-chuang-shi-ren-pa-wei-er-du-luo-fu-zai-ba-li-bei-bu">四.Telegram 创始人帕维尔-杜罗夫在巴黎被捕</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#wu-wu-xian-chong-dian-xin-gui-9yue-1ri-qi-shi-xing-magsafe-qi2yin-pin-lu-chong-tu-ting-shou-iphonewu-xian-gong-lu-diao-zheng-zhi-7-5w">五.无线充电新规9月1日起施行：MagSafe&#x2F;Qi2因频率冲突停售，iPhone无线功率调整至7.5W</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#wen-tui">文推</a>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#xiang-mu">项目</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-arch-linux/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-arch-linux/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-arch-linux/">综合工程:Arch-linux 安装与配置</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-16
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/zong-he-gong-cheng/">#综合工程</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；这里介绍其安装与使用。</p>
+<span id="continue-reading"></span><h2 id="an-zhuang">安装</h2>
+<p>一般而言有以下几种安装方法：</p>
+<ul>
+<li>原版 Arch linux 的命令行安装；</li>
+<li>原版 Arch linux 的脚本安装；</li>
+<li>第三方发行版的图形界面安装。</li>
+</ul>
+<p>前两种方法较为繁琐，这里说明第三种方法：常见的Arch发行版有Garuda，Cachyos以及EndeavourOS等等。</p>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://cachyos.org/download/">Cachyos下载</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://garudalinux.org/editions">Garuda下载</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://endeavouros.com/">EndeavourOS下载</a></li>
+</ul>
+<p>安装方法同ubuntu一样，是基于Calamares的图形化界面安装。一般步骤为<code>选择语言（American English）--选择键盘/时区（默认/shanghai）--选择分区（xfs抹除全盘，可选全盘加密）--选择桌面环境（Gnome或KDE）--确认安装。</code></p>
+<h2 id="an-zhuang-ruan-jian">安装软件</h2>
+<p>随后安装常用开源软件,KDE环境和Wayland+WM环境安装的包不同：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># gui
+</span><span style="color:#ffb964;">paru -S</span><span> floorp-bin keepassxc qemu-full virt-manager materialgram-bin legcord-bin onlyoffice-bin localsend-bin kazumi-bin foliate vlc krita qtscrcpy strawberry oculante obs-studio scx-manager
+</span><span>
+</span><span style="color:#888888;"># tui
+</span><span style="color:#ffb964;">paru -S</span><span> neovim yazi lazygit btop zellij termshark
+</span><span>
+</span><span style="color:#888888;"># cli
+</span><span style="color:#ffb964;">paru -S</span><span> alacritty fastfetch onefetch starship atuin bat fzf fd ripgrep eza tree android-tools payload-dumper-go-bin nexttrace-bin syncthing aria2
+</span><span>
+</span><span style="color:#888888;"># fish
+</span><span style="color:#ffb964;">fish</span><span> tealdeer expac fish-autopair fish-pure-prompt fisher
+</span><span>
+</span><span style="color:#888888;"># zip
+</span><span style="color:#ffb964;">paru -S</span><span> peazip
+</span><span>
+</span><span style="color:#888888;"># Type
+</span><span style="color:#ffb964;">paru -S</span><span> fcitx5-configtool fcitx5-skin-material fcitx5-rime fcitx5-gtk
+</span><span>
+</span><span style="color:#888888;"># ttf
+</span><span style="color:#ffb964;">paru -S</span><span> ttf-jetbrains-mono-nerd ttf-sarasa-gothic-sc
+</span></code></pre>
+<p>如果使用Wayland+WM方案，需要额外安装以下这些：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># Wayland
+</span><span style="color:#ffb964;">paru -S</span><span> hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman bluez-utils wl-clipboard-rs wl-clip-persist swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
+</span><span>
+</span><span style="color:#888888;"># file
+</span><span style="color:#ffb964;">paru -S</span><span> gvfs gvfs-mtp gvfs-afc gvfs-nfs nemo
+</span></code></pre>
+<table><thead><tr><th>分类</th><th>软件列表</th></tr></thead><tbody>
+<tr><td><strong>窗口管理器</strong></td><td>hyprland</td></tr>
+<tr><td><strong>状态栏</strong></td><td>waybar</td></tr>
+<tr><td><strong>启动器</strong></td><td>wofi</td></tr>
+<tr><td><strong>网络</strong></td><td>network-manager-applet</td></tr>
+<tr><td><strong>蓝牙</strong></td><td>blueman</td></tr>
+<tr><td><strong>音频</strong></td><td>pipewire, wireplumber</td></tr>
+<tr><td><strong>亮度</strong></td><td>brightnessctl,  wl-gammarelay-rs</td></tr>
+<tr><td><strong>剪贴板</strong></td><td>wl-clipboard-rs,wl-clip-persist</td></tr>
+<tr><td><strong>通知</strong></td><td>swaync,swayosd</td></tr>
+<tr><td><strong>截图</strong></td><td>grim, swappy</td></tr>
+<tr><td><strong>壁纸管理</strong></td><td>swww</td></tr>
+<tr><td><strong>Polkit 授权代理</strong></td><td>hyprpolkitagent</td></tr>
+<tr><td><strong>锁屏/开始菜单</strong></td><td>hyprlock, wlogout</td></tr>
+<tr><td><strong>文件管理</strong></td><td>gvfs, gvfs-mtp, gvfs-afc, gvfs-nfs, nemo</td></tr>
+</tbody></table>
+<p>安装完毕后我们开始配置输入法与字体：</p>
+<p>输入法我们采用雾凇拼音，即前面我们安装的fcitx5系列软件包的一个输入方案，这里我们使用<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/Mark24Code/rime-auto-deploy">自动部署脚本</a>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># step1: 克隆/下载 latest 最新的稳定版到本地
+</span><span style="color:#ffb964;">git</span><span> clone</span><span style="color:#ffb964;"> --depth</span><span>=1 https://github.com/Mark24Code/rime-auto-deploy.git</span><span style="color:#ffb964;"> --branch</span><span> latest
+</span><span style="color:#888888;"># step2: 进入项目目录
+</span><span>cd rime-auto-deploy
+</span><span style="color:#888888;"># step3: 执行部署脚本
+</span><span style="color:#ffb964;">./installer.rb
+</span></code></pre>
+<p>选择部署fcitx5即可，随后在设置的Input Method中Add Input Method ，选择Rime，随后默认按Ctrl+Space即可切换中文。</p>
+<p>字体的配置在<a rel="noopener nofollow noreferrer" target="_blank" href="https://blog.dich.bid/learn-linux-for-pc-7/">Linux之旅(七):系统与终端字体设置</a>这一期说过，这里不再赘述。缺少的字体可以通过paru下载或者到<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.miao3.cn/">喵闪字库</a>下载ttf并安装。</p>
+<h2 id="tu-xing-mei-hua">图形美化</h2>
+<p>安装完毕后可以看到KDE的界面较为简陋，这里给出笔者的美化配置：</p>
+<ul>
+<li>在设置中找到Colors&amp;Themes，分别设置为：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">-</span><span> Color：Breeze Dark
+</span><span style="color:#ffb964;">-</span><span> Application Style：Breeze
+</span><span style="color:#ffb964;">-</span><span> Plasma Style：Sweet
+</span><span style="color:#ffb964;">-</span><span> Window Decorations：Edna
+</span><span style="color:#ffb964;">-</span><span> Icons：BeautySolar
+</span><span style="color:#ffb964;">-</span><span> Cursors：Afterglow Cursors
+</span><span style="color:#ffb964;">-</span><span> Splash Screen：None
+</span></code></pre>
+<ul>
+<li>
+<p>随后设置壁纸，这里给出了笔者收藏的<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/Dichgrem/wallpaper.git">壁纸</a>。</p>
+</li>
+<li>
+<p>设置完成后将Dock栏的Status全部隐藏，删除间隔与空隙，删除时间，更改Memu图标，随后固定常用软件到其上。</p>
+</li>
+<li>
+<p>随后在Dock栏下新建一个空白栏，结构为数字时钟加两个空白，字体为JetBrains Mono，24小时ISO格式。最终效果如下：</p>
+</li>
+</ul>
+<p><img src="/images/desktop.png" alt="desktop" /></p>
+<h2 id="qian-yi-shu-ju">迁移数据</h2>
+<p>将需要的数据迁移到Home目录下，对笔者来说是用来同步的Data文件夹以及Git工作文件夹。随后Add to Places将其固定到侧边栏，开启隐藏文件可见，将View mode改为Detail。最终效果如下：</p>
+<p><img src="/images/file.png" alt="file" /></p>
+<h2 id="she-zhi-ruan-jian">设置软件</h2>
+<ul>
+<li>配置fastfetch显示效果</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>创建配置目录：mkdir -p ~/.config/fastfetch
+</span><span>创建配置文件：touch ~/.config/fastfetch/config.jsonc
+</span><span>编辑该文件以添加你的自定义选项
+</span></code></pre>
+<ul>
+<li>
+<p>设置GFS：参考<a rel="noopener nofollow noreferrer" target="_blank" href="https://blog.dich.bid/about-gfs/">乱七八糟:GFS项目考量笔记 </a>。</p>
+</li>
+<li>
+<p>设置Keepassxc/Vscodium/Electerm：导入备份好的配置文件。</p>
+</li>
+<li>
+<p>设置Matrix/Telegram：登录并在另一台设备上验证。</p>
+</li>
+<li>
+<p>设置浏览器：导入书签备份文件（有图标）；定制工具栏，下载扩展插件，包括：</p>
+</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>Dark Reader（暗黑模式）
+</span><span>kiss-translator（翻译工具）
+</span><span>uBlock Origin（广告拦截）
+</span><span>ClearURLs（去跟踪链接）
+</span><span>KeePassXC-Browser（链接Keepass）
+</span><span>BookmarkHub（书签同步）
+</span><span>BewlyBewly（B站美化）
+</span><span>V2EX Polish（V站美化）
+</span></code></pre>
+<h2 id="shuang-xi-tong-tian-jia-windowsyin-dao">双系统添加Windows引导</h2>
+<p>如果Grub引导菜单中没有windows选项，可以通过以下方法添加：</p>
+<ul>
+<li>安装 os-prober：首先确保系统中安装了 os-prober，这是一个用于检测其他操作系统的工具。</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> os-prober
+</span><span style="color:#ffb964;">sudo</span><span> os-prober
+</span></code></pre>
+<ul>
+<li>打开 /etc/default/grub 文件进行编辑：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> nano /etc/default/grub
+</span><span style="color:#888888;"># 确保 GRUB_DISABLE_OS_PROBER 设置为 false
+</span></code></pre>
+<ul>
+<li>保存文件并退出编辑器后，运行以下命令更新 GRUB 配置：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> grub-mkconfig</span><span style="color:#ffb964;"> -o</span><span> /boot/grub/grub.cfg
+</span></code></pre>
+<p>或者<code>手动添加</code>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">nano</span><span> /etc/grub.d/40_custom
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;">#!/bin/sh
+</span><span>exec tail -n +3 $</span><span style="color:#ffb964;">0
+</span><span style="color:#888888;"># This file provides an easy way to add custom menu entries.  Simply type the
+</span><span style="color:#888888;"># menu entries you want to add after this comment.  Be careful not to change
+</span><span style="color:#888888;"># the &#39;exec tail&#39; line above.
+</span><span style="color:#ffb964;">menuentry </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">Windows 11 (Manual)</span><span style="color:#556633;">&quot; </span><span>{
+</span><span>    insmod part_gpt
+</span><span>    insmod fat
+</span><span>    insmod chain
+</span><span>    set root=</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">hd0,gpt1</span><span style="color:#556633;">&#39;
+</span><span>    chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+</span><span>}
+</span></code></pre>
+<h2 id="zhi-fu-hua-shuo-vmd">制服华硕VMD</h2>
+<p>华硕的BIOS有一个VMD选项，它的机制是这样的：如果你想安linux，得先关闭VMD；但如果你的windows是出厂自带的，没有重装过，那又得开启VMD，否则无法进入windows；这里记录在不关闭VMD的情况下如何让linux支持它：(以arch linux为例)</p>
+<p>先使用这个命令查看磁盘：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>&gt; lsblk -f
+</span><span>  nvme1n1
+</span><span>  ├─nvme1n1p1  vfat   FAT32  SYSTEM   xxxx-xxxx
+</span><span>  ├─nvme1n1p2  ntfs          OS
+</span><span>  ├─nvme1n1p3  ntfs          新加卷
+</span><span>  ├─nvme1n1p4  ntfs          新加卷
+</span><span>  ├─nvme1n1p5  ntfs          新加卷
+</span><span>  ├─nvme1n1p6  ntfs          新加卷
+</span><span>  nvme0n1
+</span><span>  ├─nvme0n1p1
+</span><span>  ├─nvme0n1p2  ntfs 新加卷
+</span><span>  └─nvme0n1p3  xfs   xxxxxxxxxxxxxx
+</span></code></pre>
+<p>随后使用以下方法将VMD支持加入initramfs：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>## 挂载linux根分区
+</span><span>mount /dev/nvme0n1p3 /mnt
+</span><span>## 创建boot目录
+</span><span>mkdir -p /mnt/boot
+</span><span>## 挂载EFI
+</span><span>mkdir -p /mnt/boot/EFI
+</span><span>mount /dev/nvme1n1p1 /mnt/boot/EFI
+</span><span>## Chroot进入已经安装的系统
+</span><span>arch-chroot /mnt
+</span><span>## 重新生成 initramfs
+</span><span>nano /etc/mkinitcpio.conf
+</span><span>MODULES=(vmd nvme)
+</span><span>mkinitcpio -P
+</span><span>## 退出重启
+</span><span>exit
+</span><span>reboot
+</span></code></pre>
+<h2 id="archzhong-an-zhuang-qemuxu-ni-ji">Arch中安装QEMU虚拟机</h2>
+<p>前面我们已经安装了Qemu高性能虚拟机平台和virt-manager用来管理虚拟机的图形界面，随后配置virt-manager并安装Ubuntu-server：</p>
+<p>如果virt-manager报错无法找到Qemu，则：</p>
+<ul>
+<li>​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl start libvirtd
+</span><span style="color:#ffb964;">sudo</span><span> systemctl enable libvirtd
+</span></code></pre>
+<ul>
+<li>用户权限问题：​​将当前用户添加到 libvirt 组，以获得必要的权限。​</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> usermod</span><span style="color:#ffb964;"> -aG</span><span> libvirt $(</span><span style="color:#ffb964;">whoami</span><span>)
+</span></code></pre>
+<ul>
+<li>虚拟网络未激活：​virt-manager 可能无法连接到默认的虚拟网络。​</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> virsh net-start default
+</span></code></pre>
+<p>默认网络在系统启动时自动启动，可以执行：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> virsh net-autostart default
+</span></code></pre>
+<ul>
+<li>配置文件权限问题：​配置文件的权限设置可能导致访问问题。</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> chown $(</span><span style="color:#ffb964;">whoami</span><span>):libvirt /var/run/libvirt/libvirt-sock
+</span></code></pre>
+<p>随后安装虚拟机，流程大概为<code>选择镜像和系统类型--设置CPU/内存--设置空间大小--编辑配置项--开启UEFI引导和3D加速</code>.</p>
+<p><strong>开启3D加速：</strong></p>
+<ul>
+<li>NIC：</li>
+</ul>
+<pre data-lang="xml" style="background-color:#151515;color:#e8e8d3;" class="language-xml "><code class="language-xml" data-lang="xml"><span>&lt;</span><span style="color:#ffb964;">graphics type</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">spice</span><span style="color:#556633;">&quot;</span><span>&gt;
+</span><span>  &lt;</span><span style="color:#ffb964;">listen type</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">none</span><span style="color:#556633;">&quot;</span><span>/&gt;
+</span><span>  &lt;</span><span style="color:#ffb964;">image compression</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">off</span><span style="color:#556633;">&quot;</span><span>/&gt;
+</span><span>  &lt;</span><span style="color:#ffb964;">gl enable</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">yes</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">rendernode</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">/dev/dri/by-path/pci-0000:05:00.0-render</span><span style="color:#556633;">&quot;</span><span>/&gt;
+</span><span>&lt;/</span><span style="color:#ffb964;">graphics</span><span>&gt;
+</span><span>
+</span></code></pre>
+<ul>
+<li>video virtio：</li>
+</ul>
+<pre data-lang="xml" style="background-color:#151515;color:#e8e8d3;" class="language-xml "><code class="language-xml" data-lang="xml"><span>&lt;</span><span style="color:#ffb964;">video</span><span>&gt;
+</span><span>  &lt;</span><span style="color:#ffb964;">model type</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">virtio</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">heads</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">1</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">primary</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">yes</span><span style="color:#556633;">&quot;</span><span>&gt;
+</span><span>    &lt;</span><span style="color:#ffb964;">acceleration accel3d</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">yes</span><span style="color:#556633;">&quot;</span><span>/&gt;
+</span><span>  &lt;/</span><span style="color:#ffb964;">model</span><span>&gt;
+</span><span>  &lt;</span><span style="color:#ffb964;">alias name</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">video0</span><span style="color:#556633;">&quot;</span><span>/&gt;
+</span><span>  &lt;</span><span style="color:#ffb964;">address type</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">pci</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">domain</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">0x0000</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">bus</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">0x00</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">slot</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">0x01</span><span style="color:#556633;">&quot; </span><span style="color:#ffb964;">function</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">0x0</span><span style="color:#556633;">&quot;</span><span>/&gt;
+</span><span>&lt;/</span><span style="color:#ffb964;">video</span><span>&gt;
+</span></code></pre>
+<p>安装完成后即可使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。</p>
+<h2 id="geng-gai-qi-dong-nei-he-shun-xu">更改启动内核顺序</h2>
+<p>如果安装了多个linux内核，可以使用以下方法调整启动顺序：</p>
+<ul>
+<li>使用以下命令查看内核名称：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">ls</span><span> /boot/vmlinuz*
+</span></code></pre>
+<ul>
+<li>在 /etc/default/grub 中添加或修改如下行：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">GRUB_TOP_LEVEL</span><span>=</span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">/boot/vmlinuz-linux-cachyos</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>需要注意，这种方法会关闭 GRUB 的“记住上次启动项”的功能。</p>
+<ul>
+<li>修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> grub-mkconfig</span><span style="color:#ffb964;"> -o</span><span> /boot/grub/grub.cfg
+</span></code></pre>
+<p><strong>图形界面更改方法：</strong></p>
+<p>可以使用grub-customizer来修改Grub，这里以ubuntu为例子：</p>
+<ul>
+<li>添加PPA源并更新软件列表：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> add-apt-repository ppa:danielrichter2007/grub-customizer
+</span><span style="color:#ffb964;">sudo</span><span> apt update
+</span></code></pre>
+<ul>
+<li>安装GRUB Customizer：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt install grub-customizer
+</span></code></pre>
+<p>随后在grub-customizer中将要默认启动的选项放在首位即可。</p>
+<h2 id="kai-ji-zi-qi-dong">开机自启动</h2>
+<p><strong>设置Syncthing开机自启动</strong></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl enable</span><span style="color:#ffb964;"> --now</span><span> syncthing@&lt;username&gt;.service
+</span></code></pre>
+<p><strong>设置Aria2开机自启动</strong></p>
+<pre data-lang="conf" style="background-color:#151515;color:#e8e8d3;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#8fbfdc;">[Unit]
+</span><span style="color:#ffb964;">Description</span><span>=Aria2c - lightweight multi-protocol &amp; multi-source command-line download utility
+</span><span style="color:#ffb964;">After</span><span>=network.target
+</span><span>
+</span><span style="color:#8fbfdc;">[Service]
+</span><span style="color:#ffb964;">User</span><span>=&lt;username&gt;
+</span><span style="color:#ffb964;">Group</span><span>=&lt;groupname&gt;
+</span><span style="color:#ffb964;">WorkingDirectory</span><span>=/home/&lt;username&gt;
+</span><span style="color:#ffb964;">Environment</span><span>=HOME=/home/&lt;username&gt;
+</span><span style="color:#ffb964;">Environment</span><span>=USER=&lt;username&gt;
+</span><span style="color:#ffb964;">ExecStart</span><span>=/usr/bin/aria2c --conf-path=/home/&lt;username&gt;/.config/aria2/aria2.conf
+</span><span style="color:#ffb964;">Restart</span><span>=always
+</span><span style="color:#ffb964;">NoNewPrivileges</span><span>=true
+</span><span style="color:#ffb964;">PrivateTmp</span><span>=true
+</span><span>
+</span><span style="color:#8fbfdc;">[Install]
+</span><span style="color:#ffb964;">WantedBy</span><span>=multi-user.target
+</span></code></pre>
+<h2 id="kai-qi-bbr">开启BBR</h2>
+<ul>
+<li>确保你的内核版本 &gt;= 4.9：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">uname -r
+</span></code></pre>
+<ul>
+<li>启用 BBR</li>
+</ul>
+<p>你只需要设置两个 sysctl 参数即可：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> sysctl</span><span style="color:#ffb964;"> -w</span><span> net.core.default_qdisc=fq
+</span><span style="color:#ffb964;">sudo</span><span> sysctl</span><span style="color:#ffb964;"> -w</span><span> net.ipv4.tcp_congestion_control=bbr
+</span></code></pre>
+<p>要让它们永久生效，把它们写入配置文件：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> nano /etc/sysctl.d/99-bbr.conf
+</span></code></pre>
+<p>加入以下内容：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">net.core.default_qdisc</span><span> = fq
+</span><span style="color:#ffb964;">net.ipv4.tcp_congestion_control</span><span> = bbr
+</span></code></pre>
+<p>然后重新加载配置：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> sysctl</span><span style="color:#ffb964;"> --system
+</span></code></pre>
+<ul>
+<li>验证 BBR 是否启用</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sysctl</span><span> net.ipv4.tcp_congestion_control
+</span></code></pre>
+<p>应该输出：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">net.ipv4.tcp_congestion_control</span><span> = bbr
+</span></code></pre>
+<h2 id="xing-neng-mo-shi-qie-huan">性能模式切换</h2>
+<p>需要安装<code>tlp-git tlp-pd-git tlp-rdw-git</code></p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 查看当前状态
+</span><span style="color:#ffb964;">tlp-stat -s
+</span><span>
+</span><span style="color:#888888;"># 切换到“性能”模式
+</span><span style="color:#ffb964;">sudo</span><span> tlp performance
+</span><span>
+</span><span style="color:#888888;"># 切换到“平衡”模式
+</span><span style="color:#ffb964;">sudo</span><span> tlp balanced
+</span><span>
+</span><span style="color:#888888;"># 切换到“省电”模式
+</span><span style="color:#ffb964;">sudo</span><span> tlp power-saver
+</span></code></pre>
+<h2 id="qi-ta-ke-xuan-xing-neng-you-hua">其他可选性能优化</h2>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Profile‑sync‑daemon
+</span><span style="color:#ffb964;">将浏览器配置文件和缓存挂载到内存，退出时再写回磁盘：
+</span><span>
+</span><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> profile-sync-daemon
+</span><span style="color:#ffb964;">systemctl --user</span><span> enable</span><span style="color:#ffb964;"> --now</span><span> psd.service
+</span><span>
+</span><span style="color:#ffb964;">Systemd‑oomd
+</span><span style="color:#ffb964;">启用</span><span> systemd 自带的内存超载保护守护进程：
+</span><span>
+</span><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> systemd-oomd
+</span><span style="color:#ffb964;">sudo</span><span> systemctl enable</span><span style="color:#ffb964;"> --now</span><span> systemd-oomd
+</span><span>
+</span><span style="color:#ffb964;">Bpftune
+</span><span style="color:#ffb964;">加载</span><span> BPF 性能调优脚本（网络、I/O、调度等）：
+</span><span>
+</span><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> bpftune
+</span><span style="color:#ffb964;">sudo</span><span> systemctl enable</span><span style="color:#ffb964;"> --now</span><span> bpftune
+</span><span>
+</span><span style="color:#ffb964;">Ananicy‑Cpp
+</span><span style="color:#ffb964;">根据预设规则给游戏、多媒体和后台任务打优先级标签：
+</span><span>
+</span><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> ananicy-cpp
+</span><span style="color:#ffb964;">sudo</span><span> systemctl enable</span><span style="color:#ffb964;"> --now</span><span> ananicy-cpp
+</span></code></pre>
+<h2 id="chang-yong-ming-ling">常用命令</h2>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">更新系统：sudo</span><span> pacman</span><span style="color:#ffb964;"> -Syu
+</span><span>
+</span><span style="color:#ffb964;">重新安装所有软件包：sudo</span><span> pacman</span><span style="color:#ffb964;"> -Qq </span><span>| </span><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> -
+</span><span>
+</span><span style="color:#ffb964;">Reset</span><span> keyrings：
+</span><span>
+</span><span style="color:#ffb964;">sudo</span><span> rm</span><span style="color:#ffb964;"> -rf</span><span> /etc/pacman.d/gnupg
+</span><span style="color:#ffb964;">sudo</span><span> pacman-key</span><span style="color:#ffb964;"> --init
+</span><span style="color:#ffb964;">sudo</span><span> pacman-key</span><span style="color:#ffb964;"> --populate</span><span> archlinux
+</span><span>
+</span><span style="color:#ffb964;">移除数据库锁：sudo</span><span> rm</span><span style="color:#ffb964;"> -f</span><span> /var/lib/pacman/db.lck
+</span><span>
+</span><span style="color:#ffb964;">清理软件包缓存：sudo</span><span> pacman</span><span style="color:#ffb964;"> -Sc</span><span> （或</span><span style="color:#ffb964;"> -Scc</span><span> 完全清空）
+</span><span>
+</span><span style="color:#ffb964;">删除孤立软件包：sudo</span><span> pacman</span><span style="color:#ffb964;"> -Rns </span><span>$(</span><span style="color:#ffb964;">pacman -Qtdq</span><span>)
+</span><span>
+</span><span style="color:#ffb964;">Install</span><span> Gaming packages：sudo pacman</span><span style="color:#ffb964;"> -S</span><span> steam wine lutris dxvk
+</span><span>
+</span><span style="color:#ffb964;">排序镜像：
+</span><span>
+</span><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> reflector
+</span><span style="color:#ffb964;">sudo</span><span> reflector</span><span style="color:#ffb964;"> --latest</span><span> 10</span><span style="color:#ffb964;"> --sort</span><span> rate</span><span style="color:#ffb964;"> --save</span><span> /etc/pacman.d/mirrorlist
+</span><span>
+</span><span style="color:#ffb964;">更改</span><span> DNS 服务器：编辑 /etc/systemd/resolved.conf 中的 DNS=1.1.1.1 8.8.8.8，然后 sudo systemctl restart systemd-resolved
+</span></code></pre>
+<h2 id="zai-arch-linuxshang-an-zhuang-docker">在Arch Linux上安装Docker</h2>
+<p>一般推荐在qemu虚拟机中安装，这里仅做示例：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> docker
+</span></code></pre>
+<p>安装完成后，需要启动Docker服务，并设置为开机自启：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> systemctl start docker
+</span><span style="color:#ffb964;">sudo</span><span> systemctl enable docker
+</span></code></pre>
+<p>运行以下命令来验证Docker是否正常工作：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> docker run hello-world
+</span></code></pre>
+<p>默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> usermod</span><span style="color:#ffb964;"> -aG</span><span> docker $</span><span style="color:#ffb964;">USER
+</span></code></pre>
+<p>之后，需要注销并重新登录，或者重启系统以使更改生效。</p>
+<p>安装Docker Compose：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> docker-compose
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-android-tv/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">综合工程:Android-TV 折腾小记</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-calling-cards/">
+                            <span class="button__text">乱七八糟:流量卡购买与套路</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang">安装</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang-ruan-jian">安装软件</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#tu-xing-mei-hua">图形美化</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#qian-yi-shu-ju">迁移数据</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#she-zhi-ruan-jian">设置软件</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#shuang-xi-tong-tian-jia-windowsyin-dao">双系统添加Windows引导</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#zhi-fu-hua-shuo-vmd">制服华硕VMD</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#archzhong-an-zhuang-qemuxu-ni-ji">Arch中安装QEMU虚拟机</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#geng-gai-qi-dong-nei-he-shun-xu">更改启动内核顺序</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#kai-ji-zi-qi-dong">开机自启动</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#kai-qi-bbr">开启BBR</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#xing-neng-mo-shi-qie-huan">性能模式切换</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#qi-ta-ke-xuan-xing-neng-you-hua">其他可选性能优化</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#chang-yong-ming-ling">常用命令</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#zai-arch-linuxshang-an-zhuang-docker">在Arch Linux上安装Docker</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-how-email-works-2/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-how-email-works-2/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-how-email-works-2/">网络艺术:自建域名邮箱</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-02-22
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 poste.io 邮件服务基于 Docker 搭建，用的是 Haraka + Dovecot + SQLite 邮件系统，占用资源较少，安装简单，适合个人使用。</p>
+<span id="continue-reading"></span><h2 id="vpsshang-de-pei-zhi">VPS上的配置</h2>
+<h3 id="xiu-gai-vps-hostname">修改VPS hostname</h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">hostnamectl</span><span> set-hostname mail.your-domain.com
+</span></code></pre>
+<h3 id="xiu-gai-hostswen-jian">修改hosts文件</h3>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">vim</span><span> /etc/hosts
+</span></code></pre>
+<p>添加一行</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">127.0.1.1</span><span> localhost.localdomain mail.your-domain.com
+</span></code></pre>
+<h2 id="an-zhuang-poste">安装poste</h2>
+<p>docker compose文件示例：</p>
+<pre data-lang="yaml" style="background-color:#151515;color:#e8e8d3;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#ffb964;">version</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">3.7</span><span style="color:#556633;">&#39;
+</span><span>
+</span><span style="color:#ffb964;">services</span><span>:
+</span><span>  </span><span style="color:#ffb964;">mailserver</span><span>:
+</span><span>    </span><span style="color:#ffb964;">image</span><span>: </span><span style="color:#99ad6a;">analogic/poste.io
+</span><span>    </span><span style="color:#ffb964;">hostname</span><span>: </span><span style="color:#99ad6a;">mail.your-domain.com
+</span><span>    </span><span style="color:#ffb964;">ports</span><span>:
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">25:25</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">110:110</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">143:143</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">587:587</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">993:993</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">995:995</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">4190:4190</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">465:465</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">127.0.0.1:8808:80</span><span style="color:#556633;">&quot;
+</span><span>      - </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">127.0.0.1:8843:443</span><span style="color:#556633;">&quot;
+</span><span>    </span><span style="color:#ffb964;">environment</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">LETSENCRYPT_EMAIL=admin@your-domain.com
+</span><span>      - </span><span style="color:#99ad6a;">LETSENCRYPT_HOST=mail.your-domain.com
+</span><span>      - </span><span style="color:#99ad6a;">VIRTUAL_HOST=mail.your-domain.com
+</span><span>      - </span><span style="color:#99ad6a;">DISABLE_CLAMAV=TRUE
+</span><span>      - </span><span style="color:#99ad6a;">TZ=Asia/Shanghai
+</span><span>      - </span><span style="color:#99ad6a;">HTTPS=OFF
+</span><span>    </span><span style="color:#ffb964;">volumes</span><span>:
+</span><span>      - </span><span style="color:#99ad6a;">/etc/localtime:/etc/localtime:ro
+</span><span>      - </span><span style="color:#99ad6a;">./mail-data:/data
+</span></code></pre>
+<ul>
+<li>
+<p>禁用反病毒功能（DISABLE_CLAMAV=TRUE）、禁用反垃圾邮件功能（DISABLE_RSPAMD=TRUE），可以大幅减低内存和CPU占用，请酌情设置禁用选项。</p>
+</li>
+<li>
+<p>禁用WEB收发功能（DISABLE_ROUNDCUBE=TRUE），可以进一步减少资源占用，不过非必要不建议禁止。</p>
+</li>
+<li>
+<p>8808为http端口，可以根据自己的需求修改。</p>
+</li>
+</ul>
+<h2 id="dnspei-zhi">Dns配置</h2>
+<table><thead><tr><th>记录类型</th><th>主机记录</th><th>记录值</th></tr></thead><tbody>
+<tr><td>A</td><td>mail</td><td>1.2.3.4 (your ip)</td></tr>
+<tr><td>MX</td><td>your-domain.com</td><td>mail.your-domain.com</td></tr>
+<tr><td>TXT</td><td>your-domain.com</td><td>v=spf1 mx ~all</td></tr>
+<tr><td>TXT</td><td>_s20160910378._domainkey.your-domain.com</td><td>k=rsa;p=MII.........</td></tr>
+<tr><td>TXT</td><td>_dmarc</td><td>v=DMARC1; p=none; pct=100; rua=mailto:mail@your-domain.com</td></tr>
+<tr><td>CNAME</td><td>imap</td><td>mail</td></tr>
+<tr><td>CNAME</td><td>smtp</td><td>mail</td></tr>
+<tr><td>CNAME</td><td>pop</td><td>mail</td></tr>
+</tbody></table>
+<p>最后还需到 VPS 服务商处添加一个反向 DNS，也就是 rDNS 解析，把 IP 解析到 mail.your-domain.com 这个域名，有些 VPS 商家不提供这种服务,所以需要选择好VPS服务商。</p>
+<h2 id="pei-zhi-poste">配置poste</h2>
+<p>通过浏览器访问<code>https://mail.your-domain.com/admin/login</code>进入poste.io的配置页面，按照提示进行配置，然后点击 Generate new key，生成 key，添加到 DNS 解析记录，就是上面最后一条解析<code>_s20160910378._domainkey.your-domain.com</code></p>
+<h2 id="di-san-fang-ke-hu-duan-smtp-imap-pop3-pei-zhi">第三方客户端 SMTP/IMAP/POP3 配置</h2>
+<p>搭建完毕之后我们也可以通过客户端软件连接到我们的邮箱，如thunderbird.</p>
+<table><thead><tr><th>协议</th><th>服务器地址</th><th>端口</th><th>SSL</th></tr></thead><tbody>
+<tr><td>SMTP</td><td>mail.your-domain.com, smtp.your-domain.com</td><td>25, 465, 587</td><td>STARTTLS</td></tr>
+<tr><td>IMAP</td><td>mail.your-domain.com, imap.your-domain.com</td><td>993, 143</td><td>STARTTLS</td></tr>
+<tr><td>POP3</td><td>mail.your-domain.com, pop.your-domain.com</td><td>995, 110</td><td>STARTTLS</td></tr>
+</tbody></table>
+<hr />
+<p>Done.</p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-how-email-works-1/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">网络艺术:电子邮件的工作原理</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-opensource/">
+                            <span class="button__text">乱七八糟:开源软件与协议</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#vpsshang-de-pei-zhi">VPS上的配置</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xiu-gai-vps-hostname">修改VPS hostname</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#xiu-gai-hostswen-jian">修改hosts文件</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang-poste">安装poste</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#dnspei-zhi">Dns配置</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#pei-zhi-poste">配置poste</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#di-san-fang-ke-hu-duan-smtp-imap-pop3-pei-zhi">第三方客户端 SMTP&#x2F;IMAP&#x2F;POP3 配置</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

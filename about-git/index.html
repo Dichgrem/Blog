@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-git/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-git/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-git/">乱七八糟:Git使用简明手册</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-12-15
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Git，作为现代软件开发中不可或缺的版本控制工具，常常让初学者感到困惑。本文旨在介绍 Git 的全流程安装和基本使用，希望能够帮助新手更轻松地理解和掌握 Git 的基本概念和操作。</p>
+<span id="continue-reading"></span>
+<p>我们以Github为例子过一遍Git的安装/配置/连接和第一次提交.</p>
+<h2 id="1-an-zhuang-git">1.安装Git</h2>
+<ul>
+<li>
+<p>Windows：官网下载<a rel="noopener nofollow noreferrer" target="_blank" href="https://git-scm.com/download/">Git-download</a>或者使用Scoop/WinGet等等.</p>
+</li>
+<li>
+<p>Linux：Ubuntu:<code>sudo apt install git</code> / Arch:<code>sudo pacman -S git</code></p>
+</li>
+</ul>
+<p>安装完成后可以在终端中检测版本：</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>❯ git -v
+</span><span>git version 2.51.2
+</span></code></pre>
+<h2 id="2-chuang-jian-mi-yao">2.创建密钥</h2>
+<p>在推送代码到Github的时候，我们需要进行认证，有密码认证和密钥认证两种方法，现在推荐使用密钥认证。</p>
+<ul>
+<li>首先生成一对公私钥，这里的邮箱可以随意填写：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">ssh-keygen -t</span><span> rsa</span><span style="color:#ffb964;"> -b</span><span> 4096</span><span style="color:#ffb964;"> -C </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">your_email@example.com</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>你会看到如下所示的提示,像我一样填写路径的时候就可以顺便给它改个名字，否则会使用默认名id_rsa:</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>❯ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;
+</span><span>Generating public/private rsa key pair.
+</span><span>Enter file in which to save the key (/home/dich/.ssh/id_rsa): /home/dich/.ssh/Github
+</span></code></pre>
+<p>随后一直按回车即可.</p>
+<ul>
+<li>生成的这对公私钥位于<code>~/.ssh/config</code>路径下，在Windows中就是<code>C盘/User/你的用户名</code>下，带.pub后缀的文件为公钥，不带.pub后缀的为私钥,打开公钥复制全部内容，然后将公钥添加到Github的<code>Settings-SSH and GPG keys</code>中。</li>
+</ul>
+<blockquote>
+<p>当你添加完毕后就无法在Github的设置中再次查看它了，确保了安全性.</p>
+</blockquote>
+<ul>
+<li>随后编辑 <code>~/.ssh/config</code> 文件，这个文件的作用是让Git知道主机对应的密钥，例如：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># GitHub
+</span><span style="color:#ffb964;">Host</span><span> github github.com
+</span><span>    </span><span style="color:#ffb964;">HostName</span><span> github.com
+</span><span>    </span><span style="color:#ffb964;">User</span><span> git
+</span><span>    </span><span style="color:#ffb964;">IdentityFile ~</span><span>/.ssh/github
+</span><span>
+</span><span style="color:#888888;"># Gitee
+</span><span style="color:#ffb964;">Host</span><span> gitee gitee.com
+</span><span>    </span><span style="color:#ffb964;">HostName</span><span> gitee.com
+</span><span>    </span><span style="color:#ffb964;">User</span><span> git
+</span><span>    </span><span style="color:#ffb964;">IdentityFile ~</span><span>/.ssh/gitee
+</span></code></pre>
+<blockquote>
+<p>这边的IdentityFile是你的私钥位置，即为不带pub后缀的文件。如果你不想将私钥放在~/.ssh/下，可以查看我的另一篇<a rel="noopener nofollow noreferrer" target="_blank" href="https://blog.dich.bid/network-ssh/">博客</a></p>
+</blockquote>
+<ul>
+<li>设置好上面这些后就可以测试连接到Github,如果成功则显示successfully.</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">❯</span><span> ssh</span><span style="color:#ffb964;"> -T</span><span> git@github.com
+</span><span>
+</span><span style="color:#ffb964;">Hi</span><span> Dichgrem! You</span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">ve successfully authenticated, but GitHub does not provide shell access.
+</span></code></pre>
+<h2 id="3-pei-zhi-git">3.配置Git</h2>
+<p>在正式连接到仓库前，我们还需要让Git知道我们的用户名和邮箱地址。</p>
+<ul>
+<li>显示当前的Git配置</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --list
+</span></code></pre>
+<ul>
+<li>设置提交代码时的用户信息,这里的name推荐和你的GitHub用户名一致，邮箱可以不为真实邮箱，比如<code>no-reply@github.com</code></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.name </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">[name]</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.email </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">[email address]</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<blockquote>
+<p>注意！如果你填写了你的真实邮箱，同时这个仓库又是Public的，那么其他人可以看到你的邮箱！</p>
+</blockquote>
+<ul>
+<li>配置默认主分支为Main</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> init.defaultBranch main
+</span></code></pre>
+<p>这里的设置是因为Git目前默认的主分支名为 master ，而 Github 默认分支名为 main ，这样可以保持一致。</p>
+<h2 id="4-chuang-jian-cang-ku">4.创建仓库</h2>
+<p>配置完Git之后我们就可以连接到远程的仓库了。首先创建一个Git仓库，一般有两种方法：</p>
+<ul>
+<li>方法一(推荐)在远程创建后下载到本地</li>
+</ul>
+<p>我们在Github中的<code>repositories</code>下New一个仓库，然后在绿色的Code按钮中复制链接，克隆远端服务器上的仓库；</p>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>git clone git@github.com:Dichgrem/script.git
+</span></code></pre>
+<blockquote>
+<p>如果你前面没有配置密钥，就会发现无法使用这个命令克隆仓库。那么什么时候使用HTTPS的克隆呢？比如其他人的仓库，你没有权限，又不想fork一份的情况下，就可以使用HTTPS.</p>
+</blockquote>
+<ul>
+<li>方法二:在本地初始化之后连接到远程</li>
+</ul>
+<p>创建一个新文件夹，然后在那个文件夹下运行以下命令：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> init</span><span style="color:#ffb964;"> --initial-branch</span><span>=main
+</span></code></pre>
+<ul>
+<li>在Github上创建一个同名仓库，随后添加远程链接：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> remote add origin &lt;remote_repository_url&gt;
+</span></code></pre>
+<blockquote>
+<p>如果你运行<code>git remote -v</code>发现URL为HTTP格式则可以用下面的命令改为Git格式：</p>
+</blockquote>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># 例如：git remote set-url origin git@github.com:Dichgrem/dichos.git
+</span></code></pre>
+<h2 id="4-tui-song-dai-ma">4.推送代码</h2>
+<ul>
+<li>添加</li>
+</ul>
+<p>在Git仓库中新建或修改文件后，使用如下命令把它们添加到暂存区：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> add *
+</span></code></pre>
+<ul>
+<li>提交</li>
+</ul>
+<p>随后使用如下命令提交改动：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> commit</span><span style="color:#ffb964;"> -m </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">代码提交信息</span><span style="color:#556633;">&quot;
+</span><span style="color:#888888;"># 例如：git commit -m &quot;update:mycode&quot;
+</span></code></pre>
+<p>现在，你的改动已经提交到了 <strong>HEAD</strong>，但是还没到你的远端仓库。</p>
+<ul>
+<li>推送改动</li>
+</ul>
+<p>执行如下命令以将这些改动提交到远端仓库,随后即可在GitHub上查看；</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> push origin main
+</span></code></pre>
+<blockquote>
+<p>想学习更多Git操作，可以使用这个<a rel="noopener nofollow noreferrer" target="_blank" href="https://learngitbranching.js.org/?locale=zh_CN">Git练习网站</a></p>
+</blockquote>
+<h2 id="5-commitgui-fan">5.Commit规范</h2>
+<ul>
+<li>提交信息的基本格式,例如</li>
+</ul>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>feat:add_highlight
+</span></code></pre>
+<ul>
+<li>常见的 Commit 类型</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">-</span><span> feat：新功能的添加
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> fix：修复 Bug
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> docs：文档相关的修改
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> style：代码格式、排版等不影响代码逻辑的调整
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> refactor：代码重构，不涉及新功能或 Bug 修复
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> perf：性能优化
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> test：添加或修改测试代码
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> build：构建相关的变更，如依赖管理、构建脚本等
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> ci：持续集成相关的修改
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> chore：其他杂项维护，不涉及源代码或测试文件的修改
+</span><span>
+</span><span style="color:#ffb964;">-</span><span> revert：回滚到上一个版本的提交
+</span></code></pre>
+<h2 id="6-gityuan-li">6.Git原理</h2>
+<ul>
+<li>三棵树</li>
+</ul>
+<p>一个Git仓库的目录里面包括<code>工作目录</code>（即我们要追踪的代码）以及<code>.git</code>目录（Git 在这里存储自己的数据）。Git 维护了三棵“树”:第一个是你的 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
+<p><img src="http://marklodato.github.io/visual-git-guide/basic-usage.svg.png" alt="git-tree" /></p>
+<ul>
+<li><code>.git</code> 目录结构</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">.git/
+</span><span style="color:#ffb964;">├──</span><span> HEAD
+</span><span style="color:#ffb964;">├──</span><span> config
+</span><span style="color:#ffb964;">├──</span><span> description
+</span><span style="color:#ffb964;">├──</span><span> hooks/
+</span><span style="color:#ffb964;">├──</span><span> index
+</span><span style="color:#ffb964;">├──</span><span> info/
+</span><span style="color:#ffb964;">│</span><span>   └── exclude
+</span><span style="color:#ffb964;">├──</span><span> logs/
+</span><span style="color:#ffb964;">│</span><span>   ├── HEAD
+</span><span style="color:#ffb964;">│</span><span>   └── refs/
+</span><span style="color:#ffb964;">├──</span><span> objects/
+</span><span style="color:#ffb964;">│</span><span>   ├── info/
+</span><span style="color:#ffb964;">│</span><span>   └── pack/
+</span><span style="color:#ffb964;">├──</span><span> refs/
+</span><span style="color:#ffb964;">│</span><span>   ├── heads/
+</span><span style="color:#ffb964;">│</span><span>   ├── remotes/
+</span><span style="color:#ffb964;">│</span><span>   └── tags/
+</span></code></pre>
+<ul>
+<li>objects：存储 Git 的所有对象，包括：
+<ul>
+<li>blob：文件内容</li>
+<li>tree：目录结构</li>
+<li>commit：提交对象，记录提交信息和指向的树对象</li>
+<li>tag：标签对象
+这些对象以 SHA-1 哈希命名，前两位作为子目录，其余作为文件名</li>
+</ul>
+</li>
+<li>refs：存储所有引用，包括：
+<ul>
+<li>heads：本地分支</li>
+<li>remotes：远程分支</li>
+<li>tags：标签</li>
+</ul>
+</li>
+<li>HEAD：指向当前检出的分支或提交。例如，<code>ref: refs/heads/main</code> 表示当前位于 <code>main</code> 分支</li>
+<li>config：仓库级别的配置文件，包含用户名、邮箱、远程仓库等信息</li>
+<li>description：用于描述仓库，仅供 GitWeb 等工具使用</li>
+<li>hooks：存放 Git 钩子脚本的目录，可用于在特定操作前后执行自定义脚本，如 <code>pre-commit</code>、<code>post-merge</code> 等</li>
+<li>index：暂存区（staging area）的索引文件，记录了即将提交的文件信息</li>
+<li>info：包含辅助信息，如 <code>exclude</code> 文件用于定义仓库级别的忽略规则</li>
+<li>logs：记录了引用（如分支、标签）的更新历史，有助于追踪操作记录</li>
+</ul>
+<hr />
+<h2 id="7-tips">7.Tips</h2>
+<h3 id="verified">Verified</h3>
+<p>在 GitHub 的 commit 历史中看到的 “Verified” 标记，表示该提交是经过 签名验证（signed commit） 的，也就是 GitHub 能确认这个 commit 的确是由声明的提交者（你）签名并发布的。可以通过GPG或者SSH配置：</p>
+<ul>
+<li>GPG方式</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> pacman</span><span style="color:#ffb964;"> -S</span><span> gnupg //安装 GPG
+</span><span style="color:#ffb964;">gpg --full-generate-key</span><span> //生成 GPG 密钥
+</span><span style="color:#ffb964;">gpg --list-secret-keys --keyid-format</span><span>=long //查看你生成的密钥 ID
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.signingkey ABCDEF1234567890  //让 Git 使用该密钥签名
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> commit.gpgsign true //启用自动签名所有提交
+</span><span style="color:#ffb964;">gpg --armor --export</span><span> ABCDEF1234567890 //导出公钥并添加到 GitHub
+</span></code></pre>
+<p>然后前往<code>GitHub → Settings → SSH and GPG keys → New GPG key</code>粘贴并保存。</p>
+<ul>
+<li>SSH方式</li>
+</ul>
+<p>可以用你平时登录 GitHub 的同一个 SSH 密钥：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> gpg.format ssh //让 Git 使用 SSH 格式签名
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.signingkey </span><span style="color:#ffb964;">~</span><span>/.ssh/Github.pub //指定使用的 SSH 公钥
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> commit.gpgsign true  //表示自动签名所有提交
+</span></code></pre>
+<p>然后前往<code>Settings → SSH and GPG keys → New SSH key → Signing key</code>粘贴并保存。</p>
+<ul>
+<li>本地查看</li>
+</ul>
+<p>首先创建这个文件：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">mkdir -p ~</span><span>/.ssh
+</span><span style="color:#ffb964;">nano ~</span><span>/.ssh/allowed_signers
+</span></code></pre>
+<p>写入你的 <code>test@mail.com ssh-ed25519 AAAABBBBBBBBBBBBBBBBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code>并保存。
+随后配置Git信任该文件：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> gpg.ssh.allowedSignersFile </span><span style="color:#ffb964;">~</span><span>/.ssh/allowed_signers
+</span></code></pre>
+<p>随后使用<code>git log --show-signature</code>即可查看本地log中的</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Good </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">git</span><span style="color:#556633;">&quot;</span><span> signature for test@mail.com with ED25519 key SHA256:ssh-ed25519 AAAABBBBBBBBBBBBBBBBBBBBB
+</span></code></pre>
+<h3 id="sheng-cheng-bu-ding">生成补丁</h3>
+<p>比如你修改了项目中的<code>fs/proc/base.c</code>，然后</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> add fs/proc/base.c
+</span><span style="color:#ffb964;">git</span><span> commit</span><span style="color:#ffb964;"> -m </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">fix:base</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">git</span><span> format-patch origin/16.0
+</span></code></pre>
+<p>即可在目录下生成补丁<code>0001-fix-base.patch</code>.</p>
+<h3 id="shan-chu-qian-yi-ge-ti-jiao-ji-lu">删除前一个提交记录</h3>
+<p>有时候手滑或者不想使用一个commit说明，可以用以下命令撤销上一个 commit：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> reset</span><span style="color:#ffb964;"> --soft</span><span> HEAD</span><span style="color:#ffb964;">~</span><span>1
+</span></code></pre>
+<p>这个命令会撤销上一个 commit，但保留文件修改（代码仍然在工作区）。适用于 想要重新提交（amend）或调整 commit 的情况。</p>
+<p>如果你想彻底删除更改（不保留代码修改），可以使用：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">git</span><span> reset</span><span style="color:#ffb964;"> --hard</span><span> HEAD</span><span style="color:#ffb964;">~</span><span>1
+</span></code></pre>
+<h3 id="jiao-xue-fu-xi">教学复习</h3>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>0. 如何配置Git？
+</span><span>
+</span><span>1. 为什么Git协作的时候往往是fork别人的仓库？能不能直接在原仓库里面修改？
+</span><span>
+</span><span>2. fork完如何修改并提交更改？
+</span><span>
+</span><span>3. git clone 的 http 链接和 git 链接有什么不同？
+</span><span>
+</span><span>4. 如何将修改合并到原仓库？
+</span><span>
+</span><span>5. 如何合并发PR？
+</span><span>
+</span><span>6. 如何查看状态和日志
+</span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-junk-cleanup/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:垃圾清理的艺术</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-isps/">
+                            <span class="button__text">网络艺术:国内&#x2F;国际骨干ISP线路整理</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#1-an-zhuang-git">1.安装Git</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#2-chuang-jian-mi-yao">2.创建密钥</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#3-pei-zhi-git">3.配置Git</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#4-chuang-jian-cang-ku">4.创建仓库</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#4-tui-song-dai-ma">4.推送代码</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#5-commitgui-fan">5.Commit规范</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#6-gityuan-li">6.Git原理</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#7-tips">7.Tips</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-3">
+                                <a href="#verified">Verified</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#sheng-cheng-bu-ding">生成补丁</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#shan-chu-qian-yi-ge-ti-jiao-ji-lu">删除前一个提交记录</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-3">
+                                <a href="#jiao-xue-fu-xi">教学复习</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

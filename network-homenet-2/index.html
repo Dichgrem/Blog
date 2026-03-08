@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-homenet-2/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-homenet-2/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-homenet-2/">家庭组网系列(2):路由器性能测试</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-01-22
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文介绍常用的家庭网络测试方法，包括开源固件和闭源商用设备的测试。</p>
+<span id="continue-reading"></span>
+<p>随着Wi-Fi7设备的逐渐普及和家用路由器的性能提升，百元以内的wifi6路由器性价比变得非常高，可以用非常少的预算搭建高速网络；然而即使是同样的方案，各家路由器的实际体验却不一致，因此这里记载一些测试路由器性能的方法。</p>
+<p>开源固件如OpenWrt，无论是软路由还是硬路由都很方便测试。为了方便测试，我们假设你的网络拓扑为简单的光猫+无线路由器；实际使用中自上而下的，运营商的套餐带宽/限速/QOS，设备的转发性能和网线/网卡的质量都会引起整个网络的波动。</p>
+<h2 id="xing-neng-zhi-biao">性能指标</h2>
+<table><thead><tr><th>指标</th><th>含义</th></tr></thead><tbody>
+<tr><td>吞吐量（Throughput）</td><td>最大数据传输速度</td></tr>
+<tr><td>延迟 / 抖动</td><td>延迟和波动情况</td></tr>
+<tr><td>转发性能 / pps</td><td>每秒能转发多少数据包</td></tr>
+<tr><td>并发连接数</td><td>同时建立多少TCP连接</td></tr>
+<tr><td>NAT / 防火墙性能</td><td>打开转发、NAT、规则后的性能</td></tr>
+</tbody></table>
+<h2 id="dai-kuan">带宽</h2>
+<p>带宽，也叫吞吐量，是我们最为关心的一个性能指标之一。</p>
+<p>理论上1000兆宽带的极限下载速度为125MB每秒，实际上日常生活中少有跑满带宽的使用情况，毕竟商用服务器的带宽成本高，比如B站的视频降码率等等。对于极客玩家来说，内网文件共享，游戏串流，NAS服务和外网多线程下载，BT下载等等需要比较高的带宽性能。以下是一些常见的测试方法：</p>
+<p>开源固件可以使用<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/esnet/iperf">iperf3</a>来测试。</p>
+<p>在路由器A上和设备B上安装iperf3,openwrt为<code>opkg install iperf3</code>，随后在A上使用命令<code>iperf3 -s</code>开启服务端；在B上使用命令<code>iperf3 -c &lt;A的IP&gt;</code>,即可测试B到A的TCP单线程上传速率(本地带宽)，应该和A的物理端口速率相近。若要测试下载速率，<code>iperf3 -c &lt;A的IP&gt; -R</code>即可。</p>
+<p>TCP单线程下载测试示例：
+<img src="/images/iperf3.webp" alt="iperf3.webp" /></p>
+<p>如果你的路由器为闭源固件，也可以到在线测速站进行简单测试：</p>
+<ul>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.speedtest.cn/">测速网:speedtest.cn</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://test.ustc.edu.cn/">中国科学技术大学测速网站</a></li>
+<li><a href="https://blog.dich.bid/network-homenet-2/fast.com">Netflix运营的fast.com</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://openspeedtest.com/">Openspeedtest</a></li>
+<li><a rel="noopener nofollow noreferrer" target="_blank" href="https://speed.cloudflare.com/">Cloudflare测速</a></li>
+</ul>
+<p>这些网站的测试速度随着节点的不同而有所差异，比如测试节点在北京联通而你是广东电信，会和实际差距较大。当然，还有一个简单权威的方法，就是下载一个Steam上的大型游戏，Steam的节点在任何国家基本都可以跑满。</p>
+<h2 id="yan-chi-yu-dou-dong">延迟与抖动</h2>
+<p>简单的ping命令即可测试延迟，对网络排除故障很有帮助。ping命令是一个广泛使用的命令，在各种系统上都有。</p>
+<p>使用<code>ping &lt;目标IP&gt; -c 20</code>命令进行测试，可以看到min/avg/max三个值，即为最小/平均/最大延迟；</p>
+<p><img src="/images/ping.webp" alt="ping" /></p>
+<p>也可以使用iperf3来测试UDP抖动：使用命令<code>iperf3 -c &lt;server_ip&gt; -u -b 100M -t 10</code>，-u表示使用udp，-100M表示使用100兆带宽，可逐渐调高并接近极限性能。</p>
+<p><img src="/images/iperf3-udp.webp" alt="iperf3-udp" /></p>
+<h2 id="zhuan-fa">转发</h2>
+<p>路由器的CPU作为核心，需要处理外网与内网IP的转发，这种转发能力称为包转发率，通常拿小包的转发率来衡量能力的高低。测试“小包转发能力”其实就是测试 PPS（Packets Per Second）能力,在x86软路由上面这个性能尤为重要，因为无线路由器有硬件级别的加速芯片而软路由没有。</p>
+<blockquote>
+<p>以单位时间内发送64byte的数据包（最小包）的个数作为计算基准的。对于千兆以太网来说，计算方法如下：1，000，000，000bps/8bit/（64＋8＋12）byte=1,488,095pps,说明：当以太网帧为64byte时，需考虑8byte的帧头和12byte的帧间隙的固定开销。故一个线速的千兆以太网端口在转发64byte包时的包转发率为1.488Mpps</p>
+</blockquote>
+<p>测试转发性能需要发包-转发-收包三台设备，或者使用环回测试仪。由于iperf3 处于 TCP/UDP 层，包也会变大且加了协议头，测试的结果误差很大，因此不建议用其进行测试小包性能。</p>
+<hr />
+<p>未完待续。</p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-homenet-1/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">家庭组网系列(1):方案与设备选购</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-ventoy/">
+                            <span class="button__text">乱七八糟:Ventoy战斗盘部署</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#xing-neng-zhi-biao">性能指标</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#dai-kuan">带宽</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#yan-chi-yu-dou-dong">延迟与抖动</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#zhuan-fa">转发</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

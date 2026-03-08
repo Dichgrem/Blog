@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-virtual/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-virtual/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-virtual/">乱七八糟:虚拟化常用设置与操作</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-08-16
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 本文记录常用虚拟化平台的使用与操作，包括Vmware，Hypr-v，QEMU等等。</p>
+<span id="continue-reading"></span><h1 id="yi-vmware">一.Vmware</h1>
+<h2 id="xia-zai">下载</h2>
+<p>Vmware最新版本对个人已经免费，不需要再寻找激活码；</p>
+<p>由于博通官网下载Vmware需要登录账号，这里给出第三方下载站链接：<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.techspot.com/downloads/189-vmware-workstation-for-windows.html">techspot</a></p>
+<h2 id="an-zhuang-ubuntuxu-ni-ji">安装ubuntu虚拟机</h2>
+<p><strong>前期准备</strong></p>
+<ul>
+<li>下载 Ubuntu ISO 镜像</li>
+<li>确保你的主机支持虚拟化（Intel VT-x / AMD-V），并在 BIOS/UEFI 中启用</li>
+</ul>
+<p><strong>开始安装</strong></p>
+<ol>
+<li>启动 VMware → 选择 “Create a New Virtual Machine” 或 “新建虚拟机”。</li>
+<li>在安装来源 (Installer source) 页选择 “Installer disc image file (ISO)” → 浏览并选中你下载的 Ubuntu ISO 文件。</li>
+<li>在“Guest OS Family / 来宾操作系统类型”中选择 <strong>Linux</strong>。</li>
+<li>在 OS 版本中选择 “Ubuntu 64-bit” 或者 “Other Linux 64-bit”（如果没有明确 Ubuntu 选项）。</li>
+<li>给虚拟机起一个名字，例如 “Ubuntu-VM”。</li>
+<li>指定存放虚拟机文件 (.vmx, .vmdk 等) 的文件夹位置。默认位置在<code>C:\Users\&lt;你的用户名&gt;\Documents\Virtual Machines\&lt;虚拟机名称&gt;\</code>下.</li>
+<li>在磁盘设置部分设置虚拟磁盘大小，推荐 <strong>25-40 GB</strong>。选择把虚拟磁盘存为一个文件或拆分为多个文件，这两种方式各有优劣（一个文件通常略快些）。</li>
+<li>自定义硬件设置</li>
+</ol>
+<table><thead><tr><th>硬件</th><th>推荐配置 / 注意事项</th></tr></thead><tbody>
+<tr><td>CPU 核心数</td><td>2 或更多</td></tr>
+<tr><td>内存</td><td>至少 4 GB，若要流畅用 GNOME 桌面建议 8 GB</td></tr>
+<tr><td>显示适配</td><td>开启 3D 加速（如果 VMware 支持）</td></tr>
+<tr><td>硬盘控制器类型</td><td>通常 VMware 默认就行，SATA/SCSI，一般 Ubuntu 支持都不错</td></tr>
+<tr><td>网卡</td><td>使用 NAT 或桥接，根据是否要虚拟机直接在局域网中可访问来定</td></tr>
+</tbody></table>
+<ol start="9">
+<li>启动虚拟机并选择“Install Ubuntu”。</li>
+<li>安装 VMware Tools 或 Open-VM-Tools</li>
+</ol>
+<p>安装这些工具能增强体验，例如鼠标整合、屏幕分辨率自动调整、剪贴板共享等等。</p>
+<p>Ubuntu 的方式通常是用 <code>open-vm-tools</code> 包：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt update
+</span><span style="color:#ffb964;">sudo</span><span> apt install open-vm-tools-desktop
+</span><span style="color:#ffb964;">sudo</span><span> reboot
+</span></code></pre>
+<h3 id="faq">FAQ</h3>
+<ul>
+<li>屏幕分辨率不能拉大／全屏：安装 open-vm-tools + open-vm-tools-desktop；开启 3D 支持；在虚拟机设置里提升视频内存。</li>
+<li>虚拟机启动慢：给虚拟机分配更多 RAM／CPU；关闭不必要的服务；确保主机虚拟化支持开启。</li>
+<li>无法挂载 ISO 或虚拟光驱：检查虚拟机设置里 CD/DVD 光驱是否连接；ISO 文件是否损坏。</li>
+<li>时间不对同步差：安装 VMware 工具通常能解决时间同步；也可手动配置 NTP 服务。</li>
+<li>网络不通：检查虚拟机网卡类型；如果用 NAT，看主机网络；如果用桥接，看是否有权限或防火墙问题。</li>
+</ul>
+<h1 id="er-hyper-v">二.Hyper-V</h1>
+<p>Hyper-V 是微软内建的虚拟化平台（native hypervisor）。开启后，它会占用硬件虚拟化特性（Intel VT-x / AMD-V），这可能会和 VMware、VirtualBox 等第三方虚拟化软件冲突。</p>
+<h2 id="kai-qi-hyper-v">开启 Hyper-V</h2>
+<ul>
+<li>PowerShell（以管理员权限运行）：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Enable-WindowsOptionalFeature -Online -FeatureName</span><span> Microsoft-Hyper-V</span><span style="color:#ffb964;"> -All
+</span></code></pre>
+<ul>
+<li>DISM（部署映像服务和管理工具）：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">DISM</span><span> /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
+</span></code></pre>
+<ul>
+<li>Windows 功能 GUI 操作：
+在<code>控制面板 → 程序和功能 → 启用或关闭 Windows 功能</code>中勾选 “Hyper-V”、 “Hyper-V 平台”、 “Hyper-V 管理工具” 等相关项目，然后按提示操作。</li>
+</ul>
+<h2 id="guan-bi-hyper-v">关闭 Hyper-V</h2>
+<ul>
+<li>PowerShell（管理员权限）：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Disable-WindowsOptionalFeature -Online -FeatureName</span><span> Microsoft-Hyper-V-All
+</span></code></pre>
+<ul>
+<li>DISM：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">DISM</span><span> /Online /Disable-Feature:Microsoft-Hyper-V
+</span></code></pre>
+<ul>
+<li>用 bcdedit 修改启动配置，使系统启动时不加载 Hypervisor（Hyper-V 的虚拟化内核）但保留功能安装：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bcdedit</span><span> /set hypervisorlaunchtype off
+</span></code></pre>
+<p>若要恢复加载，则：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bcdedit</span><span> /set hypervisorlaunchtype auto
+</span></code></pre>
+<ul>
+<li>Windows 功能 GUI 中，取消勾选 Hyper-V 相应项。</li>
+</ul>
+<h2 id="shi-yong-fang-fa">使用方法</h2>
+<p>下面是几个典型的场景和命令：</p>
+<ol>
+<li><strong>给 VMware 或 VirtualBox 使用环境临时关闭 Hyper-V</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bcdedit</span><span> /set hypervisorlaunchtype off
+</span></code></pre>
+<p>然后重启 Windows，就能让这些软件正常启动虚拟机。要还原 Hyper-V，改为 <code>auto</code> 或 <code>on</code>:</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">bcdedit</span><span> /set hypervisorlaunchtype auto
+</span></code></pre>
+<ol start="2">
+<li><strong>从命令行完全关闭 Hyper-V 功能</strong></li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">Disable-WindowsOptionalFeature -Online -FeatureName</span><span> Microsoft-Hyper-V-All
+</span></code></pre>
+<p>或者用 DISM：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">DISM</span><span> /Online /Disable-Feature:Microsoft-Hyper-V
+</span></code></pre>
+<ol start="3">
+<li><strong>检查当前 Hyper-V 是否正在运行</strong></li>
+</ol>
+<ul>
+<li>用 <code>msinfo32.exe</code>（系统信息）看 “Hyper-V Requirements” 部分，或者在命令提示符／PowerShell 用 <code>systeminfo</code> 查看是否显示 “Hypervisor has been detected” 之类信息。</li>
+</ul>
+<ol start="4">
+<li><strong>用 GUI 控制 Windows 功能开关</strong></li>
+</ol>
+<ul>
+<li>打开 <code>控制面板 → 程序 → 启用或关闭 Windows 功能</code></li>
+<li>勾选 “Hyper-V” 及 Hyper-V 平台 / 虚拟机平台等</li>
+<li>点击确定，重启即可。</li>
+</ul>
+<h2 id="faq-1">FAQ</h2>
+<ul>
+<li>Windows 家庭版（Home）通常不提供完整的 Hyper-V 功能 GUI，但系统中某些虚拟化基于安全的功能（例如 VBS、Core Isolation / Memory Integrity）依然可能启用，这样也会表现为“Hyper-V 在运行”，建议更换到专业工作站版本。</li>
+<li>部分软件（如 Android 模拟器、BlueStacks 等）在检测到 Hyper-V 存在时性能可能受影响，关闭后可能解决问题。比如Steam游戏，安卓模拟器，HCL等等。</li>
+</ul>
+<h1 id="san-qemu">三.QEMU</h1>
+<h2 id="bei-fen">备份</h2>
+<p>QEMU安装的系统默认在此位置下，可以使用Root用户将其复制到其他位置并备份：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">[root@dos:/var/lib/libvirt/images]ls
+</span><span style="color:#ffb964;">ubuntu24.04-2.qcow2
+</span></code></pre>
+<h2 id="ge-shi-zhuan-huan">格式转换</h2>
+<p>QEMU默认使用qcow2格式，几乎可以转换为所有其他虚拟机格式；我们可以使用<code>qemu-img</code>（QEMU 提供的镜像管理工具）来创建、转换、检查、调整虚拟机磁盘镜像。</p>
+<p><strong>基本语法</strong>：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">qemu-img </span><span style="color:#8fbfdc;">[</span><span>command</span><span style="color:#8fbfdc;">] [</span><span>options</span><span style="color:#8fbfdc;">]</span><span> filename
+</span></code></pre>
+<p><strong>镜像格式转换命令大全</strong></p>
+<p><code>qemu-img convert -f &lt;源格式&gt; -O &lt;目标格式&gt; &lt;源文件&gt; &lt;目标文件&gt;</code></p>
+<p><strong>常见虚拟机平台格式</strong>：</p>
+<table><thead><tr><th>平台/软件</th><th>格式</th><th>示例扩展名</th></tr></thead><tbody>
+<tr><td>QEMU/KVM</td><td>qcow2</td><td><code>.qcow2</code></td></tr>
+<tr><td>VirtualBox</td><td>vdi</td><td><code>.vdi</code></td></tr>
+<tr><td>VMware</td><td>vmdk</td><td><code>.vmdk</code></td></tr>
+<tr><td>Microsoft Hyper-V</td><td>vhd/vhdx</td><td><code>.vhd</code> / <code>.vhdx</code></td></tr>
+<tr><td>Xen</td><td>raw</td><td><code>.img</code></td></tr>
+</tbody></table>
+<ul>
+<li><code>raw ↔ qcow2</code></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># raw → qcow2
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> raw</span><span style="color:#ffb964;"> -O</span><span> qcow2 disk.img disk.qcow2
+</span><span>
+</span><span style="color:#888888;"># qcow2 → raw
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> qcow2</span><span style="color:#ffb964;"> -O</span><span> raw disk.qcow2 disk.img
+</span></code></pre>
+<ul>
+<li><code>qcow2 ↔ vdi (VirtualBox)</code></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># qcow2 → vdi
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> qcow2</span><span style="color:#ffb964;"> -O</span><span> vdi disk.qcow2 disk.vdi
+</span><span>
+</span><span style="color:#888888;"># vdi → qcow2
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> vdi</span><span style="color:#ffb964;"> -O</span><span> qcow2 disk.vdi disk.qcow2
+</span></code></pre>
+<ul>
+<li><code>qcow2 ↔ vmdk (VMware)</code></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># qcow2 → vmdk
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> qcow2</span><span style="color:#ffb964;"> -O</span><span> vmdk disk.qcow2 disk.vmdk
+</span><span>
+</span><span style="color:#888888;"># vmdk → qcow2
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> vmdk</span><span style="color:#ffb964;"> -O</span><span> qcow2 disk.vmdk disk.qcow2
+</span></code></pre>
+<ul>
+<li><code>qcow2 ↔ vhd/vhdx (Hyper-V)</code></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># qcow2 → vhdx
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> qcow2</span><span style="color:#ffb964;"> -O</span><span> vhdx disk.qcow2 disk.vhdx
+</span><span>
+</span><span style="color:#888888;"># vhdx → qcow2
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> vhdx</span><span style="color:#ffb964;"> -O</span><span> qcow2 disk.vhdx disk.qcow2
+</span></code></pre>
+<ul>
+<li><code>raw ↔ vdi/vmdk/vhdx</code></li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#888888;"># raw → vdi
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> raw</span><span style="color:#ffb964;"> -O</span><span> vdi disk.img disk.vdi
+</span><span>
+</span><span style="color:#888888;"># raw → vmdk
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> raw</span><span style="color:#ffb964;"> -O</span><span> vmdk disk.img disk.vmdk
+</span><span>
+</span><span style="color:#888888;"># raw → vhdx
+</span><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -f</span><span> raw</span><span style="color:#ffb964;"> -O</span><span> vhdx disk.img disk.vhdx
+</span></code></pre>
+<h2 id="kuo-zhan">扩展</h2>
+<ol>
+<li>扩展大小</li>
+</ol>
+<pre style="background-color:#151515;color:#e8e8d3;"><code><span>virsh domblklist &lt;虚拟机名字&gt;
+</span><span>Target   Source
+</span><span>vda      /var/lib/libvirt/images/ubuntu-24-04.qcow2
+</span><span>
+</span><span>qemu-img resize /var/lib/libvirt/images/ubuntu-24-04.qcow2 +20G
+</span></code></pre>
+<ol start="2">
+<li>查看磁盘情况：</li>
+</ol>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">lsblk
+</span></code></pre>
+<ol start="3">
+<li>如果是单分区系统（ext4）：</li>
+</ol>
+<ul>
+<li>安装工具：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> nix-env</span><span style="color:#ffb964;"> -iA</span><span> nixos.cloud-utils </span><span style="color:#888888;"># 提供 growpart
+</span></code></pre>
+<ul>
+<li>扩展分区：</li>
+</ul>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> growpart /dev/vda 1
+</span></code></pre>
+<ul>
+<li>扩展文件系统：</li>
+</ul>
+<p>ext4：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> resize2fs /dev/vda1
+</span></code></pre>
+<p>xfs：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> xfs_growfs /
+</span></code></pre>
+<h2 id="ya-suo">压缩</h2>
+<p>有时候我们需要备份QEMU的镜像，但是镜像大小非常庞大，可以对其进行压缩。</p>
+<p>首先在虚拟机里（以Ubuntu为例）执行：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> apt clean
+</span><span style="color:#ffb964;">sudo</span><span> rm</span><span style="color:#ffb964;"> -rf</span><span> /var/log/*log /var/log/journal/*  </span><span style="color:#888888;"># 清理日志
+</span></code></pre>
+<p>然后填充空闲空间：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">sudo</span><span> dd if=/dev/zero of=/zero.fill bs=1M || </span><span style="color:#ffb964;">true
+</span><span style="color:#ffb964;">sudo</span><span> sync
+</span><span style="color:#ffb964;">sudo</span><span> rm</span><span style="color:#ffb964;"> -f</span><span> /zero.fill
+</span></code></pre>
+<p>随后关闭虚拟机，在宿主机上使用 <code>qemu-img</code> 压缩：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -O</span><span> qcow2 ubuntu24.04-2.qcow2 ubuntu24.04-2-compressed.qcow2
+</span></code></pre>
+<p>可选：加上 <code>-c</code> 开启压缩：</p>
+<pre data-lang="bash" style="background-color:#151515;color:#e8e8d3;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#ffb964;">qemu-img</span><span> convert</span><span style="color:#ffb964;"> -O</span><span> qcow2</span><span style="color:#ffb964;"> -c</span><span> ubuntu24.04-2.qcow2 ubuntu24.04-2-compressed.qcow2
+</span></code></pre>
+<blockquote>
+<p><strong>不要直接删除原始文件</strong>，先确认新文件能正常启动。如果你的 qcow2 镜像是直接被写满了（比如里面确实存了很多真实数据），那即使压缩也不会小太多。如果镜像内部用了 LVM，还可以在 LVM 里使用sudo fstrim -av进行fstrim.</p>
+</blockquote>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-docker/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">网络艺术:Docker建站与反向代理</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-homenet-1/">
+                            <span class="button__text">家庭组网系列(1):方案与设备选购</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-1">
+                    <a href="#yi-vmware">一.Vmware</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#xia-zai">下载</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#an-zhuang-ubuntuxu-ni-ji">安装ubuntu虚拟机</a>
+                                
+                                    <ul>
+                                    
+                                        <li class="toc-level-3">
+                                            <a href="#faq">FAQ</a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#er-hyper-v">二.Hyper-V</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#kai-qi-hyper-v">开启 Hyper-V</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#guan-bi-hyper-v">关闭 Hyper-V</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#shi-yong-fang-fa">使用方法</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#faq-1">FAQ</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toc-level-1">
+                    <a href="#san-qemu">三.QEMU</a>
+                    
+                        <ul>
+                        
+                            <li class="toc-level-2">
+                                <a href="#bei-fen">备份</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#ge-shi-zhuan-huan">格式转换</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#kuo-zhan">扩展</a>
+                                
+                            </li>
+                        
+                            <li class="toc-level-2">
+                                <a href="#ya-suo">压缩</a>
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+
