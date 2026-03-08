@@ -40,6 +40,9 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/dich/.ssh/id_rsa): /home/dich/.ssh/Github
 ```
+
+> Windows 需要在设置-系统-功能中开启OpenSSH才能使用该命令.
+
 随后一直按回车即可.
 
 - 生成的这对公私钥位于``~/.ssh/config``路径下，在Windows中就是``C盘/User/你的用户名``下，带.pub后缀的文件为公钥，不带.pub后缀的为私钥,打开公钥复制全部内容，然后将公钥添加到Github的``Settings-SSH and GPG keys``中。
