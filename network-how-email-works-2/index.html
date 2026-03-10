@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-how-email-works-2/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-how-email-works-2/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    <div class="post" data-pagefind-body>
+        
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-how-email-works-2/">网络艺术:自建域名邮箱</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-02-22
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+        <div class="post-content">
+            <p>前言 Maddy 邮件服务基于 Docker 搭建,占用资源较少，安装简单，适合个人使用。</p>
+<span id="continue-reading"></span><h2 id="an-zhuang-maddy">安装Maddy</h2>
+<p>docker compose文件示例：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="yaml"><span class="giallo-l"><span style="color: #F7768E;">services</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">  maddy</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    image</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> foxcpp/maddy:latest</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    container_name</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> maddy</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    restart</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> unless-stopped</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    volumes</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> maddy-data:/data</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    ports</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">25:25</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">587:587</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">993:993</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">143:143</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    environment</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> MADDY_DOMAIN=your-domain</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> MADDY_HOSTNAME=mail.your-domain</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    networks</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> websecure</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    labels</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.enable=true</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.docker.network=websecure</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.maddy.rule=Host(`mail.your-domain`)</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.maddy.entrypoints=websecure</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.maddy.tls=true</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.maddy.tls.certresolver=static</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.services.maddy.loadbalancer.server.port=80</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">  roundcube</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    image</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> roundcube/roundcubemail:latest</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    container_name</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> roundcube</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    restart</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> unless-stopped</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    depends_on</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> maddy</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    environment</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> ROUNDCUBEMAIL_DEFAULT_DOMAIN=your-domain</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    volumes</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> roundcube-data:/var/roundcube</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    networks</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> websecure</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    labels</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.enable=true</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.docker.network=websecure</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.roundcube.rule=Host(`your-domain`)</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.roundcube.entrypoints=websecure</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.roundcube.tls=true</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.routers.roundcube.tls.certresolver=static</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> traefik.http.services.roundcube.loadbalancer.server.port=80</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">networks</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">  websecure</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    external</span><span style="color: #89DDFF;">:</span><span style="color: #FF9E64;"> true</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">volumes</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">  maddy-data</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">  roundcube-data</span><span style="color: #89DDFF;">:</span></span></code></pre>
+<ul>
+<li>创建账户</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>docker exec -it maddy maddy creds create xxx@your-domain</span></span>
+<span class="giallo-l"><span>docker exec -it maddy maddy imap-acct create xxx@your-domain</span></span></code></pre>
+<ul>
+<li>获取 DKIM 公钥：</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>bashdocker exec -it maddy cat /data/dkim_keys/your-domain_default.dns</span></span></code></pre>
+<ul>
+<li>改密码</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>docker exec -it maddy maddy creds password xxx@your-domain</span></span></code></pre><h2 id="dnspei-zhi">Dns配置</h2>
+<table><thead><tr><th>记录类型</th><th>主机记录</th><th>记录值</th></tr></thead><tbody>
+<tr><td>A</td><td>mail</td><td>1.2.3.4 (your ip)</td></tr>
+<tr><td>MX</td><td>your-domain.com</td><td>mail.your-domain.com</td></tr>
+<tr><td>TXT</td><td>your-domain.com</td><td>v=spf1 mx ~all</td></tr>
+<tr><td>TXT</td><td>_s20160910378._domainkey.your-domain.com</td><td>k=rsa;p=MII.........</td></tr>
+<tr><td>TXT</td><td>_dmarc</td><td>v=DMARC1; p=none; pct=100; rua=mailto:mail@your-domain.com</td></tr>
+</tbody></table>
+<p>最后还需到 VPS 服务商处添加一个反向 DNS，也就是 rDNS 解析，把 IP 解析到 mail.your-domain.com 这个域名，有些 VPS 商家不提供这种服务,所以需要选择好VPS服务商。</p>
+<hr />
+<p>Done.</p>
+
+        </div>
+
+        
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/network-how-email-works-1/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">网络艺术:电子邮件的工作原理</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-opensource/">
+                            <span class="button__text">乱七八糟:开源软件与协议</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+    </div>
+    
+    <div class="toc-container">
+        <div class="toc">
+            <div class="toc-title">目录</div>
+            <ul>
+            
+                <li class="toc-level-2">
+                    <a href="#an-zhuang-maddy">安装Maddy</a>
+                    
+                </li>
+            
+                <li class="toc-level-2">
+                    <a href="#dnspei-zhi">Dns配置</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+
