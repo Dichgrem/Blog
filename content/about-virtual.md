@@ -315,5 +315,157 @@ qemu-img convert -O qcow2 -c ubuntu24.04-2.qcow2 ubuntu24.04-2-compressed.qcow2
 
 > **不要直接删除原始文件**，先确认新文件能正常启动。如果你的 qcow2 镜像是直接被写满了（比如里面确实存了很多真实数据），那即使压缩也不会小太多。如果镜像内部用了 LVM，还可以在 LVM 里使用sudo fstrim -av进行fstrim.
 
+下面帮你自然续写一节 **WSL2**，风格和你前面保持一致，直接可粘：
+
+---
+
+# 四.WSL2
+
+WSL（Windows Subsystem for Linux）是微软提供的 Linux 子系统，其中 **WSL2** 使用真正的 Linux 内核（基于轻量级虚拟机），相比 WSL1 兼容性和性能更好。
+
+它本质上是 **Hyper-V 的一个轻量封装**，但使用体验更接近“原生 Linux”。
+
+## 安装
+
+### 一键安装（推荐）
+
+在 Windows 10 2004+ / Windows 11 中，直接：
+
+```bash
+wsl --install
+```
+
+默认会安装：
+
+* WSL2
+* Ubuntu 发行版
+
+安装完成后重启即可。
+
+## 基本使用
+
+### 查看已安装发行版
+
+```bash
+wsl -l -v
+```
+
+示例输出：
+
+```
+  NAME      STATE           VERSION
+* Ubuntu    Running         2
+```
+
+---
+
+### 启动 / 进入系统
+
+```bash
+wsl
+# 或指定发行版
+wsl -d Ubuntu
+```
+
+---
+
+### 关闭 WSL
+
+```bash
+wsl --shutdown
+```
+
+## 文件系统
+
+WSL2 有两套文件系统：
+
+### 1. Linux 内部（推荐开发使用）
+
+路径：
+
+```bash
+/home/<user>
+```
+
+优点：
+
+* 性能好
+* 支持完整 Linux 权限
+
+---
+
+### 2. Windows 挂载目录
+
+路径：
+
+```bash
+/mnt/c
+/mnt/d
+```
+
+示例：
+
+```bash
+cd /mnt/c/Users/yourname/Desktop
+```
+
+⚠️ 注意：
+
+* 在 `/mnt/*` 下进行大量 IO（如编译项目）会明显变慢
+* 建议代码放在 Linux 文件系统中
+
+---
+
+### Windows 访问 WSL 文件
+
+在资源管理器地址栏输入：
+
+```
+\\wsl$\Ubuntu\
+```
+
+---
+
+## 网络
+
+WSL2 使用 NAT 网络（类似虚拟机）：
+
+* Windows → WSL：可以通过 `localhost`
+* WSL → Windows：也可以直接访问 `localhost`
+
+例如在 WSL 中启动服务：
+
+```bash
+python -m http.server 8000
+```
+
+Windows 浏览器访问：
+
+```
+http://localhost:8000
+```
+
+---
+
+## 与 Hyper-V 的关系
+
+WSL2 依赖：
+
+* Hyper-V
+* Virtual Machine Platform
+
+这意味着：
+
+* **WSL2 开启时，本质上 Hyper-V 已经在运行**
+* VMware / VirtualBox 可能会变慢（或使用兼容模式）
+
+如果你需要完全关闭：
+
+```bash
+bcdedit /set hypervisorlaunchtype off
+```
+
+⚠️ 会导致 WSL2 无法使用（只能退回 WSL1）
+
 ---
 **Done.**
