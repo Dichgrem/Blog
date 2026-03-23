@@ -10,7 +10,6 @@ tags = ["乱七八糟"]
 
 <!-- more -->
 
-
 ## 计算机组件发展历史
 
 - [CPU发展史](https://www.bilibili.com/video/BV1ME421A78n/)
@@ -19,7 +18,6 @@ tags = ["乱七八糟"]
 - [显示器发展史](https://www.bilibili.com/video/BV1h2w5eREfD/)
 - [计算机发展史](https://www.bilibili.com/video/BV1ru411M7Hc/)
 - [操作系统发展史](https://www.bilibili.com/video/BV1Zc411D7sG/)
-
 
 ## 计算机组件原理
 
@@ -47,9 +45,7 @@ tags = ["乱七八糟"]
 - [被遗忘的科学天才：沃尔特·皮茨](https://www.bilibili.com/video/BV1y5411D7a6/)
 - [最后的黑客：理查德·马修·斯托曼](https://www.bilibili.com/video/BV11R4y1b7zc/)
 
-
 ## 计算机体系结构
-
 
 - [普林斯顿大学-计算机科学:算法、理论和机器(GPT 翻译)](https://www.bilibili.com/video/BV1Ct42177Y6/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 - [计算机体系结构（ 2024 年春）](https://www.bilibili.com/video/BV1bx421D7Xd/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
@@ -60,11 +56,6 @@ tags = ["乱七八糟"]
 - [Stanford-CS107:计算机组织与系统](https://www.bilibili.com/video/BV1ua4y1a72K/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 - [耶路撒冷希伯来大学:从零开始构建现代计算机(GPT 翻译)](https://www.bilibili.com/video/BV1Zp421y7Ex/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 - [威廉玛丽学院:计算机体系结构建模与仿真(英)](https://space.bilibili.com/91181150/channel/seriesdetail?sid=3700435&ctype=0)
-
-
-
-
-
 
 ## 操作系统 /计算机组成
 
@@ -120,7 +111,7 @@ tags = ["乱七八糟"]
 - [计算机语言 x86 汇编语言：从实模式到保护模式（操作系统引导课）](https://www.bilibili.com/video/BV1xE411N74T/)
 - [程序语言理论与实现](https://space.bilibili.com/1453436642/video)
 - [CS 公开课:计算机程序的构造和解释（ SICP ）](https://www.bilibili.com/video/BV1Xx41117tr/)
-- [精译](https://www.bilibili.com/video/BV1v64y1Q78o?p=34)[-UC Berkeley 公开课-CS61A [计算机程序的构造和解释] (Spring 2021)](https://www.bilibili.com/video/BV1v64y1Q78o?p=34)
+- [精译][-UC Berkeley 公开课-CS61A [计算机程序的构造和解释](https://www.bilibili.com/video/BV1v64y1Q78o?p=34) (Spring 2021)](https://www.bilibili.com/video/BV1v64y1Q78o?p=34)
 - [计算机程序的构造和解释 (SICP) Python 版 教程（录制持续更新中）](https://www.bilibili.com/video/BV1hb4y1A71J?p=4&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 
 ## 软件工程
@@ -153,6 +144,7 @@ tags = ["乱七八糟"]
 - [Obsidian 公开课](https://space.bilibili.com/443605967/channel/collectiondetail?sid=266172)
 
 ## 其他
+
 - [自制双语字幕-计算机教育缺失的一课(2020)](https://www.bilibili.com/video/BV1xa4y1g7sZ/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 
 - [CMU15-440:分布式系统(英)](https://www.bilibili.com/video/BV1SF4m1u7SU?p=27&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
@@ -197,7 +189,6 @@ tags = ["乱七八糟"]
 | **Learners English** | [youtube.com/@LearnersEnglish](https://www.google.com/search?q=https://www.youtube.com/%40LearnersEnglish) | 英文学习 | 美音 | 初阶 | 男、英文学习频道，内容全面、系统性强。 |
 | **LangFocus** | [youtube.com/@Langfocus](https://www.youtube.com/@Langfocus) | 知识 | 美音 | 中阶 | 男、语言学频道，内容涉及语言起源、发展、对比等，语速适中，知识点丰富。 |
 
-
 ## 哲学相关
 
 - [中国人民大学:西方哲学史-张志伟](https://www.bilibili.com/video/BV1y64y1r7Mt/?spm_id_from=333.337.search-card.all.click&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
@@ -209,7 +200,7 @@ tags = ["乱七八糟"]
 
 ## 人文/艺术/建筑/电影/社会学
 
-- [ MIT全球建筑史（ 4.605 A Global History of Architecture ）（英文）](https://www.bilibili.com/video/BV1D7411D7h4/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
+- [MIT全球建筑史（ 4.605 A Global History of Architecture ）（英文）](https://www.bilibili.com/video/BV1D7411D7h4/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 - [现代社会理论基础-中英字幕](https://www.bilibili.com/video/BV1FL4y1e7nt/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 - [中英双字-艺术史速成课](https://www.bilibili.com/video/BV1Ti42117sw/?spm_id_from=333.999.0.0&vd_source=cc4bfbaa0f8c6c363ff9afecce036d91)
 - [贡布里希《艺术的故事》视频解说版](https://space.bilibili.com/477533700/channel/collectiondetail?sid=1737877&spm_id_from=333.788.0.0)
@@ -221,7 +212,6 @@ tags = ["乱七八糟"]
 
 ## 综合
 
-
 - [精读 c++primer](https://space.bilibili.com/479038960/channel/collectiondetail?sid=997541)
 - [计算机图形学游戏方向-2023 年春季第 2 次迭代-谭剑](https://space.bilibili.com/1268065381/channel/collectiondetail?sid=1163347)
 - [Linux 文件系统九讲-陈硕](https://space.bilibili.com/1356949475/channel/collectiondetail?sid=1211802)
@@ -231,4 +221,5 @@ tags = ["乱七八糟"]
 - [每个程序员都应该知道的内存知识 (带你走读 Ulrich Drepper 的经典论文)](https://www.bilibili.com/video/BV1Xy4y1b7SK/)
 
 ## 后记
+
 待续...

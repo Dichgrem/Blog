@@ -69,24 +69,25 @@ volumes:
 ```
 
 - 创建账户
-```
+
+```text
 docker exec -it maddy maddy creds create xxx@your-domain
 docker exec -it maddy maddy imap-acct create xxx@your-domain
 ```
 
 - 获取 DKIM 公钥：
-```
+
+```text
 bashdocker exec -it maddy cat /data/dkim_keys/your-domain_default.dns
 ```
 
 - 改密码
-```
+
+```text
 docker exec -it maddy maddy creds password xxx@your-domain
 ```
 
-
 ## Dns配置
-
 
 | 记录类型 | 主机记录 | 记录值 |
 |----------|----------|----------|
@@ -94,10 +95,10 @@ docker exec -it maddy maddy creds password xxx@your-domain
 | MX       | your-domain.com | mail.your-domain.com |
 | TXT      | your-domain.com | v=spf1 mx ~all |
 | TXT      | _s20160910378._domainkey.your-domain.com | k=rsa;p=MII.........|
-| TXT      | _dmarc | v=DMARC1; p=none; pct=100; rua=mailto:mail@your-domain.com |
-
+| TXT      | _dmarc | v=DMARC1; p=none; pct=100; rua=mailto:<mail@your-domain.com> |
 
 最后还需到 VPS 服务商处添加一个反向 DNS，也就是 rDNS 解析，把 IP 解析到 mail.your-domain.com 这个域名，有些 VPS 商家不提供这种服务,所以需要选择好VPS服务商。
 
 ---
+
 Done.

@@ -25,7 +25,6 @@ tags = ["乱七八糟"]
 
 [1]: https://marketplace.visualstudio.com/items?itemName=GitHub.copilot&utm_source=chatgpt.com "GitHub Copilot"
 
-
 ## VS Code 快捷键
 
 ### 界面概览
@@ -237,4 +236,5 @@ tags = ["乱七八糟"]
   - 在悬停窗口上按下 `cmd`：提示函数的实现
 
 ---
+
 **Done.**

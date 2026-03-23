@@ -44,6 +44,7 @@ tags = ["Windows"]
 ## 配置JSON
 
 - 回到 Visual Studio Code 继续配置。点击左侧的资源管理器，点击打开文件夹，创建一个``.cpp``文件，里面代码可以是
+
 ```bash
 #include <iostream>
 
@@ -52,6 +53,7 @@ int main() {
     return 0;
 }
 ```
+
 - 保存，然后点击右上角的三角形，选择“运行C/C++文件”。此时上方的搜索框会有弹出，点击“C/C++: g++.exe 构建和调试活动文件”。 然后会生成一个 .vscode 的文件夹，里面包含 tasks.json 文件。打开这个文件，然后按需调整，设置栈空间（这里设置成了256MB）和 C++ 标准（这里设置成C++17）。
 
 - 接着生成调试文件，用于进行 debug。点击左侧的运行和调试，然后点击“创建 launch.json 文件”。点击弹出的“另外 C++ (GDB/LLDB) 个选项”。
@@ -62,10 +64,6 @@ int main() {
 
 至此 Visual Studio Code 的 C++ 环境已经配置完成。
 
-
 > 在ubuntu上配置环境需要安装 `sudo apt install build-essential gdb cmake clangd clang-format libstdc++-dev`
 ---
 **Done.**
-
-
-

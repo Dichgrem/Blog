@@ -7,9 +7,9 @@ date = 2024-06-13
 
 前言 这里是Dich的周刊,通过博客的形式讲述每周互联网形势,以及分享一些文章,暂定每周四进行更新.
 
-
 <!-- more -->
 # **事记**
+
 ## **一.[Google直接将广告嵌入视频避免被屏蔽](https://ourl.co/104471)**
 
 据广告拦截软件 SponsorBlock 开发者发布的消息，YouTube 正在测试直接将广告`从服务端注入到视频中`。
@@ -30,8 +30,6 @@ SJTUG（上海交通大学 Linux 用户组）6月6日发布公告：
 随后发现原来去年就有了一个 "[AtomHub 可信镜像中心](atomhub.openatom.cn)",由开放原子开源基金会主导，`华为、浪潮、DaoCloud 、谐云、青云、飓风引擎以及 OpenSDV 开源联盟、openEuler 社区、OpenCloudOS 社区`等成员单位共同建设。
 
 V2EX上的讨论:[如何评价新一代的国产可信 Docker 镜像中心 Atomhub](https://www.v2ex.com/t/1049091)
-
-
 
 ## **三.[Windows11更新推送安装微软电脑管家](https://www.ithome.com/0/770/258.htm)**
 
@@ -71,7 +69,7 @@ Manifest V3 受争议之处是它限制了 WebRequest API 的功能，用 declar
 
 其实这个安全性限制原生 Android 也有，当然类原生 Android 也有，只不过需要 SIM 卡限制是小米自己魔改加上去的。
 
-```
+```text
 # adb shell
 adb shell settings put secure install_non_market_apps 1
 adb shell appops set <package_name> REQUEST_INSTALL_PACKAGES allow
@@ -79,15 +77,16 @@ adb shell appops set <package_name> REQUEST_INSTALL_PACKAGES allow
 
 或者安装Termux，并获取相应root权限后，使用 Termux 终端，在 shell 交互窗口设置也行:
 
-```
+```text
 pkg install root-repo
 tsu
 
 settings put secure install_non_market_apps 1
 appops set <package_name> REQUEST_INSTALL_PACKAGES allow
 ```
+
 记得把<package_name>替换成相应的包名，比如 com.topjohnwu.magisk
-　
+
 ## 七.[讯飞输入法服务器崩溃竟然无法离线使用](https://www.landiannews.com/archives/104314.html)
 
 多名网友反馈，讯飞输入法出现异常，从晚上7点多开始`无法正常弹出键盘，点击提示则显示无法加载资源等`。
@@ -96,19 +95,15 @@ appops set <package_name> REQUEST_INSTALL_PACKAGES allow
 
 故障持续已经有两个小时，讯飞输入法官方没有发布回应，也没有完成修复;
 
-
 讯飞输入法官方微博在用户评论中回复：
 
 > 您好，非常抱歉给您使用带来困扰~ 讯飞输入法在配置端午节运营活动过程中出现bug，导致部分用户出现客户端崩溃问题。输入法团队正在对此进行全力抢修，6月5日晚会发布新版本修复问题，新版本发布后、升级版本可恢复使用。 再次表示抱歉，感谢理解与支持~
 
-
 另外根据网友反馈此次讯飞输入法崩溃只影响官方版，诸如小米定制版的讯飞输入法是正常的，这也可以看出来`定制版使用的可能不是讯飞的服务器，所以并没有发生崩溃`。
-
 
 > 所谓的"大数据"大头就在与输入法上传数据并推送个性化广告
 
-# 文推
-
+## 文推
 
 [咖啡简史](https://jandan.net/p/116763#/)
 
@@ -118,15 +113,13 @@ appops set <package_name> REQUEST_INSTALL_PACKAGES allow
 
 [何加盐｜中文互联网正在加速崩塌](https://chinadigitaltimes.net/chinese/708143.html)
 
-
 [Windows 设计史 01 | 从青涩到成熟（Windows 1.0 - 95）](https://sspai.com/post/87835)
 
 [Windows 设计史 02 |「海王星」项目，「稳定」表象背后的求索](https://sspai.com/post/88506)
 
 [Windows 设计史 03 | Windows XP：摆脱机械，拥抱自然](https://sspai.com/post/88722)
 
-
-# 项目
+## 项目
 
 [996忍者摸鱼站](https://996.ninja/)
 

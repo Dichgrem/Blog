@@ -14,7 +14,6 @@ date = 2024-08-29
 
 据新华社报道，泰国公共卫生部召开新闻发布会，称该国发现了首例猴痘Ib变异株病例。此次发现的该种变异株``新增了可通过呼吸道飞沫等分泌物、皮疹、受感染物品等的传播途径``。此外，包括中国在内的多个国家已开启针对入境人员的防疫措施。
 
-
 ## **二.[微软“闯祸”Linux躺枪：更新之后，Linux打不开了](https://www.qbitai.com/2024/08/183019.html)**
 
 两年前GRUB有个漏洞，能绕过安全启动机制;``微软去修 Windows+Linux 的双OS用户的 GRUB 引导，修坏了``...
@@ -22,12 +21,13 @@ date = 2024-08-29
 
 安装更新后，这些用户在启动Linux时会发生报错，提示“出现严重错误”。
 
-```
+```text
 Verifying shim SBAT data failed: Security Policy Violation.
 shim SBAT数据校验失败：违反安全策略
 Something has gone seriously wrong: SBAT self-check failed: Security Policy Violation.
 出现严重错误：SBAT自检失败：违反安全策略
 ```
+
 应急补救措施——
 
 首先进入``BIOS关闭安全启动``，目的是先进入到Linux系统。
@@ -35,7 +35,6 @@ Something has gone seriously wrong: SBAT self-check failed: Security Policy Viol
 之后利用``命令行把引发故障的SBAT策略删除``，然后重启让设置生效。
 
 最后，再次进入BIOS重新打开安全启动，问题就暂时解决了。
-
 
 ## **三.[微软正式确认：Windows 控制面板将被弃用](https://www.ithome.com/0/790/274.htm)**
 
@@ -46,7 +45,6 @@ Something has gone seriously wrong: SBAT self-check failed: Security Policy Viol
 直到几天前，微软才在其网页上正式发布相关信息。在一个关于各种原生 Windows 配置工具的新支持页面上，微软终于表示，控制面板“正在被弃用，取而代之的是设置应用”。
 
 > 控制面板是于 1985 年首次在 Windows 1.0 中引入的。
-
 
 ## **四.[Telegram 创始人帕维尔-杜罗夫在巴黎被捕](https://t.me/zaihua/26960)**
 
@@ -66,8 +64,7 @@ Something has gone seriously wrong: SBAT self-check failed: Security Policy Viol
 
 苹果iPhone 15等机型目前``仍显示支持MagSafe与Qi2无线充电，最高功率达15W``。新规施行后，不符合要求的设备将停止生产或进口，但``已生产或进口的设备可继续销售至报废``。新规对无线充电设备市场及苹果产品销售策略可能产生影响。
 
-
-# **文推**
+## **文推**
 
 [靠打零工生活的年轻人挤在廉价青旅](https://telegra.ph/%E9%9D%A0%E6%89%93%E9%9B%B6%E5%B7%A5%E7%94%9F%E6%B4%BB%E7%9A%84%E5%B9%B4%E8%BD%BB%E4%BA%BA%E6%8C%A4%E5%9C%A8%E5%BB%89%E4%BB%B7%E9%9D%92%E6%97%85-08-27-2)
 
@@ -85,9 +82,9 @@ Something has gone seriously wrong: SBAT self-check failed: Security Policy Viol
 
 ---
 
-# **项目**
+## **项目**
 
-[网站图标下载器 ](https://www.faviconextractor.com/)
+[网站图标下载器](https://www.faviconextractor.com/)
 
 [开源的豆瓣替代品](https://github.com/neodb-social/neodb)
 
@@ -95,12 +92,10 @@ Something has gone seriously wrong: SBAT self-check failed: Security Policy Viol
 
 [Megalodon 的一个分支，功能丰富](https://github.com/LucasGGamerM/moshidon)
 
-
 [Zen Browser：基于firefox的新浏览器](https://github.com/zen-browser/desktop)
 
 [Supersonic:自托管音乐服务器的轻量全功能跨平台桌面客户端](https://github.com/dweymouth/supersonic)
 
 [Go 语言开发的个人阅读/观影/看剧/追番/游戏记录 Web 管理工具](https://github.com/scenery/mediax)
 
-[Deku SMS – 开源安卓短信工具，支持 Webhook、SMTP、FTP 转发短信｜集成 RabbitMQ ](https://github.com/deku-messaging/Deku-SMS-Android)
-
+[Deku SMS – 开源安卓短信工具，支持 Webhook、SMTP、FTP 转发短信｜集成 RabbitMQ](https://github.com/deku-messaging/Deku-SMS-Android)

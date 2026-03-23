@@ -38,9 +38,7 @@ OpenSSH 9.9 新增并默认启用了对 mlkem768x25519-sha256 混合量子抗性
 
 > [中国广电总局：有线电视和IPTV全面取消开机广告](https://content-static.cctvnews.cctv.com/snow-book/index.html?item_id=7313286333526553879)
 
-
-
-# **文推**
+## **文推**
 
 [居家健身入门指南](https://blog.douchi.space/workout-from-home/#gsc.tab=0)
 
@@ -50,7 +48,7 @@ OpenSSH 9.9 新增并默认启用了对 mlkem768x25519-sha256 混合量子抗性
 
 ---
 
-# **项目**
+## **项目**
 
 [一个漂亮的面板](https://github.com/hslr-s/sun-panel)
 
@@ -60,13 +58,6 @@ OpenSSH 9.9 新增并默认启用了对 mlkem768x25519-sha256 混合量子抗性
 
 [massCode 是一个为开发人员设计的开源代码片段管理器](https://github.com/massCodeIO/massCode)
 
-
 [Slash 是一个开源的自托管平台，旨在帮助您组织、管理和共享最重要的链接](https://github.com/yourselfhosted/slash)
 
-
 [风传 WindSend 用于在不同设备之间快速安全的传递剪切板，传输文件或文件夹](https://github.com/doraemonkeys/WindSend)
-
-
-
-
-

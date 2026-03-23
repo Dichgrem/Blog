@@ -11,7 +11,7 @@ tags = ["Windows"]
 
 **Dich-OS base on zh-cn_windows_11_business_23h2**
 
-### 实现了以下功能
+## 实现了以下功能
 
 ### 安装过程中
 
@@ -42,6 +42,7 @@ tags = ["Windows"]
 - [x] 自动将ISO中的 $OEM$\Setup\Scripts\Files文件夹中的软件放到桌面
 
 **PS**:
+
 - 禁用自动更新是创建一个名为 PauseWindowsUpdate 的计划任务,一次又一次地暂停更新一周.如果要运行 Windows 更新一次,请单击 “设置”中的“恢复更新 ”.
 
 - 删除默认应用程序,但保留了记事本,照片,PowerShell,Windows Terminal ,Windows Media Player (classic) ,Calculator , Clock , Xbox Apps(游戏手柄用)

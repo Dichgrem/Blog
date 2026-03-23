@@ -6,7 +6,6 @@ date = 2023-08-12
 tags = ["综合工程"]
 +++
 
-
 前言 openwrt 是一个自由的、兼容性好的嵌入式 linux 发行版。作为软路由玩家必备的一款神器，可以实现诸如去广告，多拨和科学上网等多种功能。本文介绍openwrt在各种平台上的部署流程。
 <!-- more -->
 
@@ -32,14 +31,13 @@ tags = ["综合工程"]
 - 兼容 Adguard Home ，方便管理域名黑白名单；
 - 对能直连的国外服务能返回最优的节点，而不是绕路其他地方；
 
-
 ## 选择合适的设备
 
 无论是传统的无线路由器还是小主机都有成为openwrt路由的潜力。截止到今天，已经有20多个品牌（小米，华硕，锐捷，华三等）30多种架构（x86,ipq,bcm,mtd等）支持刷入openwrt；你可以在这个[网站](https://mao.fan/select)找到符合你预算和其他要求的，能刷机的路由器。
 传统家用无线路由器由于主频低，内存小，并不适合作为软路由；而 NAS-软路由一体式 又有 all in boom 的风险，因此推荐X86平台作为物理机。当然，也可以采用 armbian 平台或是开发板，例如网心云老母鸡、树莓派等设备。截至本文撰写时间，二手平台上的价格不太利好：一台J1900平台的售价往往在200左右，而专门的多网口工控机价格在200到1000不等，树莓派更是成为了理财产品，需要慎重选择。
 
-
 ## 选择合适的系统
+
 除了openwrt主线外，还可以选择：
 
 - [LEDE](https://github.com/coolsnowwolf/lede) 高质量，更新快速，具有新特性的openwrt分支。
@@ -78,7 +76,7 @@ tags = ["综合工程"]
 | 大小       | 较小（几十 MB）                              | 较大（上百 MB）                                      | 中等（约数百 MB，因包含预编译包）                                                             |
 | 构建时间     | 几秒到几分钟                                 | 几分钟到十几分钟（取决于 feeds 大小）                         | 极快，可在几十秒到几分钟内完成定制镜像                                                            |
 | 兼容性      | 与对应 Release 完全匹配                       | 与对应 Release 完全匹配                               | 与对应 Release 完全匹配                                                               |
-| 使用难度     | 简单，只需解压并设置 PATH                        | 适中，需要理解 feeds 机制及包管理                           | 最简单，适合终端用户或快速测试环境
+| 使用难度     | 简单，只需解压并设置 PATH                        | 适中，需要理解 feeds 机制及包管理                           | 最简单，适合终端用户或快速测试环境 |
 
 ## X86平台安装流程
 
@@ -89,7 +87,6 @@ tags = ["综合工程"]
 - openwrt 的编译包，官方网站：[OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/?version=24.10.0-rc2&target=ipq40xx%2Fgeneric&id=glinet_gl-a1300)
 
 - 或者用由 eSir 大佬编译的[懒人包](https://drive.google.com/drive/folders/1uRXg_krKHPrQneI3F2GNcSVRoCgkqESr)
-
 
 - PE 启动盘，这里推荐[HotPE](https://github.com/VirtualHotBar/HotPEToolBox)
 
@@ -111,15 +108,15 @@ tags = ["综合工程"]
 - 当看到 `please press Enter to activate this console`这个提示的时候系统就安装完毕了。可使用 passwd 命令设置密码。软路由将自动获取IP地址，随后我们在浏览器中打开该地址，即可看到 Lucl 界面。
 
 4. 如果你使用官方固件，注意:
+
 - 硬盘空间有一部分没有被格式化，可以手动格式化为ext4并挂载。
 - 注意初始IP往往是192.168.1.1，如果和光猫冲突需要在网络-接口中更改。
 - 基本系统主题比较简陋，可以使用luci-theme-argon。
-- 刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）： 
+- 刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）：
 ``uci set luci.main.mediaurlbase='/luci-static/bootstrap'
 uci commit luci
 /etc/init.d/uhttpd restart``
 然后重新访问 Web 界面，查看是否恢复正常。
-
 
 ## X86平台本地编译完整openwrt
 
@@ -147,31 +144,36 @@ sudo apt install -y \
 ```
 
 - **清理**
+
 ```bash
 sudo apt autoremove --purge
 sudo apt clean
 ```
 
-
 - **新建一个用户，用于编译固件(可选)**
+
 ```bash
 useradd -m openwrt  # 新建一个名为 openwrt 的用户
 ```
+
 > 不可以使用Root用户进行编译!!!
 
 - **修改用户默认的 Shell**
+
 ```bash
 apt install -y sudo
 usermod -s /bin/bash openwrt
 ```
- 
+
 - **切换用户**
+
 ```bash
 su openwrt
 cd ~
 ```
 
 - **拉取源码，这里用的是 ImmortalWrt 24.10 分支源码：**
+
 ```bash
 git clone https://github.com/immortalwrt/immortalwrt.git
 cd immortalwrt
@@ -180,27 +182,34 @@ cd immortalwrt
 - **选择分支**
 
 如果你想要编译稳定版(stable),使用
+
 ```bash
 git checkout xxx #例如git checkout v24.10.2
 ```
+
 如果你想要编译最新版(snapshot),使用
+
 ```bash
 git switch xxx #例如git switch openwrt-24.10
 ```
 
 - **添加软件源,可自行添加软件源至 feeds.conf.default 文件**
+
 ```bash
 vim feeds.conf.default
 ```
 
 **常用源**
+
 ```bash
 src-git kenzo https://github.com/kenzok8/openwrt-packages
 src-git small https://github.com/kenzok8/small
 src-git haibo https://github.com/haiibo/openwrt-packages
 src-git liuran001 https://github.com/liuran001/openwrt-packages
 ```
+
 **常用仓库**
+
 ```bash
 src/gz kwrt_core https://dl.openwrt.ai/releases/24.10/targets/x86/64/6.6.83
 src/gz kwrt_base https://dl.openwrt.ai/releases/24.10/packages/x86_64/base
@@ -217,6 +226,7 @@ git clone https://github.com/chenmozhijin/turboacc.git
 ```
 
 - **更新并安装插件**
+
 ```bash
 ./scripts/feeds clean
 ./scripts/feeds update -a
@@ -227,9 +237,7 @@ git clone https://github.com/chenmozhijin/turboacc.git
 | ---------------------------- | ----------------------------------------------------------------- |
 | `./scripts/feeds install -a` | 把你在 feeds 里选要用的包 **链接** 到源码树的 `package/feeds/`，让它们参与编译            |
 
-
 - 执行 **make menuconfig** 命令进入编译菜单。
-
 
 | 命令                | 功能描述                                                 | 优点                   | 适用场景           |
 | ----------------- | ---------------------------------------------------- | -------------------- | -------------- |
@@ -237,22 +245,26 @@ git clone https://github.com/chenmozhijin/turboacc.git
 | `make oldconfig`  | 在命令行逐项对比 `.config` 与最新 Kconfig：保留原值、提示新增项、删除废弃项      | 快速同步，只对新增选项发出提示；无需界面 | 自动化脚本或快速同步配置时  |
 | `make defconfig`  | 忽略当前 `.config`，直接加载架构/板级目录下的默认配置（`defconfig`）        | 一键生成官方/平台推荐的「干净」配置   | 想重置到官方默认或重新开始时 |
 
-
 - **预下载编译所需的软件包**
+
 ```bash
 make download -j8
 ```
 
 - **检查文件完整性**
+
 ```bash
 find dl -size -1024c -exec ls -l {} \;
 ```
+
 检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查.确认所有文件完整可大大提高编译成功率，避免浪费时间
+
 ```bash
 find dl -size -1024c -exec rm -f {} \;
 ```
 
 - **最后编译固件（-j 后面是线程数，首次编译推荐用单线程）编译完成后输出路径是bin/targets.**
+
 ```bash
 make V=s -j1
 
@@ -260,6 +272,7 @@ make V=s -j1
 
 如果报错可查看 grep -E "(error|fatal|Cannot install package)" world_debug.log -n
 ```
+
 | make层级   | 目录示例                         | 说明               |
 | -------- | ---------------------------- | ---------------- |
 | make\[1] | 顶层 Makefile                  | 解析依赖，调度模块        |
@@ -271,7 +284,6 @@ make V=s -j1
 | make\[3] | `package/utils/busybox`      | 单个包的 Makefile    |
 | make\[4] | `build_dir/target-...`       | 包源码目录，运行源码的 make |
 | make\[4] | `build_dir/target-linux-...` | 内核源码目录           |
-
 
 ## 自定义配置脚本
 
@@ -474,6 +486,7 @@ Xorg                # 桌面环境支持（X11 图形系统）
 | `make distclean` | 删除 `make dirclean` 的所有内容 + feeds 下载文件 + `.config`、patch 等所有状态 | 只有源码目录保持不变                              | 专用于回到一个“零配置、重做一切”的状态，完全从头开始构建。                 |
 
 恢复所有修改（包括未跟踪文件）:
+
 ```bash
 git clean -fd
 git restore --source=v24.10.2 --staged --worktree .
@@ -530,7 +543,7 @@ make package/luci-app-zzz/compile V=s
 
 完整流程图
 
-```
+```text
 编译 kmod-mtd-rw
       ↓
 解锁 MTD
@@ -550,7 +563,7 @@ sysupgrade 刷正式系统
 
 - 1.先从 OpenWrt firmware selector 下载设备文件：
 
-```
+```text
 openwrt-mediatek-filogic-nokia_ea0326gmp-bl31-uboot.fip
 openwrt-mediatek-filogic-nokia_ea0326gmp-initramfs-recovery.itb
 ```
@@ -558,7 +571,6 @@ openwrt-mediatek-filogic-nokia_ea0326gmp-initramfs-recovery.itb
 - 2.编译安装 `kmod-mtd-rw`
 
 因为 **BL2 / FIP 默认是只读的**，必须安装 `kmod-mtd-rw` 才能写。如果你的固件仓库没有该模块，就要自己编译。或者可以去immortalwrt downloads下载。
-
 
 - 3.解锁 MTD
 
@@ -603,6 +615,7 @@ mtd write /tmp/openwrt-mediatek-filogic-nokia_ea0326gmp-bl31-uboot.fip FIP
 - 6.启动 TFTP
 
 先设置网卡的ip：
+
 ```bash
 sudo ip addr add 192.168.1.254/24 dev enp5s0f3u2
 sudo ip link set enp5s0f3u2 up
@@ -623,14 +636,14 @@ sudo tftpd -i 192.168.1.254 -p 69 -d ~/tftp
 
 U-Boot 会自动：
 
-```
+```text
 TFTP server: 192.168.1.254
 Router IP:   192.168.1.1
 ```
 
 并下载：
 
-```
+```text
 initramfs-recovery.itb
 ```
 
@@ -640,7 +653,7 @@ initramfs-recovery.itb
 
 启动成功后：
 
-```
+```text
 IP: 192.168.1.1
 user: root
 password: (空)
@@ -670,12 +683,11 @@ sysupgrade -n /tmp/openwrt-mediatek-filogic-nokia_ea0326gmp-squashfs-sysupgrade.
 
 重启后：
 
-```
+```text
 http://192.168.1.1
 ```
 
 就是正式 OpenWrt。
-
 
 ## Dwrt 方案
 
@@ -698,18 +710,25 @@ http://192.168.1.1
 要启用的软件包：
 
 **base**
+
 ```bash
 openssh-sftp-server wget-ssl curl nano
 ```
+
 **cli**
+
 ```bash
 btop iperf3 tcpdump
 ```
+
 **luci**
+
 ```bash
 luci luci-i18n-base-zh-cn luci-compat luci-app-argon luci-app-ttyd luci-app-eqosplus luci-app-timecontrol luci-app-parentcontrol
 ```
+
 **lib**
+
 ```bash
 kmod-nft-queue kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullconenat kmod-ip6tables ca-certificates
 ```
@@ -724,15 +743,16 @@ kmod-nft-queue kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullcone
 - [openwrt-passwall](https://github.com/Openwrt-Passwall/openwrt-passwall)
 - [luci-app-daed](https://github.com/QiuSimons/luci-app-daed)
 
-
 ## 校园网多设备防检测
 
 **常见检测方法**：
+
 - TTL检测法 解法：插件统一修复或使用桥接；使用kmod-iptables-ipot模块；
 - User-Agent 解法：统一经过singbox代理或使用UA2F/UA3F；
 - 时间戳检测法 解法：统一NTP服务器；
 
 **高性能开销检测方法**：
+
 - IP-ID检测法 解法：UDP over TCP或rkp-IPid；
 - Flash cookie 解法：内置防火墙组件；
 - DPI检测法 深度包检测特征值 解法：代理协议；
@@ -740,7 +760,8 @@ kmod-nft-queue kmod-ipt-conntrack kmod-ipt-nat kmod-nft-compat kmod-ipt-fullcone
 > 高性能开销的检测方法会浪费大量性能，一般很少有学校这么做。IP-ID和Flash检测法如今已经不多见。
 
 **TTL修复**:
-```
+
+```text
 依赖包
 opkg install kmod-nft-core kmod-nft-bridge kmod-nft-net kmod-nft-offload kmod-nft-nat
 
@@ -774,13 +795,15 @@ nft list table ip mangle
 ## 关闭IPv6
 
 - 关闭 LAN IPv6 分配
-```
+
+```text
 uci set network.lan.ip6assign='0'
 uci commit network
 ```
 
 - 关闭 DHCPv6 & RA
-```
+
+```text
 uci set dhcp.lan.ra='disabled'
 uci set dhcp.lan.dhcpv6='disabled'
 uci set dhcp.lan.ndp='disabled'
@@ -788,19 +811,21 @@ uci commit dhcp
 ```
 
 - 停掉 odhcpd
-```
+
+```text
 /etc/init.d/odhcpd stop
 /etc/init.d/odhcpd disable
 ```
 
 - 重启网络
-```
+
+```text
 /etc/init.d/network restart
 ```
 
 ## 更新所有包
 
-```
+```text
 opkg update
 
 opkg list-upgradable \
@@ -808,13 +833,13 @@ opkg list-upgradable \
 | grep -vE '^(base-files|busybox|libc|libgcc|libstdc\+\+|procd|netifd|ubus|uci|kernel|kmod-|fstools|mtd|fwtool)$' \
 | xargs -r opkg upgrade
 ```
+
 25.x以后：
 
-```
+```text
 apk update
 apk upgrade
 ```
-
 
 ## 🔗
 

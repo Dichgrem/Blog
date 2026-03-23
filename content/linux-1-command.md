@@ -14,7 +14,7 @@ tags = ["Linux"]
 
 现代桌面大多使用 NetworkManager 管理网络，`nmcli` 是其命令行接口。`nmcli` 能列出可用网络、连接/断开、创建配置文件（包括 WPA/WPA2/PSK、enterprise）等。相比直接编辑 wpa_supplicant 配置，`nmcli` 更安全、统一，能与 GUI 保持一致。
 
-### 常用命令
+## 常用命令
 
 列出接口及设备状态：
 
@@ -70,11 +70,11 @@ nmcli device show wlan0
 
 ---
 
-# 蓝牙控制
+## 蓝牙控制
 
 Linux 上常见蓝牙栈为 BlueZ（蓝牙守护 `bluetoothd`），`bluetoothctl` 提供交互式 CLI。音频设备通常通过 BlueZ + PulseAudio（或 PipeWire）进行音频路由；配对/信任步骤必须完成才能稳定连接音频/键盘/鼠标等设备。
 
-### 一、蓝牙服务与模块启用/禁用
+## 一、蓝牙服务与模块启用/禁用
 
 启用蓝牙服务（systemd）：
 
@@ -180,7 +180,6 @@ sudo rfkill unblock bluetooth
 
 如果设备被**硬封锁**（硬件开关），软件方法无效，需要物理开关或 BIOS 设置。
 
-
 ### 六、音频输出切换
 
 * 现代发行版多用 PipeWire 替代 PulseAudio，但 PipeWire 提供兼容接口，因此 `pactl`（PulseAudio 控制工具）在很多系统仍然可用。
@@ -212,11 +211,11 @@ pactl move-sink-input <输入编号> bluez_output.XX_XX_XX_XX_XX_XX.a2dp_sink
 
 ---
 
-# 亮度控制
+## 亮度控制
 
 笔记本屏幕亮度通常由内核暴露的 SysFS 接口 `/sys/class/backlight/*/brightness` 提供，写入该文件需要 root 权限或合适的权限（udev 规则）。桌面显示器、USB 显卡或 Wayland（特别是 wlroots）环境可能不会使用该接口，需要使用专门工具（如 `light`、`brightnessctl`、或 DE/Compositor 提供的接口）。
 
-### 一、SysFS（多数笔记本适用）
+## 一、SysFS（多数笔记本适用）
 
 查看最大亮度值与当前亮度：
 
@@ -270,13 +269,11 @@ brightnessctl set 50%    # 设为 50%
 
 ---
 
-
-# 音量控制
+## 音量控制
 
 Linux 下有几层音量控制：硬件（ALSA）、中间层（PulseAudio / PipeWire）、用户层（桌面音量控制器）。常用命令行工具：`pactl`（PulseAudio / PipeWire）、`pamixer`（PulseAudio 前端）、`amixer`（ALSA 原生）。
 
-
-### 一、pactl（PulseAudio / PipeWire）
+## 一、pactl（PulseAudio / PipeWire）
 
 查看 sinks：
 
@@ -357,4 +354,5 @@ pamixer --toggle-mute
 ```
 
 ---
+
 **Done.**

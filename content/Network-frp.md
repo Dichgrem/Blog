@@ -20,6 +20,7 @@ FRP (Fast Reverse Proxy) 主要功能包括：
 - 支持多个客户端连接服务端，适用于复杂网络环境
 
 FRP分为客户端(frpc)和服务端(frps)两部分：
+
 - **服务端(frps)**: 部署在有公网IP的服务器上
 - **客户端(frpc)**: 部署在内网机器上，负责将内网服务映射到公网
 
@@ -47,7 +48,6 @@ cd frp_0.51.3_linux_amd64
    - frps.ini: 服务端配置文件
    - frpc: 客户端可执行文件
    - frpc.ini: 客户端配置文件
-
 
 ### 客户端安装
 
@@ -204,7 +204,7 @@ nohup ./frps -c frps.ini &
 
 双击frps.exe或在命令行运行：
 
-```
+```text
 frps.exe -c frps.ini
 ```
 
@@ -226,7 +226,7 @@ nohup ./frpc -c frpc.ini &
 
 双击frpc.exe或在命令行运行：
 
-```
+```text
 frpc.exe -c frpc.ini
 ```
 
@@ -293,13 +293,16 @@ sudo systemctl status frpc
 #### Windows
 
 1. 使用NSSM (Non-Sucking Service Manager) 创建服务:
-   - 下载NSSM: http://nssm.cc/download
+   - 下载NSSM: <http://nssm.cc/download>
    - 安装服务:
-     ```
+
+     ```text
      nssm.exe install frpc C:\path\to\frpc.exe -c C:\path\to\frpc.ini
      ```
+
    - 启动服务:
-     ```
+
+     ```text
      nssm.exe start frpc
      ```
 
@@ -400,6 +403,7 @@ max_ports_per_client = 10
 **问题**: 客户端报错 "dial tcp x.x.x.x:7000: connect: connection refused"
 
 **解决方案**:
+
 - 检查服务端IP和端口是否正确
 - 确认服务端frps是否正在运行
 - 检查防火墙是否允许7000端口通信
@@ -409,6 +413,7 @@ max_ports_per_client = 10
 **问题**: 客户端日志显示 "login to server failed: authentication failed"
 
 **解决方案**:
+
 - 确认客户端和服务端的token设置一致
 - 检查服务端日志是否有更多错误信息
 
@@ -417,6 +422,7 @@ max_ports_per_client = 10
 **问题**: 服务端启动失败，提示 "bind: address already in use"
 
 **解决方案**:
+
 - 更改配置中的端口
 - 终止占用该端口的其他应用
 - 使用 `netstat -tunlp | grep 端口号` 查看占用该端口的进程
@@ -426,6 +432,7 @@ max_ports_per_client = 10
 **问题**: 代理设置正确，但无法访问服务
 
 **解决方案**:
+
 - 检查本地服务是否正常运行
 - 确认local_ip和local_port设置正确
 - 使用 `curl localhost:本地端口` 测试本地服务
@@ -436,11 +443,14 @@ max_ports_per_client = 10
 **问题**: 连接经常断开
 
 **解决方案**:
+
 - 增加心跳包频率，在[common]部分添加:
-  ```
+
+  ```text
   heartbeat_interval = 30
   heartbeat_timeout = 90
   ```
+
 - 启用多路复用和连接池
 
 ### 6. 域名解析失败
@@ -448,10 +458,10 @@ max_ports_per_client = 10
 **问题**: 使用custom_domains配置，但无法通过域名访问
 
 **解决方案**:
+
 - 确保域名已正确解析到服务端IP
 - 检查frps.ini中是否配置了http/https的监听端口
 - 使用 `dig` 或 `nslookup` 命令验证域名解析
-
 
 🔗
 
@@ -460,4 +470,5 @@ max_ports_per_client = 10
 - [FRP常见问题解答](https://github.com/fatedier/frp/issues)
 
 ---
+
 **Done.**

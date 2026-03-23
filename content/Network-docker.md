@@ -12,11 +12,14 @@ tags = ["Network"]
 ## 安装Docker
 
 这里以Debian12为例：
+
 - 官方安装脚本:
+
 ```bash
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
+
 - 使用 Docker 存储库安装
 
 使用以下命令安装此方法的先决条件：
@@ -51,6 +54,7 @@ echo \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ````
+
 现在可以使用以下命令更新存储库索引并安装 Docker：
 
 ````bash
@@ -58,6 +62,7 @@ sudo apt update && sudo apt-get install docker-ce docker-ce-cli containerd.io do
 ````
 
 ## 常用命令
+
 ### 基础命令
 
 | 命令                        | 说明                       |
@@ -177,43 +182,51 @@ sudo apt update && sudo apt-get install docker-ce docker-ce-cli containerd.io do
 > 删除所有 Docker 容器和 Docker 本身
 
 1. 首先停止所有正在运行的容器：
+
 ```bash
 docker stop $(docker ps -aq)
 ```
+
 2. 删除所有容器
 
 删除所有容器（包括停止的容器）：
+
 ```bash
 docker rm $(docker ps -aq)
 ```
+
 3. 删除所有镜像
 
 ```bash
 docker rmi $(docker images -q)
 ```
+
 4. 删除所有网络
 
 ```bash
 docker network prune -f
 ```
+
 5. 删除所有未使用的卷
 
 ```bash
 docker volume prune -f
 ```
+
 6. 卸载 Docker
 
 如果您希望完全删除 Docker 本身，可以执行以下命令:
+
 ```bash
 sudo apt-get purge docker-ce docker-ce-cli containerd.io
 sudo apt-get autoremove --purge
 sudo rm -rf /var/lib/docker
 sudo rm -rf /etc/docker
 ```
+
 这些命令会卸载 Docker 软件并删除 Docker 数据目录。
 
 ---
-
 
 ## 使用Docker-Compose
 
@@ -221,6 +234,7 @@ sudo rm -rf /etc/docker
 - 方法：创建两个 docker-compose 文件，并``使用同一个外部 Docker 网络``使两个服务互联。
 
 0. 首先``创建好工作目录``,例如：
+
 ```bash
 .
 └── docker
@@ -234,12 +248,15 @@ sudo rm -rf /etc/docker
 ```
 
 1. 在启动服务前，首先创建一个 Docker 外部网络（例如命名为 nginx）：
+
 ```bash
 docker network create nginx 
 ```
+
 这样，无论是哪个 docker-compose 项目中的容器，只要加入此网络，就能直接通信。
 
 2. 编写 searxng 的 docker-compose 文件
+
 ```yaml
 version: '3'
 
@@ -265,9 +282,11 @@ networks:
   nginx:
     external: true
 ```
+
 3. 编写 Nginx 的 docker-compose 文件
 
 创建 nginx 的 docker-compose 文件，例如：
+
 ```yaml
 version: '3'
 
@@ -290,7 +309,9 @@ networks:
   nginx:
     external: true
 ```
+
 4. 编写 Nginx 配置文件
+
 ```conf
 server {
     listen 80;
@@ -316,27 +337,30 @@ server {
 }
 ```
 
-
 5. 启动服务
 
 - 启动 searxng 服务：
+
 ```bash
 docker-compose -f docker-compose.searxng.yml up -d
 ```
+
 - 启动 nginx 服务：
+
 ```bash
 docker-compose -f docker-compose.nginx.yml up -d
 ```
+
 由于两者都加入了外部网络 nginx，nginx 内的``proxy_pass http://searxng:8080``就能解析到 searxng 容器，实现反向代理效果。现在，访问``http://ip:18080``就可以访问Searxng搜索引擎。
 
 ## 添加HTTPS
 
 在实际生产环境中我们不能使用IP直接访问，因此需要为我们的站点开启SSL证书，也就是要申请证书并在配置文件中声明。
 
-
 1. 证书生成
 
 - 如果只是用于测试可以生成自签名证书：
+
 ```bash
 mkdir -p /home/dich/docker/nginx/certs
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -346,6 +370,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ```
 
 2. 更改searxng.conf:
+
 ```conf
 server {
     listen 443 ssl;
@@ -385,6 +410,7 @@ server {
 ```
 
 3. 更改docker-compose.nginx.yml
+
 ```yaml
 version: '3'
 
@@ -408,22 +434,26 @@ networks:
     external: true
 ```
 
-
 4. 启动新配置
 
 - 重启容器
+
 ```bash
 sudo docker compose -f docker-compose.nginx.yml up -d
 ```
+
 - 查看日志
+
 ```bash
 sudo docker logs searxng
 ```
+
 ## Caddy
 
 > Caddy 自 2015 年起用 Go 语言重写，定位为“开箱即用”的现代 Web 服务器，内置自动 Let’s Encrypt 证书管理和续期，默认支持 HTTP/2 及 HTTP/3（QUIC），并通过简洁明了的 Caddyfile 语法极大降低配置成本.
 
 0. 示例结构：
+
 ```bash
 .
 └── compose
@@ -436,11 +466,15 @@ sudo docker logs searxng
     └── conf
         └── Caddyfile
 ```
+
 1. 同样创建名为Caddy的docker网络：
+
 ```bash
 docker network create caddy
 ```
+
 2. 编写Caddy的compose，可以看到caddy可以自带签发证书：
+
 ```yaml
 version: '3.7'
 
@@ -497,7 +531,9 @@ networks:
   caddy:
     external: true
 ```
+
 3. 编写Caddyfile，可以看到自动开启HTTPS模式：
+
 ```conf
 # 自动签发模式
 searxng.dich.bid {
@@ -522,6 +558,7 @@ miniflux.dich.bid {
     tls /etc/caddycerts/cert.pem /etc/caddycerts/key.pem
 }
 ```
+
 4. Docker compose的用法不再赘述。
 
 **FAQ**
@@ -537,4 +574,5 @@ miniflux.dich.bid {
 - 每增加一个服务需要在nginx中更新volume；
 
 ---
+
 **Done.**

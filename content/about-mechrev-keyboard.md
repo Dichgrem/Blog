@@ -8,6 +8,7 @@ tags = ["乱七八糟"]
 
 前言 机械革命作为一款极高性价比的笔记本，其优惠的力度和问题不断的故障让玩家们爱恨交织；作者在其上安装 Linux 时遇到了键盘失灵的问题，为了避免更多人踩坑，故写本文。
 <!-- more -->
+
 ## 一.故障情况
 
 作者在一台锐龙平台的笔记本上安装 Debian 时，先在虚拟机中尝试安装，没有发现异常；随后在实体机安装时发现 liveCD 中键盘不可用，无法设置密码和主机名，在连接外接键盘后安装完成，却发现Fn快捷键仍然可用。
@@ -19,6 +20,7 @@ tags = ["乱七八糟"]
 ## 三.解决方法
 
 既然是高低电平表述的错误，那么我们只需建立DSDT 表副本，将其修改，然后让它优先启动，从而让键盘配置正常；另外还存在 BIOS 修复，内核编译的方法，比较复杂，这里不做说明。
+
 ```bash
 首先建立一个DSDT文件夹：
 sudo su
@@ -68,6 +70,7 @@ reboot
 ## 四.其他问题
 
 对于Redmi 或 Lenovo刚发布的AMD R7 6800H机型：
+
 - WIFI没有驱动 - （螃蟹卡 8852be）。
 - 蓝牙没有驱动 - (螃蟹卡 8852be)。
 - 开启窗口特效后，kwin_x11进程CPU占用飙升。
@@ -196,6 +199,7 @@ OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
 ````bash
 wget https://github.com/nbebaw/boostchanger/releases/download/v4.4.0/boostchanger_4.4.0_amd64.deb
 ````
+
 ## 参考
 
 [https://zhuanlan.zhihu.com/p/530643928](https://zhuanlan.zhihu.com/p/530643928)

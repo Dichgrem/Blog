@@ -18,6 +18,7 @@ tags = ["乱七八糟"]
 开源不等于免费，开源也不等于没有约束
 
 ### **开源的好处**
+
 1. 透明度和安全性
 开源软件的代码是公开的，任何人都可以检查和改进它。这使得潜在的安全漏洞更容易被发现和修复，提升了软件的安全性。
 
@@ -34,6 +35,7 @@ tags = ["乱七八糟"]
 开源软件允许用户自由选择和修改代码，而不是被某个公司的专有软件绑定，避免了供应商锁定的问题。例如，MySQL 和 PostgreSQL 等开源数据库是很多企业的首选，避免依赖单一厂商。
 
 ## 开源软件
+
 开源软件，顾名思义是指能够免费且不受限制地使用、再开发、再发布的软件。但在狭义上，只有符合开放源代码促进会（Open Source Initiative）定义的软件才能被称为开源软件。这个定义提出了十个特征，必须全部符合才能认定为开源软件。
 
 这些特征包括：
@@ -46,7 +48,6 @@ tags = ["乱七八糟"]
 - 必须「技术中立」等。
 
 根据这些标准，一些看似自由使用的软件可能不符合开源软件的定义。例如，Elasticsearch原本使用Apache 2.0授权，是真正的开源软件。但面对云服务提供商如AWS等将其用于营利目的却不回馈改进的情况，Elasticsearch在2021年1月选择了SSPL（Server Side Public License，服务器端公共许可证）和Elastic License两种许可证并行；SSPL要求如果将程序的功能或修改后的版本作为服务提供给第三方，则必须免费公开提供服务源代码，这违背了开源软件的定义。另一方面，Elastic License要求不能向第三方提供主机或托管服务，也违反了开源软件的定义，因此也不算严格意义上的「开源」。
-
 
 ## 开源许可证
 
@@ -63,9 +64,7 @@ tags = ["乱七八糟"]
 世界上的开源许可证（Open Source License）大概有上百种，而常见的开源协议大致有GPL、BSD、MIT、Mozilla、Apache和LGPL等。
 ![alt text](https://www.ruanyifeng.com/blogimg/asset/201105/free_software_licenses.png)
 
-
 > [Choose an open source license](https://choosealicense.com/)
-
 
 ## Apache License
 

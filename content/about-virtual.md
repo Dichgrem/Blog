@@ -21,8 +21,8 @@ Vmware最新版本对个人已经免费，不需要再寻找激活码；
 
 **前期准备**
 
-- 下载 Ubuntu ISO 镜像
-- 确保你的主机支持虚拟化（Intel VT-x / AMD-V），并在 BIOS/UEFI 中启用
+* 下载 Ubuntu ISO 镜像
+* 确保你的主机支持虚拟化（Intel VT-x / AMD-V），并在 BIOS/UEFI 中启用
 
 **开始安装**
 
@@ -58,13 +58,13 @@ sudo reboot
 
 ### FAQ
 
-- 屏幕分辨率不能拉大／全屏：安装 open-vm-tools + open-vm-tools-desktop；开启 3D 支持；在虚拟机设置里提升视频内存。
-- 虚拟机启动慢：给虚拟机分配更多 RAM／CPU；关闭不必要的服务；确保主机虚拟化支持开启。
-- 无法挂载 ISO 或虚拟光驱：检查虚拟机设置里 CD/DVD 光驱是否连接；ISO 文件是否损坏。
-- 时间不对同步差：安装 VMware 工具通常能解决时间同步；也可手动配置 NTP 服务。
-- 网络不通：检查虚拟机网卡类型；如果用 NAT，看主机网络；如果用桥接，看是否有权限或防火墙问题。
+* 屏幕分辨率不能拉大／全屏：安装 open-vm-tools + open-vm-tools-desktop；开启 3D 支持；在虚拟机设置里提升视频内存。
+* 虚拟机启动慢：给虚拟机分配更多 RAM／CPU；关闭不必要的服务；确保主机虚拟化支持开启。
+* 无法挂载 ISO 或虚拟光驱：检查虚拟机设置里 CD/DVD 光驱是否连接；ISO 文件是否损坏。
+* 时间不对同步差：安装 VMware 工具通常能解决时间同步；也可手动配置 NTP 服务。
+* 网络不通：检查虚拟机网卡类型；如果用 NAT，看主机网络；如果用桥接，看是否有权限或防火墙问题。
 
-# 二.Hyper-V
+## 二.Hyper-V
 
 Hyper-V 是微软内建的虚拟化平台（native hypervisor）。开启后，它会占用硬件虚拟化特性（Intel VT-x / AMD-V），这可能会和 VMware、VirtualBox 等第三方虚拟化软件冲突。
 
@@ -85,19 +85,20 @@ DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
 * Windows 功能 GUI 操作：
 在``控制面板 → 程序和功能 → 启用或关闭 Windows 功能``中勾选 “Hyper-V”、 “Hyper-V 平台”、 “Hyper-V 管理工具” 等相关项目，然后按提示操作。
 
-
-
 ## 关闭 Hyper-V
 
 * PowerShell（管理员权限）：
+
 ```bash
 Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 ```
+
 * DISM：
 
 ```bash
 DISM /Online /Disable-Feature:Microsoft-Hyper-V
 ```
+
 * 用 bcdedit 修改启动配置，使系统启动时不加载 Hypervisor（Hyper-V 的虚拟化内核）但保留功能安装：
 
 ```bash
@@ -109,8 +110,8 @@ bcdedit /set hypervisorlaunchtype off
 ```bash
 bcdedit /set hypervisorlaunchtype auto
 ```
-* Windows 功能 GUI 中，取消勾选 Hyper-V 相应项。
 
+* Windows 功能 GUI 中，取消勾选 Hyper-V 相应项。
 
 ## 使用方法
 
@@ -121,7 +122,9 @@ bcdedit /set hypervisorlaunchtype auto
 ```bash
 bcdedit /set hypervisorlaunchtype off
 ```
+
 然后重启 Windows，就能让这些软件正常启动虚拟机。要还原 Hyper-V，改为 `auto` 或 `on`:
+
 ```bash
 bcdedit /set hypervisorlaunchtype auto
 ```
@@ -131,7 +134,9 @@ bcdedit /set hypervisorlaunchtype auto
 ```bash
 Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 ```
+
 或者用 DISM：
+
 ```bash
 DISM /Online /Disable-Feature:Microsoft-Hyper-V
 ```
@@ -151,7 +156,7 @@ DISM /Online /Disable-Feature:Microsoft-Hyper-V
 * Windows 家庭版（Home）通常不提供完整的 Hyper-V 功能 GUI，但系统中某些虚拟化基于安全的功能（例如 VBS、Core Isolation / Memory Integrity）依然可能启用，这样也会表现为“Hyper-V 在运行”，建议更换到专业工作站版本。
 * 部分软件（如 Android 模拟器、BlueStacks 等）在检测到 Hyper-V 存在时性能可能受影响，关闭后可能解决问题。比如Steam游戏，安卓模拟器，HCL等等。
 
-# 三.QEMU
+## 三.QEMU
 
 ## 备份
 
@@ -161,6 +166,7 @@ QEMU安装的系统默认在此位置下，可以使用Root用户将其复制到
 [root@dos:/var/lib/libvirt/images]ls
 ubuntu24.04-2.qcow2
 ```
+
 ## 格式转换
 
 QEMU默认使用qcow2格式，几乎可以转换为所有其他虚拟机格式；我们可以使用`qemu-img`（QEMU 提供的镜像管理工具）来创建、转换、检查、调整虚拟机磁盘镜像。
@@ -185,7 +191,7 @@ qemu-img [command] [options] filename
 | Microsoft Hyper-V | vhd/vhdx | `.vhd` / `.vhdx` |
 | Xen               | raw      | `.img`           |
 
-- ``raw ↔ qcow2``
+* ``raw ↔ qcow2``
 
 ```bash
 # raw → qcow2
@@ -195,7 +201,7 @@ qemu-img convert -f raw -O qcow2 disk.img disk.qcow2
 qemu-img convert -f qcow2 -O raw disk.qcow2 disk.img
 ```
 
-- ``qcow2 ↔ vdi (VirtualBox)``
+* ``qcow2 ↔ vdi (VirtualBox)``
 
 ```bash
 # qcow2 → vdi
@@ -205,7 +211,7 @@ qemu-img convert -f qcow2 -O vdi disk.qcow2 disk.vdi
 qemu-img convert -f vdi -O qcow2 disk.vdi disk.qcow2
 ```
 
-- ``qcow2 ↔ vmdk (VMware)``
+* ``qcow2 ↔ vmdk (VMware)``
 
 ```bash
 # qcow2 → vmdk
@@ -215,7 +221,7 @@ qemu-img convert -f qcow2 -O vmdk disk.qcow2 disk.vmdk
 qemu-img convert -f vmdk -O qcow2 disk.vmdk disk.qcow2
 ```
 
-- ``qcow2 ↔ vhd/vhdx (Hyper-V)``
+* ``qcow2 ↔ vhd/vhdx (Hyper-V)``
 
 ```bash
 # qcow2 → vhdx
@@ -225,7 +231,7 @@ qemu-img convert -f qcow2 -O vhdx disk.qcow2 disk.vhdx
 qemu-img convert -f vhdx -O qcow2 disk.vhdx disk.qcow2
 ```
 
-- ``raw ↔ vdi/vmdk/vhdx``
+* ``raw ↔ vdi/vmdk/vhdx``
 
 ```bash
 # raw → vdi
@@ -237,17 +243,18 @@ qemu-img convert -f raw -O vmdk disk.img disk.vmdk
 # raw → vhdx
 qemu-img convert -f raw -O vhdx disk.img disk.vhdx
 ```
+
 ## 扩展
 
 1. 扩展大小
-```
+
+```text
 virsh domblklist <虚拟机名字>
 Target   Source
 vda      /var/lib/libvirt/images/ubuntu-24-04.qcow2
 
 qemu-img resize /var/lib/libvirt/images/ubuntu-24-04.qcow2 +20G
 ```
-
 
 2. 查看磁盘情况：
 
@@ -272,15 +279,16 @@ sudo growpart /dev/vda 1
 * 扩展文件系统：
 
 ext4：
+
 ```bash
 sudo resize2fs /dev/vda1
 ```
 
 xfs：
+
 ```bash
 sudo xfs_growfs /
 ```
-
 
 ## 压缩
 
@@ -319,7 +327,7 @@ qemu-img convert -O qcow2 -c ubuntu24.04-2.qcow2 ubuntu24.04-2-compressed.qcow2
 
 ---
 
-# 四.WSL2
+## 四.WSL2
 
 WSL（Windows Subsystem for Linux）是微软提供的 Linux 子系统，其中 **WSL2** 使用真正的 Linux 内核（基于轻量级虚拟机），相比 WSL1 兼容性和性能更好。
 
@@ -352,7 +360,7 @@ wsl -l -v
 
 示例输出：
 
-```
+```text
   NAME      STATE           VERSION
 * Ubuntu    Running         2
 ```
@@ -420,7 +428,7 @@ cd /mnt/c/Users/yourname/Desktop
 
 在资源管理器地址栏输入：
 
-```
+```text
 \\wsl$\Ubuntu\
 ```
 
@@ -441,7 +449,7 @@ python -m http.server 8000
 
 Windows 浏览器访问：
 
-```
+```text
 http://localhost:8000
 ```
 
@@ -468,4 +476,5 @@ bcdedit /set hypervisorlaunchtype off
 ⚠️ 会导致 WSL2 无法使用（只能退回 WSL1）
 
 ---
+
 **Done.**

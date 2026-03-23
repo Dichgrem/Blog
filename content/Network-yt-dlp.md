@@ -23,7 +23,6 @@ tags = ["Network"]
 - **重构与功能拓展**
 `yt-dlp` 从 youtube-dlc 完全重构，新增许多 extractor（解析器）、改进配置与默认行为，还扩展了插件系统和兼容性支持.
 
-
 ## 安装
 
 ### Windows
@@ -53,7 +52,8 @@ python3 -m pip install -U yt-dlp
 - Debian / Ubuntu：`sudo apt install yt-dlp`
 - Arch / Manjaro：`sudo pacman -S yt-dlp`
 - Fedora：`sudo dnf install yt-dlp`
-- Nixos: 
+- Nixos:
+
 ```nix
 {pkgs, ...}: {
   home.packages = with pkgs; [
@@ -87,10 +87,13 @@ yt-dlp "https://www.bilibili.com/video/BVxxxxx" --write-subs --embed-subs --sub-
 - **下载YouTube视频**
 
 先使用这个命令查看可用格式：
+
 ```bash
 yt-dlp -F https://www.youtube.com/watch?v=xxxxxxxxxxxx
 ```
+
 然后它会列举出所有可用的格式，如下：
+
 ```bash
 [youtube] MgtOAVOXBWo: Downloading webpage
 [youtube] MgtOAVOXBWo: Downloading tv client config
@@ -120,16 +123,21 @@ sb0 mhtml 160x90       0 │                  mhtml │ images                  
 617 mp4   1920x1080   60 │ ~369.06MiB 3222k m3u8  │ vp09.00.41.08 3222k video only Untested
 623 mp4   2560x1440   60 │ ~  1.00GiB 8945k m3u8  │ vp09.00.50.08 8945k video only Untested
 ```
+
 我们下载312和233,即视频和音频，使用以下命令：
+
 ```bash
 yt-dlp -f "312+233" -o "<新视频的名字，要短一点>.%(ext)s" https://www.youtube.com/watch?v=xxxxxxxxxxxx
 ```
+
 这行命令会自动将下载的312的1080p/H.264的视频和233的音频合并为一个mp4视频，注意新的名称不能太长，否则会下载失败。
 
 如果要下载带字幕的视频，则使用
+
 ```bash
 yt-dlp -f "312+233" --write-subs --write-auto-subs --embed-subs --sub-langs "zh.*,en.*" -o "<新视频的名字，要短一点>.%(ext)s" https://www.youtube.com/watch?v=xxxxxxxxxxx
 ```
+
 这个命令会：
 
 - 下载1080p视频
@@ -237,5 +245,5 @@ yt-dlp -f "312+233" --write-subs --write-auto-subs --embed-subs --sub-langs "zh.
   在 `~/.config/yt-dlp/config` 文件中添加习惯参数，如下载路径、格式偏好等。
 
 ---
-**Done.**
 
+**Done.**

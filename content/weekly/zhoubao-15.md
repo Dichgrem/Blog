@@ -24,9 +24,7 @@ date = 2024-09-21
 
 由此，也引发了诸如“Intel将出售晶圆制造业务”、“Intel将出售FPGA（Altera）业务”、“高通将收购Intel部分芯片设计业务”、“Intel将暂停海外晶圆厂建设”等一系列的传闻。
 
-
-
-## **三.[Mozilla ：将于  12 月 17 日关闭 Mozilla.social 实例](https://support.mozilla.org/en-US/kb/mozilla-social-faq)**
+## **三.[Mozilla ：将于 12 月 17 日关闭 Mozilla.social 实例](https://support.mozilla.org/en-US/kb/mozilla-social-faq)**
 
 2024年9月18日——Mozilla 宣布将于2024年12月17日停止其社交平台 Mozilla.social 的实验，届时 Mastodon 实例将正式关闭。用户仍可在12月17日前继续使用 Mozilla.social，并在此日期之前下载相关数据或将账户迁移至其他 Mastodon 实例。
 
@@ -44,8 +42,7 @@ date = 2024-09-21
 
 OpenSearch 是 Elasticsearch 和 Kibana 的开源分支，现在已正式成为 Linux 基金会开源项目家族的一部分。Linux 基金会表示，OpenSearch 被世界各地的软件开发人员用来构建搜索、分析、可观察性和矢量数据库应用程序，下载量业已超过 7 亿次。OpenSearch 软件基金会将与社区维护者和开发人员以及创始成员组织合作，支持 OpenSearch 的持续发展。
 
-
-# **文推**
+## **文推**
 
 [如何无痛早起](https://www.geedea.pro/posts/%E5%A6%82%E4%BD%95%E6%97%A0%E7%97%9B%E6%97%A9%E8%B5%B7/)
 
@@ -55,7 +52,7 @@ OpenSearch 是 Elasticsearch 和 Kibana 的开源分支，现在已正式成为 
 
 ---
 
-# **项目**
+## **项目**
 
 [一个收集了几乎所有苹果产品参数的网站](https://www.hubweb.cn/)
 
@@ -64,5 +61,3 @@ OpenSearch 是 Elasticsearch 和 Kibana 的开源分支，现在已正式成为 
 [一个轻量级的AI证件照制作算法,支持自托管](https://github.com/Zeyi-Lin/HivisionIDPhotos)
 
 [GlazeWM 是受 i3wm 启发的 Windows 平铺窗口管理器](https://github.com/glzr-io/glazewm)
-
-

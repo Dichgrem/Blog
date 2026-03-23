@@ -15,6 +15,7 @@ tags = ["Windows"]
 安装Windows有两种情况:1.在一台全新的电脑上安装；2.想为现有的系统更换版本。本文主要介绍这两种情况。如果只想对现有的系统进行优化，推荐看下一篇的``"Windows系列(1):常用操作与配置"``.
 
 **全新安装**
+
 - 获得一个Windows的ISO镜像；
 - 制作外部启动盘；
 - 做好环境准备，备份数据；
@@ -32,15 +33,14 @@ tags = ["Windows"]
 
 **PS:**
 > ``本地升级``：即为不需要外部启动盘，不动你的任何东西的无损安装；但需要一些前提条件；
-
+>
 > ``外部升级``：即为外部启动盘安装系统，可以格式化全盘全新安装；也可以保留数据安装，会将你的的数据放在C盘的``windows.old``文件夹。
-
+>
 > 数据安全：不管是本地还是外部升级，除非你格式化全盘重新安装，否则安装只会动C盘，其他分区的数据(如D盘等)不会触碰，可放心；
 
 ## 获取ISO镜像
 
 不管你是哪一种情况，都推荐你先下载ISO镜像，因为ISO镜像方法是最通用,最常用的。
-
 
 - 官方镜像:从[微软官网](https://www.microsoft.com/en-us/software-download/windows11)下载镜像或[MAS镜像站](https://massgrave.dev/genuine-installation-media)下载。
 
@@ -48,9 +48,9 @@ tags = ["Windows"]
 
 **PS:**
 > 镜像大小从1G~8G左右不等，因为有的不知道哪来的镜像里面版本不全，我们要下载的是包括所有主流版本的ISO，即为里面包括家庭版教育版专业版等等。如果你从其他地方下载ISO镜像，里面可能会捆绑流氓软件甚至有病毒。
-
+>
 > 我们要使用的是``23H2专业工作站版本``，性能最强，功能最全面，适合日常使用和开发；笔记本自带的往往是24H2家庭中文版，bug多功能少，不建议使用。
-
+>
 > 以上说的是功能版本，还有大版本的区别，目前暂时用不上，详细可以看本系列第三篇``Windows系列(3):分类与激活``.
 
 ## 制作启动盘
@@ -101,26 +101,24 @@ tags = ["Windows"]
 
 **PS:**
 > 无论你用什么方法都建议先备份好数据!!!
-
+>
 > 无损升级是有前提条件的!!!除了前面说的环境准备，还需要ISO镜像比原来的系统更新，比如23H2的镜像往往就不能无损更新24H2的系统，只能选择外部升级；
-
+>
 > 如果你选择预安装密钥的方法往往比较容易无损升级，但这样就不能使用Dichos的优化，需要手动优化。
 
 ## 激活系统
 
 如果你没有购买正版Windows，上文安装的系统可以使用[MAS脚本](https://github.com/massgravel/Microsoft-Activation-Scripts)或者[HEU_KMS工具](https://github.com/zbezj/HEU_KMS_Activator)来激活.
 
-
 ## 安装后优化
 
 > 如果你使用Dichos,可以直接跳到**三.驱动级**开始.
 
-#### **一.设备级:**
+### **一.设备级:**
 
 - 关闭 BIOS 安全启动,快速启动
 - 解锁 BitLocker
 - 删除 OEM 分区，恢复简洁的设备分区
-
 
 #### **二.系统级:**
 
@@ -161,7 +159,6 @@ tags = ["Windows"]
 | 三大件 | AMD      | [链接](https://www.amd.com/en/support/download/drivers.html) |
 | 三大件 | Intel    | [链接](https://www.intel.cn/content/www/cn/zh/support/detect.html) |
 | 三大件 | NVIDIA   | [链接](https://www.nvidia.cn/geforce/drivers/) |
-
 
 #### **四.软件级:**
 
@@ -206,7 +203,6 @@ tags = ["Windows"]
 - 关闭不必要的开机自启软件
 - 关闭 Windows Defender 等烦人的通知
 
-
 #### **六.测试级(可选)**
 
 - 查看PC型号与配置是否相同
@@ -226,4 +222,5 @@ tags = ["Windows"]
 [Afterburner](https://www.msi.com/Landing/afterburner/graphics-cards)
 
 ---
+
 **Done.**

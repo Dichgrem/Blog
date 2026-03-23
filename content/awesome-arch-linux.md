@@ -6,7 +6,6 @@ date = 2023-08-16
 tags = ["综合工程"]
 +++
 
-
 前言 Arch linux是一个轻量、灵活、滚动更新的 Linux 发行版，衍生了诸多优秀的桌面端linux。其官方Wiki更是被称为技术界的“武林秘籍”；这里介绍其安装与使用。
 
 <!-- more -->
@@ -55,6 +54,7 @@ paru -S ttf-jetbrains-mono-nerd ttf-sarasa-gothic-sc
 ```
 
 如果使用Wayland+WM方案，需要额外安装以下这些：
+
 ```bash
 # Wayland
 paru -S hyprland waybar network-manager-applet swww wl-gammarelay-rs brightnessctl easyeffects wireplumber pipewire blueman bluez-utils wl-clipboard-rs wl-clip-persist swaync swayosd swappy grim wlogout hyprlock hyprpolkitagent
@@ -92,17 +92,17 @@ cd rime-auto-deploy
 # step3: 执行部署脚本
 ./installer.rb
 ```
+
 选择部署fcitx5即可，随后在设置的Input Method中Add Input Method ，选择Rime，随后默认按Ctrl+Space即可切换中文。
 
 字体的配置在[Linux之旅(七):系统与终端字体设置](https://blog.dich.bid/learn-linux-for-pc-7/)这一期说过，这里不再赘述。缺少的字体可以通过paru下载或者到[喵闪字库](https://www.miao3.cn/)下载ttf并安装。
-
-
 
 ## 图形美化
 
 安装完毕后可以看到KDE的界面较为简陋，这里给出笔者的美化配置：
 
 - 在设置中找到Colors&Themes，分别设置为：
+
 ```bash
 - Color：Breeze Dark
 - Application Style：Breeze
@@ -112,6 +112,7 @@ cd rime-auto-deploy
 - Cursors：Afterglow Cursors
 - Splash Screen：None
 ```
+
 - 随后设置壁纸，这里给出了笔者收藏的[壁纸](https://github.com/Dichgrem/wallpaper.git)。
 
 - 设置完成后将Dock栏的Status全部隐藏，删除间隔与空隙，删除时间，更改Memu图标，随后固定常用软件到其上。
@@ -129,12 +130,14 @@ cd rime-auto-deploy
 ## 设置软件
 
 - 配置fastfetch显示效果
-```
+
+```text
 创建配置目录：mkdir -p ~/.config/fastfetch
 创建配置文件：touch ~/.config/fastfetch/config.jsonc
 编辑该文件以添加你的自定义选项
 ```
-- 设置GFS：参考[乱七八糟:GFS项目考量笔记 ](https://blog.dich.bid/about-gfs/)。
+
+- 设置GFS：参考[乱七八糟:GFS项目考量笔记](https://blog.dich.bid/about-gfs/)。
 
 - 设置Keepassxc/Vscodium/Electerm：导入备份好的配置文件。
 
@@ -142,7 +145,7 @@ cd rime-auto-deploy
 
 - 设置浏览器：导入书签备份文件（有图标）；定制工具栏，下载扩展插件，包括：
 
-```
+```text
 Dark Reader（暗黑模式）
 kiss-translator（翻译工具）
 uBlock Origin（广告拦截）
@@ -158,26 +161,31 @@ V2EX Polish（V站美化）
 如果Grub引导菜单中没有windows选项，可以通过以下方法添加：
 
 - 安装 os-prober：首先确保系统中安装了 os-prober，这是一个用于检测其他操作系统的工具。
+
 ```bash
 sudo pacman -S os-prober
 sudo os-prober
 ```
 
 - 打开 /etc/default/grub 文件进行编辑：
+
 ```bash
 sudo nano /etc/default/grub
 # 确保 GRUB_DISABLE_OS_PROBER 设置为 false
 ```
 
 - 保存文件并退出编辑器后，运行以下命令更新 GRUB 配置：
+
 ```bash
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 或者``手动添加``：
+
 ```bash
 nano /etc/grub.d/40_custom
 ```
+
 ```bash
 #!/bin/sh
 exec tail -n +3 $0
@@ -197,9 +205,9 @@ menuentry "Windows 11 (Manual)" {
 
 华硕的BIOS有一个VMD选项，它的机制是这样的：如果你想安linux，得先关闭VMD；但如果你的windows是出厂自带的，没有重装过，那又得开启VMD，否则无法进入windows；这里记录在不关闭VMD的情况下如何让linux支持它：(以arch linux为例)
 
-
 先使用这个命令查看磁盘：
-```
+
+```text
 > lsblk -f
   nvme1n1
   ├─nvme1n1p1  vfat   FAT32  SYSTEM   xxxx-xxxx
@@ -213,8 +221,10 @@ menuentry "Windows 11 (Manual)" {
   ├─nvme0n1p2  ntfs 新加卷
   └─nvme0n1p3  xfs   xxxxxxxxxxxxxx
 ```
+
 随后使用以下方法将VMD支持加入initramfs：
-```
+
+```text
 ## 挂载linux根分区
 mount /dev/nvme0n1p3 /mnt
 ## 创建boot目录
@@ -238,34 +248,44 @@ reboot
 前面我们已经安装了Qemu高性能虚拟机平台和virt-manager用来管理虚拟机的图形界面，随后配置virt-manager并安装Ubuntu-server：
 
 如果virt-manager报错无法找到Qemu，则：
+
 - ​如果 libvirtd 服务未运行，virt-manager 将无法连接到虚拟化环境。​
+
 ```bash
 sudo systemctl start libvirtd
 sudo systemctl enable libvirtd
 ```
+
 - 用户权限问题：​​将当前用户添加到 libvirt 组，以获得必要的权限。​
+
 ```bash
 sudo usermod -aG libvirt $(whoami)
 ```
 
 - 虚拟网络未激活：​virt-manager 可能无法连接到默认的虚拟网络。​
+
 ```bash
 sudo virsh net-start default
 ```
+
 默认网络在系统启动时自动启动，可以执行：
+
 ```bash
 sudo virsh net-autostart default
 ```
+
 - 配置文件权限问题：​配置文件的权限设置可能导致访问问题。
 
 ```bash
 sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
 ```
+
 随后安装虚拟机，流程大概为``选择镜像和系统类型--设置CPU/内存--设置空间大小--编辑配置项--开启UEFI引导和3D加速``.
 
 **开启3D加速：**
 
 - NIC：
+
 ```xml
 <graphics type="spice">
   <listen type="none"/>
@@ -274,7 +294,9 @@ sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
 </graphics>
 
 ```
+
 - video virtio：
+
 ```xml
 <video>
   <model type="virtio" heads="1" primary="yes">
@@ -284,43 +306,56 @@ sudo chown $(whoami):libvirt /var/run/libvirt/libvirt-sock
   <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0"/>
 </video>
 ```
+
 安装完成后即可使用electerm进行SSH连接，如果无法连接，可以将Tun模式开启的"strict_route"关闭。
 
 ## 更改启动内核顺序
+
 如果安装了多个linux内核，可以使用以下方法调整启动顺序：
 
 - 使用以下命令查看内核名称：
+
 ```bash
 ls /boot/vmlinuz*
 ```
+
 - 在 /etc/default/grub 中添加或修改如下行：
+
 ```bash
 GRUB_TOP_LEVEL="/boot/vmlinuz-linux-cachyos"
 ```
+
 需要注意，这种方法会关闭 GRUB 的“记住上次启动项”的功能。
 
 - 修改完 /etc/default/grub 后，记得重新生成 GRUB 配置文件：
+
 ```bash
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
 **图形界面更改方法：**
 
 可以使用grub-customizer来修改Grub，这里以ubuntu为例子：
 
 - 添加PPA源并更新软件列表：
+
 ```bash
 sudo add-apt-repository ppa:danielrichter2007/grub-customizer
 sudo apt update
 ```
+
 - 安装GRUB Customizer：
+
 ```bash
 sudo apt install grub-customizer
 ```
+
 随后在grub-customizer中将要默认启动的选项放在首位即可。
 
 ## 开机自启动
 
 **设置Syncthing开机自启动**
+
 ```bash
 sudo systemctl enable --now syncthing@<username>.service
 ```
@@ -350,40 +385,55 @@ WantedBy=multi-user.target
 ## 开启BBR
 
 - 确保你的内核版本 >= 4.9：
+
 ```bash
 uname -r
 ```
+
 - 启用 BBR
 
 你只需要设置两个 sysctl 参数即可：
+
 ```bash
 sudo sysctl -w net.core.default_qdisc=fq
 sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
 ```
+
 要让它们永久生效，把它们写入配置文件：
+
 ```bash
 sudo nano /etc/sysctl.d/99-bbr.conf
 ```
+
 加入以下内容：
+
 ```bash
 net.core.default_qdisc = fq
 net.ipv4.tcp_congestion_control = bbr
 ```
+
 然后重新加载配置：
+
 ```bash
 sudo sysctl --system
 ```
+
 - 验证 BBR 是否启用
+
 ```bash
 sysctl net.ipv4.tcp_congestion_control
 ```
+
 应该输出：
+
 ```bash
 net.ipv4.tcp_congestion_control = bbr
 ```
 
 ## 性能模式切换
+
 需要安装``tlp-git tlp-pd-git tlp-rdw-git``
+
 ```bash
 # 查看当前状态
 tlp-stat -s
@@ -397,6 +447,7 @@ sudo tlp balanced
 # 切换到“省电”模式
 sudo tlp power-saver
 ```
+
 ## 其他可选性能优化
 
 ```bash
@@ -454,38 +505,41 @@ sudo reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 更改 DNS 服务器：编辑 /etc/systemd/resolved.conf 中的 DNS=1.1.1.1 8.8.8.8，然后 sudo systemctl restart systemd-resolved
 ```
 
-
 ## 在Arch Linux上安装Docker
 
 一般推荐在qemu虚拟机中安装，这里仅做示例：
+
 ```bash
 sudo pacman -S docker
 ```
 
 安装完成后，需要启动Docker服务，并设置为开机自启：
+
 ```bash
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
 运行以下命令来验证Docker是否正常工作：
+
 ```bash
 sudo docker run hello-world
 ```
+
 默认情况下，只有root用户才能运行Docker命令。为了避免每次运行Docker命令时都需要使用sudo，可以将当前用户添加到docker组：
+
 ```bash
 sudo usermod -aG docker $USER
 ```
+
 之后，需要注销并重新登录，或者重启系统以使更改生效。
 
 安装Docker Compose：
+
 ```bash
 sudo pacman -S docker-compose
 ```
+
 ---
+
 **Done.**
-
-
-
-
-

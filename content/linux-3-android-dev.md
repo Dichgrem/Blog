@@ -43,6 +43,7 @@ sdk install kotlin
 ```
 
 - 设置环境变量：
+
 ```bash
 export ANDROID_HOME=$HOME/Android
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -103,6 +104,7 @@ Java      : JRE 17.0.16+8
 ### 相同部分
 
 - 生成密钥
+
 ```bash
 keytool -genkey -v \
   -keystore ~/.android/jetlagged-release.keystore \
@@ -113,6 +115,7 @@ keytool -genkey -v \
 ```
 
 - 修改app/build.gradle.kts
+
 ```java
     signingConfigs {
         create("release") {
@@ -134,9 +137,11 @@ keytool -genkey -v \
         }
     }
 ```
+
 ### 传统方法
 
 - 创建配置文件
+
 ```bash
 cat > ~/.android-signing-secrets << 'EOF'
 export KEYSTORE_FILE="$HOME/.android/jetlagged-release.keystore"
@@ -178,5 +183,7 @@ export KEY_ALIAS="jetlagged"
 export KEYSTORE_PASSWORD="$(secret-tool lookup name android_keystore_password)"
 export KEY_PASSWORD="$(secret-tool lookup name android_key_password)"
 ```
+
 ---
+
 **Done.**

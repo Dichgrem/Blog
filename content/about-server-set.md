@@ -23,16 +23,16 @@ tags = ["乱七八糟"]
 
 ## VPS
 
-
 - 名称格式
 
-```
+```text
 日本-GreenCloud-2C-4G-22G-SSD-1.5Tb@10Gbps-$60-3year
 
 ## 国家-公司-CPU-内存-硬盘-硬盘类型-流量@端口速度-价格-付费周期
 ```
 
 - 初始化
+
 ```bash
 # 更新系统
 apt update && apt upgrade -y
@@ -41,17 +41,23 @@ apt install wget curl vim sudo neofetch
 adduser xxx
 sudo usermod -aG sudo xxx
 ```
+
 ## BBR
 
 - 查询系统所支持的拥塞控制算法
+
 ````bash
 sysctl net.ipv4.tcp_available_congestion_control
 ````
+
 - 查询正在使用中的拥塞控制算法（Linux 绝大部分系统默认为 Cubic 算法）
+
 ````bash
 sysctl net.ipv4.tcp_congestion_control
 ````
+
 - 指定拥塞控制算法为 bbr
+
 ````bash
 echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf && sysctl -p
 ````
@@ -145,72 +151,91 @@ sudo systemctl enable fail2ban
 sudo systemctl status fail2ban
 ````
 
-
-
 ### 改为密钥登录
 
 - 执行以下命令生成.pub后缀的公钥和无后缀的密钥：
+
 ```bash
 ssh-keygen
 ```
+
 注意不同密钥对名称不能相同；同时可以为这两个文件用密码加密；
 
 - 随后将.pub后缀的公钥中的内容写入服务器的``~/.ssh/authorized_keys``中；
 
 - 使用以下命令编译服务器的SSH配置：
+
 ```bash
 vim /etc/ssh/sshd_config
 ```
+
 将其中的该行改为``PasswordAuthentication no``，保存退出；随后使用
+
 ```bash
 sudo systemctl restart sshd
 ```
+
 重启SSH即可禁用密码登录；
 
 - 将**PermitRootLogin**一栏改为**PermitRootLogin prohibit-password**，即可实现仅root用户密钥登录；
 
 - 使用以下命令查看输出，
+
 ```bash
 sudo cat /etc/ssh/sshd_config | grep -E 'PasswordAuthentication|PubkeyAuthentication'
 ```
+
 如有**PasswordAuthentication no → 禁用密码登录**以及**PubkeyAuthentication yes → 允许密钥登录**则成功。
 
 > 注意**authorized_keys**的权限为600，如果不是则需要改正：``chmod 600 ~/.ssh/authorized_keys``
 
 ## 常用环境
 
-- ALL 
+- ALL
 
 ```bash
 apt install curl wget gpg vim nano sudo neofetch openssh-server
 ```
-- C/C++ 
+
+- C/C++
+
 ```bash
 sudo apt install build-essential gdb cmake clangd clang-format libstdc++-dev
 ```
-- Miniconda 
+
+- Miniconda
+
 ```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
+
 - UV
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
 - Docker
+
 ```bash
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
+
 - OpenCV
+
 ```bash
 sudo apt install tree libx11-dev libgtk-3-dev freeglut3-dev libopencv-dev libdlib-dev
 ```
+
 - Vmware
+
 ```bash
 sudo apt install open-vm-tools
 sudo apt install open-vm-tools-desktop
 ```
+
 > Vscode无法连接：需要删除本地存储的错误密钥，powershell：
 
 ```powershell
@@ -218,6 +243,7 @@ sudo apt install open-vm-tools-desktop
 Where-Object { $_ -notmatch '<你的IP>' } | 
 Set-Content "$env:USERPROFILE\.ssh\known_hosts"
 ```
+
 ## 1panel
 
 执行如下命令一键安装 1Panel:
@@ -226,37 +252,43 @@ Set-Content "$env:USERPROFILE\.ssh\known_hosts"
 curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh && sudo bash quick_start.sh
 ````
 
-
-
 ### 禁用 IPv6
 
 手动 禁用 VPS 的 IPv6 命令:
+
 ```bash
 sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1
 ```
+
 如果想重启系统也生效， 执行：
+
 ```bash
 echo 'net.ipv6.conf.all.disable_ipv6=1' >> /etc/sysctl.conf
 echo 'net.ipv6.conf.default.disable_ipv6=1' >> /etc/sysctl.conf
 ```
+
 手动 启用 VPS 的 IPv6 命令:
+
 ```bash
 sysctl -w net.ipv6.conf.all.disable_ipv6=0
 sysctl -w net.ipv6.conf.default.disable_ipv6=0
 ```
+
 重新载入 sysctl 配置
+
 ```bash
 sysctl --system # reload sysctl
 ```
+
 如果重载, 还无效果, 可能要 reboot 重启下.
 查看 VPS 的 IPv6 信息
+
 ```bash
 ip -6 addr show scope global
 
 或者 curl ipv6.ip.sb
 ```
-
 
 ## IP证书申请部署
 
@@ -267,9 +299,11 @@ ip -6 addr show scope global
 ```bash
 mkdir -p ./.well-known/pki-validation
 ```
+
 - 随后在ZeroSSL中将所给出的类似**B992F08CB46748D02E4C553A4038BC.txt**复制；
 
 - 将从ZeroSSL下载得到的文件打开，复制里面的东西形成以下的格式:``将pki-validation/之后EOF之前的内容``替换为你自己的。
+
 ```bash
 cat << EOF | sudo tee ./.well-known/pki-validation/B992F08CB46748D02E4C553A4038BC.txt
 254563C20918258D661E7D43D6A43A2A258857E191977DD5F740FBB9ABD25279
@@ -277,13 +311,16 @@ comodoca.com
 ca5792984e3f0a1
 EOF
 ```
+
 随后在VPS上运行该命令。
+
 - 开启一个临时HTTP服务器：
+
 ```bash
 python3 -m http.server 80
 ```
-- 随后即可在ZeroSSL中验证证书并开启SSL。
 
+- 随后即可在ZeroSSL中验证证书并开启SSL。
 
 ## 忘记密码怎么办
 
@@ -296,14 +333,19 @@ python3 -m http.server 80
 - 进入恢复模式后，选择`root – Drop to root shell prompt`进入 root shell（不需要密码）。
 
 - 挂载文件系统为可写模式：
+
 ```bash
 mount -o remount,rw /
 ```
+
 - 将用户添加到 sudo 组：
+
 ```bash
 usermod -aG sudo 用户名
 ```
+
 - 重启计算机：
+
 ```bash
 reboot
 ```
@@ -326,6 +368,7 @@ sudo apt update
 ```
 
 3. 搜索可用内核
+
 ```bash
 apt search xanmod
 sudo apt install linux-image-6.8.6-x64v3-xanmod1 linux-headers-6.8.6-x64v3-xanmod1
@@ -347,9 +390,8 @@ sudo apt install linux-image-6.8.6-x64v3-xanmod1 linux-headers-6.8.6-x64v3-xanmo
 ```bash
 lscpu | grep avx2
 ```
+
 如果输出中有 `avx2`，就可以用 `x64v3` 版本。
-
-
 
 4. 更新 GRUB 并重启
 
@@ -384,6 +426,7 @@ sudo apt remove linux-image-5.10.0-26-amd64
 ```bash
 GRUB_DEFAULT="Advanced options for Debian>Debian, with Linux 6.8.6-x64v3-xanmod1"
 ```
+
 然后：
 
 ```bash
@@ -396,7 +439,7 @@ sudo update-grub
 
 [bin456789/reinstall](github.com/bin456789/reinstall)
 
-```
+```text
 一键重装到 Linux，支持 19 种常见发行版
 一键重装到 Windows，使用官方原版 ISO 而非自制镜像，脚本支持自动查找 ISO 链接、自动安装 VirtIO 等公有云驱动
 支持任意方向重装，即 Linux to Linux、Linux to Windows、Windows to Windows、Windows to Linux
@@ -408,5 +451,5 @@ sudo update-grub
 ```
 
 ---
-**Done.**
 
+**Done.**

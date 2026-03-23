@@ -8,6 +8,7 @@ tags = ["综合工程"]
 
 前言 自安卓系统诞生以来，root 一直是玩机的必备过程。时至今日，在安卓定制系统日益完善的情况下，能 root 的机型越来越少，本文以小米手机为例，介绍 root 的具体方法。
 <!-- more -->
+
 ## **一.什么是root**
 
 这涉及安卓的权限系统。Andoird 系统是基于 Linux 内核的，Linux中的root用户为超级用户，``root 权限则为系统的最高权限``，与 Windows 的 system 权限相当（比 administer 还高）。日常使用中我们可以发现一般软件权限需要经过用户同意，即每次安装前出现的各种请求弹窗。我们看似可以做到许多事情，但有些地方比如安卓的根目录没有root就无法查看。
@@ -23,7 +24,7 @@ tags = ["综合工程"]
 3. 我可以不要但你厂商不能不给。
 
 > 云控：一般指为了计划性报废而特地远程操控使用户的手机变的卡顿，加快换机；也有另一层含义：在UP主测试手机时调整设置使其跑分虚高而用户到手的手机分数远不如测试的时候的情况。
-
+>
 > 反诈：一般指厂商与网络安全部门合作的后门或漏洞，可以监控用户行为，例如某
 “其他”品牌手机系统的webview级别的网址拦截；
 
@@ -33,13 +34,12 @@ tags = ["综合工程"]
 
 在 2023 年的今天，能 root 的机型还是比较少。[各品牌手机root情况汇总](https://github.com/KHwang9883/MobileModels/blob/master/misc/bootloader-kernel-source.md)
 
-
 | 品牌 / 机型        | BL 解锁情况     | 等待时长    | 支持回锁 | Root/越狱 能力                |
 |-------------------|----------------|-------------|----------|-----------------------------|
 | OnePlus           | ✅ 支持         | 秒解          | ✅ 支持   | ✅ 容易 root                  |
 | Google (Pixel)    | ✅ 支持         | 秒解        | ✅ 支持   | ✅ 容易 root                  |
 | Nothing Phone     | ℹ️ 社区支持     | —           | —        | ✅ 社区方法多                 |
-| Motorola          | ✅ 支持         | 官方发解锁码 |  ⚠️ 部分| ✅ 社区方法多
+| Motorola          | ✅ 支持         | 官方发解锁码 |  ⚠️ 部分| ✅ 社区方法多 |
 | Xiaomi/Redmi/POCO | ⚠️ 支持         | ~7–14 天    | ⏹ 部分   | ✅ 可 root（需等待）          |
 | Lenovo            | ✅ 支持         | 秒解        | ⚠️ 部分   | ✅ 容易 root                  |
 | Sony              | ⚠️ 支持         | —           | ⚠️ 部分   | ✅ 海外版易 root              |
@@ -55,8 +55,6 @@ tags = ["综合工程"]
 | Apple iPhone      | ❌ 不支持       | —           | —        | ✅ iPhone 10 前可越狱       |
 
 ``刷机有风险，root 需谨慎``！刷机前要了解相应的厂商，考虑保修和变砖的问题！
-
-
 
 ## **四.确定你要刷的系统**
 
@@ -91,11 +89,10 @@ tags = ["综合工程"]
 - ``data 分区``，存放用户数据和系统设置，擦除后不影响系统的运行。
 
 > 除了以上5大分区外，手机启动阶段还存在名为 bootloader 的程序，通常位于设备的专用引导区域（如boot ROM或firmware分区的一部分），与 PC 端的 BIOS 类似，被称为 fastboot 模式，厂商一般会将其锁定，要刷机的话必须解开它。
-
+>
 > 早些年间，存在大量一键 root，kingroot 之类的软件，可以直接刷写 root 包，获得 root 权限，但成功率不高，且有植入木马之嫌。
 
 因此，现在**主流的刷机步骤**为
-
 
 - ``备份手机数据``,即备份Data分区(可使用Neobackup或系统自带),字库/基带/官方固件,桌面样式截图以及该机器的官方原厂包；
 
@@ -113,7 +110,7 @@ tags = ["综合工程"]
 
 **主流的root步骤**:
 
-- Magisk:在recovery中``刷入 Magisk ``(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择直接安装；
+- Magisk:在recovery中``刷入 Magisk``(面具)zip包，随后重启进入桌面,安装 Magisk(apk),在其中选择直接安装；
 - Apatch:安装apk软件并修补提取出来的boot.img,随后在fastboot模式中``fastboot flash boot apatch_patched-boot.img``，重启即可。
 - KernelSU:修补init_boot.img或者刷入GKI内核修补，若官方无支持需要自行编译GKI内核。
 
@@ -143,6 +140,7 @@ tags = ["综合工程"]
 ```bash
 adb shell ls -l /dev/block/bootdevice/by-name
 ```
+
 可以看到有很多分区，例如这些
 
 ```bash
@@ -154,6 +152,7 @@ lrwxrwxrwx 1 root root   15 1970-12-24 11:30 hyp_a -> /dev/block/sde5
 lrwxrwxrwx 1 root root   16 1970-12-24 11:30 hyp_b -> /dev/block/sde40
 ...
 ```
+
 随后使用root备份分区到手机上
 
 ```bash
@@ -161,6 +160,7 @@ adb root
 
 adb shell "dd if=/dev/block/sda2 of=/sdcard/partition_backup/persist.img"
 ```
+
 然后可以上传到PC端
 
 ```bash
@@ -202,13 +202,11 @@ adb pull /sdcard/partition_backup/ ./backup/
 
 > 以一加（oneplus）为例：
 
-
 1. 打开开发者模式并开启USB调试，连接到提前装好ADB/Fastboot驱动的电脑；
 
 2. 随后进入fastboot模式（adb reboot bootloader），执行`fastboot oem unlock`或者`fastboot flashing unlock`，查看`fastboot oem device-info`，若为`Device unlocked: true`表示已成功解锁。
 
 3. 随后刷入新系统的recovery.img,使用命令`fastboot flash recovery xxx.img`；四清操作可以用`fastboot erase data / fastboot erase cache / fastboot erase system / fastboot erase metadata` 代替。
-
 
 4. 随后进入新系统的recovery，使用命令`fastboot reboot recovery`，在其中`adb sideload xxx.zip`,即为刷入新系统的全量包。
 
@@ -221,7 +219,7 @@ adb pull /sdcard/partition_backup/ ./backup/
 在 Root 管理器中安装 Zygisk-Lsposed 模块,即可使用 Lsposed，在 Lsposed 中可以安装 HMA, Amarok ，QAuxiliary 模块，并配合 MMRL 等软件等等。
 
 > 免 Root 的平替方法,目前这一套流程也很成熟了:利用 ADB 权限的 Shizuku;利用 Device Owner 权限的 Dhizuku等等。
-
+>
 > 常用模块
 
 - [LSPosed](https://github.com/mywalkb/LSPosed_mod)
@@ -230,15 +228,15 @@ adb pull /sdcard/partition_backup/ ./backup/
 - [ZygiskNext](https://github.com/Dr-TSNG/ZygiskNext)
 - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant)
 
-
 ## **附录**
 
 ### 系统变迁表
+
 | 厂商              | 系统 / 子品牌                                               | 演变历史及时间点                                                                                                                                    |
 | --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Xiaomi**      | MIUI → 澎湃OS（HyperOS / Surge OS）                        | 2010 年推出 MIUI，2023 年 10 月 17 日官方宣布替代 MIUI 的 HyperOS（中文名“澎湃OS”），2023 年 10 月 26 日随 Xiaomi 14 系列一起发布，2024 年起全面替代 MIUI |
 | **Huawei**      | EMUI → HarmonyOS                                       | 2012 年采用 EMUI，2021 年宣布推出基于微内核的鸿蒙 HarmonyOS，新机逐步切换。                                                                                          |
-| **OPPO**        | ColorOS                                                | 2013 年推出 ColorOS，2020 年对版本号体系调整至与 Android 主版本同步（例如从 7 跳到 11），之后持续 UI 与功能迭代。 |                                                              |
+| **OPPO** | ColorOS | 2013 年推出 ColorOS，2020 年对版本号体系调整至与 Android 主版本同步（例如从 7 跳到 11），之后持续 UI 与功能迭代。 |
 | **Realme**      | Realme UI                                              | 2019 年从 ColorOS 分支出 Realme UI，此后持续独立更新、优化（未查到主要时间节点）。                                                                                       |
 | **Vivo / iQOO** | Funtouch OS → OriginOS (+ Ocean/Pux 系列)                | 2012 年左右推出 Funtouch OS，2020 年推出 OriginOS；后续版本如 OriginOS Ocean、Pux 迭代 UI 核心。                                                                 |
 | **OnePlus**     | HydrogenOS (中国) → OxygenOS (海外) → 合并后 OP OS？           | 2014 年中国区发布 HydrogenOS，2015 年海外推 OxygenOS；2021 年底与 OPPO 合并，代码库统一（国内使用 ColorOS，全球继续用 OxygenOS），但官方未明确推出 "OP OS" 这一新名。                        |
@@ -279,11 +277,10 @@ adb pull /sdcard/partition_backup/ ./backup/
 | **vendor.img / vendor\_boot.img / vendor\_dlkm.img**     | 厂商驱动层及扩展，vendor\_boot 是引导层，dlkm 是模块。                  |
 | **xbl.img / xbl\_config.img / xbl\_ramdump.img**         | Qualcomm XBL（eXtensible Boot Loader）引导，加载 ABL 等；ramdump 用于调试。                           |
 
-
 ## **参考**
- 
- - [lineageos镜像](https://download.lineageos.org/devices/lmi/builds)
- - [lineageos教程](https://wiki.lineageos.org/devices/lmi/install/variant1/)
- - [机型介绍](https://wiki.lineageos.org/devices/lmi/variant2/)
- - [XDA-没有声音的问题解决](https://xdaforums.com/t/no-sound-issue-can-u-help.4479225/)
- - [XDA-更换内核](https://xdaforums.com/t/kernel-overclocked-no-gravity-2023-08-28-protonclang.4531497/)
+
+- [lineageos镜像](https://download.lineageos.org/devices/lmi/builds)
+- [lineageos教程](https://wiki.lineageos.org/devices/lmi/install/variant1/)
+- [机型介绍](https://wiki.lineageos.org/devices/lmi/variant2/)
+- [XDA-没有声音的问题解决](https://xdaforums.com/t/no-sound-issue-can-u-help.4479225/)
+- [XDA-更换内核](https://xdaforums.com/t/kernel-overclocked-no-gravity-2023-08-28-protonclang.4531497/)

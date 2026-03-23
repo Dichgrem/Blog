@@ -24,9 +24,10 @@ https://github.com/Dichgrem/sdk-bsp-stm32f407-spark-template.git
 
 - 安装 Scons 构建工具
 
-```
+```text
 pip install scons
 ```
+
 - 安装 gcc-arm-none-eabi 工具链
 
 在[官网](https://developer.arm.com/downloads/-/gnu-rm) 下载``gcc-arm-none-eabi-10.3-2021.10-win32.exe``,安装后使用以下命令设置环境变量
@@ -100,8 +101,7 @@ python -m serial.tools.miniterm COM3 115200
 
 > 注意Windows上和开发板连接的串口可能是COM3,COM4等等，需要和实际的相符，可以在设备管理器中查看.
 
-
-# Ubuntu 方案
+## Ubuntu 方案
 
 ## 拉取源码
 
@@ -125,6 +125,7 @@ scons -j$(nproc)
 ## 测试连接
 
 使用USB线连接开发板和开发PC，并使用lsusb命令查看是否出现：
+
 ```bash
 lsusb
 Bus 001 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
@@ -154,7 +155,9 @@ Found 1 stlink programmers
 ```bash
 st-flash read firmware_backup.bin 0x08000000 0x100001
 ```
+
 随后使用如下命令烧入系统：
+
 ```bash
 st-flash write rtthread.bin 0x08000000
 ```
@@ -162,16 +165,17 @@ st-flash write rtthread.bin 0x08000000
 ## 串口连接
 
 除了USB之外我们还可以使用串口连接：
+
 ```bash
 sudo apt install picocom
 picocom -b 115200 /dev/ttyACM0
 ```
-可以使用``ctrl + A 然后 ctrl + x``退出。
 
+可以使用``ctrl + A 然后 ctrl + x``退出。
 
 ---
 
-# 其他Tips
+## 其他Tips
 
 - 使用Cmake编译
 
@@ -187,6 +191,7 @@ export RTT_CC=gcc
 ```
 
 随后使用指令``scons --target=cmake``：
+
 ```bash
 ❯ scons --target=cmake
 
@@ -203,6 +208,7 @@ arm-none-eabi-objcopy -O binary rt-thread.elf rtthread.bin
 arm-none-eabi-size rt-thread.elf
 scons: done building targets.
 ```
+
 可以看到生成CmakeLists.txt成功，随后开始构建：
 
 ```bash
@@ -232,6 +238,7 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 -- Generating done (0.0s)
 -- Build files have been written to: /home/dich/Git/sdk-bsp-stm32f407-spark/projects/02_basic_ir/build
 ```
+
 使用``make``命令编译：
 
 ```bash
@@ -247,7 +254,6 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
   98516    1468    8400  108384   1a760 rtthread.elf
 [100%] Built target rtthread.elf
 ```
-
 
 - Nixos
 
@@ -372,4 +378,5 @@ arm-none-eabi-gdb firmware.elf
 ```
 
 ---
+
 **Done.**

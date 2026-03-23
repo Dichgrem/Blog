@@ -65,8 +65,7 @@ OpenAI为o1系列开发了创新的安全训练方法，充分利用模型的推
 保留强大的推理和编程能力
 适用于需要高效推理但不需要广泛世界知识的场景
 
-
-# **文推**
+## **文推**
 
 [推荐系统如何让我们变得极端 - 中国数字时代](https://chinadigitaltimes.net/chinese/711062.html)
 
@@ -74,13 +73,12 @@ OpenAI为o1系列开发了创新的安全训练方法，充分利用模型的推
 
 ---
 
-# **项目**
+## **项目**
 
 [日语五十音字帖 - GitHub](https://github.com/2-3-5-7/gojuon-copybook)
 
 [Rust 写的可滚动平铺窗口管理器](https://github.com/YaLTeR/niri)
 
-[FerrumC 是一个Rust 编写的 Minecraft 服务器实现](https://github.com/sweattypalms/ferrumc) 
+[FerrumC 是一个Rust 编写的 Minecraft 服务器实现](https://github.com/sweattypalms/ferrumc)
 
 [一个自托管的书签应用程序（链接、笔记和图像），具有基于 AI 的自动标记和全文搜索功能](https://github.com/hoarder-app/hoarder)
-

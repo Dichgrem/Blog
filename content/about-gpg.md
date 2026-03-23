@@ -6,7 +6,7 @@ date = 2025-06-17
 tags = ["乱七八糟"]
 +++
 
-前言 PGP/GPG 的核心功能——公钥加密、数字签名、信任管理广泛用于各个行业，本文简单说明了其使用方法。 
+前言 PGP/GPG 的核心功能——公钥加密、数字签名、信任管理广泛用于各个行业，本文简单说明了其使用方法。
 
 <!-- more -->
 
@@ -21,7 +21,6 @@ tags = ["乱七八糟"]
   * 项目发起于 1997 年，由 Free Software Foundation 推动，是 GPL 许可的自由软件实现。
   * 完全兼容 OpenPGP 标准（RFC 4880），可无缝替代 PGP 软件。
 
-
 ## 历史沿革
 
 | 时间     | 事件                                        |
@@ -32,7 +31,6 @@ tags = ["乱七八糟"]
 | 2001 年 | OpenPGP 正式成为 IETF 标准（RFC 2440）            |
 | 2006 年 | GnuPG 2.0 发布，引入多子系统（gpg-agent、dirmngr 等）  |
 | 2014 年 | OpenPGP 更新为 RFC 4880bis，GnuPG 不断改进对新算法的支持 |
-
 
 ## 核心作用
 
@@ -49,7 +47,6 @@ tags = ["乱七八糟"]
 | **9. 时间戳与不可篡改日志** | - 结合 GPG 签名与时间戳协议（如 RFC 3161）验证文件/日志未被篡改。 |
 | **10. 去中心化信任与身份管理** | - 使用 Web of Trust 模型构建可信身份网络，用于开源社区签名、Key Signing Party、LDAP 交换等。 |
 
-
 ## 安装 GnuPG
 
 ```bash
@@ -59,9 +56,11 @@ paru -S gnupg
 ## 生成公钥与私钥
 
 使用如下命令：
+
 ```bash
 gpg --full-generate-key
 ```
+
 生成流程：
 
 ```bash
@@ -116,6 +115,7 @@ generator a better chance to gain enough entropy.
 ```
 
 ## 列出密钥
+
 ```bash
 gpg --list-secret-keys --keyid-format long
 ```
@@ -137,6 +137,7 @@ gpg --keyserver hkps://keys.openpgp.org --send-keys <Key‑ID>
 ```
 
 也可以使用如下命令导出公钥为可读 ASCII 格式，类似ssh-keys，随后即可发布在个人博客上等等。
+
 ```bash
 gpg --armor --export <Key‑ID>  > mypubkey.asc
 ```
@@ -148,7 +149,9 @@ gpg --armor --export <Key‑ID>  > mypubkey.asc
 ```bash
 gpg --gen-revoke <KeyID> > revoke.asc
 ```
+
 上传撤销证书后，所有人都能知道该公钥已不再可信。
 
 ---
+
 **Done.**

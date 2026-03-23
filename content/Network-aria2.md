@@ -55,9 +55,10 @@ rpc-secret=<设置一个密码>
 
 随后使用winfet安装servy，servy是一个将任何应用变成原生 Windows 服务的软件，可以让aria2服务开机自启动，类似linux上的systemctl.
 
-```
+```text
 winget install servy
 ```
+
 安装完成后打开管理员权限的powershell，运行以下命令，注意路径要和你实际的路径相同：
 
 ```bash
@@ -83,15 +84,19 @@ servy-cli install `
 Arch linux 和大部分常规发行版可以适用此方法。
 
 首先安装aria2本体:
+
 ```bash
 paru -S aria2
 ```
+
 随后创建配置文件
+
 ```bash
 nano /home/<you-username>/.config/aria2/aria2.conf
 ```
 
 内容为
+
 ```conf
 enable-rpc=true
 rpc-listen-all=true
@@ -103,11 +108,15 @@ input-file=/home/<you-username>/.config/aria2/aria2.session
 save-session=/home/<you-username>/.config/aria2/aria2.session
 save-session-interval=60
 ```
+
 保存退出；随后创建守护进程以便开机自启动：
+
 ```bash
 nano ~/.config/systemd/user/aria2.service
 ```
+
 写入：
+
 ```conf
 [Unit]
 Description=Aria2 Daemon
@@ -122,15 +131,19 @@ WantedBy=default.target
 ```
 
 在更新配置文件和服务文件后，执行以下命令以重启服务：
+
 ```bash
 systemctl --user daemon-reload
 systemctl --user enable aria2.service
 systemctl --user start aria2.service
 ```
+
 使用以下命令检查服务状态:
+
 ```bash
 systemctl --user status aria2.service
 ```
+
 现在可以到本文的末尾安装浏览器插件并连接使用。
 
 ### Nixos
@@ -165,6 +178,7 @@ systemctl --user status aria2.service
   };
 }
 ```
+
 现在可以到本文的末尾安装浏览器插件并连接使用。
 
 ## 命令行用法
@@ -200,6 +214,7 @@ aria2c https://example.com/file1.zip https://example.com/file2.zip
 ```bash
 aria2c -i urls.txt
 ```
+
 （`urls.txt` 每行一个链接）
 
 7. **下载 torrent 文件**
@@ -240,14 +255,15 @@ aria2c --max-upload-limit=50K ubuntu.torrent
 
 如果你不想使用浏览器插件，也可以使用aria2+独立面板的方法，但这样就不能接管浏览器的下载，适合其他环境使用。
 
-这里推荐使用 AriaNg 前端，AriaNg 使用纯 html & javascript 开发, 所以其不需要任何编译器或运行环境. 
+这里推荐使用 AriaNg 前端，AriaNg 使用纯 html & javascript 开发, 所以其不需要任何编译器或运行环境.
 
 ![ariang-1](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
 
-AriaNg 现在提供三种版本, ``标准版、单文件版和 AriaNg Native. ``标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里``建议使用单文件版或者Native版``,下之后打开其中的html并设为书签即可。
+AriaNg 现在提供三种版本, ``标准版、单文件版和 AriaNg Native.``标准版适合在 Web 服务器中部署, 提供资源缓存和按需加载的功能. 单文件版适合本地使用, 您下载后只要在浏览器中打开唯一的 html 文件即可. AriaNg Native 同样适合本地使用, 并且不需要使用浏览器.这里``建议使用单文件版或者Native版``,下之后打开其中的html并设为书签即可。
 
 [单文件版(AllinOne)](https://github.com/mayswind/AriaNg/releases)
 [Native版](https://github.com/mayswind/AriaNg-Native/releases/tag/1.3.10)
 
 ---
+
 **Done.**
