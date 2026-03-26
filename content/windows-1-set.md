@@ -269,6 +269,16 @@ Windows Registry Editor Version 5.00
 "SoftwareOnly"=dword:00000001
 ```
 
+## 解决右下角无法打开
+
+Win+R 后输入 regedit 进入注册表编辑器，找到
+
+```text
+HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\TrayNotify
+```
+
+随后删除 IconStreams 和 PastIconsStream 这两个值,随后重启.
+
 ---
 
 **Done.**
