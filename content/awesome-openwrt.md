@@ -113,9 +113,14 @@ tags = ["综合工程"]
 - 注意初始IP往往是192.168.1.1，如果和光猫冲突需要在网络-接口中更改。
 - 基本系统主题比较简陋，可以使用luci-theme-argon。
 - 刷错主题无法打开luci：通过 SSH 登录路由器，切换到另一个已知正常的主题（例如 Bootstrap）：
-``uci set luci.main.mediaurlbase='/luci-static/bootstrap'
+
+```text
+uci set luci.main.mediaurlbase='/luci-static/bootstrap'
 uci commit luci
-/etc/init.d/uhttpd restart``
+/etc/init.d/uhttpd restart
+/etc/init.d/rpcd restart
+```
+
 然后重新访问 Web 界面，查看是否恢复正常。
 
 ## X86平台本地编译完整openwrt
