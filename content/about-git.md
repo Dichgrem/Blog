@@ -253,7 +253,328 @@ feat:add_highlight
 
 ---
 
-## 7.Tips
+## 7.Git LFS
+
+在实际使用 Git 的过程中，如果仓库中包含大量 **PDF / 视频 / 压缩包 / 模型文件**，会遇到以下问题：
+
+- 仓库体积迅速膨胀
+- `git clone` 速度变慢
+- GitHub 限制单文件大小（100MB）
+
+这时候就需要使用 **Git LFS** 来管理大文件。
+
+### 7.1 Git LFS 是什么？
+
+Git LFS（Large File Storage）的核心思想是：
+
+> **Git 只存“小指针”，大文件存到独立服务器**
+
+例如一个 PDF 文件：
+
+```text
+book.pdf (50MB)
+```
+
+在 Git 中实际保存的是：
+
+```text
+version https://git-lfs.github.com/spec/v1
+oid sha256:xxxx
+size 52428800
+```
+
+- Git 仓库：只保存 pointer（几 KB）
+- LFS 服务器：保存真实文件
+
+这样可以显著减小仓库体积。
+
+### 7.2 安装 Git LFS
+
+```bash
+git lfs install
+```
+
+Linux：
+
+```bash
+# Ubuntu
+sudo apt install git-lfs
+
+# Arch
+sudo pacman -S git-lfs
+```
+
+### 7.3 跟踪大文件类型
+
+例如让 Git LFS 管理 PDF：
+
+```bash
+git lfs track "*.pdf"
+```
+
+执行后会生成 `.gitattributes` 文件：
+
+```text
+*.pdf filter=lfs diff=lfs merge=lfs -text
+```
+
+提交该文件：
+
+```bash
+git add .gitattributes
+git commit -m "chore: enable git lfs"
+```
+
+### 7.4 正常使用（透明替换）
+
+之后你的操作和普通 Git 完全一样：
+
+```bash
+git add file.pdf
+git commit -m "add pdf"
+git push
+```
+
+Git 会自动：
+
+1. 上传文件到 LFS 服务器
+2. 在 Git 中保存指针
+
+### 7.5 查看 LFS 文件
+
+```bash
+git lfs ls-files
+```
+
+git push origin main --force
+
+### 7.6 拉取 LFS 文件
+
+```bash
+git lfs pull
+```
+
+git push origin main --force
+
+### 7.7 迁移已有仓库（重要）
+
+如果你的仓库**已经提交了大文件（比如 PDF）**，需要迁移：
+
+```bash
+git lfs migrate import --include="*.pdf"
+```
+
+⚠️ 注意：
+
+- 会**重写 Git 历史**
+- 需要强制推送：
+
+```bash
+git push origin main --force
+```
+
+### 7.8 克隆优化（跳过大文件）
+
+如果只想先下载代码：
+
+```bash
+GIT_LFS_SKIP_SMUDGE=1 git clone <repo>
+```
+
+之后再手动下载：
+
+```bash
+git lfs pull
+```
+
+### 7.9 常用命令总结
+
+```bash
+# 初始化
+git lfs install
+
+# 跟踪文件类型
+git lfs track "*.pdf"
+
+# 查看跟踪规则
+git lfs track
+
+# 查看 LFS 文件
+git lfs ls-files
+
+# 拉取大文件
+git lfs pull
+
+# 迁移历史文件
+git lfs migrate import --include="*.pdf"
+
+# 清理未使用文件
+git lfs prune
+```
+
+### 7.10 注意事项
+
+- GitHub 免费额度有限（约 1GB 存储 / 月流量）
+- LFS 文件依赖远程服务器，离线不可用
+- 历史迁移会影响协作（需要重新 clone）
+
+## 8.Git submodule
+
+在实际开发中，有时候我们希望在一个仓库中**引用另一个仓库**，比如：
+
+- 引入第三方项目代码
+- 拆分大型项目
+- 管理独立的文档/资料库
+
+这时可以使用 **Git Submodule（子仓库）**。
+
+### 8.1 什么是 Submodule？
+
+Submodule 的核心思想是：
+
+> **在一个 Git 仓库中“嵌入”另一个仓库，但只记录其某个版本（commit）**
+
+主仓库不会存子仓库的代码,只记录：子仓库地址（URL）和 子仓库的某个 commit
+
+### 8.2 添加子仓库
+
+```bash
+git submodule add <仓库地址> <目录>
+```
+
+示例：
+
+```bash
+git submodule add https://github.com/example/repo.git external/repo
+```
+
+执行后会发生：
+
+1. 克隆子仓库到指定目录
+2. 生成 `.gitmodules` 文件
+3. 主仓库记录该子仓库的版本
+
+`.gitmodules` 示例：
+
+```ini
+[submodule "external/repo"]
+    path = external/repo
+    url = https://github.com/example/repo.git
+```
+
+提交更改：
+
+```bash
+git add .gitmodules external/repo
+git commit -m "feat: add submodule"
+```
+
+### 8.3 clone 时包含子仓库
+
+```bash
+git clone --recurse-submodules <repo>
+```
+
+如果忘了带参数，可以在clone后再执行：
+
+```bash
+git submodule update --init --recursive
+```
+
+### 8.4 更新子仓库
+
+- 方法一：进入子仓库更新
+
+```bash
+cd external/repo
+git pull
+cd ..
+git add external/repo
+git commit -m "update: submodule"
+```
+
+- 方法二：统一更新
+
+```bash
+git submodule update --remote
+```
+
+### 8.5 查看子仓库状态
+
+```bash
+git submodule status
+```
+
+### 8.6 删除子仓库
+
+不能直接删除目录，正确步骤：
+
+```bash
+git submodule deinit -f external/repo
+git rm -f external/repo
+rm -rf .git/modules/external/repo
+```
+
+### 8.7 常用命令总结
+
+```bash
+# 添加子仓库
+git submodule add <url> <path>
+
+# 初始化子仓库
+git submodule init
+
+# 更新子仓库
+git submodule update
+
+# clone 时带子仓库
+git clone --recurse-submodules <repo>
+
+# 初始化 + 更新（常用）
+git submodule update --init --recursive
+
+# 更新到远程最新
+git submodule update --remote
+
+# 查看状态
+git submodule status
+```
+
+### 8.8 常见问题
+
+- 子仓库是“detached HEAD”
+
+```bash
+cd external/repo
+git status
+```
+
+显示：
+
+```text
+HEAD detached at xxxx
+```
+
+属于正常现象（因为固定在某个 commit）
+
+- 修改子仓库后未生效
+
+需要回到主仓库提交：
+
+```bash
+git add submodule_path
+git commit
+```
+
+- clone 后子仓库为空
+
+需要执行：
+
+```bash
+git submodule update --init --recursive
+```
+
+## 9.Tips
 
 ### Verified
 
@@ -334,7 +655,7 @@ git reset --soft HEAD~1
 git reset --hard HEAD~1
 ```
 
-### 教学复习
+## 10.教学复习
 
 ```text
 0. 如何配置Git？
