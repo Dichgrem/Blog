@@ -162,7 +162,7 @@ conda remove -n target_env_name package_name
 
 - 删除conda
 
-```
+```text
 rm -rf ~/miniconda3
 rm -rf ~/.conda
 rm -rf ~/.condarc
