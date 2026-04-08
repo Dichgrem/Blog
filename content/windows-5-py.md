@@ -160,12 +160,13 @@ conda remove scrapy
 conda remove -n target_env_name package_name
 ```
 
-- 更多命令请查看官方文档或者查询帮助命令：
+- 删除conda
 
-```bash
-conda --help
-
-conda install --help
+```
+rm -rf ~/miniconda3
+rm -rf ~/.conda
+rm -rf ~/.condarc
+rm -rf ~/.continuum
 ```
 
 ## Jupyter使用
