@@ -2,14 +2,24 @@ html {
     scroll-behavior: smooth;
 }
 
+.page-with-toc {
+    display: block;
+    max-width: 54rem;
+    margin: 0 auto;
+}
+
+.post {
+    width: 100%;
+    max-width: 100% !important;
+}
+
 .toc-container {
+    width: 15.625rem;
     position: fixed;
-    right: 150px;
-    top: 180px;
-    width: 250px;
-    max-height: calc(100vh - 200px);
+    right: 2rem;
+    top: 11.25rem;
+    max-height: calc(100vh - 12.5rem);
     overflow-y: auto;
-    z-index: 10;
     display: none;
     
     @media (min-width: 1400px) {
