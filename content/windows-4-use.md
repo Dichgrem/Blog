@@ -266,6 +266,12 @@ winget install ajeetdsouza.zoxide
 zoxide --version
 ```
 
+* 安装字体
+
+```bash
+oh-my-posh font install
+```
+
 * 导入模块
 
 ```bash
