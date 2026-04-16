@@ -270,7 +270,10 @@ zoxide --version
 
 ```bash
 oh-my-posh font install
+# 可以选择 Meslo
 ```
+
+安装完成后即可以在``Windows Terminal``-->``PowerShell 配置文件``-->``外观``-->``字体``中设置.
 
 * 导入模块
 
