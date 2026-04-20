@@ -279,6 +279,13 @@ HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Cur
 
 随后删除 IconStreams 和 PastIconsStream 这两个值,随后重启.
 
+## 解决winget过于老旧
+
+在这个项目[winget-cli](https://github.com/microsoft/winget-cli)中下载Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle，随后在PowerShell中使用如下命令安装：
+```
+Add-AppxPackage -Path <你的路径>\Microsoft.DesktopAppInstaller_*.msixbundle -ForceApplicationShutdown
+```
+
 ---
 
 **Done.**
