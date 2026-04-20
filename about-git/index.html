@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-git/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-git/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li class="active"><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-git/">乱七八糟:Git使用简明手册</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-12-15
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+            <div class="post-content">
+            <p>前言 Git，作为现代软件开发中不可或缺的版本控制工具，常常让初学者感到困惑。本文旨在介绍 Git 的全流程安装和基本使用，希望能够帮助新手更轻松地理解和掌握 Git 的基本概念和操作。</p>
+<span id="continue-reading"></span>
+<p>我们以Github为例子过一遍Git的安装/配置/连接和第一次提交.</p>
+<h2 id="1-an-zhuang-git">1.安装Git</h2>
+<ul>
+<li>
+<p>Windows：官网下载<a rel="noopener nofollow noreferrer external" target="_blank" href="https://git-scm.com/download/">Git-download</a>或者使用Scoop/WinGet等等.</p>
+</li>
+<li>
+<p>Linux：Ubuntu:<code>sudo apt install git</code> / Arch:<code>sudo pacman -S git</code></p>
+</li>
+</ul>
+<p>安装完成后可以在终端中检测版本：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>❯ git -v</span></span>
+<span class="giallo-l"><span>git version 2.51.2</span></span></code></pre><h2 id="2-chuang-jian-mi-yao">2.创建密钥</h2>
+<p>在推送代码到Github的时候，我们需要进行认证，有密码认证和密钥认证两种方法，现在推荐使用密钥认证。</p>
+<ul>
+<li>首先生成一对公私钥，这里的邮箱可以随意填写：</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">ssh-keygen</span><span style="color: #E0AF68;"> -t</span><span style="color: #9ECE6A;"> rsa</span><span style="color: #E0AF68;"> -b</span><span style="color: #FF9E64;"> 4096</span><span style="color: #E0AF68;"> -C</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">your_email@example.com</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<p>你会看到如下所示的提示,像我一样填写路径的时候就可以顺便给它改个名字，否则会使用默认名id_rsa:</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>❯ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span></span>
+<span class="giallo-l"><span>Generating public/private rsa key pair.</span></span>
+<span class="giallo-l"><span>Enter file in which to save the key (/home/dich/.ssh/id_rsa): /home/dich/.ssh/Github</span></span></code></pre>
+<blockquote>
+<p>Windows 需要在设置-系统-功能中开启OpenSSH才能使用该命令.</p>
+</blockquote>
+<p>随后一直按回车即可.</p>
+<ul>
+<li>生成的这对公私钥位于<code>~/.ssh/config</code>路径下，在Windows中就是<code>C盘/User/你的用户名</code>下，带.pub后缀的文件为公钥，不带.pub后缀的为私钥,打开公钥复制全部内容，然后将公钥添加到Github的<code>Settings-SSH and GPG keys</code>中。</li>
+</ul>
+<blockquote>
+<p>当你添加完毕后就无法在Github的设置中再次查看它了，确保了安全性.</p>
+</blockquote>
+<ul>
+<li>随后编辑 <code>~/.ssh/config</code> 文件，这个文件的作用是让Git知道主机对应的密钥，例如：</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># GitHub</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Host</span><span style="color: #9ECE6A;"> github github.com</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">    HostName</span><span style="color: #9ECE6A;"> github.com</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">    User</span><span style="color: #9ECE6A;"> git</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">    IdentityFile</span><span style="color: #9ECE6A;"> ~/.ssh/github</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Gitee</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Host</span><span style="color: #9ECE6A;"> gitee gitee.com</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">    HostName</span><span style="color: #9ECE6A;"> gitee.com</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">    User</span><span style="color: #9ECE6A;"> git</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">    IdentityFile</span><span style="color: #9ECE6A;"> ~/.ssh/gitee</span></span></code></pre>
+<blockquote>
+<p>这边的IdentityFile是你的私钥位置，即为不带pub后缀的文件。如果你不想将私钥放在~/.ssh/下，可以查看我的另一篇<a rel="noopener nofollow noreferrer external" target="_blank" href="https://blog.dich.bid/network-ssh/">博客</a></p>
+</blockquote>
+<ul>
+<li>设置好上面这些后就可以测试连接到Github,如果成功则显示successfully.</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> ssh</span><span style="color: #E0AF68;"> -T</span><span style="color: #9ECE6A;"> git@github.com</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Hi</span><span style="color: #9ECE6A;"> Dichgrem! You</span><span style="color: #89DDFF;">&#39;</span><span style="color: #9ECE6A;">ve successfully authenticated, but GitHub does not provide shell access.</span></span></code></pre><h2 id="3-pei-zhi-git">3.配置Git</h2>
+<p>在正式连接到仓库前，我们还需要让Git知道我们的用户名和邮箱地址。</p>
+<ul>
+<li>显示当前的Git配置</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --list</span></span></code></pre>
+<ul>
+<li>设置提交代码时的用户信息,这里的name推荐和你的GitHub用户名一致，邮箱可以不为真实邮箱，比如<code>no-reply@github.com</code></li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> user.name</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">[name]</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> user.email</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">[email address]</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<blockquote>
+<p>注意！如果你填写了你的真实邮箱，同时这个仓库又是Public的，那么其他人可以看到你的邮箱！</p>
+</blockquote>
+<ul>
+<li>配置默认主分支为Main</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> init.defaultBranch main</span></span></code></pre>
+<p>这里的设置是因为Git目前默认的主分支名为 master ，而 Github 默认分支名为 main ，这样可以保持一致。</p>
+<h2 id="4-chuang-jian-cang-ku">4.创建仓库</h2>
+<p>配置完Git之后我们就可以连接到远程的仓库了。首先创建一个Git仓库，一般有两种方法：</p>
+<ul>
+<li>方法一(推荐)在远程创建后下载到本地</li>
+</ul>
+<p>我们在Github中的<code>repositories</code>下New一个仓库，然后在绿色的Code按钮中复制链接，克隆远端服务器上的仓库；</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>git clone git@github.com:Dichgrem/script.git</span></span></code></pre>
+<blockquote>
+<p>如果你前面没有配置密钥，就会发现无法使用这个命令克隆仓库。那么什么时候使用HTTPS的克隆呢？比如其他人的仓库，你没有权限，又不想fork一份的情况下，就可以使用HTTPS.</p>
+</blockquote>
+<ul>
+<li>方法二:在本地初始化之后连接到远程</li>
+</ul>
+<p>创建一个新文件夹，然后在那个文件夹下运行以下命令：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> init</span><span style="color: #E0AF68;"> --initial-branch=main</span></span></code></pre>
+<ul>
+<li>在Github上创建一个同名仓库，随后添加远程链接：</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> remote add origin</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">remote_repository_ur</span><span>l</span><span style="color: #89DDFF;">&gt;</span></span></code></pre>
+<blockquote>
+<p>如果你运行<code>git remote -v</code>发现URL为HTTP格式则可以用下面的命令改为Git格式：</p>
+</blockquote>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 例如：git remote set-url origin git@github.com:Dichgrem/dichos.git</span></span></code></pre><h2 id="4-tui-song-dai-ma">4.推送代码</h2>
+<ul>
+<li>添加</li>
+</ul>
+<p>在Git仓库中新建或修改文件后，使用如下命令把它们添加到暂存区：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add</span><span style="color: #F7768E;"> *</span></span></code></pre>
+<ul>
+<li>提交</li>
+</ul>
+<p>随后使用如下命令提交改动：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">代码提交信息</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 例如：git commit -m &quot;update:mycode&quot;</span></span></code></pre>
+<p>现在，你的改动已经提交到了 <strong>HEAD</strong>，但是还没到你的远端仓库。</p>
+<ul>
+<li>推送改动</li>
+</ul>
+<p>执行如下命令以将这些改动提交到远端仓库,随后即可在GitHub上查看；</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> push origin main</span></span></code></pre>
+<blockquote>
+<p>想学习更多Git操作，可以使用这个<a rel="noopener nofollow noreferrer external" target="_blank" href="https://learngitbranching.js.org/?locale=zh_CN">Git练习网站</a></p>
+</blockquote>
+<h2 id="5-commitgui-fan">5.Commit规范</h2>
+<ul>
+<li>提交信息的基本格式,例如</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>feat:add_highlight</span></span></code></pre>
+<ul>
+<li>常见的 Commit 类型</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> feat：新功能的添加</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> fix：修复 Bug</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> docs：文档相关的修改</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> style：代码格式、排版等不影响代码逻辑的调整</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> refactor：代码重构，不涉及新功能或 Bug 修复</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> perf：性能优化</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> test：添加或修改测试代码</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> build：构建相关的变更，如依赖管理、构建脚本等</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> ci：持续集成相关的修改</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> chore：其他杂项维护，不涉及源代码或测试文件的修改</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">-</span><span style="color: #9ECE6A;"> revert：回滚到上一个版本的提交</span></span></code></pre><h2 id="6-gityuan-li">6.Git原理</h2>
+<ul>
+<li>三棵树</li>
+</ul>
+<p>一个Git仓库的目录里面包括<code>工作目录</code>（即我们要追踪的代码）以及<code>.git</code>目录（Git 在这里存储自己的数据）。Git 维护了三棵“树”:第一个是你的 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
+<p><img src="http://marklodato.github.io/visual-git-guide/basic-usage.svg.png" alt="git-tree" /></p>
+<ul>
+<li><code>.git</code> 目录结构</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">.git/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> HEAD</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> config</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> description</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> hooks/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> index</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> info/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   └── exclude</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> logs/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   ├── HEAD</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   └── refs/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> objects/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   ├── info/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   └── pack/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">├──</span><span style="color: #9ECE6A;"> refs/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   ├── heads/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   ├── remotes/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">│</span><span style="color: #9ECE6A;">   └── tags/</span></span></code></pre>
+<ul>
+<li>objects：存储 Git 的所有对象，包括：
+<ul>
+<li>blob：文件内容</li>
+<li>tree：目录结构</li>
+<li>commit：提交对象，记录提交信息和指向的树对象</li>
+<li>tag：标签对象
+这些对象以 SHA-1 哈希命名，前两位作为子目录，其余作为文件名</li>
+</ul>
+</li>
+<li>refs：存储所有引用，包括：
+<ul>
+<li>heads：本地分支</li>
+<li>remotes：远程分支</li>
+<li>tags：标签</li>
+</ul>
+</li>
+<li>HEAD：指向当前检出的分支或提交。例如，<code>ref: refs/heads/main</code> 表示当前位于 <code>main</code> 分支</li>
+<li>config：仓库级别的配置文件，包含用户名、邮箱、远程仓库等信息</li>
+<li>description：用于描述仓库，仅供 GitWeb 等工具使用</li>
+<li>hooks：存放 Git 钩子脚本的目录，可用于在特定操作前后执行自定义脚本，如 <code>pre-commit</code>、<code>post-merge</code> 等</li>
+<li>index：暂存区（staging area）的索引文件，记录了即将提交的文件信息</li>
+<li>info：包含辅助信息，如 <code>exclude</code> 文件用于定义仓库级别的忽略规则</li>
+<li>logs：记录了引用（如分支、标签）的更新历史，有助于追踪操作记录</li>
+</ul>
+<hr />
+<h2 id="7-git-lfs">7.Git LFS</h2>
+<p>在实际使用 Git 的过程中，如果仓库中包含大量 <strong>PDF / 视频 / 压缩包 / 模型文件</strong>，会遇到以下问题：</p>
+<ul>
+<li>仓库体积迅速膨胀</li>
+<li><code>git clone</code> 速度变慢</li>
+<li>GitHub 限制单文件大小（100MB）</li>
+</ul>
+<p>这时候就需要使用 <strong>Git LFS</strong> 来管理大文件。</p>
+<h3 id="7-1-git-lfs-shi-shen-me">7.1 Git LFS 是什么？</h3>
+<p>Git LFS（Large File Storage）的核心思想是：</p>
+<blockquote>
+<p><strong>Git 只存“小指针”，大文件存到独立服务器</strong></p>
+</blockquote>
+<p>例如一个 PDF 文件：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>book.pdf (50MB)</span></span></code></pre>
+<p>在 Git 中实际保存的是：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>version https://git-lfs.github.com/spec/v1</span></span>
+<span class="giallo-l"><span>oid sha256:xxxx</span></span>
+<span class="giallo-l"><span>size 52428800</span></span></code></pre>
+<ul>
+<li>Git 仓库：只保存 pointer（几 KB）</li>
+<li>LFS 服务器：保存真实文件</li>
+</ul>
+<p>这样可以显著减小仓库体积。</p>
+<h3 id="7-2-an-zhuang-git-lfs">7.2 安装 Git LFS</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs install</span></span></code></pre>
+<p>Linux：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Ubuntu</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> apt install git-lfs</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Arch</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> pacman</span><span style="color: #E0AF68;"> -S</span><span style="color: #9ECE6A;"> git-lfs</span></span></code></pre><h3 id="7-3-gen-zong-da-wen-jian-lei-xing">7.3 跟踪大文件类型</h3>
+<p>例如让 Git LFS 管理 PDF：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs track</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">*.pdf</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<p>执行后会生成 <code>.gitattributes</code> 文件：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>*.pdf filter=lfs diff=lfs merge=lfs -text</span></span></code></pre>
+<p>提交该文件：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add .gitattributes</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">chore: enable git lfs</span><span style="color: #89DDFF;">&quot;</span></span></code></pre><h3 id="7-4-zheng-chang-shi-yong-tou-ming-ti-huan">7.4 正常使用（透明替换）</h3>
+<p>之后你的操作和普通 Git 完全一样：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add file.pdf</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">add pdf</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> push</span></span></code></pre>
+<p>Git 会自动：</p>
+<ol>
+<li>上传文件到 LFS 服务器</li>
+<li>在 Git 中保存指针</li>
+</ol>
+<h3 id="7-5-cha-kan-lfs-wen-jian">7.5 查看 LFS 文件</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs ls-files</span></span></code></pre>
+<p>git push origin main --force</p>
+<h3 id="7-6-la-qu-lfs-wen-jian">7.6 拉取 LFS 文件</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs pull</span></span></code></pre>
+<p>git push origin main --force</p>
+<h3 id="7-7-qian-yi-yi-you-cang-ku-zhong-yao">7.7 迁移已有仓库（重要）</h3>
+<p>如果你的仓库<strong>已经提交了大文件（比如 PDF）</strong>，需要迁移：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs migrate import</span><span style="color: #E0AF68;"> --include=</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ECE6A;">*.pdf</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<p>⚠️ 注意：</p>
+<ul>
+<li>会<strong>重写 Git 历史</strong></li>
+<li>需要强制推送：</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> push origin main</span><span style="color: #E0AF68;"> --force</span></span></code></pre><h3 id="7-8-ke-long-you-hua-tiao-guo-da-wen-jian">7.8 克隆优化（跳过大文件）</h3>
+<p>如果只想先下载代码：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">GIT_LFS_SKIP_SMUDGE</span><span style="color: #89DDFF;">=</span><span style="color: #9ECE6A;">1</span><span style="color: #C0CAF5;"> git</span><span style="color: #9ECE6A;"> clone</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">rep</span><span>o</span><span style="color: #89DDFF;">&gt;</span></span></code></pre>
+<p>之后再手动下载：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs pull</span></span></code></pre><h3 id="7-9-chang-yong-ming-ling-zong-jie">7.9 常用命令总结</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 初始化</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs install</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 跟踪文件类型</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs track</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">*.pdf</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 查看跟踪规则</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs track</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 查看 LFS 文件</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs ls-files</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 拉取大文件</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs pull</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 迁移历史文件</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs migrate import</span><span style="color: #E0AF68;"> --include=</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ECE6A;">*.pdf</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 清理未使用文件</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> lfs prune</span></span></code></pre><h3 id="7-10-zhu-yi-shi-xiang">7.10 注意事项</h3>
+<ul>
+<li>GitHub 免费额度有限（约 1GB 存储 / 月流量）</li>
+<li>LFS 文件依赖远程服务器，离线不可用</li>
+<li>历史迁移会影响协作（需要重新 clone）</li>
+</ul>
+<h2 id="8-git-submodule">8.Git submodule</h2>
+<p>在实际开发中，有时候我们希望在一个仓库中<strong>引用另一个仓库</strong>，比如：</p>
+<ul>
+<li>引入第三方项目代码</li>
+<li>拆分大型项目</li>
+<li>管理独立的文档/资料库</li>
+</ul>
+<p>这时可以使用 <strong>Git Submodule（子仓库）</strong>。</p>
+<h3 id="8-1-shen-me-shi-submodule">8.1 什么是 Submodule？</h3>
+<p>Submodule 的核心思想是：</p>
+<blockquote>
+<p><strong>在一个 Git 仓库中“嵌入”另一个仓库，但只记录其某个版本（commit）</strong></p>
+</blockquote>
+<p>主仓库不会存子仓库的代码,只记录：子仓库地址（URL）和 子仓库的某个 commit</p>
+<h3 id="8-2-tian-jia-zi-cang-ku">8.2 添加子仓库</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule add</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">仓库地</span><span>址</span><span style="color: #89DDFF;">&gt; &lt;</span><span style="color: #9ECE6A;">目</span><span>录</span><span style="color: #89DDFF;">&gt;</span></span></code></pre>
+<p>示例：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule add https://github.com/example/repo.git external/repo</span></span></code></pre>
+<p>执行后会发生：</p>
+<ol>
+<li>克隆子仓库到指定目录</li>
+<li>生成 <code>.gitmodules</code> 文件</li>
+<li>主仓库记录该子仓库的版本</li>
+</ol>
+<p><code>.gitmodules</code> 示例：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="ini"><span class="giallo-l"><span style="color: #89DDFF;">[</span><span style="color: #C0CAF5;">submodule &quot;external/repo&quot;</span><span style="color: #89DDFF;">]</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    path =</span><span> external/repo</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    url =</span><span> https://github.com/example/repo.git</span></span></code></pre>
+<p>提交更改：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add .gitmodules external/repo</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">feat: add submodule</span><span style="color: #89DDFF;">&quot;</span></span></code></pre><h3 id="8-3-clone-shi-bao-han-zi-cang-ku">8.3 clone 时包含子仓库</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> clone</span><span style="color: #E0AF68;"> --recurse-submodules</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">rep</span><span>o</span><span style="color: #89DDFF;">&gt;</span></span></code></pre>
+<p>如果忘了带参数，可以在clone后再执行：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule update</span><span style="color: #E0AF68;"> --init --recursive</span></span></code></pre><h3 id="8-4-geng-xin-zi-cang-ku">8.4 更新子仓库</h3>
+<ul>
+<li>方法一：进入子仓库更新</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #0DB9D7;">cd</span><span style="color: #9ECE6A;"> external/repo</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> pull</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">cd</span><span style="color: #9ECE6A;"> ..</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add external/repo</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">update: submodule</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<ul>
+<li>方法二：统一更新</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule update</span><span style="color: #E0AF68;"> --remote</span></span></code></pre><h3 id="8-5-cha-kan-zi-cang-ku-zhuang-tai">8.5 查看子仓库状态</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule status</span></span></code></pre><h3 id="8-6-shan-chu-zi-cang-ku">8.6 删除子仓库</h3>
+<p>不能直接删除目录，正确步骤：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule deinit</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> external/repo</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> rm</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> external/repo</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">rm</span><span style="color: #E0AF68;"> -rf</span><span style="color: #9ECE6A;"> .git/modules/external/repo</span></span></code></pre><h3 id="8-7-chang-yong-ming-ling-zong-jie">8.7 常用命令总结</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 添加子仓库</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule add</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">ur</span><span>l</span><span style="color: #89DDFF;">&gt; &lt;</span><span style="color: #9ECE6A;">pat</span><span>h</span><span style="color: #89DDFF;">&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 初始化子仓库</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule init</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 更新子仓库</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule update</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># clone 时带子仓库</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> clone</span><span style="color: #E0AF68;"> --recurse-submodules</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">rep</span><span>o</span><span style="color: #89DDFF;">&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 初始化 + 更新（常用）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule update</span><span style="color: #E0AF68;"> --init --recursive</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 更新到远程最新</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule update</span><span style="color: #E0AF68;"> --remote</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 查看状态</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule status</span></span></code></pre><h3 id="8-8-chang-jian-wen-ti">8.8 常见问题</h3>
+<ul>
+<li>子仓库是“detached HEAD”</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #0DB9D7;">cd</span><span style="color: #9ECE6A;"> external/repo</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> status</span></span></code></pre>
+<p>显示：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>HEAD detached at xxxx</span></span></code></pre>
+<p>属于正常现象（因为固定在某个 commit）</p>
+<ul>
+<li>修改子仓库后未生效</li>
+</ul>
+<p>需要回到主仓库提交：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add submodule_path</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span></span></code></pre>
+<ul>
+<li>clone 后子仓库为空</li>
+</ul>
+<p>需要执行：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> submodule update</span><span style="color: #E0AF68;"> --init --recursive</span></span></code></pre><h2 id="9-tips">9.Tips</h2>
+<h3 id="verified">Verified</h3>
+<p>在 GitHub 的 commit 历史中看到的 “Verified” 标记，表示该提交是经过 签名验证（signed commit） 的，也就是 GitHub 能确认这个 commit 的确是由声明的提交者（你）签名并发布的。可以通过GPG或者SSH配置：</p>
+<ul>
+<li>GPG方式</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> pacman</span><span style="color: #E0AF68;"> -S</span><span style="color: #9ECE6A;"> gnupg //安装 GPG</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">gpg</span><span style="color: #E0AF68;"> --full-generate-key</span><span style="color: #9ECE6A;"> //生成 GPG 密钥</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">gpg</span><span style="color: #E0AF68;"> --list-secret-keys --keyid-format=long</span><span style="color: #9ECE6A;"> //查看你生成的密钥 ID</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> user.signingkey ABCDEF1234567890  //让 Git 使用该密钥签名</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> commit.gpgsign</span><span style="color: #FF9E64;"> true</span><span style="color: #9ECE6A;"> //启用自动签名所有提交</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">gpg</span><span style="color: #E0AF68;"> --armor --export</span><span style="color: #9ECE6A;"> ABCDEF1234567890 //导出公钥并添加到 GitHub</span></span></code></pre>
+<p>然后前往<code>GitHub → Settings → SSH and GPG keys → New GPG key</code>粘贴并保存。</p>
+<ul>
+<li>SSH方式</li>
+</ul>
+<p>可以用你平时登录 GitHub 的同一个 SSH 密钥：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> gpg.format ssh //让 Git 使用 SSH 格式签名</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> user.signingkey ~/.ssh/Github.pub //指定使用的 SSH 公钥</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> commit.gpgsign</span><span style="color: #FF9E64;"> true</span><span style="color: #9ECE6A;">  //表示自动签名所有提交</span></span></code></pre>
+<p>然后前往<code>Settings → SSH and GPG keys → New SSH key → Signing key</code>粘贴并保存。</p>
+<ul>
+<li>本地查看</li>
+</ul>
+<p>首先创建这个文件：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">mkdir</span><span style="color: #E0AF68;"> -p</span><span style="color: #9ECE6A;"> ~/.ssh</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nano</span><span style="color: #9ECE6A;"> ~/.ssh/allowed_signers</span></span></code></pre>
+<p>写入你的 <code>test@mail.com ssh-ed25519 AAAABBBBBBBBBBBBBBBBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code>并保存。
+随后配置Git信任该文件：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> config</span><span style="color: #E0AF68;"> --global</span><span style="color: #9ECE6A;"> gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers</span></span></code></pre>
+<p>随后使用<code>git log --show-signature</code>即可查看本地log中的</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">Good</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">git</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ECE6A;"> signature for test@mail.com with ED25519 key SHA256:ssh-ed25519 AAAABBBBBBBBBBBBBBBBBBBBB</span></span></code></pre><h3 id="sheng-cheng-bu-ding">生成补丁</h3>
+<p>比如你修改了项目中的<code>fs/proc/base.c</code>，然后</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add fs/proc/base.c</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">fix:base</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> format-patch origin/16.0</span></span></code></pre>
+<p>即可在目录下生成补丁<code>0001-fix-base.patch</code>.</p>
+<h3 id="shan-chu-qian-yi-ge-ti-jiao-ji-lu">删除前一个提交记录</h3>
+<p>有时候手滑或者不想使用一个commit说明，可以用以下命令撤销上一个 commit：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> reset</span><span style="color: #E0AF68;"> --soft</span><span style="color: #9ECE6A;"> HEAD~1</span></span></code></pre>
+<p>这个命令会撤销上一个 commit，但保留文件修改（代码仍然在工作区）。适用于 想要重新提交（amend）或调整 commit 的情况。</p>
+<p>如果你想彻底删除更改（不保留代码修改），可以使用：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> reset</span><span style="color: #E0AF68;"> --hard</span><span style="color: #9ECE6A;"> HEAD~1</span></span></code></pre><h2 id="10-jiao-xue-fu-xi">10.教学复习</h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>0. 如何配置Git？</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>1. 为什么Git协作的时候往往是fork别人的仓库？能不能直接在原仓库里面修改？</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>2. fork完如何修改并提交更改？</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>3. git clone 的 http 链接和 git 链接有什么不同？</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>4. 如何将修改合并到原仓库？</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>5. 如何合并发PR？</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>6. 如何查看状态和日志</span></span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+            
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-junk-cleanup/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:垃圾清理的艺术</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-isps/">
+                            <span class="button__text">网络艺术:国内&#x2F;国际骨干ISP线路整理</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                
+                    <li class="toc-level-2">
+                        <a href="#1-an-zhuang-git">1.安装Git</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#2-chuang-jian-mi-yao">2.创建密钥</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#3-pei-zhi-git">3.配置Git</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#4-chuang-jian-cang-ku">4.创建仓库</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#4-tui-song-dai-ma">4.推送代码</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#5-commitgui-fan">5.Commit规范</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#6-gityuan-li">6.Git原理</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#7-git-lfs">7.Git LFS</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-1-git-lfs-shi-shen-me">7.1 Git LFS 是什么？</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-2-an-zhuang-git-lfs">7.2 安装 Git LFS</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-3-gen-zong-da-wen-jian-lei-xing">7.3 跟踪大文件类型</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-4-zheng-chang-shi-yong-tou-ming-ti-huan">7.4 正常使用（透明替换）</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-5-cha-kan-lfs-wen-jian">7.5 查看 LFS 文件</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-6-la-qu-lfs-wen-jian">7.6 拉取 LFS 文件</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-7-qian-yi-yi-you-cang-ku-zhong-yao">7.7 迁移已有仓库（重要）</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-8-ke-long-you-hua-tiao-guo-da-wen-jian">7.8 克隆优化（跳过大文件）</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-9-chang-yong-ming-ling-zong-jie">7.9 常用命令总结</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-10-zhu-yi-shi-xiang">7.10 注意事项</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#8-git-submodule">8.Git submodule</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-1-shen-me-shi-submodule">8.1 什么是 Submodule？</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-2-tian-jia-zi-cang-ku">8.2 添加子仓库</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-3-clone-shi-bao-han-zi-cang-ku">8.3 clone 时包含子仓库</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-4-geng-xin-zi-cang-ku">8.4 更新子仓库</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-5-cha-kan-zi-cang-ku-zhuang-tai">8.5 查看子仓库状态</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-6-shan-chu-zi-cang-ku">8.6 删除子仓库</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-7-chang-yong-ming-ling-zong-jie">8.7 常用命令总结</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-8-chang-jian-wen-ti">8.8 常见问题</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#9-tips">9.Tips</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#verified">Verified</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#sheng-cheng-bu-ding">生成补丁</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#shan-chu-qian-yi-ge-ti-jiao-ji-lu">删除前一个提交记录</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#10-jiao-xue-fu-xi">10.教学复习</a>
+                        
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+

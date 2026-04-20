@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/linux-2-stm32/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/linux-2-stm32/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            
+    <h1 class="post-title"><a href="https://blog.dich.bid/linux-2-stm32/">Linux-STM32开发环境部署</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-07-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+            <div class="post-content">
+            <p>前言 本文以星火一号开发板为例记录STM32命令行开发环境在Linux上的部署，用以替代Windows上的RT-Thread-studio。RT-Thread开源，但RT-Thread-studio不是开源
+软件。</p>
+<span id="continue-reading"></span><h1 id="windowsfang-an">Windows方案</h1>
+<blockquote>
+<p>该方案使用<code>scons+gcc-arm-none-eabi+openocd</code>,可以和Vscode等等配合使用.</p>
+</blockquote>
+<h2 id="la-qu-yuan-ma">拉取源码</h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">https://github.com/Dichgrem/sdk-bsp-stm32f407-spark-template.git</span></span></code></pre><h2 id="an-zhuang-yi-lai">安装依赖</h2>
+<ul>
+<li>安装 Scons 构建工具</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>pip install scons</span></span></code></pre>
+<ul>
+<li>安装 gcc-arm-none-eabi 工具链</li>
+</ul>
+<p>在<a rel="noopener nofollow noreferrer external" target="_blank" href="https://developer.arm.com/downloads/-/gnu-rm">官网</a> 下载<code>gcc-arm-none-eabi-10.3-2021.10-win32.exe</code>,安装后使用以下命令设置环境变量</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="powershell"><span class="giallo-l"><span style="color: #C0CAF5;">$env:RTT_EXEC_PATH</span><span style="color: #89DDFF;">=&quot;</span><span style="color: #9ECE6A;">C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\bin</span><span style="color: #89DDFF;">&quot;</span></span></code></pre><pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="powershell"><span class="giallo-l"><span style="color: #C0CAF5;">$path</span><span style="color: #89DDFF;"> =</span><span style="color: #9ABDF5;"> [</span><span style="color: #BB9AF7;">Environment</span><span style="color: #9ABDF5;">]</span><span>::GetEnvironmentVariable</span><span style="color: #9ABDF5;">(</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ECE6A;">Path</span><span style="color: #89DDFF;">&quot;, &quot;</span><span style="color: #9ECE6A;">Machine</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">[</span><span style="color: #BB9AF7;">Environment</span><span style="color: #9ABDF5;">]</span><span>::SetEnvironmentVariable</span><span style="color: #9ABDF5;">(</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  &quot;</span><span style="color: #9ECE6A;">Path</span><span style="color: #89DDFF;">&quot;,</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  &quot;</span><span style="color: #C0CAF5;">$path</span><span style="color: #9ECE6A;">;C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\bin</span><span style="color: #89DDFF;">&quot;,</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  &quot;</span><span style="color: #9ECE6A;">Machine</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">)</span></span></code></pre>
+<ul>
+<li>安装 openocd 调试/烧录工具</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">scoop</span><span style="color: #9ECE6A;"> install openocd</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">openocd</span><span style="color: #E0AF68;"> --version</span></span></code></pre>
+<ul>
+<li>安装串口调试工具（可选，也可以用其他串口工具）</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">pip</span><span style="color: #9ECE6A;"> install pyserial</span></span></code></pre><h2 id="bian-yi-gu-jian">编译固件</h2>
+<p>进入项目目录并在<code>projects</code>下使用scons编译固件,编译结果为<code>rt-thread.bin</code>和<code>rt-thread-elf</code></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">sdk-bsp-stm32f407-spark</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> cd ./projects/03_driver_als_ps</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sdk-bsp-stm32f407-spark/projects/03_driver_als_ps</span><span style="color: #9ECE6A;"> studyvia C v14.3.0-gcc  via ❄️  impure</span><span> (nix-shell-env)</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> scons</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> Reading SConscript files ...</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> done reading SConscript files.</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> Building targets ...</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> building associated VariantDir targets: build</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">......</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">CC</span><span style="color: #9ECE6A;"> build/kernel/components/drivers/i2c/i2c-bit-ops.o</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">LINK</span><span style="color: #9ECE6A;"> rt-thread.elf</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">arm-none-eabi-objcopy</span><span style="color: #E0AF68;"> -O</span><span style="color: #9ECE6A;"> binary rt-thread.elf rtthread.bin</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">arm-none-eabi-size</span><span style="color: #9ECE6A;"> rt-thread.elf</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">   text</span><span style="color: #9ECE6A;">	   data	    bss	    dec	    hex	filename</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  87128</span><span style="color: #FF9E64;">	    964	   4252	  92344</span><span style="color: #9ECE6A;">	  168b8	rt-thread.elf</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> done building targets.</span></span></code></pre><h2 id="shao-ru-ce-shi">烧入测试</h2>
+<p>使用<code>openocd</code>指定开发板对应的cfg并烧入，起始地址为<code>0x08000000</code></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">openocd</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> interface/stlink.cfg</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> target/stm32f4x.cfg</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">openocd</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> interface/stlink.cfg</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> target/stm32f4x.cfg</span><span style="color: #E0AF68;"> -c</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">program rtthread.bin 0x08000000 verify reset exit</span><span style="color: #89DDFF;">&quot;</span></span></code></pre><h2 id="chuan-kou-lian-jie">串口连接</h2>
+<p>烧入完成后我们可以使用<code>pyserial</code>的这个命令连接到串口，退出使用<code>Ctrl+]</code>退出</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">python</span><span style="color: #E0AF68;"> -m</span><span style="color: #9ECE6A;"> serial.tools.miniterm COM3</span><span style="color: #FF9E64;"> 115200</span></span></code></pre>
+<blockquote>
+<p>注意Windows上和开发板连接的串口可能是COM3,COM4等等，需要和实际的相符，可以在设备管理器中查看.</p>
+</blockquote>
+<h2 id="ubuntu-fang-an">Ubuntu 方案</h2>
+<h2 id="la-qu-yuan-ma-1">拉取源码</h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">https://github.com/Dichgrem/sdk-bsp-stm32f407-spark-template.git</span></span></code></pre><h2 id="an-zhuang-yi-lai-1">安装依赖</h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> apt update</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> apt install</span><span style="color: #E0AF68;"> -y</span><span style="color: #9ECE6A;"> git python3 scons openocd stlink-tools gcc-arm-none-eabi gdb-multiarch</span></span></code></pre><h2 id="bian-yi-gu-jian-1">编译固件</h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">scons</span><span style="color: #E0AF68;"> -j</span><span style="color: #89DDFF;">$(</span><span style="color: #C0CAF5;">nproc</span><span style="color: #89DDFF;">)</span></span></code></pre><h2 id="ce-shi-lian-jie">测试连接</h2>
+<p>使用USB线连接开发板和开发PC，并使用lsusb命令查看是否出现：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">lsusb</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Bus</span><span style="color: #FF9E64;"> 001</span><span style="color: #9ECE6A;"> Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1</span></span></code></pre>
+<p>添加成功后可以使用这个命令来检测是否连接成功：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> st-info</span><span style="color: #E0AF68;"> --probe</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Found</span><span style="color: #FF9E64;"> 1</span><span style="color: #9ECE6A;"> stlink programmers</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  version:</span><span style="color: #9ECE6A;">    V2J35S26</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  serial:</span><span style="color: #9ECE6A;">     0671FF373654393143244522</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  flash:</span><span style="color: #FF9E64;">      1048576</span><span> (pagesize:</span><span style="color: #FF9E64;"> 16384</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  sram:</span><span style="color: #FF9E64;">       196608</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  chipid:</span><span style="color: #FF9E64;">     0x413</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  dev-type:</span><span style="color: #9ECE6A;">   STM32F4x5_F4x7</span></span></code></pre>
+<blockquote>
+<p>如果你将Ubuntu安装在QEMU等虚拟机中 ，需要在libvirt中使用Add_hardware添加usb设备。</p>
+</blockquote>
+<h2 id="shao-ru-ce-shi-1">烧入测试</h2>
+<p>编译成功后你应该会看到有一个rtthread.bin在目录下，这就是我们编译出来的系统！</p>
+<p>在烧入之前，我们可以备份一下原来的系统：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">st-flash</span><span style="color: #9ECE6A;"> read firmware_backup.bin</span><span style="color: #FF9E64;"> 0x08000000 0x100001</span></span></code></pre>
+<p>随后使用如下命令烧入系统：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">st-flash</span><span style="color: #9ECE6A;"> write rtthread.bin</span><span style="color: #FF9E64;"> 0x08000000</span></span></code></pre><h2 id="chuan-kou-lian-jie-1">串口连接</h2>
+<p>除了USB之外我们还可以使用串口连接：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> apt install picocom</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">picocom</span><span style="color: #E0AF68;"> -b</span><span style="color: #FF9E64;"> 115200</span><span style="color: #9ECE6A;"> /dev/ttyACM0</span></span></code></pre>
+<p>可以使用<code>ctrl + A 然后 ctrl + x</code>退出。</p>
+<hr />
+<h2 id="qi-ta-tips">其他Tips</h2>
+<ul>
+<li>使用Cmake编译</li>
+</ul>
+<p>通过官方文档可以得知除了scons外还可以使用Cmake来编译.</p>
+<p>首先找到编译器的路径，并export，我这里是Nixos的路径，如果你使用其他发行版注意修改：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> which arm-none-eabi-gcc</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">/nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc</span></span>
+<span class="giallo-l"><span style="color: #9D7CD8;font-style: italic;">export</span><span style="color: #C0CAF5;"> RTT_EXEC_PATH</span><span style="color: #89DDFF;">=</span><span>/</span><span style="color: #C0CAF5;">nix</span><span>/</span><span style="color: #C0CAF5;">store</span><span>/</span><span style="color: #C0CAF5;">v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14</span><span>.</span><span style="color: #C0CAF5;">3</span><span>.</span><span style="color: #C0CAF5;">rel1</span><span>/</span><span style="color: #C0CAF5;">bin</span></span>
+<span class="giallo-l"><span style="color: #9D7CD8;font-style: italic;">export</span><span style="color: #C0CAF5;"> RTT_CC</span><span style="color: #89DDFF;">=</span><span style="color: #C0CAF5;">gcc</span></span></code></pre>
+<p>随后使用指令<code>scons --target=cmake</code>：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> scons</span><span style="color: #E0AF68;"> --target=cmake</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> Reading SConscript files ...</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Newlib</span><span style="color: #9ECE6A;"> version:4.5.0</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Update</span><span style="color: #9ECE6A;"> setting files for CMakeLists.txt...</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">Done!</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> done reading SConscript files.</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> Building targets ...</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> building associated VariantDir targets: build</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">CC</span><span style="color: #9ECE6A;"> build/applications/main.o</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">LINK</span><span style="color: #9ECE6A;"> rt-thread.elf</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">arm-none-eabi-objcopy</span><span style="color: #E0AF68;"> -O</span><span style="color: #9ECE6A;"> binary rt-thread.elf rtthread.bin</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">arm-none-eabi-size</span><span style="color: #9ECE6A;"> rt-thread.elf</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">scons:</span><span style="color: #9ECE6A;"> done building targets.</span></span></code></pre>
+<p>可以看到生成CmakeLists.txt成功，随后开始构建：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> cd ./build</span><span>       </span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> cmake ..</span><span>  </span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">CMake</span><span style="color: #9ECE6A;"> Warning</span><span> (dev) at CMakeLists.txt:43:</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  Syntax</span><span style="color: #9ECE6A;"> Warning in cmake code at column</span><span style="color: #FF9E64;"> 100</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  Argument</span><span style="color: #9ECE6A;"> not separated from preceding token by whitespace.</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">This</span><span style="color: #9ECE6A;"> warning is for project developers.  Use</span><span style="color: #E0AF68;"> -Wno-dev</span><span style="color: #9ECE6A;"> to suppress it.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> The C compiler identification is GNU</span><span style="color: #FF9E64;"> 14.3.1</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> The CXX compiler identification is GNU</span><span style="color: #FF9E64;"> 14.3.1</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> The ASM compiler identification is GNU</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Found assembler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting C compiler ABI info</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting C compiler ABI info - done</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Check for working C compiler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-gcc - skipped</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting C compile features</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting C compile features - done</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting CXX compiler ABI info</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting CXX compiler ABI info - done</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Check for working CXX compiler: /nix/store/v9p5md3d4aaqwc9i9hlaxkl7nawd9vrc-gcc-arm-embedded-14.3.rel1/bin/arm-none-eabi-g++ - skipped</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting CXX compile features</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Detecting CXX compile features - done</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Configuring done</span><span> (0.4s)</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Generating done</span><span> (0.0s)</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">--</span><span style="color: #9ECE6A;"> Build files have been written to: /home/dich/Git/sdk-bsp-stm32f407-spark/projects/02_basic_ir/build</span></span></code></pre>
+<p>使用<code>make</code>命令编译：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">❯</span><span style="color: #9ECE6A;"> make</span><span>   </span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span>  1%</span><span style="color: #89DDFF;">]</span><span> Building C object CMakeFiles/rtthread.elf.dir/applications/main.c.obj</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span>  2%</span><span style="color: #89DDFF;">]</span><span> Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/rt-thread/components/libc/compilers/common/cctype.c.obj</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span>  3%</span><span style="color: #89DDFF;">]</span><span> Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/rt-thread/components/libc/compilers/common/cstdio.c.obj</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">......</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span> 97%</span><span style="color: #89DDFF;">]</span><span> Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/libraries/STM32F4xx_HAL/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span> 98%</span><span style="color: #89DDFF;">]</span><span> Building C object CMakeFiles/rtthread.elf.dir/home/dich/Git/sdk-bsp-stm32f407-spark/libraries/STM32F4xx_HAL/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c.obj</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span>100%</span><span style="color: #89DDFF;">]</span><span> Linking C executable rtthread.elf</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">   text</span><span style="color: #9ECE6A;">    data     bss     dec     hex filename</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">  98516</span><span style="color: #FF9E64;">    1468    8400  108384</span><span style="color: #9ECE6A;">   1a760 rtthread.elf</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span>100%</span><span style="color: #89DDFF;">]</span><span> Built target rtthread.elf</span></span></code></pre>
+<ul>
+<li>Nixos</li>
+</ul>
+<p>虽然Nixos上没有RT-Thread-studio这个包，但是可以用flake.nix很方便的搭建一个开发环境：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="nix"><span class="giallo-l"><span style="color: #89DDFF;">{</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  description</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">STM32 &amp;&amp; RT-Thread development environment</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  inputs</span><span>.</span><span style="color: #BB9AF7;">nixpkgs</span><span>.</span><span style="color: #BB9AF7;">url</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">github:NixOS/nixpkgs/nixpkgs-unstable</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  outputs</span><span style="color: #89DDFF;"> = {</span><span style="color: #E0AF68;"> self</span><span style="color: #89DDFF;">,</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;"> }:</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  let</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    supportedSystems</span><span style="color: #89DDFF;"> = [ &quot;</span><span style="color: #9ECE6A;">x86_64-linux</span><span style="color: #89DDFF;">&quot; &quot;</span><span style="color: #9ECE6A;">aarch64-linux</span><span style="color: #89DDFF;">&quot; ];</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    forEachSupportedSystem</span><span style="color: #89DDFF;"> =</span><span style="color: #E0AF68;"> f</span><span style="color: #89DDFF;">:</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">lib</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">genAttrs supportedSystems</span><span style="color: #89DDFF;"> (</span><span style="color: #E0AF68;">system</span><span style="color: #89DDFF;">:</span><span style="color: #E0AF68;"> f</span><span style="color: #89DDFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      pkgs</span><span style="color: #89DDFF;"> =</span><span style="color: #0DB9D7;"> import</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;"> { inherit</span><span style="color: #BB9AF7;"> self system</span><span style="color: #89DDFF;">; };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    });</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  in</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    devShells</span><span style="color: #89DDFF;"> =</span><span style="color: #E0AF68;"> forEachSupportedSystem</span><span style="color: #89DDFF;"> ({</span><span style="color: #E0AF68;"> pkgs</span><span style="color: #89DDFF;"> }: {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      default</span><span style="color: #89DDFF;"> =</span><span style="color: #E0AF68;"> pkgs</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">mkShell</span><span style="color: #89DDFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        packages</span><span style="color: #89DDFF;"> = with</span><span style="color: #E0AF68;"> pkgs</span><span>;</span><span style="color: #89DDFF;"> [</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          python312</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          scons</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          openocd</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          stlink</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          stlink-tool</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          gcc-arm-embedded</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          picocom</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          renode-bin</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">        ];</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">      };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    });</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">}</span></span></code></pre>
+<ul>
+<li>使用Renode</li>
+</ul>
+<p>如果没有真实的开发版，可以使用Renode来进行仿真模拟：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 启动renode</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">renode</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 创建机器</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">monitor</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> mach</span><span style="color: #9ECE6A;"> create</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 加载STM32F407平台</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">monitor</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> machine</span><span style="color: #9ECE6A;"> LoadPlatformDescription @platforms/boards/stm32f4_discovery.repl</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 加载你的固件</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">monitor</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> sysbus</span><span style="color: #9ECE6A;"> LoadELF @/你的路径/rtthread.elf</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 打开串口窗口（finsh会显示在这里）</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">monitor</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> showAnalyzer</span><span style="color: #9ECE6A;"> sysbus.usart1</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 启动仿真</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">monitor</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> start</span></span></code></pre>
+<blockquote>
+<p>Renode 常用命令大全</p>
+</blockquote>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 机器管理</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">mach</span><span style="color: #9ECE6A;"> add</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">名称</span><span style="color: #89DDFF;">&quot;</span><span style="color: #51597D;font-style: italic;">                 # 创建新机器（指定名称）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">mach</span><span style="color: #9ECE6A;"> create</span><span style="color: #51597D;font-style: italic;">                     # 创建新机器（自动命名）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">mach</span><span style="color: #9ECE6A;"> set</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">名称</span><span style="color: #89DDFF;">&quot;</span><span style="color: #51597D;font-style: italic;">                 # 切换到指定机器</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">mach</span><span style="color: #9ECE6A;"> set</span><span style="color: #FF9E64;"> 0</span><span style="color: #51597D;font-style: italic;">                      # 切换到编号0的机器</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">mach</span><span style="color: #9ECE6A;"> rem</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">名称</span><span style="color: #89DDFF;">&quot;</span><span style="color: #51597D;font-style: italic;">                 # 删除机器</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">mach</span><span style="color: #9ECE6A;"> clear</span><span style="color: #51597D;font-style: italic;">                      # 清除当前选择</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">mach</span><span style="color: #51597D;font-style: italic;">                            # 显示帮助信息</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">emulation</span><span style="color: #51597D;font-style: italic;">                       # 查看仿真信息</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 仿真控制</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">start</span><span style="color: #51597D;font-style: italic;">                           # 启动仿真</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">pause</span><span style="color: #51597D;font-style: italic;">                           # 暂停仿真</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">quit</span><span style="color: #51597D;font-style: italic;">                            # 退出Renode</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 帮助</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">help</span><span style="color: #51597D;font-style: italic;">                            # 显示帮助</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">help</span><span style="color: #9ECE6A;"> 命令名</span><span style="color: #51597D;font-style: italic;">                     # 查看特定命令帮助</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 加载固件</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> LoadELF @/path/to/firmware.elf</span><span style="color: #51597D;font-style: italic;">          # 加载ELF文件</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> LoadBinary @/path/to/firmware.bin</span><span style="color: #FF9E64;"> 0x8000000</span><span style="color: #51597D;font-style: italic;">  # 加载BIN到指定地址</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 重置</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> Reset</span><span style="color: #51597D;font-style: italic;">                    # 重置系统总线</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">machine</span><span style="color: #9ECE6A;"> Reset</span><span style="color: #51597D;font-style: italic;">                   # 重置整个机器</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 读取内存</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> ReadByte</span><span style="color: #FF9E64;"> 0x20000000</span><span style="color: #51597D;font-style: italic;">      # 读1字节</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> ReadWord</span><span style="color: #FF9E64;"> 0x20000000</span><span style="color: #51597D;font-style: italic;">      # 读2字节</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> ReadDoubleWord</span><span style="color: #FF9E64;"> 0x20000000</span><span style="color: #51597D;font-style: italic;"> # 读4字节</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 写入内存</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> WriteByte</span><span style="color: #FF9E64;"> 0x20000000 0xFF</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> WriteWord</span><span style="color: #FF9E64;"> 0x20000000 0x1234</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> WriteDoubleWord</span><span style="color: #FF9E64;"> 0x20000000 0x12345678</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 查看内存区域</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus</span><span style="color: #9ECE6A;"> FindSymbolAt</span><span style="color: #FF9E64;"> 0x08000000</span><span style="color: #51597D;font-style: italic;">  # 查找地址对应的符号</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 查看GPIO端口</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus.gpioPortA</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 设置GPIO状态</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus.gpioPortA.0</span><span style="color: #9ECE6A;"> Set</span><span style="color: #FF9E64;"> true</span><span style="color: #51597D;font-style: italic;">     # 设置PA0为高</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus.gpioPortA.0</span><span style="color: #9ECE6A;"> Set</span><span style="color: #FF9E64;"> false</span><span style="color: #51597D;font-style: italic;">    # 设置PA0为低</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus.gpioPortA.0</span><span style="color: #9ECE6A;"> Toggle</span><span style="color: #51597D;font-style: italic;">       # 切换PA0状态</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 读取GPIO状态</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sysbus.gpioPortA.0</span><span style="color: #9ECE6A;"> State</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 使用GDB调试</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">monitor</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> machine</span><span style="color: #9ECE6A;"> StartGdbServer</span><span style="color: #FF9E64;"> 3333</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 另一个终端</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">arm-none-eabi-gdb</span><span style="color: #9ECE6A;"> firmware.elf</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">gdb</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> target</span><span style="color: #9ECE6A;"> remote :3333</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">gdb</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> load</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">gdb</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> b</span><span style="color: #9ECE6A;"> main</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">gdb</span><span style="color: #9ABDF5;">)</span><span style="color: #C0CAF5;"> c</span></span></code></pre>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+            
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-sports/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:运动健身基本理论</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-github/">
+                            <span class="button__text">乱七八糟:Github的使用</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                
+                    <li class="toc-level-1">
+                        <a href="#windowsfang-an">Windows方案</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#la-qu-yuan-ma">拉取源码</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#an-zhuang-yi-lai">安装依赖</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#bian-yi-gu-jian">编译固件</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#shao-ru-ce-shi">烧入测试</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#chuan-kou-lian-jie">串口连接</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#ubuntu-fang-an">Ubuntu 方案</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#la-qu-yuan-ma-1">拉取源码</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#an-zhuang-yi-lai-1">安装依赖</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#bian-yi-gu-jian-1">编译固件</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#ce-shi-lian-jie">测试连接</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#shao-ru-ce-shi-1">烧入测试</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#chuan-kou-lian-jie-1">串口连接</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#qi-ta-tips">其他Tips</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+
