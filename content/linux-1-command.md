@@ -1,5 +1,5 @@
 +++
-title = "Linux-命令行操控"
+title = "Linux系列(1):命令行操控"
 date = 2023-07-20
 
 [taxonomies]

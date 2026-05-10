@@ -1,5 +1,5 @@
 +++
-title = "Linux-STM32开发环境部署"
+title = "Linux系列(2):STM32开发环境部署"
 date = 2025-07-20
 
 [taxonomies]
