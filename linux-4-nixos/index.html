@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/linux-4-nixos/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/linux-4-nixos/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">Zola frame</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            
+    <h1 class="post-title"><a href="https://blog.dich.bid/linux-4-nixos/">Linux系列(4):NixOS 使用</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2025-10-03
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/linux/">#Linux</a></span>
+    
+
+            <div class="post-content">
+            <p>前言 用过 Arch Linux 的同学大概都对滚动更新的痛深有体会——某天 <code>paru -Syu</code> 之后系统炸了，然后花一下午排查是哪个包的哪个依赖搞的鬼。NixOS 用一种完全不同的思路解决了这个问题：把整个系统变成一份配置文件，炸了可以一键回滚到上一个正常状态。这篇文章从零开始讲 NixOS 的核心概念和日常用法。</p>
+<span id="continue-reading"></span><h2 id="wei-shen-me-shi-nixos"><strong>为什么是 NixOS</strong></h2>
+<p>传统 Linux 发行版（包括 Arch）有一个共同的毛病：系统状态是"累积"出来的。你今天装个包、明天改个配置、后天删个依赖，每一步都在修改系统的全局状态。时间一长，你根本不知道这个系统是怎么变成现在这样的。而滚挂之后想还原，基本靠记忆和运气。</p>
+<p>Arch 用户常见的痛点：</p>
+<ul>
+<li><code>paru -Syu</code> 失败，包管理直接爆炸</li>
+<li>每天都在更新大量软件包，但滚动发行版实际上<strong>要求</strong>你必须一直更新，不然某天想装个新包发现依赖链已经错位</li>
+<li>删掉一个软件包之后，连带删掉了有用的依赖，某个角落里的脚本突然就跑不起来了</li>
+</ul>
+<p>NixOS 是<strong>声明式的操作系统</strong>。你用一份 Nix 配置文件描述你想要什么（装哪些包、开哪些服务、配成什么样），NixOS 负责从零构造出这个状态。改配置就是改这份文件，不满意就回滚到 Git 里上一个版本，完全不需要"修复系统"这种操作。</p>
+<p>核心优势：</p>
+<ul>
+<li><strong>配置即代码</strong>：整个系统状态由一份（或几份）配置文件定义，干净、可审计、可 Git 管理</li>
+<li><strong>原子化升级</strong>：每次 <code>nixos-rebuild switch</code> 生成一个新的 generation，失败了自动回滚</li>
+<li><strong>可复现</strong>：同一份配置文件，在任意机器上构建出来的是完全相同的系统</li>
+<li><strong>多版本共存</strong>：同一个软件的不同版本可以同时存在 <code>/nix/store</code> 里，互不干扰</li>
+<li><strong>不会被强制更新</strong>：通过 <code>flake.lock</code> 锁定版本，想什么时候更新就什么时候更新</li>
+<li><strong>开发环境隔离</strong>：<code>nix shell</code> / <code>nix develop</code> 可以秒建隔离的临时环境，不污染系统</li>
+</ul>
+<p>缺点也得说清楚：</p>
+<ul>
+<li>学习曲线陡峭——要学 Nix 语言、理解 <code>/nix/store</code>、习惯声明式思维</li>
+<li>不符合 FHS 标准，<code>/lib</code> 下没有 <code>ld-linux.so</code>，其他发行版的二进制基本跑不了</li>
+<li>磁盘占用大（每个版本的包都独立存储，靠硬链接去重）</li>
+<li>文档相对较少，很多东西得自己翻源码和 GitHub Issues</li>
+</ul>
+<h2 id="he-xin-gai-nian-su-lan"><strong>核心概念速览</strong></h2>
+<p>刚接触 NixOS 的时候，这几个名字会反复出现，先搞清楚：</p>
+<table><thead><tr><th>概念</th><th>一句话解释</th></tr></thead><tbody>
+<tr><td><strong>Nix</strong></td><td>一门函数式语言 + 一个包管理器命令，用来写配置和执行构建</td></tr>
+<tr><td><strong>Nixpkgs</strong></td><td>NixOS 的软件包仓库，GitHub 上最大的包仓库之一（12 万+ 包）</td></tr>
+<tr><td><strong>NixOS</strong></td><td>基于 Nix 包管理器构建的完整 Linux 发行版</td></tr>
+<tr><td><strong>Flakes</strong></td><td>Nix 的新特性（实验性但已广泛使用），提供锁文件、标准化输入输出</td></tr>
+<tr><td><strong>Home Manager</strong></td><td>管理用户级配置和 dotfiles 的工具，相当于把 <code>~/.config</code> 也声明式化</td></tr>
+<tr><td><strong>Derivation</strong></td><td>Nix 中的"构建配方"，描述如何从源码产出 <code>/nix/store</code> 里的一个包</td></tr>
+<tr><td><strong>Generation</strong></td><td>每次 <code>nixos-rebuild switch</code> 产生的系统快照，可以随时切回去</td></tr>
+</tbody></table>
+<p>Nix 这门语言可以理解为"JSON + 函数"。它是一门纯函数式语言，没有副作用，评估结果就是一个巨大的结构化数据，NixOS 的构建系统消费这份数据来完成系统构建。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="nix"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 最简单的 Nix 表达式</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">{</span><span style="color: #E0AF68;"> pkgs</span><span style="color: #89DDFF;">, ... }: {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  environment</span><span>.</span><span style="color: #BB9AF7;">systemPackages</span><span style="color: #89DDFF;"> = with</span><span style="color: #E0AF68;"> pkgs</span><span>;</span><span style="color: #89DDFF;"> [</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">    neovim</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">    git</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">    curl</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  ];</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">}</span></span></code></pre>
+<p>这段代码的意思是：接收 <code>pkgs</code> 作为输入，返回一个包含 <code>environment.systemPackages</code> 的配置，里面装上 neovim、git、curl。</p>
+<h2 id="an-zhuang-nixos"><strong>安装 NixOS</strong></h2>
+<p>官方 ISO 安装流程在 <a rel="noopener nofollow noreferrer external" target="_blank" href="https://nixos.org/download">nixos.org</a> 有详细文档，这里提几个重点：</p>
+<ol>
+<li>启动 ISO 后先用 <code>nixos-generate-config --root /mnt</code> 生成初始配置</li>
+<li>这会产出两个文件：<code>/mnt/etc/nixos/configuration.nix</code>（系统配置）和 <code>hardware-configuration.nix</code>（硬件扫描结果）</li>
+<li>编辑 <code>configuration.nix</code> 加上基本设置（用户名、桌面环境、网络等）</li>
+<li><code>nixos-install</code> 完成安装</li>
+</ol>
+<p>如果你想把配置放在 Git 仓库里管理（强烈建议），可以用 Flakes 模式：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 安装时不直接用 /etc/nixos，而是 clone 自己的配置仓库</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> clone git@github.com:yourname/nix-config.git /mnt/etc/nixos</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nixos-install</span><span style="color: #E0AF68;"> --flake</span><span style="color: #9ECE6A;"> /mnt/etc/nixos#your-hostname</span></span></code></pre>
+<p>对于没有预装 NixOS 的 VPS，可以用 <code>nixos-anywhere</code> 通过 SSH 远程安装：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">nix</span><span style="color: #9ECE6A;"> run github:nix-community/nixos-anywhere</span><span style="color: #E0AF68;"> --</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --flake</span><span style="color: #9ECE6A;"> .#your-hostname</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #9ECE6A;">  root@your-server-ip</span></span></code></pre><h2 id="flakes-nixos-de-xian-dai-pei-zhi-fang-shi"><strong>Flakes：NixOS 的现代配置方式</strong></h2>
+<p>Flakes 是目前管理 NixOS 配置的推荐方式。一个 <code>flake.nix</code> 文件类似于 Rust 的 <code>Cargo.toml</code> 或 JS 的 <code>package.json</code>——定义依赖（inputs）和产物（outputs），并生成 <code>flake.lock</code> 锁定版本。</p>
+<p>典型的 <code>flake.nix</code> 结构：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="nix"><span class="giallo-l"><span style="color: #89DDFF;">{</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  description</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">My NixOS config</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  inputs</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;">    # nixpkgs 稳定版</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    nixpkgs</span><span>.</span><span style="color: #BB9AF7;">url</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">github:nixos/nixpkgs/nixos-24.11</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;">    # 或者用 unstable</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;">    # nixpkgs-unstable.url = &quot;github:nixos/nixpkgs/nixos-unstable&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    home-manager</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      url</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">github:nix-community/home-manager/release-24.11</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      inputs</span><span>.</span><span style="color: #BB9AF7;">nixpkgs</span><span>.</span><span style="color: #BB9AF7;">follows</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">nixpkgs</span><span style="color: #89DDFF;">&quot;;</span><span style="color: #51597D;font-style: italic;">  # 共用同一份 nixpkgs</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  outputs</span><span style="color: #89DDFF;"> = {</span><span style="color: #E0AF68;"> self</span><span style="color: #89DDFF;">,</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;">,</span><span style="color: #E0AF68;"> home-manager</span><span style="color: #89DDFF;">, ... }</span><span> @</span><span style="color: #E0AF68;"> inputs</span><span style="color: #89DDFF;">: {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    nixosConfigurations</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;">      # 每台机器一个配置</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      my-desktop</span><span style="color: #89DDFF;"> =</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">lib</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">nixosSystem</span><span style="color: #89DDFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        system</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">x86_64-linux</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        specialArgs</span><span style="color: #89DDFF;"> = { inherit</span><span style="color: #BB9AF7;"> inputs</span><span style="color: #89DDFF;">; };</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        modules</span><span style="color: #89DDFF;"> = [</span></span>
+<span class="giallo-l"><span style="color: #9ECE6A;">          ./hosts/desktop/configuration.nix</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          home-manager</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">nixosModules</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">home-manager</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">          {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">            home-manager</span><span>.</span><span style="color: #BB9AF7;">useGlobalPkgs</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">            home-manager</span><span>.</span><span style="color: #BB9AF7;">useUserPackages</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">            home-manager</span><span>.</span><span style="color: #BB9AF7;">users</span><span>.</span><span style="color: #BB9AF7;">dich</span><span style="color: #89DDFF;"> =</span><span style="color: #9ECE6A;"> ./hosts/desktop/home.nix</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">          }</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">        ];</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">      };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      my-vps</span><span style="color: #89DDFF;"> =</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">lib</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">nixosSystem</span><span style="color: #89DDFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        system</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">x86_64-linux</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        specialArgs</span><span style="color: #89DDFF;"> = { inherit</span><span style="color: #BB9AF7;"> inputs</span><span style="color: #89DDFF;">; };</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        modules</span><span style="color: #89DDFF;"> = [</span></span>
+<span class="giallo-l"><span style="color: #9ECE6A;">          ./hosts/vps/configuration.nix</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">          home-manager</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">nixosModules</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">home-manager</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">          {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">            home-manager</span><span>.</span><span style="color: #BB9AF7;">useGlobalPkgs</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">            home-manager</span><span>.</span><span style="color: #BB9AF7;">useUserPackages</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">            home-manager</span><span>.</span><span style="color: #BB9AF7;">users</span><span>.</span><span style="color: #BB9AF7;">root</span><span style="color: #89DDFF;"> =</span><span style="color: #9ECE6A;"> ./hosts/vps/home.nix</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">          }</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">        ];</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">      };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">}</span></span></code></pre>
+<p><code>inputs.*.follows</code> 是重要概念：确保所有 input 共用同一份 nixpkgs，避免下载多份副本。</p>
+<p>配置推荐模块化拆分：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>nix-config/</span></span>
+<span class="giallo-l"><span>├── flake.nix          # 入口，定义输入和机器列表</span></span>
+<span class="giallo-l"><span>├── flake.lock         # 锁文件，记录精确版本</span></span>
+<span class="giallo-l"><span>├── hosts/</span></span>
+<span class="giallo-l"><span>│   ├── desktop/</span></span>
+<span class="giallo-l"><span>│   │   ├── configuration.nix</span></span>
+<span class="giallo-l"><span>│   │   └── home.nix</span></span>
+<span class="giallo-l"><span>│   └── vps/</span></span>
+<span class="giallo-l"><span>│       ├── configuration.nix</span></span>
+<span class="giallo-l"><span>│       └── home.nix</span></span>
+<span class="giallo-l"><span>└── modules/           # 可复用模块</span></span>
+<span class="giallo-l"><span>    ├── common.nix     # 所有机器共享</span></span>
+<span class="giallo-l"><span>    ├── desktop.nix    # 桌面相关</span></span>
+<span class="giallo-l"><span>    └── server.nix     # 服务器相关</span></span></code></pre><h2 id="home-manager-guan-li-ni-de-dotfiles"><strong>Home Manager：管理你的 dotfiles</strong></h2>
+<p>Home Manager 是 NixOS 生态里仅次于 Nixpkgs 的第二重要的项目。它把用户级别的配置文件（dotfiles）也声明式管理起来。</p>
+<p>有了 Home Manager，你不再需要手动维护 <code>.gitconfig</code>、<code>.tmux.conf</code>、starship 配置等。全部用 Nix 写：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="nix"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># home.nix</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">{</span><span style="color: #E0AF68;"> pkgs</span><span style="color: #89DDFF;">, ... }: {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  home</span><span>.</span><span style="color: #BB9AF7;">username</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">dich</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  home</span><span>.</span><span style="color: #BB9AF7;">homeDirectory</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">/home/dich</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  home</span><span>.</span><span style="color: #BB9AF7;">stateVersion</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">24.11</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;">  # 装用户级软件包</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  home</span><span>.</span><span style="color: #BB9AF7;">packages</span><span style="color: #89DDFF;"> = with</span><span style="color: #E0AF68;"> pkgs</span><span>;</span><span style="color: #89DDFF;"> [</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">    ripgrep</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">    fd</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">    jq</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">    lazygit</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;">  # 配置程序</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  programs</span><span>.</span><span style="color: #BB9AF7;">git</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    enable</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    userName</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">Dich</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    userEmail</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">dich@example.com</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    extraConfig</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      init</span><span>.</span><span style="color: #BB9AF7;">defaultBranch</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">main</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      pull</span><span>.</span><span style="color: #BB9AF7;">rebase</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  programs</span><span>.</span><span style="color: #BB9AF7;">starship</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    enable</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    settings</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      format</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">$all</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      character</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        success_symbol</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">[λ](bold green)</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">        error_symbol</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">[λ](bold red)</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">      };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  programs</span><span>.</span><span style="color: #BB9AF7;">neovim</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    enable</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    defaultEditor</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">}</span></span></code></pre>
+<p><a rel="noopener nofollow noreferrer external" target="_blank" href="https://nix-community.github.io/home-manager/options.xhtml">Home Manager 选项搜索页</a> 可以查所有支持的程序配置项。NixOS 系统级选项搜 <a rel="noopener nofollow noreferrer external" target="_blank" href="https://search.nixos.org/options">search.nixos.org/options</a>。</p>
+<h2 id="kai-fa-huan-jing-nix-shell-he-nix-develop"><strong>开发环境：nix shell 和 nix develop</strong></h2>
+<p>Nix 最实用的功能之一是创建临时开发环境。比如要试用一个工具但不装进系统：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 临时使用 python 和 node 做点事，退出 shell 后自动清理</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix</span><span style="color: #9ECE6A;"> shell nixpkgs#python3 nixpkgs#nodejs</span><span style="color: #E0AF68;"> -c</span><span style="color: #9ECE6A;"> zsh</span></span></code></pre>
+<p>更常用的 <code>nix develop</code> + <code>flake.nix</code>：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="nix"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># flake.nix 里加一个 devShell</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">{</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  outputs</span><span style="color: #89DDFF;"> = {</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;">, ... }: let</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    system</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">x86_64-linux</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    pkgs</span><span style="color: #89DDFF;"> =</span><span style="color: #E0AF68;"> nixpkgs</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">legacyPackages</span><span style="color: #89DDFF;">.</span><span style="color: #7DCFFF;">${</span><span style="color: #E0AF68;">system</span><span style="color: #7DCFFF;">}</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  in {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    devShells</span><span>.</span><span style="color: #7DCFFF;">${</span><span style="color: #E0AF68;">system</span><span style="color: #7DCFFF;">}</span><span>.</span><span style="color: #BB9AF7;">default</span><span style="color: #89DDFF;"> =</span><span style="color: #E0AF68;"> pkgs</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">mkShell</span><span style="color: #89DDFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      buildInputs</span><span style="color: #89DDFF;"> = with</span><span style="color: #E0AF68;"> pkgs</span><span>;</span><span style="color: #89DDFF;"> [</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">        python3</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">        nodejs</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">        gcc</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">      ];</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">      shellHook</span><span style="color: #89DDFF;"> = &#39;&#39;</span></span>
+<span class="giallo-l"><span style="color: #9ECE6A;">        echo &quot;Dev environment ready&quot;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">      &#39;&#39;;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">}</span></span></code></pre><pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">nix</span><span style="color: #9ECE6A;"> develop</span><span style="color: #E0AF68;"> -c</span><span style="color: #9ECE6A;"> zsh</span></span></code></pre>
+<p>配合 <code>nix-direnv</code> 可以做到进入目录自动激活环境：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 安装 direnv + nix-direnv</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 在项目目录里</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">echo</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">use flake</span><span style="color: #89DDFF;">&quot; &gt;</span><span style="color: #9ECE6A;"> .envrc</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">direnv</span><span style="color: #9ECE6A;"> allow</span></span></code></pre>
+<p>之后每次 <code>cd</code> 进这个目录就自动加载对应的依赖，<code>cd</code> 出去就卸载。比 Docker 轻量，比 venv 干净。</p>
+<h2 id="ri-chang-cao-zuo"><strong>日常操作</strong></h2>
+<h3 id="gou-jian-he-qie-huan">构建和切换</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 基于 flake 切换系统配置</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nixos-rebuild switch</span><span style="color: #E0AF68;"> --flake</span><span style="color: #9ECE6A;"> .#my-desktop</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 仅测试构建，不切换（CI 场景）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix</span><span style="color: #9ECE6A;"> build .#nixosConfigurations.my-desktop.config.system.build.toplevel</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 更新 flake.lock 到最新</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix</span><span style="color: #9ECE6A;"> flake update</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 更新单个 input</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix</span><span style="color: #9ECE6A;"> flake lock</span><span style="color: #E0AF68;"> --update-input</span><span style="color: #9ECE6A;"> nixpkgs</span></span></code></pre><h3 id="generations-guan-li">Generations 管理</h3>
+<p>每次 <code>switch</code> 都生成一个 generation，是系统快照。系统挂了可以切回去：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 列出所有 generation</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-env</span><span style="color: #E0AF68;"> -p</span><span style="color: #9ECE6A;"> /nix/var/nix/profiles/system</span><span style="color: #E0AF68;"> --list-generations</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 切换到第 116 代</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-env</span><span style="color: #E0AF68;"> -p</span><span style="color: #9ECE6A;"> /nix/var/nix/profiles/system</span><span style="color: #E0AF68;"> --switch-generation</span><span style="color: #FF9E64;"> 116</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 删除第 117 代</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-env</span><span style="color: #E0AF68;"> -p</span><span style="color: #9ECE6A;"> /nix/var/nix/profiles/system</span><span style="color: #E0AF68;"> --delete-generations</span><span style="color: #FF9E64;"> 117</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 回滚到上一个 generation</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nixos-rebuild switch</span><span style="color: #E0AF68;"> --rollback</span></span></code></pre><h3 id="cha-kan-liang-ci-geng-xin-zhi-jian-de-bian-hua">查看两次更新之间的变化</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 最近一次更新发生了什么</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix profile diff-closures</span><span style="color: #E0AF68;"> --profile</span><span style="color: #9ECE6A;"> /nix/var/nix/profiles/system</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 比较两个具体 generation</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix profile diff-closures</span><span style="color: #E0AF68;"> --profile</span><span style="color: #9ECE6A;"> /nix/var/nix/profiles/system</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --from-generation</span><span style="color: #FF9E64;"> 45</span><span style="color: #E0AF68;"> --to-generation</span><span style="color: #FF9E64;"> 46</span></span></code></pre><h3 id="la-ji-hui-shou">垃圾回收</h3>
+<p>NixOS 不会自动删除旧文件，需要手动 GC：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 删除当前 generation 用不到的包</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-collect-garbage</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 删除所有旧 generation，只保留当前（激进）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-collect-garbage</span><span style="color: #E0AF68;"> -d</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 删除 30 天前的 generation</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-collect-garbage</span><span style="color: #E0AF68;"> --delete-older-than</span><span style="color: #9ECE6A;"> 30d</span></span></code></pre><h3 id="nix-store-xiu-fu">nix-store 修复</h3>
+<p>笔者曾经遇到突然断电导致 <code>/nix/store</code> 损坏：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 检测并尝试修复</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix-store</span><span style="color: #E0AF68;"> --verify --check-contents --repair</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">ls</span><span style="color: #9ECE6A;"> /nix/var/nix/profiles/system-</span><span style="color: #F7768E;">*</span><span style="color: #9ECE6A;">-link</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 删除损坏的一代</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-env</span><span style="color: #E0AF68;"> -p</span><span style="color: #9ECE6A;"> /nix/var/nix/profiles/system</span><span style="color: #E0AF68;"> --delete-generations</span><span style="color: #FF9E64;"> 680</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 重新构建系统并清理</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">just</span><span style="color: #9ECE6A;"> upgrade</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> nix-collect-garbage</span><span style="color: #E0AF68;"> -d</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix-store</span><span style="color: #E0AF68;"> --verify --check-contents</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">just</span><span style="color: #9ECE6A;"> upgrade</span></span></code></pre><h2 id="yuan-cheng-bu-shu-fu-wu-qi"><strong>远程部署服务器</strong></h2>
+<p>NixOS 非常适合管理多台服务器。配置统一在本地仓库，push 到远程：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 本地构建 + 远程切换</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nixos-rebuild</span><span style="color: #9ECE6A;"> switch</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --flake</span><span style="color: #9ECE6A;"> .#my-vps</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --target-host</span><span style="color: #9ECE6A;"> root@vps-ip</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --use-remote-sudo</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 或者只在远程构建（适合架构不同）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nixos-rebuild</span><span style="color: #9ECE6A;"> switch</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --flake</span><span style="color: #9ECE6A;"> .#my-vps</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --target-host</span><span style="color: #9ECE6A;"> root@vps-ip</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --build-host</span><span style="color: #9ECE6A;"> root@vps-ip</span></span></code></pre>
+<p>如果服务器是新机器没装 NixOS，用 <code>nixos-anywhere</code>：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">nix</span><span style="color: #9ECE6A;"> run github:nix-community/nixos-anywhere</span><span style="color: #E0AF68;"> --</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  --flake</span><span style="color: #9ECE6A;"> .#my-vps</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #9ECE6A;">  root@new-server-ip</span></span></code></pre><h2 id="gei-nixpkgs-zuo-gong-xian"><strong>给 Nixpkgs 做贡献</strong></h2>
+<p>Nixpkgs 包多但总有缺失的，有时候需要自己打包并提交 PR。基本流程：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># clone 自己的 fork</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> clone</span><span style="color: #E0AF68;"> --depth=1</span><span style="color: #9ECE6A;"> git@github.com:Dichgrem/nixpkgs.git</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">cd</span><span style="color: #9ECE6A;"> nixpkgs</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 创建分支</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> checkout</span><span style="color: #E0AF68;"> -b</span><span style="color: #9ECE6A;"> some-package-update</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 用 nix-update 自动更新包</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix-update</span><span style="color: #9ECE6A;"> some-package</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 手动改的话，编辑对应的 default.nix 后验证</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nix-build</span><span style="color: #E0AF68;"> -A</span><span style="color: #9ECE6A;"> some-package</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 提交 PR</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">some-package: 1.0.0 -&gt; 2.0.0</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> push</span><span style="color: #E0AF68;"> -u</span><span style="color: #9ECE6A;"> origin some-package-update</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 然后去 GitHub 开 Pull Request</span></span></code></pre>
+<p>社区 PR 编号可以到 <code>https://github.com/NixOS/nixpkgs/pull/NNNN</code> 查看处理进度。</p>
+<h2 id="ssl-zheng-shu-zai-nixos-fu-wu-qi-shang"><strong>SSL 证书在 NixOS 服务器上</strong></h2>
+<p>NixOS 下管理 SSL 证书可以直接用 <code>security.acme</code>（Let's Encrypt 自动续期），也可以手动生成自签名证书用于内网：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">openssl</span><span style="color: #9ECE6A;"> req</span><span style="color: #E0AF68;"> -x509 -newkey</span><span style="color: #9ECE6A;"> rsa:4096</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  -keyout</span><span style="color: #9ECE6A;"> /var/lib/certs/privkey.pem</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  -out</span><span style="color: #9ECE6A;"> /var/lib/certs/fullchain.pem</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  -days</span><span style="color: #FF9E64;"> 3650</span><span style="color: #E0AF68;"> -nodes</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  -subj</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">/CN=*.dich.bid</span><span style="color: #89DDFF;">&quot; \</span></span>
+<span class="giallo-l"><span style="color: #E0AF68;">  -addext</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">subjectAltName=DNS:*.dich.bid,DNS:dich.bid</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">chown</span><span style="color: #9ECE6A;"> root:traefik /var/lib/certs/</span><span style="color: #F7768E;">*</span><span style="color: #9ECE6A;">.pem</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">chmod</span><span style="color: #FF9E64;"> 640</span><span style="color: #9ECE6A;"> /var/lib/certs/</span><span style="color: #F7768E;">*</span><span style="color: #9ECE6A;">.pem</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">systemctl</span><span style="color: #9ECE6A;"> restart traefik</span></span></code></pre>
+<p>配套的 NixOS 配置里声明好服务：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="nix"><span class="giallo-l"><span style="color: #E0AF68;">services</span><span style="color: #89DDFF;">.</span><span style="color: #E0AF68;">traefik</span><span style="color: #FF5370;"> =</span><span style="color: #89DDFF;"> {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  enable</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> true</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">  staticConfigOptions</span><span style="color: #89DDFF;"> = {</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    entryPoints</span><span>.</span><span style="color: #BB9AF7;">web</span><span>.</span><span style="color: #BB9AF7;">address</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">:80</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    entryPoints</span><span>.</span><span style="color: #BB9AF7;">websecure</span><span>.</span><span style="color: #BB9AF7;">address</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">:443</span><span style="color: #89DDFF;">&quot;;</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">  };</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">}</span><span style="color: #FF5370;">;</span></span></code></pre><h2 id="xiao-jie"><strong>小结</strong></h2>
+<p>NixOS 的上手成本确实不低，但一旦搭好了自己的配置仓库，收益是持续的：装新机器、换电脑、系统炸了回滚，全都是分分钟的事。一份配置同步管理笔记本 + 台式机 + VPS 多台机器的体验，是传统发行版做不到的。</p>
+<p>推荐的学习路径：</p>
+<ol>
+<li>先看 <a rel="noopener nofollow noreferrer external" target="_blank" href="https://nixos-and-flakes.thiscute.world/zh/">nixos-and-flakes.thiscute.world</a> 的中文教程，照着搭一套基础配置</li>
+<li>翻 <a rel="noopener nofollow noreferrer external" target="_blank" href="https://nix.dev">nix.dev</a> 的官方教程理解 Nix 语言和 Flakes</li>
+<li>在 <a rel="noopener nofollow noreferrer external" target="_blank" href="https://search.nixos.org/options">search.nixos.org/options</a> 搜索需要的配置项</li>
+<li>在 <a rel="noopener nofollow noreferrer external" target="_blank" href="https://noogle.dev">Noogle</a> 搜索 nixpkgs lib 函数</li>
+<li>参考社区的配置仓库（GitHub 搜 <code>nix-config</code>），偷学别人的写法</li>
+</ol>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+            
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/linux-3-android-dev/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Linux系列(3):Android开发环境部署</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-browser-2026/">
+                            <span class="button__text">乱七八糟:浏览器碎碎念</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                
+                    <li class="toc-level-2">
+                        <a href="#wei-shen-me-shi-nixos">为什么是 NixOS</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#he-xin-gai-nian-su-lan">核心概念速览</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#an-zhuang-nixos">安装 NixOS</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#flakes-nixos-de-xian-dai-pei-zhi-fang-shi">Flakes：NixOS 的现代配置方式</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#home-manager-guan-li-ni-de-dotfiles">Home Manager：管理你的 dotfiles</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#kai-fa-huan-jing-nix-shell-he-nix-develop">开发环境：nix shell 和 nix develop</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#ri-chang-cao-zuo">日常操作</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#gou-jian-he-qie-huan">构建和切换</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#generations-guan-li">Generations 管理</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#cha-kan-liang-ci-geng-xin-zhi-jian-de-bian-hua">查看两次更新之间的变化</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#la-ji-hui-shou">垃圾回收</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#nix-store-xiu-fu">nix-store 修复</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#yuan-cheng-bu-shu-fu-wu-qi">远程部署服务器</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#gei-nixpkgs-zuo-gong-xian">给 Nixpkgs 做贡献</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#ssl-zheng-shu-zai-nixos-fu-wu-qi-shang">SSL 证书在 NixOS 服务器上</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#xiao-jie">小结</a>
+                        
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+</body>
+</html>
+
