@@ -28,7 +28,7 @@
 			<xsl:value-of select="/atom:feed/atom:title"/></a>
 			website.
 		</p>
-		<p>It is meant for&#xa0;<a href="https://www.feed.style/newsreaders.html">news readers</a>, not humans.  Please copy-and-paste the URL into your news reader!</p>
+		<p>It is meant for&#xa0;<a href="https://aboutfeeds.com/">news readers</a>, not humans.  Please copy-and-paste the URL into your news reader!</p>
 		<p>
 				<code id="feedurl"><xsl:value-of select="/atom:feed/atom:link[@rel='self']/@href"/></code>    
 		</p>
@@ -53,7 +53,7 @@
 				</details>
 		</xsl:for-each>
 		<p><xsl:value-of select="count(/atom:feed/atom:entry)"/> news items.</p>
-		<p><small>Powered by <a href="https://www.feed.style/">Feed.Style</a></small></p>
+		<p><small>Powered by <a href="https://aboutfeeds.com/">About Feeds</a></small></p>
 	</body>
 </html>
 	</xsl:template>
