@@ -9,10 +9,13 @@ Search | {{ config.title }}
 {% endblock header_menu %}
 
 {% block content %}
-<link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
 
-<div style="--pf-searchbox-max-width: 100%;">
-    <pagefind-searchbox></pagefind-searchbox>
-</div>
+<div id="search"></div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search", showSubResults: true });
+    });
+</script>
 {% endblock content %}
