@@ -150,6 +150,17 @@
 </div>
 {%- block extra_body %}
 {% endblock extra_body -%}
+
+<button class="back-to-top" id="back-to-top" title="回到顶部">↑</button>
+<script>
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
 </body>
 </html>
 
