@@ -81,11 +81,10 @@ menu_items = [
 
     {name = "Links", url = "$BASE_URL/links"},
     {name = "Rss", url = "$BASE_URL/atom.xml"},
-
-    {name = "About me", url = "$BASE_URL/about"},
-    # set newtab to true to make the link open in new tab
     {name = "My github", url = "https://github.com/Dichgrem", newtab = true},
-    {name = "Zola frame", url = "https://github.com/getzola/zola", newtab = true},
+    {name = "About me", url = "$BASE_URL/about"},
+    {name = "About Zola", url = "https://github.com/getzola/zola", newtab = true},
+    # set newtab to true to make the link open in new tab
 ]
 
 # Whether to show links to earlier and later (aka. higher/lower) posts
