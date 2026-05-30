@@ -1,4 +1,6 @@
 #!/usr/bin/env -S just --justfile
+@serve:
+  zola serve
 @build:
   zola build
   pagefind --site public --root-selector body
