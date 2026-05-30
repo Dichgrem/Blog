@@ -10,12 +10,9 @@ Search | {{ config.title }}
 
 {% block content %}
 <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-component-ui.js"></script>
+<script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 
-<div id="search"></div>
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        new PagefindUI({ element: "#search" });
-    });
-</script>
+<div style="--pf-searchbox-max-width: 100%;">
+    <pagefind-searchbox></pagefind-searchbox>
+</div>
 {% endblock content %}
