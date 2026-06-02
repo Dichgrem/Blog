@@ -3,13 +3,12 @@ html {
 }
 
 .page-with-toc {
-    display: flex;
-    flex-direction: column-reverse;
     max-width: 54rem;
     margin: 0 auto;
 
-    @media (min-width: 1200px) {
-        display: block;
+    @media (max-width: 1199px) {
+        display: flex;
+        flex-direction: column-reverse;
     }
 }
 
@@ -30,14 +29,15 @@ html {
     @media (min-width: 1200px) {
         width: 15.625rem;
         position: fixed;
-        right: 2rem;
         top: 11.25rem;
+        left: min(calc(50% + 27rem + 2rem), calc(100vw - 15.625rem - 2rem));
         max-height: calc(100vh - 12.5rem);
         overflow-y: auto;
         padding: 0;
         margin-bottom: 0;
         border: none;
         border-radius: 0;
+        scrollbar-width: thin;
     }
 }
 

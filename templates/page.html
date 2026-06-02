@@ -69,11 +69,10 @@
             });
 
             function scrollTocTo(link) {
-                const top = link.offsetTop - container.offsetTop;
-                const h = container.clientHeight;
-                if (top < container.scrollTop || top + link.offsetHeight > container.scrollTop + h) {
-                    container.scrollTop = top - h / 2 + link.offsetHeight / 2;
-                }
+                const cr = container.getBoundingClientRect();
+                const lr = link.getBoundingClientRect();
+                const target = container.scrollTop + (lr.top - cr.top) - (cr.height / 2) + (lr.height / 2);
+                container.scrollTo({ top: target, behavior: 'smooth' });
             }
 
             function onScroll() {
