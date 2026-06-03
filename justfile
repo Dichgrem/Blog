@@ -1,4 +1,3 @@
-#!/usr/bin/env -S just --justfile
 @serve:
   zola serve
 @build:
@@ -7,3 +6,5 @@
 @format:
   rumdl check --fix .
   rumdl fmt .
+@new:
+  bash scripts/new-post.sh
