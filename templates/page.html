@@ -5,46 +5,94 @@
 {%- endblock -%}
 
 {% block content %}
+    {% if page.toc %}
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            {{ post_macros::header(page=page) }}
+            {{ post_macros::content(page=page, summary=false, show_only_description=false) }}
+            {{ post_macros::earlier_later(page=page) }}
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                {% for h in page.toc %}
+                    <li class="toc-level-{{ h.level }}">
+                        <a href="#{{ h.id | safe }}">{{ h.title }}</a>
+                        {% if h.children %}
+                            <ul>
+                            {% for h2 in h.children %}
+                                <li class="toc-level-{{ h2.level }}">
+                                    <a href="#{{ h2.id | safe }}">{{ h2.title }}</a>
+                                    {% if h2.children %}
+                                        <ul>
+                                        {% for h3 in h2.children %}
+                                            <li class="toc-level-{{ h3.level }}">
+                                                <a href="#{{ h3.id | safe }}">{{ h3.title }}</a>
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
     <div class="post" data-pagefind-body>
         {{ post_macros::header(page=page) }}
         {{ post_macros::content(page=page, summary=false, show_only_description=false) }}
         {{ post_macros::earlier_later(page=page) }}
-    </div>
-    {% if page.toc %}
-    <div class="toc-container">
-        <div class="toc">
-            <div class="toc-title">目录</div>
-            <ul>
-            {% for h in page.toc %}
-                <li class="toc-level-{{ h.level }}">
-                    <a href="#{{ h.id | safe }}">{{ h.title }}</a>
-                    {% if h.children %}
-                        <ul>
-                        {% for h2 in h.children %}
-                            <li class="toc-level-{{ h2.level }}">
-                                <a href="#{{ h2.id | safe }}">{{ h2.title }}</a>
-                                {% if h2.children %}
-                                    <ul>
-                                    {% for h3 in h2.children %}
-                                        <li class="toc-level-{{ h3.level }}">
-                                            <a href="#{{ h3.id | safe }}">{{ h3.title }}</a>
-                                        </li>
-                                    {% endfor %}
-                                    </ul>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
     </div>
     {% endif %}
 {% endblock content %}
 
 {% block extra_body %}
     <script src="{{ get_url(path='copy.js', trailing_slash=false) | safe }}"></script>
-{% endblock extra_body %}
+    {% if page.toc %}
+    <script>
+        (function() {
+            const tocLinks = document.querySelectorAll('.toc a');
+            const ids = Array.from(tocLinks, a => document.getElementById(a.getAttribute('href').slice(1)));
+            const container = document.querySelector('.toc-container');
+            let prevLink = null;
+            let navEnd = 0;
 
+            window.addEventListener('hashchange', () => { navEnd = Date.now() + 1500; });
+            tocLinks.forEach(a => {
+                a.addEventListener('click', () => { navEnd = Date.now() + 1500; });
+            });
+
+            function scrollTocTo(link) {
+                const cr = container.getBoundingClientRect();
+                const lr = link.getBoundingClientRect();
+                const target = container.scrollTop + (lr.top - cr.top) - (cr.height / 2) + (lr.height / 2);
+                container.scrollTo({ top: target, behavior: 'smooth' });
+            }
+
+            function onScroll() {
+                let active = null;
+                for (const el of ids) {
+                    if (el && el.getBoundingClientRect().top <= 100) active = el;
+                }
+                if (active) {
+                    const link = tocLinks[ids.indexOf(active)];
+                    if (link !== prevLink) {
+                        if (prevLink) prevLink.classList.remove('active');
+                        link.classList.add('active');
+                        prevLink = link;
+                    }
+                    if (Date.now() > navEnd) scrollTocTo(link);
+                }
+            }
+            window.addEventListener('scroll', onScroll, {passive: true});
+            onScroll();
+        })();
+    </script>
+    {% endif %}
+{% endblock extra_body %}

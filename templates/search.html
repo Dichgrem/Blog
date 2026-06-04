@@ -5,7 +5,7 @@ Search | {{ config.title }}
 {% endblock title %}
 
 {% block header_menu %}
-{{ menu_macros::menu_for(config=config, current_item="") }}
+{{ menu_macros::menu(config=config, current_path=current_path) }}
 {% endblock header_menu %}
 
 {% block content %}
