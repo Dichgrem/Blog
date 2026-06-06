@@ -2025,9 +2025,9 @@ user
 | 查询用户列表 | GET | `/api/users` | — | 200 OK |
 | 查询单个用户 | GET | `/api/users/1` | — | 200 OK |
 | 查询不存在用户 | GET | `/api/users/999` | — | 404 Not Found |
-| 新增用户 | POST | `/api/users` | `{"username":"test","password":"123"}` | 201 Created |
-| 新增用户（缺必填字段） | POST | `/api/users` | `{"username":"test"}` | 400 Bad Request |
-| 修改用户 | PUT | `/api/users/1` | `{"username":"new","age":25}` | 200 OK |
+| 新增用户 | POST | `/api/users` | `{`<br>`  "username": "test",`<br>`  "password": "123"`<br>`}` | 201 Created |
+| 新增用户（缺必填字段） | POST | `/api/users` | `{`<br>`  "username": "test"`<br>`}` | 400 Bad Request |
+| 修改用户 | PUT | `/api/users/1` | `{`<br>`  "username": "new",`<br>`  "age": 25`<br>`}` | 200 OK |
 | 删除用户 | DELETE | `/api/users/1` | — | 200 OK |
 | 删除不存在用户 | DELETE | `/api/users/999` | — | 404 Not Found |
 | 无认证访问 | GET | `/api/users` | — | 401 Unauthorized |
