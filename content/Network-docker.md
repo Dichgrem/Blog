@@ -226,7 +226,46 @@ sudo rm -rf /etc/docker
 
 这些命令会卸载 Docker 软件并删除 Docker 数据目录。
 
----
+## 使用Podman替代Docker
+
+Podman有很多优势，比如声明式配置，rootless，systemd和autoupdate；在ubuntu上使用以下命令安装：
+
+```
+sudo apt update
+sudo apt install podman podman-compose
+```
+Podman 可以使用compose模式，即你提供一个compose文件，也可以使用官方的Quadlet模块，例如：
+
+在`/home/yourname/.config/containers/systemd`下创建一个`searxng.container`文件：
+```
+[Unit]
+Description=SearXNG
+
+[Container]
+Image=docker.io/searxng/searxng:latest
+
+ContainerName=searxng
+
+PublishPort=127.0.0.1:18080:8080
+
+Volume=%h/docker/searxng-data:/etc/searxng
+
+PodmanArgs=--network=nginx
+AutoUpdate=registry
+
+[Install]
+WantedBy=default.target
+```
+
+随后即可使用经典命令操作：
+```
+systemctl --user daemon-reload # 重载
+systemctl --user start searxng # 启动
+systemctl --user enable searxng # 开机自启动
+systemctl --user status searxng # 查看状态
+systemctl --user stop searxng # 关闭服务
+systemctl --user enable --now podman-auto-update.timer # 开启自动更新
+```
 
 ## 使用Docker-Compose
 
