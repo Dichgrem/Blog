@@ -51,6 +51,9 @@ paru -S fcitx5-configtool fcitx5-skin-material fcitx5-rime fcitx5-gtk
 
 # ttf
 paru -S ttf-jetbrains-mono-nerd ttf-sarasa-gothic-sc
+
+# Misc
+paru -S wl-clipboard xclip inotify-tools curl wget nano sudo vim
 ```
 
 如果使用Wayland+WM方案，需要额外安装以下这些：
