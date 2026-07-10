@@ -255,25 +255,26 @@ Windows 自身已经内置了大量非常实用的快捷键，只是很多人并
 
 要达到类似Linux下``oh-myzsh+atuin+fzf+zoxide+starship``的效果，可以使用以下方法增强：
 
+* 安装PowerShell7
+
+```bash
+winget install Microsoft.PowerShell
+```
+* 安装字体
+
+前往`https://www.nerdfonts.com/font-downloads`下载后全选ttf并给所有用户安装；
+
 * 安装模块
 
 ```bash
 winget install junegunn.fzf
 fzf --version
-winget install JanDeDobbeleer.OhMyPosh
-oh-my-posh version
 winget install ajeetdsouza.zoxide
 zoxide --version
+winget install Starship.Starship
+starship --version
 ```
 
-* 安装字体
-
-```bash
-oh-my-posh font install
-# 可以选择 Meslo
-```
-
-安装完成后即可以在``Windows Terminal``-->``PowerShell 配置文件``-->``外观``-->``字体``中设置.
 
 * 导入模块
 
@@ -294,34 +295,34 @@ notepad $PROFILE
 在打开的窗口中写入：
 
 ```bash
-# ---------- PSReadLine ----------
+# UTF-8
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+
+# PSReadLine
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle InlineView
 
-# ---------- Git ----------
+# Git
 Import-Module posh-git
 
-# ---------- fzf ----------
+# fzf
 Import-Module PSFzf
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+Set-PsFzfOption -PSReadlineChordProvider Ctrl+t -PSReadlineChordReverseHistory Ctrl+r
 
-# ---------- zoxide ----------
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+# zoxide
+Invoke-Expression (& { zoxide init powershell | Out-String })
 
-# ---------- oh-my-posh ----------
+# Starship
+Invoke-Expression (&starship init powershell)
 
-oh-my-posh init pwsh | Invoke-Expression
-
-# ---------- Bash-style line editing ----------
-
-# Ctrl+A → 行首
+# Bash 风格快捷键
 Set-PSReadLineKeyHandler -Key Ctrl+a -Function BeginningOfLine
-# Ctrl+E → 行尾
 Set-PSReadLineKeyHandler -Key Ctrl+e -Function EndOfLine
-# Ctrl+U → 删除从光标到行首
 Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
-# Ctrl+K → 删除从光标到行尾
 Set-PSReadLineKeyHandler -Key Ctrl+k -Function ForwardDeleteLine
 ```
 
