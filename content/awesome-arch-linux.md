@@ -52,6 +52,9 @@ paru -S fcitx5-configtool fcitx5-skin-material fcitx5-rime fcitx5-gtk
 # ttf
 paru -S ttf-jetbrains-mono-nerd ttf-sarasa-gothic-sc
 
+# Git
+paru -S git git-lfs git-delta github-cli git-filter-repo difftastic onefetch tig
+
 # Misc
 paru -S wl-clipboard xclip inotify-tools curl wget nano sudo vim
 ```
