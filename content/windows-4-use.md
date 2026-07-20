@@ -1,17 +1,220 @@
 +++
-title = "Windows系列(4):快捷键位与强化"
+title = "Windows系列(4): 命令行工具链与效率增强"
 date = 2024-05-28
 
 [taxonomies]
 tags = ["Windows"]
 +++
 
-前言 本文记载windows下的常用快捷键与PowerShell强化配置.
+前言 本篇介绍 Windows Terminal、PowerShell、winget/scoop、gsudo/Core Utils/psmux/rmux，以及启动器与常用快捷键。
+
 <!-- more -->
 
-## 浏览器快捷键
+## Windows Terminal
 
-### 常用
+**[Windows Terminal](https://github.com/microsoft/terminal)**，微软开源，Win11 默认终端。把 cmd、PowerShell、WSL 塞进同一个标签页窗口里。
+
+- `Ctrl+Shift+T` 新建标签，`Alt+Shift+D` 分屏
+- GPU 渲染（DirectWrite），支持 Nerd Font、emoji、Unicode
+- acrylic 半透明、背景图、配色方案，`settings.json` 或 GUI 设置
+- `Ctrl+Shift+P` 命令面板，`Ctrl+,` 打开设置
+- Quake 模式（从屏幕顶部下拉）
+- 内置 Cascadia Code 等宽字体，支持连字
+
+## PowerShell
+
+Windows 预装 PowerShell 5.1，终端输入 `$PSVersionTable` 可看版本。
+
+5.1 基于 .NET Framework 4.x，仅 Windows，2016 年发布，不再加新功能。**PowerShell 7** 是 2018 年开源后的继任者，基于 .NET 8，跨平台。
+
+| 特性 | 5.1 | 7 |
+|------|:-:|:-:|
+| 引擎 | .NET Framework 4.x | .NET 8 |
+| 平台 | 仅 Windows | Windows / Linux / macOS |
+| 默认编码 | UTF-16 LE (BOM) | UTF-8 (NoBOM) |
+| 三元运算 `a ? b : c` | ❌ | ✅ |
+| null 合并 `??` / `??=` | ❌ | ✅ |
+| 管道链 `&&` / `\|` | ❌ | ✅ |
+| `ForEach-Object -Parallel` | ❌ | ✅ |
+| `Get-Error` | ❌ | ✅ |
+| SSH 远程 | 需额外配置 | 内置 |
+| 性能 | 基线 | 提升明显（.NET 运行时改进） |
+| 旧模块兼容 | 原生 | WindowsCompatibility 层 |
+
+1. **编码**——5.1 默认 UTF-16 LE BOM，跟 Linux 交互（重定向、管道）容易乱码；7 默认 UTF-8。
+2. **管道链**——`./build.ps1 && ./deploy.ps1` 这种 bash 写法 5.1 不支持，7 原生支持。
+3. **并行**——`1..10 | ForEach-Object -Parallel { $_ * 2 }` 5.1 没有，7 有。
+4. **三元和 null 合并**——`$result = $value ?? "default"` 在 5.1 要写成 `if ($null -eq $value) { ... }`。
+
+我的用法是 PS7 作日常 Shell，5.1 留着跑那些只认旧版的老模块。
+
+### 安装与配置
+
+要达到类似 Linux 下 ``oh-myzsh+atuin+fzf+zoxide+starship`` 的效果：
+
+* 安装 PS7
+
+```bash
+winget install Microsoft.PowerShell
+```
+
+* 装 Nerd Font
+
+前往 `https://www.nerdfonts.com/font-downloads` 下载后全选 ttf 并给所有用户安装。
+
+* 装 CLI 工具
+
+```bash
+winget install junegunn.fzf
+winget install ajeetdsouza.zoxide
+winget install Starship.Starship
+```
+
+* 导入模块
+
+```bash
+Install-Module PSReadLine -Scope CurrentUser -Force
+Install-Module posh-git -Scope CurrentUser -Force
+Install-Module PSFzf -Scope CurrentUser -Force
+```
+
+* 写 `$PROFILE`
+
+```bash
+notepad $PROFILE
+```
+
+写入：
+
+```bash
+# UTF-8
+chcp 65001 > $null
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+
+# PSReadLine
+Import-Module PSReadLine
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle InlineView
+
+# posh-git
+Import-Module posh-git
+
+# PSFzf
+Import-Module PSFzf
+Set-PsFzfOption -PSReadlineChordProvider Ctrl+t -PSReadlineChordReverseHistory Ctrl+r
+
+# zoxide
+Invoke-Expression (& { zoxide init powershell | Out-String })
+
+# Starship
+Invoke-Expression (&starship init powershell)
+
+# Bash 风格快捷键
+Set-PSReadLineKeyHandler -Key Ctrl+a -Function BeginningOfLine
+Set-PSReadLineKeyHandler -Key Ctrl+e -Function EndOfLine
+Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
+Set-PSReadLineKeyHandler -Key Ctrl+k -Function ForwardDeleteLine
+```
+
+新开一个 PowerShell，能看到 Git 分支提示、`Ctrl+R` fzf 历史搜索、右方向键透明补全。
+
+## Winget / Scoop
+
+**winget**（Windows Package Manager），微软官方，随 App Installer 组件预装在 Win10 1809+ 和 Win11 中。`msstore` 源走 Microsoft Store 验证，`winget` 源走 [winget-pkgs](https://github.com/microsoft/winget-pkgs) 社区仓库，共 5000+ 软件包。
+
+```bash
+winget search <关键词>     # 搜索
+winget install <包名>      # 安装
+winget upgrade             # 查看可更新
+winget upgrade --all       # 全部升级
+winget uninstall <包名>    # 卸载
+winget list                # 已安装列表
+```
+
+> winget 覆盖面广，GUI/CLI 都能装。缺点：部分包要 UAC 弹窗，安装路径在 `Program Files`，不能自定义。
+
+**scoop**，社区维护，装到 `~/scoop/` 下，不需要管理员权限。
+
+```powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm get.scoop.sh | iex
+```
+
+scoop 用 bucket 分类管理软件源：
+
+| bucket | 内容 |
+|--------|------|
+| `main` | 知名开源 CLI/GUI 工具（git, 7zip, python 等） |
+| `extras` | GUI 软件（vscode, firefox, obsidian 等） |
+| `versions` | 多版本共存（python27, openjdk11 等） |
+| `nerd-fonts` | Nerd Font 字体集合 |
+| `java` | 各版本 JDK |
+
+```bash
+scoop bucket add extras          # 添加 bucket
+scoop install <包名>              # 安装
+scoop update *                   # 更新全部
+scoop status                     # 查看可更新
+scoop cleanup *                  # 清理旧版本
+```
+
+> scoop 装用户目录，换机拷贝 `~/scoop/` 即可迁移。
+
+## 命令行工具
+
+### gsudo
+
+**[gsudo](https://github.com/gerardog/gsudo)**——Windows 上的 sudo，命令行里临时提权用。
+
+```powershell
+winget install gerardog.gsudo
+
+gsudo notepad C:\Windows\System32\drivers\etc\hosts   # 提权跑一条命令
+gsudo                                                   # 提权开新 Shell
+```
+
+支持 PowerShell、cmd、WSL，管道传递、凭证缓存。注册为 `sudo` 别名后用法和 Linux 差不多。
+
+### Core Utils
+
+Linux 下 `cp`、`mv`、`rm`、`ls`、`grep` 这些命令，cmd/PowerShell 里名字不同。几个途径：
+
+1. **Git for Windows** 自带 Git Bash，打包了一套 MSYS2 编译的 GNU 工具链，装了 Git 就有；
+2. **[uutils/coreutils](https://github.com/uutils/coreutils)**——Rust 重写的 GNU Core Utils，跨平台，winget/scoop 安装：
+
+```bash
+winget install uutils.coreutils
+scoop install uutils-coreutils
+```
+
+装完 PowerShell 里就能直接用 `cp`、`grep`、`ls`。
+
+### psmux / rmux
+
+- **[psmux](https://github.com/psmux/psmux)**（3k+ stars）——Rust 实现的 Windows 原生 tmux 替代品。支持 PowerShell、cmd 和 Windows Terminal，提供会话管理、窗格分割、插件系统（[psmux-plugins](https://github.com/psmux/psmux-plugins)），可通过 scoop 安装。
+- **[rmux](https://github.com/Helvesec/rmux)**（2.4k+ stars）——跨平台的通用多路复用框架，同样基于 Rust。提供可编程 SDK，允许从代码驱动任意 CLI / TUI 应用。
+
+## 启动器
+
+**Flow.Launcher**——[GitHub](https://github.com/Flow-Launcher/Flow.Launcher)，`Alt+Space` 呼出，搜应用、文件、目录。内置计算器、网页搜索、系统命令，有 Everything 插件。
+
+**ZeroLaunch-rs**——[GitHub](https://github.com/ghost-him/ZeroLaunch-rs)，Rust 写的轻量启动器，启动快、内存小。
+
+**Everything**——[voidtools.com](https://www.voidtools.com/)，读 NTFS MFT 做毫秒级全盘文件搜索。Windows 自带搜索跟它没法比。
+
+**AutoHotkey**——[autohotkey.com](https://www.autohotkey.com/)，键盘脚本引擎，改键、宏、文本展开都行。目前用 v2，v1 停更。常用：CapsLock 映射 Ctrl，窗口置顶快捷键，输 `` @\ `` 自动展开为邮箱。
+
+```bash
+winget install Flow.Launcher.Flow.Launcher
+winget install voidtools.Everything
+winget install AutoHotkey.AutoHotkey
+```
+
+## 快捷键速查
+
+### 浏览器
 
 | 快捷键               | 描述             |
 |----------------------|------------------|
@@ -26,7 +229,7 @@ tags = ["Windows"]
 | Ctrl + N             | 新建窗口         |
 | Ctrl + Shift + P     | 新建隐私浏览窗口 |
 
-### 历史
+##### 历史
 
 | 快捷键                  | 描述                       |
 |-------------------------|----------------------------|
@@ -34,7 +237,7 @@ tags = ["Windows"]
 | Ctrl + Shift + H        | 我的足迹窗口（历史）       |
 | Ctrl + Shift + Del      | 清除最近历史记录           |
 
-### 书签
+##### 书签
 
 | 快捷键                        | 描述                               |
 |-------------------------------|------------------------------------|
@@ -43,14 +246,14 @@ tags = ["Windows"]
 | Ctrl + Shift + O              | 显示全部书签（我的足迹窗口）       |
 | Ctrl + B / Ctrl + Shift + B   | 书签侧栏 / 顶栏                    |
 
-### 下载与插件
+##### 下载与插件
 
 | 快捷键               | 描述           |
 |----------------------|----------------|
 | Ctrl + Shift + Y     | 下载           |
 | Ctrl + Shift + A     | 附加组件 / 插件 |
 
-### 控制台与开发
+##### 控制台与开发
 
 | 快捷键               | 描述             |
 |----------------------|------------------|
@@ -62,7 +265,7 @@ tags = ["Windows"]
 | Ctrl + U             | 页面源码         |
 | Ctrl + Shift + J     | 浏览器控制台     |
 
-### 标签页与界面
+##### 标签页与界面
 
 | 快捷键                        | 描述                     |
 |-------------------------------|--------------------------|
@@ -77,7 +280,7 @@ tags = ["Windows"]
 | Ctrl + Shift + Page Up        | 当前标签页左移           |
 | Ctrl + Shift + Page Down      | 当前标签页右移           |
 
-### 其他操作
+##### 其他
 
 | 快捷键             | 描述             |
 |--------------------|------------------|
@@ -89,9 +292,9 @@ tags = ["Windows"]
 | Home               | 到达页首         |
 | F6                 | 地址栏           |
 
-## GNU Readline 常用快捷键
+### GNU Readline
 
-### 光标移动
+##### 光标移动
 
 * `Ctrl + A`：移动到行首
 * `Ctrl + E`：移动到行尾
@@ -100,7 +303,7 @@ tags = ["Windows"]
 * `Alt + B`：向左移动一个单词
 * `Alt + F`：向右移动一个单词
 
-### 编辑文本
+##### 编辑文本
 
 * `Ctrl + D`：删除光标处字符
 * `Ctrl + H`：删除光标前字符（Backspace）
@@ -111,7 +314,7 @@ tags = ["Windows"]
 * `Ctrl + Y`：粘贴最后删除的文本
 * `Alt + Backspace`：删除前一个单词
 
-### 历史记录
+##### 历史记录
 
 * `Ctrl + P`：上一条命令
 * `Ctrl + N`：下一条命令
@@ -120,7 +323,7 @@ tags = ["Windows"]
 * `Alt + <`：跳到历史最早
 * `Alt + >`：跳到历史最新
 
-### 控制命令
+##### 控制命令
 
 * `Ctrl + L`：清屏（等同 `clear`）
 * `Ctrl + C`：终止当前命令
@@ -128,29 +331,29 @@ tags = ["Windows"]
 * `Ctrl + Z`：挂起当前进程
 * `Ctrl + J`：执行命令（等同 Enter）
 
-### 单词大小写
+##### 单词大小写
 
 * `Alt + U`：将单词变为大写
 * `Alt + L`：将单词变为小写
 * `Alt + C`：首字母大写
 
-### 交换 / 转置
+##### 交换 / 转置
 
 * `Ctrl + T`：交换当前字符和前一个字符
 * `Alt + T`：交换两个单词
 
-### 补全
+##### 补全
 
 * `Tab`：自动补全
 * `Alt + ?`：列出所有可能补全
 * `Alt + *`：插入所有补全
 
-### 参数引用
+##### 参数引用
 
 * `Alt + .`：插入上一条命令的最后一个参数
 * `Alt + _`：同上
 
-## Windows快捷键
+### Windows
 
 高效使用 Windows 的第一步，就是**减少鼠标依赖**。  
 Windows 自身已经内置了大量非常实用的快捷键，只是很多人并没有系统地使用过。
@@ -177,7 +380,7 @@ Windows 自身已经内置了大量非常实用的快捷键，只是很多人并
 
 ---
 
-### 虚拟桌面
+##### 虚拟桌面
 
 * **Win + Ctrl + D**  
   新建虚拟桌面  
@@ -190,7 +393,7 @@ Windows 自身已经内置了大量非常实用的快捷键，只是很多人并
 
 ---
 
-### 应用启动与系统
+##### 应用启动与系统
 
 * **Win**  
   打开开始菜单，直接输入搜索应用  
@@ -209,7 +412,7 @@ Windows 自身已经内置了大量非常实用的快捷键，只是很多人并
 
 ---
 
-### 截图与录屏
+##### 截图与录屏
 
 * **Win + Shift + S**  
   截图（区域 / 窗口 / 全屏）  
@@ -222,7 +425,7 @@ Windows 自身已经内置了大量非常实用的快捷键，只是很多人并
 
 ---
 
-### 常用编辑操作
+##### 常用编辑操作
 
 * **Ctrl + C / V / X**  
   复制 / 粘贴 / 剪切  
@@ -241,92 +444,6 @@ Windows 自身已经内置了大量非常实用的快捷键，只是很多人并
 
 * **Ctrl + Shift + Esc**  
   直接打开任务管理器  
-
-## 启动器
-
-有了窗口切换和关闭，还需要打开，这里推荐这两个：
-
-* [Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher)
-* [ZeroLaunch-rs](https://github.com/ghost-him/ZeroLaunch-rs)
-
-现在我们就可以使用``Win+Tab``切换窗口，使用``Alt+F4``关闭窗口，使用``Alt+Space``启动软件.
-
-## Powershell强化
-
-要达到类似Linux下``oh-myzsh+atuin+fzf+zoxide+starship``的效果，可以使用以下方法增强：
-
-* 安装PowerShell7
-
-```bash
-winget install Microsoft.PowerShell
-```
-* 安装字体
-
-前往`https://www.nerdfonts.com/font-downloads`下载后全选ttf并给所有用户安装；
-
-* 安装模块
-
-```bash
-winget install junegunn.fzf
-fzf --version
-winget install ajeetdsouza.zoxide
-zoxide --version
-winget install Starship.Starship
-starship --version
-```
-
-
-* 导入模块
-
-```bash
-Install-Module PSReadLine     -Scope CurrentUser -Force
-Install-Module posh-git       -Scope CurrentUser -Force
-Install-Module PSFzf      -Scope CurrentUser -Force
-```
-
-* 写入配置
-
-首先执行这个命令：
-
-```bash
-notepad $PROFILE
-```
-
-在打开的窗口中写入：
-
-```bash
-# UTF-8
-chcp 65001 > $null
-[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
-[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
-$OutputEncoding = [System.Text.UTF8Encoding]::new($false)
-
-# PSReadLine
-Import-Module PSReadLine
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -PredictionViewStyle InlineView
-
-# Git
-Import-Module posh-git
-
-# fzf
-Import-Module PSFzf
-Set-PsFzfOption -PSReadlineChordProvider Ctrl+t -PSReadlineChordReverseHistory Ctrl+r
-
-# zoxide
-Invoke-Expression (& { zoxide init powershell | Out-String })
-
-# Starship
-Invoke-Expression (&starship init powershell)
-
-# Bash 风格快捷键
-Set-PSReadLineKeyHandler -Key Ctrl+a -Function BeginningOfLine
-Set-PSReadLineKeyHandler -Key Ctrl+e -Function EndOfLine
-Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
-Set-PSReadLineKeyHandler -Key Ctrl+k -Function ForwardDeleteLine
-```
-
-随后新开启一个PowerShell，可以看到有Git提示，ctrl+R唤起历史，右方向键透明补全的效果.
 
 ---
 
