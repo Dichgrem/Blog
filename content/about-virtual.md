@@ -321,10 +321,6 @@ qemu-img convert -O qcow2 ubuntu24.04-2.qcow2 ubuntu24.04-2-compressed.qcow2
 qemu-img convert -O qcow2 -c ubuntu24.04-2.qcow2 ubuntu24.04-2-compressed.qcow2
 ```
 
-> **不要直接删除原始文件**，先确认新文件能正常启动。如果你的 qcow2 镜像是直接被写满了（比如里面确实存了很多真实数据），那即使压缩也不会小太多。如果镜像内部用了 LVM，还可以在 LVM 里使用sudo fstrim -av进行fstrim.
-
-下面帮你自然续写一节 **WSL2**，风格和你前面保持一致，直接可粘：
-
 ---
 
 ## 四.WSL2
@@ -335,7 +331,7 @@ WSL（Windows Subsystem for Linux）是微软提供的 Linux 子系统，其中 
 
 ## 安装
 
-### 一键安装（推荐）
+### 一键安装
 
 在 Windows 10 2004+ / Windows 11 中，直接：
 
@@ -349,6 +345,45 @@ wsl --install
 * Ubuntu 发行版
 
 安装完成后重启即可。
+
+### 安装 Arch linux
+
+
+```bash
+wsl --install archlinux
+wsl
+```
+
+- 创建普通用户并赋予sudo
+
+```bash
+passwd
+useradd dich
+passwd dich
+pacman -S sudo
+usermod -aG wheel dich
+EDITOR=nano visudo
+# 找到 %wheel ALL=(ALL:ALL) ALL 将这一行取消注释
+mkdir -p /home/dich
+chown dich:dich /home/dich
+su - dich
+```
+
+- 安装paru
+
+```bash
+sudo pacman -S --needed base-devel git
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+```
+
+- 设置默认用户和路径
+
+```bash
+wsl --manage Arch --set-default-user dich
+wsl -d archlinux --cd ~
+```
 
 ## 基本使用
 
