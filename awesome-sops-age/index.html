@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/awesome-sops-age/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/awesome-sops-age/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">About Zola</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            
+    <h1 class="post-title"><a href="https://blog.dich.bid/awesome-sops-age/">乱七八糟:Sops+Age管理Git仓库</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2026-05-10
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+            <div class="post-content">
+            <p>前言 当你把 Docker Compose 文件放在 Git 仓库里时，数据库密码、API 密钥这些敏感信息怎么办？<code>gitignore</code> 掉的话每次部署都要手动填，提交明文又等于裸奔。Sops + Age 就是干这个的：把 secrets 加密后直接放进仓库，需要的时候自动解密注入环境变量，既安全又省事。</p>
+<span id="continue-reading"></span><h2 id="wei-shen-me-yao-yong-sops-age"><strong>为什么要用 Sops + Age</strong></h2>
+<p>传统的做法有两种，都不理想：</p>
+<ol>
+<li><strong>全部 <code>.gitignore</code></strong>：每台机器手动创建 secrets 文件，时间一长文件丢了、格式不一致、换了机器忘了怎么配。</li>
+<li><strong>提交加密后的文件</strong>：思路对，但多半是自己写脚本拿 <code>openssl</code> 搞，脚本散落在各处，维护起来难受。</li>
+</ol>
+<p>Sops（Mozilla 出的 Secrets OPerationS）专门解决这个问题。它不加密整个文件，而是只加密 YAML / JSON / ENV 文件里的<strong>值</strong>，保留键的明文。这样你一眼就能看到有哪些字段，Git diff 也有意义——哪个 key 变了，哪个没变，一清二楚。</p>
+<p>Age 是 Sops 推荐的加密后端。相比 GPG，Age 没有信任链、没有过期日、密钥就是一个文件，简单到你不知道该配错点什么。</p>
+<p>配合使用的大致流程：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>本地编辑 secrets 文件 → Sops 用 Age 公钥加密 → push 到 Git</span></span>
+<span class="giallo-l"><span>部署时 → Sops 用 Age 私钥解密 → 注入环境变量 → Docker 启动</span></span></code></pre>
+<p>下面以 Traefik + Miniflux 为例，走一遍完整配置。</p>
+<h2 id="an-zhuang-sops-he-age"><strong>安装 Sops 和 Age</strong></h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Debian/Ubuntu</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> apt install sops age</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># macOS</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">brew</span><span style="color: #9ECE6A;"> install sops age</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Arch</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sudo</span><span style="color: #9ECE6A;"> pacman</span><span style="color: #E0AF68;"> -S</span><span style="color: #9ECE6A;"> sops age</span></span></code></pre>
+<p>装完验证：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #E0AF68;"> --version</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">age-keygen</span><span style="color: #E0AF68;"> --version</span></span></code></pre><h2 id="sheng-cheng-age-mi-yao"><strong>生成 Age 密钥</strong></h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">mkdir</span><span style="color: #E0AF68;"> -p</span><span style="color: #9ECE6A;"> ~/.config/sops/age</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">age-keygen</span><span style="color: #E0AF68;"> -o</span><span style="color: #9ECE6A;"> ~/.config/sops/age/keys.txt</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">chmod</span><span style="color: #FF9E64;"> 700</span><span style="color: #9ECE6A;"> ~/.config/sops/age/</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">chmod</span><span style="color: #FF9E64;"> 600</span><span style="color: #9ECE6A;"> ~/.config/sops/age/keys.txt</span></span></code></pre>
+<p>输出类似：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span># created: 2026-05-10T12:00:00+08:00</span></span>
+<span class="giallo-l"><span># public key: age1rmku52qh0x7panw7h9362eqlhqhmwdkj7y8cpgx3kthfnvs9ass72dvma</span></span>
+<span class="giallo-l"><span>AGE-SECRET-KEY-19SR8JUFJX8F6H0E0DZVUAEH5M7L3HTFVCRY90HQ8H6563QPP7SUQ590DXX</span></span></code></pre>
+<p>记下 <code>age1</code> 开头的<strong>公钥</strong>，后面要用。私钥自动存在 <code>~/.config/sops/age/keys.txt</code>，Sops 运行时默认从这里找。</p>
+<p><strong>注意</strong>：如果你有多台机器需要解密（笔记本 + VPS），每一台都要生成自己的 age 密钥，然后把各自的公钥都写进 <code>.sops.yaml</code>。Sops 会用<strong>所有列出的公钥</strong>分别加密一份数据密钥，任意一台机器的私钥都能解开。</p>
+<h2 id="pei-zhi-sops-yaml"><strong>配置 <code>.sops.yaml</code></strong></h2>
+<p>在 Git 仓库根目录创建 <code>.sops.yaml</code>：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="yaml"><span class="giallo-l"><span style="color: #F7768E;">keys</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">  -</span><span style="color: #89DDFF;"> &amp;</span><span style="color: #C0CAF5;">dich_laptop</span><span style="color: #9ECE6A;"> age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">  -</span><span style="color: #89DDFF;"> &amp;</span><span style="color: #C0CAF5;">dich_vps</span><span style="color: #9ECE6A;">    age1yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F7768E;">creation_rules</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">  -</span><span style="color: #F7768E;"> path_regex</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> traefik/secrets/.*\.yaml$</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    key_groups</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #F7768E;"> age</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">          -</span><span style="color: #89DDFF;font-style: italic;"> *</span><span style="color: #C0CAF5;">dich_laptop</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">          -</span><span style="color: #89DDFF;font-style: italic;"> *</span><span style="color: #C0CAF5;">dich_vps</span></span></code></pre>
+<p>几点说明：</p>
+<ul>
+<li><code>&amp;anchor_name</code> 是 YAML 的锚点引用，定义一个值后可以用 <code>*</code> 复用，方便在多个规则里引用同一组密钥。</li>
+<li><code>path_regex</code> 是匹配规则，只有路径符合正则的文件才会用对应的密钥加密。这里只匹配 <code>traefik/secrets/</code> 下的 <code>*.yaml</code> 文件。</li>
+<li>如果仓库里有不同种类的 secrets（比如环境变量文件），可以加多条 <code>creation_rules</code>。</li>
+</ul>
+<h2 id="chuang-jian-he-bian-ji-jia-mi-wen-jian"><strong>创建和编辑加密文件</strong></h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">mkdir</span><span style="color: #E0AF68;"> -p</span><span style="color: #9ECE6A;"> traefik/secrets</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #9ECE6A;"> traefik/secrets/miniflux.yaml</span></span></code></pre>
+<p>Sops 会打开默认编辑器（<code>$EDITOR</code>），在编辑器里可以像改普通 YAML 一样编辑：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="yaml"><span class="giallo-l"><span style="color: #F7768E;">admin_username</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> admin</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">admin_password</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> xxxxxxxx9999</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">db_user</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> miniflux</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">db_password</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> xxxxxxxxxxxx</span></span></code></pre>
+<p>保存退出，Sops 自动加密。文件变成这样：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="yaml"><span class="giallo-l"><span style="color: #F7768E;">admin_username</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> ENC[AES256_GCM,data:abc123...,iv:def456...,tag:ghi789...,type:str]</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">admin_password</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> ENC[AES256_GCM,data:xyz...,iv:uvw...,tag:rst...,type:str]</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">db_user</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> ENC[AES256_GCM,data:...,iv:...,tag:...,type:str]</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">db_password</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> ENC[AES256_GCM,data:...,iv:...,tag:...,type:str]</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">sops</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    kms</span><span style="color: #89DDFF;">: []</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    gcp_kms</span><span style="color: #89DDFF;">: []</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    azure_kv</span><span style="color: #89DDFF;">: []</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    hc_vault</span><span style="color: #89DDFF;">: []</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    age</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">        -</span><span style="color: #F7768E;"> recipient</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">          enc</span><span style="color: #89DDFF;">:</span><span style="color: #FF9E64;"> ...</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">        -</span><span style="color: #F7768E;"> recipient</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> age1yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">          enc</span><span style="color: #89DDFF;">:</span><span style="color: #FF9E64;"> ...</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    lastmodified</span><span style="color: #89DDFF;">: &quot;</span><span style="color: #9ECE6A;">2026-05-10T12:00:00Z</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    mac</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> ENC[AES256_GCM,data:...,iv:...,tag:...,type:str]</span></span>
+<span class="giallo-l"><span style="color: #FF9E64;">    ...</span></span></code></pre>
+<p>注意两点：</p>
+<ul>
+<li><strong>键名是明文的</strong>。你可以通过 <code>git diff</code> 看到哪个字段被改了、哪个是新加的。</li>
+<li><strong>两个 age recipient</strong> 各有一份加密的数据密钥。任何一台机器的私钥都能打开。</li>
+</ul>
+<p>加密后的文件直接提交到 Git：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> add traefik/secrets/miniflux.yaml</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> commit</span><span style="color: #E0AF68;"> -m</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">feat: add miniflux secrets</span><span style="color: #89DDFF;">&quot;</span></span></code></pre><h2 id="geng-xin-gitignore"><strong>更新 <code>.gitignore</code></strong></h2>
+<p>只忽略<strong>未加密的</strong>明文文件：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span># 防止把没加密的明文不小心提交</span></span>
+<span class="giallo-l"><span>*.plain.yaml</span></span>
+<span class="giallo-l"><span>*.decrypted.yaml</span></span></code></pre>
+<p>加密后的 <code>.yaml</code> 文件不受影响，正常跟踪。另外记得把 <code>${HOME}/.config/sops/age/keys.txt</code> 也加进系统的全局 gitignore——这个文件绝不能进仓库。</p>
+<h2 id="zai-docker-compose-zhong-yin-yong"><strong>在 Docker Compose 中引用</strong></h2>
+<p>在 <code>docker-compose.miniflux.yml</code> 里，环境变量的值用 <code>sops exec-env</code> 注入：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="yaml"><span class="giallo-l"><span style="color: #F7768E;">services</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">  miniflux</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    image</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> miniflux/miniflux:latest</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    environment</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> DATABASE_URL=postgres://${db_user}:${db_password}@miniflux-db/miniflux?sslmode=disable</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> RUN_MIGRATIONS=1</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> CREATE_ADMIN=1</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> ADMIN_USERNAME=${admin_username}</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #9ECE6A;"> ADMIN_PASSWORD=${admin_password}</span></span></code></pre>
+<p>部署时这样启动：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #9ECE6A;"> exec-env traefik/secrets/miniflux.yaml</span><span style="color: #89DDFF;"> &#39;</span><span style="color: #9ECE6A;">docker compose -f docker-compose.miniflux.yml up -d</span><span style="color: #89DDFF;">&#39;</span></span></code></pre>
+<p><code>sops exec-env</code> 做的事：解密文件 → 把每个 key 变成环境变量 → 传给后面的命令。Docker Compose 里 <code>${db_user}</code> 这类占位符就能拿到解密后的值。</p>
+<p>如果不想每次手打这么长的命令，可以写个启动脚本 <code>start-miniflux.sh</code>：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;">#!/bin/bash</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">set</span><span style="color: #E0AF68;"> -euo</span><span style="color: #9ECE6A;"> pipefail</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #9ECE6A;"> exec-env traefik/secrets/miniflux.yaml</span><span style="color: #89DDFF;"> \</span></span>
+<span class="giallo-l"><span style="color: #9ECE6A;">    docker compose</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> docker-compose.miniflux.yml up</span><span style="color: #E0AF68;"> -d</span></span></code></pre><h2 id="chang-yong-ming-ling"><strong>常用命令</strong></h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 编辑加密文件（解密 → 编辑器 → 加密）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #9ECE6A;"> traefik/secrets/miniflux.yaml</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 查看解密后的内容（不进编辑器）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #E0AF68;"> --decrypt</span><span style="color: #9ECE6A;"> traefik/secrets/miniflux.yaml</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 原地加密一个已有的明文文件</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #E0AF68;"> --encrypt --in-place</span><span style="color: #9ECE6A;"> secrets.yaml</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 原地解密（谨慎使用）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #E0AF68;"> --decrypt --in-place</span><span style="color: #9ECE6A;"> secrets.yaml</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 将解密后的值当作环境变量注入命令</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">sops</span><span style="color: #9ECE6A;"> exec-env traefik/secrets/miniflux.yaml</span><span style="color: #89DDFF;"> &#39;</span><span style="color: #9ECE6A;">env | grep admin_</span><span style="color: #89DDFF;">&#39;</span></span></code></pre><h2 id="duo-huan-jing-guan-li"><strong>多环境管理</strong></h2>
+<p>如果 Dev 和 Prod 用不同的密钥（Prod 的密钥不该放在开发机上），可以在 <code>.sops.yaml</code> 里用 path 区分：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="yaml"><span class="giallo-l"><span style="color: #F7768E;">creation_rules</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">  -</span><span style="color: #F7768E;"> path_regex</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> traefik/secrets/dev/.*\.yaml$</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    key_groups</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #F7768E;"> age</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">          -</span><span style="color: #89DDFF;"> &amp;</span><span style="color: #C0CAF5;">dev_key</span><span style="color: #9ECE6A;"> age1xxxxxxxxx...</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">  -</span><span style="color: #F7768E;"> path_regex</span><span style="color: #89DDFF;">:</span><span style="color: #9ECE6A;"> traefik/secrets/prod/.*\.yaml$</span></span>
+<span class="giallo-l"><span style="color: #F7768E;">    key_groups</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">      -</span><span style="color: #F7768E;"> age</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">          -</span><span style="color: #89DDFF;"> &amp;</span><span style="color: #C0CAF5;">prod_key</span><span style="color: #9ECE6A;"> age1yyyyyyyyy...</span></span></code></pre>
+<p>Dev 目录下的文件只有 Dev 机器能解，Prod 同理。</p>
+<h2 id="zhu-yi-shi-xiang"><strong>注意事项</strong></h2>
+<ul>
+<li><strong>备份私钥</strong>。<code>keys.txt</code> 丢了就是真丢了，加密的 secrets 全变废铁。把它放进密码管理器（Bitwarden / 1Password）或者离线 U 盘里。</li>
+<li><strong>全局 gitignore</strong>。把 <code>~/.config/sops/age/keys.txt</code> 写进 <code>~/.config/git/ignore</code>，防止哪天不小心提交。</li>
+<li><strong><code>.sops.yaml</code> 要进仓库</strong>。这个文件本身没有密钥，只记录公钥和匹配规则，应该 commit。</li>
+<li><strong>CI/CD</strong>。在 GitHub Actions 里同样装 sops + age，把私钥放进 Secret 然后用 <code>age-keygen</code> 还原，流程跟本地一样。</li>
+</ul>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+            
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-browser-2026/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:浏览器碎碎念</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-soft/">
+                            <span class="button__text">乱七八糟:软件工程考试</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                
+                    <li class="toc-level-2">
+                        <a href="#wei-shen-me-yao-yong-sops-age">为什么要用 Sops + Age</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#an-zhuang-sops-he-age">安装 Sops 和 Age</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#sheng-cheng-age-mi-yao">生成 Age 密钥</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#pei-zhi-sops-yaml">配置 .sops.yaml</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#chuang-jian-he-bian-ji-jia-mi-wen-jian">创建和编辑加密文件</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#geng-xin-gitignore">更新 .gitignore</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#zai-docker-compose-zhong-yin-yong">在 Docker Compose 中引用</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#chang-yong-ming-ling">常用命令</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#duo-huan-jing-guan-li">多环境管理</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#zhu-yi-shi-xiang">注意事项</a>
+                        
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+    
+    <script>
+        (function() {
+            const tocLinks = document.querySelectorAll('.toc a');
+            const ids = Array.from(tocLinks, a => document.getElementById(a.getAttribute('href').slice(1)));
+            const container = document.querySelector('.toc-container');
+            let prevLink = null;
+            let navEnd = 0;
+
+            window.addEventListener('hashchange', () => { navEnd = Date.now() + 1500; });
+            tocLinks.forEach(a => {
+                a.addEventListener('click', () => { navEnd = Date.now() + 1500; });
+            });
+
+            function scrollTocTo(link) {
+                const cr = container.getBoundingClientRect();
+                const lr = link.getBoundingClientRect();
+                const target = container.scrollTop + (lr.top - cr.top) - (cr.height / 2) + (lr.height / 2);
+                container.scrollTo({ top: target, behavior: 'smooth' });
+            }
+
+            function onScroll() {
+                let active = null;
+                for (const el of ids) {
+                    if (el && el.getBoundingClientRect().top <= 100) active = el;
+                }
+                if (active) {
+                    const link = tocLinks[ids.indexOf(active)];
+                    if (link !== prevLink) {
+                        if (prevLink) prevLink.classList.remove('active');
+                        link.classList.add('active');
+                        prevLink = link;
+                    }
+                    if (Date.now() > navEnd) scrollTocTo(link);
+                }
+            }
+            window.addEventListener('scroll', onScroll, {passive: true});
+            onScroll();
+        })();
+    </script>
+    
+<button class="back-to-top" id="back-to-top" title="回到顶部">↑</button>
+<script>
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
+

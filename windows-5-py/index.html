@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/windows-5-py/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/windows-5-py/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">About Zola</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            
+    <h1 class="post-title"><a href="https://blog.dich.bid/windows-5-py/">Windows系列(5):Python开发配置</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-05-30
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/windows/">#Windows</a></span>
+    
+
+            <div class="post-content">
+            <p>前言：Windows 下搭建 Python 开发环境比 Linux 繁琐不少——没有内置包管理器、PATH 配置容易出错、各种工具散落各处。本文从零开始，依次介绍环境管理工具的选择、推荐方案 UV、传统方案 Conda，最后是 Jupyter 的通用配置和常用技巧。</p>
+<span id="continue-reading"></span><h2 id="fang-an-dui-bi">方案对比</h2>
+<table><thead><tr><th></th><th>UV</th><th>Conda</th></tr></thead><tbody>
+<tr><td>速度</td><td>快（Rust 实现，10-100x）</td><td>慢</td></tr>
+<tr><td>包来源</td><td>PyPI</td><td>conda-forge + PyPI</td></tr>
+<tr><td>非 Python 依赖</td><td>需手动安装系统库</td><td>内置预编译二进制包</td></tr>
+<tr><td>适用场景</td><td>Web 开发、通用项目</td><td>科学计算、数据科学</td></tr>
+<tr><td>推荐</td><td><strong>日常开发首选</strong></td><td>需要复杂 C/C++ 底层库时</td></tr>
+</tbody></table>
+<p>经验之谈：大多数项目直接用 UV。只有当你发现 <code>pip install</code> 报 build 错误（常见于 NumPy、SciPy、OpenCV 等依赖 C/C++ 编译链的包），才需要切回 Conda。</p>
+<hr />
+<h2 id="tui-jian-fang-an-uv">推荐方案：UV</h2>
+<p>UV 是 Astral 团队（ruff 的作者）用 Rust 写的高性能 Python 包管理器，100% 兼容 pip 生态。</p>
+<h3 id="an-zhuang-uv">安装 UV</h3>
+<p>Windows（PowerShell）：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="powershell"><span class="giallo-l"><span>powershell </span><span style="color: #89DDFF;">-</span><span>ExecutionPolicy ByPass </span><span style="color: #89DDFF;">-</span><span>c </span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ECE6A;">irm https://astral.sh/uv/install.ps1 | iex</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<p>Linux/macOS：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">curl</span><span style="color: #E0AF68;"> -LsSf</span><span style="color: #9ECE6A;"> https://astral.sh/uv/install.sh</span><span style="color: #89DDFF;"> |</span><span style="color: #C0CAF5;"> sh</span></span></code></pre>
+<p>装完重启终端，验证：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #E0AF68;"> --version</span></span></code></pre>
+<p>更新 UV 自身：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> self update</span></span></code></pre><h3 id="chuang-jian-yu-ji-huo-huan-jing">创建与激活环境</h3>
+<p>UV 支持两种用法：项目化管理（推荐），或传统 venv。</p>
+<p><strong>项目化管理（推荐，适合有工程感的项目）：</strong></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 初始化项目，自动生成 pyproject.toml 和 .venv</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> init myproject</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">cd</span><span style="color: #9ECE6A;"> myproject</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 如果想指定 Python 版本（UV 会自动下载）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> init myproject</span><span style="color: #E0AF68;"> --python</span><span style="color: #FF9E64;"> 3.12</span></span></code></pre>
+<p><strong>传统 venv（轻量，适合临时环境）：</strong></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> venv</span><span style="color: #E0AF68;"> --python</span><span style="color: #FF9E64;"> 3.12</span></span></code></pre>
+<p>激活环境：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="powershell"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Windows (PowerShell)</span></span>
+<span class="giallo-l"><span>.venv\Scripts\Activate.ps1</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Windows (CMD)</span></span>
+<span class="giallo-l"><span>.venv\Scripts\activate</span></span></code></pre><pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Linux/macOS</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">source</span><span style="color: #9ECE6A;"> .venv/bin/activate</span></span></code></pre>
+<p>退出和删除：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">deactivate</span><span style="color: #51597D;font-style: italic;">                   # 退出当前环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">rm</span><span style="color: #E0AF68;"> -rf</span><span style="color: #9ECE6A;"> .venv</span><span style="color: #51597D;font-style: italic;">                 # 删除环境（Windows: rmdir /s /q .venv）</span></span></code></pre><h3 id="guan-li-yi-lai">管理依赖</h3>
+<p>UV 有两个并行的工作流，按需选择：</p>
+<p><strong>项目工作流（推荐，依赖写入 pyproject.toml）：</strong></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> add fastapi uvicorn sqlalchemy</span><span style="color: #51597D;font-style: italic;">   # 安装并写入 pyproject.toml</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> sync</span><span style="color: #51597D;font-style: italic;">                             # 按 pyproject.toml + uv.lock 同步环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> remove fastapi</span><span style="color: #51597D;font-style: italic;">                   # 卸载并从 pyproject.toml 移除</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> add</span><span style="color: #E0AF68;"> --dev</span><span style="color: #9ECE6A;"> pytest ruff</span><span style="color: #51597D;font-style: italic;">            # 安装开发依赖</span></span></code></pre>
+<p><strong>pip 兼容工作流：</strong></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> pip install requests numpy</span><span style="color: #51597D;font-style: italic;">       # 传统 pip 风格</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> pip list</span><span style="color: #51597D;font-style: italic;">                         # 列出已安装包</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> pip uninstall numpy</span><span style="color: #51597D;font-style: italic;">              # 卸载</span></span></code></pre><h3 id="zhi-jie-yun-xing-wu-xu-shou-dong-ji-huo">直接运行（无需手动激活）</h3>
+<p>UV 的最大亮点之一——可以跳过 <code>activate</code> 步骤，直接用 <code>uv run</code> 执行命令：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run python script.py</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run jupyter lab</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run pytest</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run python</span><span style="color: #E0AF68;"> -m</span><span style="color: #9ECE6A;"> ipykernel install</span><span style="color: #E0AF68;"> --user --name</span><span style="color: #9ECE6A;"> myenv</span><span style="color: #E0AF68;"> --display-name</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">Python (myenv)</span><span style="color: #89DDFF;">&quot;</span></span></code></pre><h3 id="pyproject-toml-shi-li">pyproject.toml 示例</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="toml"><span class="giallo-l"><span style="color: #89DDFF;">[</span><span style="color: #C0CAF5;">project</span><span style="color: #89DDFF;">]</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">name</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">myproject</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">version</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">0.1.0</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">requires-python</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">&gt;=3.12</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">dependencies</span><span style="color: #89DDFF;"> =</span><span style="color: #9ABDF5;"> [</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    &quot;</span><span style="color: #9ECE6A;">fastapi&gt;=0.115</span><span style="color: #89DDFF;">&quot;,</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    &quot;</span><span style="color: #9ECE6A;">uvicorn[standard]&gt;=0.30</span><span style="color: #89DDFF;">&quot;,</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    &quot;</span><span style="color: #9ECE6A;">sqlalchemy&gt;=2.0</span><span style="color: #89DDFF;">&quot;,</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #89DDFF;">[</span><span style="color: #C0CAF5;">dependency-groups</span><span style="color: #89DDFF;">]</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">dev</span><span style="color: #89DDFF;"> =</span><span style="color: #9ABDF5;"> [</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    &quot;</span><span style="color: #9ECE6A;">pytest&gt;=8</span><span style="color: #89DDFF;">&quot;,</span></span>
+<span class="giallo-l"><span style="color: #89DDFF;">    &quot;</span><span style="color: #9ECE6A;">ruff&gt;=0.5</span><span style="color: #89DDFF;">&quot;,</span></span>
+<span class="giallo-l"><span style="color: #9ABDF5;">]</span></span></code></pre><h3 id="tuan-dui-xie-zuo-yi-you-xiang-mu-kuai-su-shang-shou">团队协作：已有项目快速上手</h3>
+<p>项目已经配好 <code>pyproject.toml</code> 和 <code>uv.lock</code> 时，团队成员克隆下来只需一条命令：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 1. 克隆项目</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">git</span><span style="color: #9ECE6A;"> clone</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">repo-ur</span><span>l</span><span style="color: #89DDFF;">&gt; &amp;&amp;</span><span style="color: #0DB9D7;"> cd</span><span style="color: #89DDFF;"> &lt;</span><span style="color: #9ECE6A;">projec</span><span>t</span><span style="color: #89DDFF;">&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 2. 同步环境——UV 自动创建 .venv、下载 Python、安装依赖，全自动</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> sync</span></span></code></pre>
+<p>然后直接跑起来：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run jupyter lab</span></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 或</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run python main.py</span></span></code></pre>
+<p>如果需要 Jupyter 内核：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run python</span><span style="color: #E0AF68;"> -m</span><span style="color: #9ECE6A;"> ipykernel install</span><span style="color: #E0AF68;"> --user --name</span><span style="color: #9ECE6A;"> myproject</span><span style="color: #E0AF68;"> --display-name</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">Python (myproject)</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<blockquote>
+<p>关键点：<code>uv sync</code> 依据 <code>uv.lock</code> 精确还原依赖版本，所有成员的环境完全一致。不会出现"我这能跑你那不行"的问题。记得把 <code>.venv</code> 写入 <code>.gitignore</code> 而 <code>uv.lock</code> 应该提交到仓库。</p>
+</blockquote>
+<h3 id="conda-uv-su-cha">Conda → UV 速查</h3>
+<table><thead><tr><th>Conda 操作</th><th>UV 等效命令</th></tr></thead><tbody>
+<tr><td><code>conda create -n foo python=3.12</code></td><td><code>uv init foo --python 3.12</code> 或 <code>uv venv --python 3.12</code></td></tr>
+<tr><td><code>conda activate foo</code></td><td><code>.venv\Scripts\activate</code>（Windows） 或 <code>source .venv/bin/activate</code></td></tr>
+<tr><td><code>conda install numpy</code></td><td><code>uv add numpy</code></td></tr>
+<tr><td><code>conda env export &gt; env.yml</code></td><td>自动生成 <code>uv.lock</code>，无需手动导出</td></tr>
+<tr><td><code>conda env create -f env.yml</code></td><td><code>uv sync</code></td></tr>
+<tr><td><code>conda list</code></td><td><code>uv pip list</code></td></tr>
+<tr><td><code>conda remove numpy</code></td><td><code>uv remove numpy</code></td></tr>
+</tbody></table>
+<hr />
+<h2 id="chuan-tong-fang-an-conda">传统方案：Conda</h2>
+<p>如果项目用到了 NumPy、SciPy、OpenCV 等需要 C/C++ 编译链的包，Conda 凭借预编译二进制生态依然是更省心的选择。</p>
+<h3 id="an-zhuang-miniconda">安装 Miniconda</h3>
+<p>推荐 Miniconda（体积小，无预装冗余包）而非 Anaconda。</p>
+<p>在 <a rel="noopener nofollow noreferrer external" target="_blank" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda 官网</a> 下载 Windows 安装包，一路下一步。装完后打开终端验证：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #E0AF68;"> --version</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> info</span></span></code></pre>
+<p>安装 Miniconda 的同时，你就拥有了 Python 解释器、conda 环境管理器、conda 包管理器以及 conda-forge 上大量预编译的科学计算工具包。</p>
+<h3 id="huan-jing-guan-li">环境管理</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 创建环境（指定 Python 版本和初始包）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> create</span><span style="color: #E0AF68;"> --name</span><span style="color: #9ECE6A;"> myenv python=</span><span style="color: #FF9E64;">3.12</span><span style="color: #9ECE6A;"> numpy pandas</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 激活环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> activate myenv</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 退出环境（不带参数）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> deactivate</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 复制环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> create</span><span style="color: #E0AF68;"> --name</span><span style="color: #9ECE6A;"> new_env</span><span style="color: #E0AF68;"> --clone</span><span style="color: #9ECE6A;"> old_env</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 删除环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> remove</span><span style="color: #E0AF68;"> --name</span><span style="color: #9ECE6A;"> myenv</span><span style="color: #E0AF68;"> --all</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 列出所有环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> env list</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 导出环境配置</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> env export</span><span style="color: #89DDFF;"> &gt;</span><span style="color: #9ECE6A;"> environment.yml</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 从配置文件重建环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> env create</span><span style="color: #E0AF68;"> -f</span><span style="color: #9ECE6A;"> environment.yml</span></span></code></pre><h3 id="bao-guan-li">包管理</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> list</span><span style="color: #51597D;font-style: italic;">                    # 当前环境已安装的包</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> list</span><span style="color: #E0AF68;"> -n</span><span style="color: #9ECE6A;"> myenv</span><span style="color: #51597D;font-style: italic;">           # 指定环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> search scipy</span><span style="color: #51597D;font-style: italic;">            # 搜索可用包</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> install scipy=</span><span style="color: #FF9E64;">1.11</span><span style="color: #51597D;font-style: italic;">      # 安装（可指定版本）</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> install</span><span style="color: #E0AF68;"> -n</span><span style="color: #9ECE6A;"> myenv numpy</span><span style="color: #51597D;font-style: italic;">  # 安装到指定环境</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> update scipy</span><span style="color: #51597D;font-style: italic;">            # 更新指定包</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> update</span><span style="color: #E0AF68;"> --all</span><span style="color: #51597D;font-style: italic;">            # 更新所有包</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> remove scipy</span><span style="color: #51597D;font-style: italic;">            # 卸载</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> remove</span><span style="color: #E0AF68;"> -n</span><span style="color: #9ECE6A;"> myenv scipy</span><span style="color: #51597D;font-style: italic;">   # 从指定环境卸载</span></span></code></pre><h3 id="xie-zai-conda">卸载 Conda</h3>
+<p>Windows 下通过"设置 → 应用 → 添加或删除程序"卸载 Miniconda/Anaconda 即可。Linux/macOS 手动删除：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">rm</span><span style="color: #E0AF68;"> -rf</span><span style="color: #9ECE6A;"> ~/miniconda3 ~/.conda ~/.condarc ~/.continuum</span></span></code></pre>
+<hr />
+<h2 id="jupyter-pei-zhi">Jupyter 配置</h2>
+<p>无论用 UV 还是 Conda，Jupyter 的配置流程是通用的。</p>
+<h3 id="an-zhuang">安装</h3>
+<p>推荐 JupyterLab（界面更现代，集成终端、文件浏览器和扩展管理），而非旧版 Notebook。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># UV</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> add jupyterlab ipykernel</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Conda</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">conda</span><span style="color: #9ECE6A;"> install jupyterlab ipykernel</span></span></code></pre><h3 id="zhu-ce-nei-he">注册内核</h3>
+<p>让 Jupyter 能识别你环境中的 Python 解释器：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># UV</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run python</span><span style="color: #E0AF68;"> -m</span><span style="color: #9ECE6A;"> ipykernel install</span><span style="color: #E0AF68;"> --user --name</span><span style="color: #9ECE6A;"> myenv</span><span style="color: #E0AF68;"> --display-name</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">Python (myenv)</span><span style="color: #89DDFF;">&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Conda</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">python</span><span style="color: #E0AF68;"> -m</span><span style="color: #9ECE6A;"> ipykernel install</span><span style="color: #E0AF68;"> --user --name</span><span style="color: #9ECE6A;"> myenv</span><span style="color: #E0AF68;"> --display-name</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">Python (myenv)</span><span style="color: #89DDFF;">&quot;</span></span></code></pre>
+<p><code>--name</code> 是内核的内部标识，<code>--display-name</code> 是 Jupyter 界面中显示的名称，按需自定义。</p>
+<h3 id="qi-dong">启动</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># UV</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">uv</span><span style="color: #9ECE6A;"> run jupyter lab</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># Conda</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">jupyter</span><span style="color: #9ECE6A;"> lab</span></span></code></pre><h3 id="yun-xu-yuan-cheng-fang-wen">允许远程访问</h3>
+<p>在服务器或 WSL 中运行 Jupyter 时，需要绑定到 <code>0.0.0.0</code> 以便宿主机访问：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">jupyter</span><span style="color: #9ECE6A;"> lab</span><span style="color: #E0AF68;"> --generate-config</span></span></code></pre>
+<p>编辑 <code>~/.jupyter/jupyter_lab_config.py</code>，添加：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="python"><span class="giallo-l"><span>c</span><span style="color: #89DDFF;">.</span><span>ServerApp</span><span style="color: #89DDFF;">.</span><span>ip</span><span style="color: #89DDFF;"> = &#39;</span><span style="color: #9ECE6A;">0.0.0.0</span><span style="color: #89DDFF;">&#39;</span></span>
+<span class="giallo-l"><span>c</span><span style="color: #89DDFF;">.</span><span>ServerApp</span><span style="color: #89DDFF;">.</span><span>port</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> 8888</span></span>
+<span class="giallo-l"><span>c</span><span style="color: #89DDFF;">.</span><span>ServerApp</span><span style="color: #89DDFF;">.</span><span>open_browser</span><span style="color: #89DDFF;"> =</span><span style="color: #FF9E64;"> False</span></span></code></pre>
+<blockquote>
+<p>注意：旧版 Jupyter 的配置项名为 <code>c.NotebookApp.*</code>，新版（Jupyter Server 2.x+）改用 <code>c.ServerApp.*</code>。不确定版本的话，看看生成的配置文件里实际有哪些字段。</p>
+</blockquote>
+<h3 id="yi-hua-ke-xuan">汉化（可选）</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">pip</span><span style="color: #9ECE6A;"> install jupyterlab-language-pack-zh-CN</span></span></code></pre>
+<hr />
+<h2 id="fu-lu-ipynb-zhuan-markdown">附录：ipynb 转 Markdown</h2>
+<p>最简方式——一行命令用 <code>nbconvert</code> CLI：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">jupyter</span><span style="color: #9ECE6A;"> nbconvert</span><span style="color: #E0AF68;"> --to</span><span style="color: #9ECE6A;"> markdown notebook.ipynb</span></span></code></pre>
+<p>批量转换脚本 <code>ipynb2md.py</code>：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="python"><span class="giallo-l"><span style="color: #7DCFFF;">import</span><span> nbformat</span></span>
+<span class="giallo-l"><span style="color: #7DCFFF;">from</span><span> nbconvert</span><span style="color: #7DCFFF;"> import</span><span> MarkdownExporter</span></span>
+<span class="giallo-l"><span style="color: #7DCFFF;">from</span><span> pathlib</span><span style="color: #7DCFFF;"> import</span><span> Path</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">def</span><span style="color: #7AA2F7;"> ipynb_to_md</span><span style="color: #9ABDF5;">(</span><span style="color: #E0AF68;">ipynb_path</span><span style="color: #89DDFF;">:</span><span> Path</span><span style="color: #89DDFF;">,</span><span style="color: #E0AF68;"> output_dir</span><span style="color: #89DDFF;">:</span><span> Path</span><span style="color: #9ABDF5;">):</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    with</span><span style="color: #0DB9D7;"> open</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">ipynb_path</span><span style="color: #89DDFF;">, &quot;</span><span style="color: #9ECE6A;">r</span><span style="color: #89DDFF;">&quot;,</span><span style="color: #E0AF68;"> encoding</span><span style="color: #89DDFF;">=&quot;</span><span style="color: #9ECE6A;">utf-8</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ABDF5;">)</span><span style="color: #BB9AF7;"> as</span><span> f</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span>        nb</span><span style="color: #89DDFF;"> =</span><span> nbformat</span><span style="color: #89DDFF;">.</span><span style="color: #7AA2F7;">read</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">f</span><span style="color: #89DDFF;">,</span><span style="color: #E0AF68;"> as_version</span><span style="color: #89DDFF;">=</span><span style="color: #FF9E64;">4</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"><span>    exporter</span><span style="color: #89DDFF;"> =</span><span style="color: #7AA2F7;"> MarkdownExporter</span><span style="color: #9ABDF5;">()</span></span>
+<span class="giallo-l"><span>    body</span><span style="color: #89DDFF;">,</span><span> _</span><span style="color: #89DDFF;"> =</span><span> exporter</span><span style="color: #89DDFF;">.</span><span style="color: #7AA2F7;">from_notebook_node</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">nb</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"><span>    output_file</span><span style="color: #89DDFF;"> =</span><span> output_dir</span><span style="color: #89DDFF;"> / (</span><span>ipynb_path</span><span style="color: #89DDFF;">.</span><span>stem</span><span style="color: #89DDFF;"> + &quot;</span><span style="color: #9ECE6A;">.md</span><span style="color: #89DDFF;">&quot;)</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    with</span><span style="color: #0DB9D7;"> open</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">output_file</span><span style="color: #89DDFF;">, &quot;</span><span style="color: #9ECE6A;">w</span><span style="color: #89DDFF;">&quot;,</span><span style="color: #E0AF68;"> encoding</span><span style="color: #89DDFF;">=&quot;</span><span style="color: #9ECE6A;">utf-8</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ABDF5;">)</span><span style="color: #BB9AF7;"> as</span><span> f</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span>        f</span><span style="color: #89DDFF;">.</span><span style="color: #7AA2F7;">write</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">body</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"><span style="color: #0DB9D7;">    print</span><span style="color: #9ABDF5;">(</span><span style="color: #BB9AF7;">f</span><span style="color: #9ECE6A;">&quot;✔ 转换完成: </span><span style="color: #BB9AF7;">{</span><span style="color: #C0CAF5;">ipynb_path</span><span style="color: #BB9AF7;">}</span><span style="color: #9ECE6A;"> -&gt; </span><span style="color: #BB9AF7;">{</span><span style="color: #C0CAF5;">output_file</span><span style="color: #BB9AF7;">}</span><span style="color: #9ECE6A;">&quot;</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">def</span><span style="color: #7AA2F7;"> batch_convert</span><span style="color: #9ABDF5;">(</span><span style="color: #E0AF68;">input_dir</span><span style="color: #89DDFF;">:</span><span style="color: #0DB9D7;"> str</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">.</span><span style="color: #89DDFF;">&quot;,</span><span style="color: #E0AF68;"> output_dir</span><span style="color: #89DDFF;">:</span><span style="color: #0DB9D7;"> str</span><span style="color: #89DDFF;"> = &quot;</span><span style="color: #9ECE6A;">markdown_output</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ABDF5;">):</span></span>
+<span class="giallo-l"><span>    input_dir</span><span style="color: #89DDFF;"> =</span><span style="color: #7AA2F7;"> Path</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">input_dir</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"><span>    output_dir</span><span style="color: #89DDFF;"> =</span><span style="color: #7AA2F7;"> Path</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">output_dir</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"><span>    output_dir</span><span style="color: #89DDFF;">.</span><span style="color: #7AA2F7;">mkdir</span><span style="color: #9ABDF5;">(</span><span style="color: #E0AF68;">parents</span><span style="color: #89DDFF;">=</span><span style="color: #FF9E64;">True</span><span style="color: #89DDFF;">,</span><span style="color: #E0AF68;"> exist_ok</span><span style="color: #89DDFF;">=</span><span style="color: #FF9E64;">True</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">    for</span><span> ipynb_file</span><span style="color: #BB9AF7;"> in</span><span> input_dir</span><span style="color: #89DDFF;">.</span><span style="color: #7AA2F7;">glob</span><span style="color: #9ABDF5;">(</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ECE6A;">*.ipynb</span><span style="color: #89DDFF;">&quot;</span><span style="color: #9ABDF5;">)</span><span style="color: #89DDFF;">:</span></span>
+<span class="giallo-l"><span style="color: #7AA2F7;">        ipynb_to_md</span><span style="color: #9ABDF5;">(</span><span style="color: #C0CAF5;">ipynb_file</span><span style="color: #89DDFF;">,</span><span style="color: #C0CAF5;"> output_dir</span><span style="color: #9ABDF5;">)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #BB9AF7;">if</span><span style="color: #C0CAF5;"> __name__</span><span style="color: #BB9AF7;"> ==</span><span style="color: #89DDFF;"> &quot;</span><span style="color: #9ECE6A;">__main__</span><span style="color: #89DDFF;">&quot;:</span></span>
+<span class="giallo-l"><span style="color: #7AA2F7;">    batch_convert</span><span style="color: #9ABDF5;">()</span></span></code></pre>
+<p>先装依赖再运行：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #C0CAF5;">pip</span><span style="color: #9ECE6A;"> install nbformat nbconvert</span><span style="color: #51597D;font-style: italic;">         # 或 conda install nbformat nbconvert -y</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">python</span><span style="color: #9ECE6A;"> ipynb2md.py</span></span></code></pre>
+<p>脚本扫描当前目录下所有 <code>.ipynb</code> 文件，把生成的 <code>.md</code> 输出到 <code>markdown_output/</code> 文件夹。</p>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+            
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/windows-4-use/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">Windows系列(4): 命令行工具链与效率增强</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/windows-6-c/">
+                            <span class="button__text">Windows系列(6):C&#x2F;C++开发配置</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                
+                    <li class="toc-level-2">
+                        <a href="#fang-an-dui-bi">方案对比</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#tui-jian-fang-an-uv">推荐方案：UV</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#an-zhuang-uv">安装 UV</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#chuang-jian-yu-ji-huo-huan-jing">创建与激活环境</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#guan-li-yi-lai">管理依赖</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#zhi-jie-yun-xing-wu-xu-shou-dong-ji-huo">直接运行（无需手动激活）</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#pyproject-toml-shi-li">pyproject.toml 示例</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#tuan-dui-xie-zuo-yi-you-xiang-mu-kuai-su-shang-shou">团队协作：已有项目快速上手</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#conda-uv-su-cha">Conda → UV 速查</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#chuan-tong-fang-an-conda">传统方案：Conda</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#an-zhuang-miniconda">安装 Miniconda</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#huan-jing-guan-li">环境管理</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#bao-guan-li">包管理</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#xie-zai-conda">卸载 Conda</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#jupyter-pei-zhi">Jupyter 配置</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#an-zhuang">安装</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#zhu-ce-nei-he">注册内核</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#qi-dong">启动</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#yun-xu-yuan-cheng-fang-wen">允许远程访问</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#yi-hua-ke-xuan">汉化（可选）</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#fu-lu-ipynb-zhuan-markdown">附录：ipynb 转 Markdown</a>
+                        
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+    
+    <script>
+        (function() {
+            const tocLinks = document.querySelectorAll('.toc a');
+            const ids = Array.from(tocLinks, a => document.getElementById(a.getAttribute('href').slice(1)));
+            const container = document.querySelector('.toc-container');
+            let prevLink = null;
+            let navEnd = 0;
+
+            window.addEventListener('hashchange', () => { navEnd = Date.now() + 1500; });
+            tocLinks.forEach(a => {
+                a.addEventListener('click', () => { navEnd = Date.now() + 1500; });
+            });
+
+            function scrollTocTo(link) {
+                const cr = container.getBoundingClientRect();
+                const lr = link.getBoundingClientRect();
+                const target = container.scrollTop + (lr.top - cr.top) - (cr.height / 2) + (lr.height / 2);
+                container.scrollTo({ top: target, behavior: 'smooth' });
+            }
+
+            function onScroll() {
+                let active = null;
+                for (const el of ids) {
+                    if (el && el.getBoundingClientRect().top <= 100) active = el;
+                }
+                if (active) {
+                    const link = tocLinks[ids.indexOf(active)];
+                    if (link !== prevLink) {
+                        if (prevLink) prevLink.classList.remove('active');
+                        link.classList.add('active');
+                        prevLink = link;
+                    }
+                    if (Date.now() > navEnd) scrollTocTo(link);
+                }
+            }
+            window.addEventListener('scroll', onScroll, {passive: true});
+            onScroll();
+        })();
+    </script>
+    
+<button class="back-to-top" id="back-to-top" title="回到顶部">↑</button>
+<script>
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
+
