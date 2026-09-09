@@ -287,6 +287,12 @@ HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Cur
 Add-AppxPackage -Path <你的路径>\Microsoft.DesktopAppInstaller_*.msixbundle -ForceApplicationShutdown
 ```
 
+## 清理网盘图标
+
+```powershell
+Get-ChildItem "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace" | ForEach-Object { Remove-Item $_.PSPath -Force -Recurse -ErrorAction SilentlyContinue }
+```
+
 ---
 
 **Done.**
