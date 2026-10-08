@@ -1,0 +1,3144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/about-soft/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/about-soft/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">About Zola</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            
+    <h1 class="post-title"><a href="https://blog.dich.bid/about-soft/">乱七八糟:软件工程考试</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2026-05-30
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/luan-qi-ba-zao/">#乱七八糟</a></span>
+    
+
+            <div class="post-content">
+            <p>前言 本文记录软件工程与UML考试复习资料.</p>
+<span id="continue-reading"></span><h1 id="zong-gang">总纲</h1>
+<h2 id="ti-xing-yu-fen-zhi">题型与分值</h2>
+<ul>
+<li>选择题 15*1 分 = 15 分</li>
+<li>判断题 10*1 分 = 10 分</li>
+<li>填空题 15*1 分 = 15 分</li>
+<li>简答题 6*5  分 = 30 分</li>
+<li>设计题 1*12 分 = 12 分</li>
+<li>综合题 1*18 分 = 18 分</li>
+</ul>
+<h2 id="se1-1-cheng-xu-ji-zhi-liang-bao-zheng-fang-fa">SE1.1 程序及质量保证方法</h2>
+<h3 id="yi-cheng-xu-de-ji-ben-gai-nian">一、程序的基本概念</h3>
+<p><strong>程序（Program）</strong>：由程序设计语言所描述的、能为计算机所理解和处理的一组语句序列。</p>
+<p>程序的组成模块：包(Package)、类(Class)、方法(Method)，每个模块实现特定功能。</p>
+<p><strong>高级语言源程序的转换过程</strong>：预处理 → 编译 → 汇编 → 链接</p>
+<h3 id="er-cheng-xu-de-liang-lei-li-yi-xiang-guan-zhe">二、程序的两类利益相关者</h3>
+<table><thead><tr><th>视角</th><th>关注点</th></tr></thead><tbody>
+<tr><td>用户角度</td><td>正确性、高效性、可靠性、友好性</td></tr>
+<tr><td>程序员角度</td><td>可理解、易修改、可维护、可重用</td></tr>
+</tbody></table>
+<h3 id="san-cheng-xu-zhi-liang-bao-zheng-fang-fa">三、程序质量保证方法</h3>
+<ol>
+<li><strong>遵循编码风格</strong>：易读、简明、易改、无二义</li>
+<li><strong>采用程序设计方法学</strong>：
+<ul>
+<li><strong>语句设计</strong>：单入口单出口，少用goto，加强异常处理(Try-catch)，验证输入参数</li>
+<li><strong>模块化设计</strong>：模块是逻辑上相对独立、具有良定义接口的编程单位</li>
+<li><strong>高内聚度</strong>：模块内各要素紧密相关，仅实现单一功能；若多个要素关系不密切，需分解</li>
+<li><strong>低耦合度</strong>：模块间关系应设计得非常松散；若多个模块关系密切，可合并</li>
+</ul>
+</li>
+<li><strong>代码重用</strong>：重用函数、类和软构件（C函数库、MFC类库、Java SDK、ROS节点）；重用Github开源代码</li>
+<li><strong>结对编程</strong>：团队开发、合作开发、群体开发</li>
+</ol>
+<h3 id="si-ge-ti-kai-fa-de-ju-xian-xing">四、个体开发的局限性</h3>
+<ul>
+<li>个体知识和技能局限</li>
+<li>个体开发行为局限（总是会犯错）</li>
+</ul>
+<h3 id="wu-guan-jian-gai-nian-su-ji">五、关键概念速记</h3>
+<table><thead><tr><th>概念</th><th>定义</th></tr></thead><tbody>
+<tr><td>模块</td><td>逻辑上相对独立、具有良定义接口的编程单位</td></tr>
+<tr><td>高内聚</td><td>模块内各要素紧密相关，仅实现单一功能</td></tr>
+<tr><td>低耦合</td><td>模块间关系设计得非常松散</td></tr>
+<tr><td>代码重用</td><td>利用已有函数、类、软构件、开源代码</td></tr>
+</tbody></table>
+<hr />
+<h2 id="se1-2-ruan-jian-ji-qi-te-dian">SE1.2 软件及其特点</h2>
+<h3 id="yi-ruan-jian-de-ding-yi">一、软件的定义</h3>
+<p><strong>软件 = 程序 + 文档 + 数据</strong></p>
+<ul>
+<li><strong>程序</strong>：可以运行的代码</li>
+<li><strong>文档</strong>：记录软件开发活动和阶段性成果的阐述性资料（需求文档、设计文档、测试文档、用户手册）</li>
+<li><strong>数据</strong>：程序的加工处理对象和结果</li>
+</ul>
+<blockquote>
+<p>软件 ≠ 程序，开发软件 ≠ 编写程序</p>
+</blockquote>
+<h3 id="er-ruan-jian-sheng-ming-zhou-qi">二、软件生命周期</h3>
+<p>从提出开发开始到最终灭亡所经历的时期：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>需求分析(What) → 设计(How) → 编码实现 → 测试 → 部署运行 → 维护</span></span></code></pre><h3 id="san-ruan-jian-fen-lei">三、软件分类</h3>
+<table><thead><tr><th>类型</th><th>定义</th><th>示例</th></tr></thead><tbody>
+<tr><td>应用软件</td><td>面向特定应用领域的专用软件</td><td>淘宝、12306、微信</td></tr>
+<tr><td>系统软件</td><td>管理计算机资源，为应用软件提供基础设施和服务</td><td>OS、DBMS、编译软件、中间件</td></tr>
+<tr><td>支撑软件</td><td>辅助软件开发和运维</td><td>SonarQube、VS、Eclipse</td></tr>
+</tbody></table>
+<h3 id="si-kai-yuan-ruan-jian">四、开源软件</h3>
+<ul>
+<li><strong>定义</strong>：源代码可自由获取和传播的计算机软件</li>
+<li><strong>优势</strong>：成本更低、质量更高更安全、交付更快、功能更强大</li>
+<li><strong>对比闭源软件</strong>：闭源代码不对用户开放（如Windows、Office）</li>
+<li><strong>托管平台</strong>：Github（国际）、Gitee（国内）</li>
+</ul>
+<h3 id="wu-guan-jian-gai-nian-su-ji-1">五、关键概念速记</h3>
+<table><thead><tr><th>概念</th><th>定义</th></tr></thead><tbody>
+<tr><td>软件</td><td>程序 + 文档 + 数据</td></tr>
+<tr><td>软件生命周期</td><td>从提出开发到最终灭亡的完整时期</td></tr>
+<tr><td>开源软件</td><td>源代码可自由获取和传播的软件</td></tr>
+<tr><td>系统软件</td><td>管理计算机资源的基础设施软件</td></tr>
+<tr><td>支撑软件</td><td>辅助软件开发运维的工具</td></tr>
+</tbody></table>
+<hr />
+<h2 id="se2-ruan-jian-gong-cheng-gai-shu">SE2 软件工程概述</h2>
+<h3 id="yi-ruan-jian-wei-ji">一、软件危机</h3>
+<p><strong>背景</strong>：1950s-1960s，从军方科学计算走向商业应用，需求量和复杂性增加，作坊式个体编程 → 大批量大规模开发 → 软件危机</p>
+<p><strong>表现</strong>：进度延迟、质量无法保证、成本超支、维护困难、失败风险大</p>
+<p><strong>软件工程诞生</strong>：1968年 NATO会议，提出软件工程概念</p>
+<h3 id="er-ruan-jian-gong-cheng-dui-ruan-jian-kai-fa-de-xin-ren-shi">二、软件工程对软件开发的新认识</h3>
+<ul>
+<li><strong>软件是产品(Product)</strong>：面向用户，存在质量、成本、利润等特征</li>
+<li><strong>软件开发是一项工程(Project)</strong>：存在约束，需要质量保证，进行组织管理</li>
+<li>需按<strong>工程化方法</strong>组织软件生产：
+<ul>
+<li>分阶段分步骤来实施</li>
+<li>按计划开展开发活动</li>
+<li>进行各种形式质量保证</li>
+<li>采用行之有效的方法</li>
+<li>借助各种工具的支持</li>
+</ul>
+</li>
+</ul>
+<h3 id="san-ruan-jian-gong-cheng-ding-yi-ieee-93">三、软件工程定义（IEEE 93）</h3>
+<p>将<strong>系统的、规范的、可量化的</strong>方法应用于软件的开发、运行和维护的过程。</p>
+<ul>
+<li><strong>系统化</strong>：提供完整全面的解决方法</li>
+<li><strong>规范化</strong>：支持各类软件系统开发</li>
+<li><strong>可量化</strong>：工作量、成本、进度、质量可量化</li>
+</ul>
+<h3 id="san-ruan-jian-gong-cheng-san-yao-su">三、软件工程三要素</h3>
+<table><thead><tr><th>要素</th><th>视角</th><th>回答的问题</th><th>典型成果</th></tr></thead><tbody>
+<tr><td>过程(Process)</td><td>管理视角</td><td>做什么、按什么步骤次序</td><td>瀑布模型、增量模型、螺旋模型；敏捷开发、DevOps；配置管理、质量管理</td></tr>
+<tr><td>方法学(Methodology)</td><td>技术视角</td><td>如何做</td><td>结构化方法学、面向对象方法学、基于构件方法学</td></tr>
+<tr><td>工具(Tool)</td><td>辅助视角</td><td>借助什么提效</td><td>SonarQube、Eclipse、Visual Studio</td></tr>
+</tbody></table>
+<blockquote>
+<p>CASE（计算机辅助软件工程）——工欲善其事必先利其器</p>
+</blockquote>
+<h3 id="si-ruan-jian-kai-fa-de-ben-zhi">四、软件开发的本质</h3>
+<p><strong>软件开发 = 软件创作 + 软件生产</strong></p>
+<ul>
+<li><strong>软件创作</strong>：基于经验和技能，自由创新（设计、编码）</li>
+<li><strong>软件生产</strong>：基于工程化手段，遵循约束规范</li>
+</ul>
+<h3 id="wu-ruan-jian-gong-cheng-mu-biao">五、软件工程目标</h3>
+<p>在成本、进度约束下，开发出满足用户要求的足够好软件。</p>
+<h3 id="liu-ruan-jian-gong-cheng-ba-da-yuan-ze">六、软件工程八大原则</h3>
+<table><thead><tr><th>原则</th><th>核心思想</th></tr></thead><tbody>
+<tr><td>抽象和建模</td><td>提取关注要素，忽略无关细节；用建模语言建立软件模型</td></tr>
+<tr><td>模块化</td><td>分解为若干模块，高内聚低耦合</td></tr>
+<tr><td>软件重用</td><td>利用已有软件资产，开发可重用资源</td></tr>
+<tr><td>信息隐藏</td><td>模块内部信息对外不可见，仅交换必要接口信息</td></tr>
+<tr><td>关注点分离</td><td>将不同关注点分离，分别处理再整合</td></tr>
+<tr><td>分而治之</td><td>分解复杂系统为子系统，逐个击破</td></tr>
+<tr><td>双向追踪</td><td>正向追踪变更影响，反向追踪变更来源</td></tr>
+<tr><td>工具辅助</td><td>借助CASE工具辅助开发维护</td></tr>
+</tbody></table>
+<h3 id="qi-ruan-jian-gong-cheng-fa-zhan-qu-shi">七、软件工程发展趋势</h3>
+<ul>
+<li>抽象层次越来越高，重用粒度越来越大</li>
+<li>以文档为中心 → 以代码为中心</li>
+<li>从个体、团队 → 群体开发</li>
+<li>从还原论 → 演化论</li>
+<li>近十年趋势：移动互联网、软件定义一切、开源生态、DevOps、智能化</li>
+</ul>
+<h3 id="ba-swebokshi-da-zhi-shi-yu">八、SWEBOK十大知识域</h3>
+<p>软件需求、软件设计、软件构造、软件测试、软件维护、软件配置管理、软件工程管理、软件工程过程、软件工程建模与方法、软件质量</p>
+<hr />
+<h2 id="se3-1-ruan-jian-guo-cheng-mo-xing">SE3.1 软件过程模型</h2>
+<h3 id="yi-ji-ben-gai-nian">一、基本概念</h3>
+<ul>
+<li><strong>软件过程</strong>：按照项目进度、成本和质量要求，遵循用户需求，开发和维护软件的一系列有序活动（技术活动 + 管理活动）</li>
+<li><strong>软件过程模型</strong>：定义软件开发的具体活动以及活动间的逻辑关系</li>
+</ul>
+<h3 id="er-dian-xing-ruan-jian-guo-cheng-mo-xing">二、典型软件过程模型</h3>
+<table><thead><tr><th>模型</th><th>指导思想</th><th>关注点</th><th>适合的软件</th><th>管理难度</th></tr></thead><tbody>
+<tr><td>瀑布模型</td><td>系统性指导</td><td>与生命周期一致</td><td>需求变动不大、明确</td><td>易</td></tr>
+<tr><td>原型模型</td><td>原型为媒介导出需求</td><td>需求获取、导出和确认</td><td>需求难表述清楚</td><td>易</td></tr>
+<tr><td>增量模型</td><td>快速交付和并行开发</td><td>递增式完成功能</td><td>需求变动不大、可预定义</td><td>易</td></tr>
+<tr><td>迭代模型</td><td>多次迭代，每次仅部分需求</td><td>分多次迭代开发</td><td>需求变动大</td><td>中</td></tr>
+<tr><td>螺旋模型</td><td>集成迭代+原型，引入风险分析</td><td>风险管理、计划制定</td><td>开发风险大、需求不确定</td><td>难</td></tr>
+</tbody></table>
+<h3 id="san-ge-mo-xing-xiang-jie">三、各模型详解</h3>
+<p><strong>瀑布模型</strong>：</p>
+<ul>
+<li>阶段：需求分析 → 概要设计 → 详细设计 → 编码实现 → 集成测试 → 确认测试</li>
+<li>不足：需求确定过于理想化，缺乏变通，难应对变化</li>
+<li>改进：带反馈和回溯的瀑布模型</li>
+</ul>
+<p><strong>增量模型</strong>：渐进式、增量式实现功能，快速交付，并行开发</p>
+<p><strong>迭代模型</strong>：每次迭代是一完整过程，小步快跑</p>
+<p><strong>原型模型</strong>：以原型作为交流载体，支持用户参与</p>
+<p><strong>螺旋模型</strong>：集成迭代和原型，引入风险分析，<strong>风险驱动</strong></p>
+<h3 id="si-guo-cheng-mo-xing-xuan-ze-ce-lue">四、过程模型选择策略</h3>
+<table><thead><tr><th>场景</th><th>推荐模型</th></tr></thead><tbody>
+<tr><td>互联网应用（需求不确定、快速变化）</td><td>迭代模型</td></tr>
+<tr><td>装备软件/银行核心系统（需求确定稳定、安全可靠性高）</td><td>瀑布模型</td></tr>
+<tr><td>初创公司移动应用（需求模糊、易变动）</td><td>原型模型或迭代模型</td></tr>
+</tbody></table>
+<h3 id="wu-chuan-tong-guo-cheng-mo-xing-de-bu-zu">五、传统过程模型的不足</h3>
+<p>以文档为中心的<strong>重型方法</strong>：大量时间写文档和评审，难应对需求变化，较长时间才能得到可运行软件</p>
+<hr />
+<h2 id="se3-2-min-jie-kai-fa-fang-fa">SE3.2 敏捷开发方法</h2>
+<h3 id="yi-he-xin-si-xiang">一、核心思想</h3>
+<p>轻量级软件开发方法，<strong>以代码为中心</strong>，快速、轻巧、主动应对需求变化，持续及时交付可运行软件。</p>
+<h3 id="er-si-da-he-xin-jia-zhi-guan">二、四大核心价值观</h3>
+<ol>
+<li><strong>重视人和交互</strong> &gt; 工具和流程</li>
+<li><strong>重视可运行软件</strong> &gt; 详尽文档</li>
+<li><strong>重视客户合作</strong> &gt; 合同谈判</li>
+<li><strong>重视响应变化</strong> &gt; 遵循计划</li>
+</ol>
+<h3 id="san-min-jie-zhun-ze-yao-dian">三、敏捷准则要点</h3>
+<ul>
+<li>尽早持续交付有价值的软件</li>
+<li>即使开发后期也欢迎需求变化</li>
+<li>不断交付可运行软件（几周到几个月）</li>
+<li>用户和开发人员最好每天一起工作</li>
+<li>面对面交谈是最有效的信息传递</li>
+<li><strong>可运行软件是衡量进度的首要标准</strong></li>
+<li>最好的架构、需求和设计出自自组织团队</li>
+</ul>
+<h3 id="si-ji-xian-bian-cheng-xp">四、极限编程（XP）</h3>
+<p><strong>四条核心思想</strong>：交流、反馈、简单、勇气</p>
+<p><strong>五条指导原则</strong>：快速反馈、简单性假设、逐步更改、支持变化、高量工作</p>
+<p><strong>十二准则</strong>：计划游戏、隐喻、小型发布、简单设计、测试先行、重构、结对编程、代码集体拥有、持续集成、每周40小时、现场用户、编码标准</p>
+<h3 id="wu-ce-shi-qu-dong-kai-fa-tdd">五、测试驱动开发（TDD）</h3>
+<p><strong>红-绿-重构循环</strong>：</p>
+<ol>
+<li>编写失败测试</li>
+<li>编写代码使测试通过</li>
+<li>重构优化设计</li>
+</ol>
+<p>特点：根据测试编写代码，确保代码可测试，编码完成即完工</p>
+<h3 id="liu-scrumfang-fa">六、Scrum方法</h3>
+<p><strong>核心流程</strong>：产品订单库(Backlog) → 冲刺订单库(SprintLog) → 冲刺(Sprint, 1-4周) → 交付</p>
+<p>Sprint是核心活动，体现短期交付原则。</p>
+<h3 id="qi-min-jie-fang-fa-te-dian-xiao-jian-kuai-bian">七、敏捷方法特点：小、简、快、变</h3>
+<hr />
+<h2 id="se3-3-qun-ti-hua-ruan-jian-kai-fa-fang-fa">SE3.3 群体化软件开发方法</h2>
+<h3 id="yi-ding-yi">一、定义</h3>
+<p>依托互联网平台吸引、汇聚、组织和管理大规模开发人员，通过竞争、合作、协商等方式，让大众参与软件开发的新颖方法。</p>
+<h3 id="er-da-jiao-tang-yu-ji-shi-mo-xing">二、大教堂与集市模型</h3>
+<table><thead><tr><th>模型</th><th>方式</th><th>特点</th></tr></thead><tbody>
+<tr><td>大教堂（闭源）</td><td>封闭式建设</td><td>成本高、周期长、品质优</td></tr>
+<tr><td>集市（开源）</td><td>开放式建设</td><td>成本低、周期短，并行对等的扁平化开发</td></tr>
+</tbody></table>
+<h3 id="san-guan-jian-zhi-cheng-ji-shu">三、关键支撑技术</h3>
+<ol>
+<li>
+<p><strong>基于社区的群体化组织</strong>：</p>
+<ul>
+<li>核心开发人员（人数少）：主要贡献者，评审和合并外部代码</li>
+<li>外围开发人员（人数多）：自发贡献，提出需求、报告缺陷、提交代码</li>
+<li>社区特征：自由进出、遵循规定、自愿工作、开放分享</li>
+</ul>
+</li>
+<li>
+<p><strong>基于Issue的任务管理</strong>：</p>
+<ul>
+<li>流程：创建Issue（缺陷/需求）→ 讨论Issue → 指派Issue → 跟踪Issue</li>
+<li>特点：自主提出任务，自发完成任务</li>
+</ul>
+</li>
+<li>
+<p><strong>基于Git的分布式版本管理</strong>：</p>
+<ul>
+<li>工作区 → 暂存区 → 本地版本库 → 远程版本库</li>
+<li>分支：master分支（稳定发布）、develop分支（开发汇总）、开发者分支</li>
+</ul>
+</li>
+<li>
+<p><strong>基于Pull/Request(P/R)的分布式协同开发</strong>：</p>
+<ul>
+<li>流程：Fork → Clone → 本地修改 → Push → Pull-request → 代码审查 → 合并</li>
+<li>特点：简单、规范、透明</li>
+</ul>
+</li>
+<li>
+<p><strong>基于群智的知识分享</strong>：</p>
+<ul>
+<li>平台：Stack Overflow、CSDN</li>
+<li>流程：提问 → 回答和讨论 → 接受</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="se3-4-gitjie-shao-ji-shi-yong">SE3.4 Git介绍及使用</h2>
+<h3 id="yi-githe-xin-gai-nian">一、Git核心概念</h3>
+<ul>
+<li><strong>分布式版本控制系统</strong>：每个开发者拥有完整版本库副本</li>
+<li><strong>核心区域</strong>：工作区 → 暂存区(Stage) → 本地版本库 → 远程版本库</li>
+</ul>
+<h3 id="er-ji-ben-cao-zuo">二、基本操作</h3>
+<table><thead><tr><th>操作</th><th>说明</th></tr></thead><tbody>
+<tr><td>clone</td><td>克隆远程仓库到本地</td></tr>
+<tr><td>add</td><td>将工作区修改添加到暂存区</td></tr>
+<tr><td>commit</td><td>将暂存区内容提交到本地版本库</td></tr>
+<tr><td>push</td><td>将本地版本库推送到远程仓库</td></tr>
+<tr><td>pull</td><td>从远程仓库拉取最新代码</td></tr>
+<tr><td>branch</td><td>创建/管理分支</td></tr>
+<tr><td>merge</td><td>合并分支</td></tr>
+<tr><td>checkout</td><td>切换分支或恢复文件</td></tr>
+</tbody></table>
+<h3 id="san-fen-zhi-guan-li">三、分支管理</h3>
+<ul>
+<li><strong>master分支</strong>：稳定发布版本，不直接修改</li>
+<li><strong>develop分支</strong>：开发汇总分支，各功能分支代码合并于此</li>
+<li><strong>开发者分支</strong>：每个开发人员独立的功能分支</li>
+</ul>
+<h3 id="si-yu-qun-ti-hua-kai-fa-de-guan-xi">四、与群体化开发的关系</h3>
+<p>Git配合Pull/Request机制实现分布式协同开发：Fork → Clone → 本地修改 → Push → Pull-request → 代码审查 → 合并</p>
+<hr />
+<h2 id="se4-ruan-jian-xu-qiu-fen-xi-ji-chu">SE4 软件需求分析基础</h2>
+<h3 id="yi-he-xin-gai-nian">一、核心概念</h3>
+<ul>
+<li><strong>软件需求</strong>：用户对软件系统的期望和要求</li>
+<li><strong>需求工程</strong>：系统化的需求获取、分析、规格说明和验证过程（需求获取→需求分析→需求规格说明→需求验证）</li>
+<li><strong>利益相关方(Stakeholder)</strong>：用户、客户、开发者、维护者等所有与软件相关的人员或组织</li>
+</ul>
+<h3 id="er-xu-qiu-fen-lei">二、需求分类</h3>
+<table><thead><tr><th>分类</th><th>描述</th><th>示例</th></tr></thead><tbody>
+<tr><td>功能性需求</td><td>系统必须完成的功能</td><td>登录、查询、下单</td></tr>
+<tr><td>非功能性需求</td><td>系统必须具备的质量属性</td><td>性能、安全性、可靠性、可扩展性、可维护性</td></tr>
+<tr><td>约束条件</td><td>开发过程或产品必须遵守的限制</td><td>技术平台、开发周期、法规</td></tr>
+</tbody></table>
+<h3 id="san-xu-qiu-de-zhi-liang-yao-qiu">三、需求的质量要求</h3>
+<p>正确性、完整性、一致性、可验证性、可追踪性、无歧义性</p>
+<h3 id="si-xu-qiu-fen-xi-de-bu-zou">四、需求分析的步骤</h3>
+<ol>
+<li>需求获取：收集系统需求信息</li>
+<li>需求分析：理解、建模和细化需求</li>
+<li>需求规格说明：形成需求文档</li>
+<li>需求验证：评审确认需求的正确性</li>
+</ol>
+<h3 id="wu-xu-qiu-bian-geng-guan-li">五、需求变更管理</h3>
+<ul>
+<li>需求变更不可避免，需建立变更控制流程</li>
+<li>变更申请→变更评估→变更审批→变更实施→变更追踪</li>
+</ul>
+<h3 id="liu-mian-xiang-dui-xiang-fang-fa-xue-he-xin-gai-nian">六、面向对象方法学核心概念</h3>
+<table><thead><tr><th>概念</th><th>定义</th></tr></thead><tbody>
+<tr><td>对象(Object)</td><td>包含属性和操作的实体</td></tr>
+<tr><td>类(Class)</td><td>具有相同属性和操作的一组对象的抽象</td></tr>
+<tr><td>消息(Message)</td><td>对象间通信的手段</td></tr>
+<tr><td>继承(Inheritance)</td><td>子类继承父类的属性和操作</td></tr>
+<tr><td>多态(Polymorphism)</td><td>同一操作在不同类中具有不同实现</td></tr>
+<tr><td>聚合(Aggregation)</td><td>整体-部分关系（弱关联）</td></tr>
+<tr><td>组合(Composition)</td><td>整体-部分关系（强关联，同生命周期）</td></tr>
+</tbody></table>
+<h3 id="qi-umljian-mo-yu-yan">七、UML建模语言</h3>
+<p>多视点建模——从不同角度描述系统的结构和行为。</p>
+<h3 id="ba-xu-qiu-fen-xi-de-shu-chu-ruan-jian-xu-qiu-gui-ge-shuo-ming-shu">八、需求分析的输出：软件需求规格说明书</h3>
+<hr />
+<h2 id="se5-huo-qu-ruan-jian-xu-qiu">SE5 获取软件需求</h2>
+<h3 id="yi-huo-qu-xu-qiu-de-fang-fa">一、获取需求的方法</h3>
+<table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody>
+<tr><td>访谈(Interview)</td><td>直接与用户交流</td></tr>
+<tr><td>问卷(Questionnaire)</td><td>大规模收集信息</td></tr>
+<tr><td>观摩(Observation)</td><td>观察用户工作流程</td></tr>
+<tr><td>原型(Prototyping)</td><td>快速构建原型，以原型为媒介导出需求</td></tr>
+<tr><td>群体化方法</td><td>利用社区力量</td></tr>
+</tbody></table>
+<h3 id="er-yong-li-tu-he-xin-yao-su">二、用例图核心要素</h3>
+<ul>
+<li><strong>执行者(Actor)</strong>：系统外部的用户或其他系统</li>
+<li><strong>用例(Use Case)</strong>：系统提供的功能</li>
+<li><strong>包含关系(include)</strong>：用例A必然调用用例B</li>
+<li><strong>扩展关系(extend)</strong>：用例A可选地在特定条件下扩展用例B</li>
+<li><strong>继承关系</strong>：执行者之间或用例之间的泛化</li>
+</ul>
+<h3 id="san-xu-qiu-que-ren-yu-ke-xing-xing-fen-xi">三、需求确认与可行性分析</h3>
+<p>验证需求的正确性、完整性，进行可行性分析：</p>
+<ul>
+<li><strong>技术可行性</strong>：现有技术能否实现需求</li>
+<li><strong>经济可行性</strong>：开发成本和预期收益是否合理</li>
+<li><strong>操作可行性</strong>：用户能否接受和使用系统</li>
+</ul>
+<hr />
+<h2 id="se6-fen-xi-ruan-jian-xu-qiu">SE6 分析软件需求</h2>
+<h3 id="yi-fen-xi-ruan-jian-xu-qiu-de-ren-wu">一、分析软件需求的任务</h3>
+<ol>
+<li>细化用例，建立需求模型</li>
+<li>分析用例交互（顺序图/通信图）</li>
+<li>识别分析类（边界类、控制类、实体类）</li>
+<li>建立分析类图和状态模型</li>
+<li>需求优先级分析（MoSCoW法）</li>
+</ol>
+<p><strong>MoSCoW优先级法：</strong></p>
+<ul>
+<li><strong>M</strong>ust have（必须有的）：核心功能，没有则系统不可用</li>
+<li><strong>S</strong>hould have（应该有的）：重要功能，短期可暂缺</li>
+<li><strong>C</strong>ould have（可以有的）：锦上添花，有则更好</li>
+<li><strong>W</strong>on't have（不需要的）：本次不开发，以后考虑</li>
+</ul>
+<h3 id="er-umltu-yong-yu-xu-qiu-fen-xi">二、UML图用于需求分析</h3>
+<table><thead><tr><th>图类型</th><th>用途</th></tr></thead><tbody>
+<tr><td>顺序图</td><td>描述对象间消息传递的时间顺序</td></tr>
+<tr><td>通信图</td><td>描述对象间消息传递的结构关系</td></tr>
+<tr><td>类图（分析层次）</td><td>边界类(&lt;<boundary>&gt;)、控制类(&lt;<control>&gt;)、实体类(&lt;<entity>&gt;)</td></tr>
+<tr><td>状态图</td><td>描述对象的状态变迁</td></tr>
+</tbody></table>
+<h3 id="san-ruan-jian-xu-qiu-gui-ge-shuo-ming-shu-nei-rong">三、软件需求规格说明书内容</h3>
+<p>引言、系统概述、功能需求、非功能需求、用例模型、分析模型等</p>
+<hr />
+<h2 id="se7-ruan-jian-she-ji-ji-chu">SE7 软件设计基础</h2>
+<h3 id="yi-ruan-jian-she-ji-ding-yi">一、软件设计定义</h3>
+<p>针对软件需求，综合考虑各种制约因素，探究软件实现的解决方案。</p>
+<ul>
+<li>设计回答"如何做"(How)，是需求和实现间的桥梁</li>
+<li>设计的好坏直接决定最终产品质量</li>
+</ul>
+<h3 id="er-she-ji-guo-cheng-cong-gao-dao-di-chou-xiang-ceng-ci">二、设计过程（从高到低抽象层次）</h3>
+<ol>
+<li><strong>软件体系结构设计</strong>：全局宏观视角，高层抽象，模块为"黑盒子"</li>
+<li><strong>用户界面设计</strong>：软件对外展示和人机交互</li>
+<li><strong>软件详细设计</strong>：细化精化，包括数据设计、接口设计、类设计、算法设计</li>
+</ol>
+<h3 id="san-ruan-jian-she-ji-yuan-su">三、软件设计元素</h3>
+<table><thead><tr><th>元素</th><th>定义</th></tr></thead><tbody>
+<tr><td>设计类</td><td>最基本的设计单元</td></tr>
+<tr><td>软构件</td><td>可分离、可独立部署执行、可单独重用（如.dll、.jar）</td></tr>
+<tr><td>子系统</td><td>完成特定功能的一组模块集合</td></tr>
+</tbody></table>
+<h3 id="si-ruan-jian-she-ji-yuan-ze">四、软件设计原则</h3>
+<ol>
+<li><strong>抽象与逐步求精</strong>：抽象层次从体系结构→类→算法递进</li>
+<li><strong>模块化、高内聚度、低耦合度</strong>：
+<ul>
+<li>内聚度（从低到高）：偶然性→逻辑性→时间性→过程性→通讯性→顺序性→功能性</li>
+<li>耦合度（从低到高）：非直接→数据→控制→特征→外部→公共→内容</li>
+</ul>
+</li>
+<li><strong>信息隐藏</strong>：模块内部对外不可见，仅暴露接口</li>
+<li><strong>多视点和关注点分离</strong></li>
+<li><strong>软件重用</strong></li>
+<li><strong>迭代设计</strong></li>
+<li><strong>可追踪性</strong></li>
+</ol>
+<h3 id="wu-mian-xiang-dui-xiang-she-ji-you-shi">五、面向对象设计优势</h3>
+<ul>
+<li>从分析到设计使用相同概念，自然过渡</li>
+<li>多种形式和粗粒度的软件重用</li>
+<li>系统地支持所有设计阶段工作</li>
+<li>支持扩展和变更（接口、抽象类、继承、实现等机制）</li>
+</ul>
+<hr />
+<h2 id="se8-ruan-jian-ti-xi-jie-gou-she-ji">SE8 软件体系结构设计</h2>
+<h3 id="yi-ruan-jian-ti-xi-jie-gou-sa-ding-yi">一、软件体系结构(SA)定义</h3>
+<p>从高层抽象角度刻画组成软件系统的设计元素及它们之间的逻辑关联。</p>
+<h3 id="er-san-ge-he-xin-she-ji-yuan-su">二、三个核心设计元素</h3>
+<table><thead><tr><th>元素</th><th>定义</th></tr></thead><tbody>
+<tr><td>构件(Component)</td><td>物理模块，可分离、可替换、可配置、可复用</td></tr>
+<tr><td>连接件(Connector)</td><td>构件间的连接和交互关系</td></tr>
+<tr><td>约束(Constraint)</td><td>构件组合时应满足的条件</td></tr>
+</tbody></table>
+<h3 id="san-gou-jian-te-xing-yu-jie-kou">三、构件特性与接口</h3>
+<ul>
+<li><strong>特性</strong>：可分离（独立部署）、可替换（同接口可互换）、可配置（通过配置修改行为）、可复用</li>
+<li><strong>接口类型</strong>：供给接口（对外提供）、需求接口（请求其他构件帮助所需）</li>
+<li><strong>端口(Port)</strong>：绑定接口</li>
+</ul>
+<h3 id="si-ruan-jian-ti-xi-jie-gou-de-si-shi-tu">四、软件体系结构的四视图</h3>
+<table><thead><tr><th>视图</th><th>关注内容</th><th>UML图</th></tr></thead><tbody>
+<tr><td>逻辑视图</td><td>要素及关系</td><td>包图、构件图</td></tr>
+<tr><td>运行视图</td><td>运行时进程/线程划分、并发同步</td><td>—</td></tr>
+<tr><td>开发视图</td><td>代码组织及目录结构</td><td>—</td></tr>
+<tr><td>物理视图</td><td>软构件部署及连接</td><td>部署图</td></tr>
+</tbody></table>
+<h3 id="wu-san-lei-umltu">五、三类UML图</h3>
+<ul>
+<li><strong>包图</strong>：刻画包间的构成和依赖关系，包是一组逻辑关联的UML模型元素</li>
+<li><strong>构件图</strong>：描述构件及构件间的构成和依赖关系</li>
+<li><strong>部署图</strong>：描述软件系统可执行工件在运行环境中的分布情况（描述性：逻辑层面 / 实例性：物理层面）</li>
+</ul>
+<h3 id="liu-she-ji-mo-shi-de-san-ge-ceng-ci">六、设计模式的三个层次</h3>
+<p>体系结构风格 → 构件设计模式 → 实现设计模式</p>
+<h3 id="qi-chang-yong-ti-xi-jie-gou-feng-ge">七、常用体系结构风格</h3>
+<table><thead><tr><th>风格</th><th>描述</th><th>适用场景</th></tr></thead><tbody>
+<tr><td>分层风格</td><td>每层为其紧邻上层提供服务，使用紧邻下层服务；松耦合、可替换、可复用、标准化</td><td>大部分应用软件</td></tr>
+<tr><td>管道与过滤器</td><td>数据流处理，过滤器以管道连接</td><td>编译器、Web服务（数据驱动分级处理）</td></tr>
+<tr><td>黑板风格</td><td>黑板（状态数据）+知识源（求解）+控制器（调度）</td><td>AI推理</td></tr>
+<tr><td>MVC风格</td><td>Model（业务逻辑）+View（界面）+Controller（调度）</td><td>单机软件、Web应用</td></tr>
+<tr><td>SOA风格</td><td>服务提供方/请求方/注册中心松耦合</td><td>云平台软件系统</td></tr>
+<tr><td>消息总线风格</td><td>统一消息总线连接各构件</td><td>异构构件间消息通信密集型系统</td></tr>
+</tbody></table>
+<h3 id="ba-mvcjiao-hu-liu-cheng">八、MVC交互流程</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>用户动作 → Controller(控制器) → Model(模型) → View(视图) → 用户</span></span></code></pre><h3 id="jiu-ti-xi-jie-gou-she-ji-guo-cheng">九、体系结构设计过程</h3>
+<ol>
+<li>设计初步体系结构（辨识关键需求 → 选择合适风格 → 初创架构）</li>
+<li>重用开源软件及已有软件资产</li>
+<li>精化体系结构（确定基础设施 → 确立子系统/构件/类 → 接口协作）</li>
+</ol>
+<hr />
+<h2 id="se9-yong-hu-jie-mian-she-ji">SE9 用户界面设计</h2>
+<h3 id="yi-yong-hu-jie-mian-she-ji-ding-yi">一、用户界面设计定义</h3>
+<p>设计软件对外展示以及与用户进行交互的界面，关注软件如何与用户进行交互。</p>
+<ul>
+<li>输出：告诉给用户的信息（显示内容）</li>
+<li>输入：需要用户提供的信息（操作入口）</li>
+</ul>
+<p>用户界面是用户与软件系统的"接触面"，直接影响用户体验和系统可用性。</p>
+<h3 id="er-yong-hu-jie-mian-she-ji-yuan-ze">二、用户界面设计原则</h3>
+<table><thead><tr><th>原则</th><th>说明</th></tr></thead><tbody>
+<tr><td>用户友好性</td><td>界面直观，操作简便，符合用户习惯</td></tr>
+<tr><td>一致性</td><td>保持界面风格、术语、操作方式统一</td></tr>
+<tr><td>反馈性</td><td>对用户操作给出即时反馈（如加载提示、错误提示）</td></tr>
+<tr><td>容错性</td><td>提供撤销/恢复功能，防止误操作造成严重后果</td></tr>
+<tr><td>简洁性</td><td>信息布局清晰，避免界面混乱和信息过载</td></tr>
+<tr><td>可访问性</td><td>考虑不同用户群体（如色盲、老年人）的使用需求</td></tr>
+</tbody></table>
+<h3 id="san-yong-hu-jie-mian-she-ji-guo-cheng">三、用户界面设计过程</h3>
+<ol>
+<li><strong>用户分析</strong>：理解用户特征、使用场景和操作习惯</li>
+<li><strong>任务分析</strong>：分析用户需要完成的操作任务</li>
+<li><strong>界面原型设计</strong>：绘制线框图和交互原型</li>
+<li><strong>界面实现</strong>：编写前端代码实现界面</li>
+<li><strong>可用性评估</strong>：通过用户测试检验界面质量</li>
+</ol>
+<h3 id="si-she-ji-guan-zhu-de-zhi-liang-yao-su">四、设计关注的质量要素</h3>
+<p>直观、友好、易于操作、易于理解、响应迅速</p>
+<h3 id="wu-xiang-guan-umlbiao-shi">五、相关UML表示</h3>
+<p>可用交互图（顺序图、通信图）来表示用户界面元素与系统其他设计元素之间的交互协作。</p>
+<hr />
+<h2 id="se10-ruan-jian-xiang-xi-she-ji">SE10 软件详细设计</h2>
+<h3 id="yi-xiang-xi-she-ji-ding-yi">一、详细设计定义</h3>
+<p>对体系结构设计和用户界面设计成果进行细化和精化，获得高质量、面向实现的设计模型。</p>
+<h3 id="er-xiang-xi-she-ji-de-he-xin-huo-dong">二、详细设计的核心活动</h3>
+<table><thead><tr><th>活动</th><th>内容</th></tr></thead><tbody>
+<tr><td>用例设计</td><td>给出用例的具体实现方案（顺序图+类图）</td></tr>
+<tr><td>类设计</td><td>明确类的内部实现细节（属性、方法、关系、状态图、活动图）</td></tr>
+<tr><td>数据设计</td><td>设计持久数据及其结构和操作</td></tr>
+<tr><td>子系统/构件设计</td><td>细化粗粒度设计元素的内部结构</td></tr>
+</tbody></table>
+<h3 id="san-fen-xi-lei-yu-she-ji-yuan-su-de-dui-ying-guan-xi">三、分析类与设计元素的对应关系</h3>
+<ul>
+<li>一个分析类职责由一个设计元素操作完整实现</li>
+<li>一个分析类职责由多个设计元素多项操作实现（细化分解）</li>
+<li>一个分析类职责由多个设计元素协同完成</li>
+</ul>
+<h3 id="si-lei-she-ji-guo-cheng">四、类设计过程</h3>
+<ol>
+<li>确定可见范围（public/protected/private，尽量缩小可见范围）</li>
+<li>精化类间关系（继承 &gt; 组合 &gt; 聚合 &gt; 关联 &gt; 依赖）</li>
+<li>构造状态图和活动图</li>
+<li>精化属性和方法</li>
+<li>评审和优化</li>
+</ol>
+<h3 id="wu-shu-ju-she-ji-dui-xiang-guan-xi-ying-she">五、数据设计（对象-关系映射）</h3>
+<ul>
+<li>类 → 表格、对象 → 记录、属性 → 字段</li>
+<li><strong>1:1 / 1:n 映射</strong>：外键</li>
+<li><strong>n:m 映射</strong>：交叉表（中间表）</li>
+<li><strong>继承关系映射</strong>（两种方式）：
+<ol>
+<li>全部字段引入一张表（冗余但快）</li>
+<li>仅引入关键字外键（节省空间）</li>
+</ol>
+</li>
+</ul>
+<h3 id="liu-xiao-xi-chuan-di-de-si-chong-fang-shi">六、消息传递的四种方式</h3>
+<ol>
+<li>引用全局对象（依赖关系）</li>
+<li>通过参数传递（依赖关系）</li>
+<li>引用局部对象（依赖关系）</li>
+<li>通过类成员变量（聚合/组合关系）</li>
+</ol>
+<h3 id="qi-she-ji-ping-shen-nei-rong">七、设计评审内容</h3>
+<p>规范性、简练性、正确性、可实施性、可追踪性、一致性、高质量</p>
+<hr />
+<h2 id="se11-ruan-jian-shi-xian-ji-chu">SE11 软件实现基础</h2>
+<h3 id="yi-ruan-jian-shi-xian-ding-yi">一、软件实现定义</h3>
+<p>根据软件设计模型，编写程序代码，并对代码进行测试，发现和纠正缺陷，部署到目标计算机运行。</p>
+<ul>
+<li>兼具<strong>创作</strong>和<strong>生产</strong>属性</li>
+</ul>
+<h3 id="er-shi-xian-guo-cheng">二、实现过程</h3>
+<p>编码 → 单元测试 → 调试 → 集成测试 → 确认测试 → 系统测试</p>
+<h3 id="san-shi-xian-yuan-ze">三、实现原则</h3>
+<p><strong>基于设计编码</strong>（切忌"拍脑袋"写程序），质量保证贯穿全过程</p>
+<h3 id="si-cheng-xu-she-ji-yu-yan-lei-bie">四、程序设计语言类别</h3>
+<table><thead><tr><th>类别</th><th>特点</th><th>代表语言</th></tr></thead><tbody>
+<tr><td>机器语言</td><td>"0""1"组成，执行效率高但繁琐</td><td>—</td></tr>
+<tr><td>汇编语言</td><td>助记符代替机器码，速度快但可读性差</td><td>—</td></tr>
+<tr><td>结构化语言</td><td>过程/函数为基本单元，三类控制结构</td><td>C、Fortran、Pascal</td></tr>
+<tr><td>面向对象语言</td><td>类为基本模块单元</td><td>Java、C++</td></tr>
+<tr><td>描述性语言</td><td>描述需要解决什么问题</td><td>Prolog、Lisp</td></tr>
+</tbody></table>
+<h3 id="wu-yu-yan-xuan-ze-yi-ju">五、语言选择依据</h3>
+<ul>
+<li>软件应用领域</li>
+<li>与遗留系统交互需求</li>
+<li>软件特殊功能需求</li>
+<li>目标平台（J2EE→Java，ROS→C/C++/Python）</li>
+<li>程序员经验</li>
+</ul>
+<h3 id="liu-cheng-xu-yuan-neng-li-yao-qiu">六、程序员能力要求</h3>
+<p>自我学习能力、独立解决问题能力、良好编程习惯、质量意识、测试能力、阅读他人代码、善用CASE工具、团队合作</p>
+<hr />
+<h2 id="se12-bian-xie-dai-ma">SE12 编写代码</h2>
+<h3 id="yi-bian-xie-dai-ma-de-wu-da-yuan-ze">一、编写代码的五大原则</h3>
+<ol>
+<li><strong>易读，一看就懂</strong>
+<ul>
+<li>理解代码语义和内涵</li>
+<li>望文生义的符号命名</li>
+<li>合理缩进和括号</li>
+<li>关键语句、方法加注释</li>
+</ul>
+</li>
+<li><strong>简明，降低复杂度</strong>
+<ul>
+<li>不用 goto 语句</li>
+<li>减少嵌套层数</li>
+<li>选择简单算法</li>
+<li>一个类一个文件，统一命名规则</li>
+</ul>
+</li>
+<li><strong>易改，便于维护</strong>
+<ul>
+<li>对可能修改的代码进行抽象、参数化、封装</li>
+<li>以便修改时不波及无关代码</li>
+</ul>
+</li>
+<li><strong>无二义，不产生歧义</strong>
+<ul>
+<li>代码逻辑清晰，不让人产生误解</li>
+</ul>
+</li>
+<li><strong>尽可能地开展软件重用和编写可重用代码</strong></li>
+</ol>
+<h3 id="er-yi-chang-chu-li">二、异常处理</h3>
+<ul>
+<li>编写异常定义和处理代码（try-catch）</li>
+<li>防止异常导致程序终止或崩溃</li>
+<li>支持故障检测、恢复和修复</li>
+<li>确保程序在严重错误时仍可运行或快速恢复</li>
+</ul>
+<h3 id="san-bian-ma-yu-she-ji-de-guan-xi">三、编码与设计的关系</h3>
+<ul>
+<li>基于设计编码，切忌"拍脑袋"写程序</li>
+<li>设计不足时，程序员需补充设计</li>
+<li>发现设计问题应反馈修正</li>
+</ul>
+<hr />
+<h2 id="se14-ruan-jian-bu-shu">SE14 软件部署</h2>
+<h3 id="yi-ji-ben-gai-nian-1">一、基本概念</h3>
+<ul>
+<li><strong>软件运行环境</strong>：软件运行所依赖的上下文，包括OS、第三方软件、中间件/开发框架</li>
+<li><strong>软件间关系</strong>：
+<ul>
+<li>纵向层次性：依赖基础软件系统</li>
+<li>横向相关性：需与其他软件系统交互</li>
+</ul>
+</li>
+<li><strong>运行环境变化</strong>：大中小型机 → PC → 局域网 → 互联网 → 无处不在计算</li>
+</ul>
+<h3 id="er-ruan-jian-bu-shu-ding-yi">二、软件部署定义</h3>
+<p>将目标软件系统进行收集、打包、安装、配置和发布到运行环境的过程。</p>
+<p>两方面工作：</p>
+<ol>
+<li>安装配置运行环境</li>
+<li>安装配置软件系统</li>
+</ol>
+<h3 id="san-bu-shu-san-yuan-ze">三、部署三原则</h3>
+<p>最小化、相关性、适应性</p>
+<h3 id="si-bu-shu-fang-shi">四、部署方式</h3>
+<table><thead><tr><th>方式</th><th>描述</th><th>示例</th></tr></thead><tbody>
+<tr><td>单机部署</td><td>各要素集中部署在单一设备</td><td>小米便签、扫雷游戏</td></tr>
+<tr><td>分布式部署</td><td>分散在多个设备</td><td>淘宝、Google、12306</td></tr>
+</tbody></table>
+<p>分布式的具体形式：C/S部署、客户端-应用服务器-数据库服务器部署、互联网部署</p>
+<h3 id="wu-bu-shu-fang-fa">五、部署方法</h3>
+<ol>
+<li>基于操作系统部署（直接运行在OS之上）</li>
+<li>基于软件开发框架部署</li>
+<li>基于软件中间件部署</li>
+<li>基于容器和镜像部署（Docker）</li>
+</ol>
+<h3 id="liu-rong-qi-bu-shu-docker">六、容器部署（Docker）</h3>
+<ul>
+<li><strong>特点</strong>：视图隔离、资源可限制、独立文件系统的进程集合</li>
+<li><strong>镜像</strong>：包含应用代码 + 所有依赖</li>
+<li><strong>与宿主机关系</strong>：共享内核</li>
+<li><strong>部署流程</strong>：选定基础镜像 → 编写Dockerfile → 创建软件镜像 → 创建并运行容器</li>
+</ul>
+<h3 id="qi-xiang-guan-casegong-ju">七、相关CASE工具</h3>
+<p>Fat jar（Java打包）、Installer Projects（Windows安装包）、Jenkins（持续集成部署）</p>
+<hr />
+<h2 id="se15-ruan-jian-wei-hu-yu-yan-hua">SE15 软件维护与演化</h2>
+<h3 id="yi-ruan-jian-wei-hu-ding-yi">一、软件维护定义</h3>
+<p>软件在交付使用后，由于应用需求和环境变化以及自身问题，对软件系统进行改造和调整的过程。</p>
+<h3 id="er-si-chong-wei-hu-xing-shi">二、四种维护形式</h3>
+<table><thead><tr><th>类型</th><th>描述</th><th>示例</th></tr></thead><tbody>
+<tr><td>纠正性维护</td><td>纠正软件中的缺陷和错误</td><td>修bug</td></tr>
+<tr><td>适应性维护</td><td>适应新的运行环境和平台</td><td>Windows→Linux迁移</td></tr>
+<tr><td>完善性维护</td><td>增加新功能、修改已有功能</td><td>功能迭代</td></tr>
+<tr><td>预防性维护</td><td>改善可靠性和可维护性，为未来改进奠定基础</td><td>代码重构</td></tr>
+</tbody></table>
+<h3 id="san-wei-hu-te-dian">三、维护特点</h3>
+<ul>
+<li>同步性：维护需与软件使用同步进行</li>
+<li>周期长：软件会服役十几年甚至几十年</li>
+<li>费用高：维护成本高达总成本 <strong>80%</strong> 以上，维护费用是开发费用的 3 倍以上
+<ul>
+<li>1970s: 35-40%，1980s: 60%，1990s: 75%，如今更高</li>
+</ul>
+</li>
+<li>难度大：50%-90% 时间用于理解程序，尤其是文档缺失时</li>
+</ul>
+<h3 id="si-ruan-jian-yan-hua-vs-ruan-jian-wei-hu">四、软件演化 vs 软件维护</h3>
+<table><thead><tr><th>维度</th><th>软件演化</th><th>软件维护</th></tr></thead><tbody>
+<tr><td>功能增强粒度</td><td>粗粒度</td><td>细粒度</td></tr>
+<tr><td>应对变化方式</td><td>主动</td><td>被动</td></tr>
+<tr><td>持续性</td><td>是</td><td>间隔性</td></tr>
+<tr><td>版本变化</td><td>是</td><td>不一定</td></tr>
+</tbody></table>
+<h3 id="wu-lehmanruan-jian-yan-hua-ba-fa-ze">五、Lehman软件演化八法则</h3>
+<ol>
+<li><strong>持续变化法则</strong>：不持续修改会越来越不实用</li>
+<li><strong>增加复杂性法则</strong>：除非采取措施降低复杂性，否则越来越复杂</li>
+<li><strong>自我调节法则</strong>：演化过程自我可调节</li>
+<li><strong>组织稳定性守恒法则</strong>：新版本平均额外工作量相同</li>
+<li><strong>熟悉度守恒法则</strong>：平均增量增长相同</li>
+<li><strong>功能持续增长法则</strong>：功能必须持续增加，否则用户满意度降低</li>
+<li><strong>质量衰减法则</strong>：代码变更导致质量逐渐下降</li>
+<li><strong>反馈系统法则</strong>：多回路活动和多层次反馈</li>
+</ol>
+<h3 id="liu-ruan-jian-luo-ji-lao-hua">六、软件逻辑老化</h3>
+<ul>
+<li><strong>定义</strong>：维护演化中出现的用户满意度降低、质量下降、变更成本上升的现象（逻辑层面非物理层面）</li>
+<li><strong>现象</strong>：质量下降、变更成本增加、用户满意度降低</li>
+<li><strong>原因</strong>：
+<ul>
+<li>缺乏变更（外部环境变化而未响应）</li>
+<li>负面变更（引入新缺陷、破坏结构）</li>
+</ul>
+</li>
+<li><strong>表现</strong>：设计僵化、设计脆弱、模块紧耦合、晦涩设计</li>
+</ul>
+<h3 id="qi-jie-jue-luo-ji-lao-hua-de-fang-fa">七、解决逻辑老化的方法</h3>
+<table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody>
+<tr><td>代码重组</td><td>不改变功能，重新组织代码，提高可维护性</td></tr>
+<tr><td>逆向工程</td><td>从低抽象层次产生高抽象层次制品（代码→设计→需求）</td></tr>
+<tr><td>设计重构</td><td>通过分析代码获得设计文档（逆向工程的具体形式）</td></tr>
+<tr><td>再工程</td><td>逆向工程 + 正向工程，实现更高质量软件系统</td></tr>
+</tbody></table>
+<h3 id="ba-ruan-jian-wei-hu-guo-cheng">八、软件维护过程</h3>
+<p>分析维护申请 → 研读代码文档 → 规划方案 → 修改设计 → 更改代码 → 测试交付 → 评估分析</p>
+<h3 id="jiu-wei-hu-cheng-ben-gong-shi">九、维护成本公式</h3>
+<p><strong>M = P + K × e^(c-d)</strong></p>
+<ul>
+<li>c = 复杂度</li>
+<li>d = 熟悉程度</li>
+</ul>
+<h3 id="shi-wei-hu-xu-yao-jie-jue-de-wen-ti">十、维护需要解决的问题</h3>
+<ul>
+<li><strong>人员问题</strong>：缺乏成就感、不重视、流动大</li>
+<li><strong>制品问题</strong>：无文档、代码可读性差、文档与代码不一致、版本混乱</li>
+<li><strong>副作用问题</strong>：代码副作用、数据副作用、文档模型副作用</li>
+</ul>
+<h3 id="shi-yi-ruan-jian-ke-wei-hu-xing">十一、软件可维护性</h3>
+<p>在开发时就考虑维护问题，软件被理解、改正、调整和改进的程度。</p>
+<ul>
+<li><strong>影响因素</strong>：开发方法、文档齐全、标准化、易于扩展、结构清晰、标准语言</li>
+<li><strong>各阶段复审</strong>：需求 → 设计 → 编码 → 测试 → 维护完成时</li>
+</ul>
+<hr />
+<h2 id="se16-ruan-jian-xiang-mu-guan-li">SE16 软件项目管理</h2>
+<h3 id="yi-ji-ben-gai-nian-2">一、基本概念</h3>
+<ul>
+<li><strong>项目</strong>：为创建唯一产品或提供唯一服务而进行的努力，存在约束、实施活动、提供产品和服务</li>
+<li><strong>项目特点</strong>：目标性、进度性、约束性、多方性、独立性、不确定性</li>
+<li><strong>软件项目管理</strong>：对软件项目涉及的过程、人员、产品、成本和进度等要素进行度量、分析、规划、组织和控制的过程</li>
+</ul>
+<h3 id="er-san-lei-guan-li-dui-xiang">二、三类管理对象</h3>
+<table><thead><tr><th>对象</th><th>关注</th></tr></thead><tbody>
+<tr><td>过程(How)</td><td>过程定义、软件度量、项目计划、项目跟踪、风险管理</td></tr>
+<tr><td>人员(Who)</td><td>团队建设、激励机制</td></tr>
+<tr><td>产品(What)</td><td>质量保证、配置管理、需求管理、风险控制</td></tr>
+</tbody></table>
+<h3 id="san-ruan-jian-du-liang-ji-ben-gai-nian">三、软件度量基本概念</h3>
+<table><thead><tr><th>术语</th><th>定义</th></tr></thead><tbody>
+<tr><td>度量(Metrics)</td><td>对产品、过程或资源简单属性的定量描述（如代码行数）</td></tr>
+<tr><td>测量(Measure)</td><td>复杂属性的定量描述，用于事后（如可靠性）</td></tr>
+<tr><td>估算(Estimation)</td><td>复杂属性的定量描述，用于事前（如成本）</td></tr>
+</tbody></table>
+<h3 id="si-du-liang-dui-xiang-shu-xing">四、度量对象属性</h3>
+<table><thead><tr><th>属性类型</th><th>特征</th><th>示例</th></tr></thead><tbody>
+<tr><td>内部属性（易测量）</td><td>与产品直接相关</td><td>代码长度、功能、重用性、耦合内聚度</td></tr>
+<tr><td>外部属性（难测量）</td><td>与环境相关</td><td>可靠性、可理解性、质量、可维护性</td></tr>
+</tbody></table>
+<h3 id="wu-mian-xiang-gui-mo-de-du-liang">五、面向规模的度量</h3>
+<p>用代码行数(KLOC)表示规模：</p>
+<ul>
+<li>生产率 PM = L/E</li>
+<li>每千行成本 CKL = S/L</li>
+<li>文档代码比 Dl = Pd/L</li>
+<li>代码出错率 EQRl = Ne/L</li>
+</ul>
+<h3 id="liu-cocomomo-xing">六、CoCoMo模型</h3>
+<ul>
+<li><strong>E = a × (kLOC)^b</strong>（工作量估算）</li>
+<li><strong>D = c × E^d</strong>（时间估算）</li>
+<li>三种软件类型：组织型、半独立型、嵌入型</li>
+</ul>
+<h3 id="qi-xiang-mu-ji-hua">七、项目计划</h3>
+<p>对活动、人员安排、任务划分、进度、资源分配的预先规划。</p>
+<p><strong>依据</strong>：开发过程、工作任务、历史数据/估算模型、约束限制</p>
+<h3 id="ba-ruan-jian-kai-fa-gong-zuo-liang-fen-bu">八、软件开发工作量分布</h3>
+<ul>
+<li>分析和设计：40-50%</li>
+<li>测试和调试：30-40%</li>
+<li>编码实现：10-20%</li>
+</ul>
+<h3 id="jiu-ruan-jian-xiang-mu-cheng-gong-ying-xiang-yin-su">九、软件项目成功影响因素</h3>
+<p>项目范围、进度计划、客户满意度、开发成本</p>
+<hr />
+<h1 id="xuan-ze-ti">选择题</h1>
+<blockquote>
+<p>大家根据课件里面的内容以及课件上的习题来复习。如果时间有够的话，课件完整过一遍，如果时间不够的话，那就把课件上面的练习题看一下。课件上面的练习题如果会做了，那么考试的选择题和判断题是没有问题的，尽管没有原题。</p>
+</blockquote>
+<blockquote>
+<p>课件原题如下</p>
+</blockquote>
+<h2 id="se1-1-cheng-xu-ji-zhi-liang-bao-zheng-fang-fa-1">SE1.1 程序及质量保证方法</h2>
+<p>1.【2022计算机统考408】 将高级语言源程序转换为可执行目标文件的主要过程是（    ）。</p>
+<ul>
+<li>A 预处理 → 编译 → 汇编 → 链接</li>
+<li>B 预处理 → 汇编 → 编译 → 链接</li>
+<li>C 预处理 → 编译 → 链接 → 汇编</li>
+<li>D 预处理 → 汇编 → 链接 → 编译</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>正确答案：A</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析</span></span>
+<span class="giallo-l"><span>预处理：处理源代码中的预处理指令，如#include（文件包含）、#define（宏定义）等。</span></span>
+<span class="giallo-l"><span>编译：将预处理后的源代码翻译成汇编语言代码，输出是汇编语言文件。</span></span>
+<span class="giallo-l"><span>汇编：将汇编语言代码翻译成机器指令，生成可重定位目标文件。</span></span>
+<span class="giallo-l"><span>链接：将一个或多个目标文件以及所需的库文件合并在一起，解析外部引用，生成一个可执行目标文件 （如Windows下的.exe文件）。</span></span></code></pre>
+<ol start="2">
+<li>关于模块化设计中的“高内聚、低耦合”原则，下列说法正确的是（ ）。</li>
+</ol>
+<ul>
+<li>A 高内聚是指模块间接口尽可能简单</li>
+<li>B 低耦合是指模块内部元素联系紧密</li>
+<li>C 高内聚有利于模块的复用和维护</li>
+<li>D 低耦合会导致系统性能下降</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 高内聚指模块内部元素关联紧密，功能单一，有利于复用和维护；低耦合指模块间依赖关系弱，接口简单，有利于系统扩展和修改。A、B选项混淆了概念，D选项错误，低耦合通常有利于系统维护和扩展，不一定导致性能下降。</span></span></code></pre><h2 id="se1-2-ruan-jian-ji-qi-te-dian-1">SE1.2 软件及其特点</h2>
+<ol>
+<li>软件生命周期中，主要任务是“确定软件必须做什么”的阶段是（ ）。</li>
+</ol>
+<ul>
+<li>A 软件设计</li>
+<li>B 编码实现</li>
+<li>C 需求分析</li>
+<li>D 运行维护</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查软件生命周期各阶段的核心任务。课件中的生命周期图清晰地标明了“What：软件需求是什么”的阶段，即需求分析。该阶段的核心任务是准确理解用户的需要，定义系统的功能、性能和约束，解决“做什么”的问题。</span></span></code></pre>
+<ol start="2">
+<li>下列软件中，属于系统软件的是（）。
+I. MySQL数据库管理系统
+II. 微信
+III. 华为OpenHarmony操作系统
+IV. Eclipse IDE</li>
+</ol>
+<ul>
+<li>A I、II</li>
+<li>B I、III</li>
+<li>C II、IV</li>
+<li>D III、IV</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B </span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析： </span></span>
+<span class="giallo-l"><span>I. MySQL：是数据库管理系统（DBMS），是典型的系统软件。</span></span>
+<span class="giallo-l"><span>II. 微信：是面向特定领域（社交）的应用软件。</span></span>
+<span class="giallo-l"><span>III. OpenHarmony：是操作系统，是系统软件的核心。</span></span>
+<span class="giallo-l"><span>IV. Eclipse：是辅助软件开发的工具，属于支撑软件。</span></span></code></pre><h2 id="se2-ruan-jian-gong-cheng-gai-shu-1">SE2 软件工程概述</h2>
+<ol>
+<li>以下关于软件工程三要素的描述中，错误的是（）。</li>
+</ol>
+<ul>
+<li>A “过程”要素定义了工作的步骤和次序，从管理的视角指导“做什么”和“何时做”</li>
+<li>B “方法”要素提供了技术手段，从技术的视角解决“如何做”的问题</li>
+<li>C “工具”要素为过程和方法提供自动化的支持，旨在替代开发人员的手工劳动</li>
+<li>D 过程、方法和工具三者相互独立，又相互联系，共同构成软件工程的学科框架</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查对三要素内涵及其关系的深入理解。</span></span>
+<span class="giallo-l"><span>A和B选项准确描述了“过程”和“方法”要素的核心思想。</span></span>
+<span class="giallo-l"><span>C选项是错误的。工具的目的是“辅助”或“支持”开发过程，提高效率和质量，而不是“替代”开发人员的智慧和创造性劳动。课件中强调工具是“辅助软件开发”、“提高效率”、“简化任务”。</span></span>
+<span class="giallo-l"><span>D选项正确描述了三者之间辩证统一的关系。</span></span></code></pre>
+<ol start="2">
+<li>“在绘制软件架构图时，我们只关心组件之间的交互关系，而不关心每个组件内部是用什么编程语言实现的。” 这句话描述的是（ ）原则的应用。</li>
+</ol>
+<ul>
+<li>A 分而治之</li>
+<li>B 抽象</li>
+<li>C 模块化</li>
+<li>D 信息隐藏</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：</span></span>
+<span class="giallo-l"><span>抽象的核心思想是忽略与当前目标无关的细节，只关注与当前目标相关的方面。在架构设计层面，关心的是组件和交互，而忽略语言实现细节，这正是“抽象”原则的典型体现。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>其他原则：</span></span>
+<span class="giallo-l"><span>A. 分而治之：强调分解复杂问题，与“忽略细节”的侧重点不同。</span></span>
+<span class="giallo-l"><span>C. 模块化：是抽象的结果之一，但题干强调的是“思考过程”（忽略什么，关心什么），这是抽象的本质。</span></span>
+<span class="giallo-l"><span>D. 信息隐藏：是一种具体的设计技术，是实现抽象的一种手段，但题干描述更偏向于概念层面的“抽象”。</span></span></code></pre>
+<ol start="3">
+<li>某个需求变更导致需要修改数据库表结构时，开发人员需要评估这一修改会影响哪些业务逻辑模块、哪些界面显示单元，以及是否需要同步修改相关的API文档。这一做法最直接地体现了（ ）原则。</li>
+</ol>
+<ul>
+<li>A 软件重用</li>
+<li>B 双向追踪</li>
+<li>C 工具辅助</li>
+<li>D 抽象和建模</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析：</span></span>
+<span class="giallo-l"><span>双向追踪原则强调追踪软件制品之间的关联关系。当某一制品（如数据模型）发生变化时，需要进行正向追踪（会影响哪些其他制品），以评估变更影响范围，确保一致性。题干描述的场景正是这一原则的典型应用。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A. 软件重用：强调使用已有组件，与题意无关。</span></span>
+<span class="giallo-l"><span>C. 工具辅助：虽然可以使用工具来辅助实现追踪，但题干强调的是“做法”背后的“原则”，而非工具本身。</span></span>
+<span class="giallo-l"><span>D. 抽象和建模：是创建这些制品的基础，但题干焦点不在“创建”而在“变更与追踪”。</span></span></code></pre><h2 id="se3-1-ruan-jian-guo-cheng-mo-xing-1">SE3.1 软件过程模型</h2>
+<ol>
+<li>瀑布模型最突出的缺点之一是（ ）。</li>
+</ol>
+<ul>
+<li>A 开发活动之间缺乏明确的顺序关系</li>
+<li>B 难以应对软件开发过程中需求的变化</li>
+<li>C 无法生成高质量的软件文档</li>
+<li>D 需要开发人员具备很高的编程技能</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对瀑布模型本质缺点的理解。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>瀑布模型要求每一阶段的活动必须在前一阶段活动完成后才能开始，阶段间具有严格的顺序性和依赖性。这种线性顺序模型假设需求在早期就能被完全、精确地定义，且不会发生变化。然而，现实中的软件需求往往具有易变、多变的特点，一旦后期需求发生变化，在瀑布模型下进行修改将非常困难且代价高昂，这正是其最受诟病的缺点。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A、C、D选项的描述均不是瀑布模型的主要缺点。</span></span></code></pre>
+<ol start="2">
+<li>与瀑布模型相比，增量模型和迭代模型共同的优点是（ ）。</li>
+</ol>
+<ul>
+<li>A 完全避免了编写详细设计文档的需要</li>
+<li>B 在开发早期就能得到部分可运行的软件功能</li>
+<li>C 彻底消除了软件开发中的所有风险</li>
+<li>D 保证第一次增量或迭代就能交付最终产品</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对增量/迭代模型核心价值的理解。无论是增量模型的“分块实现”还是迭代模型的“循环求精”，它们都打破了瀑布模型的线性顺序，通过将系统功能分批次地分析、设计、实现和测试，使得在项目早期就能让用户看到或用到部分成果。这有助于尽早获得反馈，降低项目风险。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A选项错误，它们仍需要设计，只是文档的侧重点和形式可能不同；C选项过于绝对，风险只能被降低而非消除；D选项错误，增量/迭代模型正是通过多次交付来逐步完成整个产品。</span></span></code></pre>
+<ol start="3">
+<li>与增量模型相比，迭代模型更强调（ ）。</li>
+</ol>
+<ul>
+<li>A 每个增量都必须是一个功能完整、可交付的产品子集。</li>
+<li>B 每次迭代都可能对之前迭代所完成的功能进行重构和深化。</li>
+<li>C 必须首先完成所有需求的概要设计。</li>
+<li>D 增量的划分必须严格按照功能模块进行。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考察增量与迭代的微妙区别。这是软件工程中的经典辨析点。</span></span>
+<span class="giallo-l"><span>增量开发：侧重于分块构建，每个增量增加一块新的、完整的功能，通常假设需求架构稳定。</span></span>
+<span class="giallo-l"><span>迭代开发：侧重于循环求精，每次迭代都走过一个完整的开发周期，不仅可能增加新功能，更重要的可能在于对已有功能的重新理解、修改甚至重构，从而使系统整体认知和质量逐步深化。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>因此，B选项是迭代模型更强调的特点。A选项是增量模型的特点。C和D选项不是两者的本质区别。</span></span></code></pre>
+<ol start="4">
+<li>关于瀑布模型与原型模型的主要区别，以下描述最准确的是（ ）。</li>
+</ol>
+<ul>
+<li>A 瀑布模型不编写代码，而原型模型需要编写代码。</li>
+<li>B 瀑布模型适用于大型项目，而原型模型只适用于小型项目。</li>
+<li>C 瀑布模型假设需求在早期即可固定，而原型模型承认需求的模糊性和易变性，并通过快速反馈来澄清需求。</li>
+<li>D 瀑布模型的管理成本更低，而原型模型的管理成本更高。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考察对两种模型根本区别的理解。瀑布模型是文档驱动和计划驱动的，其基石是“需求早期确定”；而原型模型是反馈驱动的，其出发点正是承认“需求难导出、不易确定”，需要通过原型作为沟通媒介来逐步明确需求。这是两者最本质的差异。</span></span>
+<span class="giallo-l"><span>A选项错误，两者都涉及编码（原型也要实现）；B选项错误，模型选择主要基于项目特征（如需求明确性）而非单纯的项目规模；D选项不是本质区别，且不一定成立。</span></span></code></pre>
+<ol start="5">
+<li>螺旋模型区别于其他过程模型的一个最显著特征是（ ）。</li>
+</ol>
+<ul>
+<li>A 包含了编码和测试活动</li>
+<li>B 活动是按阶段顺序进行的</li>
+<li>C 明确地将风险分析作为每个循环的核心环节</li>
+<li>D 支持用户界面的快速原型开发</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查对螺旋模型独特性的把握。螺旋模型结合了迭代开发和原型方法的优点，但其最根本的特征是风险驱动。它在每个迭代循环中都明确设置了“风险分析”这一关键任务，通过识别、分析和应对项目风险（如技术风险、需求风险）来决定项目是否继续、如何继续。这是它与其他模型（如单纯的迭代模型或原型模型）最本质的区别。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A、B选项是许多模型共有的，D选项是原型模型的典型特征。</span></span></code></pre>
+<ol start="6">
+<li>某团队承接一个银行核心交易系统的升级项目。该系统需求明确、稳定，对可靠性、安全性要求极高，且受到严格的行业法规约束。在这种情况下，最适合采用的软件过程模型是（ ）。</li>
+</ol>
+<ul>
+<li>A 原型模型</li>
+<li>B 迭代模型</li>
+<li>C 瀑布模型</li>
+<li>D 敏捷开发模型</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查根据项目特征选择模型的能力。题干中的关键词“需求明确、稳定”、“可靠性、安全性要求极高”、“严格法规约束”都指向了需求变更成本极高、需要严格流程和控制的项目类型。瀑布模型因其文档齐全、阶段清晰、过程可控的特点，非常适合这类对质量保证和过程追溯有严苛要求的项目。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>原型和迭代模型更适用于需求不明确的探索性项目，敏捷模型则强调响应变化，可能与严格的法规约束存在冲突。</span></span></code></pre>
+<p>7.一个项目旨在为一家初创公司开发一款新的移动应用，该应用的核心功能概念新颖，但详细需求在项目开始时非常模糊，且预计在市场测试后会有较大变动。为该项目选择以下哪种过程模型最为合适？（ ）</p>
+<ul>
+<li>A 瀑布模型</li>
+<li>B 增量模型</li>
+<li>C 原型模型或迭代模型</li>
+<li>D 任何模型都可以，没有区别</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查根据项目特点选择合适过程模型的能力。题干描述的项目具有需求不明确、易变动的典型特征。</span></span>
+<span class="giallo-l"><span>A. 瀑布模型：要求需求明确且稳定，完全不适用。</span></span>
+<span class="giallo-l"><span>B. 增量模型：前提是总体需求清晰，只是分块实现，但本题是总体需求都不清。</span></span>
+<span class="giallo-l"><span>C. 原型模型或迭代模型：原型模型非常适合通过快速构建原型来澄清和细化需求；迭代模型允许通过一系列迭代循环来逐步明确和实现需求，都能很好地应对需求不确定性。因此C是最佳选择。</span></span>
+<span class="giallo-l"><span>D. 显然错误。</span></span></code></pre><h2 id="se3-2-min-jie-kai-fa-fang-fa-1">SE3.2 敏捷开发方法</h2>
+<ol>
+<li>以下哪一项（ ）最准确地体现了敏捷开发方法的核心价值观，并以此区别于传统的“以文档为中心”的重型方法？</li>
+</ol>
+<ul>
+<li>A 强调在项目初期制定详尽且不可更改的计划。</li>
+<li>B 将可运行的软件视为衡量进展的主要指标。</li>
+<li>C 要求所有沟通都必须有正式的书面记录以备追溯。</li>
+<li>D 认为严格的流程和工具是项目成功的保证。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对敏捷核心价值观的把握。敏捷宣言的首要原则就是“个体和互动高于流程和工具”、“可工作的软件高于详尽的文档”。选项B直接对应“可工作的软件”这一核心价值观，是敏捷方法区别于传统重型方法（强调文档、计划、流程）的最显著标志。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A、C、D选项描述的都是传统重型方法的典型特征，与敏捷思想背道而驰。</span></span></code></pre>
+<ol start="2">
+<li>在极限编程的实践中，“结对编程”这一技术最主要的目标是（ ）。</li>
+</ol>
+<ul>
+<li>A 将开发团队的人员数量减少一半以节省成本。</li>
+<li>B 通过实时的代码审查和知识共享，持续提升代码质量并促进团队学习。</li>
+<li>C 让一名资深程序员完全主导编码，另一名初级程序员仅负责观察和学习。</li>
+<li>D 为了在单位时间内编写出两倍数量的代码。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对特定敏捷实践目的的理解。结对编程的核心价值不在于提高瞬时编码速度或节省成本，而在于通过持续的、实时的协作来改善代码设计、减少缺陷（相当于实时代码评审）、并在团队成员间无缝传递知识和技术，从而在长期内提高整体代码质量和团队能力。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A和D是对结对编程经济效益的常见误解。C描述了一种不平等的、非协作的状态，不符合结对编程倡导的平等、协作精神。</span></span></code></pre>
+<ol start="3">
+<li>测试驱动开发的核心工作流程是（ ）。</li>
+</ol>
+<ul>
+<li>A 编写大量代码 -&gt; 然后设计测试用例来验证这些代码 -&gt; 运行测试。</li>
+<li>B 先编写程序代码实现功能 -&gt; 再编写测试代码以确保功能正确 -&gt; 最后重构。</li>
+<li>C 先为一个小功能编写一个失败的测试 -&gt; 编写最简单的代码使测试通过 -&gt; 重构代码以优化设计。</li>
+<li>D 由专门的测试团队在开发完成后独立设计并执行所有测试。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查对TDD经典“红-绿-重构”循环的准确记忆。TDD的本质是通过测试来驱动设计和开发。其标准流程严格遵循：1. 红：编写一个必定会失败的测试（定义需求）；2. 绿：用最简单的方式编写代码，只求让测试通过（满足需求）；3. 重构：在测试保护下，优化代码结构，消除重复，提升设计质量。A和B选项颠倒了编码与测试的顺序，是传统开发方式。D选项描述的是独立的测试活动，与TDD无关。</span></span></code></pre>
+<ol start="4">
+<li>Scrum方法中的“Sprint”活动（冲刺）最直接地体现了以下哪项敏捷原则？（ ）</li>
+</ol>
+<ul>
+<li>A 可持续的开发节奏。</li>
+<li>B 欢迎需求变化，即使是在开发后期。</li>
+<li>C 定期反思如何能提高效能，并据以调整自身行为。</li>
+<li>D 以简短的时间周期（如几周）持续地交付可工作的软件。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：D</span></span>
+<span class="giallo-l"><span>解析： 本题考查将具体实践与敏捷原则关联的能力。Scrum的核心实践“Sprint”是一个固定时长（通常1-4周）的迭代，其目标就是在每个Sprint结束时产生一个潜在可发布的、增量式的产品功能。这直接、具体地体现了敏捷宣言中“经常地交付可工作的软件，交付的间隔可以从几星期到几个月，倾向于采取更短的时间周期”这一原则。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A（可持续节奏）和C（定期反思）也是Scrum的原则，但“Sprint”活动本身最直接体现的是“短期交付”。B原则更多由产品待办列表的更新机制来体现。</span></span></code></pre>
+<ol start="5">
+<li>与传统瀑布模型相比，敏捷开发方法更适用于以下哪种类型的项目？（ ）</li>
+</ol>
+<ul>
+<li>A 需求在项目初期就被完整、清晰地定义，且在整个开发周期内预期不会发生变化。</li>
+<li>B 项目受到严格的外部法规约束，需要产生大量审计追踪文档。</li>
+<li>C 项目目标探索性强，需求模糊且可能在开发过程中频繁变化，需要快速响应用户反馈。</li>
+<li>D 开发团队规模庞大且地理位置分散，主要依靠文档进行异步沟通。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查根据项目特征选择开发方法的能力。敏捷方法诞生的初衷就是为了应对需求不确定、易变化的环境。其迭代、增量、强调客户协作和响应变化的特点，非常适合选项C所描述的场景。而A选项描述的场景正是瀑布模型的理想适用情况。B和D选项描述的环境（强文档要求、大型分布式团队）会给纯敏捷实践带来挑战，通常需要混合方法或重型方法。</span></span></code></pre><h2 id="se3-3-qun-ti-hua-ruan-jian-kai-fa-fang-fa-1">SE3.3 群体化软件开发方法</h2>
+<ol>
+<li>在典型的开源软件社区中，关于“核心开发人员”与“外围开发人员”的职责，以下说法正确的是（ ）。</li>
+</ol>
+<ul>
+<li>A 核心开发人员负责提出大部分新功能需求和Bug报告。</li>
+<li>B 外围开发人员拥有直接将代码合并到主分支（master）的权限。</li>
+<li>C 核心开发人员主要负责评审外围开发人员提交的代码，并决定是否将其合并到主仓库。</li>
+<li>D 外围开发人员的任务是强制指派的，必须完成</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析： 本题考查对开源社区角色分工的理解。核心开发人员是项目的守护者，负责评审代码、管理合并；而外围开发人员是广泛的贡献者，自发地提出Issue、提交代码。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A选项描述的任务更多由外围人员完成；B选项错误，直接合并主分支通常是核心人员的权限；D选项错误，群体化开发强调“自愿”而非“强制指派”。</span></span></code></pre><h2 id="se3-4-gitjie-shao-ji-shi-yong-1">SE3.4 Git介绍及使用</h2>
+<p>无选择题</p>
+<h2 id="se4-ruan-jian-xu-qiu-fen-xi-ji-chu-1">SE4 软件需求分析基础</h2>
+<ol>
+<li>在“空巢老人看护系统”中，“系统应能检测老人是否摔倒”和“对机器人的控制应在2秒内响应”分别属于（ ）。</li>
+</ol>
+<ul>
+<li>A 都是功能性需求</li>
+<li>B 都是质量需求</li>
+<li>C 前者是功能性需求，后者是质量需求</li>
+<li>D 前者是质量需求，后者是功能性需求</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C，本题考查对软件需求基本分类的准确理解。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>功能性需求 指系统“做什么”，即系统必须执行的功能或行为。“检测老人是否摔倒”描述了系统需要具备的一项具体功能，属于功能性需求。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>质量需求（或称非功能性需求）指系统“做到什么程度”，是系统在运行时可被观察到的行为表现。“2秒内响应”是对系统性能的要求，属于质量需求。</span></span>
+<span class="giallo-l"><span>因此，C选项正确。</span></span></code></pre>
+<ol start="2">
+<li>软件需求具有“多源性”的特点。这一特点最直接可能导致以下哪个问题？（ ）</li>
+</ol>
+<ul>
+<li>A 用户对软件的期望和要求会经常性地发生变化。</li>
+<li>B 不同的利益相关方提出的需求可能存在冲突和不一致。</li>
+<li>C 需求隐晦地存在于利益相关方的潜意识中，难以表达。</li>
+<li>D 需求的内涵与软件所在领域的专业知识强相关。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案：B，解析： 本题考查对需求特性所引发问题的理解。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>多源性 指需求来源于多个不同的利益相关方（如用户、客户、开发者等）。由于不同角色的立场、目标和背景知识不同，他们提出的需求自然可能存在冲突和不一致。这正是“多源性”带来的直接挑战。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A选项对应的是“易变性”；C选项对应的是“隐晦性”；D选项对应的是“领域知识的相关性”。</span></span></code></pre>
+<ol start="3">
+<li>以下哪一项是评价软件需求质量的核心要求，意味着“需求描述应该是清晰和准确的，不会让人产生不同的理解”？（ ）</li>
+</ol>
+<ul>
+<li>A 完整 (Complete)</li>
+<li>B 一致 (Consistent)</li>
+<li>C 无二义 (Unambiguous)</li>
+<li>D 可验证 (Verifiable)</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C，本题考查对需求质量属性的识记与区分。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>无二义性 直接要求需求的表述必须清晰、准确，避免模糊和歧义，确保所有阅读者都能得到唯一、一致的理解。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A选项“完整”强调没有遗漏；B选项“一致”强调需求间不冲突；D选项“可验证”强调需求能否通过测试等方式被检验。</span></span></code></pre>
+<ol start="4">
+<li>在面向对象需求分析中，“多态”（Polymorphism）机制允许（ ）。</li>
+</ol>
+<ul>
+<li>A 子类继承父类的所有属性和操作。</li>
+<li>B 一个对象由多个其他对象作为其组成部分。</li>
+<li>C 一个子类拥有多个父类。</li>
+<li>D 相同名称的操作在不同的类中可以有不同的具体实现。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：D， 本题考查对面向对象核心概念“多态”的精准把握。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>多态 的核心是“同一接口，多种实现”。它允许在继承层次结构中，父类定义的同一个操作（或方法）在子类中有不同的具体实现。当消息发送给对象时，系统能自动选择正确的实现。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A选项描述的是“继承”的基本特性；B选项描述的是“聚合/组合”关系；C选项描述的是“多重继承”。</span></span></code></pre>
+<ol start="5">
+<li>UML（统一建模语言）在需求工程阶段的主要作用是（ ）。</li>
+</ol>
+<ul>
+<li>A 直接生成可执行的程序代码。</li>
+<li>B 作为项目管理和进度跟踪的工具。</li>
+<li>C 对软件系统进行可视化建模，以支持不同人员之间的交流和对需求的理解。</li>
+<li>D 替代自然语言，成为编写软件需求文档的唯一形式。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C，本题考查对UML在需求工程中核心价值的理解。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>UML是一种图形化建模语言，其首要目的是为了可视化地描述系统，从而促进开发人员、客户、用户等不同角色之间的沟通和交流，共同理解需求。这是它在需求分析阶段最重要的作用。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A选项是部分CASE工具可能具备的高级功能，并非UML的核心目的；B选项不是UML的主要功能；D选项错误，UML模型通常与自然语言描述相辅相成，而非替代关系。</span></span></code></pre><h2 id="se5-huo-qu-ruan-jian-xu-qiu-1">SE5 获取软件需求</h2>
+<ol>
+<li>某团队开发一个“智能校园食堂”系统。在需求收集阶段，收到了以下诉求：</li>
+</ol>
+<ul>
+<li>① 学生代表提出，希望能通过手机APP实时查看每个窗口的排队人数。</li>
+<li>② 食堂经理要求，系统必须能自动生成每日的菜品销售报表，以优化采购。</li>
+<li>③ 学校后勤处规定，系统必须使用学校统一身份认证系统进行登录。</li>
+<li>④ 投资方建议，未来可以加入根据学生健康数据推荐菜品的功能。</li>
+<li>⑤ 一名开发人员认为，应该采用最新的微服务架构，以便后期维护。</li>
+</ul>
+<p>根据课件中关于“软件利益相关方”和“合法软件需求”的论述，上述诉求中最应该被优先考虑并纳入初步需求范围的是？</p>
+<p>A ①、②、③    B ①、②、⑤ C ②、③、④    D ③、④、⑤</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：A</span></span>
+<span class="giallo-l"><span>解析：①和②直接来自核心利益相关方（学生和食堂经理），解决了明确的业务问题（减少排队时间、优化运营），符合“有意义、有价值”的需求标准。</span></span>
+<span class="giallo-l"><span>③是来自重要利益相关方（学校后勤处）的约束性要求，必须遵守。④（投资方建议）属于未来规划，在初步需求阶段优先级不高。⑤（开发人员技术选型）属于解决方案的设计决策，而非源自业务问题或外部利益相关方的“需求”本身。课件强调“并非软件利益相关方提出的每项期望和要求都是软件需求”，需求工程师需要鉴别真正有价值的需求。</span></span></code></pre>
+<ol start="2">
+<li>为一个大型医院开发新的“门诊流程优化系统”，目标是减少患者无效移动和等待时间。需求工程师小张发现，现有的门诊流程涉及分诊台、医生、药房、收费处等多个角色，且流程复杂，有些隐性规则甚至医护人员自己也难以清晰描述。此时，为了最有效地获取原始、准确的一手需求，小张应该首选哪种需求获取方法？</li>
+</ol>
+<ul>
+<li>A 设计详细的调查问卷，发放给所有医护人员。</li>
+<li>B 分别访谈医院的院长和各科室主任。</li>
+<li>C 直接构造一个可运行的系统原型，请医护人员试用。</li>
+<li>D 花费数天时间在现场观摩各个岗位的实际工作流程。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：D</span></span>
+<span class="giallo-l"><span>解析：课件中“现场观摩”方法适用于了解“业务过程、步骤和输出”及“业务工作流程及细节”。在该情境中，流程复杂且存在难以言表的隐性知识，现场观摩能够最直接、客观地捕获到实际操作中的细节和问题，这是其他方法无法替代的。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>A（调查问卷）难以捕捉复杂的、动态的流程细节。</span></span>
+<span class="giallo-l"><span>B（访谈领导）无法获取一线操作人员的真实情况。</span></span>
+<span class="giallo-l"><span>C（软件原型）在需求很不明确时盲目构建，效率低下且可能误导方向。</span></span></code></pre>
+<ol start="3">
+<li>在“智慧城市交通信号灯协调系统”的需求文档中，列出了以下要求：</li>
+</ol>
+<ul>
+<li>R1：系统应能根据实时车流量，动态调整信号灯的红绿灯时长。</li>
+<li>R2：在路口网络通信中断的情况下，单个路口的信号灯控制器应能依靠本地逻辑维持基本运行至少48小时。</li>
+<li>R3：系统后台管理界面的响应时间应在3秒以内。</li>
+<li>R4：信号灯控制算法的源代码必须用C语言编写，以便部署到现有的硬件设备上。</li>
+</ul>
+<p>根据课件对非功能性需求的分类，上述要求中属于质量要求的是？</p>
+<p>A.R1,R2 B.R2,R3 C.R3,R4 D.R1,R4</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析：</span></span>
+<span class="giallo-l"><span>质量要求：关注软件运行的品质。</span></span>
+<span class="giallo-l"><span>R2（通信中断后维持运行）体现了可靠性。</span></span>
+<span class="giallo-l"><span>R3（响应时间）体现了性能。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>其他分类：</span></span>
+<span class="giallo-l"><span>R1（动态调整时长）是系统的核心功能性需求，描述了系统“做什么”。</span></span>
+<span class="giallo-l"><span>R4（必须用C语言）是约束性要求，是对开发过程的技术限制。</span></span></code></pre>
+<ol start="4">
+<li>在“在线考试系统”的用例建模中，需求工程师识别出以下行为：“参加考试”用例必须包括“用户身份验证”这一步骤；同时，“参加考试”过程中，如果考生遇到系统崩溃等异常情况，可以触发“申请异常重考”的流程。根据UML用例图关系，以下建模方案最合理的是？</li>
+</ol>
+<ul>
+<li>A “参加考试”用例包含“用户身份验证”用例，“申请异常重考”用例扩展“参加考试”用例。</li>
+<li>B “参加考试”用例包含“用户身份验证”和“申请异常重考”两个用例。</li>
+<li>C “申请异常重考”用例包含“参加考试”用例，“参加考试”用例包含“用户身份验证”用例。</li>
+<li>D “参加考试”用例扩展“用户身份验证”用例，并包含“申请异常重考”用例。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：A</span></span>
+<span class="giallo-l"><span>解析：包含关系：用于表示一个用例（参加考试）必须执行另一个用例（用户身份验证）的功能。身份验证是参加考试不可或缺的子功能。</span></span>
+<span class="giallo-l"><span>扩展关系：用于表示一个用例（申请异常重考）在特定条件（系统崩溃）下，可以选择性地扩展另一个用例（参加考试）的行为。异常重考不是每次参加考试都会发生的，是对主流程的扩展。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>课件中明确指出了包含和扩展的区别：包含是子功能，必须执行；扩展是附加动作，在特定点插入。</span></span></code></pre>
+<ol start="5">
+<li>在某项目的初步需求文档中，对“商品搜索”功能有如下描述：“用户应能方便地搜索到他们想要的商品。”在需求评审会上，大家指出了该描述的诸多问题。根据课件内容，以下哪一项不属于该描述存在的典型缺陷？</li>
+</ol>
+<ul>
+<li>A 不具体：没有说明“方便地”具体指什么，比如是支持关键词、分类过滤还是模糊搜索。</li>
+<li>B 不准确：没有界定“商品”的范围，是否包括下架商品或待审核商品。</li>
+<li>C 技术不可行：以目前的技术，无法实现商品搜索功能。</li>
+<li>D 有二义性：不同人员对“想要的商品”可能有不同理解，比如是基于历史记录推荐还是用户主动搜索。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析：课件在“自然语言描述的不足”中明确指出了“不具体”、“不准确”、“有二义”是该描述方式的典型问题。选项A、B、D准确地对应了这些缺陷。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>选项C“技术不可行”属于“可行性分析”范畴。单从这句描述本身，无法得出技术不可行的结论。该描述的核心问题在于其质量（模糊、不明确），而非可行性。</span></span></code></pre>
+<p>6.一个创业团队计划开发一款“AR实景翻译眼镜”，用户戴上后能看到真实世界中外语标识的实时翻译。在立项前的可行性分析中，团队评估了以下因素：</p>
+<ul>
+<li>① 现有的AR显示和图像识别技术能否支持长时间、高精度的实时翻译。</li>
+<li>② 产品的目标售价能否被主流消费者接受，预计市场份额有多少。</li>
+<li>③ 开发这样一款硬件集成度高的产品，团队现有的资金能否支撑到量产。</li>
+<li>④ 该产品是否会涉及侵犯个人隐私（如持续摄像）等法律风险。</li>
+</ul>
+<p>以上评估因素，分别主要对应了可行性分析中的哪几个方面？</p>
+<ul>
+<li>A ①技术可行性 ②商业可行性 ③成本可行性 ④社会可行性</li>
+<li>B ①技术可行性 ②成本可行性 ③进度可行性 ④商业可行性</li>
+<li>C ①设备可行性 ②商业可行性 ③成本可行性 ④技术可行性</li>
+<li>D ①社会可行性 ②商业可行性 ③进度可行性 ④成本可行性</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：A</span></span>
+<span class="giallo-l"><span>解析：</span></span>
+<span class="giallo-l"><span>① 询问“技术是否支持”，属于技术可行性。</span></span>
+<span class="giallo-l"><span>② 询问“市场接受度和份额”，属于商业可行性。</span></span>
+<span class="giallo-l"><span>③ 询问“资金是否足够”，属于成本可行性。</span></span>
+<span class="giallo-l"><span>④ 询问“法律和隐私风险”，属于社会可行性（课件中提及需评估是否“违背社会道德、文化伦理、法律法规”）。</span></span></code></pre>
+<ol start="7">
+<li>软件需求工程是一个系统的过程。关于该过程，以下描述正确的是？</li>
+</ol>
+<ul>
+<li>A 一旦通过“软件原型”获取并确认了需求，后续就完全不能更改，以保证开发进度。</li>
+<li>B “用例图”作为一种可视化建模工具，既能描述系统的功能性需求，也能详细规定性能指标等非功能性需求。</li>
+<li>C “确认和验证初步软件需求”活动包括评审需求的完整性、一致性、可行性等，以确保需求基础的质量。</li>
+<li>D 软件需求全部都应来自于最终用户，开发团队不应加入任何自己的想法，以免偏离用户真实意图。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析：</span></span>
+<span class="giallo-l"><span>C正确：课件第5部分详细说明了评审初步软件需求的多个方面，包括中肯性、完整性、一致性、必要性、溯源性、准确性、正确性等，其核心目的就是确保需求基础的质量，这是需求工程中的关键环节。</span></span>
+<span class="giallo-l"><span>A错误：需求在整个生命周期中都可能发生变化，原型本身就是为了应对需求不确定性而采用的方法。需求需要管理，而非冻结。</span></span>
+<span class="giallo-l"><span>B错误：用例图主要用于描述系统的功能边界和功能性需求。对于非功能性需求（如性能指标），通常需要用自然语言、补充规约或在用例中附加说明来描述。</span></span>
+<span class="giallo-l"><span>D错误：课件在1.1节明确指出，“许多软件系统的需求来自软件工程师”，特别是在找不到实际用户或进行技术创新时。开发团队可以充当利益相关方，提出有价值的创意。</span></span></code></pre><h2 id="se6-fen-xi-ruan-jian-xu-qiu-1">SE6 分析软件需求</h2>
+<ol>
+<li>某项目团队拿到了一份由客户提供的初步需求列表，内容较为模糊，存在诸如“系统应该用户友好”等描述。团队接下来需要开展软件需求分析工作。以下关于该阶段任务的描述中，不正确的是？</li>
+</ol>
+<ul>
+<li>A 需要将“用户友好”这类模糊需求具体化为可验证的指标，如“新手用户能在10分钟内完成首次登录和基本设置”。</li>
+<li>B 需要分析不同需求之间的依赖关系，例如“生成报表”功能依赖于“数据查询”功能。</li>
+<li>C 需要根据用户价值和业务目标，确定哪些需求应在首次迭代中优先实现。</li>
+<li>D 需要完成所有核心模块的详细算法设计，以确保后续开发工作有据可依。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：D</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：软件需求分析的核心是“做什么”（What），而不是“怎么做”（How）。选项A是需求精化的典型活动；选项B是分析需求间关系；选项C是确定优先级。而选项D中的“详细算法设计”属于系统设计阶段的任务，超出了需求分析的范围。</span></span></code></pre>
+<ol start="2">
+<li>在为一个“智能家居控制系统”进行需求建模时，开发团队需要从不同视角描述系统。现在需要描述“用户通过手机App下达指令后，系统内部各个组件（如网关、设备控制器、具体设备）之间是如何协作来完成‘打开卧室灯光’这个功能的”。在这种情况下，最应该使用以下哪种UML图？</li>
+</ol>
+<ul>
+<li>A 用例图 (Use Case Diagram)</li>
+<li>B 类图 (Class Diagram)</li>
+<li>C 顺序图 (Sequence Diagram)</li>
+<li>D 状态图 (State Diagram)</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：题目描述的核心是“对象间的交互序列”和“时间顺序”，这正是顺序图的典型应用场景。用例图用于描述系统与外部执行者的功能交互（是什么功能）；类图用于描述系统的静态结构（有哪些类）；状态图用于描述单个对象的状态变迁（对象如何变化）。</span></span></code></pre>
+<ol start="3">
+<li>在绘制一个“在线书店系统”的分析类图时，以下关于类间关系的描述，正确的是？</li>
+</ol>
+<ul>
+<li>A Order（订单）类和OrderLineItem（订单项）类之间应是聚合关系，因为订单项可以脱离订单独立存在。</li>
+<li>B Customer（顾客）类和Address（地址）类之间应是组合关系，因为一个顾客可以有多个地址（如家庭地址、办公地址），并且当顾客账户注销时，这些地址信息通常需要保留以供物流分析。</li>
+<li>C PaymentProcessor（支付处理器）类和CreditCardPayment（信用卡支付）类之间应是继承关系，因为信用卡支付是支付的一种具体方式。</li>
+<li>D ShoppingCart（购物车）类需要使用Product（产品）类的信息来添加商品，因此它们之间最好用依赖关系表示。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：D</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：选项A错误，订单项不能脱离订单存在，应是更强的组合关系。选项B错误，顾客和地址是“拥有”关系，但地址的生命周期不依赖于顾客，应是聚合关系。选项C错误，支付处理器是一个控制类，它“使用”具体的支付方式，更可能是依赖或关联关系，而非继承。继承是“is-a”关系。选项D正确，一个类临时使用另一个类的服务，用依赖关系表示是合适的。</span></span></code></pre>
+<ol start="4">
+<li>你正在负责一个“在线文档协作编辑系统”的第一个版本开发。团队收集了众多需求，现在需要确定优先级。根据MoSCoW优先级排序法，以下哪一项需求最有可能被归类为“MUST have”（必须有）？</li>
+</ol>
+<ul>
+<li>A 支持文档实时预览（用户在编辑Markdown时能同步看到渲染后的效果）。</li>
+<li>B 支持超过100人同时在线编辑同一篇文档。</li>
+<li>C 允许用户创建文档并输入文本内容。</li>
+<li>D 集成AI助手，能够根据用户指令自动生成和修改文档内容。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：MoSCoW方法中，M代表“必须有”，是项目的底线需求，如果缺少则产品不可用。选项C“创建文档并输入文本”是一个文档协作系统最核心、最基本的功能。选项A和B是重要的体验和性能需求，但在第一个版本中可能属于“SHOULD have”。选项D是增强功能，属于“COULD have”或“WISH”。</span></span></code></pre>
+<ol start="5">
+<li>在分析“用户登录”用例时，有以下分析类：LoginScreen（登录界面，负责接收用户输入）、LoginController（登录控制器，负责协调登录流程）、User（用户，代表系统用户信息）、AuthenticationService（认证服务，负责验证密码）。在绘制的顺序图中，LoginScreen对象向LoginController对象发送了一条消息login(username, password)。根据分析类建模的原则，以下哪项是最合理的后续步骤？</li>
+</ol>
+<ul>
+<li>A 在AuthenticationService类中定义一个login操作，其职责是“协调登录流程”。</li>
+<li>B 在User类中定义一个login操作，其职责是“用户执行登录行为”。</li>
+<li>C 在LoginScreen类中定义一个login操作，其职责是“显示登录界面”。</li>
+<li>D 在LoginController类中定义一个login操作，其职责是“验证用户凭证并返回登录结果”。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>答案：D </span></span>
+<span class="giallo-l"><span>解析：对象接收的消息与其承担的职责一一对应。LoginController接收了login消息，意味着它应承担处理登录请求的职责。它的职责是协调，即可能委托AuthenticationService去执行具体的密码验证，但自身负责控制这个流程。选项B和C将职责放错了对象；选项D的职责描述“协调登录流程”本应是LoginController的，而AuthenticationService的职责应是“执行密码验证”。</span></span></code></pre>
+<ol start="6">
+<li>作为需求工程师，你正在撰写《软件需求规格说明书》。以下哪一项内容，不属于该文档中“功能性需求描述”部分的典型内容？</li>
+</ol>
+<ul>
+<li>A 系统所有的用例图及其简要说明。</li>
+<li>B 针对关键用例绘制的顺序图，描述系统内的对象交互。</li>
+<li>C 系统的分析类图，展示核心的实体类、控制类和边界类及其关系。</li>
+<li>D 数据库表结构的详细设计，包括每个字段的数据类型和索引设计。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案：D</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：《软件需求规格说明书》主要描述“系统需要做什么”，即需求。选项A、B、C都是通过不同视角（用例、交互、结构）来描述功能性需求的常用模型。而选项D“数据库表结构设计”属于“系统怎么做”的范畴，是系统架构设计和数据库设计阶段的输出物，不应出现在需求规格说明书中。</span></span></code></pre>
+<ol start="7">
+<li>在软件需求评审会上，评审专家正在对照检查清单对需求制品进行审查。以下哪位专家提出的问题，属于在检查需求的“一致性”？</li>
+</ol>
+<ul>
+<li>A 王工指出：“在‘权限管理’模块的需求中，只提到了管理员可以删除用户，但没有说明普通用户是否可以删除自己的账户。”</li>
+<li>B 李工发现：“在用例‘UC-101提交订单’中，描述的业务规则是‘订单金额必须大于0’，但在数据约束中却写成了‘订单金额必须大于等于0’。”</li>
+<li>C 张工提问：“需求‘FR-205系统应在200ms内响应用户查询’的提出依据是什么？是来自用户的明确要求，还是我们的性能基准测试？”</li>
+<li>D 赵工质疑：“这个‘消息推送’功能，在之前与市场部沟通时并未被提及，它是否确实是用户期望的功能？”</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：需求一致性是指需求之间、或需求自身不同部分的描述不应存在矛盾。选项B中，同一需求在不同地方出现了逻辑矛盾（大于0 vs 大于等于0），是典型的不一致问题。选项A属于完整性问题（有遗漏）。选项C属于可追踪性问题（需求来源不明）。选项D属于多余性或正确性问题（需求是否真实存在）。</span></span></code></pre><h2 id="se7-ruan-jian-she-ji-ji-chu-1">SE7 软件设计基础</h2>
+<ol>
+<li>软件设计阶段的主要任务是（ ）？</li>
+</ol>
+<ul>
+<li>A 编写出可以运行的程序代码</li>
+<li>B 与用户沟通，明确软件要做什么</li>
+<li>C 探究如何实现软件需求的解决方案</li>
+<li>D 制定项目计划和分配团队成员任务</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：根据课件，软件设计是“针对软件需求，综合考虑各种制约因素，探究软件实现的解决方案”。它回答的是“如何做”的问题，是连接“做什么”（需求）和“做出来”（实现）的桥梁。</span></span></code></pre>
+<ol start="2">
+<li>以下哪一项( )是高质量软件设计应具备的特性？</li>
+</ol>
+<ul>
+<li>A 模块内部逻辑错综复杂，以体现技术深度</li>
+<li>B 设计模型中的模块功能简明，关系直观</li>
+<li>C 为了追求性能，可以将所有数据设置为全局可访问</li>
+<li>D 只需满足当前需求，无需考虑未来的任何变更</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：课件中明确指出，高质量设计的“简单性”要求“模型中的模块的功能或职责尽可能简明易懂，模块间的关系简单直观”。选项A、C、D的描述都与高质量设计的原则（如简单性、信息隐藏、可修改性）相悖。</span></span></code></pre>
+<ol start="3">
+<li>正确的软件设计过程通常应该是( )？</li>
+</ol>
+<ul>
+<li>A 先进行详细的算法设计，然后再考虑系统的整体结构</li>
+<li>B 直接从需求编写代码，在设计过程中逐步重构出结构</li>
+<li>C 先进行体系结构设计，再进行用户界面和详细设计</li>
+<li>D 体系结构设计、用户界面设计和详细设计可以同时无序进行</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：课件中阐述了软件设计是一个循序渐进的过程，应从最高抽象层次的体系结构设计开始，然后进行用户界面设计，最后是细化和精化的详细设计。这个顺序确保了从宏观到微观的合理规划。</span></span></code></pre>
+<ol start="4">
+<li>如果一个模块只负责完成“计算员工当月工资”这一项单一任务，那么这个模块的内聚类型属于？</li>
+</ol>
+<ul>
+<li>A 偶然性内聚</li>
+<li>B 逻辑性内聚</li>
+<li>C 过程性内聚</li>
+<li>D 功能性内聚</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：D</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：课件中对“功能性内聚”的定义是“模块内各成分是一整体，完成单个功能”。题目中的模块只做“计算工资”这一件事，所有成分都为了这个单一功能服务，因此属于最高内聚度的功能性内聚。</span></span></code></pre>
+<ol start="5">
+<li>在面向对象编程中，将类的属性定义为private（私有），然后通过公有的get和set方法来访问和修改它们，这主要体现了哪一项设计原则？</li>
+</ol>
+<ul>
+<li>A 模块化原则</li>
+<li>B 信息隐藏原则</li>
+<li>C 抽象原则</li>
+<li>D 软件重用原则</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：信息隐藏原则要求模块应该设计得使其所含的信息（如数据、实现细节）对那些不需要这些信息的模块不可访问。将属性设为private，就隐藏了其内部表示细节，只通过公共接口与外界交互，是信息隐藏最直接的体现。</span></span></code></pre>
+<ol start="6">
+<li>面向对象设计方法学的一个核心优势是，它使用相同的一组概念（如类、对象）来进行需求分析和软件设计，这带来了什么好处？</li>
+</ol>
+<ul>
+<li>A 使得编程代码的运行速度更快</li>
+<li>B 实现了从分析到设计的自然过渡，降低了理解的复杂性</li>
+<li>C 完全消除了软件项目中的需求变更</li>
+<li>D 确保设计出来的软件没有任何缺陷</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析：课件在“面向对象软件设计的优势”中明确指出，其优势之一是“高层抽象和自然过渡”，即“采用相同的一组抽象和概念来进行描述和分析，基于模型的精化手段来实现软件设计，极大简化了软件设计工作”。这减少了不同阶段模型转换的鸿沟，使过程更流畅自然。</span></span></code></pre><h2 id="se8-ruan-jian-ti-xi-jie-gou-she-ji-1">SE8 软件体系结构设计</h2>
+<ol>
+<li>关于软件体系结构中的“构件”（Component），以下哪项描述是不正确的？</li>
+</ol>
+<ul>
+<li>A 构件是可独立部署的物理模块，如.dll或.jar文件。</li>
+<li>B 构件的实现与接口分离，使得具有相同接口的构件可以相互替换。</li>
+<li>C 构件通过“端口”来绑定一组供给接口或需求接口，以与外部交互。</li>
+<li>D 构件通常是细粒度的，以实现最大程度的代码复用。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案： D</span></span>
+<span class="giallo-l"><span>解析： 课件中明确提到“构件应该是粗粒度的，而非细粒度的”。粗粒度意味着构件封装了相对完整的功能，作为一个独立的单元被部署和复用，这是构件与简单类或函数库的关键区别。其他选项均是课件中强调的构件的核心特征。</span></span></code></pre>
+<ol start="2">
+<li>在分层体系结构风格中，一个核心的设计约束是什么？</li>
+</ol>
+<ul>
+<li>A 任何一层都可以直接与其它任意层进行通信，以提高效率。</li>
+<li>B 每一层只能为其紧邻上层提供服务，并且只能使用其紧邻下层提供的服务。</li>
+<li>C 所有层次都必须部署在同一个物理节点上。</li>
+<li>D 用户界面层必须包含核心的业务逻辑处理功能。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案： B</span></span>
+<span class="giallo-l"><span>解析： 课件在“分层体系结构模式的约束”中明确指出“每层为其紧邻上层提供服务，使用紧邻下层所提供的服务”。这种约束是保证层次间松耦合和可替换性的关键。选项A和D都违反了分层的基本原则。</span></span></code></pre>
+<ol start="3">
+<li>在MVC体系结构风格中，当用户在前端界面执行了一个操作（如点击按钮），正确的交互流程是？</li>
+</ol>
+<ul>
+<li>A 视图 -&gt; 模型 -&gt; 控制器</li>
+<li>B 控制器 -&gt; 模型 -&gt; 视图</li>
+<li>C 模型 -&gt; 视图 -&gt; 控制器</li>
+<li>D 视图 -&gt; 控制器 -&gt; 模型</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案： D</span></span>
+<span class="giallo-l"><span>解析： 根据课件对MVC约束的描述：视图接受界面动作，传递给控制器；控制器调用模型的业务逻辑功能；模型处理后将结果回送控制器，并可能通知视图更新；控制器再选择或创建视图。因此，正确的发起流程是视图将动作传给控制器，再由控制器去驱动模型。</span></span></code></pre>
+<ol start="4">
+<li>下列哪种软件体系结构风格最适用于处理以数据流为主要特征的应用，并且允许通过独立更新处理步骤来实现系统进化？</li>
+</ol>
+<ul>
+<li>A 分层风格</li>
+<li>B 管道与过滤器风格</li>
+<li>C 黑板风格</li>
+<li>D 面向服务架构风格</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案： B</span></span>
+<span class="giallo-l"><span>解析： 课件在管道与过滤器风格的特点中明确指出，它“自然地解决具有数据流特征的软件需求”并且“可独立地更新、升级过滤器来实现软件系统的扩展和进化”。SOA风格关注的是服务的松耦合与集成，而非线性的数据流处理。</span></span></code></pre>
+<ol start="5">
+<li>软件体系结构设计与详细设计的主要区别在于，体系结构设计更关注什么？</li>
+</ol>
+<ul>
+<li>A 类的方法的具体实现算法。</li>
+<li>B 软件系统的全局性、基础性技术问题与宏观结构。</li>
+<li>C 用户界面的像素级布局和交互细节。</li>
+<li>D 数据库表中每个字段的具体数据类型。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"></span>
+<span class="giallo-l"><span>答案： B</span></span>
+<span class="giallo-l"><span>解析： 课件2.1节指出，软件体系结构设计的特点是“针对软件系统全局性、基础性技术问题给出技术解决方案”，具有“宏观、全局、层次、战略、多视点、关键性”等特点。而详细设计则是在体系结构框架下，对局部设计要素（如类、方法）的细化。选项A、C、D均属于详细设计的范畴。</span></span></code></pre>
+<ol start="6">
+<li>在精化软件体系结构、确定子系统时，评估和改进子系统的一个重要原则是“正交性”，这里的“正交性”主要指什么？</li>
+</ol>
+<ul>
+<li>A 所有子系统都必须采用相同的编程语言实现。</li>
+<li>B 不同子系统间的职责应尽可能独立，不应重叠或重复。</li>
+<li>C 子系统的接口数量须尽可能多，以提供全面的功能。</li>
+<li>D 子系统必须部署在正交分布的计算机网络节点上。</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案： B</span></span>
+<span class="giallo-l"><span>解析： 课件在“评估和改进所确立的子系统”部分明确指出：“不同子系统间的职责是正交的，不应具有相同或相似职责”。正交性在此处是借用了数学上的概念，意味着职责的独立和无重叠，这是实现高内聚、低耦合设计的关键。</span></span></code></pre><h2 id="se9-yong-hu-jie-mian-she-ji-1">SE9 用户界面设计</h2>
+<ol>
+<li>在设计一个电商网站的“商品详情”界面时，以下哪个选项通常被认为是动态元素？</li>
+</ol>
+<ul>
+<li>A 显示商品分类的导航菜单（静态结构）</li>
+<li>B 用于输入购买数量的文本框</li>
+<li>C 实时显示该商品库存数量的文本标签</li>
+<li>D “加入购物车”按钮</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>解析：根据课件，动态元素与软件运行状态和业务逻辑相关，其内容会发生变化。商品库存数量会根据实际销售和入库情况动态变化，因此显示它的文本标签是动态元素。A是静态元素，B是用户输入元素，D是用户命令元素。</span></span></code></pre><h2 id="se10-ruan-jian-xiang-xi-she-ji-1">SE10 软件详细设计</h2>
+<p>无选择题</p>
+<h2 id="se11-ruan-jian-shi-xian-ji-chu-1">SE11 软件实现基础</h2>
+<p>无选择题</p>
+<h2 id="se12-bian-xie-dai-ma-1">SE12 编写代码</h2>
+<ol>
+<li>将UML设计类图中的类间组合关系（Composition）转换为程序代码时，程序员需要特别关注的是（ ）。</li>
+</ol>
+<ul>
+<li>A 仅需使用接口声明，无需实现关联</li>
+<li>B 需要确保整体类对部分类具有生命周期的管理责任，整体消亡时部分也应被销毁</li>
+<li>C 使用全局变量来维护对象间的引用</li>
+<li>D 将组合关系转换为继承关系</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对组合关系编码实现的理解。组合关系（Composition）是整体-部分关系中最强的一种，其核心语义是部分的生命周期由整体管理——整体对象创建时部分对象随之创建，整体对象销毁时部分对象也应被销毁。因此编码时需要体现这种生命周期依赖。A选项（仅接口）过于简单；C选项（全局变量）破坏了封装性；D选项（转换为继承）错误，组合与继承是两种不同的关系。</span></span></code></pre>
+<ol start="2">
+<li>在开发中，程序员从Stack Overflow上获取一段用于连接MySQL数据库的代码片段并整合到自己的项目中。这种做法主要体现了以下哪项软件工程原则？（ ）</li>
+</ol>
+<ul>
+<li>A 信息隐藏</li>
+<li>B 分而治之</li>
+<li>C 软件重用</li>
+<li>D 模块化</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查对代码片段重用本质的认识。从技术问答社区获取已有的代码片段并直接使用，正是软件重用原则的具体实践。重用经过验证的代码片段可以提高开发效率、降低出错风险。A（信息隐藏）强调隐藏内部实现；B（分而治之）强调分解复杂问题；D（模块化）强调模块划分。它们虽与重用相关，但题目描述的核心行为是“重用已有代码”。</span></span></code></pre>
+<ol start="3">
+<li>某程序在运行时会偶尔出现“除零错误”导致程序崩溃，用户无法获得计算结果。根据课件中的定义，这个“除零错误”属于（ ）。</li>
+</ol>
+<ul>
+<li>A 软件缺陷</li>
+<li>B 程序错误</li>
+<li>C 软件失效</li>
+<li>D 设计缺陷</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对三个核心概念的精准区分。课件明确定义：</span></span>
+<span class="giallo-l"><span>软件缺陷：存在于源代码或文档中的不正确的描述（根本原因）。</span></span>
+<span class="giallo-l"><span>程序错误：缺陷代码在运行时所产生的不正确或不期望的运行状态（内在表现）。</span></span>
+<span class="giallo-l"><span>软件失效：错误导致程序无法提供所需功能或行为（外在表现）。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>题干中的“除零异常”是运行过程中发生的错误状态，因此属于程序错误。A（缺陷）是导致该错误的根本原因（如代码中未检查除数是否为0）；C（失效）是错误导致的结果（用户无法获得结果）；D（设计缺陷）是缺陷的一种类型。</span></span></code></pre>
+<ol start="4">
+<li>在缺陷管理系统中，一个缺陷被开发人员认领并开始着手修复时，其状态应变为（ ）。</li>
+</ol>
+<ul>
+<li>A New</li>
+<li>B Assigned</li>
+<li>C Fixed</li>
+<li>D Closed</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对缺陷生命周期状态的掌握。课件中给出了缺陷状态的完整定义：</span></span>
+<span class="giallo-l"><span>New：确认存在但尚未分配处理人员</span></span>
+<span class="giallo-l"><span>Assigned：已安排人员负责修复（对应题干“被开发人员认领并开始着手修复”）</span></span>
+<span class="giallo-l"><span>Fixed：缺陷已经修复完成</span></span>
+<span class="giallo-l"><span>Closed：缺陷处理完毕并关闭</span></span></code></pre>
+<ol start="5">
+<li>当程序员定位到程序中的某个缺陷后，接下来正确的调试步骤应该是（ ）。</li>
+</ol>
+<ul>
+<li>A 立即修改代码并重新编译，跳过中间步骤</li>
+<li>B 分析缺陷产生的原因，确定修复方案，然后修改代码并验证修复效果</li>
+<li>C 直接向缺陷管理系统提交关闭请求</li>
+<li>D 忽略该缺陷，先完成其他功能编码</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对标准调试流程的理解。调试的本质是找到原因、定位位置、修复缺陷。定位到缺陷后，应先分析原因（为什么会出错），然后确定修复方案（如何修改），接着实施修改并验证（测试确认修复有效）。A选项跳过分析步骤可能导致引入新错误；C选项关闭缺陷应在缺陷确认修复并测试通过后进行；D选项忽略缺陷不符合质量要求。</span></span></code></pre><h2 id="se14-ruan-jian-bu-shu-1">SE14 软件部署</h2>
+<ol>
+<li>根据课件的定义，软件部署是指将目标软件系统进行收集、打包、安装、配置和发布到运行环境的过程。以下选项中，不属于软件部署主要工作内容的是（ ）。</li>
+</ol>
+<ul>
+<li>A 安装和配置运行环境</li>
+<li>B 编写软件源代码</li>
+<li>C 安装和配置软件系统</li>
+<li>D 打包软件要素</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>解析： 本题考查对软件部署工作边界的理解。课件明确将软件部署分为两方面：安装和配置运行环境、安装和配置软件系统。具体工作包括收集、打包、安装、配置和发布。</span></span>
+<span class="giallo-l"><span>编写软件源代码属于软件开发阶段（编码）的工作，不属于部署阶段，因此B选项正确。</span></span></code></pre>
+<ol start="2">
+<li>以下软件中，最适合采用单机部署方式的是（ ）。</li>
+</ol>
+<ul>
+<li>A 淘宝电商平台</li>
+<li>B 谷歌搜索引擎</li>
+<li>C 扫雷游戏软件</li>
+<li>D 12306火车票订票系统</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考查对单机部署与分布式部署适用场景的判断。单机部署将软件各要素集中部署到单个计算设备上，适用于功能单一、无需网络通信、不依赖多台设备协同的软件。课件中列举的典型示例包括小米便签、扫雷游戏等。A（淘宝）、B（谷歌搜索）、D（12306）都是大规模、高并发、需要多台服务器协同的分布式系统，不适合单机部署。</span></span></code></pre>
+<ol start="3">
+<li>关于容器部署，以下说法正确的是（ ）。</li>
+</ol>
+<ul>
+<li>A 容器镜像只打包应用程序代码，不包括运行依赖</li>
+<li>B 容器与宿主机共享同一个操作系统内核</li>
+<li>C 容器部署需要为每个应用单独安装完整的操作系统</li>
+<li>D 容器镜像无法实现多个实例的创建</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对容器部署核心特征的理解。课件指出，容器是一个视图隔离、资源可限制、具有独立文件系统的进程集合，它与宿主机共享操作系统内核，但拥有独立的文件系统。</span></span>
+<span class="giallo-l"><span>A错误，容器镜像打包的不仅是代码，还包括所有依赖文件；</span></span>
+<span class="giallo-l"><span>C错误，容器不需要单独安装完整操作系统；</span></span>
+<span class="giallo-l"><span>D错误，一个容器镜像可以构建多个容器实例。</span></span></code></pre><h2 id="se15-ruan-jian-wei-hu-yu-yan-hua-1">SE15 软件维护与演化</h2>
+<ol>
+<li>某银行系统原来运行在Windows Server上，现需要迁移到Linux平台，为此对系统中的文件路径处理和系统调用代码进行了修改。这种维护活动属于（ ）。</li>
+</ol>
+<ul>
+<li>A 纠正性维护</li>
+<li>B 适应性维护</li>
+<li>C 完善性维护</li>
+<li>D 预防性维护</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对四种维护类型的区分。课件明确定义：适应性维护是指“对软件进行改造以便适应新的运行环境和平台”。题干中软件从Windows迁移到Linux，属于运行环境变化，因此是适应性维护。A（纠正性维护）针对缺陷修复；C（完善性维护）针对增加新功能；D（预防性维护）针对改善可维护性。</span></span></code></pre>
+<ol start="2">
+<li>Lehman提出的软件演化法则中，“除非系统持续不断地被修改以满足用户的需求，否则系统将变得越来越不实用”描述的是（ ）。</li>
+</ol>
+<ul>
+<li>A 持续变化法则</li>
+<li>B 增加复杂性法则</li>
+<li>C 质量衰减法则</li>
+<li>D 功能持续增长法则</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：A</span></span>
+<span class="giallo-l"><span>解析： 本题考察对软件演化法则核心内容的掌握。课件明确指出持续变化法则的含义是：“除非系统持续不断地被修改以满足用户的需求，否则系统将变得越来越不实用”。B（增加复杂性法则）强调复杂性会上升；C（质量衰减法则）强调质量随变更下降；D（功能持续增长法则）强调功能必须持续增加。</span></span></code></pre>
+<ol start="3">
+<li>软件在维护和演化过程中出现的“用户满意度降低、质量逐渐下降、变更成本不断上升”的现象被称为（ ）。</li>
+</ol>
+<ul>
+<li>A 软件退化</li>
+<li>B 软件逻辑老化</li>
+<li>C 软件腐蚀</li>
+<li>D 软件衰退</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：B</span></span>
+<span class="giallo-l"><span>解析： 本题考查对“软件逻辑老化”概念的准确识记。课件中直接给出定义：软件在维护和演化的过程中出现的“用户满意度降低、质量逐渐下降、变更成本不断上升”的现象称为软件逻辑老化。A、C、D虽然有相似含义，但不是课件使用的标准术语。</span></span></code></pre>
+<ol start="4">
+<li>在软件维护过程中，通过分析程序代码，产生与之对应的设计模型和文档，这种技术被称为（ ）。</li>
+</ol>
+<ul>
+<li>A 代码重组</li>
+<li>B 设计重构</li>
+<li>C 逆向工程</li>
+<li>D 再工程</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>答案：C</span></span>
+<span class="giallo-l"><span>解析： 本题考察对软件维护技术的区分。课件定义逆向工程为“基于低抽象层次软件制品，通过对其实施理解和分析，产生高抽象层次的软件制品”，即从代码产生设计文档。A（代码重组）是在不改变功能的前提下重新组织代码；B（设计重构）是产生设计文档，但课件中将其归为逆向工程的一种具体形式；D（再工程）包括逆向工程和正向工程，范围更广。最直接匹配题干的是C。</span></span></code></pre><h2 id="se16-ruan-jian-xiang-mu-guan-li-1">SE16 软件项目管理</h2>
+<p>无选择题</p>
+<h1 id="pan-duan-ti">判断题</h1>
+<blockquote>
+<p>大家根据课件里面的内容以及课件上的习题来复习。如果时间有够的话，课件完整过一遍，如果时间不够的话，那就把课件上面的练习题看一下。课件上面的练习题如果会做了，那么考试的选择题和判断题是没有问题的，尽管没有原题。</p>
+</blockquote>
+<h1 id="tian-kong-ti">填空题</h1>
+<p>涉及多个交叉学科的知识，主要是考研408和工程上一些常见知识，但是考得也不难，有些题目还贴心设计成选填，就是有几个选择，让你选填一个，大家也不要有畏难的心理。重点看一下以下内容:</p>
+<ul>
+<li>
+<p><strong>(1) C语言编程基础核心：理解int、char等基本数据类型在内存中的存储大小和取值范围；执行scanf()这个过程发生了什么。</strong></p>
+</li>
+<li>
+<p><strong>(2) 计算机组成原理核心：掌握计算机存储层次结构；能够计算CPU性能指标，如MIPS（每秒百万条指令）的计算；理解I/O子系统和主机的交互方式。</strong></p>
+</li>
+<li>
+<p><strong>(3) 操作系统核心：理解进程虚拟地址空间（码段、数据段、堆段、栈段）；掌握虚拟内存管理机制；理解高级语言与系统调用的关系。</strong></p>
+</li>
+<li>
+<p><strong>(4) 计算机网络：理解域名到IP地址解析的过程；能够根据IP地址和子网掩码计算网络地址；理解HTTP协议基本工作原理，掌握常见状态码含义；理解端口号的作用；理解从地址栏输入网址，点击enter到获取网页，这一过程发生的事情。</strong></p>
+</li>
+<li>
+<p><strong>(5) 数据库系统核心：理解关系型数据库中表的物理存储方式；掌握事务的ACID特性；懂得为一个系统设计表来存储信息。</strong></p>
+</li>
+<li>
+<p><strong>(6) Java Web开发与系统架构核心：理解MVC架构中各组件职责，即控制器接收请求、模型处理业务、视图展示结果；掌握系统分层设计思想；能够为典型应用系统选择合适的技术栈并明确各部分职责。</strong></p>
+</li>
+</ul>
+<hr />
+<h3 id="1-cun-chu-da-xiao-he-qu-zhi-fan-wei">1.存储大小和取值范围</h3>
+<table><thead><tr><th>数据类型</th><th>存储大小</th><th>有符号取值范围</th><th>无符号取值范围</th></tr></thead><tbody>
+<tr><td>char</td><td>1 字节（8 位）</td><td>-128 ～ 127</td><td>0 ～ 255</td></tr>
+<tr><td>short</td><td>2 字节（16 位）</td><td>-32768 ～ 32767</td><td>0 ～ 65535</td></tr>
+<tr><td>int</td><td>4 字节（32 位）</td><td>-2147483648 ～ 2147483647</td><td>0 ～ 4294967295</td></tr>
+<tr><td>long</td><td>8 字节（64 位）</td><td>-2⁶³ ～ 2⁶³-1</td><td>0 ～ 2⁶⁴-1</td></tr>
+<tr><td>long long</td><td>8 字节（64 位）</td><td>-2⁶³ ～ 2⁶³-1</td><td>0 ～ 2⁶⁴-1</td></tr>
+</tbody></table>
+<h3 id="2-scanf-fa-sheng-liao-shen-me">2.scanf()发生了什么</h3>
+<p><code>scanf()</code> 用于从标准输入（键盘）读取数据并存入变量。
+执行过程：</p>
+<ol>
+<li>程序调用 <code>scanf()</code> 并根据格式字符串（如 <code>%d</code>）确定读取的数据类型；</li>
+<li>等待用户输入，输入内容先进入输入缓冲区；</li>
+<li>用户按回车后，<code>scanf()</code> 从缓冲区读取字符；</li>
+<li>按格式要求将字符转换为对应数据类型；</li>
+<li>通过变量地址（如 <code>&amp;a</code>）将转换后的数据写入内存；</li>
+<li>返回成功读取并赋值的数据项个数。</li>
+</ol>
+<p>例如输入 <code>123</code> 后，<code>scanf()</code> 将字符串 <code>"123"</code> 转换为整数 <code>123</code>，并存入变量 <code>a</code> 所在的内存空间。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="c"><span class="giallo-l"><span style="color: #BB9AF7;">int</span><span> a</span><span style="color: #89DDFF;">;</span></span>
+<span class="giallo-l"><span style="color: #7AA2F7;">scanf</span><span style="color: #9ABDF5;">(</span><span style="color: #89DDFF;">&quot;</span><span style="color: #C0CAF5;">%d</span><span style="color: #89DDFF;">&quot;, &amp;</span><span style="color: #E0AF68;">a</span><span style="color: #9ABDF5;">)</span><span style="color: #89DDFF;">;</span></span></code></pre><h3 id="3-ji-suan-ji-cun-chu-ceng-ci-jie-gou">3.计算机存储层次结构</h3>
+<p>计算机存储层次结构从上到下依次为：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>寄存器 → Cache（高速缓存）→ 主存（RAM）→ 辅存（SSD/HDD）→ 光盘、磁带等长期存储</span></span></code></pre>
+<p>特点：越靠上：速度越快、容量越小、成本越高；越靠下：速度越慢、容量越大、成本越低。CPU 访问数据时遵循由上到下的顺序，优先访问高速存储器，未命中时再访问下一级存储器。</p>
+<h3 id="4-cpuxing-neng-zhi-biao-de-ji-suan">4.CPU性能指标的计算</h3>
+<p>MIPS（Million Instructions Per Second）表示 CPU 每秒执行的百万条指令数。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>MIPS = 指令数 ÷ (执行时间 × 10^6)</span></span>
+<span class="giallo-l"><span>MIPS = 时钟频率 ÷ (CPI × 10^6)</span></span></code></pre>
+<p>CPI：平均每条指令所需时钟周期数 / 时钟频率：CPU 主频</p>
+<p><strong>例：</strong> CPU 性能为 <strong>1000 MIPS</strong></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>主频 = 2GHz</span></span>
+<span class="giallo-l"><span>CPI = 2</span></span>
+<span class="giallo-l"><span>MIPS = 2×10^9 ÷ (2×10^6)</span></span>
+<span class="giallo-l"><span>     = 1000</span></span></code></pre><h3 id="5-jin-cheng-xu-ni-di-zhi-kong-jian">5.进程虚拟地址空间</h3>
+<p>进程虚拟地址空间是操作系统为每个进程分配的一块独立的虚拟内存空间，用于存放程序代码、数据和运行时信息。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>高地址</span></span>
+<span class="giallo-l"><span>┌─────────┐</span></span>
+<span class="giallo-l"><span>│   栈段   │ ← 局部变量、函数调用</span></span>
+<span class="giallo-l"><span>├─────────┤</span></span>
+<span class="giallo-l"><span>│         │</span></span>
+<span class="giallo-l"><span>│   堆段   │ ← 动态申请内存（malloc）</span></span>
+<span class="giallo-l"><span>│         │</span></span>
+<span class="giallo-l"><span>├─────────┤</span></span>
+<span class="giallo-l"><span>│ 数据段   │ ← 全局变量、静态变量</span></span>
+<span class="giallo-l"><span>├─────────┤</span></span>
+<span class="giallo-l"><span>│ 码段     │ ← 程序机器指令</span></span>
+<span class="giallo-l"><span>└─────────┘</span></span>
+<span class="giallo-l"><span>低地址</span></span></code></pre>
+<ul>
+<li><strong>码段（Text Segment）</strong>：存放程序代码，通常只读。</li>
+<li><strong>数据段（Data Segment）</strong>：存放全局变量和静态变量。</li>
+<li><strong>堆段（Heap）</strong>：用于动态内存分配，由程序员申请和释放。</li>
+<li><strong>栈段（Stack）</strong>：存放局部变量、函数参数和返回地址，由系统自动管理。</li>
+</ul>
+<h3 id="6-zhang-wo-xu-ni-nei-cun-guan-li-ji-zhi">6.掌握虚拟内存管理机制</h3>
+<p>虚拟内存管理机制是操作系统利用页表将虚拟地址映射到物理地址，实现内存扩展和进程隔离。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>CPU -&gt; 虚拟地址 -&gt; MMU -&gt; 页表 -&gt; 物理地址 -&gt; RAM</span></span></code></pre>
+<ul>
+<li>虚拟地址：程序使用的地址</li>
+<li>物理地址：内存中的实际地址</li>
+<li>页表：记录虚拟页与物理页的映射关系</li>
+<li>MMU（内存管理单元）：负责地址转换</li>
+</ul>
+<p>若页面不在内存中，则触发缺页中断（Page Fault），操作系统将数据从磁盘调入内存后继续执行。</p>
+<h3 id="7-li-jie-gao-ji-yu-yan-yu-xi-tong-diao-yong">7.理解高级语言与系统调用</h3>
+<p>高级语言不能直接访问硬件，需要通过系统调用请求操作系统提供服务。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>高级语言程序 -&gt; 库函数 -&gt; 系统调用 -&gt; 操作系统内核 -&gt; 硬件</span></span></code></pre><pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="c"><span class="giallo-l"><span style="color: #7AA2F7;">printf</span><span style="color: #9ABDF5;">()</span><span style="color: #89DDFF;"> -</span><span style="color: #BB9AF7;">&gt;</span><span style="color: #7AA2F7;"> write</span><span style="color: #9ABDF5;">()</span></span>
+<span class="giallo-l"><span style="color: #7AA2F7;">fopen</span><span style="color: #9ABDF5;">()</span><span style="color: #89DDFF;">  -</span><span style="color: #BB9AF7;">&gt;</span><span style="color: #7AA2F7;"> open</span><span style="color: #9ABDF5;">()</span></span>
+<span class="giallo-l"><span style="color: #7AA2F7;">malloc</span><span style="color: #9ABDF5;">()</span><span style="color: #89DDFF;"> -</span><span style="color: #BB9AF7;">&gt;</span><span style="color: #7AA2F7;"> brk</span><span style="color: #9ABDF5;">()</span><span style="color: #89DDFF;">/</span><span style="color: #7AA2F7;">mmap</span><span style="color: #9ABDF5;">()</span></span></code></pre>
+<p>系统调用是用户程序进入内核的接口，库函数通常是对系统调用的封装。</p>
+<h3 id="8-yu-ming-dao-ipdi-zhi-jie-xi-de-guo-cheng">8.域名到IP地址解析的过程</h3>
+<p>域名解析是将域名转换为 IP 地址的过程，由 DNS（域名系统）完成。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>浏览器</span></span>
+<span class="giallo-l"><span>  -&gt; 本地DNS缓存</span></span>
+<span class="giallo-l"><span>  -&gt; 操作系统缓存</span></span>
+<span class="giallo-l"><span>  -&gt; 本地DNS服务器</span></span>
+<span class="giallo-l"><span>  -&gt; 根DNS服务器</span></span>
+<span class="giallo-l"><span>  -&gt; 顶级域DNS服务器</span></span>
+<span class="giallo-l"><span>  -&gt; 权威DNS服务器</span></span>
+<span class="giallo-l"><span>  -&gt; 返回IP地址</span></span>
+<span class="giallo-l"><span>  -&gt; 访问目标服务器</span></span></code></pre>
+<p>例如：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>www.example.com</span></span>
+<span class="giallo-l"><span>    ↓</span></span>
+<span class="giallo-l"><span>93.184.216.34</span></span></code></pre>
+<p>DNS 采用分层查询机制，最终从权威 DNS 服务器获取域名对应的 IP 地址。</p>
+<h3 id="9-gen-ju-ipdi-zhi-he-zi-wang-yan-ma-ji-suan-wang-luo-di-zhi">9.根据IP地址和子网掩码计算网络地址</h3>
+<p>网络地址 = IP 地址与子网掩码按位与（AND）运算。</p>
+<p><strong>例：</strong></p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>IP地址    ：192.168.1.100</span></span>
+<span class="giallo-l"><span>子网掩码  ：255.255.255.0</span></span>
+<span class="giallo-l"><span>192.168.1.100</span></span>
+<span class="giallo-l"><span>AND</span></span>
+<span class="giallo-l"><span>255.255.255.0</span></span>
+<span class="giallo-l"><span>=</span></span>
+<span class="giallo-l"><span>192.168.1.0</span></span></code></pre><h3 id="10-httpxie-yi-yu-chang-jian-zhuang-tai-ma">10.HTTP协议与常见状态码</h3>
+<p>HTTP（HyperText Transfer Protocol，超文本传输协议）是一种应用层协议，采用请求—响应模式进行通信。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>客户端 -&gt; HTTP请求 -&gt; 服务器</span></span>
+<span class="giallo-l"><span>客户端 &lt;- HTTP响应 &lt;- 服务器</span></span></code></pre>
+<p>常见状态码：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>200 OK                 请求成功</span></span>
+<span class="giallo-l"><span>301 Moved Permanently  永久重定向</span></span>
+<span class="giallo-l"><span>302 Found              临时重定向</span></span>
+<span class="giallo-l"><span>403 Forbidden          无权限访问</span></span>
+<span class="giallo-l"><span>404 Not Found          资源不存在</span></span>
+<span class="giallo-l"><span>500 Internal Server Error 服务器内部错误</span></span>
+<span class="giallo-l"><span>502 Bad Gateway        网关错误</span></span>
+<span class="giallo-l"><span>503 Service Unavailable 服务不可用</span></span></code></pre>
+<p>状态码第一位含义：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>1xx 信息响应</span></span>
+<span class="giallo-l"><span>2xx 成功</span></span>
+<span class="giallo-l"><span>3xx 重定向</span></span>
+<span class="giallo-l"><span>4xx 客户端错误</span></span>
+<span class="giallo-l"><span>5xx 服务器错误</span></span></code></pre><h3 id="11-li-jie-duan-kou-hao-de-zuo-yong">11.理解端口号的作用</h3>
+<p>端口号（Port）用于标识主机中的具体网络服务或应用程序，同一主机可以通过不同端口同时提供多个网络服务。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>IP地址 -&gt; 定位主机</span></span>
+<span class="giallo-l"><span>端口号 -&gt; 定位服务</span></span></code></pre>
+<p>常见端口：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>20/21  FTP</span></span>
+<span class="giallo-l"><span>22     SSH</span></span>
+<span class="giallo-l"><span>25     SMTP</span></span>
+<span class="giallo-l"><span>53     DNS</span></span>
+<span class="giallo-l"><span>80     HTTP</span></span>
+<span class="giallo-l"><span>443    HTTPS</span></span>
+<span class="giallo-l"><span>3306   MySQL</span></span></code></pre><h3 id="12-cong-shu-ru-wang-zhi-dao-huo-qu-wang-ye">12.从输入网址到获取网页</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>输入URL</span></span>
+<span class="giallo-l"><span>  -&gt; DNS解析域名获取IP</span></span>
+<span class="giallo-l"><span>  -&gt; 建立TCP连接（三次握手）</span></span>
+<span class="giallo-l"><span>  -&gt; 建立TLS连接（HTTPS）</span></span>
+<span class="giallo-l"><span>  -&gt; 发送HTTP请求</span></span>
+<span class="giallo-l"><span>  -&gt; 服务器处理请求</span></span>
+<span class="giallo-l"><span>  -&gt; 返回HTTP响应</span></span>
+<span class="giallo-l"><span>  -&gt; 浏览器解析HTML</span></span>
+<span class="giallo-l"><span>  -&gt; 请求CSS/JS/图片等资源</span></span>
+<span class="giallo-l"><span>  -&gt; 渲染页面</span></span>
+<span class="giallo-l"><span>  -&gt; 显示网页</span></span></code></pre><h3 id="13-guan-xi-xing-shu-ju-ku-zhong-biao-de-wu-li-cun-chu-fang-shi">13.关系型数据库中表的物理存储方式</h3>
+<p>关系型数据库中的表最终以文件形式存储在磁盘上，数据按行或页组织。数据库通常以页（Page）为单位进行数据读取和写入，页中存放多条记录。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>数据库</span></span>
+<span class="giallo-l"><span>  -&gt; 表</span></span>
+<span class="giallo-l"><span>  -&gt; 数据页(Page)</span></span>
+<span class="giallo-l"><span>  -&gt; 行(Record)</span></span></code></pre>
+<p>例如：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>用户表(User)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>ID   Name</span></span>
+<span class="giallo-l"><span>1    Tom</span></span>
+<span class="giallo-l"><span>2    Alice</span></span>
+<span class="giallo-l"><span>3    Bob</span></span></code></pre>
+<p>物理存储：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>磁盘文件</span></span>
+<span class="giallo-l"><span>  -&gt; 数据页1</span></span>
+<span class="giallo-l"><span>      -&gt; 记录1</span></span>
+<span class="giallo-l"><span>      -&gt; 记录2</span></span>
+<span class="giallo-l"><span>  -&gt; 数据页2</span></span>
+<span class="giallo-l"><span>      -&gt; 记录3</span></span></code></pre><h3 id="14-shi-wu-de-acidte-xing">14.事务的ACID特性</h3>
+<ul>
+<li>A（Atomicity，原子性）   ：事务中的操作要么全部成功，要么全部失败。</li>
+<li>C（Consistency，一致性） ：事务执行前后，数据保持一致状态。</li>
+<li>I（Isolation，隔离性）   ：多个事务之间互不干扰。</li>
+<li>D（Durability，持久性）  ：事务提交后，数据永久保存。</li>
+</ul>
+<h3 id="15-wei-xi-tong-she-ji-biao">15.为系统设计表</h3>
+<p>根据业务对象抽取实体，为每个实体设计数据表，并通过主键、外键建立关联关系。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>需求分析</span></span>
+<span class="giallo-l"><span>  -&gt; 抽取实体</span></span>
+<span class="giallo-l"><span>  -&gt; 设计数据表</span></span>
+<span class="giallo-l"><span>  -&gt; 确定字段</span></span>
+<span class="giallo-l"><span>  -&gt; 设置主键/外键</span></span>
+<span class="giallo-l"><span>  -&gt; 建立表关系</span></span></code></pre>
+<p>例如学生选课系统：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>Student(id, name, age)</span></span>
+<span class="giallo-l"><span>Course(id, name)</span></span>
+<span class="giallo-l"><span>Select(student_id, course_id)</span></span></code></pre>
+<p>其中：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>Student 1 --- N Select N --- 1 Course</span></span></code></pre>
+<p>一个学生可选多门课程，一门课程也可被多个学生选择。</p>
+<h3 id="16-mvcjia-gou-zhong-ge-zu-jian-zhi-ze">16.MVC架构中各组件职责</h3>
+<p>MVC（Model-View-Controller）将业务逻辑、界面显示和请求处理分离。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>用户 -&gt; Controller -&gt; Model</span></span>
+<span class="giallo-l"><span>用户 &lt;- View &lt;- Controller</span></span></code></pre><pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>Model      ：业务逻辑和数据</span></span>
+<span class="giallo-l"><span>View       ：页面显示</span></span>
+<span class="giallo-l"><span>Controller ：接收请求、调用 Model、返回 View</span></span></code></pre>
+<p>例如：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>登录请求 -&gt; LoginController -&gt; UserService -&gt; login.jsp</span></span></code></pre><h3 id="17-xi-tong-fen-ceng-she-ji-si-xiang">17.系统分层设计思想</h3>
+<p>系统分层设计是将系统按职责划分为多个层次，每层只负责自己的功能，并通过接口与相邻层通信。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>表现层(UI) -&gt; 业务逻辑层(Service) -&gt; 数据访问层(DAO) -&gt; 数据库(DB)</span></span></code></pre>
+<p>例如：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>用户登录</span></span>
+<span class="giallo-l"><span>  -&gt; LoginController</span></span>
+<span class="giallo-l"><span>  -&gt; UserService</span></span>
+<span class="giallo-l"><span>  -&gt; UserDAO</span></span>
+<span class="giallo-l"><span>  -&gt; MySQL</span></span></code></pre>
+<p>各层职责明确，上层调用下层，下层不直接调用上层。</p>
+<h3 id="18-xuan-ze-he-gua-de-ji-shu-zhan">18.选择合适的技术栈</h3>
+<p>根据系统规模、性能需求和开发成本选择技术栈，并明确各组件职责。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>前端(Vue/React)</span></span>
+<span class="giallo-l"><span>  -&gt; 后端(Spring Boot)</span></span>
+<span class="giallo-l"><span>  -&gt; 数据库(MySQL)</span></span>
+<span class="giallo-l"><span>  -&gt; 缓存(Redis)</span></span></code></pre><pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>前端(Vue/React)：页面展示、用户交互</span></span>
+<span class="giallo-l"><span>后端(Spring Boot)：业务逻辑、接口处理</span></span>
+<span class="giallo-l"><span>数据库(MySQL)：数据存储</span></span>
+<span class="giallo-l"><span>缓存(Redis)：热点数据缓存</span></span></code></pre>
+<p>例如电商系统：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>浏览器</span></span>
+<span class="giallo-l"><span>  -&gt; Vue</span></span>
+<span class="giallo-l"><span>  -&gt; Spring Boot</span></span>
+<span class="giallo-l"><span>  -&gt; Redis</span></span>
+<span class="giallo-l"><span>  -&gt; MySQL</span></span></code></pre><h1 id="jian-da-ti">简答题</h1>
+<blockquote>
+<p>考察课程的核心主干知识以及实践要点，希望大家能够对软件开发过程有个整体的认识。此外，问答题还考察大家的言语理解能力和书面表达能力，也就是会给你一段材料，然后让你根据材料来回答问题。问答题除开放题外，所考察的内容没有超出这份复习要点。</p>
+</blockquote>
+<h2 id="ti-mu-yi">题目一</h2>
+<p>分层体系结构是软件设计中常用的架构模式，它将系统按抽象级别组织成多个层次。</p>
+<ul>
+<li>请举例说明计算机学科中哪些知识体现了这种分层思想？（3分）</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>计算机网络模型：OSI七层参考模型和TCP/IP四层模型是网络通信领域最经典的分层架构，每一层都建立在下一层的基础上，并为上一层提供特定的网络服务。</span></span>
+<span class="giallo-l"><span>(物理层/数据链路层/网络层/传输层/会话层/表示层/应用层)  (网络接口层/网络层/传输层/应用层)</span></span>
+<span class="giallo-l"><span>文件系统: 应用程序-&gt;文件API-&gt;文件系统-&gt;块设备-&gt;磁盘,开发者不需要关心：扇区位置/inode布局/SSD磨损均衡等.</span></span>
+<span class="giallo-l"><span>现代计算机系统通常自底向上划分为硬件物理层、操作系统内核层、系统调用接口层以及最顶部的应用程序层。</span></span>
+<span class="giallo-l"><span>企业级软件应用架构：典型的软件系统会被划分为用户界面层（表示层）、业务逻辑层（处理层）以及基础服务层（数据访问与底层服务层）</span></span></code></pre>
+<ul>
+<li>解释层和层之间是如何交互的？（1分）？</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>严格的单向依赖：在分层体系结构模式的约束中，每层仅为其紧邻的上层提供服务，并只能使用其紧邻下层所提供的服务.</span></span>
+<span class="giallo-l"><span>请求与反馈机制：上层向下层发出明确的服务请求，下层在完成计算或处理后，为上层反馈服务结果.</span></span>
+<span class="giallo-l"><span>事件驱动与通知：下层可以向上层提供底层的事件信息，上层在接收到下层的通知后做出相应的业务处理.</span></span></code></pre>
+<ul>
+<li>分析分层架构的存在的不足？（1分）</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>性能损耗：由于分层架构严格限制了跨层调用，客户的请求和底层的数据必须自上而下或自下而上逐级穿透多个层次。这种逐层传递和数据转换会带来额外的处理开销和网络/进程间通信延迟，可能影响系统的整体运行性能.</span></span>
+<span class="giallo-l"><span>过度设计与开发繁琐：对于一些极其简单的业务需求（如仅仅是从数据库读取一个字段并显示），强制的严格分层会导致代码冗余，开发者必须在每一层都编写“透传”代码，增加了初始开发的复杂度和工作量.</span></span>
+<span class="giallo-l"><span>级联修改（Cascading Changes）：虽然分层实现了层内的高内聚和层间的松耦合，但如果遇到需要增加一个贯穿全局的新特性（例如增加一种全新的业务数据类型），往往需要从用户界面层到数据层逐层修改接口和逻辑.</span></span></code></pre><h2 id="ti-mu-er">题目二</h2>
+<p>在电商网站中，用户在搜索框输入关键词“计算机书籍”，并点击搜索后，系统会返回结果列表。</p>
+<ul>
+<li>请详细分析此过程中，网站前端、后端和数据库服务器各自做了什么工作？（5分）</li>
+</ul>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>1.网站前端（用户界面层/表示层）</span></span>
+<span class="giallo-l"><span>捕获输入与校验：获取用户在搜索框中输入的关键词“计算机书籍”，并进行基本的前端逻辑校验（例如过滤特殊字符、检查是否为空）。</span></span>
+<span class="giallo-l"><span>发起网络请求：将用户输入的关键词封装成 HTTP/HTTPS 请求（通常为带有查询参数的 GET 请求，如 ?keyword=计算机书籍&amp;page=1），通过异步请求技术（如 AJAX、Fetch 或 Axios）发送给后端服务器。</span></span>
+<span class="giallo-l"><span>状态反馈：在等待后端响应的期间，向用户展示“加载中（Loading）”的视觉反馈，安抚用户等待情绪。</span></span>
+<span class="giallo-l"><span>数据解析与界面渲染：接收到后端返回的结构化数据（通常为 JSON 格式）后，前端引擎解析这些数据，并将其动态渲染、拼装到搜索结果列表页面的 DOM 结构中（展示书名、封面、价格、销量等信息）。</span></span>
+<span class="giallo-l"><span>2.网站后端（业务逻辑层/控制层）</span></span>
+<span class="giallo-l"><span>接收与解析请求：后端的网关或控制器（Controller）接收前端发来的 HTTP 请求，解析提取出查询关键词“计算机书籍”以及其他参数（如页码、排序方式）。</span></span>
+<span class="giallo-l"><span>安全与业务处理：进行安全过滤（防止 SQL 注入或 XSS 攻击）和限流控制。在大型电商中，此时还会对关键词进行“分词处理”或“同义词扩展”。</span></span>
+<span class="giallo-l"><span>缓存与服务调度：优先查询高速缓存（如 Redis），查看是否有“计算机书籍”的现成缓存结果。若缓存未命中，则向底层的数据访问层下达查询指令。</span></span>
+<span class="giallo-l"><span>数据组装与响应：接收底层数据库或搜索引擎（如 Elasticsearch）返回的原始商品数据，进行业务加工（如计算折扣价、过滤已下架商品、分页处理），将最终结果封装成 JSON 格式的 HTTP 响应，发回给前端。</span></span>
+<span class="giallo-l"><span>3.数据库服务器（基础服务层/数据层）</span></span>
+<span class="giallo-l"><span>接收查询指令：接收后端应用通过数据库连接池发来的查询语句（如 SQL 语句）。</span></span>
+<span class="giallo-l"><span>执行检索：数据库存储引擎根据预设的索引（如 B+ 树索引或专门的全文检索倒排索引），在商品信息表（Products）中快速查找匹配“计算机书籍”（或其分词）的记录。</span></span>
+<span class="giallo-l"><span>返回结果集：将检索到的符合条件的商品数据记录集合（Result Set）进行打包，通过网络通道原路返回给调用它的后端应用程序。</span></span></code></pre><h2 id="ti-mu-san">题目三</h2>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>AI通过海量数据训练，学习统计规律，能根据输入预测并生成最可能的文本序列，其本质是基于概率的模式匹配，而非真正的理解和思考。随着算力的不断突破和模型的不断优化，AI已在诸多领域展现出强大的信息处理和生成能力，深刻改变着我们的学习与工作方式。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>然而，技术的便利也伴随着挑战。若缺乏专业知识，使用者容易被AI生成的、看似正确但可能包含错误或片面的回复所误导。更值得警惕的是，若习惯于不经思考地依赖AI获取答案，长期以往将弱化深入学习与独立思考的意愿和能力。因此，在AI时代，我们更需审慎平衡工具使用与自身知识和能力体系的构建——正如即便拥有强大的计算器，我们也仍需掌握运算的原理，只有如此，方能真正地驾驭工具。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>那么，如何正确使用AI？核心在于 “以我为主，AI为辅” 。以教师利用AI辅助出题为例，教师在出题前已对考查内容、难度与题型有了全局、深入的把握。AI在此过程中扮演“军师”或“得力干将”的角色，协助构思、优化表述或帮助检查。而教师作为“主帅”，必须对AI的产出进行严格审视、修改和把关，绝不能将AI给出的答复直接用于试卷。AI不为结果负责，负责的始终是使用者本身。有效的AI使用往往需要使用者与AI进行多轮对话，根据AI反馈不断调整提问，通过多次迭代优化与交叉验证，才能获得准确满意的答复。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>此外，AI不仅可以用于学习和工作，作为这个时代先进的生产力工具，AI在图像识别、语音识别、日常问题解答等领域同样表现优秀，生活中有任何的疑惑都可以尝试与AI对话。</span></span></code></pre>
+<p><strong>1.结合AI使用经验和日常学习，请你谈谈应如何处理好“AI工具使用”与“坚持掌握扎实专业基础知识”两者间的关系？（5分）</strong></p>
+<ul>
+<li>AI是提高学习效率的重要工具，但不能代替专业基础知识的学习。两者应当相辅相成，而不是相互替代。</li>
+<li>首先，扎实的专业基础知识是正确使用AI的前提。只有掌握了相关知识，才能判断AI回答是否准确，避免被错误信息误导。其次，AI可以作为学习助手，帮助查阅资料、解释概念、总结知识和辅助练习，提高学习效率。再次，在学习过程中应坚持独立思考，先尝试自己分析和解决问题，再借助AI进行验证和补充。最后，要把AI作为辅助工具而不是依赖对象，不断巩固专业知识和实践能力，形成自身的知识体系和思维能力。</li>
+<li>因此，应坚持“基础知识为本，AI工具为辅”，在掌握专业知识的基础上合理利用AI提升学习效果。</li>
+</ul>
+<p><strong>2.结合以上材料和AI使用经验，请你谈谈应该如何正确使用AI？（5分）</strong></p>
+<ul>
+<li>正确使用AI应坚持“以我为主，AI为辅”的原则。</li>
+<li>首先，要明确AI只是辅助工具，其生成内容并不一定完全正确，使用时应保持批判性思维，对结果进行核实和判断。其次，要学会提出清晰、具体的问题，并根据AI的回答不断调整提问方式，通过多轮交流获得更准确的结果。再次，对于学习、工作等重要场景，不能直接照搬AI的答案，而应结合自身知识进行分析、修改和完善。最后，要充分发挥AI在信息检索、知识学习、内容创作和日常生活中的辅助作用，提高效率，但始终保持独立思考和自主学习能力。</li>
+<li>只有合理利用AI并承担最终责任，才能真正发挥AI的价值，成为驾驭工具的人而不是依赖工具的人。</li>
+</ul>
+<h1 id="she-ji-ti">设计题</h1>
+<blockquote>
+<p>主要考查用例图和类图</p>
+</blockquote>
+<h3 id="jiang-jie-shi-pin">讲解视频</h3>
+<ul>
+<li><a rel="noopener nofollow noreferrer external" target="_blank" href="https://www.bilibili.com/video/BV1qN41177fw/">用例图</a></li>
+<li><a rel="noopener nofollow noreferrer external" target="_blank" href="https://www.bilibili.com/video/BV1Wu4y1Y7ya/">类图</a></li>
+</ul>
+<h3 id="li-ti">例题</h3>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>为促进混合式教学，学校计划开发“学在至诚”线上教学系统，各个用户角色的功能需求如下，请根据要求作答。</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>- 学生角色：注册与登录账户；浏览平台已发布的课程；观看所选课程的教学视频；查看与下载课程相关课件；完成课程配套的在线练习与测试等.</span></span>
+<span class="giallo-l"><span>- 教师角色：注册与登录账户（需管理员审核）；创建新课程；为课程上传教学视频和课件资料；发布课程练习与在线测试；查看选修其课程学生的学习记录；录入并发布学生的课程成绩等.</span></span>
+<span class="giallo-l"><span>- 管理员角色（系统管理后台）：管理所有用户（学生、教师）账户；审核教师创建的课程信息与上传的教学资源；维护网站前端页面与公告等.</span></span></code></pre>
+<ul>
+<li>(1) 识别系统中的主要执行者，并绘制系统的用例图。图中需清晰体现执行者、用例以及它们之间的关联关系。</li>
+<li>(2) 识别系统中的核心类，确定每个类的主要属性与方法，并绘制类图。图中需体现类名、属性、方法以及类之间的关系（如继承、关联、聚合等）。</li>
+</ul>
+<p><img src="/images/xuezaizhicheng1.png" alt="答案1" />
+<img src="/images/xuezaizhicheng2.png" alt="答案2" /></p>
+<h1 id="zong-he-ti">综合题</h1>
+<blockquote>
+<p>主要考察团队作业相关知识和技术。</p>
+</blockquote>
+<ul>
+<li>对于要实现的系统，大家要懂得将系统划分成多个不同的用户角色，并确定各个用户角色应该有的功能。</li>
+<li>要懂得系统功能是通过不同用户角色之间的交互来完成的。比如说美团外卖，用户通过手机点单，商家接单，骑手派送，最终完成外卖功能。</li>
+<li>要懂得对一个特定的系统，数据库表怎么设计，需要设计几张表，哪几张表，各张表包含哪些字段，怎么创建表。</li>
+<li>要懂得通过哪些技术将这个系统实现出来，并且各个技术所负责的功能是什么。</li>
+</ul>
+<h2 id="bu-chong">补充</h2>
+<blockquote>
+<p>内聚度（低→高）偶然性 → 逻辑性 → 时间性 → 过程性 → 通讯性 → 顺序性 → 功能性</p>
+</blockquote>
+<blockquote>
+<p>耦合度（低→高）非直接 → 数据 → 控制 → 特征 → 外部 → 公共 → 内容</p>
+</blockquote>
+<table><thead><tr><th>分类</th><th>图名</th><th>用途</th></tr></thead><tbody>
+<tr><td>用例</td><td>用例图</td><td>描述执行者与系统功能交互</td></tr>
+<tr><td>结构</td><td>类图</td><td>类的静态结构：属性、方法、关系</td></tr>
+<tr><td>结构</td><td>对象图</td><td>某时刻对象实例及关系快照</td></tr>
+<tr><td>结构</td><td>包图</td><td>包间构成与依赖，系统高层结构</td></tr>
+<tr><td>结构</td><td>构件图</td><td>构件及其接口、依赖关系</td></tr>
+<tr><td>部署</td><td>部署图</td><td>工件在物理节点上的分布</td></tr>
+<tr><td>行为</td><td>顺序图</td><td>对象间消息传递的时间顺序</td></tr>
+<tr><td>行为</td><td>通信图</td><td>对象间消息传递的结构关系</td></tr>
+<tr><td>行为</td><td>状态图</td><td>单个对象的状态变迁</td></tr>
+<tr><td>行为</td><td>活动图</td><td>操作序列、决策点、并发同步</td></tr>
+</tbody></table>
+
+        </div>
+
+            
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/awesome-sops-age/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:Sops+Age管理Git仓库</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/about-server-review/">
+                            <span class="button__text">乱七八糟:服务端开发考试</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                
+                    <li class="toc-level-1">
+                        <a href="#zong-gang">总纲</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#ti-xing-yu-fen-zhi">题型与分值</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se1-1-cheng-xu-ji-zhi-liang-bao-zheng-fang-fa">SE1.1 程序及质量保证方法</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-cheng-xu-de-ji-ben-gai-nian">一、程序的基本概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-cheng-xu-de-liang-lei-li-yi-xiang-guan-zhe">二、程序的两类利益相关者</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-cheng-xu-zhi-liang-bao-zheng-fang-fa">三、程序质量保证方法</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-ge-ti-kai-fa-de-ju-xian-xing">四、个体开发的局限性</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-guan-jian-gai-nian-su-ji">五、关键概念速记</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se1-2-ruan-jian-ji-qi-te-dian">SE1.2 软件及其特点</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ruan-jian-de-ding-yi">一、软件的定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-ruan-jian-sheng-ming-zhou-qi">二、软件生命周期</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-ruan-jian-fen-lei">三、软件分类</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-kai-yuan-ruan-jian">四、开源软件</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-guan-jian-gai-nian-su-ji-1">五、关键概念速记</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se2-ruan-jian-gong-cheng-gai-shu">SE2 软件工程概述</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ruan-jian-wei-ji">一、软件危机</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-ruan-jian-gong-cheng-dui-ruan-jian-kai-fa-de-xin-ren-shi">二、软件工程对软件开发的新认识</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-ruan-jian-gong-cheng-ding-yi-ieee-93">三、软件工程定义（IEEE 93）</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-ruan-jian-gong-cheng-san-yao-su">三、软件工程三要素</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-ruan-jian-kai-fa-de-ben-zhi">四、软件开发的本质</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-ruan-jian-gong-cheng-mu-biao">五、软件工程目标</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-ruan-jian-gong-cheng-ba-da-yuan-ze">六、软件工程八大原则</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-ruan-jian-gong-cheng-fa-zhan-qu-shi">七、软件工程发展趋势</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#ba-swebokshi-da-zhi-shi-yu">八、SWEBOK十大知识域</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-1-ruan-jian-guo-cheng-mo-xing">SE3.1 软件过程模型</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ji-ben-gai-nian">一、基本概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-dian-xing-ruan-jian-guo-cheng-mo-xing">二、典型软件过程模型</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-ge-mo-xing-xiang-jie">三、各模型详解</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-guo-cheng-mo-xing-xuan-ze-ce-lue">四、过程模型选择策略</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-chuan-tong-guo-cheng-mo-xing-de-bu-zu">五、传统过程模型的不足</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-2-min-jie-kai-fa-fang-fa">SE3.2 敏捷开发方法</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-he-xin-si-xiang">一、核心思想</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-si-da-he-xin-jia-zhi-guan">二、四大核心价值观</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-min-jie-zhun-ze-yao-dian">三、敏捷准则要点</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-ji-xian-bian-cheng-xp">四、极限编程（XP）</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-ce-shi-qu-dong-kai-fa-tdd">五、测试驱动开发（TDD）</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-scrumfang-fa">六、Scrum方法</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-min-jie-fang-fa-te-dian-xiao-jian-kuai-bian">七、敏捷方法特点：小、简、快、变</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-3-qun-ti-hua-ruan-jian-kai-fa-fang-fa">SE3.3 群体化软件开发方法</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ding-yi">一、定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-da-jiao-tang-yu-ji-shi-mo-xing">二、大教堂与集市模型</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-guan-jian-zhi-cheng-ji-shu">三、关键支撑技术</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-4-gitjie-shao-ji-shi-yong">SE3.4 Git介绍及使用</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-githe-xin-gai-nian">一、Git核心概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-ji-ben-cao-zuo">二、基本操作</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-fen-zhi-guan-li">三、分支管理</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-yu-qun-ti-hua-kai-fa-de-guan-xi">四、与群体化开发的关系</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se4-ruan-jian-xu-qiu-fen-xi-ji-chu">SE4 软件需求分析基础</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-he-xin-gai-nian">一、核心概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-xu-qiu-fen-lei">二、需求分类</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-xu-qiu-de-zhi-liang-yao-qiu">三、需求的质量要求</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-xu-qiu-fen-xi-de-bu-zou">四、需求分析的步骤</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-xu-qiu-bian-geng-guan-li">五、需求变更管理</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-mian-xiang-dui-xiang-fang-fa-xue-he-xin-gai-nian">六、面向对象方法学核心概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-umljian-mo-yu-yan">七、UML建模语言</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#ba-xu-qiu-fen-xi-de-shu-chu-ruan-jian-xu-qiu-gui-ge-shuo-ming-shu">八、需求分析的输出：软件需求规格说明书</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se5-huo-qu-ruan-jian-xu-qiu">SE5 获取软件需求</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-huo-qu-xu-qiu-de-fang-fa">一、获取需求的方法</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-yong-li-tu-he-xin-yao-su">二、用例图核心要素</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-xu-qiu-que-ren-yu-ke-xing-xing-fen-xi">三、需求确认与可行性分析</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se6-fen-xi-ruan-jian-xu-qiu">SE6 分析软件需求</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-fen-xi-ruan-jian-xu-qiu-de-ren-wu">一、分析软件需求的任务</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-umltu-yong-yu-xu-qiu-fen-xi">二、UML图用于需求分析</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-ruan-jian-xu-qiu-gui-ge-shuo-ming-shu-nei-rong">三、软件需求规格说明书内容</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se7-ruan-jian-she-ji-ji-chu">SE7 软件设计基础</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ruan-jian-she-ji-ding-yi">一、软件设计定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-she-ji-guo-cheng-cong-gao-dao-di-chou-xiang-ceng-ci">二、设计过程（从高到低抽象层次）</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-ruan-jian-she-ji-yuan-su">三、软件设计元素</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-ruan-jian-she-ji-yuan-ze">四、软件设计原则</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-mian-xiang-dui-xiang-she-ji-you-shi">五、面向对象设计优势</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se8-ruan-jian-ti-xi-jie-gou-she-ji">SE8 软件体系结构设计</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ruan-jian-ti-xi-jie-gou-sa-ding-yi">一、软件体系结构(SA)定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-san-ge-he-xin-she-ji-yuan-su">二、三个核心设计元素</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-gou-jian-te-xing-yu-jie-kou">三、构件特性与接口</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-ruan-jian-ti-xi-jie-gou-de-si-shi-tu">四、软件体系结构的四视图</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-san-lei-umltu">五、三类UML图</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-she-ji-mo-shi-de-san-ge-ceng-ci">六、设计模式的三个层次</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-chang-yong-ti-xi-jie-gou-feng-ge">七、常用体系结构风格</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#ba-mvcjiao-hu-liu-cheng">八、MVC交互流程</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#jiu-ti-xi-jie-gou-she-ji-guo-cheng">九、体系结构设计过程</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se9-yong-hu-jie-mian-she-ji">SE9 用户界面设计</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-yong-hu-jie-mian-she-ji-ding-yi">一、用户界面设计定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-yong-hu-jie-mian-she-ji-yuan-ze">二、用户界面设计原则</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-yong-hu-jie-mian-she-ji-guo-cheng">三、用户界面设计过程</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-she-ji-guan-zhu-de-zhi-liang-yao-su">四、设计关注的质量要素</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-xiang-guan-umlbiao-shi">五、相关UML表示</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se10-ruan-jian-xiang-xi-she-ji">SE10 软件详细设计</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-xiang-xi-she-ji-ding-yi">一、详细设计定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-xiang-xi-she-ji-de-he-xin-huo-dong">二、详细设计的核心活动</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-fen-xi-lei-yu-she-ji-yuan-su-de-dui-ying-guan-xi">三、分析类与设计元素的对应关系</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-lei-she-ji-guo-cheng">四、类设计过程</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-shu-ju-she-ji-dui-xiang-guan-xi-ying-she">五、数据设计（对象-关系映射）</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-xiao-xi-chuan-di-de-si-chong-fang-shi">六、消息传递的四种方式</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-she-ji-ping-shen-nei-rong">七、设计评审内容</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se11-ruan-jian-shi-xian-ji-chu">SE11 软件实现基础</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ruan-jian-shi-xian-ding-yi">一、软件实现定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-shi-xian-guo-cheng">二、实现过程</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-shi-xian-yuan-ze">三、实现原则</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-cheng-xu-she-ji-yu-yan-lei-bie">四、程序设计语言类别</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-yu-yan-xuan-ze-yi-ju">五、语言选择依据</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-cheng-xu-yuan-neng-li-yao-qiu">六、程序员能力要求</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se12-bian-xie-dai-ma">SE12 编写代码</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-bian-xie-dai-ma-de-wu-da-yuan-ze">一、编写代码的五大原则</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-yi-chang-chu-li">二、异常处理</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-bian-ma-yu-she-ji-de-guan-xi">三、编码与设计的关系</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se14-ruan-jian-bu-shu">SE14 软件部署</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ji-ben-gai-nian-1">一、基本概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-ruan-jian-bu-shu-ding-yi">二、软件部署定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-bu-shu-san-yuan-ze">三、部署三原则</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-bu-shu-fang-shi">四、部署方式</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-bu-shu-fang-fa">五、部署方法</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-rong-qi-bu-shu-docker">六、容器部署（Docker）</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-xiang-guan-casegong-ju">七、相关CASE工具</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se15-ruan-jian-wei-hu-yu-yan-hua">SE15 软件维护与演化</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ruan-jian-wei-hu-ding-yi">一、软件维护定义</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-si-chong-wei-hu-xing-shi">二、四种维护形式</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-wei-hu-te-dian">三、维护特点</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-ruan-jian-yan-hua-vs-ruan-jian-wei-hu">四、软件演化 vs 软件维护</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-lehmanruan-jian-yan-hua-ba-fa-ze">五、Lehman软件演化八法则</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-ruan-jian-luo-ji-lao-hua">六、软件逻辑老化</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-jie-jue-luo-ji-lao-hua-de-fang-fa">七、解决逻辑老化的方法</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#ba-ruan-jian-wei-hu-guo-cheng">八、软件维护过程</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#jiu-wei-hu-cheng-ben-gong-shi">九、维护成本公式</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#shi-wei-hu-xu-yao-jie-jue-de-wen-ti">十、维护需要解决的问题</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#shi-yi-ruan-jian-ke-wei-hu-xing">十一、软件可维护性</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se16-ruan-jian-xiang-mu-guan-li">SE16 软件项目管理</a>
+                                    
+                                        <ul>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#yi-ji-ben-gai-nian-2">一、基本概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#er-san-lei-guan-li-dui-xiang">二、三类管理对象</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#san-ruan-jian-du-liang-ji-ben-gai-nian">三、软件度量基本概念</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#si-du-liang-dui-xiang-shu-xing">四、度量对象属性</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#wu-mian-xiang-gui-mo-de-du-liang">五、面向规模的度量</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#liu-cocomomo-xing">六、CoCoMo模型</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#qi-xiang-mu-ji-hua">七、项目计划</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#ba-ruan-jian-kai-fa-gong-zuo-liang-fen-bu">八、软件开发工作量分布</a>
+                                            </li>
+                                        
+                                            <li class="toc-level-3">
+                                                <a href="#jiu-ruan-jian-xiang-mu-cheng-gong-ying-xiang-yin-su">九、软件项目成功影响因素</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-1">
+                        <a href="#xuan-ze-ti">选择题</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se1-1-cheng-xu-ji-zhi-liang-bao-zheng-fang-fa-1">SE1.1 程序及质量保证方法</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se1-2-ruan-jian-ji-qi-te-dian-1">SE1.2 软件及其特点</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se2-ruan-jian-gong-cheng-gai-shu-1">SE2 软件工程概述</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-1-ruan-jian-guo-cheng-mo-xing-1">SE3.1 软件过程模型</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-2-min-jie-kai-fa-fang-fa-1">SE3.2 敏捷开发方法</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-3-qun-ti-hua-ruan-jian-kai-fa-fang-fa-1">SE3.3 群体化软件开发方法</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se3-4-gitjie-shao-ji-shi-yong-1">SE3.4 Git介绍及使用</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se4-ruan-jian-xu-qiu-fen-xi-ji-chu-1">SE4 软件需求分析基础</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se5-huo-qu-ruan-jian-xu-qiu-1">SE5 获取软件需求</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se6-fen-xi-ruan-jian-xu-qiu-1">SE6 分析软件需求</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se7-ruan-jian-she-ji-ji-chu-1">SE7 软件设计基础</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se8-ruan-jian-ti-xi-jie-gou-she-ji-1">SE8 软件体系结构设计</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se9-yong-hu-jie-mian-she-ji-1">SE9 用户界面设计</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se10-ruan-jian-xiang-xi-she-ji-1">SE10 软件详细设计</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se11-ruan-jian-shi-xian-ji-chu-1">SE11 软件实现基础</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se12-bian-xie-dai-ma-1">SE12 编写代码</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se14-ruan-jian-bu-shu-1">SE14 软件部署</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se15-ruan-jian-wei-hu-yu-yan-hua-1">SE15 软件维护与演化</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#se16-ruan-jian-xiang-mu-guan-li-1">SE16 软件项目管理</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-1">
+                        <a href="#pan-duan-ti">判断题</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-1">
+                        <a href="#tian-kong-ti">填空题</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#1-cun-chu-da-xiao-he-qu-zhi-fan-wei">1.存储大小和取值范围</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#2-scanf-fa-sheng-liao-shen-me">2.scanf()发生了什么</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#3-ji-suan-ji-cun-chu-ceng-ci-jie-gou">3.计算机存储层次结构</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#4-cpuxing-neng-zhi-biao-de-ji-suan">4.CPU性能指标的计算</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#5-jin-cheng-xu-ni-di-zhi-kong-jian">5.进程虚拟地址空间</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#6-zhang-wo-xu-ni-nei-cun-guan-li-ji-zhi">6.掌握虚拟内存管理机制</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-li-jie-gao-ji-yu-yan-yu-xi-tong-diao-yong">7.理解高级语言与系统调用</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#8-yu-ming-dao-ipdi-zhi-jie-xi-de-guo-cheng">8.域名到IP地址解析的过程</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-gen-ju-ipdi-zhi-he-zi-wang-yan-ma-ji-suan-wang-luo-di-zhi">9.根据IP地址和子网掩码计算网络地址</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#10-httpxie-yi-yu-chang-jian-zhuang-tai-ma">10.HTTP协议与常见状态码</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#11-li-jie-duan-kou-hao-de-zuo-yong">11.理解端口号的作用</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-cong-shu-ru-wang-zhi-dao-huo-qu-wang-ye">12.从输入网址到获取网页</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#13-guan-xi-xing-shu-ju-ku-zhong-biao-de-wu-li-cun-chu-fang-shi">13.关系型数据库中表的物理存储方式</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#14-shi-wu-de-acidte-xing">14.事务的ACID特性</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#15-wei-xi-tong-she-ji-biao">15.为系统设计表</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#16-mvcjia-gou-zhong-ge-zu-jian-zhi-ze">16.MVC架构中各组件职责</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#17-xi-tong-fen-ceng-she-ji-si-xiang">17.系统分层设计思想</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#18-xuan-ze-he-gua-de-ji-shu-zhan">18.选择合适的技术栈</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-1">
+                        <a href="#jian-da-ti">简答题</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#ti-mu-yi">题目一</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#ti-mu-er">题目二</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#ti-mu-san">题目三</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-1">
+                        <a href="#she-ji-ti">设计题</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#jiang-jie-shi-pin">讲解视频</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#li-ti">例题</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-1">
+                        <a href="#zong-he-ti">综合题</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-2">
+                                    <a href="#bu-chong">补充</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+    
+    <script>
+        (function() {
+            const tocLinks = document.querySelectorAll('.toc a');
+            const ids = Array.from(tocLinks, a => document.getElementById(a.getAttribute('href').slice(1)));
+            const container = document.querySelector('.toc-container');
+            let prevLink = null;
+            let navEnd = 0;
+
+            window.addEventListener('hashchange', () => { navEnd = Date.now() + 1500; });
+            tocLinks.forEach(a => {
+                a.addEventListener('click', () => { navEnd = Date.now() + 1500; });
+            });
+
+            function scrollTocTo(link) {
+                const cr = container.getBoundingClientRect();
+                const lr = link.getBoundingClientRect();
+                const target = container.scrollTop + (lr.top - cr.top) - (cr.height / 2) + (lr.height / 2);
+                container.scrollTo({ top: target, behavior: 'smooth' });
+            }
+
+            function onScroll() {
+                let active = null;
+                for (const el of ids) {
+                    if (el && el.getBoundingClientRect().top <= 100) active = el;
+                }
+                if (active) {
+                    const link = tocLinks[ids.indexOf(active)];
+                    if (link !== prevLink) {
+                        if (prevLink) prevLink.classList.remove('active');
+                        link.classList.add('active');
+                        prevLink = link;
+                    }
+                    if (Date.now() > navEnd) scrollTocTo(link);
+                }
+            }
+            window.addEventListener('scroll', onScroll, {passive: true});
+            onScroll();
+        })();
+    </script>
+    
+<button class="back-to-top" id="back-to-top" title="回到顶部">↑</button>
+<script>
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
+

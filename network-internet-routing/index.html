@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dich&#x27;s Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://blog.dich.bid/style.css">
+    <link rel="stylesheet" href="https://blog.dich.bid/color/blue.css">
+
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Dich's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.dich.bid/network-internet-routing/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Dich's Blog">
+    <meta property="twitter:domain" content="blog.dich.bid">
+    <meta property="twitter:url" content="https://blog.dich.bid/network-internet-routing/">
+
+                <link rel="alternate" type="application/atom+xml" title="Dich&#x27;s Blog Atom Feed" href="https://blog.dich.bid/atom.xml" />
+        <link rel="shortcut icon" type="image/webp" href="/dich.webp">
+    
+    <!-- ✅ Added center alignment styles -->
+    <style>
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.dich.bid" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            Dich&#x27;s Blog
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+                <nav class="menu">
+            <ul class="menu__inner">
+                <li class="active"><a href="https://blog.dich.bid">Blog</a></li>
+            
+                <li><a href="https://blog.dich.bid/archive">Archive</a></li>
+            
+                <li><a href="https://blog.dich.bid/weekly">Weekly</a></li>
+            
+                <li><a href="https://blog.dich.bid/tags">Tags</a></li>
+            
+                <li><a href="https://blog.dich.bid/search">Search</a></li>
+            
+                <li><a href="https://blog.dich.bid/links">Links</a></li>
+            
+                <li><a href="https://blog.dich.bid/atom.xml">Rss</a></li>
+            
+                <li><a href="https://github.com/Dichgrem" target="_blank" rel="noopener noreferrer">My github</a></li>
+            
+                <li><a href="https://blog.dich.bid/about">About me</a></li>
+            
+                <li><a href="https://github.com/getzola/zola" target="_blank" rel="noopener noreferrer">About Zola</a></li>
+            </ul>
+        </nav>
+    
+    
+        
+    </header>
+    
+
+    <main>
+        <div class="content">
+            
+    
+    <div class="page-with-toc">
+        <div class="post" data-pagefind-body>
+            
+    <h1 class="post-title"><a href="https://blog.dich.bid/network-internet-routing/">网络艺术：互联网路由基础</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2024-02-10
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://blog.dich.bid/tags/network/">#Network</a></span>
+    
+
+            <div class="post-content">
+            <p>前言 从 IP 地址和 CIDR 出发，一路到 ASN、BGP、商业关系、路由安全、资源管理和常用诊断工具。后半部分聚焦国内三大运营商的线路拆解和全球各区域的连接质量分析。</p>
+<span id="continue-reading"></span><h2 id="yi-ip-di-zhi-yu-cidr">一、IP 地址与 CIDR</h2>
+<h3 id="1-1-shen-me-shi-cidr">1.1 什么是 CIDR</h3>
+<p>CIDR（Classless Inter-Domain Routing，无类别域间路由）是现代互联网的地址表示法。一个 CIDR 前缀长这样：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>203.0.113.0/24</span></span></code></pre>
+<p>其中，<code>203.0.113.0</code> 是网络地址，<code>/24</code> 是前缀长度。</p>
+<p>IPv4 地址共 32 位。<code>/24</code> 表示前 24 位是网络部分，后 8 位是主机部分。对应的子网掩码是 <code>255.255.255.0</code>，覆盖范围从 <code>203.0.113.0</code> 到 <code>203.0.113.255</code>，共 256 个地址。</p>
+<h3 id="1-2-cidr-wei-shen-me-bei-fa-ming">1.2 CIDR 为什么被发明</h3>
+<p>早期的互联网采用"分类地址"（Classful Addressing）：</p>
+<table><thead><tr><th>类别</th><th>前缀</th><th>地址数量</th></tr></thead><tbody>
+<tr><td>A</td><td>/8</td><td>16,777,216</td></tr>
+<tr><td>B</td><td>/16</td><td>65,536</td></tr>
+<tr><td>C</td><td>/24</td><td>256</td></tr>
+</tbody></table>
+<p>假设你需要 500 个地址——<code>/24</code>（256 个）不够，<code>/16</code>（65536 个）又太大，只能浪费六万多个地址。CIDR 的出现解决了这个痛点：<code>/23</code> = 512 地址，<code>/25</code> = 128 地址，可以按需分配，极大节省了地址空间。</p>
+<h3 id="1-3-yi-ge-ip-ke-yi-tong-shi-shu-yu-duo-ge-qian-zhui">1.3 一个 IP 可以同时属于多个前缀</h3>
+<p>前缀本质上是二进制范围，而不是唯一标签。以 <code>203.0.113.45</code> 为例：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>203.0.0.0/15      ← 最大范围</span></span>
+<span class="giallo-l"><span>└── 203.0.112.0/21</span></span>
+<span class="giallo-l"><span>    └── 203.0.112.0/22   ← 最小范围（最具体）</span></span>
+<span class="giallo-l"><span>        └── 203.0.113.45</span></span></code></pre>
+<p>一个 IP 天然属于很多层层嵌套的前缀。那路由器怎么选？答案是 <strong>最长前缀匹配（Longest Prefix Match）</strong>：哪个前缀最长（最具体），就走哪条路。比如路由表中同时存在 <code>/15 → ISP-A</code>、<code>/22 → ISP-C</code>，<code>203.0.113.45</code> 会匹配到 <code>/22</code> 走 ISP-C，其余地址走 <code>/15</code>。</p>
+<h2 id="er-asn-hu-lian-wang-de-shen-fen-zheng">二、ASN — 互联网的"身份证"</h2>
+<h3 id="2-1-shen-me-shi-zi-zhi-xi-tong-as">2.1 什么是自治系统（AS）</h3>
+<p>互联网由无数独立管理的网络组成，每个这样的网络就是一个<strong>自治系统（AS，Autonomous System）</strong>。例如：</p>
+<ul>
+<li><code>AS4134</code> → 中国电信</li>
+<li><code>AS4837</code> → 中国联通</li>
+<li><code>AS15169</code> → Google</li>
+<li><code>AS13335</code> → Cloudflare</li>
+</ul>
+<p>每个 AS 被分配一个全球唯一的编号，即 <strong>ASN（Autonomous System Number）</strong>。</p>
+<p>可以把 ASN 理解为互联网中的"快递公司编号"：IP 地址是门牌号，ASN 是负责投递这个区域的快递公司。</p>
+<h3 id="2-2-asn-de-zuo-yong">2.2 ASN 的作用</h3>
+<p>ASN 主要用于 <strong>BGP（Border Gateway Protocol，边界网关协议）</strong>。各个 AS 通过 BGP 向其他 AS 宣告自己负责哪些 IP 段。例如：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>AS15169 宣告：8.8.8.0/24 由我负责</span></span></code></pre>
+<p>全球其他运营商收到后就知道：访问 <code>8.8.8.x</code> 的流量应该发给 AS15169。</p>
+<p>ASN 在现实中也常用于风控。很多网站会检查来源 IP 属于哪个 ASN：家宽 ASN（如 AS4134）通常被认为风控低、流媒体友好；机房 ASN（如 AS14061 DigitalOcean、AS16509 Amazon）则容易触发验证码或限制。</p>
+<h3 id="2-3-jia-kuan-asn-yu-ji-fang-asn">2.3 家宽 ASN 与机房 ASN</h3>
+<p>两类 ASN 的区别：</p>
+<p><strong>家宽 ASN（Residential ASN）</strong>——典型代表：</p>
+<ul>
+<li><code>AS4134</code> 中国电信</li>
+<li><code>AS4837</code> 中国联通</li>
+<li><code>AS9808</code> 中国移动</li>
+</ul>
+<p>特点：✅ 普通用户居多，风控低，流媒体友好（Netflix、Disney+ 等不会主动屏蔽），容易通过真人检测。</p>
+<p>缺点：❌ 带宽和稳定性不如机房，一般不能自己跑 BGP。</p>
+<p><strong>机房 ASN（Datacenter ASN）</strong>——典型代表：</p>
+<ul>
+<li><code>AS16509</code> Amazon（AWS）</li>
+<li><code>AS8075</code> Microsoft（Azure）</li>
+<li><code>AS15169</code> Google（GCP）</li>
+<li><code>AS14061</code> DigitalOcean</li>
+</ul>
+<p>特点：✅ 带宽大、延迟稳定、可自行管理服务器、支持 BGP。</p>
+<p>缺点：❌ 风控高，容易被识别为 VPN/代理，部分网站（尤其是流媒体和银行）直接封锁整个 ASN 的 IP 段。</p>
+<p><strong>为什么家宽 IP 比机房 IP 贵得多？</strong> 机房 IP 几秒钟就能买到，而家宽 IP 需要真实 ISP 的用户网络，供给极其有限。代理圈常说的 "ISP IP""Residential IP""Datacenter IP"，本质上就是在讨论这个 IP 属于什么 ASN。</p>
+<blockquote>
+<p>一个 IP 来自哪个 ASN，往往比 IP 本身更能说明它的用途。</p>
+</blockquote>
+<h2 id="san-bgp-as-zhi-jian-de-tong-xin-xie-yi">三、BGP — AS 之间的通信协议</h2>
+<h3 id="3-1-bgp-shi-shen-me">3.1 BGP 是什么</h3>
+<p>如果 ASN 是身份证，BGP 就是 AS 之间"对话"的协议。BGP 负责让全球的 AS 互相交换路由信息，告诉对方"我能到达哪些 IP"以及"经过我有多远"。</p>
+<p>当你 <code>traceroute</code> 某个 IP 时看到的一串 ASN：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>AS4134 → AS3356 → AS15169</span></span></code></pre>
+<p>它表示数据包依次经过了中国电信、Lumen（Level 3）、Google 的网络。BGP 通过多种策略——最短 AS Path、本地优先级（Local Preference）、MED、社区属性（Community）——来决定流量的实际走向。</p>
+<h3 id="3-2-bgp-wei-shen-me-shou-lian-man">3.2 BGP 为什么收敛慢</h3>
+<p>BGP 是路径向量（Path Vector）协议，每个 AS 都在独立做决策。Google 不会允许中国电信替它决定路由，反之亦然。互联网没有一个"全球控制器"来算出最优路径——BGP 的"不优雅"本质上是<strong>全球数百万独立组织之间能够长期运转的最大妥协方案</strong>。</p>
+<h3 id="3-3-bgp-de-shi-ji-ying-yong-cn2-gia-yu-kua-jing-xian-lu-you-hua">3.3 BGP 的实际应用：CN2/GIA 与跨境线路优化</h3>
+<p>BGP 的路径选择直接影响日常体验。以 VPS 线路质量为例：</p>
+<p>很多人买 VPS 时会看到商家标注"CN2 GIA""9929""CMI"等字样，这些本质上就是不同 ASN 之间建立的<strong>不同等级的互联路径</strong>。</p>
+<p><strong>普通国际线路</strong>：流量可能经过多个 AS 中转——</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>AS4134（中国电信）→ AS3356（Lumen）→ AS6939（Hurricane Electric）→ 目标</span></span></code></pre>
+<p>AS 跳数多，延迟高，高峰期容易拥塞。</p>
+<p><strong>CN2（China Telecom Next Carrier Network，AS4809）</strong>：中国电信自建的国际骨干网，路径更短。其中又分两档：</p>
+<ul>
+<li><strong>CN2 GT</strong>（Global Transit，半程 CN2）：国内段走 163 骨干网（AS4134），国际段走 CN2（AS4809）。</li>
+<li><strong>CN2 GIA</strong>（Global Internet Access，全程 CN2）：全程不走 163，从国内到国际全部走 AS4809。特点是更少拥塞、更少绕路、更少 AS 跳数、SLA 更高。</li>
+</ul>
+<p>类似的还有联通高端线路 <strong>CUII（AS9929）</strong> 和移动国际 <strong>CMI（AS58453）</strong>。</p>
+<p><strong>为什么 VPS 商家喜欢晒 traceroute？</strong> 因为 <code>traceroute</code> 能看到数据包依次经过了哪些 ASN，网络玩家据此判断：经过的 ASN 是否优质、跳数多少、是否绕路（如上海→北京→洛杉矶→东京），从而判断这台 VPS 的网络质量值不值这个价。更详细的三大运营商线路拆解和全球各区域连接质量分析，见十一、十二章。</p>
+<h3 id="3-4-ru-guo-zhong-xin-she-ji-hu-lian-wang">3.4 如果重新设计互联网</h3>
+<p>CIDR 是给分类地址打补丁，IRR 是给 BGP 打补丁，RPKI 是给 IRR 打补丁——整个体系看起来非常"不优雅"。从零重新设计，能不能更好？能，但要拿自治性来换。</p>
+<p>技术上完全可行的方案：一个全球 SDN 控制器，计算全局最优路径，毫秒级重新收敛，自动负载均衡。Google 和 Meta 的内部数据中心网络就远比 BGP 高效。但互联网做不到——因为没有"世界互联网政府"，Google 不会允许中国电信控制它的路由，反之亦然。</p>
+<p>地址管理方面，IPv6 已经吸取了教训：地址空间极大（<code>2^128</code>），宁可多给也不让碎片化。收敛速度方面，OSPF/IS-IS 等链路状态协议能做到秒级收敛，但全球十几万 AS、百万级前缀会让拓扑数据库大到无法维护。</p>
+<p>还有人提出 <strong>Locator/Identifier 分离</strong>（如 LISP、HIP）：把"身份"和"位置"解耦，换 ISP 不用换 IP，迁移不断连。但要让几十亿设备、数百万网络全部升级，兼容性的代价远比技术方案本身大。</p>
+<p>自治性、去中心协调、兼容性——这三者每多要一点，收敛速度和管理复杂度就得少要一点。今天的互联网，就是在这组 trade-off 里不断妥协的结果。</p>
+<h2 id="si-provider-peer-customer-hu-lian-wang-de-shang-ye-guan-xi">四、Provider、Peer、Customer — 互联网的商业关系</h2>
+<h3 id="4-1-san-chong-ji-ben-guan-xi">4.1 三种基本关系</h3>
+<p>AS 之间不仅仅是技术上的连接，更是商业上的关系。三者决定了谁给谁付钱、路由能传播到哪里：</p>
+<table><thead><tr><th>关系</th><th>谁付钱</th><th>获得什么</th></tr></thead><tbody>
+<tr><td><strong>Provider</strong>（上游）</td><td>你付钱</td><td>获得整个互联网的路由</td></tr>
+<tr><td><strong>Customer</strong>（客户）</td><td>对方付钱</td><td>你向其提供整个互联网的路由</td></tr>
+<tr><td><strong>Peer</strong>（对等互联）</td><td>一般互不付费</td><td>只交换彼此及各自客户的路由</td></tr>
+</tbody></table>
+<h3 id="4-2-lu-you-chuan-bo-de-tie-lu">4.2 路由传播的铁律</h3>
+<p>从 Customer 学到的路由 → 可以告诉所有人（因为客户流量赚钱）。</p>
+<p>从 Peer 学到的路由 → <strong>只能</strong>告诉 Customer（否则你就成了免费中转站）。</p>
+<p>从 Provider 学到的路由 → <strong>只能</strong>告诉 Customer（否则你就免费给两个运营商做骨干网）。</p>
+<p>这遵循 <strong>Valley-Free（无谷路由）</strong> 原则：流量路径应当上坡（Customer→Provider）、平路（Peer↔Peer）、下坡（Provider→Customer），而不应该上坡后又下坡再上坡——没人愿意免费为别人的流量买单。</p>
+<h3 id="4-3-peer-bu-yi-ding-mian-fei">4.3 Peer 不一定免费</h3>
+<p>BGP 的 Peer 关系描述的是路由传播策略，而非财务合同。现实中存在 <strong>Paid Peering（付费对等互联）</strong>：仍然是 Peer（只交换双方及客户路由，不提供全互联网 Transit），但因为流量严重不对等，流量大的一方需要补偿。</p>
+<p>中国三大运营商之间在 BGP 层面上大体属于 Peer 关系（不给对方提供全互联网 Transit，主要交换各自路由），但由于流量不对称、网络资源按省核算等原因，长期存在各种结算机制——这就是常说的"省间结算""网间结算"，与 BGP Peer 关系并不矛盾。</p>
+<h2 id="wu-lu-you-ju-he-yu-zui-chang-qian-zhui-pi-pei">五、路由聚合与最长前缀匹配</h2>
+<h3 id="5-1-wei-shen-me-xu-yao-ju-he">5.1 为什么需要聚合</h3>
+<p>假设中国电信拥有 <code>203.0.0.0/15</code>（包含 131072 个地址），下面切分给成千上万个客户。如果不做聚合，向全球 BGP 宣告几千条 <code>/24</code> 路由，全球路由表会爆炸。</p>
+<p>通过<strong>路由聚合</strong>，电信对外只宣告一条 <code>203.0.0.0/15</code>，内部再用更细的前缀做流量工程。这就是 <code>/15</code> 覆盖全部，<code>/22</code> 指向特定机房——最长前缀匹配保证 <code>203.0.113.45</code> 自动走 <code>/22</code> 到新机房，其他地址走 <code>/15</code>，无需修改客户端配置。</p>
+<h3 id="5-2-wei-shen-me-24-bei-shi-wei-quan-qiu-ke-lu-you-de-zui-xiao-dan-wei">5.2 为什么 <code>/24</code> 被视为全球可路由的"最小单位"</h3>
+<p><code>/24</code>（256 个地址）是 IPv4 BGP 宣告的事实最小粒度。很多运营商会拒绝接收 <code>/25</code>、<code>/26</code> 等更长的前缀，原因有二：防止路由表膨胀，也防止攻击者利用更具体的前缀劫持流量（More Specific Prefix Hijacking）。</p>
+<h2 id="liu-irr-yu-rpki-lu-you-an-quan-de-liang-dao-fang-xian">六、IRR 与 RPKI — 路由安全的两道防线</h2>
+<h3 id="6-1-wen-ti-shui-du-neng-mou-chong">6.1 问题：谁都能"冒充"</h3>
+<p>BGP 本身几乎没有认证机制。理论上任何 AS 都可以宣告 <code>8.8.8.0/24</code> 由自己负责。如果其他运营商信了，就会发生 <strong>BGP 劫持（BGP Hijacking）</strong>——用户流量被导向错误的网络，可能被黑洞丢弃、监听甚至中间人攻击。</p>
+<p>IRR 和 RPKI 就是为了解决"如何证明某个 ASN 有资格宣告某个 IP 前缀"这一问题而存在的。</p>
+<h3 id="6-2-irr-internet-routing-registry">6.2 IRR（Internet Routing Registry）</h3>
+<p>IRR 是一个公开的路由注册数据库。运营商在 IRR 中登记：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>route:  8.8.8.0/24</span></span>
+<span class="giallo-l"><span>origin: AS15169</span></span></code></pre>
+<p>其他运营商可以自动生成过滤规则：只允许 AS15169 宣告 <code>8.8.8.0/24</code>，拒绝其他 AS。IRR 的问题在于<strong>没有强认证</strong>：数据可能过期、录错，甚至同一个前缀被多个 AS 同时登记。可以把它理解为一个大家共同维护的 Excel 表，有用但不完全可信。</p>
+<p>IRR 是**联邦式（半去中心化）**的：RADb、APNIC IRR、RIPE IRR 等多个独立数据库并存，没有全球唯一中心。</p>
+<h3 id="6-3-rpki-resource-public-key-infrastructure">6.3 RPKI（Resource Public Key Infrastructure）</h3>
+<p>RPKI 用密码学解决了 IRR 的信任问题。IP 资源持有者创建一个 <strong>ROA（Route Origin Authorization）</strong>，用私钥签名：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>Prefix:  8.8.8.0/24</span></span>
+<span class="giallo-l"><span>Origin:  AS15169</span></span></code></pre>
+<p>路由器收到 BGP 宣告后，用 RPKI 验证 ROA 是否存在、签名是否正确、ASN 是否匹配：</p>
+<ul>
+<li><strong>Valid</strong>：ROA 存在且匹配 → ✅ 接受</li>
+<li><strong>Invalid</strong>：ROA 存在但不匹配（如 AS66666 宣告 <code>8.8.8.0/24</code>） → ❌ 拒绝</li>
+<li><strong>NotFound</strong>：没有 ROA → ⚠️ 接受但信任度降低</li>
+</ul>
+<p>RPKI 的信任链是<strong>层级式 PKI</strong>（IANA → RIR → ISP → 客户），类似 HTTPS 证书链。它不是去中心化的（根信任是固定的），但验证器可以全球分布式部署运行。</p>
+<p>三者的关系：</p>
+<ul>
+<li><strong>BGP</strong>：我负责这个 IP。</li>
+<li><strong>IRR</strong>：我在登记簿上写了我负责这个 IP。</li>
+<li><strong>RPKI</strong>：我拿着数字证书证明我真的负责这个 IP。</li>
+</ul>
+<p>IRR 用于路由管理和自动生成过滤规则，RPKI 用于密码学验证路由来源，现代运营商通常两者配合使用。</p>
+<h2 id="qi-apnic-yu-ip-zi-yuan-guan-li-ti-xi">七、APNIC 与 IP 资源管理体系</h2>
+<h3 id="7-1-quan-qiu-wu-da-shu-ju">7.1 全球五大数据</h3>
+<p>互联网号码资源的管理体系是层级式的：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>IANA（全球总协调）</span></span>
+<span class="giallo-l"><span>├── ARIN（北美）</span></span>
+<span class="giallo-l"><span>├── RIPE NCC（欧洲、中东）</span></span>
+<span class="giallo-l"><span>├── APNIC（亚太）</span></span>
+<span class="giallo-l"><span>├── LACNIC（拉美）</span></span>
+<span class="giallo-l"><span>└── AFRINIC（非洲）</span></span></code></pre>
+<p><strong>APNIC（Asia Pacific Network Information Centre，亚太网络信息中心）</strong> 负责亚太地区（中国、日本、韩国、新加坡、澳大利亚、印度等）的 IPv4、IPv6 和 ASN 分配。APNIC 不管理域名，不管理网站内容，不负责 DNS 根服务器——只管理互联网号码资源。</p>
+<h3 id="7-2-pa-yu-pi">7.2 PA 与 PI</h3>
+<p>从分配方式看，IP 地址分为两种：</p>
+<ul>
+<li><strong>PA（Provider Aggregatable，可聚合的运营商地址）</strong>：APNIC → ISP → 客户。地址属于运营商，换运营商通常要换 IP，但支持路由聚合。最常见。</li>
+<li><strong>PI（Provider Independent，独立地址）</strong>：APNIC → 客户。地址属于客户自己，可跨运营商使用，通常需配合 ASN 和 BGP。适合大型企业。</li>
+</ul>
+<p>在 WHOIS 中常见的 <code>SUB-ALLOCATED PA</code> 表示"这个地址段是运营商从 APNIC 获得后再切分分配给下级客户的 PA 地址"。</p>
+<h3 id="7-3-ipv4-wei-shen-me-fen-pei-ru-ci-bu-jun-heng">7.3 IPv4 为什么分配如此不均衡</h3>
+<p>早期的分类地址体系非常粗放：很多组织直接拿到了 <code>/8</code>（如 IBM <code>9.0.0.0/8</code>、Apple <code>17.0.0.0/8</code>、MIT <code>18.0.0.0/8</code>），每个 <code>/8</code> 包含 1677 万个地址。当时没人预料到互联网会发展成今天的规模。</p>
+<p>如今 IPv4 已经耗尽，新地址基本来自转让市场和回收。RIR 通常不会给个人分配几个 IPv4——不仅因为 BGP 聚合需要较大的连续地址块，也因为每个地址块的管理成本（WHOIS、法务、审计、RPKI）几乎固定。IPv6 的设计吸取了这个教训：地址空间极大（<code>2^128</code>），宁可多给，也不让地址碎片化。</p>
+<h3 id="7-4-ru-he-shen-qing-asn">7.4 如何申请 ASN</h3>
+<p>ASN 由 IANA 通过五大 RIR 分配。中国、日本、新加坡等属于 APNIC 区域。现在申请门槛已经比早年低很多，通常需要：</p>
+<ol>
+<li><strong>拥有自己的公网 IP 资源</strong>（IPv4 或 IPv6）；</li>
+<li><strong>证明有多宿主（Multihoming）需求</strong>——即需要同时接入多个上游运营商，有自己的路由策略；</li>
+<li><strong>支付年费</strong>（包括 ASN 会员费和 IP 地址资源费）。</li>
+</ol>
+<p>个人一般不会直接申请，云厂商、IDC、大型企业比较常见。普通用户通过购买 VPS 或托管服务间接使用运营商的 ASN 和 IP 资源即可。</p>
+<h2 id="ba-as-set-yi-zu-asn-de-ji-he">八、as-set：一组 ASN 的集合</h2>
+<p><strong>as-set</strong> 是 IRR 中的一个对象类型：一组 ASN 的集合。它不会出现在 BGP UPDATE 报文里——只是配置和管理工具。</p>
+<p>大型运营商的客户可能有成百上千个 ASN，手工维护 prefix-list 和 as-path-list 几乎不可能。通过 as-set：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>as-set: AS65000:AS-CUSTOMERS</span></span>
+<span class="giallo-l"><span>members:</span></span>
+<span class="giallo-l"><span>  AS65100</span></span>
+<span class="giallo-l"><span>  AS65101</span></span>
+<span class="giallo-l"><span>  ...</span></span></code></pre>
+<p>配合 <code>bgpq4</code> 等工具，运营商的 BGP 过滤规则可以自动生成，客户增减前缀也能自动同步。as-set 支持嵌套（如 <code>AS-CUSTOMERS</code> 包含 <code>AS-CN</code>、<code>AS-JP</code>、<code>AS-US</code>），非常适合分层管理。</p>
+<h2 id="jiu-zhen-duan-gong-ju-ping-traceroute-yu-mtr">九、诊断工具：Ping、Traceroute 与 MTR</h2>
+<table><thead><tr><th>工具</th><th>回答的问题</th><th>典型用途</th></tr></thead><tbody>
+<tr><td><strong>ping</strong></td><td>能不能到？延迟多少？</td><td>快速检查连通性</td></tr>
+<tr><td><strong>traceroute</strong></td><td>经过了哪些路由器？</td><td>定位路径和故障位置</td></tr>
+<tr><td><strong>mtr</strong></td><td>每一跳长期表现如何？</td><td>深入排查丢包和抖动</td></tr>
+</tbody></table>
+<h3 id="9-1-ping">9.1 Ping</h3>
+<p>Ping 使用 ICMP Echo Request/Echo Reply，协议最简单，但很多网络会限速或屏蔽 ICMP。Ping 只能告诉你"到不到"和"延迟多少"，不知道中间经过了什么。</p>
+<h3 id="9-2-traceroute">9.2 Traceroute</h3>
+<p>Traceroute 利用 IP 头的 TTL（Time To Live）字段：发送 TTL=1 的包，第一跳路由器 TTL 归零后返回 ICMP Time Exceeded；然后 TTL=2……逐步递增，最终拼出完整路径。<strong>无论原始探测包是 ICMP、UDP 还是 TCP，TTL 归零时路由器都会返回 ICMP Time Exceeded</strong>，因此三种协议都能完成 traceroute。</p>
+<p>Linux 默认使用 UDP（目标端口 33434+），Windows 默认使用 ICMP。</p>
+<h3 id="9-3-mtr">9.3 MTR</h3>
+<p>MTR 可以理解为 ping + traceroute + 实时统计的合体：对每一跳持续发送探测包，统计丢包率、平均延迟、最差延迟和抖动。</p>
+<h3 id="9-4-tcp-tan-ce-geng-jie-jin-zhen-shi-ti-yan">9.4 TCP 探测更接近真实体验</h3>
+<p>如果你的真实业务是 TCP（网页、SSH、API），那么 TCP MTR（<code>mtr --tcp --port 443</code>）通常比 ICMP ping 更能反映实际用户体验。很多防火墙会丢弃 ICMP 但放行 TCP 443，导致 ping 100% 丢包而 HTTPS 完全正常。但 TCP 探测只能代表某个端口的表现，不等于所有端口都一样。</p>
+<h3 id="9-5-chang-jian-wu-qu-zhong-jian-tiao-diu-bao-gu-zhang">9.5 常见误区：中间跳丢包 ≠ 故障</h3>
+<p>MTR 中经常看到某中间跳显示高丢包，但最终目的地丢包为 0%。这通常是因为该路由器只是限速了 ICMP 回复，实际转发没有问题。只有最后几跳和目的地也出现丢包时，才是真正的网络故障。</p>
+<h3 id="9-6-mei-tiao-bao-shu-de-ying-xiang">9.6 每跳包数的影响</h3>
+<p>MTR 和 traceroute 中有一个常被忽略的参数：<strong>每跳发送的探测包数量</strong>。它直接影响测量结果的可信度。</p>
+<p><strong>包数太少 → 结果不可靠。</strong> 比如某跳只发了 3 个包、全部收到，丢包率显示 0%，但真实丢包率可能是 2%——3 个包根本测不出来。</p>
+<p><strong>包数越多 → 越容易发现偶发问题。</strong> 发 1000 个包可能抓到间歇性的延迟尖刺（如从 20ms 突然跳到 180ms），而 3 个包看起来永远是"网络非常稳定"。</p>
+<p>代价是耗时更长、占更多带宽。一般几十到几百个包几乎没影响，但几万个包可能被防火墙当作扫描行为限速。</p>
+<p>另外还有一个反直觉的现象：<strong>包越多，中间跳的丢包率反而越高</strong>。这不是网络坏了，而是很多路由器"/回复 ICMP"的优先级远低于"转发数据包"。比如某路由器限制每秒只回复 50 个 ICMP，你发了 1000 个探测包，它可能显示 95% 丢包——但最终目的地丢包 0%，说明转发完全正常，只是路由器"懒得回复你"。</p>
+<p>实战建议：</p>
+<ul>
+<li>快速排障：<code>mtr -c 20 example.com</code>（20 个包，够看大概）</li>
+<li>检查偶发丢包：<code>mtr -c 500 example.com</code>（更容易发现高峰期拥塞）</li>
+<li>给 VPS 商家提交工单：<code>mtr -c 100 your-vps-ip</code></li>
+</ul>
+<h3 id="9-7-nexttrace-xian-dai-lu-you-zhui-zong-gong-ju">9.7 NextTrace：现代路由追踪工具</h3>
+<p><a rel="noopener nofollow noreferrer external" target="_blank" href="https://github.com/nxtrace/Ntrace-core">NextTrace</a> 是一款开源的可视化路由跟踪工具，支持 IPv4/IPv6 以及 ICMP、TCP、UDP 多种协议，可输出终端表格、JSON，甚至在线地图路径。相比传统 traceroute，它的优势在于自动解析每一跳的 ASN 和地理位置，直观展示路径经过了哪些运营商的网络。</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #51597D;font-style: italic;"># IPv4 ICMP 路由跟踪</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nexttrace</span><span style="color: #FF9E64;"> 8.8.8.8</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># TCP 路由跟踪到 443 端口</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nexttrace</span><span style="color: #E0AF68;"> --tcp --port</span><span style="color: #FF9E64;"> 443</span><span style="color: #9ECE6A;"> 2001:4860:4860::8888</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #51597D;font-style: italic;"># 表格输出并关闭反向解析</span></span>
+<span class="giallo-l"><span style="color: #C0CAF5;">nexttrace</span><span style="color: #E0AF68;"> --table --no-rdns</span><span style="color: #9ECE6A;"> www.example.org</span></span></code></pre><h2 id="shi-whois-yu-rdap-cha-xun-zhu-ce-xin-xi">十、WHOIS 与 RDAP — 查询注册信息</h2>
+<h3 id="10-1-whois">10.1 WHOIS</h3>
+<p>WHOIS 是 1980 年代诞生的互联网目录查询协议，使用 TCP 43 端口，返回纯文本。可以用来查询域名、IP 地址、ASN 的注册信息：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>whois AS4134     # 查看中国电信的 ASN 信息</span></span>
+<span class="giallo-l"><span>whois 1.1.1.1    # 查看 Cloudflare 的 IP 信息</span></span></code></pre>
+<p>WHOIS 的问题很明显：没有统一格式（域名、IP、ASN 的返回结构完全不同），纯文本难以程序解析，没有权限控制，国际化支持差。</p>
+<h3 id="10-2-rdap">10.2 RDAP</h3>
+<p>RDAP（Registration Data Access Protocol）是 WHOIS 的现代替代品，使用 HTTPS + REST + JSON：</p>
+<pre class="giallo" style="color: #A9B1D6; background-color: #1A1B26;"><code data-lang="plain"><span class="giallo-l"><span>GET /ip/1.1.1.1</span></span>
+<span class="giallo-l"><span>GET /autnum/4134</span></span></code></pre>
+<p>返回结构化 JSON，支持 UTF-8 国际化、OAuth 权限控制、超媒体链接。程序解析直接 <code>resp["country"]</code> 即可。但 WHOIS 由于历史惯性仍然广泛使用。</p>
+<p>二者与 RPKI/IRR 的关系是互补的：RPKI 负责加密验证路由来源，IRR 描述路由策略，WHOIS/RDAP 提供资源的注册和描述信息。</p>
+<h2 id="shi-yi-guo-nei-san-da-yun-ying-shang-xian-lu-xiang-jie">十一、国内三大运营商线路详解</h2>
+<p>前面 3.3 节从 BGP 路径选择的角度提到了 CN2/GIA，这里展开说每条线路的具体细节。</p>
+<h3 id="11-1-zhong-guo-dian-xin">11.1 中国电信</h3>
+<ul>
+<li><strong>163 骨干网</strong>（ChinaNet）：走 <code>AS4134</code> 路由节点，IP 开头一律是 <code>202.97.*</code>，全程不经过 CN2 网络节点。已知出口：北京、上海、广州。这是最普通、最普遍的电信家宽线路。</li>
+<li><strong>CN2</strong>（中国电信下一代承载网，<code>AS4809</code>）：分为两档：
+<ul>
+<li><strong>CN2 GT</strong>（Global Transit，半程 CN2）：国内段走 163 骨干网（<code>AS4134</code>），国际段走 CN2（<code>AS4809</code>）。出国前是 <code>202.97</code> 开头，出国后走 <code>59.43</code> 开头的 CN2 节点。性价比高于纯 163，但高峰期仍可能拥堵。</li>
+<li><strong>CN2 GIA</strong>（Global Internet Access，全程 CN2）：全程不经过 163 骨干网，从国内到国际全部走 <code>AS4809</code>，IP 开头一律是 <code>59.43.*</code>。已知出口：北京、上海、广州、乌鲁木齐。更少拥塞、更少绕路、SLA 更高，价格也最贵。</li>
+</ul>
+</li>
+</ul>
+<h3 id="11-2-zhong-guo-lian-tong">11.2 中国联通</h3>
+<ul>
+<li><strong>联通 169 网络</strong>（CHINA169）：由原中国网通（CHINA169）和原中国联通（UNINET）骨干网合并而来，全程走 <code>AS4837</code>，IP 开头 <code>219.158.*</code>。已知出口：北京、上海、广州。最普通的联通家宽线路。</li>
+<li><strong>联通 A 网</strong>（CUII，常称 9929）：走 <code>AS9929</code>，IP 开头 <code>218.105.*</code> / <code>210.*</code>，对标电信 CN2 GIA。已知出口：北京、上海、广州。延迟极低、几乎不丢包，但价格比 CN2 GIA 还贵。</li>
+<li><strong>联通国际 CUG</strong>：走 <code>AS10099</code>，提供至大陆方向的差异化接入。分两档：普通 CUG（<code>AS10099 → AS4837</code>）和 CUG VIP（<code>AS10099 → AS9929 → AS4837</code>）。</li>
+</ul>
+<p>联通常见的线路组合：</p>
+<table><thead><tr><th>内地段</th><th>境外段</th><th>等级</th></tr></thead><tbody>
+<tr><td>AS4837</td><td>AS4837</td><td>普通 169</td></tr>
+<tr><td>AS4837</td><td>AS10099</td><td>中高端</td></tr>
+<tr><td>AS9929</td><td>AS10099</td><td>高端（China Unicom Premium）</td></tr>
+</tbody></table>
+<h3 id="11-3-zhong-guo-yi-dong">11.3 中国移动</h3>
+<ul>
+<li><strong>中国移动骨干网</strong>（CMNET）：国内必走 <code>AS9808</code>，IP 开头 <code>221.176.*</code> / <code>221.183.*</code>，部分会并入原铁通 <code>AS9314</code> 或电信 163 / 联通 169。已知出口：北京、上海、广州。</li>
+<li><strong>移动国际骨干网</strong>（CMI，<code>AS58453</code>）：承接所有 AS9808 出境流量。</li>
+<li><strong>中国教育网</strong>（CERNET）：走 <code>AS4538</code>，覆盖各大高校和部分大型国内云服务商，已知出口：北京清华大学。</li>
+</ul>
+<h3 id="11-4-xian-lu-lei-xing-bu-chong">11.4 线路类型补充</h3>
+<p><strong>BGP 专线</strong>：将电信、联通、移动等多条线路融合为一个 IP，路由器根据实时数据自动选择最优路径。当一条线路故障时自动切到另一条，实现高可用。</p>
+<p><strong>IPLC / IEPL</strong>：</p>
+<ul>
+<li><strong>IPLC</strong>（International Private Leased Circuit，国际专线）：点对点跨国专线，不经过公网，完全不过墙。比如深港 IPLC 就是从深圳到香港的点对点内网传输。</li>
+<li><strong>IEPL</strong>（International Ethernet Private Line，国际以太网专线）：二层电路，性能优于 IPLC，价格也更贵。对普通用户来说两者体验差距不大，IPLC 性价比更高。</li>
+</ul>
+<p><strong>QoS</strong>（Quality of Service）：网络高峰期选择性丢包的机制。简单说就是——高峰期优先保证高优先级客户的流量通行，低优先级客户的包先被丢掉。跟银行的 VIP 窗口一个道理。家宽用户的 QoS 等级通常低于企业客户。</p>
+<h2 id="shi-er-quan-qiu-ge-qu-yu-lian-jie-zhi-liang">十二、全球各区域连接质量</h2>
+<p>以下整理了各主要区域到中国大陆的连接情况。"可直连骨干网"指该 ISP 在中国大陆有 peer/互联点的运营商。未标注的骨干网则需绕行第三方。</p>
+<h3 id="12-1-xiang-gang">12.1 香港</h3>
+<p>香港是离大陆最近的海外数据中心枢纽，对南方用户延迟最低。</p>
+<ul>
+<li><strong>CMI</strong>（移动国际）：移动自己的国际骨干网，在香港卖 Transit。接入足够 CMI 带宽的下游商家，对移动用户质量极高。电信和联通用户也能获得不错的质量，但优先级低于移动用户。</li>
+<li><strong>CUG</strong>（联通国际）：同 CMI 的逻辑，联通用户访问质量最好。</li>
+<li><strong>NTT</strong>（香港）：只有电信 CN2（<code>AS4809</code>）和移动 CMI（<code>AS58453</code>）可直连。电信 163 和联通 169 都会绕日本或美国。CN2 到香港 NTT 稳定性有时不佳——延时会剧烈抖动，追求稳定不推荐。</li>
+<li><strong>PCCW / HKT</strong>：电信 163、CN2、联通 169/9929、移动 CMI 均可直连。联通到 PCCW 效果远好于电信，联通 9929 质量最高但价格昂贵。移动 CMI 路由不稳定——可能随机绕美、日、港三地——不推荐移动用户使用。HKT 可走 PCCWG 与德国直连，被部分玩家称为"打机神线"。</li>
+<li><strong>CHT</strong>（中华电信，台湾第一大运营商）：电信 163 质量已大幅下降，不推荐。联通 169 表现好得多。移动 CMI 高峰极度拉胯。</li>
+</ul>
+<h3 id="12-2-tai-wan">12.2 台湾</h3>
+<ul>
+<li><strong>HiNet</strong>（中华电信旗下，全台最大宽带商）：电信、联通、移动均可直连，但电信和联通延迟偏高。HiNet 拥有台湾最大的骨干网和国内出口流量。CHT 另有 TWGate 网络专注国际互联，性质类似电信 CN2。</li>
+<li>其他常见运营商：TFN（台湾固网）、SeedNet、TaNet（学术网络）。</li>
+</ul>
+<h3 id="12-3-ri-ben">12.3 日本</h3>
+<p>日本宽带竞争激烈，价格低但质量参差不齐。很多日本 IDC 只对本国居民开放，催生了大量代办服务（如樱花机房）。</p>
+<ul>
+<li><strong>NTT</strong>（日本）：电信 163 和日本 NTT 互联频繁爆炸（大量 DDoS 流量导致），不推荐用于生产。联通 9929 到日本 NTT 是目前延迟最低且最稳定的渠道之一。CN2 到日本 NTT 反而不如 9929。</li>
+<li><strong>IIJ</strong>：电信 163 到日本最好的线路之一，性价比高。联通 169 质量优于 163。移动 CMI 已通过东京 PoP 直连（而非绕香港），上海移动参考延迟约 45ms。推荐作为日本 VPS 的首选线路。</li>
+<li><strong>BBTEC</strong>（软银）：联通到日本最好的线路之一，在上海设有 PoP 与联通 169/9929 互联。联通 9929 到软银延迟极低且稳定。但移动去程全部绕香港 CMI，对北方移动不友好。电信 163 速度有限。使用人数增加后延迟已不如 IIJ。</li>
+</ul>
+<h3 id="12-4-xin-jia-po">12.4 新加坡</h3>
+<ul>
+<li><strong>NTT</strong>（新加坡）：电信 163 虽于 2020 年与新加坡 NTT 建立互联，但因互联带宽极小，几乎全天塞满，延迟高、丢包严重，非常不推荐。移动 CMI 在新加坡有自有 PoP，互联带宽大，是目前移动用户访问新加坡的主流渠道。联通均不能直连新加坡 NTT。</li>
+<li>其他常见运营商：Singtel、Telstra、StarHub、MyRepublic、PCCW(G)。</li>
+</ul>
+<h3 id="12-5-han-guo">12.5 韩国</h3>
+<p>韩国本土网络发达（KT、SKT、LG 三大 ISP），但到大陆的带宽与路由质量差强人意。绕路与直连汇聚层日常堵塞，丢包和抖动较严重（虽不如 163-NTT 那么极端）。购买也较麻烦，不建议折腾。</p>
+<ul>
+<li><strong>KT</strong>（Korea Telecom，韩国最大运营商）：电信 163/CN2 走 APG 海缆经上海出口，非高峰期单线程 100-200Mbps，高峰期受限于汇聚层和 peer 带宽。联通 9929 到 KT 同样走上海出口，延迟极低——最低延迟逼近沪韩 IPLC，但偶尔抖动。</li>
+</ul>
+<h3 id="12-6-ou-zhou">12.6 欧洲</h3>
+<ul>
+<li><strong>DTAG</strong>（德国电信，T1 级）：电信 163 普通家宽会被强制丢包。联通 169 取决于汇聚层是否拥塞，且南方联通会绕美。联通 9929 延迟甚至优于 163/4837，但单线程速度约 80Mbps。</li>
+<li><strong>Cogentco</strong>：联通 9929 的互联主力——几乎绝大部分欧美线路到 9929 都会被 Cogentco 宣告，导致回程有时不愿走 DTAG 而硬跑 Cogentco。速度玄学：单线程 50Mbps 摇摆，多线程几乎跑满。</li>
+</ul>
+<h3 id="12-7-mei-guo">12.7 美国</h3>
+<p>洛杉矶和圣何塞是美西面向亚太的核心 PoP 中心，TPE 海缆多从此处接入。中美互联占据了出境流量的很大比例。</p>
+<ul>
+<li><strong>HE</strong>（Hurricane Electric，<code>AS6939</code>）：坐拥全球最大 IPv6 骨干网（以 peer 数量计）。电信 163 和 HE 在洛杉矶有 10-20G 互联，鲜有大幅抖动但速度受限。联通 169 和 HE 的互联在廉价方案中性价比很高，好于联通 169 到 GTT。移动 CMI 与美西互联一直较差，不推荐。</li>
+<li><strong>GTT</strong>：联通 169 在美西大量依赖 GTT，延迟偏高、速度不乐观。电信 163 到 GTT 反而出乎意料地好——全天几乎不丢包，只要汇聚层通畅。</li>
+<li><strong>Telia</strong>（瑞典电信，现名 Arelion）：在美国和欧洲都与电信 163 有互联，中规中矩。</li>
+<li><strong>Cogentco</strong>：电信 163 在美西大量依赖 Cogentco，日常爆炸。</li>
+<li><strong>Verizon</strong>：只和联通 9929 互联，单线程 50-70Mbps，多线程能跑满，玄学。</li>
+</ul>
+<blockquote>
+<p>欧美的网络生态与亚太差异较大。中小 ISP 多依赖 IX 互联或机房托管混合接入，很少出现亚太地区那种区域性 T1 或高质量 T1 ISP。商业带宽价格比亚洲便宜得多，但对中国用户的回程路由质量很难保证。</p>
+</blockquote>
+<hr />
+<p><strong>Done.</strong></p>
+
+        </div>
+
+            
+        <div class="pagination">
+            <div class="pagination__title">
+                <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                <hr />
+            </div>
+            <div class="pagination__buttons">
+                    <span class="button previous">
+                        <a href="https://blog.dich.bid/about-git/">
+                            <span class="button__icon">←</span>&nbsp;
+                            <span class="button__text">乱七八糟:Git使用简明手册</span>
+                        </a>
+                    </span>
+                
+                
+                    <span class="button next">
+                        <a href="https://blog.dich.bid/network-how-email-works-1/">
+                            <span class="button__text">网络艺术:电子邮件的工作原理</span>&nbsp;
+                            <span class="button__icon">→</span>
+                        </a>
+                    </span>
+                </div>
+        </div>
+    
+        </div>
+        <div class="toc-container">
+            <div class="toc">
+                <div class="toc-title">目录</div>
+                <ul>
+                
+                    <li class="toc-level-2">
+                        <a href="#yi-ip-di-zhi-yu-cidr">一、IP 地址与 CIDR</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#1-1-shen-me-shi-cidr">1.1 什么是 CIDR</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#1-2-cidr-wei-shen-me-bei-fa-ming">1.2 CIDR 为什么被发明</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#1-3-yi-ge-ip-ke-yi-tong-shi-shu-yu-duo-ge-qian-zhui">1.3 一个 IP 可以同时属于多个前缀</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#er-asn-hu-lian-wang-de-shen-fen-zheng">二、ASN — 互联网的&quot;身份证&quot;</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#2-1-shen-me-shi-zi-zhi-xi-tong-as">2.1 什么是自治系统（AS）</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#2-2-asn-de-zuo-yong">2.2 ASN 的作用</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#2-3-jia-kuan-asn-yu-ji-fang-asn">2.3 家宽 ASN 与机房 ASN</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#san-bgp-as-zhi-jian-de-tong-xin-xie-yi">三、BGP — AS 之间的通信协议</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#3-1-bgp-shi-shen-me">3.1 BGP 是什么</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#3-2-bgp-wei-shen-me-shou-lian-man">3.2 BGP 为什么收敛慢</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#3-3-bgp-de-shi-ji-ying-yong-cn2-gia-yu-kua-jing-xian-lu-you-hua">3.3 BGP 的实际应用：CN2&#x2F;GIA 与跨境线路优化</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#3-4-ru-guo-zhong-xin-she-ji-hu-lian-wang">3.4 如果重新设计互联网</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#si-provider-peer-customer-hu-lian-wang-de-shang-ye-guan-xi">四、Provider、Peer、Customer — 互联网的商业关系</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#4-1-san-chong-ji-ben-guan-xi">4.1 三种基本关系</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#4-2-lu-you-chuan-bo-de-tie-lu">4.2 路由传播的铁律</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#4-3-peer-bu-yi-ding-mian-fei">4.3 Peer 不一定免费</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#wu-lu-you-ju-he-yu-zui-chang-qian-zhui-pi-pei">五、路由聚合与最长前缀匹配</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#5-1-wei-shen-me-xu-yao-ju-he">5.1 为什么需要聚合</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#5-2-wei-shen-me-24-bei-shi-wei-quan-qiu-ke-lu-you-de-zui-xiao-dan-wei">5.2 为什么 &#x2F;24 被视为全球可路由的&quot;最小单位&quot;</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#liu-irr-yu-rpki-lu-you-an-quan-de-liang-dao-fang-xian">六、IRR 与 RPKI — 路由安全的两道防线</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#6-1-wen-ti-shui-du-neng-mou-chong">6.1 问题：谁都能&quot;冒充&quot;</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#6-2-irr-internet-routing-registry">6.2 IRR（Internet Routing Registry）</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#6-3-rpki-resource-public-key-infrastructure">6.3 RPKI（Resource Public Key Infrastructure）</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#qi-apnic-yu-ip-zi-yuan-guan-li-ti-xi">七、APNIC 与 IP 资源管理体系</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-1-quan-qiu-wu-da-shu-ju">7.1 全球五大数据</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-2-pa-yu-pi">7.2 PA 与 PI</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-3-ipv4-wei-shen-me-fen-pei-ru-ci-bu-jun-heng">7.3 IPv4 为什么分配如此不均衡</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#7-4-ru-he-shen-qing-asn">7.4 如何申请 ASN</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#ba-as-set-yi-zu-asn-de-ji-he">八、as-set：一组 ASN 的集合</a>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#jiu-zhen-duan-gong-ju-ping-traceroute-yu-mtr">九、诊断工具：Ping、Traceroute 与 MTR</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-1-ping">9.1 Ping</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-2-traceroute">9.2 Traceroute</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-3-mtr">9.3 MTR</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-4-tcp-tan-ce-geng-jie-jin-zhen-shi-ti-yan">9.4 TCP 探测更接近真实体验</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-5-chang-jian-wu-qu-zhong-jian-tiao-diu-bao-gu-zhang">9.5 常见误区：中间跳丢包 ≠ 故障</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-6-mei-tiao-bao-shu-de-ying-xiang">9.6 每跳包数的影响</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#9-7-nexttrace-xian-dai-lu-you-zhui-zong-gong-ju">9.7 NextTrace：现代路由追踪工具</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#shi-whois-yu-rdap-cha-xun-zhu-ce-xin-xi">十、WHOIS 与 RDAP — 查询注册信息</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#10-1-whois">10.1 WHOIS</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#10-2-rdap">10.2 RDAP</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#shi-yi-guo-nei-san-da-yun-ying-shang-xian-lu-xiang-jie">十一、国内三大运营商线路详解</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#11-1-zhong-guo-dian-xin">11.1 中国电信</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#11-2-zhong-guo-lian-tong">11.2 中国联通</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#11-3-zhong-guo-yi-dong">11.3 中国移动</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#11-4-xian-lu-lei-xing-bu-chong">11.4 线路类型补充</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                    <li class="toc-level-2">
+                        <a href="#shi-er-quan-qiu-ge-qu-yu-lian-jie-zhi-liang">十二、全球各区域连接质量</a>
+                        
+                            <ul>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-1-xiang-gang">12.1 香港</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-2-tai-wan">12.2 台湾</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-3-ri-ben">12.3 日本</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-4-xin-jia-po">12.4 新加坡</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-5-han-guo">12.5 韩国</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-6-ou-zhou">12.6 欧洲</a>
+                                    
+                                </li>
+                            
+                                <li class="toc-level-3">
+                                    <a href="#12-7-mei-guo">12.7 美国</a>
+                                    
+                                </li>
+                            
+                            </ul>
+                        
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+            </div>
+        </main>
+    
+            <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2026
+ Dichgrem</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep"> :: CC BY-SA 4.0 :: A friend comes from distant lands</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+</div>
+    <script src="https://blog.dich.bid/copy.js"></script>
+    
+    <script>
+        (function() {
+            const tocLinks = document.querySelectorAll('.toc a');
+            const ids = Array.from(tocLinks, a => document.getElementById(a.getAttribute('href').slice(1)));
+            const container = document.querySelector('.toc-container');
+            let prevLink = null;
+            let navEnd = 0;
+
+            window.addEventListener('hashchange', () => { navEnd = Date.now() + 1500; });
+            tocLinks.forEach(a => {
+                a.addEventListener('click', () => { navEnd = Date.now() + 1500; });
+            });
+
+            function scrollTocTo(link) {
+                const cr = container.getBoundingClientRect();
+                const lr = link.getBoundingClientRect();
+                const target = container.scrollTop + (lr.top - cr.top) - (cr.height / 2) + (lr.height / 2);
+                container.scrollTo({ top: target, behavior: 'smooth' });
+            }
+
+            function onScroll() {
+                let active = null;
+                for (const el of ids) {
+                    if (el && el.getBoundingClientRect().top <= 100) active = el;
+                }
+                if (active) {
+                    const link = tocLinks[ids.indexOf(active)];
+                    if (link !== prevLink) {
+                        if (prevLink) prevLink.classList.remove('active');
+                        link.classList.add('active');
+                        prevLink = link;
+                    }
+                    if (Date.now() > navEnd) scrollTocTo(link);
+                }
+            }
+            window.addEventListener('scroll', onScroll, {passive: true});
+            onScroll();
+        })();
+    </script>
+    
+<button class="back-to-top" id="back-to-top" title="回到顶部">↑</button>
+<script>
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
+
