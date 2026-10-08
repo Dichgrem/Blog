@@ -277,6 +277,221 @@ adb pull /sdcard/partition_backup/ ./backup/
 | **vendor.img / vendor\_boot.img / vendor\_dlkm.img**     | 厂商驱动层及扩展，vendor\_boot 是引导层，dlkm 是模块。                  |
 | **xbl.img / xbl\_config.img / xbl\_ramdump.img**         | Qualcomm XBL（eXtensible Boot Loader）引导，加载 ABL 等；ramdump 用于调试。                           |
 
+### 安卓变迁
+
+| 版本                                | API Level | 正式发布日期     | 主要特性 & 重大更新                                                                             |
+| --------------------------------- | --------- | ---------- | --------------------------------------------------------------------------------------- |
+| **Android 6.0 Marshmallow (M)**   | 23        | 2015‑10‑05 | - 运行时权限模型改进<br>- Doze 节电模式与 App Standby<br>- 原生指纹识别 API                                 |
+| **Android 7.0 Nougat (N)**        | 24        | 2016‑08‑22 | - A/B 分区（Seamless Updates）<br>- ART 增加 JIT 与 Profile-guided 编译<br>- 原生多窗口分屏、多语言快速切换     |
+| **Android 8.0 Oreo (O)**          | 26        | 2017‑08‑21 | - Project Treble 分离厂商实现<br>- 通知渠道 & 画中画支持<br>- 自适应图标与自动填充框架                             |
+| **Android 9.0 Pie (P)**           | 28        | 2018‑08‑06 | - 全面手势导航<br>- Adaptive Battery（基于 ML 的电池管理）<br>- Slices 动态应用片段与多镜头相机 API                |
+| **Android 10**                    | 29        | 2019‑09‑03 | - 动态分区（Dynamic Partitions）<br>- Project Mainline（APEX 模块更新）<br>- 强制设备加密与 Scoped Storage |
+| **Android 11 (R)**                | 30        | 2020‑09‑08 | - Virtual A/B 无缝更新<br>- DSU 动态系统更新<br>- 一次性权限与更细粒度隐私控制                                  |
+| **Android 12 (S)**                | 31        | 2021‑10‑04 | - 引入 GKI（Generic Kernel Image）<br>- Material You 设计与主题色自定义<br>- 隐私仪表盘与麦克风/摄像头指示器        |
+| **Android 13 (Tiramisu)**         | 33        | 2022‑08‑15 | - 扩展 GKI 兼容性<br>- App 操作单次授权与批量通知权限<br>- Wi‑Fi 7 与 Bluetooth LE Audio                   |
+| **Android 14 (Upside Down Cake)** | 34        | 2023‑10‑04 | - 增强 GKI 驱动模块化<br>- 可选沙盒模式增强隐私<br>- 蓝牙 LE 安全性改进与神经网络 API 优化                             |
+
+### 编译阶段符号
+
+| 缩写符号       | 含义全称                    | 作用/用途                                    | 对应工具或文件                              |
+| ---------- | ----------------------- | ---------------------------------------- | ------------------------------------ |
+| `CC`       | C Compiler              | 编译 `.c` 文件为目标文件 `.o`                     | `gcc` 或 `clang`                      |
+| `LD`       | Linker                  | 链接所有目标文件，生成内核镜像如 `vmlinux`               | `ld`（GNU ld）或 `lld`（LLVM）            |
+| `AR`       | Archiver                | 将多个 `.o` 文件打包成 `.a` 静态库                  | `ar` 工具                              |
+| `AS`       | Assembler               | 汇编器，将 `.S` 汇编源码编译为 `.o`                  | `as`（通常通过 `gcc -c` 调用）               |
+| `LDS`      | Linker Script           | 链接器脚本，控制最终内核镜像段的布局                       | `vmlinux.lds.S` 等                    |
+| `UPD`      | Update                  | 表示更新生成的文件（如头文件、符号）                       | 非真实命令，仅是编译日志标识                       |
+| `BTF`      | BPF Type Format         | 注入或生成用于 BPF 的类型调试信息                      | `pahole` 工具（来自 `dwarves` 包）          |
+| `HOSTCC`   | Host C Compiler         | 编译运行在主机上的工具（如 `genksyms`、`fixdep`）       | `gcc`/`clang`，但运行在编译主机               |
+| `HOSTCXX`  | Host C++ Compiler       | 编译运行在主机上的 C++ 工具（如果需要）                   | `g++` 或 `clang++`                    |
+| `HOSTAR`   | Host Archiver           | 用于主机端静态库打包工具（较少用）                        | `ar`                                 |
+| `DTC`      | Device Tree Compiler    | 编译设备树 `.dts` 为 `.dtb`，用于嵌入式设备启动时加载硬件描述信息 | `dtc`                                |
+| `OBJCOPY`  | Object Copy Tool        | 复制和转换 ELF 段，如提取镜像或去除符号                   | `objcopy`                            |
+| `OBJDUMP`  | Object Dump Tool        | 查看和反汇编 ELF/目标文件内容                        | `objdump`                            |
+| `NM`       | Symbol Table Dumper     | 显示 `.o` 或 ELF 中的符号表（函数、变量等）              | `nm`                                 |
+| `STRIP`    | Strip Symbols           | 移除目标文件中的调试符号（减小体积）                       | `strip`                              |
+| `READELF`  | ELF Reader              | 查看 ELF 文件结构（节、段、符号、调试信息）                 | `readelf`                            |
+| `MAKE`     | GNU Make                | 构建系统驱动工具，执行 Makefile                     | `make`                               |
+| `MODPOST`  | Module Post-Processor   | 内核模块后处理工具，生成符号依赖、版本信息等                   | `scripts/mod/modpost`（由 `HOSTCC` 构建） |
+| `GENKSYMS` | Generate Kernel Symbols | 生成内核符号 CRC 校验（用于内核模块 ABI 兼容性检查）          | `scripts/genksyms/genksyms`          |
+
+
+## 编译内核
+
+### 获取config
+
+1. 下载rom包并解压
+2. payload-dumper-go payload.bin
+3. binwalk --extract boot.img
+4. cd ./extractions/ && cd ./boot.img.extracted/ && find . -type f -exec file {} \;
+5. cp ./18054A8/decompressed.bin extracted.config
+
+```text
+./18054A8/decompressed.bin: Linux make config build file, ASCII text
+./1810D11/decompressed.bin: POSIX tar archive (GNU)
+./2B3594C/dev/console: empty
+./extracted.config: Linux make config build file, ASCII text
+```
+
+### 环境搭建
+
+1. 前置条件：Ubuntu24.04虚拟机，空间足够，网络代理快
+2. 获得内核源码，对应的/proc/config.gz,以及谷歌官方编译器，和gcc编译器
+
+```bash
+wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz
+
+wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/mirror-goog-main-llvm-toolchain-source/clang-r563880c.tar.gz
+```
+
+```bash
+mkdir clang-r563880c
+tar -xzf clang-r563880c.tar.gz -C clang-r563880c
+```
+
+```bash
+git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64-linux-android-4.9 --depth=1
+
+git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 arm-linux-androideabi-4.9 --depth=1
+```
+
+```bash
+git clone <https://github.com/crdroidandroid/android_kernel_oneplus_sm8650-modules.git> sm8650-modules
+```
+
+3. 将``/config.gz``解压并放入``kernel/source/android_kernel_oneplus_sm8650/arch/arm64/configs``中，改名为``config_defconfig``；
+4. 将脚本放入内核源码目录下，并``chmod -R 777 *``，执行``LTO=thin ./build_gki.sh``
+5. 随后``rm android/abi_gki_protected_exports_*``，再执行一遍``LTO=thin ./build_gki.sh``
+6. 最后的编译结果在``/out``下，`get /home/dich/kernel/source/android_kernel_oneplus_sm8650/out/arch/arm64/boot/Image D:\`
+
+### 加入sukisu
+
+```bash
+curl -LSs <https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh> | bash -s builtin
+```
+
+### 加入susfs
+
+```bash
+git clone <https://gitlab.com/simonpunk/susfs4ksu.git>
+cd susfs4ksu
+git checkout origin/gki-android14-6.1
+
+cp ./kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch ../KernelSU/
+cp ./kernel_patches/50_add_susfs_in_gki-android14-6.1.patch ../
+cp ./kernel_patches/fs/* ../fs/
+cp ./kernel_patches/include/linux/* ../include/linux/
+cd ../KernelSU
+
+patch -p1 < 10_enable_susfs_for_ksu.patch
+cd ../
+patch -p1 < 50_add_susfs_in_gki-android14-6.1.patch
+```
+
+```text
+CONFIG_KSU_SUSFS=y
+CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y
+CONFIG_KSU_SUSFS_SUS_PATH=y
+CONFIG_KSU_SUSFS_SUS_MOUNT=y
+CONFIG_KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT=y
+CONFIG_KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT=y
+CONFIG_KSU_SUSFS_SUS_KSTAT=y
+CONFIG_KSU_SUSFS_SUS_OVERLAYFS=n
+CONFIG_KSU_SUSFS_TRY_UMOUNT=y
+CONFIG_KSU_SUSFS_AUTO_ADD_TRY_UMOUNT_FOR_BIND_MOUNT=y
+CONFIG_KSU_SUSFS_SPOOF_UNAME=y
+CONFIG_KSU_SUSFS_ENABLE_LOG=y
+CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y
+CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y
+CONFIG_KSU_SUSFS_OPEN_REDIRECT=y
+
+CONFIG_KSU_SUSFS=y
+CONFIG_KSU_SUSFS_SUS_PATH=y
+CONFIG_KSU_SUSFS_SUS_MOUNT=y
+CONFIG_KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT=y
+CONFIG_KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT=y
+CONFIG_KSU_SUSFS_SUS_KSTAT=y
+CONFIG_KSU_SUSFS_TRY_UMOUNT=y
+CONFIG_KSU_SUSFS_AUTO_ADD_TRY_UMOUNT_FOR_BIND_MOUNT=y
+CONFIG_KSU_SUSFS_SPOOF_UNAME=y
+CONFIG_KSU_SUSFS_ENABLE_LOG=y
+CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y
+CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y
+CONFIG_KSU_SUSFS_OPEN_REDIRECT=y
+CONFIG_KSU_SUSFS_SUS_SU=y
+CONFIG_KSU_SUSFS_SUS_MAP=y
+```
+
+### 加入其他功能
+
+
+```bash
+mkdir -p kernel/configs
+
+cat > kernel/configs/bbr.config <<'EOF'
+```
+
+```text
+CONFIG_TCP_CONG_ADVANCED=y
+CONFIG_TCP_CONG_BBR=y
+CONFIG_DEFAULT_BBR=y
+CONFIG_DEFAULT_TCP_CONG="bbr"
+EOF
+```
+
+```bash
+export ARCH=arm64
+export KCONFIG_CONFIG=arch/arm64/configs/config_defconfig.new
+
+scripts/kconfig/merge_config.sh -m arch/arm64/configs/config_defconfig kernel/configs/bbr.config
+mv arch/arm64/configs/config_defconfig.new arch/arm64/configs/config_defconfig
+```
+- 检查bbr是否开启
+
+```bash
+sysctl net.ipv4.tcp_available_congestion_control
+sysctl net.ipv4.tcp_congestion_control
+```
+
+### 使用ssh连接termux
+
+termux 下：
+
+```bash
+pkg install fastfetch iproute2 which openssh
+pkg install git clang make cmake
+whoami sshd passwd
+```
+
+windows 上：
+```bash
+adb forward tcp:8022 tcp:8022
+ssh -p 8022 u0_a403@127.0.0.1
+```
+
+安装 nvim：
+```bash
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
+nvim
+```
+
+允许访问：
+```bash
+termux-setup-storage
+```
+
+访问家目录：
+```bash
+cd ./storage/shared
+```
+
+
+执行root权限命令：
+```bash
+su -c 'ip addr'
+```
+
 ## **参考**
 
 - [lineageos镜像](https://download.lineageos.org/devices/lmi/builds)
