@@ -179,6 +179,7 @@ tags = ["Windows"]
 - **浏览器**: [Firefox](https://www.mozilla.org/zh-CN/firefox/all/desktop-release/) / [Chrome](https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe)
 - **编辑器**: [Vscode](https://github.com/microsoft/vscode) / [Zed](https://github.com/zed-industries/zed)
 - **虚拟机**: [WSL](github.com/microsoft/WSL)
+- **垃圾清理**: [FluentCleaner](https://github.com/builtbybel/FluentCleaner)
 - **快捷键**: [AutoHotkey](https://github.com/AutoHotkey/AutoHotkey)
 - **科学上网**: [Husi](https://github.com/xchacha20-poly1305/husi)
 - **书籍阅读**: [Readest](https://github.com/readest/readest)
