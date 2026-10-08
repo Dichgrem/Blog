@@ -846,6 +846,143 @@ apk update
 apk upgrade
 ```
 
+## 教学大纲备忘
+
+```bash
+<跟着佐大学openwrt开发入门培训班>教学大纲：
+
+1.路由器硬件、软件的发展历史和演变。
+2.路由器的硬件、软件架构分析。
+3.OpenWRT开发环境配置。
+4.make menuconfig常用选项的含义。
+5.Bootloader、固件的关系，以及常见Flash布局方式。
+6.固件结构分析，固件头的作用。
+7.交叉编译工具链的原理和使用方法。
+8.OpenWRT Package结构分析。
+9.如何移植、编写简单的软件。
+10.OpenWRT UI框架发展历史讲解，石像鬼、X-WRT、Luci。
+11.基于uhttpd,lua编写简单的UI界面，基于Luci编写简单的UI界面。
+12.OpenWrt常用命令使用方法讲解，bash/lua讲解。
+13.OpenWrt UCI框架分析，/etc/config/network、/etc/config/wireless 等文件讲解。
+14.OpenWrt sysupgrade命令实现原理分析。
+15.OpenWrt 启动过程分析。
+16.OpenWrt ipkg软件包结构分析。
+17.OpenWrt mtd flash映射关系分析，art、eeprom、nvram、factory分区作用讲解。
+18.OpenWrt挂载U盘、SD卡等，讲解hotplug的运行机制。
+19.OpenWrt无线工作模式：station模式、ap模式、monitor模式讲解。
+20.OpenWrt patch补丁原理。
+21.OpenWrt ubus通讯分析。
+22.NAND Flash与UBI、UBI卷、UBI固件。
+
+已录制课程内容列表：
+
+课时00-关于网络上盗版视频的看法.mp4
+课时00-我为什么做OpenWrt开发视频教程？.mp4
+课时01-路由器的软硬件构成上篇.mp4
+课时01-路由器的软硬件构成下篇.mp4
+课时02-路由器固件开发的一般流程是什么？.mp4
+课时03-如何配置OpenWrt开发环境？.mp4
+课时04-如何扩充虚拟机磁盘容量？.mp4
+课时05-如何编译OpenWrt？.mp4
+课时06-如何在Uboot下升级固件？MTK Uboot篇.mp4
+课时06-如何在Uboot下升级固件？QCA Uboot篇.mp4
+课时07-OpenWrt编译环境目录结构分析.mp4
+课时08-如何使用文本编辑器vi、vim？.mp4
+课时09-路由器的启动过程分析.mp4
+课时10-make menuconfig 菜单选项分析.mp4
+课时11-OpenWrt 文件系统目录结构分析.mp4
+课时12-Makefile入门教程.mp4
+课时13- OpenWrt package Makefile 分析.mp4
+课时14-OpenWrt 启动过程分析.mp4
+课时15-OpenWrt 常用命令.mp4
+课时16-OpenWrt UCI框架分析.mp4
+课时17-OpenWrt ubus框架分析.mp4
+课时18-OpenWrt hotplug机制分析.mp4
+课时19-OpenWrt opkg包管理机制分析.mp4
+课时20-OpenWrt 常见文件系统介绍.mp4
+课时21-OpenWrt 固件的结构分析、如何逆向解包.mp4
+课时22-如何创建OpenWrt package.mp4
+课时23-OpenWrt 如何创建开机自启动服务.mp4
+课时24-OpenWrt opkg特性应用实例（升级时保留配置文件、opkg install remove 时保留配置文件).mp4
+课时25-OpenWrt Cron 定时任务.mp4
+课时26-OpenWrt GPIO框架及应用.mp4
+课时27-OpenWrt 基于GPIO、Hotplug、DTS 的按键实验.mp4
+课时28-OpenWrt vlan、switch、bridge、wan、lan、wlan、wifi等相关概念解析.mp4
+课时29-OpenWrt 基于DTS适配RAM、Flash、复位键、波特率、端口布局实验.mp4
+课时30-OpenWrt MTD 技术简析和相关工具使用.mp4
+课时31-如何给OpenWrt打patch补丁.mp4
+课时31-如何二次修改patch补丁.mp4 （2024年10月录制）
+课时32-学员常见疑问答疑.mp4
+课时33-OpenWrt mtd和sysupgrade实现相关知识补充（sysupgrade如何升级时保留配置文件).mp4
+课时34-OpenWrt 移植软件实践之wifidog移植.mp4
+课时35-OpenWrt 动态库、静态库的创建和使用.mp4
+课时36-如何使用OpenWrt toolchain 交叉编译工具链.mp4
+课时37-NAND Flash与UBI-01 NAND Flash相关知识.mp4    (2023年5月录制)
+课时37-NAND Flash与UBI-02 UBI简介.mp4
+课时38-UBI Flash Layout与UBI固件上篇.mp4    (2023年5月录制)
+课时38-UBI Flash Layout与UBI固件下篇.mp4
+
+<跟着佐大学openwrt开发进阶培训班>教学大纲：
+
+01.讲解无线相关的知识，频率、频宽、Country Code、工作模式(AP、AP client、WDS...)、无线模式。(1课时)
+02.交叉编译工具的使用方法详解。(1课时)
+03.软件移植、内核模块移植实践课。(1课时)
+04.简单讲解ARP、IP、TCP、UDP协议。（1课时）
+05.讲解路由器核心功能之PPPoE Client，pppd。(1课时)
+06.讲解路由器核心功能之DNS Server，dnsmasq。(1课时)
+07.讲解路由器核心功能之DHCP Server，dnsmasq。(1课时)
+08.讲解路由器核心功能之DHCP Client，dhcpc。(1课时)
+09.讲解路由器核心功能之Firewall。(1课时）
+10.讲解路由器核心功能之网桥。(1课时）
+11.讲解路由器核心功能之Qos。（1课时）
+12.讲解路由器核心功能之路由。（1课时）
+13.讲解路由器核心功能之DDNS、NTP Client、HTTP Server。（1课时）
+14.讲解iptables的命令使用方法和常见应用，讲解filter表、nat表、mangle表的区别及用途。（3-4课时）
+15.OpenWrt UI开发入门，基于佐大自己研发的Tomato UI作为讲解范例。(3-4课时)
+16.路由器常用调试命令讲解:ifconfig、ping、traceroute、ip、route、arp、wget、telnet、tftp、nc、netstat、nslookup、dig、iw、iwconfig、iperf。（1课时）
+17.如何适配OpenWrt不支持的硬件（12课时）
+
+已录制课程内容列表：
+
+课时00-前言.mp4
+课时01-无线相关的基本概念.mp4
+课时02-交叉编译工具使用方法详解.mp4
+课时03-移植闭源mt76x2e驱动上篇.mp4
+课时03-移植闭源mt76x2e驱动下篇.mp4
+课时04上-移植闭源mt7615e驱动之如何创建package.mp4
+课时04中-移植闭源mt7615e驱动之如何移植驱动.mp4
+课时04下-移植闭源mt7615e驱动之如何测试联调.mp4
+课时05-GPIO高级应用之GPIO模拟时序读取FC手柄按键数值.mp4
+课时06-TCPIP协议的基本概念(ARP、IP、TCP、UDP协议).mp4
+课时07-路由器核心功能实现之PPPoE Client.mp4
+课时08-路由器核心功能实现之DNS Server.mp4
+课时09-路由器核心功能实现之DHCP Server.mp4
+课时10-路由器核心功能实现之DHCP Client.mp4
+课时11-路由器核心功能实现之NTP Client.mp4
+课时12-路由器核心功能之网桥(virtual bridge).mp4
+课时13-路由器核心功能之路由.mp4
+课时14-路由器核心功能之QoS.mp4
+课时15-路由器核心功能之firewall.mp4
+课时16-路由器核心功能之DDNS.mp4
+课时17-OpenWrt Web界面开发导论.mp4
+课时18-OpenWrt Web界面开发之后端框架.mp4
+课时19-OpenWrt Web界面开发之实践.mp4
+课时20-路由器常用调试命令讲解.mp4
+课时21-如何加密、解密路由器固件.mp4
+课时22-如何适配OpenWrt不支持的硬件-01适配原理绪论.mp4                         （2022年新录制课程)
+课时22-如何适配OpenWrt不支持的硬件-02如何研究官方文档.mp4
+课时22-如何适配OpenWrt不支持的硬件-03阅读Rockchip官方文档.mp4
+课时22-如何适配OpenWrt不支持的硬件-04阅读Uboot官方文档.mp4
+课时22-如何适配OpenWrt不支持的硬件-05编译OpenWrt.mp4
+课时22-如何适配OpenWrt不支持的硬件-06配置交叉编译工具链.mp4
+课时22-如何适配OpenWrt不支持的硬件-07编译kernel.mp4
+课时22-如何适配OpenWrt不支持的硬件-08编译Rockchip U-Boot.mp4
+课时22-如何适配OpenWrt不支持的硬件-09构建刷机镜像之理论知识篇.mp4
+课时22-如何适配OpenWrt不支持的硬件-10构建刷机镜像之操作篇上.mp4
+课时22-如何适配OpenWrt不支持的硬件-11构建刷机镜像之操作篇下.mp4
+课时23-如何逆向分析UBI固件  （2023年新录制课程)
+```
+
 ## 🔗
 
 - [Openwrt wiki](https://openwrt.org/zh/docs/start)
